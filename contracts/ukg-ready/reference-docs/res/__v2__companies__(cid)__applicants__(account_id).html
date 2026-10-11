@@ -1,0 +1,4203 @@
+<!doctype html>
+<html><head><meta charset="utf-8"><title>Applicant</title><style>body{font:16px system-ui;max-width:1100px;margin:2rem auto;padding:0 1rem;line-height:1.5}aside{background:#fff3cc;padding:1rem}.jsonschema,pre{white-space:pre-wrap;font:13px monospace;overflow-wrap:anywhere;background:#f4f5f7;padding:1rem}.uri{font-family:monospace}h2,h3{margin-top:2rem}</style></head><body><aside><strong>Modified private reference — 2026-10-09.</strong> Provider-documented illustrative examples are included; authentication token examples are redacted. These are not customer exports or guaranteed production behavior. Candidate sharing is pending. This is not OpenAPI.</aside>
+<div class="group">
+<h2 class="anchored" id="item.anchor">
+<span>Applicant</span>
+<a class="fa fa-link link-anchor" data-url="r=__v2__companies__(cid)__applicants__(account_id)#" data-web-id="__v2__companies__(cid)__applicants__(account_id)"></a>
+</h2>
+<section class="clearfix">
+<article class="definition">
+<h3 class="anchored" id="get"><span>GET</span>
+<a class="fa fa-link link-anchor" data-url="r=__v2__companies__(cid)__applicants__(account_id)#get" data-web-id="__v2__companies__(cid)__applicants__(account_id)"></a>
+</h3>
+<div class="md"><p>Retrieves an existing applicant.</p></div>
+<div>
+<ul class="annotation-list">
+<li class="annotation">
+<span>v2</span>
+</li>
+</ul>
+</div>
+<h4>Parameters</h4>
+<h5>Path Parameters</h5>
+<ul class="param-list">
+<li>
+<div class="param-desc">
+<div class="param-name">cid</div>
+<div class="data-type">string</div>
+<div class="required">required</div>
+</div>
+<div class="param-content">
+<div>
+<p>Example: 123456</p>
+<div class="desc md">Company should be referenced via company id or company unique id or company short name using `|short_name` or `!short_name` format.
+</div>
+</div>
+</div>
+
+</li>
+<li>
+<div class="param-desc">
+<div class="param-name">account_id</div>
+<div class="data-type">integer</div>
+<div class="required">required</div>
+</div>
+<div class="param-content">
+<div>
+<p>Example: 7</p>
+<div class="desc md">The account's id.</div>
+</div>
+</div>
+
+</li>
+</ul>
+<h5>Header Parameters</h5>
+<ul class="param-list">
+<li>
+<div class="param-desc">
+<div class="param-name">Accept</div>
+<div class="data-type">string</div>
+</div>
+<div class="param-content">
+<div>
+<p>Valid values: application/json, application/xml, text/xml</p>
+<p>Default: application/json</p>
+<p>Example: application/json</p>
+</div>
+</div>
+
+</li>
+</ul>
+<h4>Responses</h4>
+<div class="responses">
+<div>
+<label class="response response-success">
+<span class="fa fa-check"></span>
+<input data-full-tab-id="get-resp-code-tab-id-0" data-tab-class="resp-code-tab-get" name="resp-code-tab-get" type="radio"/>
+<span class="status">200 Ok</span>
+</label>
+<div class="response-desc resp-code-tab-get" id="get-resp-code-tab-id-0">
+</div>
+</div>
+<div>
+<label class="response response-error">
+<span class="fa fa-times"></span>
+<input data-full-tab-id="get-resp-code-tab-id-1" data-tab-class="resp-code-tab-get" name="resp-code-tab-get" type="radio"/>
+<span class="status">401 Unauthorized</span>
+</label>
+<div class="response-desc resp-code-tab-get" id="get-resp-code-tab-id-1">
+<div class="md"><p>Returned in case user is not authorized.</p></div>
+</div>
+</div>
+<div>
+<label class="response response-error">
+<span class="fa fa-times"></span>
+<input data-full-tab-id="get-resp-code-tab-id-2" data-tab-class="resp-code-tab-get" name="resp-code-tab-get" type="radio"/>
+<span class="status">403 Forbidden</span>
+</label>
+<div class="response-desc resp-code-tab-get" id="get-resp-code-tab-id-2">
+<div class="md"><p>Returned in case user has no access to the resource.</p></div>
+</div>
+</div>
+<div>
+<label class="response response-error">
+<span class="fa fa-times"></span>
+<input data-full-tab-id="get-resp-code-tab-id-3" data-tab-class="resp-code-tab-get" name="resp-code-tab-get" type="radio"/>
+<span class="status">404 Not Found</span>
+</label>
+<div class="response-desc resp-code-tab-get" id="get-resp-code-tab-id-3">
+<div class="md"><p>Returned in case resource does not exist.</p></div>
+</div>
+</div>
+<div>
+<label class="response response-error">
+<span class="fa fa-times"></span>
+<input data-full-tab-id="get-resp-code-tab-id-4" data-tab-class="resp-code-tab-get" name="resp-code-tab-get" type="radio"/>
+<span class="status">503 Service Unavailable</span>
+</label>
+<div class="response-desc resp-code-tab-get" id="get-resp-code-tab-id-4">
+<div class="md"><p>Returned in the event that the call limit is exceeded. The application will be unavailable for subsequent calls for the duration specified by the X-CallLimit-TimeToWait header.</p></div>
+</div>
+</div>
+</div>
+</article>
+<article class="code">
+<h4>Definition</h4>
+<div class="uri">
+<code>
+<span class="method get">get</span>
+<span class="textUri"><span class="baseUri">{{ getUriPrefix() }}</span><span class="relativeUri">/v2/companies/{cid}/applicants/{account_id}</span></span>
+</code>
+</div>
+<h4>Response Samples</h4>
+<div class="tab-title-group">
+<label>
+<input checked="checked" data-full-tab-id="resp-tab-id-get-0" data-tab-class="resp-tab-get" name="resp-tab-get" type="radio"/>
+<span class="tab-title">application/json</span>
+</label>
+<label>
+<input data-full-tab-id="resp-tab-id-get-1" data-tab-class="resp-tab-get" name="resp-tab-get" type="radio"/>
+<span class="tab-title">application/xml</span>
+</label>
+</div>
+<div>
+<div class="resp-tab-get" id="resp-tab-id-get-0">
+<div class="example">
+
+<div class="get-example-resp-tab-0 activeTab" id="get-tab-resp-example-0">
+
+<pre class="highlightjs">{
+  "account": {
+    "account_id": 111,
+    "username": "any@email.com",
+    "salutation": "Mr.",
+    "first_name": "John",
+    "last_name": "Doe",
+    "nickname": "J.D.",
+    "middle_name": "Jack",
+    "name_suffix": "Jr.",
+    "primary_email": "primary@email.com",
+    "secondary_email": "secondary@email.com",
+    "force_change_password": true,
+    "locked": false,
+    "ssn": "123456789",
+    "locale": {
+      "id": 12345
+    },
+    "time_zone": {
+      "id": 54321
+    }
+  },
+  "address": {
+    "address_line_1": "string",
+    "address_line_2": "string",
+    "address_line_3": "string",
+    "country": "USA",
+    "city": "string",
+    "state": "st",
+    "zip": "string",
+    "number": "string",
+    "number_addition": "string"
+  },
+  "phones": {
+    "work_phone": "+1234567890",
+    "cell_phone": "+0987654321",
+    "home_phone": "+456123789",
+    "preferred_phone": "NONE"
+  },
+  "photo_href": "https://example.com/ta/images/uploaded/252/AccountPhoto4545.jpg?v=1505311592870",
+  "demographics": {
+    "gender": "UNDEFINED",
+    "height": "200",
+    "weight": "100",
+    "eye_color": "RED",
+    "ethnicity": "WHITE",
+    "citizenship": "ALIEN_WITH_WORK_PERMIT",
+    "smoker": true,
+    "primary_language": "English",
+    "secondary_language": "Spanish",
+    "full_time_student": true,
+    "veteran": {
+      "veteran_type": "YES_NOT_TO_SELF_IDENTIFY_CLASSIFICATION",
+      "recently_separated": true,
+      "disabled": true,
+      "armed_force_medal": true,
+      "active_wartime_or_campaign_badge": true,
+      "discharge_date": "2018-12-12"
+    },
+    "demographics_custom_fields": [
+      {
+        "index": 0,
+        "value": "Demographics Value0"
+      },
+      {
+        "index": 1,
+        "value": "Demographics Value1"
+      },
+      {
+        "index": 2,
+        "value": "Demographics Value2"
+      }
+    ],
+    "visa": {
+      "type": "H-2A",
+      "number": "YHF25",
+      "expiration_date": "2017-03-30"
+    }
+  },
+  "required_salary": 10000,
+  "required_salary_per": "MONTH",
+  "eligible_for_work": true,
+  "will_relocate": true,
+  "relocation_cost": 5000,
+  "willing_to_travel": 75,
+  "reliable_transportation": true,
+  "managed_people": 29,
+  "available_start_date": "2018-08-14",
+  "summary": "Summary",
+  "education": {
+    "highest_education": {
+      "id": 2981
+    },
+    "schools": [
+      {
+        "startDateMonthPresent": false,
+        "endDateMonthPresent": false,
+        "last": false,
+        "country": "USA",
+        "school_name": "School #1",
+        "school_type": "HIGH_SCHOOL",
+        "school_type_other": "School Type Other",
+        "education_status": "GRADUATED",
+        "major": "Major",
+        "minor": "Minor",
+        "start_date": "1985-08-31",
+        "end_date": "1995-07-31",
+        "course": "Course1",
+        "gpa": 0,
+        "max_gpa": 1,
+        "degree_level": {
+          "id": 5
+        },
+        "credit_hours": 15,
+        "is_start_date_month_present": false,
+        "is_end_date_month_present": false,
+        "extracurricular_activities": "Extracurricular Activities"
+      },
+      {
+        "country": "USA",
+        "school_name": "University #1"
+      }
+    ]
+  },
+  "skills": [
+    {
+      "skill": {
+        "id": 1
+      },
+      "level": 1,
+      "years": 5
+    },
+    {
+      "skill": {
+        "id": 2
+      },
+      "level": 1,
+      "years": 0
+    }
+  ],
+  "other_skills": "Other1",
+  "traits": "Traits1",
+  "work_experiences": [
+    {
+      "index": 1,
+      "company": {
+        "name": "Company Name 1",
+        "city": "Las Vegas",
+        "state": "Nevada"
+      },
+      "supervisor": {
+        "name": "Jane Doe",
+        "phone_number": "+111222333444"
+      },
+      "payment": {
+        "starting_pay": 2500,
+        "ending_pay": 5500
+      },
+      "reason_for_leaving": "Reason For Leaving",
+      "job_titles": [
+        {
+          "index": 1,
+          "job_title": "Junior Software Engineer",
+          "from": "2000-01-01",
+          "to": "2001-01-01",
+          "job_description": "Junior Software Engineer"
+        },
+        {
+          "index": 2,
+          "job_title": "Software Engineer",
+          "from": "2001-01-02",
+          "to": "2002-01-01",
+          "job_description": "Software Engineer"
+        }
+      ]
+    },
+    {
+      "index": 2,
+      "company": {
+        "name": "Company Name 2",
+        "city": "Las Vegas",
+        "state": "Nevada"
+      },
+      "supervisor": {
+        "name": "Jane Doe",
+        "phone_number": "+111222333444"
+      },
+      "payment": {
+        "starting_pay": 6500,
+        "ending_pay": 8000
+      },
+      "reason_for_leaving": "Reason For Leaving",
+      "job_titles": [
+        {
+          "index": 1,
+          "job_title": "Software Engineer",
+          "from": "2003-01-01",
+          "to": "2005-01-01",
+          "job_description": "Software Engineer"
+        },
+        {
+          "index": 2,
+          "job_title": "Senior Software Engineer",
+          "from": "2005-01-02",
+          "to": "2008-01-01",
+          "job_description": "Senior Software Engineer"
+        }
+      ]
+    }
+  ],
+  "professional_references": [
+    {
+      "index": 0,
+      "company": "Company 1",
+      "contact": {
+        "person": "Person 1",
+        "relationship": "Friend",
+        "email": "friend@email.com",
+        "phone": "+111222333444",
+        "years_known": 10,
+        "may_contact": true
+      }
+    },
+    {
+      "index": 1,
+      "company": "Company 2",
+      "contact": {
+        "person": "Person 2",
+        "relationship": "Friend2",
+        "email": "friend2@email.com",
+        "phone": "+111222333444",
+        "may_contact": true
+      }
+    }
+  ],
+  "job_categories": [
+    {
+      "job": {
+        "id": 123456
+      },
+      "years": 10
+    },
+    {
+      "job": {
+        "id": 1234567
+      }
+    }
+  ],
+  "applicant_custom_fields": [
+    {
+      "index": 0,
+      "value": "Value0"
+    },
+    {
+      "index": 1,
+      "value": "Value1"
+    },
+    {
+      "index": 2,
+      "value": "Value2"
+    }
+  ],
+  "_links": {
+    "self": "http://example.com/ta/rest/v2/companies/456008/applicants/111"
+  }
+}</pre>
+</div>
+<div class="get-example-resp-tab-0" id="get-tab-resp-schema-0">
+
+<div class="jsonschema" id="schema-0">{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "type": "object",
+  "properties": {
+    "account": {
+      "type": "object",
+      "properties": {
+        "account_id": {
+          "type": "number",
+          "format": "long",
+          "description": "This field is only used for GET."
+        },
+        "username": {
+          "type": "string",
+          "maxLength": 75
+        },
+        "salutation": {
+          "type": "string"
+        },
+        "first_name": {
+          "type": "string",
+          "maxLength": 75
+        },
+        "last_name": {
+          "type": "string",
+          "maxLength": 75
+        },
+        "nickname": {
+          "type": "string"
+        },
+        "middle_name": {
+          "type": "string",
+          "maxLength": 75
+        },
+        "name_suffix": {
+          "type": "string"
+        },
+        "primary_email": {
+          "type": "string",
+          "format": "email",
+          "maxLength": 75
+        },
+        "secondary_email": {
+          "type": "string",
+          "format": "email",
+          "maxLength": 75
+        },
+        "force_change_password": {
+          "type": "boolean",
+          "default": false,
+          "description": "The ability to change password after the first log on."
+        },
+        "locked": {
+          "type": "boolean"
+        },
+        "ssn": {
+          "description": "Social Security Number. For USA companies.",
+          "type": "string",
+          "maxLength": 20
+        },
+        "bsn": {
+          "description": "Citizen Service Number. For Netherlands companies.",
+          "type": "string",
+          "maxLength": 20
+        },
+        "sin": {
+          "description": "Social Insurance Number. For Canada companies.",
+          "type": "string",
+          "maxLength": 20
+        },
+        "nin": {
+          "description": "National Insurance Number. For UK companies.",
+          "type": "string",
+          "maxLength": 20
+        },
+        "security_question": {
+          "type": "object",
+          "properties": {
+            "question": {
+              "type": "string"
+            },
+            "answer": {
+              "type": "string"
+            }
+          },
+          "additionalProperties": false
+        },
+        "locale": {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "integer"
+            }
+          },
+          "additionalProperties": false,
+          "required": [
+            "id"
+          ]
+        },
+        "time_zone": {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "integer"
+            }
+          },
+          "additionalProperties": false,
+          "required": [
+            "id"
+          ]
+        }
+      },
+      "additionalProperties": false,
+      "required": [
+        "username",
+        "first_name",
+        "last_name",
+        "primary_email"
+      ]
+    },
+    "address": {
+      "type": "object",
+      "properties": {
+        "address_line_1": {
+          "type": "string",
+          "maxLength": 60
+        },
+        "address_line_2": {
+          "type": "string",
+          "maxLength": 60
+        },
+        "address_line_3": {
+          "type": "string",
+          "maxLength": 60
+        },
+        "country": {
+          "type": "string"
+        },
+        "city": {
+          "type": "string",
+          "maxLength": 25
+        },
+        "state": {
+          "type": "string",
+          "maxLength": 2,
+          "description": "A two character state code (Example: Send 'NJ' for New Jersey). Can use 'NA' for people who are outside USA."
+        },
+        "zip": {
+          "type": "string",
+          "maxLength": 15
+        },
+        "number": {
+          "type": "string",
+          "maxLength": 10
+        },
+        "number_addition": {
+          "type": "string",
+          "maxLength": 10
+        }
+      },
+      "additionalProperties": false,
+      "required": [
+        "country"
+      ]
+    },
+    "phones": {
+      "type": "object",
+      "properties": {
+        "work_phone": {
+          "type": "string",
+          "maxLength": 25
+        },
+        "home_phone": {
+          "type": "string",
+          "maxLength": 25
+        },
+        "cell_phone": {
+          "type": "string",
+          "maxLength": 25
+        },
+        "preferred_phone": {
+          "type": "string",
+          "enum": [
+            "NONE",
+            "WORK",
+            "HOME",
+            "CELL"
+          ],
+          "default": "NONE"
+        }
+      }
+    },
+    "demographics": {
+      "type": "object",
+      "properties": {
+        "gender": {
+          "type": "string",
+          "enum": [
+            "UNDEFINED",
+            "MALE",
+            "FEMALE"
+          ],
+          "default": "UNDEFINED"
+        },
+        "height": {
+          "type": "string",
+          "maxLength": 9
+        },
+        "weight": {
+          "type": "string"
+        },
+        "eye_color": {
+          "type": "string",
+          "maxLength": 50
+        },
+        "ethnicity": {
+          "type": "string",
+          "enum": [
+            "HISPANIC_OR_LATINO",
+            "WHITE",
+            "BLACK_OR_AFRICAN_AMERICAN",
+            "NATIVE_HAWAIIAN_OR_OTHER_PACIFIC_ISLANDER",
+            "ASIAN",
+            "AMERICAN_INDIAN_OR_ALASKA_NATIVE",
+            "TWO_OR_MORE_RACES"
+          ]
+        },
+        "citizenship": {
+          "type": "string",
+          "enum": [
+            "US_CITIZEN",
+            "PERMANENT_RESIDENT",
+            "ALIEN_WITH_WORK_PERMIT",
+            "NONCITIZEN_NATIONAL_OF_US"
+          ]
+        },
+        "smoker": {
+          "type": "boolean"
+        },
+        "primary_language": {
+          "type": "string"
+        },
+        "secondary_language": {
+          "type": "string"
+        },
+        "visa": {
+          "type": "object",
+          "properties": {
+            "type": {
+              "type": "string"
+            },
+            "number": {
+              "type": "string",
+              "maxLength": 50
+            },
+            "expiration_date": {
+              "type": "string",
+              "description": "Date needs to be in the format yyyy-mm-dd within the 1900-12-31 and 2079-06-05 date range"
+            }
+          },
+          "required": [
+            "type"
+          ],
+          "additionalProperties": false
+        },
+        "full_time_student": {
+          "type": "boolean"
+        },
+        "veteran": {
+          "type": "object",
+          "properties": {
+            "veteran_type": {
+              "type": "string",
+              "enum": [
+                "NO",
+                "YES",
+                "YES_NOT_TO_SELF_IDENTIFY_CLASSIFICATION",
+                "NOT_WISH_TO_ANSWER"
+              ]
+            },
+            "recently_separated": {
+              "type": "boolean"
+            },
+            "disabled": {
+              "type": "boolean"
+            },
+            "armed_force_medal": {
+              "type": "boolean"
+            },
+            "active_wartime_or_campaign_badge": {
+              "type": "boolean"
+            },
+            "discharge_date": {
+              "type": "string",
+              "pattern": "^(19[0-9]{2}|20[0-6][0-9]|2070)-(0[1-9]|1[0-2])-(0[1-9]|[1-2][0-9]|3[0-1])$",
+              "description": "Date needs to be in the format yyyy-mm-dd within the 1900-12-31 and 2079-06-05 date range"
+            }
+          }
+        },
+        "demographics_custom_fields": {
+          "type": "array",
+          "maxItems": 50,
+          "items": {
+            "type": "object",
+            "properties": {
+              "index": {
+                "type": "integer",
+                "minimum": 0,
+                "maximum": 49
+              },
+              "value": {
+                "type": "string"
+              }
+            },
+            "additionalProperties": false,
+            "required": [
+              "index"
+            ]
+          }
+        }
+      },
+      "additionalProperties": false
+    },
+    "photo_href": {
+      "type": "string",
+      "description": "The link to get the applicant's photo."
+    },
+    "required_salary": {
+      "type": "number",
+      "minimum": 0,
+      "default": 0
+    },
+    "required_salary_per": {
+      "type": "string",
+      "enum": [
+        "YEAR",
+        "MONTH",
+        "WEEK",
+        "HOUR",
+        "PAY_PERIOD"
+      ],
+      "default": "YEAR"
+    },
+    "eligible_for_work": {
+      "type": "boolean",
+      "default": true,
+      "description": "Eligibility to work in USA"
+    },
+    "will_relocate": {
+      "type": "boolean",
+      "default": false
+    },
+    "relocation_cost": {
+      "type": "number",
+      "minimum": 0
+    },
+    "willing_to_travel": {
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 100,
+      "description": "The willingness to travel (percentage)."
+    },
+    "reliable_transportation": {
+      "type": "boolean",
+      "default": false
+    },
+    "managed_people": {
+      "type": "integer"
+    },
+    "available_start_date": {
+      "type": "string",
+      "pattern": "^(19[0-9]{2}|20[0-6][0-9]|2070)-(0[1-9]|1[0-2])-(0[1-9]|[1-2][0-9]|3[0-1])$",
+      "description": "Date needs to be in the format yyyy-mm-dd within the 1900-12-31 and 2079-06-05 date range"
+    },
+    "summary": {
+      "type": "string"
+    },
+    "education": {
+      "type": "object",
+      "properties": {
+        "highest_education": {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "integer"
+            }
+          },
+          "additionalProperties": false,
+          "required": [
+            "id"
+          ]
+        },
+        "schools": {
+          "type": "array",
+          "minItems": 1,
+          "maxItems": 10,
+          "items": {
+            "type": "object",
+            "properties": {
+              "startDateMonthPresent": {
+                "type": "boolean"
+              },
+              "endDateMonthPresent": {
+                "type": "boolean"
+              },
+              "last": {
+                "type": "boolean"
+              },
+              "country": {
+                "type": "string"
+              },
+              "school_name": {
+                "type": "string"
+              },
+              "school_type": {
+                "type": "string",
+                "enum": [
+                  "OTHER",
+                  "HIGH_SCHOOL",
+                  "TECHNICAL_OR_TRADE_SCHOOL",
+                  "COLLEGE_OR_UNIVERSITY",
+                  "CONTINUING_EDUCATION"
+                ]
+              },
+              "school_type_other": {
+                "type": "string"
+              },
+              "education_status": {
+                "type": "string",
+                "enum": [
+                  "GRADUATED",
+                  "IN_PROCESS",
+                  "DID_NOT_COMPLETE"
+                ]
+              },
+              "major": {
+                "type": "string"
+              },
+              "minor": {
+                "type": "string"
+              },
+              "start_date": {
+                "type": "string",
+                "pattern": "^(19[0-9]{2}|20[0-6][0-9]|2070)-(0[1-9]|1[0-2])-(0[1-9]|[1-2][0-9]|3[0-1])$",
+                "description": "Date needs to be in the format yyyy-mm-dd within the 1900-12-31 and 2079-06-05 date range"
+              },
+              "end_date": {
+                "type": "string",
+                "pattern": "^(19[0-9]{2}|20[0-6][0-9]|2070)-(0[1-9]|1[0-2])-(0[1-9]|[1-2][0-9]|3[0-1])$",
+                "description": "Date needs to be in the format yyyy-mm-dd within the 1900-12-31 and 2079-06-05 date range"
+              },
+              "course": {
+                "type": "string",
+                "description": "Course Field is only available for companies that have Australia enabled as a country"
+              },
+              "gpa": {
+                "type": "number",
+                "minimum": 0,
+                "default": 0
+              },
+              "max_gpa": {
+                "type": "number",
+                "minimum": 0,
+                "default": 0
+              },
+              "degree_level": {
+                "type": "object",
+                "properties": {
+                  "id": {
+                    "type": "integer"
+                  }
+                },
+                "additionalProperties": false,
+                "required": [
+                  "id"
+                ]
+              },
+              "credit_hours": {
+                "type": "integer"
+              },
+              "is_start_date_month_present": {
+                "type": "boolean"
+              },
+              "is_end_date_month_present": {
+                "type": "boolean"
+              },
+              "extracurricular_activities": {
+                "type": "string"
+              }
+            },
+            "additionalProperties": false,
+            "required": [
+              "country",
+              "school_name"
+            ]
+          }
+        }
+      },
+      "additionalProperties": false
+    },
+    "skills": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "skill": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "integer"
+              }
+            },
+            "additionalProperties": false,
+            "required": [
+              "id"
+            ]
+          },
+          "level": {
+            "type": "integer"
+          },
+          "years": {
+            "type": "integer"
+          },
+          "primary": {
+            "type": "boolean"
+          }
+        },
+        "additionalProperties": false,
+        "required": [
+          "skill"
+        ]
+      }
+    },
+    "other_skills": {
+      "type": "string"
+    },
+    "traits": {
+      "type": "string"
+    },
+    "work_experiences": {
+      "type": "array",
+      "minItems": 0,
+      "maxItems": 10,
+      "items": {
+        "type": "object",
+        "properties": {
+          "index": {
+            "type": "integer"
+          },
+          "company": {
+            "type": "object",
+            "properties": {
+              "name": {
+                "type": "string"
+              },
+              "city": {
+                "type": "string"
+              },
+              "state": {
+                "type": "string"
+              }
+            },
+            "additionalProperties": false
+          },
+          "supervisor": {
+            "type": "object",
+            "properties": {
+              "name": {
+                "type": "string"
+              },
+              "phone_number": {
+                "type": "string"
+              }
+            }
+          },
+          "payment": {
+            "type": "object",
+            "properties": {
+              "starting_pay": {
+                "type": "number",
+                "minimum": 0,
+                "default": 0
+              },
+              "ending_pay": {
+                "type": "number",
+                "minimum": 0,
+                "default": 0
+              },
+              "pay_type": {
+                "type": "string",
+                "enum": [
+                  "SALARY",
+                  "HOURLY"
+                ],
+                "default": "SALARY"
+              }
+            },
+            "additionalProperties": false
+          },
+          "reason_for_leaving": {
+            "type": "string"
+          },
+          "job_titles": {
+            "type": "array",
+            "minItems": 0,
+            "maxItems": 5,
+            "items": {
+              "type": "object",
+              "properties": {
+                "index": {
+                  "type": "integer",
+                  "minValue": 0,
+                  "maxValue": 4
+                },
+                "job_title": {
+                  "type": "string"
+                },
+                "from": {
+                  "type": "string",
+                  "pattern": "^(19[0-9]{2}|20[0-6][0-9]|2070)-(0[1-9]|1[0-2])-(0[1-9]|[1-2][0-9]|3[0-1])$",
+                  "description": "Date needs to be in the format yyyy-mm-dd within the 1900-12-31 and 2079-06-05 date range"
+                },
+                "to": {
+                  "type": "string",
+                  "pattern": "^(19[0-9]{2}|20[0-6][0-9]|2070)-(0[1-9]|1[0-2])-(0[1-9]|[1-2][0-9]|3[0-1])$",
+                  "description": "Date needs to be in the format yyyy-mm-dd within the 1900-12-31 and 2079-06-05 date range"
+                },
+                "job_description": {
+                  "type": "string"
+                }
+              },
+              "additionalProperties": false,
+              "required": [
+                "index"
+              ]
+            }
+          }
+        },
+        "additionalProperties": false,
+        "required": [
+          "index"
+        ]
+      }
+    },
+    "professional_references": {
+      "type": "array",
+      "maxItems": 3,
+      "items": {
+        "type": "object",
+        "properties": {
+          "index": {
+            "type": "integer"
+          },
+          "company": {
+            "type": "string"
+          },
+          "contact": {
+            "type": "object",
+            "properties": {
+              "person": {
+                "type": "string"
+              },
+              "relationship": {
+                "type": "string"
+              },
+              "email": {
+                "type": "string",
+                "format": "email",
+                "maxLength": 75
+              },
+              "phone": {
+                "type": "string",
+                "maxLength": 25
+              },
+              "years_known": {
+                "type": "integer",
+                "default": 0
+              },
+              "may_contact": {
+                "type": "boolean",
+                "default": true
+              }
+            },
+            "additionalProperties": false
+          }
+        },
+        "additionalProperties": false
+      }
+    },
+    "job_categories": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "job": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "integer"
+              }
+            },
+            "required": [
+              "id"
+            ]
+          },
+          "years": {
+            "type": "integer"
+          }
+        },
+        "additionalProperties": false,
+        "required": [
+          "job"
+        ]
+      }
+    },
+    "applicant_custom_fields": {
+      "type": "array",
+      "maxItems": 100,
+      "items": {
+        "type": "object",
+        "properties": {
+          "index": {
+            "type": "integer",
+            "minimum": 0,
+            "maximum": 99
+          },
+          "value": {
+            "type": "string"
+          }
+        },
+        "additionalProperties": false,
+        "required": [
+          "index"
+        ]
+      }
+    },
+    "_links": {
+      "type": "object",
+      "properties": {
+        "self": {
+          "type": "string"
+        }
+      }
+    }
+  },
+  "additionalProperties": false,
+  "required": [
+    "account"
+  ]
+}</div>
+</div>
+</div>
+</div>
+<div class="resp-tab-get" id="resp-tab-id-get-1">
+<div class="example">
+
+<div class="get-example-resp-tab-1 activeTab" id="get-tab-resp-example-1">
+
+<pre class="highlightjs">&lt;?xml version='1.0' encoding='UTF-8'?&gt;
+&lt;applicant&gt;
+
+  &lt;account&gt;
+    &lt;account_id&gt;1&lt;/account_id&gt;
+    &lt;username&gt;any@email.com&lt;/username&gt;
+    &lt;salutation&gt;Mr.&lt;/salutation&gt;
+    &lt;first_name&gt;John&lt;/first_name&gt;
+    &lt;last_name&gt;Doe&lt;/last_name&gt;
+    &lt;nickname&gt;J.D.&lt;/nickname&gt;
+    &lt;middle_name&gt;Jack&lt;/middle_name&gt;
+    &lt;name_suffix&gt;Jr.&lt;/name_suffix&gt;
+    &lt;primary_email&gt;primary@email.com&lt;/primary_email&gt;
+    &lt;secondary_email&gt;secondary@email.com&lt;/secondary_email&gt;
+    &lt;force_change_password&gt;true&lt;/force_change_password&gt;
+    &lt;locked&gt;false&lt;/locked&gt;
+    &lt;ssn&gt;123456789&lt;/ssn&gt;
+    &lt;security_question&gt;
+      &lt;question&gt;Question?&lt;/question&gt;
+      &lt;answer&gt;Answer!&lt;/answer&gt;
+    &lt;/security_question&gt;
+    &lt;locale&gt;
+      &lt;id&gt;12345&lt;/id&gt;
+    &lt;/locale&gt;
+    &lt;time_zone&gt;
+      &lt;id&gt;1&lt;/id&gt;
+    &lt;/time_zone&gt;
+  &lt;/account&gt;
+
+  &lt;address&gt;
+    &lt;address_line_1&gt;Street&lt;/address_line_1&gt;
+    &lt;address_line_2&gt;24&lt;/address_line_2&gt;
+    &lt;address_line_3&gt;4&lt;/address_line_3&gt;
+    &lt;country&gt;USA&lt;/country&gt;
+    &lt;city&gt;Las Vegas&lt;/city&gt;
+    &lt;state&gt;NV&lt;/state&gt;
+    &lt;zip&gt;88901&lt;/zip&gt;
+    &lt;number&gt;21312&lt;/number&gt;
+    &lt;number_addition&gt;87422&lt;/number_addition&gt;
+  &lt;/address&gt;
+
+  &lt;phones&gt;
+    &lt;work_phone&gt;+1234567890&lt;/work_phone&gt;
+    &lt;home_phone&gt;+456123789&lt;/home_phone&gt;
+    &lt;cell_phone&gt;+0987654321&lt;/cell_phone&gt;
+    &lt;preferred_phone&gt;CELL&lt;/preferred_phone&gt;
+  &lt;/phones&gt;
+
+  &lt;photo_href&gt;https://example.com/ta/images/uploaded/252/AccountPhoto4545.jpg?v=1505311592870&lt;/photo_href&gt;
+
+  &lt;demographics&gt;
+    &lt;gender&gt;UNDEFINED&lt;/gender&gt;
+    &lt;height&gt;200&lt;/height&gt;
+    &lt;weight&gt;100&lt;/weight&gt;
+    &lt;eye_color&gt;RED&lt;/eye_color&gt;
+    &lt;ethnicity&gt;WHITE&lt;/ethnicity&gt;
+    &lt;citizenship&gt;ALIEN_WITH_WORK_PERMIT&lt;/citizenship&gt;
+    &lt;smoker&gt;true&lt;/smoker&gt;
+    &lt;primary_language&gt;Primary Language&lt;/primary_language&gt;
+    &lt;secondary_language&gt;Secondary Language&lt;/secondary_language&gt;
+    &lt;full_time_student&gt;true&lt;/full_time_student&gt;
+    &lt;veteran&gt;
+      &lt;veteran_type&gt;YES_NOT_TO_SELF_IDENTIFY_CLASSIFICATION&lt;/veteran_type&gt;
+      &lt;recently_separated&gt;true&lt;/recently_separated&gt;
+      &lt;disabled&gt;true&lt;/disabled&gt;
+      &lt;armed_force_medal&gt;true&lt;/armed_force_medal&gt;
+      &lt;active_wartime_or_campaign_badge&gt;true&lt;/active_wartime_or_campaign_badge&gt;
+      &lt;discharge_date&gt;2018-12-12&lt;/discharge_date&gt;
+    &lt;/veteran&gt;
+    &lt;demographics_custom_fields&gt;
+      &lt;demographics_custom_field&gt;
+        &lt;index&gt;0&lt;/index&gt;
+        &lt;value&gt;Value0&lt;/value&gt;
+      &lt;/demographics_custom_field&gt;
+      &lt;demographics_custom_field&gt;
+        &lt;index&gt;1&lt;/index&gt;
+        &lt;value&gt;Value1&lt;/value&gt;
+      &lt;/demographics_custom_field&gt;
+      &lt;demographics_custom_field&gt;
+        &lt;index&gt;2&lt;/index&gt;
+        &lt;value&gt;Value2&lt;/value&gt;
+      &lt;/demographics_custom_field&gt;
+    &lt;/demographics_custom_fields&gt;
+    &lt;visa&gt;
+      &lt;type&gt;H-2A&lt;/type&gt;
+      &lt;number&gt;YHF25&lt;/number&gt;
+      &lt;expiration_date&gt;2017-03-30&lt;/expiration_date&gt;
+    &lt;/visa&gt;
+  &lt;/demographics&gt;
+
+  &lt;required_salary&gt;10000&lt;/required_salary&gt;
+  &lt;required_salary_per&gt;MONTH&lt;/required_salary_per&gt;
+  &lt;eligible_for_work&gt;true&lt;/eligible_for_work&gt;
+  &lt;will_relocate&gt;true&lt;/will_relocate&gt;
+  &lt;relocation_cost&gt;5000&lt;/relocation_cost&gt;
+  &lt;willing_to_travel&gt;75&lt;/willing_to_travel&gt;
+  &lt;reliable_transportation&gt;true&lt;/reliable_transportation&gt;
+  &lt;managed_people&gt;29&lt;/managed_people&gt;
+  &lt;available_start_date&gt;2018-08-14&lt;/available_start_date&gt;
+  &lt;summary&gt;Summary&lt;/summary&gt;
+
+  &lt;education&gt;
+    &lt;highest_education&gt;
+      &lt;id&gt;1&lt;/id&gt;
+    &lt;/highest_education&gt;
+    &lt;schools&gt;
+      &lt;school&gt;
+        &lt;startDateMonthPresent&gt;false&lt;/startDateMonthPresent&gt;
+        &lt;endDateMonthPresent&gt;false&lt;/endDateMonthPresent&gt;
+        &lt;last&gt;false&lt;/last&gt;
+        &lt;country&gt;USA&lt;/country&gt;
+        &lt;school_name&gt;School #1&lt;/school_name&gt;
+        &lt;start_date&gt;1985-08-31&lt;/start_date&gt;
+        &lt;end_date&gt;1995-07-31&lt;/end_date&gt;
+        &lt;degree_level&gt;
+          &lt;id&gt;15&lt;/id&gt;
+        &lt;/degree_level&gt;
+        &lt;school_type&gt;HIGH_SCHOOL&lt;/school_type&gt;
+        &lt;education_status&gt;GRADUATED&lt;/education_status&gt;
+        &lt;school_type_other&gt;School type other&lt;/school_type_other&gt;
+        &lt;major&gt;Major&lt;/major&gt;
+        &lt;minor&gt;Minor&lt;/minor&gt;
+        &lt;course&gt;Course&lt;/course&gt;
+        &lt;credit_hours&gt;5&lt;/credit_hours&gt;
+        &lt;gpa&gt;0&lt;/gpa&gt;
+        &lt;max_gpa&gt;1&lt;/max_gpa&gt;
+        &lt;is_start_date_month_present&gt;false&lt;/is_start_date_month_present&gt;
+        &lt;is_end_date_month_present&gt;false&lt;/is_end_date_month_present&gt;
+        &lt;extracurricular_activities&gt;Extracurricular Activities&lt;/extracurricular_activities&gt;
+      &lt;/school&gt;
+      &lt;school&gt;
+        &lt;country&gt;USA&lt;/country&gt;
+        &lt;school_name&gt;School #1&lt;/school_name&gt;
+      &lt;/school&gt;
+    &lt;/schools&gt;
+  &lt;/education&gt;
+
+  &lt;skills&gt;
+    &lt;skill&gt;
+      &lt;skill&gt;
+        &lt;id&gt;1&lt;/id&gt;
+      &lt;/skill&gt;
+      &lt;level&gt;2&lt;/level&gt;
+      &lt;years&gt;1&lt;/years&gt;
+    &lt;/skill&gt;
+    &lt;skill&gt;
+      &lt;skill&gt;
+        &lt;id&gt;2&lt;/id&gt;
+      &lt;/skill&gt;
+      &lt;level&gt;1&lt;/level&gt;
+      &lt;years&gt;3&lt;/years&gt;
+    &lt;/skill&gt;
+  &lt;/skills&gt;
+
+  &lt;other_skills&gt;Other1&lt;/other_skills&gt;
+  &lt;traits&gt;Traits1&lt;/traits&gt;
+
+  &lt;work_experiences&gt;
+    &lt;work_experience&gt;
+      &lt;index&gt;1&lt;/index&gt;
+      &lt;company&gt;
+        &lt;name&gt;Company Name 1&lt;/name&gt;
+        &lt;city&gt;Las Vegas&lt;/city&gt;
+        &lt;state&gt;Nevada&lt;/state&gt;
+      &lt;/company&gt;
+      &lt;supervisor&gt;
+        &lt;name&gt;Jane Doe&lt;/name&gt;
+        &lt;phone_number&gt;+111222333444&lt;/phone_number&gt;
+      &lt;/supervisor&gt;
+      &lt;payment&gt;
+        &lt;starting_pay&gt;2500&lt;/starting_pay&gt;
+        &lt;ending_pay&gt;5500&lt;/ending_pay&gt;
+      &lt;/payment&gt;
+      &lt;reason_for_leaving&gt;Reason For Leaving&lt;/reason_for_leaving&gt;
+      &lt;job_titles&gt;
+        &lt;job_title&gt;
+          &lt;index&gt;1&lt;/index&gt;
+          &lt;job_title&gt;Junior Software Engineer&lt;/job_title&gt;
+          &lt;from&gt;2000-01-01&lt;/from&gt;
+          &lt;to&gt;2001-01-01&lt;/to&gt;
+          &lt;job_description&gt;Junior Software Engineer&lt;/job_description&gt;
+        &lt;/job_title&gt;
+        &lt;job_title&gt;
+          &lt;index&gt;2&lt;/index&gt;
+          &lt;job_title&gt;Software Engineer&lt;/job_title&gt;
+          &lt;from&gt;2001-01-02&lt;/from&gt;
+          &lt;to&gt;2002-01-01&lt;/to&gt;
+          &lt;job_description&gt;Software Engineer&lt;/job_description&gt;
+        &lt;/job_title&gt;
+      &lt;/job_titles&gt;
+    &lt;/work_experience&gt;
+    &lt;work_experience&gt;
+      &lt;index&gt;2&lt;/index&gt;
+      &lt;company&gt;
+        &lt;name&gt;Company Name 2&lt;/name&gt;
+        &lt;city&gt;Las Vegas&lt;/city&gt;
+        &lt;state&gt;Nevada&lt;/state&gt;
+      &lt;/company&gt;
+      &lt;supervisor&gt;
+        &lt;name&gt;Jane Doe&lt;/name&gt;
+        &lt;phone_number&gt;+111222333444&lt;/phone_number&gt;
+      &lt;/supervisor&gt;
+      &lt;payment&gt;
+        &lt;starting_pay&gt;6500&lt;/starting_pay&gt;
+        &lt;ending_pay&gt;8000&lt;/ending_pay&gt;
+      &lt;/payment&gt;
+      &lt;reason_for_leaving&gt;Reason For Leaving&lt;/reason_for_leaving&gt;
+      &lt;job_titles&gt;
+        &lt;job_title&gt;
+          &lt;index&gt;1&lt;/index&gt;
+          &lt;job_title&gt;Software Engineer&lt;/job_title&gt;
+          &lt;from&gt;2003-01-01&lt;/from&gt;
+          &lt;to&gt;2005-01-01&lt;/to&gt;
+          &lt;job_description&gt;Software Engineer&lt;/job_description&gt;
+        &lt;/job_title&gt;
+        &lt;job_title&gt;
+          &lt;index&gt;2&lt;/index&gt;
+          &lt;job_title&gt;Senior Software Engineer&lt;/job_title&gt;
+          &lt;from&gt;2005-01-02&lt;/from&gt;
+          &lt;to&gt;2008-01-01&lt;/to&gt;
+          &lt;job_description&gt;Senior Software Engineer&lt;/job_description&gt;
+        &lt;/job_title&gt;
+      &lt;/job_titles&gt;
+    &lt;/work_experience&gt;
+  &lt;/work_experiences&gt;
+
+  &lt;professional_references&gt;
+    &lt;professional_reference&gt;
+      &lt;index&gt;0&lt;/index&gt;
+      &lt;company&gt;Company 1&lt;/company&gt;
+      &lt;contact&gt;
+        &lt;person&gt;Person 1&lt;/person&gt;
+        &lt;relationship&gt;Friend&lt;/relationship&gt;
+        &lt;email&gt;friend@email.com&lt;/email&gt;
+        &lt;phone&gt;+111222333444&lt;/phone&gt;
+        &lt;years_known&gt;10&lt;/years_known&gt;
+        &lt;may_contact&gt;true&lt;/may_contact&gt;
+      &lt;/contact&gt;
+    &lt;/professional_reference&gt;
+    &lt;professional_reference&gt;
+      &lt;index&gt;1&lt;/index&gt;
+      &lt;company&gt;Company 2&lt;/company&gt;
+      &lt;contact&gt;
+        &lt;person&gt;Person 2&lt;/person&gt;
+        &lt;relationship&gt;Friend2&lt;/relationship&gt;
+        &lt;email&gt;friend2@email.com&lt;/email&gt;
+        &lt;phone&gt;+111222333444&lt;/phone&gt;
+        &lt;may_contact&gt;true&lt;/may_contact&gt;
+      &lt;/contact&gt;
+    &lt;/professional_reference&gt;
+  &lt;/professional_references&gt;
+
+  &lt;job_categories&gt;
+    &lt;job_category&gt;
+      &lt;job&gt;
+        &lt;id&gt;12345&lt;/id&gt;
+      &lt;/job&gt;
+      &lt;years&gt;1&lt;/years&gt;
+    &lt;/job_category&gt;
+    &lt;job_category&gt;
+      &lt;job&gt;
+        &lt;id&gt;123456&lt;/id&gt;
+      &lt;/job&gt;
+      &lt;years&gt;2&lt;/years&gt;
+    &lt;/job_category&gt;
+  &lt;/job_categories&gt;
+
+  &lt;applicant_custom_fields&gt;
+    &lt;applicant_custom_field&gt;
+      &lt;index&gt;0&lt;/index&gt;
+      &lt;value&gt;Value0&lt;/value&gt;
+    &lt;/applicant_custom_field&gt;
+    &lt;applicant_custom_field&gt;
+      &lt;index&gt;1&lt;/index&gt;
+      &lt;value&gt;Value1&lt;/value&gt;
+    &lt;/applicant_custom_field&gt;
+    &lt;applicant_custom_field&gt;
+      &lt;index&gt;2&lt;/index&gt;
+      &lt;value&gt;Value2&lt;/value&gt;
+    &lt;/applicant_custom_field&gt;
+  &lt;/applicant_custom_fields&gt;
+
+  &lt;_links&gt;
+    &lt;self&gt;http://localhost:8080/ta/rest/v2/companies/456008/applicants/111&lt;/self&gt;
+  &lt;/_links&gt;
+
+&lt;/applicant&gt;
+</pre>
+</div>
+<div class="get-example-resp-tab-1" id="get-tab-resp-schema-1">
+
+<div class="jsonschema" id="schema-1">&lt;xs:schema elementFormDefault="qualified" xmlns:xs="http://www.w3.org/2001/XMLSchema"&gt;
+    &lt;xs:element name="applicant"&gt;
+        &lt;xs:complexType&gt;
+            &lt;xs:all&gt;
+
+                &lt;xs:element name="account"&gt;
+                    &lt;xs:complexType&gt;
+                        &lt;xs:all&gt;
+                            &lt;xs:element type="xs:long" name="account_id" minOccurs="0"&gt;
+                                &lt;xs:annotation&gt;
+                                    &lt;xs:documentation&gt;This field is only used for GET.&lt;/xs:documentation&gt;
+                                &lt;/xs:annotation&gt;
+                            &lt;/xs:element&gt;
+                            &lt;xs:element type="personal_info_type" name="username"/&gt;
+                            &lt;xs:element type="xs:string" name="salutation" minOccurs="0"/&gt;
+                            &lt;xs:element type="personal_info_type" name="first_name"/&gt;
+                            &lt;xs:element type="personal_info_type" name="last_name"/&gt;
+                            &lt;xs:element type="xs:string" name="nickname" minOccurs="0"/&gt;
+                            &lt;xs:element type="middle_name_type" name="middle_name" minOccurs="0"/&gt;
+                            &lt;xs:element type="xs:string" name="name_suffix" minOccurs="0"/&gt;
+                            &lt;xs:element type="email_type" name="primary_email"/&gt;
+                            &lt;xs:element type="email_type" name="secondary_email" minOccurs="0"/&gt;
+                            &lt;xs:element type="xs:boolean" name="force_change_password" default="false" minOccurs="0"/&gt;
+                            &lt;xs:element type="xs:boolean" name="locked" default="false" minOccurs="0"/&gt;
+                            &lt;xs:element type="social_number_type" name="ssn" minOccurs="0"/&gt;
+                            &lt;xs:element type="social_number_type" name="bsn" minOccurs="0"/&gt;
+                            &lt;xs:element type="social_number_type" name="sin" minOccurs="0"/&gt;
+                            &lt;xs:element type="social_number_type" name="nin" minOccurs="0"/&gt;
+                            &lt;xs:element type="security_type" name="security_question" minOccurs="0"/&gt;
+                            &lt;xs:element type="reference_type" name="locale" minOccurs="0"/&gt;
+                            &lt;xs:element type="reference_type" name="time_zone" minOccurs="0"/&gt;
+                        &lt;/xs:all&gt;
+                    &lt;/xs:complexType&gt;
+                &lt;/xs:element&gt;
+
+                &lt;xs:element type="address_type" name="address" minOccurs="0"/&gt;
+                &lt;xs:element type="phones" name="phones" minOccurs="0"/&gt;
+
+                &lt;xs:element type="xs:anyURI" name="photo_href" minOccurs="0"/&gt;
+
+                &lt;xs:element name="demographics" minOccurs="0"&gt;
+                    &lt;xs:complexType&gt;
+                        &lt;xs:sequence&gt;
+                            &lt;xs:element type="gender_type" name="gender" default="UNDEFINED" minOccurs="0"/&gt;
+                            &lt;xs:element type="height_type" name="height" minOccurs="0"/&gt;
+                            &lt;xs:element type="xs:string" name="weight" minOccurs="0"/&gt;
+                            &lt;xs:element type="eye_color_type" name="eye_color" minOccurs="0"/&gt;
+                            &lt;xs:element type="ethnicity_type" name="ethnicity" minOccurs="0"/&gt;
+                            &lt;xs:element type="citizenship_type" name="citizenship" minOccurs="0"/&gt;
+                            &lt;xs:element type="xs:boolean" name="smoker" minOccurs="0"/&gt;
+                            &lt;xs:element type="xs:string" name="primary_language" minOccurs="0"/&gt;
+                            &lt;xs:element type="xs:string" name="secondary_language" minOccurs="0"/&gt;
+                            &lt;xs:element type="xs:boolean" name="full_time_student" minOccurs="0"/&gt;
+                            &lt;xs:element type="veteran_type" name="veteran" minOccurs="0"/&gt;
+                            &lt;xs:element type="demographics_custom_fields_type" name="demographics_custom_fields"
+                                        minOccurs="0"/&gt;
+                            &lt;xs:element type="visa_type" name="visa" minOccurs="0"/&gt;
+                        &lt;/xs:sequence&gt;
+                    &lt;/xs:complexType&gt;
+                &lt;/xs:element&gt;
+
+                &lt;xs:element type="money_type" name="required_salary" default="0" minOccurs="0"/&gt;
+                &lt;xs:element type="required_salary_per_type" name="required_salary_per" default="YEAR" minOccurs="0"/&gt;
+                &lt;xs:element type="xs:boolean" name="eligible_for_work" minOccurs="0" default="true"/&gt;
+                &lt;xs:element type="xs:boolean" name="will_relocate" default="false" minOccurs="0"/&gt;
+                &lt;xs:element type="money_type" name="relocation_cost" minOccurs="0"/&gt;
+                &lt;xs:element type="percentage_type" name="willing_to_travel" minOccurs="0"/&gt;
+                &lt;xs:element type="xs:boolean" name="reliable_transportation" default="false" minOccurs="0"/&gt;
+                &lt;xs:element type="xs:nonNegativeInteger" name="managed_people" minOccurs="0"/&gt;
+                &lt;xs:element type="xs:date" name="available_start_date" minOccurs="0"/&gt;
+                &lt;xs:element type="xs:string" name="summary" minOccurs="0"/&gt;
+
+                &lt;xs:element name="education"&gt;
+                    &lt;xs:complexType&gt;
+                        &lt;xs:sequence&gt;
+                            &lt;xs:element type="reference_type" name="highest_education" minOccurs="0"/&gt;
+                            &lt;xs:element type="schools_type" name="schools" minOccurs="0"/&gt;
+                        &lt;/xs:sequence&gt;
+                    &lt;/xs:complexType&gt;
+                &lt;/xs:element&gt;
+
+                &lt;xs:element type="skills_type" name="skills" minOccurs="0"/&gt;
+                &lt;xs:element type="xs:string" name="other_skills" minOccurs="0"/&gt;
+                &lt;xs:element type="xs:string" name="traits" minOccurs="0"/&gt;
+                &lt;xs:element type="work_experience_type" name="work_experiences" minOccurs="0"/&gt;
+                &lt;xs:element type="professional_references_type" name="professional_references" minOccurs="0"/&gt;
+                &lt;xs:element type="job_categories_type" name="job_categories" minOccurs="0"/&gt;
+                &lt;xs:element type="applicant_custom_fields_type" name="applicant_custom_fields" minOccurs="0"/&gt;
+                &lt;xs:element type="self_link_type" name="_links" minOccurs="0"/&gt;
+            &lt;/xs:all&gt;
+        &lt;/xs:complexType&gt;
+    &lt;/xs:element&gt;
+
+    &lt;xs:complexType name="skill_type"&gt;
+        &lt;xs:all&gt;
+            &lt;xs:element type="reference_type" name="skill"/&gt;
+            &lt;xs:element type="xs:nonNegativeInteger" name="level" minOccurs="0"/&gt;
+            &lt;xs:element type="xs:nonNegativeInteger" name="years" minOccurs="0"/&gt;
+            &lt;xs:element type="xs:boolean" name="primary" minOccurs="0"/&gt;
+        &lt;/xs:all&gt;
+    &lt;/xs:complexType&gt;
+
+    &lt;xs:complexType name="skills_type"&gt;
+        &lt;xs:sequence&gt;
+            &lt;xs:element type="skill_type" name="skill" maxOccurs="unbounded"/&gt;
+        &lt;/xs:sequence&gt;
+    &lt;/xs:complexType&gt;
+
+    &lt;xs:complexType name="professional_references_type"&gt;
+        &lt;xs:sequence&gt;
+            &lt;xs:element name="professional_reference" maxOccurs="3" minOccurs="0"&gt;
+                &lt;xs:complexType&gt;
+                    &lt;xs:sequence&gt;
+                        &lt;xs:element type="index_type" name="index" minOccurs="0"/&gt;
+                        &lt;xs:element type="xs:string" name="company" minOccurs="0"/&gt;
+                        &lt;xs:element type="contact_type" name="contact" minOccurs="0"/&gt;
+                    &lt;/xs:sequence&gt;
+                &lt;/xs:complexType&gt;
+            &lt;/xs:element&gt;
+        &lt;/xs:sequence&gt;
+    &lt;/xs:complexType&gt;
+
+    &lt;xs:complexType name="work_experience_type"&gt;
+        &lt;xs:sequence&gt;
+            &lt;xs:element name="work_experience" minOccurs="0" maxOccurs="10"&gt;
+                &lt;xs:complexType&gt;
+                    &lt;xs:all&gt;
+                        &lt;xs:element type="index_type" name="index"/&gt;
+                        &lt;xs:element type="company_type" name="company" minOccurs="0"/&gt;
+                        &lt;xs:element type="supervisor_type" name="supervisor" minOccurs="0"/&gt;
+                        &lt;xs:element name="payment" minOccurs="0"&gt;
+                            &lt;xs:complexType&gt;
+                                &lt;xs:sequence&gt;
+                                    &lt;xs:element type="xs:double" name="starting_pay" default="0" minOccurs="0"/&gt;
+                                    &lt;xs:element type="xs:double" name="ending_pay" default="0" minOccurs="0"/&gt;
+                                    &lt;xs:element type="payment_type" name="pay_type" default="SALARY" minOccurs="0"/&gt;
+                                &lt;/xs:sequence&gt;
+                            &lt;/xs:complexType&gt;
+                        &lt;/xs:element&gt;
+                        &lt;xs:element type="xs:string" name="reason_for_leaving" minOccurs="0"/&gt;
+                        &lt;xs:element type="job_titles_type" name="job_titles" minOccurs="0"/&gt;
+                    &lt;/xs:all&gt;
+                &lt;/xs:complexType&gt;
+            &lt;/xs:element&gt;
+        &lt;/xs:sequence&gt;
+    &lt;/xs:complexType&gt;
+
+    &lt;xs:complexType name="job_titles_type"&gt;
+        &lt;xs:sequence&gt;
+            &lt;xs:element name="job_title" minOccurs="0" maxOccurs="5"&gt;
+                &lt;xs:complexType&gt;
+                    &lt;xs:all&gt;
+                        &lt;xs:element type="job_title_index_type" name="index"/&gt;
+                        &lt;xs:element type="xs:string" name="job_title" minOccurs="0"/&gt;
+                        &lt;xs:element type="xs:date" name="from" minOccurs="0"/&gt;
+                        &lt;xs:element type="xs:date" name="to" minOccurs="0"/&gt;
+                        &lt;xs:element type="xs:string" name="job_description" minOccurs="0"/&gt;
+                    &lt;/xs:all&gt;
+                &lt;/xs:complexType&gt;
+            &lt;/xs:element&gt;
+        &lt;/xs:sequence&gt;
+    &lt;/xs:complexType&gt;
+
+    &lt;xs:complexType name="job_categories_type"&gt;
+        &lt;xs:sequence&gt;
+            &lt;xs:element name="job_category" maxOccurs="unbounded" minOccurs="0"&gt;
+                &lt;xs:complexType&gt;
+                    &lt;xs:all&gt;
+                        &lt;xs:element type="reference_type" name="job"/&gt;
+                        &lt;xs:element type="xs:nonNegativeInteger" name="years"/&gt;
+                    &lt;/xs:all&gt;
+                &lt;/xs:complexType&gt;
+            &lt;/xs:element&gt;
+        &lt;/xs:sequence&gt;
+    &lt;/xs:complexType&gt;
+
+    &lt;xs:complexType name="schools_type"&gt;
+        &lt;xs:sequence&gt;
+            &lt;xs:element name="school" maxOccurs="10" minOccurs="0"&gt;
+                &lt;xs:complexType&gt;
+                    &lt;xs:all&gt;
+                        &lt;xs:element type="xs:boolean" name="startDateMonthPresent" minOccurs="0"/&gt;
+                        &lt;xs:element type="xs:boolean" name="endDateMonthPresent" minOccurs="0"/&gt;
+                        &lt;xs:element type="xs:boolean" name="last" minOccurs="0"/&gt;
+                        &lt;xs:element type="xs:string" name="country"/&gt;
+                        &lt;xs:element type="xs:string" name="school_name"/&gt;
+                        &lt;xs:element type="xs:date" name="start_date" minOccurs="0"/&gt;
+                        &lt;xs:element type="xs:date" name="end_date" minOccurs="0"/&gt;
+                        &lt;xs:element type="reference_type" name="degree_level" minOccurs="0"/&gt;
+                        &lt;xs:element type="school_type" name="school_type" minOccurs="0"/&gt;
+                        &lt;xs:element type="status_type" name="education_status" minOccurs="0"/&gt;
+                        &lt;xs:element type="xs:string" name="school_type_other" minOccurs="0"/&gt;
+                        &lt;xs:element type="xs:string" name="major" minOccurs="0"/&gt;
+                        &lt;xs:element type="xs:string" name="minor" minOccurs="0"/&gt;
+                        &lt;xs:element type="xs:string" name="course" minOccurs="0"/&gt;
+                        &lt;xs:element type="xs:nonNegativeInteger" name="credit_hours" minOccurs="0"/&gt;
+                        &lt;xs:element type="xs:decimal" name="gpa" minOccurs="0" default="0"/&gt;
+                        &lt;xs:element type="xs:decimal" name="max_gpa" minOccurs="0" default="0"/&gt;
+                        &lt;xs:element type="xs:boolean" name="is_start_date_month_present" minOccurs="0"/&gt;
+                        &lt;xs:element type="xs:boolean" name="is_end_date_month_present" minOccurs="0"/&gt;
+                        &lt;xs:element type="xs:string" name="extracurricular_activities" minOccurs="0"/&gt;
+                    &lt;/xs:all&gt;
+                &lt;/xs:complexType&gt;
+            &lt;/xs:element&gt;
+        &lt;/xs:sequence&gt;
+    &lt;/xs:complexType&gt;
+
+    &lt;xs:complexType name="self_link_type"&gt;
+        &lt;xs:sequence&gt;
+            &lt;xs:element type="xs:anyURI" name="self" minOccurs="0"/&gt;
+        &lt;/xs:sequence&gt;
+    &lt;/xs:complexType&gt;
+
+    &lt;xs:complexType name="applicant_custom_fields_type"&gt;
+        &lt;xs:sequence&gt;
+            &lt;xs:element name="applicant_custom_field" maxOccurs="100" minOccurs="0"&gt;
+                &lt;xs:complexType&gt;
+                    &lt;xs:all&gt;
+                        &lt;xs:element type="custom_field_index_type" name="index"/&gt;
+                        &lt;xs:element type="xs:string" name="value"/&gt;
+                    &lt;/xs:all&gt;
+                &lt;/xs:complexType&gt;
+            &lt;/xs:element&gt;
+        &lt;/xs:sequence&gt;
+    &lt;/xs:complexType&gt;
+
+    &lt;xs:complexType name="demographics_custom_fields_type"&gt;
+        &lt;xs:sequence&gt;
+            &lt;xs:element name="demographics_custom_field" maxOccurs="50" minOccurs="0"&gt;
+                &lt;xs:complexType&gt;
+                    &lt;xs:all&gt;
+                        &lt;xs:element type="custom_field_index_type" name="index"/&gt;
+                        &lt;xs:element type="xs:string" name="value" minOccurs="0"/&gt;
+                    &lt;/xs:all&gt;
+                &lt;/xs:complexType&gt;
+            &lt;/xs:element&gt;
+        &lt;/xs:sequence&gt;
+    &lt;/xs:complexType&gt;
+
+    &lt;xs:complexType name="phones"&gt;
+        &lt;xs:sequence&gt;
+            &lt;xs:element name="work_phone" minOccurs="0"&gt;
+                &lt;xs:simpleType&gt;
+                    &lt;xs:restriction base="xs:string"&gt;
+                        &lt;xs:maxLength value="25"/&gt;
+                    &lt;/xs:restriction&gt;
+                &lt;/xs:simpleType&gt;
+            &lt;/xs:element&gt;
+            &lt;xs:element name="home_phone" minOccurs="0"&gt;
+                &lt;xs:simpleType&gt;
+                    &lt;xs:restriction base="xs:string"&gt;
+                        &lt;xs:maxLength value="25"/&gt;
+                    &lt;/xs:restriction&gt;
+                &lt;/xs:simpleType&gt;
+            &lt;/xs:element&gt;
+            &lt;xs:element name="cell_phone" minOccurs="0"&gt;
+                &lt;xs:simpleType&gt;
+                    &lt;xs:restriction base="xs:string"&gt;
+                        &lt;xs:maxLength value="25"/&gt;
+                    &lt;/xs:restriction&gt;
+                &lt;/xs:simpleType&gt;
+            &lt;/xs:element&gt;
+            &lt;xs:element type="preferred_phone_type" name="preferred_phone" minOccurs="0" default="NONE"/&gt;
+        &lt;/xs:sequence&gt;
+    &lt;/xs:complexType&gt;
+
+
+    &lt;xs:complexType name="address_type"&gt;
+        &lt;xs:sequence&gt;
+            &lt;xs:element type="address_line_type" name="address_line_1" minOccurs="0"/&gt;
+            &lt;xs:element type="address_line_type" name="address_line_2" minOccurs="0"/&gt;
+            &lt;xs:element type="address_line_type" name="address_line_3" minOccurs="0"/&gt;
+            &lt;xs:element type="xs:string" name="country"/&gt;
+            &lt;xs:element name="city" minOccurs="0"&gt;
+                &lt;xs:simpleType&gt;
+                    &lt;xs:restriction base="xs:string"&gt;
+                        &lt;xs:maxLength value="25"/&gt;
+                    &lt;/xs:restriction&gt;
+                &lt;/xs:simpleType&gt;
+            &lt;/xs:element&gt;
+            &lt;xs:element name="state" minOccurs="0"&gt;
+                &lt;xs:simpleType&gt;
+                    &lt;xs:restriction base="xs:string"&gt;
+                        &lt;xs:maxLength value="2"/&gt;
+                    &lt;/xs:restriction&gt;
+                &lt;/xs:simpleType&gt;
+            &lt;/xs:element&gt;
+            &lt;xs:element name="zip" minOccurs="0"&gt;
+                &lt;xs:simpleType&gt;
+                    &lt;xs:restriction base="xs:string"&gt;
+                        &lt;xs:maxLength value="15"/&gt;
+                    &lt;/xs:restriction&gt;
+                &lt;/xs:simpleType&gt;
+            &lt;/xs:element&gt;
+            &lt;xs:element name="number" minOccurs="0"&gt;
+                &lt;xs:simpleType&gt;
+                    &lt;xs:restriction base="xs:string"&gt;
+                        &lt;xs:maxLength value="10"/&gt;
+                    &lt;/xs:restriction&gt;
+                &lt;/xs:simpleType&gt;
+            &lt;/xs:element&gt;
+            &lt;xs:element name="number_addition" minOccurs="0"&gt;
+                &lt;xs:simpleType&gt;
+                    &lt;xs:restriction base="xs:string"&gt;
+                        &lt;xs:maxLength value="10"/&gt;
+                    &lt;/xs:restriction&gt;
+                &lt;/xs:simpleType&gt;
+            &lt;/xs:element&gt;
+        &lt;/xs:sequence&gt;
+    &lt;/xs:complexType&gt;
+    &lt;xs:complexType name="document_type"&gt;
+        &lt;xs:sequence&gt;
+            &lt;xs:element type="xs:long" name="id"/&gt;
+            &lt;xs:element name="_links" minOccurs="0"&gt;
+                &lt;xs:complexType&gt;
+                    &lt;xs:sequence&gt;
+                        &lt;xs:element type="xs:anyURI" name="content_rw" minOccurs="0"/&gt;
+                        &lt;xs:element type="xs:anyURI" name="delete" minOccurs="0"/&gt;
+                    &lt;/xs:sequence&gt;
+                &lt;/xs:complexType&gt;
+            &lt;/xs:element&gt;
+            &lt;xs:element type="xs:dateTime" name="created_at" minOccurs="0"/&gt;
+            &lt;xs:element name="created_by" minOccurs="0"&gt;
+                &lt;xs:complexType&gt;
+                    &lt;xs:sequence&gt;
+                        &lt;xs:element type="xs:long" name="account_id"/&gt;
+                        &lt;xs:element type="xs:string" name="display_name" minOccurs="0"/&gt;
+                    &lt;/xs:sequence&gt;
+                &lt;/xs:complexType&gt;
+            &lt;/xs:element&gt;
+            &lt;xs:element type="xs:string" name="display_name" minOccurs="0"/&gt;
+            &lt;xs:element type="xs:nonNegativeInteger" name="file_size" minOccurs="0"/&gt;
+        &lt;/xs:sequence&gt;
+    &lt;/xs:complexType&gt;
+
+    &lt;xs:complexType name="company_type"&gt;
+        &lt;xs:sequence&gt;
+            &lt;xs:element type="xs:string" name="name"/&gt;
+            &lt;xs:element type="xs:string" name="city"/&gt;
+            &lt;xs:element type="xs:string" name="state"/&gt;
+        &lt;/xs:sequence&gt;
+    &lt;/xs:complexType&gt;
+
+    &lt;xs:complexType name="reference_type"&gt;
+        &lt;xs:sequence&gt;
+            &lt;xs:element type="xs:long" name="id"/&gt;
+        &lt;/xs:sequence&gt;
+    &lt;/xs:complexType&gt;
+
+    &lt;xs:complexType name="security_type"&gt;
+        &lt;xs:sequence&gt;
+            &lt;xs:element type="xs:string" name="question" minOccurs="0"/&gt;
+            &lt;xs:element type="xs:string" name="answer" minOccurs="0"/&gt;
+        &lt;/xs:sequence&gt;
+    &lt;/xs:complexType&gt;
+
+
+    &lt;xs:complexType name="supervisor_type"&gt;
+        &lt;xs:sequence&gt;
+            &lt;xs:element type="xs:string" name="name"/&gt;
+            &lt;xs:element type="xs:string" name="phone_number"/&gt;
+        &lt;/xs:sequence&gt;
+    &lt;/xs:complexType&gt;
+
+    &lt;xs:simpleType name="social_number_type"&gt;
+        &lt;xs:restriction base="xs:string"&gt;
+            &lt;xs:maxLength value="20"/&gt;
+        &lt;/xs:restriction&gt;
+    &lt;/xs:simpleType&gt;
+
+    &lt;xs:simpleType name="address_line_type"&gt;
+        &lt;xs:restriction base="xs:string"&gt;
+            &lt;xs:maxLength value="60"/&gt;
+        &lt;/xs:restriction&gt;
+    &lt;/xs:simpleType&gt;
+
+    &lt;xs:simpleType name="personal_info_type"&gt;
+        &lt;xs:restriction base="xs:string"&gt;
+            &lt;xs:maxLength value="75"/&gt;
+        &lt;/xs:restriction&gt;
+    &lt;/xs:simpleType&gt;
+
+    &lt;xs:simpleType name="middle_name_type"&gt;
+        &lt;xs:restriction base="xs:string"&gt;
+            &lt;xs:maxLength value="10"/&gt;
+        &lt;/xs:restriction&gt;
+    &lt;/xs:simpleType&gt;
+
+    &lt;xs:simpleType name="height_type"&gt;
+        &lt;xs:restriction base="xs:string"&gt;
+            &lt;xs:maxLength value="9"/&gt;
+        &lt;/xs:restriction&gt;
+    &lt;/xs:simpleType&gt;
+
+    &lt;xs:simpleType name="eye_color_type"&gt;
+        &lt;xs:restriction base="xs:string"&gt;
+            &lt;xs:maxLength value="50"/&gt;
+        &lt;/xs:restriction&gt;
+    &lt;/xs:simpleType&gt;
+
+    &lt;xs:simpleType name="email_type"&gt;
+        &lt;xs:restriction base="xs:string"&gt;
+            &lt;xs:maxLength value="75"/&gt;
+        &lt;/xs:restriction&gt;
+    &lt;/xs:simpleType&gt;
+
+    &lt;xs:simpleType name="money_type"&gt;
+        &lt;xs:restriction base="xs:double"&gt;
+            &lt;xs:minInclusive value="0"/&gt;
+        &lt;/xs:restriction&gt;
+    &lt;/xs:simpleType&gt;
+
+    &lt;xs:simpleType name="index_type"&gt;
+        &lt;xs:restriction base="xs:byte"&gt;
+            &lt;xs:minInclusive value="0"/&gt;
+            &lt;xs:maxInclusive value="9"/&gt;
+        &lt;/xs:restriction&gt;
+    &lt;/xs:simpleType&gt;
+
+    &lt;xs:simpleType name="custom_field_index_type"&gt;
+        &lt;xs:restriction base="xs:byte"&gt;
+            &lt;xs:minInclusive value="0"/&gt;
+            &lt;xs:maxInclusive value="99"/&gt;
+        &lt;/xs:restriction&gt;
+    &lt;/xs:simpleType&gt;
+
+    &lt;xs:simpleType name="job_title_index_type"&gt;
+        &lt;xs:restriction base="xs:byte"&gt;
+            &lt;xs:minInclusive value="0"/&gt;
+            &lt;xs:maxInclusive value="4"/&gt;
+        &lt;/xs:restriction&gt;
+    &lt;/xs:simpleType&gt;
+
+    &lt;xs:simpleType name="percentage_type"&gt;
+        &lt;xs:restriction base="xs:byte"&gt;
+            &lt;xs:minInclusive value="0"/&gt;
+            &lt;xs:maxInclusive value="100"/&gt;
+        &lt;/xs:restriction&gt;
+    &lt;/xs:simpleType&gt;
+
+    &lt;xs:complexType name="veteran_type"&gt;
+        &lt;xs:sequence&gt;
+            &lt;xs:element type="veteran_enum_type" name="veteran_type" minOccurs="0"/&gt;
+            &lt;xs:element type="xs:boolean" name="recently_separated" minOccurs="0"/&gt;
+            &lt;xs:element type="xs:boolean" name="disabled" minOccurs="0"/&gt;
+            &lt;xs:element type="xs:boolean" name="armed_force_medal" minOccurs="0"/&gt;
+            &lt;xs:element type="xs:boolean" name="active_wartime_or_campaign_badge" minOccurs="0"/&gt;
+            &lt;xs:element type="xs:date" name="discharge_date" minOccurs="0"/&gt;
+        &lt;/xs:sequence&gt;
+    &lt;/xs:complexType&gt;
+
+    &lt;xs:complexType name="contact_type"&gt;
+        &lt;xs:sequence&gt;
+            &lt;xs:element type="xs:string" name="person" minOccurs="0"/&gt;
+            &lt;xs:element type="xs:string" name="relationship" minOccurs="0"/&gt;
+            &lt;xs:element type="email_type" name="email" minOccurs="0"/&gt;
+            &lt;xs:element type="xs:string" name="phone" minOccurs="0"/&gt;
+            &lt;xs:element type="xs:nonNegativeInteger" name="years_known" default="0" minOccurs="0"/&gt;
+            &lt;xs:element type="xs:boolean" name="may_contact" minOccurs="0"/&gt;
+        &lt;/xs:sequence&gt;
+    &lt;/xs:complexType&gt;
+
+    &lt;xs:simpleType name="preferred_phone_type" final="restriction"&gt;
+        &lt;xs:restriction base="xs:string"&gt;
+            &lt;xs:enumeration value="NONE"/&gt;
+            &lt;xs:enumeration value="WORK"/&gt;
+            &lt;xs:enumeration value="HOME"/&gt;
+            &lt;xs:enumeration value="CELL"/&gt;
+        &lt;/xs:restriction&gt;
+    &lt;/xs:simpleType&gt;
+
+    &lt;xs:simpleType name="veteran_enum_type" final="restriction"&gt;
+        &lt;xs:restriction base="xs:string"&gt;
+            &lt;xs:enumeration value="NO"/&gt;
+            &lt;xs:enumeration value="YES"/&gt;
+            &lt;xs:enumeration value="YES_NOT_TO_SELF_IDENTIFY_CLASSIFICATION"/&gt;
+            &lt;xs:enumeration value="NOT_WISH_TO_ANSWER"/&gt;
+        &lt;/xs:restriction&gt;
+    &lt;/xs:simpleType&gt;
+
+    &lt;xs:simpleType name="payment_type" final="restriction"&gt;
+        &lt;xs:restriction base="xs:string"&gt;
+            &lt;xs:enumeration value="SALARY"/&gt;
+            &lt;xs:enumeration value="HOURLY"/&gt;
+        &lt;/xs:restriction&gt;
+    &lt;/xs:simpleType&gt;
+
+    &lt;xs:simpleType name="required_salary_per_type" final="restriction"&gt;
+        &lt;xs:restriction base="xs:string"&gt;
+            &lt;xs:enumeration value="YEAR"/&gt;
+            &lt;xs:enumeration value="MONTH"/&gt;
+            &lt;xs:enumeration value="WEEK"/&gt;
+            &lt;xs:enumeration value="HOUR"/&gt;
+            &lt;xs:enumeration value="PAY_PERIOD"/&gt;
+        &lt;/xs:restriction&gt;
+    &lt;/xs:simpleType&gt;
+
+    &lt;xs:simpleType name="school_type" final="restriction"&gt;
+        &lt;xs:restriction base="xs:string"&gt;
+            &lt;xs:enumeration value="OTHER"/&gt;
+            &lt;xs:enumeration value="HIGH_SCHOOL"/&gt;
+            &lt;xs:enumeration value="TRADE_SCHOOL"/&gt;
+            &lt;xs:enumeration value="COLLEGE_OR_UNIVERSITY"/&gt;
+            &lt;xs:enumeration value="CONTINUING_EDUCATION"/&gt;
+            &lt;xs:enumeration value="PRIMARY_EDUCATION"/&gt;
+            &lt;xs:enumeration value="SECONDARY_EDUCATION"/&gt;
+            &lt;xs:enumeration value="HIGHER_EDUCATION"/&gt;
+            &lt;xs:enumeration value="ACADEMIC_EDUCATION"/&gt;
+        &lt;/xs:restriction&gt;
+    &lt;/xs:simpleType&gt;
+
+    &lt;xs:simpleType name="status_type" final="restriction"&gt;
+        &lt;xs:restriction base="xs:string"&gt;
+            &lt;xs:enumeration value="GRADUATED"/&gt;
+            &lt;xs:enumeration value="IN_PROCESS"/&gt;
+            &lt;xs:enumeration value="DID_NOT_COMPLETE"/&gt;
+        &lt;/xs:restriction&gt;
+    &lt;/xs:simpleType&gt;
+
+    &lt;xs:simpleType name="gender_type" final="restriction"&gt;
+        &lt;xs:restriction base="xs:string"&gt;
+            &lt;xs:enumeration value="UNDEFINED"/&gt;
+            &lt;xs:enumeration value="MALE"/&gt;
+            &lt;xs:enumeration value="FEMALE"/&gt;
+        &lt;/xs:restriction&gt;
+    &lt;/xs:simpleType&gt;
+
+    &lt;xs:simpleType name="ethnicity_type" final="restriction"&gt;
+        &lt;xs:restriction base="xs:string"&gt;
+            &lt;xs:enumeration value="HISPANIC_OR_LATINO"/&gt;
+            &lt;xs:enumeration value="WHITE"/&gt;
+            &lt;xs:enumeration value="BLACK_OR_AFRICAN_AMERICAN"/&gt;
+            &lt;xs:enumeration value="NATIVE_HAWAIIAN_OR_OTHER_PACIFIC_ISLANDER"/&gt;
+            &lt;xs:enumeration value="ASIAN"/&gt;
+            &lt;xs:enumeration value="AMERICAN_INDIAN_OR_ALASKA_NATIVE"/&gt;
+            &lt;xs:enumeration value="TWO_OR_MORE_RACES"/&gt;
+        &lt;/xs:restriction&gt;
+    &lt;/xs:simpleType&gt;
+
+    &lt;xs:simpleType name="citizenship_type" final="restriction"&gt;
+        &lt;xs:restriction base="xs:string"&gt;
+            &lt;xs:enumeration value="US_CITIZEN"/&gt;
+            &lt;xs:enumeration value="PERMANENT_RESIDENT"/&gt;
+            &lt;xs:enumeration value="ALIEN_WITH_WORK_PERMIT"/&gt;
+            &lt;xs:enumeration value="NONCITIZEN_NATIONAL_OF_US"/&gt;
+        &lt;/xs:restriction&gt;
+    &lt;/xs:simpleType&gt;
+
+    &lt;xs:complexType name="visa_type"&gt;
+        &lt;xs:all&gt;
+            &lt;xs:element type="xs:string" name="type"/&gt;
+            &lt;xs:element type="xs:string" name="number" minOccurs="0"/&gt;
+            &lt;xs:element type="visa_expiration_date" name="expiration_date" minOccurs="0"/&gt;
+        &lt;/xs:all&gt;
+    &lt;/xs:complexType&gt;
+
+    &lt;xs:simpleType name="visa_expiration_date"&gt;
+        &lt;xs:restriction base="xs:date"&gt;
+            &lt;xs:minInclusive value="1900-12-31"/&gt;
+            &lt;xs:maxInclusive value="2079-06-05"/&gt;
+        &lt;/xs:restriction&gt;
+    &lt;/xs:simpleType&gt;
+
+&lt;/xs:schema&gt;</div>
+</div>
+</div>
+</div>
+</div>
+</article>
+</section>
+<section class="clearfix">
+<article class="definition">
+<h3 class="anchored" id="put"><span>PUT</span>
+<a class="fa fa-link link-anchor" data-url="r=__v2__companies__(cid)__applicants__(account_id)#put" data-web-id="__v2__companies__(cid)__applicants__(account_id)"></a>
+</h3>
+<div class="md"><p>Updates an existing applicant by their account ID.</p></div>
+<div>
+<ul class="annotation-list">
+<li class="annotation">
+<span>v2</span>
+</li>
+</ul>
+</div>
+<h4>Parameters</h4>
+<h5>Path Parameters</h5>
+<ul class="param-list">
+<li>
+<div class="param-desc">
+<div class="param-name">cid</div>
+<div class="data-type">string</div>
+<div class="required">required</div>
+</div>
+<div class="param-content">
+<div>
+<p>Example: 123456</p>
+<div class="desc md">Company should be referenced via company id or company unique id or company short name using `|short_name` or `!short_name` format.
+</div>
+</div>
+</div>
+
+</li>
+<li>
+<div class="param-desc">
+<div class="param-name">account_id</div>
+<div class="data-type">integer</div>
+<div class="required">required</div>
+</div>
+<div class="param-content">
+<div>
+<p>Example: 7</p>
+<div class="desc md">The account's id.</div>
+</div>
+</div>
+
+</li>
+</ul>
+<h5>Header Parameters</h5>
+<ul class="param-list">
+<li>
+<div class="param-desc">
+<div class="param-name">Accept</div>
+<div class="data-type">string</div>
+</div>
+<div class="param-content">
+<div>
+<p>Valid values: application/json, application/xml, text/xml</p>
+<p>Default: application/json</p>
+<p>Example: application/json</p>
+</div>
+</div>
+
+</li>
+<li>
+<div class="param-desc">
+<div class="param-name">Content-Type</div>
+<div class="data-type">string</div>
+<div class="required">required</div>
+</div>
+<div class="param-content">
+<div>
+<p>Valid values: application/xml, text/xml, application/json</p>
+<p>Example: application/json</p>
+</div>
+</div>
+
+</li>
+<li>
+<div class="param-desc">
+<div class="param-name">Content-Length</div>
+<div class="data-type">integer</div>
+<div class="required">required</div>
+</div>
+<div class="param-content">
+<div>
+</div>
+</div>
+
+</li>
+</ul>
+<h4>Responses</h4>
+<div class="responses">
+<div>
+<label class="response response-success">
+<span class="fa fa-check"></span>
+<input data-full-tab-id="put-resp-code-tab-id-0" data-tab-class="resp-code-tab-put" name="resp-code-tab-put" type="radio"/>
+<span class="status">204 No Content</span>
+</label>
+<div class="response-desc resp-code-tab-put" id="put-resp-code-tab-id-0">
+</div>
+</div>
+<div>
+<label class="response response-error">
+<span class="fa fa-times"></span>
+<input data-full-tab-id="put-resp-code-tab-id-1" data-tab-class="resp-code-tab-put" name="resp-code-tab-put" type="radio"/>
+<span class="status">401 Unauthorized</span>
+</label>
+<div class="response-desc resp-code-tab-put" id="put-resp-code-tab-id-1">
+<div class="md"><p>Returned in case user is not authorized.</p></div>
+</div>
+</div>
+<div>
+<label class="response response-error">
+<span class="fa fa-times"></span>
+<input data-full-tab-id="put-resp-code-tab-id-2" data-tab-class="resp-code-tab-put" name="resp-code-tab-put" type="radio"/>
+<span class="status">403 Forbidden</span>
+</label>
+<div class="response-desc resp-code-tab-put" id="put-resp-code-tab-id-2">
+<div class="md"><p>Returned in case user has no access to the resource.</p></div>
+</div>
+</div>
+<div>
+<label class="response response-error">
+<span class="fa fa-times"></span>
+<input data-full-tab-id="put-resp-code-tab-id-3" data-tab-class="resp-code-tab-put" name="resp-code-tab-put" type="radio"/>
+<span class="status">404 Not Found</span>
+</label>
+<div class="response-desc resp-code-tab-put" id="put-resp-code-tab-id-3">
+<div class="md"><p>Returned in case resource does not exist.</p></div>
+</div>
+</div>
+<div>
+<label class="response response-error">
+<span class="fa fa-times"></span>
+<input data-full-tab-id="put-resp-code-tab-id-4" data-tab-class="resp-code-tab-put" name="resp-code-tab-put" type="radio"/>
+<span class="status">503 Service Unavailable</span>
+</label>
+<div class="response-desc resp-code-tab-put" id="put-resp-code-tab-id-4">
+<div class="md"><p>Returned in the event that the call limit is exceeded. The application will be unavailable for subsequent calls for the duration specified by the X-CallLimit-TimeToWait header.</p></div>
+</div>
+</div>
+</div>
+</article>
+<article class="code">
+<h4>Definition</h4>
+<div class="uri">
+<code>
+<span class="method put">put</span>
+<span class="textUri"><span class="baseUri">{{ getUriPrefix() }}</span><span class="relativeUri">/v2/companies/{cid}/applicants/{account_id}</span></span>
+</code>
+</div>
+<h4>Request Samples</h4>
+<div class="tab-title-group">
+<label>
+<input checked="checked" data-full-tab-id="req-tab-id-put-0" data-tab-class="req-tab-put" name="req-tab-put" type="radio"/>
+<span class="tab-title">application/json</span>
+</label>
+<label>
+<input data-full-tab-id="req-tab-id-put-1" data-tab-class="req-tab-put" name="req-tab-put" type="radio"/>
+<span class="tab-title">application/xml</span>
+</label>
+</div>
+<div>
+<div class="req-tab-put" id="req-tab-id-put-0">
+<div class="example">
+
+<div class="put-example-tab-0 activeTab" id="put-tab-example-0">
+
+<pre class="highlightjs">{
+  "account": {
+    "account_id": 111,
+    "username": "any@email.com",
+    "salutation": "Mr.",
+    "first_name": "John",
+    "last_name": "Doe",
+    "nickname": "J.D.",
+    "middle_name": "Jack",
+    "name_suffix": "Jr.",
+    "primary_email": "primary@email.com",
+    "secondary_email": "secondary@email.com",
+    "force_change_password": true,
+    "locked": false,
+    "ssn": "123456789",
+    "locale": {
+      "id": 12345
+    },
+    "time_zone": {
+      "id": 54321
+    }
+  },
+  "address": {
+    "address_line_1": "string",
+    "address_line_2": "string",
+    "address_line_3": "string",
+    "country": "USA",
+    "city": "string",
+    "state": "st",
+    "zip": "string",
+    "number": "string",
+    "number_addition": "string"
+  },
+  "phones": {
+    "work_phone": "+1234567890",
+    "cell_phone": "+0987654321",
+    "home_phone": "+456123789",
+    "preferred_phone": "NONE"
+  },
+  "photo_href": "https://example.com/ta/images/uploaded/252/AccountPhoto4545.jpg?v=1505311592870",
+  "demographics": {
+    "gender": "UNDEFINED",
+    "height": "200",
+    "weight": "100",
+    "eye_color": "RED",
+    "ethnicity": "WHITE",
+    "citizenship": "ALIEN_WITH_WORK_PERMIT",
+    "smoker": true,
+    "primary_language": "English",
+    "secondary_language": "Spanish",
+    "full_time_student": true,
+    "veteran": {
+      "veteran_type": "YES_NOT_TO_SELF_IDENTIFY_CLASSIFICATION",
+      "recently_separated": true,
+      "disabled": true,
+      "armed_force_medal": true,
+      "active_wartime_or_campaign_badge": true,
+      "discharge_date": "2018-12-12"
+    },
+    "demographics_custom_fields": [
+      {
+        "index": 0,
+        "value": "Demographics Value0"
+      },
+      {
+        "index": 1,
+        "value": "Demographics Value1"
+      },
+      {
+        "index": 2,
+        "value": "Demographics Value2"
+      }
+    ],
+    "visa": {
+      "type": "H-2A",
+      "number": "YHF25",
+      "expiration_date": "2017-03-30"
+    }
+  },
+  "required_salary": 10000,
+  "required_salary_per": "MONTH",
+  "eligible_for_work": true,
+  "will_relocate": true,
+  "relocation_cost": 5000,
+  "willing_to_travel": 75,
+  "reliable_transportation": true,
+  "managed_people": 29,
+  "available_start_date": "2018-08-14",
+  "summary": "Summary",
+  "education": {
+    "highest_education": {
+      "id": 2981
+    },
+    "schools": [
+      {
+        "startDateMonthPresent": false,
+        "endDateMonthPresent": false,
+        "last": false,
+        "country": "USA",
+        "school_name": "School #1",
+        "school_type": "HIGH_SCHOOL",
+        "school_type_other": "School Type Other",
+        "education_status": "GRADUATED",
+        "major": "Major",
+        "minor": "Minor",
+        "start_date": "1985-08-31",
+        "end_date": "1995-07-31",
+        "course": "Course1",
+        "gpa": 0,
+        "max_gpa": 1,
+        "degree_level": {
+          "id": 5
+        },
+        "credit_hours": 15,
+        "is_start_date_month_present": false,
+        "is_end_date_month_present": false,
+        "extracurricular_activities": "Extracurricular Activities"
+      },
+      {
+        "country": "USA",
+        "school_name": "University #1"
+      }
+    ]
+  },
+  "skills": [
+    {
+      "skill": {
+        "id": 1
+      },
+      "level": 1,
+      "years": 5
+    },
+    {
+      "skill": {
+        "id": 2
+      },
+      "level": 1,
+      "years": 0
+    }
+  ],
+  "other_skills": "Other1",
+  "traits": "Traits1",
+  "work_experiences": [
+    {
+      "index": 1,
+      "company": {
+        "name": "Company Name 1",
+        "city": "Las Vegas",
+        "state": "Nevada"
+      },
+      "supervisor": {
+        "name": "Jane Doe",
+        "phone_number": "+111222333444"
+      },
+      "payment": {
+        "starting_pay": 2500,
+        "ending_pay": 5500
+      },
+      "reason_for_leaving": "Reason For Leaving",
+      "job_titles": [
+        {
+          "index": 1,
+          "job_title": "Junior Software Engineer",
+          "from": "2000-01-01",
+          "to": "2001-01-01",
+          "job_description": "Junior Software Engineer"
+        },
+        {
+          "index": 2,
+          "job_title": "Software Engineer",
+          "from": "2001-01-02",
+          "to": "2002-01-01",
+          "job_description": "Software Engineer"
+        }
+      ]
+    },
+    {
+      "index": 2,
+      "company": {
+        "name": "Company Name 2",
+        "city": "Las Vegas",
+        "state": "Nevada"
+      },
+      "supervisor": {
+        "name": "Jane Doe",
+        "phone_number": "+111222333444"
+      },
+      "payment": {
+        "starting_pay": 6500,
+        "ending_pay": 8000
+      },
+      "reason_for_leaving": "Reason For Leaving",
+      "job_titles": [
+        {
+          "index": 1,
+          "job_title": "Software Engineer",
+          "from": "2003-01-01",
+          "to": "2005-01-01",
+          "job_description": "Software Engineer"
+        },
+        {
+          "index": 2,
+          "job_title": "Senior Software Engineer",
+          "from": "2005-01-02",
+          "to": "2008-01-01",
+          "job_description": "Senior Software Engineer"
+        }
+      ]
+    }
+  ],
+  "professional_references": [
+    {
+      "index": 0,
+      "company": "Company 1",
+      "contact": {
+        "person": "Person 1",
+        "relationship": "Friend",
+        "email": "friend@email.com",
+        "phone": "+111222333444",
+        "years_known": 10,
+        "may_contact": true
+      }
+    },
+    {
+      "index": 1,
+      "company": "Company 2",
+      "contact": {
+        "person": "Person 2",
+        "relationship": "Friend2",
+        "email": "friend2@email.com",
+        "phone": "+111222333444",
+        "may_contact": true
+      }
+    }
+  ],
+  "job_categories": [
+    {
+      "job": {
+        "id": 123456
+      },
+      "years": 10
+    },
+    {
+      "job": {
+        "id": 1234567
+      }
+    }
+  ],
+  "applicant_custom_fields": [
+    {
+      "index": 0,
+      "value": "Value0"
+    },
+    {
+      "index": 1,
+      "value": "Value1"
+    },
+    {
+      "index": 2,
+      "value": "Value2"
+    }
+  ],
+  "_links": {
+    "self": "http://example.com/ta/rest/v2/companies/456008/applicants/111"
+  }
+}</pre>
+</div>
+<div class="put-example-tab-0" id="put-tab-schema-0">
+
+<div class="jsonschema" id="schema-2">{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "type": "object",
+  "properties": {
+    "account": {
+      "type": "object",
+      "properties": {
+        "account_id": {
+          "type": "number",
+          "format": "long",
+          "description": "This field is only used for GET."
+        },
+        "username": {
+          "type": "string",
+          "maxLength": 75
+        },
+        "salutation": {
+          "type": "string"
+        },
+        "first_name": {
+          "type": "string",
+          "maxLength": 75
+        },
+        "last_name": {
+          "type": "string",
+          "maxLength": 75
+        },
+        "nickname": {
+          "type": "string"
+        },
+        "middle_name": {
+          "type": "string",
+          "maxLength": 75
+        },
+        "name_suffix": {
+          "type": "string"
+        },
+        "primary_email": {
+          "type": "string",
+          "format": "email",
+          "maxLength": 75
+        },
+        "secondary_email": {
+          "type": "string",
+          "format": "email",
+          "maxLength": 75
+        },
+        "force_change_password": {
+          "type": "boolean",
+          "default": false,
+          "description": "The ability to change password after the first log on."
+        },
+        "locked": {
+          "type": "boolean"
+        },
+        "ssn": {
+          "description": "Social Security Number. For USA companies.",
+          "type": "string",
+          "maxLength": 20
+        },
+        "bsn": {
+          "description": "Citizen Service Number. For Netherlands companies.",
+          "type": "string",
+          "maxLength": 20
+        },
+        "sin": {
+          "description": "Social Insurance Number. For Canada companies.",
+          "type": "string",
+          "maxLength": 20
+        },
+        "nin": {
+          "description": "National Insurance Number. For UK companies.",
+          "type": "string",
+          "maxLength": 20
+        },
+        "security_question": {
+          "type": "object",
+          "properties": {
+            "question": {
+              "type": "string"
+            },
+            "answer": {
+              "type": "string"
+            }
+          },
+          "additionalProperties": false
+        },
+        "locale": {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "integer"
+            }
+          },
+          "additionalProperties": false,
+          "required": [
+            "id"
+          ]
+        },
+        "time_zone": {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "integer"
+            }
+          },
+          "additionalProperties": false,
+          "required": [
+            "id"
+          ]
+        }
+      },
+      "additionalProperties": false,
+      "required": [
+        "username",
+        "first_name",
+        "last_name",
+        "primary_email"
+      ]
+    },
+    "address": {
+      "type": "object",
+      "properties": {
+        "address_line_1": {
+          "type": "string",
+          "maxLength": 60
+        },
+        "address_line_2": {
+          "type": "string",
+          "maxLength": 60
+        },
+        "address_line_3": {
+          "type": "string",
+          "maxLength": 60
+        },
+        "country": {
+          "type": "string"
+        },
+        "city": {
+          "type": "string",
+          "maxLength": 25
+        },
+        "state": {
+          "type": "string",
+          "maxLength": 2,
+          "description": "A two character state code (Example: Send 'NJ' for New Jersey). Can use 'NA' for people who are outside USA."
+        },
+        "zip": {
+          "type": "string",
+          "maxLength": 15
+        },
+        "number": {
+          "type": "string",
+          "maxLength": 10
+        },
+        "number_addition": {
+          "type": "string",
+          "maxLength": 10
+        }
+      },
+      "additionalProperties": false,
+      "required": [
+        "country"
+      ]
+    },
+    "phones": {
+      "type": "object",
+      "properties": {
+        "work_phone": {
+          "type": "string",
+          "maxLength": 25
+        },
+        "home_phone": {
+          "type": "string",
+          "maxLength": 25
+        },
+        "cell_phone": {
+          "type": "string",
+          "maxLength": 25
+        },
+        "preferred_phone": {
+          "type": "string",
+          "enum": [
+            "NONE",
+            "WORK",
+            "HOME",
+            "CELL"
+          ],
+          "default": "NONE"
+        }
+      }
+    },
+    "demographics": {
+      "type": "object",
+      "properties": {
+        "gender": {
+          "type": "string",
+          "enum": [
+            "UNDEFINED",
+            "MALE",
+            "FEMALE"
+          ],
+          "default": "UNDEFINED"
+        },
+        "height": {
+          "type": "string",
+          "maxLength": 9
+        },
+        "weight": {
+          "type": "string"
+        },
+        "eye_color": {
+          "type": "string",
+          "maxLength": 50
+        },
+        "ethnicity": {
+          "type": "string",
+          "enum": [
+            "HISPANIC_OR_LATINO",
+            "WHITE",
+            "BLACK_OR_AFRICAN_AMERICAN",
+            "NATIVE_HAWAIIAN_OR_OTHER_PACIFIC_ISLANDER",
+            "ASIAN",
+            "AMERICAN_INDIAN_OR_ALASKA_NATIVE",
+            "TWO_OR_MORE_RACES"
+          ]
+        },
+        "citizenship": {
+          "type": "string",
+          "enum": [
+            "US_CITIZEN",
+            "PERMANENT_RESIDENT",
+            "ALIEN_WITH_WORK_PERMIT",
+            "NONCITIZEN_NATIONAL_OF_US"
+          ]
+        },
+        "smoker": {
+          "type": "boolean"
+        },
+        "primary_language": {
+          "type": "string"
+        },
+        "secondary_language": {
+          "type": "string"
+        },
+        "visa": {
+          "type": "object",
+          "properties": {
+            "type": {
+              "type": "string"
+            },
+            "number": {
+              "type": "string",
+              "maxLength": 50
+            },
+            "expiration_date": {
+              "type": "string",
+              "description": "Date needs to be in the format yyyy-mm-dd within the 1900-12-31 and 2079-06-05 date range"
+            }
+          },
+          "required": [
+            "type"
+          ],
+          "additionalProperties": false
+        },
+        "full_time_student": {
+          "type": "boolean"
+        },
+        "veteran": {
+          "type": "object",
+          "properties": {
+            "veteran_type": {
+              "type": "string",
+              "enum": [
+                "NO",
+                "YES",
+                "YES_NOT_TO_SELF_IDENTIFY_CLASSIFICATION",
+                "NOT_WISH_TO_ANSWER"
+              ]
+            },
+            "recently_separated": {
+              "type": "boolean"
+            },
+            "disabled": {
+              "type": "boolean"
+            },
+            "armed_force_medal": {
+              "type": "boolean"
+            },
+            "active_wartime_or_campaign_badge": {
+              "type": "boolean"
+            },
+            "discharge_date": {
+              "type": "string",
+              "pattern": "^(19[0-9]{2}|20[0-6][0-9]|2070)-(0[1-9]|1[0-2])-(0[1-9]|[1-2][0-9]|3[0-1])$",
+              "description": "Date needs to be in the format yyyy-mm-dd within the 1900-12-31 and 2079-06-05 date range"
+            }
+          }
+        },
+        "demographics_custom_fields": {
+          "type": "array",
+          "maxItems": 50,
+          "items": {
+            "type": "object",
+            "properties": {
+              "index": {
+                "type": "integer",
+                "minimum": 0,
+                "maximum": 49
+              },
+              "value": {
+                "type": "string"
+              }
+            },
+            "additionalProperties": false,
+            "required": [
+              "index"
+            ]
+          }
+        }
+      },
+      "additionalProperties": false
+    },
+    "photo_href": {
+      "type": "string",
+      "description": "The link to get the applicant's photo."
+    },
+    "required_salary": {
+      "type": "number",
+      "minimum": 0,
+      "default": 0
+    },
+    "required_salary_per": {
+      "type": "string",
+      "enum": [
+        "YEAR",
+        "MONTH",
+        "WEEK",
+        "HOUR",
+        "PAY_PERIOD"
+      ],
+      "default": "YEAR"
+    },
+    "eligible_for_work": {
+      "type": "boolean",
+      "default": true,
+      "description": "Eligibility to work in USA"
+    },
+    "will_relocate": {
+      "type": "boolean",
+      "default": false
+    },
+    "relocation_cost": {
+      "type": "number",
+      "minimum": 0
+    },
+    "willing_to_travel": {
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 100,
+      "description": "The willingness to travel (percentage)."
+    },
+    "reliable_transportation": {
+      "type": "boolean",
+      "default": false
+    },
+    "managed_people": {
+      "type": "integer"
+    },
+    "available_start_date": {
+      "type": "string",
+      "pattern": "^(19[0-9]{2}|20[0-6][0-9]|2070)-(0[1-9]|1[0-2])-(0[1-9]|[1-2][0-9]|3[0-1])$",
+      "description": "Date needs to be in the format yyyy-mm-dd within the 1900-12-31 and 2079-06-05 date range"
+    },
+    "summary": {
+      "type": "string"
+    },
+    "education": {
+      "type": "object",
+      "properties": {
+        "highest_education": {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "integer"
+            }
+          },
+          "additionalProperties": false,
+          "required": [
+            "id"
+          ]
+        },
+        "schools": {
+          "type": "array",
+          "minItems": 1,
+          "maxItems": 10,
+          "items": {
+            "type": "object",
+            "properties": {
+              "startDateMonthPresent": {
+                "type": "boolean"
+              },
+              "endDateMonthPresent": {
+                "type": "boolean"
+              },
+              "last": {
+                "type": "boolean"
+              },
+              "country": {
+                "type": "string"
+              },
+              "school_name": {
+                "type": "string"
+              },
+              "school_type": {
+                "type": "string",
+                "enum": [
+                  "OTHER",
+                  "HIGH_SCHOOL",
+                  "TECHNICAL_OR_TRADE_SCHOOL",
+                  "COLLEGE_OR_UNIVERSITY",
+                  "CONTINUING_EDUCATION"
+                ]
+              },
+              "school_type_other": {
+                "type": "string"
+              },
+              "education_status": {
+                "type": "string",
+                "enum": [
+                  "GRADUATED",
+                  "IN_PROCESS",
+                  "DID_NOT_COMPLETE"
+                ]
+              },
+              "major": {
+                "type": "string"
+              },
+              "minor": {
+                "type": "string"
+              },
+              "start_date": {
+                "type": "string",
+                "pattern": "^(19[0-9]{2}|20[0-6][0-9]|2070)-(0[1-9]|1[0-2])-(0[1-9]|[1-2][0-9]|3[0-1])$",
+                "description": "Date needs to be in the format yyyy-mm-dd within the 1900-12-31 and 2079-06-05 date range"
+              },
+              "end_date": {
+                "type": "string",
+                "pattern": "^(19[0-9]{2}|20[0-6][0-9]|2070)-(0[1-9]|1[0-2])-(0[1-9]|[1-2][0-9]|3[0-1])$",
+                "description": "Date needs to be in the format yyyy-mm-dd within the 1900-12-31 and 2079-06-05 date range"
+              },
+              "course": {
+                "type": "string",
+                "description": "Course Field is only available for companies that have Australia enabled as a country"
+              },
+              "gpa": {
+                "type": "number",
+                "minimum": 0,
+                "default": 0
+              },
+              "max_gpa": {
+                "type": "number",
+                "minimum": 0,
+                "default": 0
+              },
+              "degree_level": {
+                "type": "object",
+                "properties": {
+                  "id": {
+                    "type": "integer"
+                  }
+                },
+                "additionalProperties": false,
+                "required": [
+                  "id"
+                ]
+              },
+              "credit_hours": {
+                "type": "integer"
+              },
+              "is_start_date_month_present": {
+                "type": "boolean"
+              },
+              "is_end_date_month_present": {
+                "type": "boolean"
+              },
+              "extracurricular_activities": {
+                "type": "string"
+              }
+            },
+            "additionalProperties": false,
+            "required": [
+              "country",
+              "school_name"
+            ]
+          }
+        }
+      },
+      "additionalProperties": false
+    },
+    "skills": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "skill": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "integer"
+              }
+            },
+            "additionalProperties": false,
+            "required": [
+              "id"
+            ]
+          },
+          "level": {
+            "type": "integer"
+          },
+          "years": {
+            "type": "integer"
+          },
+          "primary": {
+            "type": "boolean"
+          }
+        },
+        "additionalProperties": false,
+        "required": [
+          "skill"
+        ]
+      }
+    },
+    "other_skills": {
+      "type": "string"
+    },
+    "traits": {
+      "type": "string"
+    },
+    "work_experiences": {
+      "type": "array",
+      "minItems": 0,
+      "maxItems": 10,
+      "items": {
+        "type": "object",
+        "properties": {
+          "index": {
+            "type": "integer"
+          },
+          "company": {
+            "type": "object",
+            "properties": {
+              "name": {
+                "type": "string"
+              },
+              "city": {
+                "type": "string"
+              },
+              "state": {
+                "type": "string"
+              }
+            },
+            "additionalProperties": false
+          },
+          "supervisor": {
+            "type": "object",
+            "properties": {
+              "name": {
+                "type": "string"
+              },
+              "phone_number": {
+                "type": "string"
+              }
+            }
+          },
+          "payment": {
+            "type": "object",
+            "properties": {
+              "starting_pay": {
+                "type": "number",
+                "minimum": 0,
+                "default": 0
+              },
+              "ending_pay": {
+                "type": "number",
+                "minimum": 0,
+                "default": 0
+              },
+              "pay_type": {
+                "type": "string",
+                "enum": [
+                  "SALARY",
+                  "HOURLY"
+                ],
+                "default": "SALARY"
+              }
+            },
+            "additionalProperties": false
+          },
+          "reason_for_leaving": {
+            "type": "string"
+          },
+          "job_titles": {
+            "type": "array",
+            "minItems": 0,
+            "maxItems": 5,
+            "items": {
+              "type": "object",
+              "properties": {
+                "index": {
+                  "type": "integer",
+                  "minValue": 0,
+                  "maxValue": 4
+                },
+                "job_title": {
+                  "type": "string"
+                },
+                "from": {
+                  "type": "string",
+                  "pattern": "^(19[0-9]{2}|20[0-6][0-9]|2070)-(0[1-9]|1[0-2])-(0[1-9]|[1-2][0-9]|3[0-1])$",
+                  "description": "Date needs to be in the format yyyy-mm-dd within the 1900-12-31 and 2079-06-05 date range"
+                },
+                "to": {
+                  "type": "string",
+                  "pattern": "^(19[0-9]{2}|20[0-6][0-9]|2070)-(0[1-9]|1[0-2])-(0[1-9]|[1-2][0-9]|3[0-1])$",
+                  "description": "Date needs to be in the format yyyy-mm-dd within the 1900-12-31 and 2079-06-05 date range"
+                },
+                "job_description": {
+                  "type": "string"
+                }
+              },
+              "additionalProperties": false,
+              "required": [
+                "index"
+              ]
+            }
+          }
+        },
+        "additionalProperties": false,
+        "required": [
+          "index"
+        ]
+      }
+    },
+    "professional_references": {
+      "type": "array",
+      "maxItems": 3,
+      "items": {
+        "type": "object",
+        "properties": {
+          "index": {
+            "type": "integer"
+          },
+          "company": {
+            "type": "string"
+          },
+          "contact": {
+            "type": "object",
+            "properties": {
+              "person": {
+                "type": "string"
+              },
+              "relationship": {
+                "type": "string"
+              },
+              "email": {
+                "type": "string",
+                "format": "email",
+                "maxLength": 75
+              },
+              "phone": {
+                "type": "string",
+                "maxLength": 25
+              },
+              "years_known": {
+                "type": "integer",
+                "default": 0
+              },
+              "may_contact": {
+                "type": "boolean",
+                "default": true
+              }
+            },
+            "additionalProperties": false
+          }
+        },
+        "additionalProperties": false
+      }
+    },
+    "job_categories": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "job": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "integer"
+              }
+            },
+            "required": [
+              "id"
+            ]
+          },
+          "years": {
+            "type": "integer"
+          }
+        },
+        "additionalProperties": false,
+        "required": [
+          "job"
+        ]
+      }
+    },
+    "applicant_custom_fields": {
+      "type": "array",
+      "maxItems": 100,
+      "items": {
+        "type": "object",
+        "properties": {
+          "index": {
+            "type": "integer",
+            "minimum": 0,
+            "maximum": 99
+          },
+          "value": {
+            "type": "string"
+          }
+        },
+        "additionalProperties": false,
+        "required": [
+          "index"
+        ]
+      }
+    },
+    "_links": {
+      "type": "object",
+      "properties": {
+        "self": {
+          "type": "string"
+        }
+      }
+    }
+  },
+  "additionalProperties": false,
+  "required": [
+    "account"
+  ]
+}</div>
+</div>
+</div>
+</div>
+<div class="req-tab-put" id="req-tab-id-put-1">
+<div class="example">
+
+<div class="put-example-tab-1 activeTab" id="put-tab-example-1">
+
+<pre class="highlightjs">&lt;?xml version='1.0' encoding='UTF-8'?&gt;
+&lt;applicant&gt;
+
+  &lt;account&gt;
+    &lt;account_id&gt;1&lt;/account_id&gt;
+    &lt;username&gt;any@email.com&lt;/username&gt;
+    &lt;salutation&gt;Mr.&lt;/salutation&gt;
+    &lt;first_name&gt;John&lt;/first_name&gt;
+    &lt;last_name&gt;Doe&lt;/last_name&gt;
+    &lt;nickname&gt;J.D.&lt;/nickname&gt;
+    &lt;middle_name&gt;Jack&lt;/middle_name&gt;
+    &lt;name_suffix&gt;Jr.&lt;/name_suffix&gt;
+    &lt;primary_email&gt;primary@email.com&lt;/primary_email&gt;
+    &lt;secondary_email&gt;secondary@email.com&lt;/secondary_email&gt;
+    &lt;force_change_password&gt;true&lt;/force_change_password&gt;
+    &lt;locked&gt;false&lt;/locked&gt;
+    &lt;ssn&gt;123456789&lt;/ssn&gt;
+    &lt;security_question&gt;
+      &lt;question&gt;Question?&lt;/question&gt;
+      &lt;answer&gt;Answer!&lt;/answer&gt;
+    &lt;/security_question&gt;
+    &lt;locale&gt;
+      &lt;id&gt;12345&lt;/id&gt;
+    &lt;/locale&gt;
+    &lt;time_zone&gt;
+      &lt;id&gt;1&lt;/id&gt;
+    &lt;/time_zone&gt;
+  &lt;/account&gt;
+
+  &lt;address&gt;
+    &lt;address_line_1&gt;Street&lt;/address_line_1&gt;
+    &lt;address_line_2&gt;24&lt;/address_line_2&gt;
+    &lt;address_line_3&gt;4&lt;/address_line_3&gt;
+    &lt;country&gt;USA&lt;/country&gt;
+    &lt;city&gt;Las Vegas&lt;/city&gt;
+    &lt;state&gt;NV&lt;/state&gt;
+    &lt;zip&gt;88901&lt;/zip&gt;
+    &lt;number&gt;21312&lt;/number&gt;
+    &lt;number_addition&gt;87422&lt;/number_addition&gt;
+  &lt;/address&gt;
+
+  &lt;phones&gt;
+    &lt;work_phone&gt;+1234567890&lt;/work_phone&gt;
+    &lt;home_phone&gt;+456123789&lt;/home_phone&gt;
+    &lt;cell_phone&gt;+0987654321&lt;/cell_phone&gt;
+    &lt;preferred_phone&gt;CELL&lt;/preferred_phone&gt;
+  &lt;/phones&gt;
+
+  &lt;photo_href&gt;https://example.com/ta/images/uploaded/252/AccountPhoto4545.jpg?v=1505311592870&lt;/photo_href&gt;
+
+  &lt;demographics&gt;
+    &lt;gender&gt;UNDEFINED&lt;/gender&gt;
+    &lt;height&gt;200&lt;/height&gt;
+    &lt;weight&gt;100&lt;/weight&gt;
+    &lt;eye_color&gt;RED&lt;/eye_color&gt;
+    &lt;ethnicity&gt;WHITE&lt;/ethnicity&gt;
+    &lt;citizenship&gt;ALIEN_WITH_WORK_PERMIT&lt;/citizenship&gt;
+    &lt;smoker&gt;true&lt;/smoker&gt;
+    &lt;primary_language&gt;Primary Language&lt;/primary_language&gt;
+    &lt;secondary_language&gt;Secondary Language&lt;/secondary_language&gt;
+    &lt;full_time_student&gt;true&lt;/full_time_student&gt;
+    &lt;veteran&gt;
+      &lt;veteran_type&gt;YES_NOT_TO_SELF_IDENTIFY_CLASSIFICATION&lt;/veteran_type&gt;
+      &lt;recently_separated&gt;true&lt;/recently_separated&gt;
+      &lt;disabled&gt;true&lt;/disabled&gt;
+      &lt;armed_force_medal&gt;true&lt;/armed_force_medal&gt;
+      &lt;active_wartime_or_campaign_badge&gt;true&lt;/active_wartime_or_campaign_badge&gt;
+      &lt;discharge_date&gt;2018-12-12&lt;/discharge_date&gt;
+    &lt;/veteran&gt;
+    &lt;demographics_custom_fields&gt;
+      &lt;demographics_custom_field&gt;
+        &lt;index&gt;0&lt;/index&gt;
+        &lt;value&gt;Value0&lt;/value&gt;
+      &lt;/demographics_custom_field&gt;
+      &lt;demographics_custom_field&gt;
+        &lt;index&gt;1&lt;/index&gt;
+        &lt;value&gt;Value1&lt;/value&gt;
+      &lt;/demographics_custom_field&gt;
+      &lt;demographics_custom_field&gt;
+        &lt;index&gt;2&lt;/index&gt;
+        &lt;value&gt;Value2&lt;/value&gt;
+      &lt;/demographics_custom_field&gt;
+    &lt;/demographics_custom_fields&gt;
+    &lt;visa&gt;
+      &lt;type&gt;H-2A&lt;/type&gt;
+      &lt;number&gt;YHF25&lt;/number&gt;
+      &lt;expiration_date&gt;2017-03-30&lt;/expiration_date&gt;
+    &lt;/visa&gt;
+  &lt;/demographics&gt;
+
+  &lt;required_salary&gt;10000&lt;/required_salary&gt;
+  &lt;required_salary_per&gt;MONTH&lt;/required_salary_per&gt;
+  &lt;eligible_for_work&gt;true&lt;/eligible_for_work&gt;
+  &lt;will_relocate&gt;true&lt;/will_relocate&gt;
+  &lt;relocation_cost&gt;5000&lt;/relocation_cost&gt;
+  &lt;willing_to_travel&gt;75&lt;/willing_to_travel&gt;
+  &lt;reliable_transportation&gt;true&lt;/reliable_transportation&gt;
+  &lt;managed_people&gt;29&lt;/managed_people&gt;
+  &lt;available_start_date&gt;2018-08-14&lt;/available_start_date&gt;
+  &lt;summary&gt;Summary&lt;/summary&gt;
+
+  &lt;education&gt;
+    &lt;highest_education&gt;
+      &lt;id&gt;1&lt;/id&gt;
+    &lt;/highest_education&gt;
+    &lt;schools&gt;
+      &lt;school&gt;
+        &lt;startDateMonthPresent&gt;false&lt;/startDateMonthPresent&gt;
+        &lt;endDateMonthPresent&gt;false&lt;/endDateMonthPresent&gt;
+        &lt;last&gt;false&lt;/last&gt;
+        &lt;country&gt;USA&lt;/country&gt;
+        &lt;school_name&gt;School #1&lt;/school_name&gt;
+        &lt;start_date&gt;1985-08-31&lt;/start_date&gt;
+        &lt;end_date&gt;1995-07-31&lt;/end_date&gt;
+        &lt;degree_level&gt;
+          &lt;id&gt;15&lt;/id&gt;
+        &lt;/degree_level&gt;
+        &lt;school_type&gt;HIGH_SCHOOL&lt;/school_type&gt;
+        &lt;education_status&gt;GRADUATED&lt;/education_status&gt;
+        &lt;school_type_other&gt;School type other&lt;/school_type_other&gt;
+        &lt;major&gt;Major&lt;/major&gt;
+        &lt;minor&gt;Minor&lt;/minor&gt;
+        &lt;course&gt;Course&lt;/course&gt;
+        &lt;credit_hours&gt;5&lt;/credit_hours&gt;
+        &lt;gpa&gt;0&lt;/gpa&gt;
+        &lt;max_gpa&gt;1&lt;/max_gpa&gt;
+        &lt;is_start_date_month_present&gt;false&lt;/is_start_date_month_present&gt;
+        &lt;is_end_date_month_present&gt;false&lt;/is_end_date_month_present&gt;
+        &lt;extracurricular_activities&gt;Extracurricular Activities&lt;/extracurricular_activities&gt;
+      &lt;/school&gt;
+      &lt;school&gt;
+        &lt;country&gt;USA&lt;/country&gt;
+        &lt;school_name&gt;School #1&lt;/school_name&gt;
+      &lt;/school&gt;
+    &lt;/schools&gt;
+  &lt;/education&gt;
+
+  &lt;skills&gt;
+    &lt;skill&gt;
+      &lt;skill&gt;
+        &lt;id&gt;1&lt;/id&gt;
+      &lt;/skill&gt;
+      &lt;level&gt;2&lt;/level&gt;
+      &lt;years&gt;1&lt;/years&gt;
+    &lt;/skill&gt;
+    &lt;skill&gt;
+      &lt;skill&gt;
+        &lt;id&gt;2&lt;/id&gt;
+      &lt;/skill&gt;
+      &lt;level&gt;1&lt;/level&gt;
+      &lt;years&gt;3&lt;/years&gt;
+    &lt;/skill&gt;
+  &lt;/skills&gt;
+
+  &lt;other_skills&gt;Other1&lt;/other_skills&gt;
+  &lt;traits&gt;Traits1&lt;/traits&gt;
+
+  &lt;work_experiences&gt;
+    &lt;work_experience&gt;
+      &lt;index&gt;1&lt;/index&gt;
+      &lt;company&gt;
+        &lt;name&gt;Company Name 1&lt;/name&gt;
+        &lt;city&gt;Las Vegas&lt;/city&gt;
+        &lt;state&gt;Nevada&lt;/state&gt;
+      &lt;/company&gt;
+      &lt;supervisor&gt;
+        &lt;name&gt;Jane Doe&lt;/name&gt;
+        &lt;phone_number&gt;+111222333444&lt;/phone_number&gt;
+      &lt;/supervisor&gt;
+      &lt;payment&gt;
+        &lt;starting_pay&gt;2500&lt;/starting_pay&gt;
+        &lt;ending_pay&gt;5500&lt;/ending_pay&gt;
+      &lt;/payment&gt;
+      &lt;reason_for_leaving&gt;Reason For Leaving&lt;/reason_for_leaving&gt;
+      &lt;job_titles&gt;
+        &lt;job_title&gt;
+          &lt;index&gt;1&lt;/index&gt;
+          &lt;job_title&gt;Junior Software Engineer&lt;/job_title&gt;
+          &lt;from&gt;2000-01-01&lt;/from&gt;
+          &lt;to&gt;2001-01-01&lt;/to&gt;
+          &lt;job_description&gt;Junior Software Engineer&lt;/job_description&gt;
+        &lt;/job_title&gt;
+        &lt;job_title&gt;
+          &lt;index&gt;2&lt;/index&gt;
+          &lt;job_title&gt;Software Engineer&lt;/job_title&gt;
+          &lt;from&gt;2001-01-02&lt;/from&gt;
+          &lt;to&gt;2002-01-01&lt;/to&gt;
+          &lt;job_description&gt;Software Engineer&lt;/job_description&gt;
+        &lt;/job_title&gt;
+      &lt;/job_titles&gt;
+    &lt;/work_experience&gt;
+    &lt;work_experience&gt;
+      &lt;index&gt;2&lt;/index&gt;
+      &lt;company&gt;
+        &lt;name&gt;Company Name 2&lt;/name&gt;
+        &lt;city&gt;Las Vegas&lt;/city&gt;
+        &lt;state&gt;Nevada&lt;/state&gt;
+      &lt;/company&gt;
+      &lt;supervisor&gt;
+        &lt;name&gt;Jane Doe&lt;/name&gt;
+        &lt;phone_number&gt;+111222333444&lt;/phone_number&gt;
+      &lt;/supervisor&gt;
+      &lt;payment&gt;
+        &lt;starting_pay&gt;6500&lt;/starting_pay&gt;
+        &lt;ending_pay&gt;8000&lt;/ending_pay&gt;
+      &lt;/payment&gt;
+      &lt;reason_for_leaving&gt;Reason For Leaving&lt;/reason_for_leaving&gt;
+      &lt;job_titles&gt;
+        &lt;job_title&gt;
+          &lt;index&gt;1&lt;/index&gt;
+          &lt;job_title&gt;Software Engineer&lt;/job_title&gt;
+          &lt;from&gt;2003-01-01&lt;/from&gt;
+          &lt;to&gt;2005-01-01&lt;/to&gt;
+          &lt;job_description&gt;Software Engineer&lt;/job_description&gt;
+        &lt;/job_title&gt;
+        &lt;job_title&gt;
+          &lt;index&gt;2&lt;/index&gt;
+          &lt;job_title&gt;Senior Software Engineer&lt;/job_title&gt;
+          &lt;from&gt;2005-01-02&lt;/from&gt;
+          &lt;to&gt;2008-01-01&lt;/to&gt;
+          &lt;job_description&gt;Senior Software Engineer&lt;/job_description&gt;
+        &lt;/job_title&gt;
+      &lt;/job_titles&gt;
+    &lt;/work_experience&gt;
+  &lt;/work_experiences&gt;
+
+  &lt;professional_references&gt;
+    &lt;professional_reference&gt;
+      &lt;index&gt;0&lt;/index&gt;
+      &lt;company&gt;Company 1&lt;/company&gt;
+      &lt;contact&gt;
+        &lt;person&gt;Person 1&lt;/person&gt;
+        &lt;relationship&gt;Friend&lt;/relationship&gt;
+        &lt;email&gt;friend@email.com&lt;/email&gt;
+        &lt;phone&gt;+111222333444&lt;/phone&gt;
+        &lt;years_known&gt;10&lt;/years_known&gt;
+        &lt;may_contact&gt;true&lt;/may_contact&gt;
+      &lt;/contact&gt;
+    &lt;/professional_reference&gt;
+    &lt;professional_reference&gt;
+      &lt;index&gt;1&lt;/index&gt;
+      &lt;company&gt;Company 2&lt;/company&gt;
+      &lt;contact&gt;
+        &lt;person&gt;Person 2&lt;/person&gt;
+        &lt;relationship&gt;Friend2&lt;/relationship&gt;
+        &lt;email&gt;friend2@email.com&lt;/email&gt;
+        &lt;phone&gt;+111222333444&lt;/phone&gt;
+        &lt;may_contact&gt;true&lt;/may_contact&gt;
+      &lt;/contact&gt;
+    &lt;/professional_reference&gt;
+  &lt;/professional_references&gt;
+
+  &lt;job_categories&gt;
+    &lt;job_category&gt;
+      &lt;job&gt;
+        &lt;id&gt;12345&lt;/id&gt;
+      &lt;/job&gt;
+      &lt;years&gt;1&lt;/years&gt;
+    &lt;/job_category&gt;
+    &lt;job_category&gt;
+      &lt;job&gt;
+        &lt;id&gt;123456&lt;/id&gt;
+      &lt;/job&gt;
+      &lt;years&gt;2&lt;/years&gt;
+    &lt;/job_category&gt;
+  &lt;/job_categories&gt;
+
+  &lt;applicant_custom_fields&gt;
+    &lt;applicant_custom_field&gt;
+      &lt;index&gt;0&lt;/index&gt;
+      &lt;value&gt;Value0&lt;/value&gt;
+    &lt;/applicant_custom_field&gt;
+    &lt;applicant_custom_field&gt;
+      &lt;index&gt;1&lt;/index&gt;
+      &lt;value&gt;Value1&lt;/value&gt;
+    &lt;/applicant_custom_field&gt;
+    &lt;applicant_custom_field&gt;
+      &lt;index&gt;2&lt;/index&gt;
+      &lt;value&gt;Value2&lt;/value&gt;
+    &lt;/applicant_custom_field&gt;
+  &lt;/applicant_custom_fields&gt;
+
+  &lt;_links&gt;
+    &lt;self&gt;http://localhost:8080/ta/rest/v2/companies/456008/applicants/111&lt;/self&gt;
+  &lt;/_links&gt;
+
+&lt;/applicant&gt;
+</pre>
+</div>
+<div class="put-example-tab-1" id="put-tab-schema-1">
+
+<div class="jsonschema" id="schema-3">&lt;xs:schema elementFormDefault="qualified" xmlns:xs="http://www.w3.org/2001/XMLSchema"&gt;
+    &lt;xs:element name="applicant"&gt;
+        &lt;xs:complexType&gt;
+            &lt;xs:all&gt;
+
+                &lt;xs:element name="account"&gt;
+                    &lt;xs:complexType&gt;
+                        &lt;xs:all&gt;
+                            &lt;xs:element type="xs:long" name="account_id" minOccurs="0"&gt;
+                                &lt;xs:annotation&gt;
+                                    &lt;xs:documentation&gt;This field is only used for GET.&lt;/xs:documentation&gt;
+                                &lt;/xs:annotation&gt;
+                            &lt;/xs:element&gt;
+                            &lt;xs:element type="personal_info_type" name="username"/&gt;
+                            &lt;xs:element type="xs:string" name="salutation" minOccurs="0"/&gt;
+                            &lt;xs:element type="personal_info_type" name="first_name"/&gt;
+                            &lt;xs:element type="personal_info_type" name="last_name"/&gt;
+                            &lt;xs:element type="xs:string" name="nickname" minOccurs="0"/&gt;
+                            &lt;xs:element type="middle_name_type" name="middle_name" minOccurs="0"/&gt;
+                            &lt;xs:element type="xs:string" name="name_suffix" minOccurs="0"/&gt;
+                            &lt;xs:element type="email_type" name="primary_email"/&gt;
+                            &lt;xs:element type="email_type" name="secondary_email" minOccurs="0"/&gt;
+                            &lt;xs:element type="xs:boolean" name="force_change_password" default="false" minOccurs="0"/&gt;
+                            &lt;xs:element type="xs:boolean" name="locked" default="false" minOccurs="0"/&gt;
+                            &lt;xs:element type="social_number_type" name="ssn" minOccurs="0"/&gt;
+                            &lt;xs:element type="social_number_type" name="bsn" minOccurs="0"/&gt;
+                            &lt;xs:element type="social_number_type" name="sin" minOccurs="0"/&gt;
+                            &lt;xs:element type="social_number_type" name="nin" minOccurs="0"/&gt;
+                            &lt;xs:element type="security_type" name="security_question" minOccurs="0"/&gt;
+                            &lt;xs:element type="reference_type" name="locale" minOccurs="0"/&gt;
+                            &lt;xs:element type="reference_type" name="time_zone" minOccurs="0"/&gt;
+                        &lt;/xs:all&gt;
+                    &lt;/xs:complexType&gt;
+                &lt;/xs:element&gt;
+
+                &lt;xs:element type="address_type" name="address" minOccurs="0"/&gt;
+                &lt;xs:element type="phones" name="phones" minOccurs="0"/&gt;
+
+                &lt;xs:element type="xs:anyURI" name="photo_href" minOccurs="0"/&gt;
+
+                &lt;xs:element name="demographics" minOccurs="0"&gt;
+                    &lt;xs:complexType&gt;
+                        &lt;xs:sequence&gt;
+                            &lt;xs:element type="gender_type" name="gender" default="UNDEFINED" minOccurs="0"/&gt;
+                            &lt;xs:element type="height_type" name="height" minOccurs="0"/&gt;
+                            &lt;xs:element type="xs:string" name="weight" minOccurs="0"/&gt;
+                            &lt;xs:element type="eye_color_type" name="eye_color" minOccurs="0"/&gt;
+                            &lt;xs:element type="ethnicity_type" name="ethnicity" minOccurs="0"/&gt;
+                            &lt;xs:element type="citizenship_type" name="citizenship" minOccurs="0"/&gt;
+                            &lt;xs:element type="xs:boolean" name="smoker" minOccurs="0"/&gt;
+                            &lt;xs:element type="xs:string" name="primary_language" minOccurs="0"/&gt;
+                            &lt;xs:element type="xs:string" name="secondary_language" minOccurs="0"/&gt;
+                            &lt;xs:element type="xs:boolean" name="full_time_student" minOccurs="0"/&gt;
+                            &lt;xs:element type="veteran_type" name="veteran" minOccurs="0"/&gt;
+                            &lt;xs:element type="demographics_custom_fields_type" name="demographics_custom_fields"
+                                        minOccurs="0"/&gt;
+                            &lt;xs:element type="visa_type" name="visa" minOccurs="0"/&gt;
+                        &lt;/xs:sequence&gt;
+                    &lt;/xs:complexType&gt;
+                &lt;/xs:element&gt;
+
+                &lt;xs:element type="money_type" name="required_salary" default="0" minOccurs="0"/&gt;
+                &lt;xs:element type="required_salary_per_type" name="required_salary_per" default="YEAR" minOccurs="0"/&gt;
+                &lt;xs:element type="xs:boolean" name="eligible_for_work" minOccurs="0" default="true"/&gt;
+                &lt;xs:element type="xs:boolean" name="will_relocate" default="false" minOccurs="0"/&gt;
+                &lt;xs:element type="money_type" name="relocation_cost" minOccurs="0"/&gt;
+                &lt;xs:element type="percentage_type" name="willing_to_travel" minOccurs="0"/&gt;
+                &lt;xs:element type="xs:boolean" name="reliable_transportation" default="false" minOccurs="0"/&gt;
+                &lt;xs:element type="xs:nonNegativeInteger" name="managed_people" minOccurs="0"/&gt;
+                &lt;xs:element type="xs:date" name="available_start_date" minOccurs="0"/&gt;
+                &lt;xs:element type="xs:string" name="summary" minOccurs="0"/&gt;
+
+                &lt;xs:element name="education"&gt;
+                    &lt;xs:complexType&gt;
+                        &lt;xs:sequence&gt;
+                            &lt;xs:element type="reference_type" name="highest_education" minOccurs="0"/&gt;
+                            &lt;xs:element type="schools_type" name="schools" minOccurs="0"/&gt;
+                        &lt;/xs:sequence&gt;
+                    &lt;/xs:complexType&gt;
+                &lt;/xs:element&gt;
+
+                &lt;xs:element type="skills_type" name="skills" minOccurs="0"/&gt;
+                &lt;xs:element type="xs:string" name="other_skills" minOccurs="0"/&gt;
+                &lt;xs:element type="xs:string" name="traits" minOccurs="0"/&gt;
+                &lt;xs:element type="work_experience_type" name="work_experiences" minOccurs="0"/&gt;
+                &lt;xs:element type="professional_references_type" name="professional_references" minOccurs="0"/&gt;
+                &lt;xs:element type="job_categories_type" name="job_categories" minOccurs="0"/&gt;
+                &lt;xs:element type="applicant_custom_fields_type" name="applicant_custom_fields" minOccurs="0"/&gt;
+                &lt;xs:element type="self_link_type" name="_links" minOccurs="0"/&gt;
+            &lt;/xs:all&gt;
+        &lt;/xs:complexType&gt;
+    &lt;/xs:element&gt;
+
+    &lt;xs:complexType name="skill_type"&gt;
+        &lt;xs:all&gt;
+            &lt;xs:element type="reference_type" name="skill"/&gt;
+            &lt;xs:element type="xs:nonNegativeInteger" name="level" minOccurs="0"/&gt;
+            &lt;xs:element type="xs:nonNegativeInteger" name="years" minOccurs="0"/&gt;
+            &lt;xs:element type="xs:boolean" name="primary" minOccurs="0"/&gt;
+        &lt;/xs:all&gt;
+    &lt;/xs:complexType&gt;
+
+    &lt;xs:complexType name="skills_type"&gt;
+        &lt;xs:sequence&gt;
+            &lt;xs:element type="skill_type" name="skill" maxOccurs="unbounded"/&gt;
+        &lt;/xs:sequence&gt;
+    &lt;/xs:complexType&gt;
+
+    &lt;xs:complexType name="professional_references_type"&gt;
+        &lt;xs:sequence&gt;
+            &lt;xs:element name="professional_reference" maxOccurs="3" minOccurs="0"&gt;
+                &lt;xs:complexType&gt;
+                    &lt;xs:sequence&gt;
+                        &lt;xs:element type="index_type" name="index" minOccurs="0"/&gt;
+                        &lt;xs:element type="xs:string" name="company" minOccurs="0"/&gt;
+                        &lt;xs:element type="contact_type" name="contact" minOccurs="0"/&gt;
+                    &lt;/xs:sequence&gt;
+                &lt;/xs:complexType&gt;
+            &lt;/xs:element&gt;
+        &lt;/xs:sequence&gt;
+    &lt;/xs:complexType&gt;
+
+    &lt;xs:complexType name="work_experience_type"&gt;
+        &lt;xs:sequence&gt;
+            &lt;xs:element name="work_experience" minOccurs="0" maxOccurs="10"&gt;
+                &lt;xs:complexType&gt;
+                    &lt;xs:all&gt;
+                        &lt;xs:element type="index_type" name="index"/&gt;
+                        &lt;xs:element type="company_type" name="company" minOccurs="0"/&gt;
+                        &lt;xs:element type="supervisor_type" name="supervisor" minOccurs="0"/&gt;
+                        &lt;xs:element name="payment" minOccurs="0"&gt;
+                            &lt;xs:complexType&gt;
+                                &lt;xs:sequence&gt;
+                                    &lt;xs:element type="xs:double" name="starting_pay" default="0" minOccurs="0"/&gt;
+                                    &lt;xs:element type="xs:double" name="ending_pay" default="0" minOccurs="0"/&gt;
+                                    &lt;xs:element type="payment_type" name="pay_type" default="SALARY" minOccurs="0"/&gt;
+                                &lt;/xs:sequence&gt;
+                            &lt;/xs:complexType&gt;
+                        &lt;/xs:element&gt;
+                        &lt;xs:element type="xs:string" name="reason_for_leaving" minOccurs="0"/&gt;
+                        &lt;xs:element type="job_titles_type" name="job_titles" minOccurs="0"/&gt;
+                    &lt;/xs:all&gt;
+                &lt;/xs:complexType&gt;
+            &lt;/xs:element&gt;
+        &lt;/xs:sequence&gt;
+    &lt;/xs:complexType&gt;
+
+    &lt;xs:complexType name="job_titles_type"&gt;
+        &lt;xs:sequence&gt;
+            &lt;xs:element name="job_title" minOccurs="0" maxOccurs="5"&gt;
+                &lt;xs:complexType&gt;
+                    &lt;xs:all&gt;
+                        &lt;xs:element type="job_title_index_type" name="index"/&gt;
+                        &lt;xs:element type="xs:string" name="job_title" minOccurs="0"/&gt;
+                        &lt;xs:element type="xs:date" name="from" minOccurs="0"/&gt;
+                        &lt;xs:element type="xs:date" name="to" minOccurs="0"/&gt;
+                        &lt;xs:element type="xs:string" name="job_description" minOccurs="0"/&gt;
+                    &lt;/xs:all&gt;
+                &lt;/xs:complexType&gt;
+            &lt;/xs:element&gt;
+        &lt;/xs:sequence&gt;
+    &lt;/xs:complexType&gt;
+
+    &lt;xs:complexType name="job_categories_type"&gt;
+        &lt;xs:sequence&gt;
+            &lt;xs:element name="job_category" maxOccurs="unbounded" minOccurs="0"&gt;
+                &lt;xs:complexType&gt;
+                    &lt;xs:all&gt;
+                        &lt;xs:element type="reference_type" name="job"/&gt;
+                        &lt;xs:element type="xs:nonNegativeInteger" name="years"/&gt;
+                    &lt;/xs:all&gt;
+                &lt;/xs:complexType&gt;
+            &lt;/xs:element&gt;
+        &lt;/xs:sequence&gt;
+    &lt;/xs:complexType&gt;
+
+    &lt;xs:complexType name="schools_type"&gt;
+        &lt;xs:sequence&gt;
+            &lt;xs:element name="school" maxOccurs="10" minOccurs="0"&gt;
+                &lt;xs:complexType&gt;
+                    &lt;xs:all&gt;
+                        &lt;xs:element type="xs:boolean" name="startDateMonthPresent" minOccurs="0"/&gt;
+                        &lt;xs:element type="xs:boolean" name="endDateMonthPresent" minOccurs="0"/&gt;
+                        &lt;xs:element type="xs:boolean" name="last" minOccurs="0"/&gt;
+                        &lt;xs:element type="xs:string" name="country"/&gt;
+                        &lt;xs:element type="xs:string" name="school_name"/&gt;
+                        &lt;xs:element type="xs:date" name="start_date" minOccurs="0"/&gt;
+                        &lt;xs:element type="xs:date" name="end_date" minOccurs="0"/&gt;
+                        &lt;xs:element type="reference_type" name="degree_level" minOccurs="0"/&gt;
+                        &lt;xs:element type="school_type" name="school_type" minOccurs="0"/&gt;
+                        &lt;xs:element type="status_type" name="education_status" minOccurs="0"/&gt;
+                        &lt;xs:element type="xs:string" name="school_type_other" minOccurs="0"/&gt;
+                        &lt;xs:element type="xs:string" name="major" minOccurs="0"/&gt;
+                        &lt;xs:element type="xs:string" name="minor" minOccurs="0"/&gt;
+                        &lt;xs:element type="xs:string" name="course" minOccurs="0"/&gt;
+                        &lt;xs:element type="xs:nonNegativeInteger" name="credit_hours" minOccurs="0"/&gt;
+                        &lt;xs:element type="xs:decimal" name="gpa" minOccurs="0" default="0"/&gt;
+                        &lt;xs:element type="xs:decimal" name="max_gpa" minOccurs="0" default="0"/&gt;
+                        &lt;xs:element type="xs:boolean" name="is_start_date_month_present" minOccurs="0"/&gt;
+                        &lt;xs:element type="xs:boolean" name="is_end_date_month_present" minOccurs="0"/&gt;
+                        &lt;xs:element type="xs:string" name="extracurricular_activities" minOccurs="0"/&gt;
+                    &lt;/xs:all&gt;
+                &lt;/xs:complexType&gt;
+            &lt;/xs:element&gt;
+        &lt;/xs:sequence&gt;
+    &lt;/xs:complexType&gt;
+
+    &lt;xs:complexType name="self_link_type"&gt;
+        &lt;xs:sequence&gt;
+            &lt;xs:element type="xs:anyURI" name="self" minOccurs="0"/&gt;
+        &lt;/xs:sequence&gt;
+    &lt;/xs:complexType&gt;
+
+    &lt;xs:complexType name="applicant_custom_fields_type"&gt;
+        &lt;xs:sequence&gt;
+            &lt;xs:element name="applicant_custom_field" maxOccurs="100" minOccurs="0"&gt;
+                &lt;xs:complexType&gt;
+                    &lt;xs:all&gt;
+                        &lt;xs:element type="custom_field_index_type" name="index"/&gt;
+                        &lt;xs:element type="xs:string" name="value"/&gt;
+                    &lt;/xs:all&gt;
+                &lt;/xs:complexType&gt;
+            &lt;/xs:element&gt;
+        &lt;/xs:sequence&gt;
+    &lt;/xs:complexType&gt;
+
+    &lt;xs:complexType name="demographics_custom_fields_type"&gt;
+        &lt;xs:sequence&gt;
+            &lt;xs:element name="demographics_custom_field" maxOccurs="50" minOccurs="0"&gt;
+                &lt;xs:complexType&gt;
+                    &lt;xs:all&gt;
+                        &lt;xs:element type="custom_field_index_type" name="index"/&gt;
+                        &lt;xs:element type="xs:string" name="value" minOccurs="0"/&gt;
+                    &lt;/xs:all&gt;
+                &lt;/xs:complexType&gt;
+            &lt;/xs:element&gt;
+        &lt;/xs:sequence&gt;
+    &lt;/xs:complexType&gt;
+
+    &lt;xs:complexType name="phones"&gt;
+        &lt;xs:sequence&gt;
+            &lt;xs:element name="work_phone" minOccurs="0"&gt;
+                &lt;xs:simpleType&gt;
+                    &lt;xs:restriction base="xs:string"&gt;
+                        &lt;xs:maxLength value="25"/&gt;
+                    &lt;/xs:restriction&gt;
+                &lt;/xs:simpleType&gt;
+            &lt;/xs:element&gt;
+            &lt;xs:element name="home_phone" minOccurs="0"&gt;
+                &lt;xs:simpleType&gt;
+                    &lt;xs:restriction base="xs:string"&gt;
+                        &lt;xs:maxLength value="25"/&gt;
+                    &lt;/xs:restriction&gt;
+                &lt;/xs:simpleType&gt;
+            &lt;/xs:element&gt;
+            &lt;xs:element name="cell_phone" minOccurs="0"&gt;
+                &lt;xs:simpleType&gt;
+                    &lt;xs:restriction base="xs:string"&gt;
+                        &lt;xs:maxLength value="25"/&gt;
+                    &lt;/xs:restriction&gt;
+                &lt;/xs:simpleType&gt;
+            &lt;/xs:element&gt;
+            &lt;xs:element type="preferred_phone_type" name="preferred_phone" minOccurs="0" default="NONE"/&gt;
+        &lt;/xs:sequence&gt;
+    &lt;/xs:complexType&gt;
+
+
+    &lt;xs:complexType name="address_type"&gt;
+        &lt;xs:sequence&gt;
+            &lt;xs:element type="address_line_type" name="address_line_1" minOccurs="0"/&gt;
+            &lt;xs:element type="address_line_type" name="address_line_2" minOccurs="0"/&gt;
+            &lt;xs:element type="address_line_type" name="address_line_3" minOccurs="0"/&gt;
+            &lt;xs:element type="xs:string" name="country"/&gt;
+            &lt;xs:element name="city" minOccurs="0"&gt;
+                &lt;xs:simpleType&gt;
+                    &lt;xs:restriction base="xs:string"&gt;
+                        &lt;xs:maxLength value="25"/&gt;
+                    &lt;/xs:restriction&gt;
+                &lt;/xs:simpleType&gt;
+            &lt;/xs:element&gt;
+            &lt;xs:element name="state" minOccurs="0"&gt;
+                &lt;xs:simpleType&gt;
+                    &lt;xs:restriction base="xs:string"&gt;
+                        &lt;xs:maxLength value="2"/&gt;
+                    &lt;/xs:restriction&gt;
+                &lt;/xs:simpleType&gt;
+            &lt;/xs:element&gt;
+            &lt;xs:element name="zip" minOccurs="0"&gt;
+                &lt;xs:simpleType&gt;
+                    &lt;xs:restriction base="xs:string"&gt;
+                        &lt;xs:maxLength value="15"/&gt;
+                    &lt;/xs:restriction&gt;
+                &lt;/xs:simpleType&gt;
+            &lt;/xs:element&gt;
+            &lt;xs:element name="number" minOccurs="0"&gt;
+                &lt;xs:simpleType&gt;
+                    &lt;xs:restriction base="xs:string"&gt;
+                        &lt;xs:maxLength value="10"/&gt;
+                    &lt;/xs:restriction&gt;
+                &lt;/xs:simpleType&gt;
+            &lt;/xs:element&gt;
+            &lt;xs:element name="number_addition" minOccurs="0"&gt;
+                &lt;xs:simpleType&gt;
+                    &lt;xs:restriction base="xs:string"&gt;
+                        &lt;xs:maxLength value="10"/&gt;
+                    &lt;/xs:restriction&gt;
+                &lt;/xs:simpleType&gt;
+            &lt;/xs:element&gt;
+        &lt;/xs:sequence&gt;
+    &lt;/xs:complexType&gt;
+    &lt;xs:complexType name="document_type"&gt;
+        &lt;xs:sequence&gt;
+            &lt;xs:element type="xs:long" name="id"/&gt;
+            &lt;xs:element name="_links" minOccurs="0"&gt;
+                &lt;xs:complexType&gt;
+                    &lt;xs:sequence&gt;
+                        &lt;xs:element type="xs:anyURI" name="content_rw" minOccurs="0"/&gt;
+                        &lt;xs:element type="xs:anyURI" name="delete" minOccurs="0"/&gt;
+                    &lt;/xs:sequence&gt;
+                &lt;/xs:complexType&gt;
+            &lt;/xs:element&gt;
+            &lt;xs:element type="xs:dateTime" name="created_at" minOccurs="0"/&gt;
+            &lt;xs:element name="created_by" minOccurs="0"&gt;
+                &lt;xs:complexType&gt;
+                    &lt;xs:sequence&gt;
+                        &lt;xs:element type="xs:long" name="account_id"/&gt;
+                        &lt;xs:element type="xs:string" name="display_name" minOccurs="0"/&gt;
+                    &lt;/xs:sequence&gt;
+                &lt;/xs:complexType&gt;
+            &lt;/xs:element&gt;
+            &lt;xs:element type="xs:string" name="display_name" minOccurs="0"/&gt;
+            &lt;xs:element type="xs:nonNegativeInteger" name="file_size" minOccurs="0"/&gt;
+        &lt;/xs:sequence&gt;
+    &lt;/xs:complexType&gt;
+
+    &lt;xs:complexType name="company_type"&gt;
+        &lt;xs:sequence&gt;
+            &lt;xs:element type="xs:string" name="name"/&gt;
+            &lt;xs:element type="xs:string" name="city"/&gt;
+            &lt;xs:element type="xs:string" name="state"/&gt;
+        &lt;/xs:sequence&gt;
+    &lt;/xs:complexType&gt;
+
+    &lt;xs:complexType name="reference_type"&gt;
+        &lt;xs:sequence&gt;
+            &lt;xs:element type="xs:long" name="id"/&gt;
+        &lt;/xs:sequence&gt;
+    &lt;/xs:complexType&gt;
+
+    &lt;xs:complexType name="security_type"&gt;
+        &lt;xs:sequence&gt;
+            &lt;xs:element type="xs:string" name="question" minOccurs="0"/&gt;
+            &lt;xs:element type="xs:string" name="answer" minOccurs="0"/&gt;
+        &lt;/xs:sequence&gt;
+    &lt;/xs:complexType&gt;
+
+
+    &lt;xs:complexType name="supervisor_type"&gt;
+        &lt;xs:sequence&gt;
+            &lt;xs:element type="xs:string" name="name"/&gt;
+            &lt;xs:element type="xs:string" name="phone_number"/&gt;
+        &lt;/xs:sequence&gt;
+    &lt;/xs:complexType&gt;
+
+    &lt;xs:simpleType name="social_number_type"&gt;
+        &lt;xs:restriction base="xs:string"&gt;
+            &lt;xs:maxLength value="20"/&gt;
+        &lt;/xs:restriction&gt;
+    &lt;/xs:simpleType&gt;
+
+    &lt;xs:simpleType name="address_line_type"&gt;
+        &lt;xs:restriction base="xs:string"&gt;
+            &lt;xs:maxLength value="60"/&gt;
+        &lt;/xs:restriction&gt;
+    &lt;/xs:simpleType&gt;
+
+    &lt;xs:simpleType name="personal_info_type"&gt;
+        &lt;xs:restriction base="xs:string"&gt;
+            &lt;xs:maxLength value="75"/&gt;
+        &lt;/xs:restriction&gt;
+    &lt;/xs:simpleType&gt;
+
+    &lt;xs:simpleType name="middle_name_type"&gt;
+        &lt;xs:restriction base="xs:string"&gt;
+            &lt;xs:maxLength value="10"/&gt;
+        &lt;/xs:restriction&gt;
+    &lt;/xs:simpleType&gt;
+
+    &lt;xs:simpleType name="height_type"&gt;
+        &lt;xs:restriction base="xs:string"&gt;
+            &lt;xs:maxLength value="9"/&gt;
+        &lt;/xs:restriction&gt;
+    &lt;/xs:simpleType&gt;
+
+    &lt;xs:simpleType name="eye_color_type"&gt;
+        &lt;xs:restriction base="xs:string"&gt;
+            &lt;xs:maxLength value="50"/&gt;
+        &lt;/xs:restriction&gt;
+    &lt;/xs:simpleType&gt;
+
+    &lt;xs:simpleType name="email_type"&gt;
+        &lt;xs:restriction base="xs:string"&gt;
+            &lt;xs:maxLength value="75"/&gt;
+        &lt;/xs:restriction&gt;
+    &lt;/xs:simpleType&gt;
+
+    &lt;xs:simpleType name="money_type"&gt;
+        &lt;xs:restriction base="xs:double"&gt;
+            &lt;xs:minInclusive value="0"/&gt;
+        &lt;/xs:restriction&gt;
+    &lt;/xs:simpleType&gt;
+
+    &lt;xs:simpleType name="index_type"&gt;
+        &lt;xs:restriction base="xs:byte"&gt;
+            &lt;xs:minInclusive value="0"/&gt;
+            &lt;xs:maxInclusive value="9"/&gt;
+        &lt;/xs:restriction&gt;
+    &lt;/xs:simpleType&gt;
+
+    &lt;xs:simpleType name="custom_field_index_type"&gt;
+        &lt;xs:restriction base="xs:byte"&gt;
+            &lt;xs:minInclusive value="0"/&gt;
+            &lt;xs:maxInclusive value="99"/&gt;
+        &lt;/xs:restriction&gt;
+    &lt;/xs:simpleType&gt;
+
+    &lt;xs:simpleType name="job_title_index_type"&gt;
+        &lt;xs:restriction base="xs:byte"&gt;
+            &lt;xs:minInclusive value="0"/&gt;
+            &lt;xs:maxInclusive value="4"/&gt;
+        &lt;/xs:restriction&gt;
+    &lt;/xs:simpleType&gt;
+
+    &lt;xs:simpleType name="percentage_type"&gt;
+        &lt;xs:restriction base="xs:byte"&gt;
+            &lt;xs:minInclusive value="0"/&gt;
+            &lt;xs:maxInclusive value="100"/&gt;
+        &lt;/xs:restriction&gt;
+    &lt;/xs:simpleType&gt;
+
+    &lt;xs:complexType name="veteran_type"&gt;
+        &lt;xs:sequence&gt;
+            &lt;xs:element type="veteran_enum_type" name="veteran_type" minOccurs="0"/&gt;
+            &lt;xs:element type="xs:boolean" name="recently_separated" minOccurs="0"/&gt;
+            &lt;xs:element type="xs:boolean" name="disabled" minOccurs="0"/&gt;
+            &lt;xs:element type="xs:boolean" name="armed_force_medal" minOccurs="0"/&gt;
+            &lt;xs:element type="xs:boolean" name="active_wartime_or_campaign_badge" minOccurs="0"/&gt;
+            &lt;xs:element type="xs:date" name="discharge_date" minOccurs="0"/&gt;
+        &lt;/xs:sequence&gt;
+    &lt;/xs:complexType&gt;
+
+    &lt;xs:complexType name="contact_type"&gt;
+        &lt;xs:sequence&gt;
+            &lt;xs:element type="xs:string" name="person" minOccurs="0"/&gt;
+            &lt;xs:element type="xs:string" name="relationship" minOccurs="0"/&gt;
+            &lt;xs:element type="email_type" name="email" minOccurs="0"/&gt;
+            &lt;xs:element type="xs:string" name="phone" minOccurs="0"/&gt;
+            &lt;xs:element type="xs:nonNegativeInteger" name="years_known" default="0" minOccurs="0"/&gt;
+            &lt;xs:element type="xs:boolean" name="may_contact" minOccurs="0"/&gt;
+        &lt;/xs:sequence&gt;
+    &lt;/xs:complexType&gt;
+
+    &lt;xs:simpleType name="preferred_phone_type" final="restriction"&gt;
+        &lt;xs:restriction base="xs:string"&gt;
+            &lt;xs:enumeration value="NONE"/&gt;
+            &lt;xs:enumeration value="WORK"/&gt;
+            &lt;xs:enumeration value="HOME"/&gt;
+            &lt;xs:enumeration value="CELL"/&gt;
+        &lt;/xs:restriction&gt;
+    &lt;/xs:simpleType&gt;
+
+    &lt;xs:simpleType name="veteran_enum_type" final="restriction"&gt;
+        &lt;xs:restriction base="xs:string"&gt;
+            &lt;xs:enumeration value="NO"/&gt;
+            &lt;xs:enumeration value="YES"/&gt;
+            &lt;xs:enumeration value="YES_NOT_TO_SELF_IDENTIFY_CLASSIFICATION"/&gt;
+            &lt;xs:enumeration value="NOT_WISH_TO_ANSWER"/&gt;
+        &lt;/xs:restriction&gt;
+    &lt;/xs:simpleType&gt;
+
+    &lt;xs:simpleType name="payment_type" final="restriction"&gt;
+        &lt;xs:restriction base="xs:string"&gt;
+            &lt;xs:enumeration value="SALARY"/&gt;
+            &lt;xs:enumeration value="HOURLY"/&gt;
+        &lt;/xs:restriction&gt;
+    &lt;/xs:simpleType&gt;
+
+    &lt;xs:simpleType name="required_salary_per_type" final="restriction"&gt;
+        &lt;xs:restriction base="xs:string"&gt;
+            &lt;xs:enumeration value="YEAR"/&gt;
+            &lt;xs:enumeration value="MONTH"/&gt;
+            &lt;xs:enumeration value="WEEK"/&gt;
+            &lt;xs:enumeration value="HOUR"/&gt;
+            &lt;xs:enumeration value="PAY_PERIOD"/&gt;
+        &lt;/xs:restriction&gt;
+    &lt;/xs:simpleType&gt;
+
+    &lt;xs:simpleType name="school_type" final="restriction"&gt;
+        &lt;xs:restriction base="xs:string"&gt;
+            &lt;xs:enumeration value="OTHER"/&gt;
+            &lt;xs:enumeration value="HIGH_SCHOOL"/&gt;
+            &lt;xs:enumeration value="TRADE_SCHOOL"/&gt;
+            &lt;xs:enumeration value="COLLEGE_OR_UNIVERSITY"/&gt;
+            &lt;xs:enumeration value="CONTINUING_EDUCATION"/&gt;
+            &lt;xs:enumeration value="PRIMARY_EDUCATION"/&gt;
+            &lt;xs:enumeration value="SECONDARY_EDUCATION"/&gt;
+            &lt;xs:enumeration value="HIGHER_EDUCATION"/&gt;
+            &lt;xs:enumeration value="ACADEMIC_EDUCATION"/&gt;
+        &lt;/xs:restriction&gt;
+    &lt;/xs:simpleType&gt;
+
+    &lt;xs:simpleType name="status_type" final="restriction"&gt;
+        &lt;xs:restriction base="xs:string"&gt;
+            &lt;xs:enumeration value="GRADUATED"/&gt;
+            &lt;xs:enumeration value="IN_PROCESS"/&gt;
+            &lt;xs:enumeration value="DID_NOT_COMPLETE"/&gt;
+        &lt;/xs:restriction&gt;
+    &lt;/xs:simpleType&gt;
+
+    &lt;xs:simpleType name="gender_type" final="restriction"&gt;
+        &lt;xs:restriction base="xs:string"&gt;
+            &lt;xs:enumeration value="UNDEFINED"/&gt;
+            &lt;xs:enumeration value="MALE"/&gt;
+            &lt;xs:enumeration value="FEMALE"/&gt;
+        &lt;/xs:restriction&gt;
+    &lt;/xs:simpleType&gt;
+
+    &lt;xs:simpleType name="ethnicity_type" final="restriction"&gt;
+        &lt;xs:restriction base="xs:string"&gt;
+            &lt;xs:enumeration value="HISPANIC_OR_LATINO"/&gt;
+            &lt;xs:enumeration value="WHITE"/&gt;
+            &lt;xs:enumeration value="BLACK_OR_AFRICAN_AMERICAN"/&gt;
+            &lt;xs:enumeration value="NATIVE_HAWAIIAN_OR_OTHER_PACIFIC_ISLANDER"/&gt;
+            &lt;xs:enumeration value="ASIAN"/&gt;
+            &lt;xs:enumeration value="AMERICAN_INDIAN_OR_ALASKA_NATIVE"/&gt;
+            &lt;xs:enumeration value="TWO_OR_MORE_RACES"/&gt;
+        &lt;/xs:restriction&gt;
+    &lt;/xs:simpleType&gt;
+
+    &lt;xs:simpleType name="citizenship_type" final="restriction"&gt;
+        &lt;xs:restriction base="xs:string"&gt;
+            &lt;xs:enumeration value="US_CITIZEN"/&gt;
+            &lt;xs:enumeration value="PERMANENT_RESIDENT"/&gt;
+            &lt;xs:enumeration value="ALIEN_WITH_WORK_PERMIT"/&gt;
+            &lt;xs:enumeration value="NONCITIZEN_NATIONAL_OF_US"/&gt;
+        &lt;/xs:restriction&gt;
+    &lt;/xs:simpleType&gt;
+
+    &lt;xs:complexType name="visa_type"&gt;
+        &lt;xs:all&gt;
+            &lt;xs:element type="xs:string" name="type"/&gt;
+            &lt;xs:element type="xs:string" name="number" minOccurs="0"/&gt;
+            &lt;xs:element type="visa_expiration_date" name="expiration_date" minOccurs="0"/&gt;
+        &lt;/xs:all&gt;
+    &lt;/xs:complexType&gt;
+
+    &lt;xs:simpleType name="visa_expiration_date"&gt;
+        &lt;xs:restriction base="xs:date"&gt;
+            &lt;xs:minInclusive value="1900-12-31"/&gt;
+            &lt;xs:maxInclusive value="2079-06-05"/&gt;
+        &lt;/xs:restriction&gt;
+    &lt;/xs:simpleType&gt;
+
+&lt;/xs:schema&gt;</div>
+</div>
+</div>
+</div>
+</div>
+</article>
+</section>
+<section class="clearfix">
+<article class="definition">
+<h3 class="anchored" id="delete"><span>DELETE</span>
+<a class="fa fa-link link-anchor" data-url="r=__v2__companies__(cid)__applicants__(account_id)#delete" data-web-id="__v2__companies__(cid)__applicants__(account_id)"></a>
+</h3>
+<div class="md"><p>Deletes an existing applicant by their account ID.</p></div>
+<div>
+<ul class="annotation-list">
+<li class="annotation">
+<span>v2</span>
+</li>
+</ul>
+</div>
+<h4>Parameters</h4>
+<h5>Path Parameters</h5>
+<ul class="param-list">
+<li>
+<div class="param-desc">
+<div class="param-name">cid</div>
+<div class="data-type">string</div>
+<div class="required">required</div>
+</div>
+<div class="param-content">
+<div>
+<p>Example: 123456</p>
+<div class="desc md">Company should be referenced via company id or company unique id or company short name using `|short_name` or `!short_name` format.
+</div>
+</div>
+</div>
+
+</li>
+<li>
+<div class="param-desc">
+<div class="param-name">account_id</div>
+<div class="data-type">integer</div>
+<div class="required">required</div>
+</div>
+<div class="param-content">
+<div>
+<p>Example: 7</p>
+<div class="desc md">The account's id.</div>
+</div>
+</div>
+
+</li>
+</ul>
+<h4>Responses</h4>
+<div class="responses">
+<div>
+<label class="response response-success">
+<span class="fa fa-check"></span>
+<input data-full-tab-id="delete-resp-code-tab-id-0" data-tab-class="resp-code-tab-delete" name="resp-code-tab-delete" type="radio"/>
+<span class="status">204 No Content</span>
+</label>
+<div class="response-desc resp-code-tab-delete" id="delete-resp-code-tab-id-0">
+<div class="md"><p>Applicant has been deleted.</p></div>
+</div>
+</div>
+<div>
+<label class="response response-error">
+<span class="fa fa-times"></span>
+<input data-full-tab-id="delete-resp-code-tab-id-1" data-tab-class="resp-code-tab-delete" name="resp-code-tab-delete" type="radio"/>
+<span class="status">401 Unauthorized</span>
+</label>
+<div class="response-desc resp-code-tab-delete" id="delete-resp-code-tab-id-1">
+<div class="md"><p>Returned in case user is not authorized.</p></div>
+</div>
+</div>
+<div>
+<label class="response response-error">
+<span class="fa fa-times"></span>
+<input data-full-tab-id="delete-resp-code-tab-id-2" data-tab-class="resp-code-tab-delete" name="resp-code-tab-delete" type="radio"/>
+<span class="status">403 Forbidden</span>
+</label>
+<div class="response-desc resp-code-tab-delete" id="delete-resp-code-tab-id-2">
+<div class="md"><p>Returned in case user has no access to the resource.</p></div>
+</div>
+</div>
+<div>
+<label class="response response-error">
+<span class="fa fa-times"></span>
+<input data-full-tab-id="delete-resp-code-tab-id-3" data-tab-class="resp-code-tab-delete" name="resp-code-tab-delete" type="radio"/>
+<span class="status">404 Not Found</span>
+</label>
+<div class="response-desc resp-code-tab-delete" id="delete-resp-code-tab-id-3">
+<div class="md"><p>Returned in case resource does not exist.</p></div>
+</div>
+</div>
+<div>
+<label class="response response-error">
+<span class="fa fa-times"></span>
+<input data-full-tab-id="delete-resp-code-tab-id-4" data-tab-class="resp-code-tab-delete" name="resp-code-tab-delete" type="radio"/>
+<span class="status">503 Service Unavailable</span>
+</label>
+<div class="response-desc resp-code-tab-delete" id="delete-resp-code-tab-id-4">
+<div class="md"><p>Returned in the event that the call limit is exceeded. The application will be unavailable for subsequent calls for the duration specified by the X-CallLimit-TimeToWait header.</p></div>
+</div>
+</div>
+</div>
+</article>
+<article class="code">
+<h4>Definition</h4>
+<div class="uri">
+<code>
+<span class="method delete">delete</span>
+<span class="textUri"><span class="baseUri">{{ getUriPrefix() }}</span><span class="relativeUri">/v2/companies/{cid}/applicants/{account_id}</span></span>
+</code>
+</div>
+</article>
+</section>
+</div>
+</body></html>

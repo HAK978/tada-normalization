@@ -1,0 +1,380 @@
+{
+  "provider": "prismhr",
+  "reference_version": "2025.09-hiring-reference-1",
+  "lookup_status": "verified",
+  "notice": "PARTIAL SOURCE REFERENCE: documented field codes from the Apache-2.0 snapshot. Provider-documented examples are included in the spec; no tenant-specific lookup responses, customer exports or canonical mappings are supplied.",
+  "openapi": {
+    "status": "verified",
+    "relative_path": "prismhr-2025.09.openapi.json",
+    "version": "2025.09",
+    "source": "TadaAI/full-stack:references/prism/prism_api_specs.json",
+    "source_sha256": "e1d9c05933d9bf0a8ccc416d483ec5bf4a2d41929d615daf44427c65e64b71e2",
+    "sha256": "9cb87857940095cf868ed666a70f9092e33d9aa26bcad3c46cb60dad3eff5978",
+    "artifact_kind": "sanitized derivative of existing integration snapshot",
+    "latest_live_version_verified": false
+  },
+  "distribution": {
+    "status": "verified",
+    "basis": "Apache-2.0 explicitly declared in the source artifact at /info/license; license copy and modification notices supplied.",
+    "evidence_reference": "README.md#distribution-basis",
+    "license": "Apache-2.0",
+    "license_file": "LICENSE.apache-2.0.txt",
+    "reviewed_by": "Automated artifact/license evidence review for the organizer-requested private repository; not a separate vendor approval or legal certification.",
+    "reviewed_at": "2026-10-09"
+  },
+  "lookups": [
+    {
+      "domain": "client_status_class",
+      "source_field_pointers": [
+        "#/components/schemas/ClientMaster/properties/statusClass"
+      ],
+      "entries": [
+        {
+          "code": "A",
+          "meaning": "Active",
+          "evidence_reference": "openapi/prismhr-2025.09.openapi.json#/components/schemas/ClientMaster/properties/statusClass/description"
+        },
+        {
+          "code": "P",
+          "meaning": "Pending",
+          "evidence_reference": "openapi/prismhr-2025.09.openapi.json#/components/schemas/ClientMaster/properties/statusClass/description"
+        },
+        {
+          "code": "I",
+          "meaning": "Inactive",
+          "evidence_reference": "openapi/prismhr-2025.09.openapi.json#/components/schemas/ClientMaster/properties/statusClass/description"
+        },
+        {
+          "code": "C",
+          "meaning": "Client Cancelling, Pre-Termination",
+          "evidence_reference": "openapi/prismhr-2025.09.openapi.json#/components/schemas/ClientMaster/properties/statusClass/description"
+        },
+        {
+          "code": "T",
+          "meaning": "Terminated",
+          "evidence_reference": "openapi/prismhr-2025.09.openapi.json#/components/schemas/ClientMaster/properties/statusClass/description"
+        }
+      ],
+      "completeness": "documented field-description list; not a formal closed OpenAPI enum",
+      "raw_code_type": "string",
+      "source_description": "client status class, associated with the client status; “A” (Active), “P” (Pending), “I” (Inactive), “C” (Client Cancelling, Pre-Termination) and “T” (Terminated)",
+      "meaning_origin": "The provider snapshot field description; no candidate canonical mapping is supplied.",
+      "note": "These are status classes. Do not assume a client-defined status identifier is the same as its status class."
+    },
+    {
+      "domain": "client_service_type",
+      "source_field_pointers": [
+        "#/components/schemas/ClientMaster/properties/serviceType"
+      ],
+      "entries": [
+        {
+          "code": "ASO",
+          "meaning": "Administrative Services Only",
+          "evidence_reference": "openapi/prismhr-2025.09.openapi.json#/components/schemas/ClientMaster/properties/serviceType/description"
+        },
+        {
+          "code": "PEO",
+          "meaning": "Professional Employer Services",
+          "evidence_reference": "openapi/prismhr-2025.09.openapi.json#/components/schemas/ClientMaster/properties/serviceType/description"
+        },
+        {
+          "code": "PAY",
+          "meaning": "Payroll Processing Only",
+          "evidence_reference": "openapi/prismhr-2025.09.openapi.json#/components/schemas/ClientMaster/properties/serviceType/description"
+        },
+        {
+          "code": "ASA",
+          "meaning": "Admin Services/Alt. Billing",
+          "evidence_reference": "openapi/prismhr-2025.09.openapi.json#/components/schemas/ClientMaster/properties/serviceType/description"
+        },
+        {
+          "code": "COR",
+          "meaning": "Corporate Payroll",
+          "evidence_reference": "openapi/prismhr-2025.09.openapi.json#/components/schemas/ClientMaster/properties/serviceType/description"
+        },
+        {
+          "code": "HRN",
+          "meaning": "HR Services, No Payroll",
+          "evidence_reference": "openapi/prismhr-2025.09.openapi.json#/components/schemas/ClientMaster/properties/serviceType/description"
+        }
+      ],
+      "completeness": "documented field-description list; not a formal closed OpenAPI enum",
+      "raw_code_type": "string",
+      "source_description": "Service provided to client: 'ASO' (Administrative Services Only), 'PEO' (Professional Employer Services), 'PAY' (Payroll Processing Only), 'ASA' (Admin Services/Alt. Billing), 'COR' (Corporate Payroll), or 'HRN' (HR Services, No Payroll).  ",
+      "meaning_origin": "The provider snapshot field description; no candidate canonical mapping is supplied."
+    },
+    {
+      "domain": "user_employee_status_class",
+      "source_field_pointers": [
+        "#/components/schemas/UserLst/properties/employeeStatusClass"
+      ],
+      "entries": [
+        {
+          "code": "A",
+          "meaning": "Active",
+          "evidence_reference": "openapi/prismhr-2025.09.openapi.json#/components/schemas/UserLst/properties/employeeStatusClass/description"
+        },
+        {
+          "code": "L",
+          "meaning": "On Leave",
+          "evidence_reference": "openapi/prismhr-2025.09.openapi.json#/components/schemas/UserLst/properties/employeeStatusClass/description"
+        },
+        {
+          "code": "T",
+          "meaning": "Terminated",
+          "evidence_reference": "openapi/prismhr-2025.09.openapi.json#/components/schemas/UserLst/properties/employeeStatusClass/description"
+        }
+      ],
+      "completeness": "documented field-description list; not a formal closed OpenAPI enum",
+      "raw_code_type": "string",
+      "source_description": "only returned for userType “E” or “M”; employment status classification (“A” = Active, “L” = On Leave, “T” = Terminated) ",
+      "meaning_origin": "The provider snapshot field description; no candidate canonical mapping is supplied.",
+      "note": "The source says this field is returned only for userType E or M. It is not an employee status-code dictionary."
+    },
+    {
+      "domain": "payroll_history_type",
+      "source_field_pointers": [
+        "#/components/schemas/PayrollHistory/properties/type"
+      ],
+      "entries": [
+        {
+          "code": "A",
+          "meaning": "All Types",
+          "evidence_reference": "openapi/prismhr-2025.09.openapi.json#/components/schemas/PayrollHistory/properties/type/description"
+        },
+        {
+          "code": "R",
+          "meaning": "Scheduled",
+          "evidence_reference": "openapi/prismhr-2025.09.openapi.json#/components/schemas/PayrollHistory/properties/type/description"
+        },
+        {
+          "code": "S",
+          "meaning": "Special",
+          "evidence_reference": "openapi/prismhr-2025.09.openapi.json#/components/schemas/PayrollHistory/properties/type/description"
+        },
+        {
+          "code": "J",
+          "meaning": "Adjustment",
+          "evidence_reference": "openapi/prismhr-2025.09.openapi.json#/components/schemas/PayrollHistory/properties/type/description"
+        },
+        {
+          "code": "V",
+          "meaning": "Reversal",
+          "evidence_reference": "openapi/prismhr-2025.09.openapi.json#/components/schemas/PayrollHistory/properties/type/description"
+        },
+        {
+          "code": "M",
+          "meaning": "Manual",
+          "evidence_reference": "openapi/prismhr-2025.09.openapi.json#/components/schemas/PayrollHistory/properties/type/description"
+        }
+      ],
+      "completeness": "descriptive examples supplied by the snapshot; not an exhaustive closed enum",
+      "raw_code_type": "string",
+      "source_description": "type of this payroll batch for example A=All Types; R=Scheduled; S=Special; J=Adjustment; V=Reversal; M=Manual",
+      "meaning_origin": "The provider snapshot field description; no candidate canonical mapping is supplied.",
+      "note": "All Types is a selector concept in the documented list. Do not assume A is a persisted payroll-batch classification without additional evidence."
+    },
+    {
+      "domain": "hours_worked_basis",
+      "source_field_pointers": [
+        "#/components/schemas/HoursWorkedByHours/properties/hrsType"
+      ],
+      "entries": [
+        {
+          "code": "",
+          "meaning": "Uses the default: hours worked",
+          "evidence_reference": "openapi/prismhr-2025.09.openapi.json#/components/schemas/HoursWorkedByHours/properties/hrsType/description"
+        },
+        {
+          "code": "P",
+          "meaning": "Paid",
+          "evidence_reference": "openapi/prismhr-2025.09.openapi.json#/components/schemas/HoursWorkedByHours/properties/hrsType/description"
+        },
+        {
+          "code": "W",
+          "meaning": "Worked",
+          "evidence_reference": "openapi/prismhr-2025.09.openapi.json#/components/schemas/HoursWorkedByHours/properties/hrsType/description"
+        }
+      ],
+      "completeness": "documented field-description list; not a formal closed OpenAPI enum",
+      "raw_code_type": "string",
+      "source_description": "indicate hours paid or hours worked. Hours worked is the default. Valid values empty, P (paid) W (worked)",
+      "meaning_origin": "The provider snapshot field description; no candidate canonical mapping is supplied.",
+      "note": "The empty string is explicitly documented here; it is not equivalent to a missing/null value in every source field."
+    },
+    {
+      "domain": "hours_worked_position_basis",
+      "source_field_pointers": [
+        "#/components/schemas/HoursWorkedByPosition/properties/hrsType"
+      ],
+      "entries": [
+        {
+          "code": "",
+          "meaning": "Uses the default: hours worked",
+          "evidence_reference": "openapi/prismhr-2025.09.openapi.json#/components/schemas/HoursWorkedByPosition/properties/hrsType/description"
+        },
+        {
+          "code": "P",
+          "meaning": "Paid",
+          "evidence_reference": "openapi/prismhr-2025.09.openapi.json#/components/schemas/HoursWorkedByPosition/properties/hrsType/description"
+        },
+        {
+          "code": "W",
+          "meaning": "Worked",
+          "evidence_reference": "openapi/prismhr-2025.09.openapi.json#/components/schemas/HoursWorkedByPosition/properties/hrsType/description"
+        }
+      ],
+      "completeness": "documented field-description list; not a formal closed OpenAPI enum",
+      "raw_code_type": "string",
+      "source_description": "indicate hours paid or hours worked. Valid values are empty, P (paid) W (worked). Hours worked is the default",
+      "meaning_origin": "The provider snapshot field description; no candidate canonical mapping is supplied."
+    },
+    {
+      "domain": "benefit_enrollment_status",
+      "source_field_pointers": [
+        "#/components/schemas/BenefitPlan/properties/status"
+      ],
+      "entries": [
+        {
+          "code": "E",
+          "meaning": "Eligible Unenrolled",
+          "evidence_reference": "openapi/prismhr-2025.09.openapi.json#/components/schemas/BenefitPlan/properties/status/description"
+        },
+        {
+          "code": "A",
+          "meaning": "Active Enrollment",
+          "evidence_reference": "openapi/prismhr-2025.09.openapi.json#/components/schemas/BenefitPlan/properties/status/description"
+        },
+        {
+          "code": "T",
+          "meaning": "Terminated Enrollment",
+          "evidence_reference": "openapi/prismhr-2025.09.openapi.json#/components/schemas/BenefitPlan/properties/status/description"
+        },
+        {
+          "code": "C",
+          "meaning": "COBRA Enrollment",
+          "evidence_reference": "openapi/prismhr-2025.09.openapi.json#/components/schemas/BenefitPlan/properties/status/description"
+        },
+        {
+          "code": "W",
+          "meaning": "Waived Enrollment",
+          "evidence_reference": "openapi/prismhr-2025.09.openapi.json#/components/schemas/BenefitPlan/properties/status/description"
+        }
+      ],
+      "completeness": "documented field-description list; not a formal closed OpenAPI enum",
+      "raw_code_type": "string",
+      "source_description": "enrollment status must be one of: 'E' (Eligible Unenrolled), 'A' (Active Enrollment), 'T' (Terminated Enrollment), 'C' (COBRA Enrollment), or 'W' (Waived Enrollment)",
+      "meaning_origin": "The provider snapshot field description; no candidate canonical mapping is supplied.",
+      "note": "Benefit enrollment status is a different domain from employment status."
+    },
+    {
+      "domain": "deduction_type",
+      "source_field_pointers": [
+        "#/components/schemas/DeductionCodeDetail/properties/deductionType"
+      ],
+      "entries": [
+        {
+          "code": "V",
+          "meaning": "Voluntary",
+          "evidence_reference": "openapi/prismhr-2025.09.openapi.json#/components/schemas/DeductionCodeDetail/properties/deductionType/description"
+        },
+        {
+          "code": "C",
+          "meaning": "Section 125",
+          "evidence_reference": "openapi/prismhr-2025.09.openapi.json#/components/schemas/DeductionCodeDetail/properties/deductionType/description"
+        },
+        {
+          "code": "P",
+          "meaning": "Post Tax Benefit",
+          "evidence_reference": "openapi/prismhr-2025.09.openapi.json#/components/schemas/DeductionCodeDetail/properties/deductionType/description"
+        },
+        {
+          "code": "F",
+          "meaning": "Flexible Spending Account",
+          "evidence_reference": "openapi/prismhr-2025.09.openapi.json#/components/schemas/DeductionCodeDetail/properties/deductionType/description"
+        },
+        {
+          "code": "G",
+          "meaning": "Wage Garnishment",
+          "evidence_reference": "openapi/prismhr-2025.09.openapi.json#/components/schemas/DeductionCodeDetail/properties/deductionType/description"
+        },
+        {
+          "code": "L",
+          "meaning": "Employee Loan Payment",
+          "evidence_reference": "openapi/prismhr-2025.09.openapi.json#/components/schemas/DeductionCodeDetail/properties/deductionType/description"
+        },
+        {
+          "code": "K",
+          "meaning": "Pre-Tax Retirement Contribution",
+          "evidence_reference": "openapi/prismhr-2025.09.openapi.json#/components/schemas/DeductionCodeDetail/properties/deductionType/description"
+        },
+        {
+          "code": "KC",
+          "meaning": "Catch-Up Retirement Contribution",
+          "evidence_reference": "openapi/prismhr-2025.09.openapi.json#/components/schemas/DeductionCodeDetail/properties/deductionType/description"
+        },
+        {
+          "code": "KE",
+          "meaning": "Post-Tax Retirement Contribution",
+          "evidence_reference": "openapi/prismhr-2025.09.openapi.json#/components/schemas/DeductionCodeDetail/properties/deductionType/description"
+        },
+        {
+          "code": "KL",
+          "meaning": "Retirement Plan Loan Payment",
+          "evidence_reference": "openapi/prismhr-2025.09.openapi.json#/components/schemas/DeductionCodeDetail/properties/deductionType/description"
+        },
+        {
+          "code": "KR",
+          "meaning": "Roth 401(k) Contribution",
+          "evidence_reference": "openapi/prismhr-2025.09.openapi.json#/components/schemas/DeductionCodeDetail/properties/deductionType/description"
+        },
+        {
+          "code": "KCR",
+          "meaning": "Roth 401(k) Catch-Up Contribution",
+          "evidence_reference": "openapi/prismhr-2025.09.openapi.json#/components/schemas/DeductionCodeDetail/properties/deductionType/description"
+        }
+      ],
+      "completeness": "documented field-description list; not a formal closed OpenAPI enum",
+      "raw_code_type": "string",
+      "source_description": "deduction code type; possible values are \\\"V\\\" (Voluntary), \\\"C\\\" (Section 125), \\\"P\\\" (Post Tax Benefit), \\\"F\\\" (Flexible Spending Account), \\\"G\\\" (Wage Garnishment), \\\"L\\\" (Employee Loan Payment), \\\"K\\\" (Pre-Tax Retirement Contribution), \\\"KC\\\" (Catch-Up Retirement Contribution), \\\"KE\\\" (Post-Tax Retirement Contribution), \\\"KL\\\" (Retirement Plan Loan Payment), \\\"KR\\\" (Roth 401(k) Contribution), \\\"KCR\\\" (Roth 401(k) Catch-Up Contribution)",
+      "meaning_origin": "The provider snapshot field description; no candidate canonical mapping is supplied."
+    }
+  ],
+  "client_configurable_lookup_sources": [
+    {
+      "domain": "employee_status_codes",
+      "evidence_reference": "openapi/prismhr-2025.09.openapi.json#/components/schemas/ClientCodes/properties/statusCode",
+      "entry_schema_pointer": "#/components/schemas/StatusCode",
+      "entries": [],
+      "completeness": "client-configured; no customer values supplied"
+    },
+    {
+      "domain": "employee_type_codes",
+      "evidence_reference": "openapi/prismhr-2025.09.openapi.json#/components/schemas/ClientCodes/properties/typeCode",
+      "entry_schema_pointer": "#/components/schemas/TypeCode",
+      "entries": [],
+      "completeness": "client-configured; no customer values supplied"
+    },
+    {
+      "domain": "pay_codes",
+      "evidence_reference": "openapi/prismhr-2025.09.openapi.json#/components/schemas/ClientCodes/properties/payCode",
+      "entry_schema_pointer": "#/components/schemas/ClientCodes-PayCode",
+      "entries": [],
+      "completeness": "client-configured; no customer values supplied"
+    },
+    {
+      "domain": "deduction_codes",
+      "evidence_reference": "openapi/prismhr-2025.09.openapi.json#/components/schemas/ClientCodes/properties/deductionCode",
+      "entry_schema_pointer": "#/components/schemas/ClientCodes-DeductionCode",
+      "entries": [],
+      "completeness": "client-configured; no customer values supplied"
+    }
+  ],
+  "known_gaps": [
+    "This is an intentional subset of documented field descriptions; it is not a full enum dictionary.",
+    "The source snapshot declares no formal enum arrays. Do not turn descriptive examples into a closed validation enum without further evidence.",
+    "Client-configured status/type/pay/deduction identifiers are not universal provider constants and no customer lookup values are distributed.",
+    "No source-to-canonical mappings or normalized schema/enums are supplied.",
+    "isolved/UKG references are included at the organizer's private-upload instruction; their candidate redistribution permission and the complete assessment scope remain unverified."
+  ]
+}

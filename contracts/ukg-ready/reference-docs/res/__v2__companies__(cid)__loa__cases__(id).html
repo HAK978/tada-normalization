@@ -1,0 +1,3158 @@
+<!doctype html>
+<html><head><meta charset="utf-8"><title>Case</title><style>body{font:16px system-ui;max-width:1100px;margin:2rem auto;padding:0 1rem;line-height:1.5}aside{background:#fff3cc;padding:1rem}.jsonschema,pre{white-space:pre-wrap;font:13px monospace;overflow-wrap:anywhere;background:#f4f5f7;padding:1rem}.uri{font-family:monospace}h2,h3{margin-top:2rem}</style></head><body><aside><strong>Modified private reference — 2026-10-09.</strong> Provider-documented illustrative examples are included; authentication token examples are redacted. These are not customer exports or guaranteed production behavior. Candidate sharing is pending. This is not OpenAPI.</aside>
+<div class="group">
+<h2 class="anchored" id="item.anchor">
+<span>Case</span>
+<a class="fa fa-link link-anchor" data-url="r=__v2__companies__(cid)__loa__cases__(id)#" data-web-id="__v2__companies__(cid)__loa__cases__(id)"></a>
+</h2>
+<section class="clearfix">
+<article class="definition">
+<h3 class="anchored" id="get"><span>GET</span>
+<a class="fa fa-link link-anchor" data-url="r=__v2__companies__(cid)__loa__cases__(id)#get" data-web-id="__v2__companies__(cid)__loa__cases__(id)"></a>
+</h3>
+<div class="md"><p>Endpoint for fetching leave of absence case by its id.
+Leave of absence functionality must be enabled in company.
+</p></div>
+<div>
+<ul class="annotation-list">
+<li class="annotation">
+<span>v2</span>
+</li>
+</ul>
+</div>
+<h4>Parameters</h4>
+<h5>Path Parameters</h5>
+<ul class="param-list">
+<li>
+<div class="param-desc">
+<div class="param-name">cid</div>
+<div class="data-type">string</div>
+<div class="required">required</div>
+</div>
+<div class="param-content">
+<div>
+<p>Example: 123456</p>
+<div class="desc md">Company should be referenced via company id or company unique id or company short name using `|short_name` or `!short_name` format.
+</div>
+</div>
+</div>
+
+</li>
+<li>
+<div class="param-desc">
+<div class="param-name">id</div>
+<div class="data-type">integer</div>
+<div class="required">required</div>
+</div>
+<div class="param-content">
+<div>
+<div class="desc md">Case id.</div>
+</div>
+</div>
+
+</li>
+</ul>
+<h5>Header Parameters</h5>
+<ul class="param-list">
+<li>
+<div class="param-desc">
+<div class="param-name">Accept</div>
+<div class="data-type">string</div>
+</div>
+<div class="param-content">
+<div>
+<p>Valid values: application/json, application/xml, text/xml</p>
+<p>Default: application/json</p>
+<p>Example: application/json</p>
+</div>
+</div>
+
+</li>
+</ul>
+<h4>Responses</h4>
+<div class="responses">
+<div>
+<label class="response response-success">
+<span class="fa fa-check"></span>
+<input data-full-tab-id="get-resp-code-tab-id-0" data-tab-class="resp-code-tab-get" name="resp-code-tab-get" type="radio"/>
+<span class="status">200 Ok</span>
+</label>
+<div class="response-desc resp-code-tab-get" id="get-resp-code-tab-id-0">
+</div>
+</div>
+<div>
+<label class="response response-error">
+<span class="fa fa-times"></span>
+<input data-full-tab-id="get-resp-code-tab-id-1" data-tab-class="resp-code-tab-get" name="resp-code-tab-get" type="radio"/>
+<span class="status">401 Unauthorized</span>
+</label>
+<div class="response-desc resp-code-tab-get" id="get-resp-code-tab-id-1">
+<div class="md"><p>Returned in case user is not authorized.</p></div>
+</div>
+</div>
+<div>
+<label class="response response-error">
+<span class="fa fa-times"></span>
+<input data-full-tab-id="get-resp-code-tab-id-2" data-tab-class="resp-code-tab-get" name="resp-code-tab-get" type="radio"/>
+<span class="status">403 Forbidden</span>
+</label>
+<div class="response-desc resp-code-tab-get" id="get-resp-code-tab-id-2">
+<div class="md"><p>Returned in case user has no access to the resource.</p></div>
+</div>
+</div>
+<div>
+<label class="response response-error">
+<span class="fa fa-times"></span>
+<input data-full-tab-id="get-resp-code-tab-id-3" data-tab-class="resp-code-tab-get" name="resp-code-tab-get" type="radio"/>
+<span class="status">404 Not Found</span>
+</label>
+<div class="response-desc resp-code-tab-get" id="get-resp-code-tab-id-3">
+<div class="md"><p>Returned in case resource does not exist.</p></div>
+</div>
+</div>
+<div>
+<label class="response response-error">
+<span class="fa fa-times"></span>
+<input data-full-tab-id="get-resp-code-tab-id-4" data-tab-class="resp-code-tab-get" name="resp-code-tab-get" type="radio"/>
+<span class="status">503 Service Unavailable</span>
+</label>
+<div class="response-desc resp-code-tab-get" id="get-resp-code-tab-id-4">
+<div class="md"><p>Returned in the event that the call limit is exceeded. The application will be unavailable for subsequent calls for the duration specified by the X-CallLimit-TimeToWait header.</p></div>
+</div>
+</div>
+</div>
+</article>
+<article class="code">
+<h4>Definition</h4>
+<div class="uri">
+<code>
+<span class="method get">get</span>
+<span class="textUri"><span class="baseUri">{{ getUriPrefix() }}</span><span class="relativeUri">/v2/companies/{cid}/loa/cases/{id}</span></span>
+</code>
+</div>
+<h4>Response Samples</h4>
+<div class="tab-title-group">
+<label>
+<input checked="checked" data-full-tab-id="resp-tab-id-get-0" data-tab-class="resp-tab-get" name="resp-tab-get" type="radio"/>
+<span class="tab-title">application/json</span>
+</label>
+<label>
+<input data-full-tab-id="resp-tab-id-get-1" data-tab-class="resp-tab-get" name="resp-tab-get" type="radio"/>
+<span class="tab-title">application/xml</span>
+</label>
+<label>
+<input data-full-tab-id="resp-tab-id-get-2" data-tab-class="resp-tab-get" name="resp-tab-get" type="radio"/>
+<span class="tab-title">text/xml</span>
+</label>
+</div>
+<div>
+<div class="resp-tab-get" id="resp-tab-id-get-0">
+<div class="example">
+
+<div class="get-example-resp-tab-0 activeTab" id="get-tab-resp-example-0">
+
+<pre class="highlightjs">{
+  "employee": {
+    "account_id": 123456
+  },
+  "reason": {
+    "name": "Leave of Absence Reason"
+  },
+  "start_date": "2015-11-24",
+  "est_end_date": "2015-11-24",
+  "ignore_look_back_rules": false,
+  "time_sheet_populated": false,
+  "case_number": "AA12",
+  "status": "OPEN",
+  "categories": [
+    {
+      "id": 16640
+    }
+  ],
+  "leave_time": {
+    "weekdays": [
+      {
+        "week_num": 1,
+        "weekday": "MONDAY",
+        "type": "START_END",
+        "from": "12:00",
+        "to": "19:30",
+        "total_time": 27000000,
+        "dynamic_duration": "HALF_DAY"
+      },
+      {
+        "week_num": 2,
+        "weekday": "THURSDAY",
+        "type": "START_END",
+        "from": "12:00",
+        "to": "19:30",
+        "total_time": 27000000,
+        "dynamic_duration": "HALF_DAY"
+      },
+      {
+        "week_num": 3,
+        "weekday": "FRIDAY",
+        "type": "DYNAMIC_DURATION",
+        "dynamic_duration": "HALF_DAY"
+      }
+    ],
+    "type": "INTERMITTENT_WEEKDAYS",
+    "weeks_in_cycle": 2,
+    "use_separate_settings": false,
+    "use_hours_for_weekdays": false
+  },
+  "entries": [
+    {
+      "id": 123456,
+      "category_id": 789,
+      "date": "2015-11-24",
+      "start": 288000000,
+      "end": 57600000,
+      "total_time": 28800000,
+      "days_off": 0,
+      "active": true,
+      "is_start_end": true
+    }
+  ],
+  "time_off_categories": [{
+    "id": 1661297,
+    "name": "Holiday"
+  }],
+  "time_off_entries": [{
+    "date": "2015-11-24",
+    "pto_id": 1661297,
+    "pto_name": "Holiday",
+    "total_time": 28800000
+  }]
+}
+</pre>
+</div>
+<div class="get-example-resp-tab-0" id="get-tab-resp-schema-0">
+
+<div class="jsonschema" id="schema-0">{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "type": "object",
+  "properties": {
+    "id": {
+      "type": "integer",
+      "description": "Is used when retrieving object."
+    },
+    "employee": {
+      "type": "object",
+      "properties": {
+        "account_id": {
+          "type": "number",
+          "format": "long"
+        },
+        "username": {
+          "type": "string",
+          "description": "Can be used only for referencing account when creating a new case."
+        },
+        "external_id": {
+          "type": "string",
+          "description": "Can be used only for referencing account when creating a new case."
+        }
+      },
+      "anyOf": [
+        {
+          "required": [
+            "account_id"
+          ]
+        },
+        {
+          "required": [
+            "external_id"
+          ]
+        },
+        {
+          "required": [
+            "username"
+          ]
+        }
+      ],
+      "additionalProperties": false
+    },
+    "reason": {
+      "type": [
+        "object"
+      ],
+      "properties": {
+        "id": {
+          "type": "integer"
+        },
+        "name": {
+          "type": "string"
+        }
+      },
+      "anyOf": [
+        {
+          "required": [
+            "id"
+          ]
+        },
+        {
+          "required": [
+            "name"
+          ]
+        }
+      ],
+      "additionalProperties": false
+    },
+    "start_date": {
+      "type": "string",
+      "pattern": "^(19[0-9]{2}|20[0-6][0-9]|2070)-(0[1-9]|1[0-2])-(0[1-9]|[1-2][0-9]|3[0-1])$",
+      "description": "Date needs to be in the format yyyy-mm-dd within the 1900-12-31 and 2079-06-05 date range"
+    },
+    "est_end_date": {
+      "type": "string",
+      "pattern": "^(19[0-9]{2}|20[0-6][0-9]|2070)-(0[1-9]|1[0-2])-(0[1-9]|[1-2][0-9]|3[0-1])$",
+      "description": "Date needs to be in the format yyyy-mm-dd within the 1900-12-31 and 2079-06-05 date range"
+    },
+    "end_date": {
+      "type": "string",
+      "pattern": "^(19[0-9]{2}|20[0-6][0-9]|2070)-(0[1-9]|1[0-2])-(0[1-9]|[1-2][0-9]|3[0-1])$",
+      "description": "Date needs to be in the format yyyy-mm-dd within the 1900-12-31 and 2079-06-05 date range"
+    },
+    "categories": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer"
+          },
+          "name": {
+            "type": "string"
+          },
+          "external_id": {
+            "type": "string"
+          },
+          "duration_unit": {
+            "type": "integer"
+          }
+        },
+        "anyOf": [
+          {
+            "required": [
+              "id"
+            ]
+          },
+          {
+            "required": [
+              "external_id"
+            ]
+          }
+        ],
+        "additionalProperties": false
+      }
+    },
+    "ignore_look_back_rules": {
+      "type": "boolean"
+    },
+    "time_sheet_populated": {
+      "type": "boolean"
+    },
+    "time_sheet_correction_information": {
+      "type": "object",
+      "properties": {
+        "allow_corrections_period": {
+          "type": "boolean"
+        },
+        "allow_corrections_period_type": {
+          "type": "integer"
+        },
+        "note_required": {
+          "type": "boolean"
+        },
+        "reason_code_required": {
+          "type": "boolean"
+        }
+      }
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "OPEN",
+        "CLOSED"
+      ]
+    },
+    "sub_status": {
+      "type": "string",
+      "enum": [
+        "EMPTY",
+        "LEAVE_ENTRIES_GENERATED",
+        "TIMESHEET_POPULATED"
+      ]
+    },
+    "custom_fields": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "index": {
+            "type": "integer"
+          },
+          "value": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "index",
+          "value"
+        ],
+        "additionalProperties": false
+      },
+      "minItems": 0,
+      "maxItems": 20
+    },
+    "case_number": {
+      "type": "string"
+    },
+    "leave_time": {
+      "type": "object",
+      "properties": {
+        "type": {
+          "type": "string",
+          "enum": [
+            "CONTINUOUS",
+            "INTERMITTENT",
+            "INTERMITTENT_WEEKDAYS"
+          ]
+        },
+        "frequency_interval_type": {
+          "type": "string",
+          "enum": [
+            "DAY",
+            "WEEK"
+          ]
+        },
+        "total_time_type": {
+          "type": "string",
+          "enum": [
+            "CUSTOM",
+            "STANDARD_WORK_DAY",
+            "SCHEDULED",
+            "STANDARD_TOTAL_HOURS",
+            "DYNAMIC_DURATION"
+          ]
+        },
+        "dynamic_duration": {
+          "type": "string",
+          "enum": [
+            "UNKNOWN",
+            "FULL_DAY",
+            "FIRST_HALF_OF_DAY",
+            "SECOND_HALF_OF_DAY",
+            "HALF_DAY"
+          ]
+        },
+        "schedule_type": {
+          "type": "string",
+          "enum": [
+            "MONDAY_FRIDAY",
+            "MONDAY_SUNDAY"
+          ]
+        },
+        "total_time": {
+          "type": "integer"
+        },
+        "intermittent_type": {
+          "type": "string",
+          "enum": [
+            "BULK",
+            "DYNAMIC_DURATION"
+          ]
+        },
+        "frequency": {
+          "type": "integer"
+        },
+        "frequency_interval": {
+          "type": "integer"
+        },
+        "weeks_in_cycle": {
+          "type": "integer"
+        },
+        "use_separate_settings": {
+          "type": "boolean"
+        },
+        "use_hours_for_weekdays": {
+          "type": "boolean"
+        },
+        "weekdays": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "week_num": {
+                "type": "integer"
+              },
+              "total_time": {
+                "type": "integer"
+              },
+              "weekday": {
+                "type": "string",
+                "enum": [
+                  "MONDAY",
+                  "TUESDAY",
+                  "WEDNESDAY",
+                  "THURSDAY",
+                  "FRIDAY",
+                  "SATURDAY",
+                  "SUNDAY"
+                ]
+              },
+              "from": {
+                "type": "string",
+                "pattern": "([0-1][0-9]|2[0-3]):([0-5][0-9])"
+              },
+              "to": {
+                "type": "string",
+                "pattern": "([0-1][0-9]|2[0-3]):([0-5][0-9])"
+              },
+              "dynamic_duration": {
+                "type": "string",
+                "enum": [
+                  "UNKNOWN",
+                  "FULL_DAY",
+                  "FIRST_HALF_OF_DAY",
+                  "SECOND_HALF_OF_DAY",
+                  "HALF_DAY"
+                ]
+              },
+              "type": {
+                "type": "string",
+                "enum": [
+                  "EMPTY",
+                  "BULK",
+                  "SCHEDULED",
+                  "START_END",
+                  "STANDARD_WORK_DAY",
+                  "DYNAMIC_DURATION"
+                ]
+              }
+            },
+            "required": [
+              "week_num",
+              "type",
+              "weekday"
+            ],
+            "additionalProperties": false
+          }
+        }
+      },
+      "oneOf": [
+        {
+          "required": [
+            "type",
+            "total_time_type"
+          ]
+        },
+        {
+          "required": [
+            "type",
+            "frequency_interval",
+            "frequency_interval_type",
+            "intermittent_type"
+          ]
+        },
+        {
+          "required": [
+            "weeks_in_cycle",
+            "weekdays"
+          ]
+        }
+      ],
+      "additionalProperties": false
+    },
+    "resolution": {
+      "type": [
+        "object"
+      ],
+      "properties": {
+        "id": {
+          "type": "integer"
+        },
+        "name": {
+          "type": "string"
+        }
+      },
+      "anyOf": [
+        {
+          "required": [
+            "id"
+          ]
+        },
+        {
+          "required": [
+            "name"
+          ]
+        }
+      ],
+      "additionalProperties": false
+    },
+    "entries": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer"
+          },
+          "category_id": {
+            "type": "integer"
+          },
+          "date": {
+            "type": "string",
+            "pattern": "^(19[0-9]{2}|20[0-6][0-9]|2070)-(0[1-9]|1[0-2])-(0[1-9]|[1-2][0-9]|3[0-1])$",
+            "description": "Date needs to be in the format yyyy-mm-dd within the 1900-12-31 and 2079-06-05 date range"
+          },
+          "start": {
+            "type": "integer",
+            "description": "Time of day represented as milliseconds from midnight"
+          },
+          "end": {
+            "type": "integer",
+            "description": "Time of day represented as milliseconds from midnight"
+          },
+          "total_time": {
+            "type": "integer",
+            "description": "Duration of day's leave time represented in milliseconds"
+          },
+          "days_off": {
+            "type": "number"
+          },
+          "active": {
+            "type": "boolean"
+          },
+          "is_start_end": {
+            "type": "boolean",
+            "description": "Determines if the leave entry has a start and end or if it's only a bulk time leave"
+          },
+          "dynamic_duration": {
+            "type": "string",
+            "enum": [
+              "UNKNOWN",
+              "FULL_DAY",
+              "FIRST_HALF_OF_DAY",
+              "SECOND_HALF_OF_DAY",
+              "HALF_DAY"
+            ]
+          }
+        },
+        "required": [
+          "id",
+          "category_id",
+          "date",
+          "total_time"
+        ],
+        "additionalProperties": false
+      }
+    },
+    "_notes_count": {
+      "type": "integer"
+    },
+    "_attachments_count": {
+      "type": "integer"
+    },
+    "_links": {
+      "type": "object",
+      "additionalProperties": true
+    },
+    "time_off_categories": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "description": "Id of the time off cost center"
+          },
+          "name": {
+            "type": "string",
+            "description": "Localized name of the time off"
+          }
+        },
+        "required": [
+          "id",
+          "name"
+        ],
+        "additionalProperties": false
+      }
+    },
+    "time_off_entries": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "date": {
+            "type": "string",
+            "pattern": "^(19[0-9]{2}|20[0-6][0-9]|2070)-(0[1-9]|1[0-2])-(0[1-9]|[1-2][0-9]|3[0-1])$",
+            "description": "Date of time off entry. Needs to be in the format yyyy-mm-dd within the 1900-12-31 and 2079-06-05 date range"
+          },
+          "pto_id": {
+            "type": "integer",
+            "description": "Id of the time off cost center"
+          },
+          "pto_name": {
+            "type": "string",
+            "description": "Localized name of the time off"
+          },
+          "total_time": {
+            "type": "integer",
+            "description": "Total time in time off category for this date, in milliseconds"
+          },
+          "dynamic_duration": {
+            "type": "string",
+            "enum": [
+              "UNKNOWN",
+              "FULL_DAY",
+              "FIRST_HALF_OF_DAY",
+              "SECOND_HALF_OF_DAY",
+              "HALF_DAY"
+            ]
+          }
+        },
+        "required": [
+          "date",
+          "pto_id",
+          "pto_name",
+          "total_time"
+        ],
+        "additionalProperties": false
+      }
+    }
+  },
+  "required": [
+    "employee",
+    "reason",
+    "start_date",
+    "est_end_date",
+    "leave_time"
+  ],
+  "additionalProperties": false
+}</div>
+</div>
+</div>
+</div>
+<div class="resp-tab-get" id="resp-tab-id-get-1">
+<div class="example">
+
+<div class="get-example-resp-tab-1 activeTab" id="get-tab-resp-example-1">
+
+<pre class="highlightjs">&lt;?xml version='1.0' encoding='UTF-8'?&gt;
+&lt;case&gt;
+  &lt;employee&gt;
+    &lt;account_id&gt;123456&lt;/account_id&gt;
+  &lt;/employee&gt;
+  &lt;reason&gt;
+    &lt;id&gt;16640&lt;/id&gt;
+  &lt;/reason&gt;
+  &lt;start_date&gt;2015-11-24&lt;/start_date&gt;
+  &lt;est_end_date&gt;2015-11-24&lt;/est_end_date&gt;
+  &lt;ignore_look_back_rules&gt;false&lt;/ignore_look_back_rules&gt;
+  &lt;time_sheet_populated&gt;false&lt;/time_sheet_populated&gt;
+  &lt;case_number&gt;AA12&lt;/case_number&gt;
+  &lt;categories&gt;
+    &lt;category&gt;
+      &lt;id&gt;16640&lt;/id&gt;
+    &lt;/category&gt;
+  &lt;/categories&gt;
+  &lt;status&gt;OPEN&lt;/status&gt;
+  &lt;leave_time&gt;
+    &lt;weekdays&gt;
+      &lt;weekday&gt;
+        &lt;week_num&gt;1&lt;/week_num&gt;
+        &lt;weekday&gt;MONDAY&lt;/weekday&gt;
+        &lt;type&gt;START_END&lt;/type&gt;
+        &lt;from&gt;12:00&lt;/from&gt;
+        &lt;to&gt;19:30&lt;/to&gt;
+        &lt;total_time&gt;27000000&lt;/total_time&gt;
+      &lt;/weekday&gt;
+      &lt;weekday&gt;
+        &lt;week_num&gt;2&lt;/week_num&gt;
+        &lt;weekday&gt;THURSDAY&lt;/weekday&gt;
+        &lt;type&gt;START_END&lt;/type&gt;
+        &lt;from&gt;12:00&lt;/from&gt;
+        &lt;to&gt;19:30&lt;/to&gt;
+        &lt;total_time&gt;27000000&lt;/total_time&gt;
+      &lt;/weekday&gt;
+      &lt;weekday&gt;
+        &lt;week_num&gt;3&lt;/week_num&gt;
+        &lt;weekday&gt;FRIDAY&lt;/weekday&gt;
+        &lt;type&gt;DYNAMIC_DURATION&lt;/type&gt;
+        &lt;dynamic_duration&gt;HALF_DAY&lt;/dynamic_duration&gt;
+      &lt;/weekday&gt;
+    &lt;/weekdays&gt;
+    &lt;type&gt;INTERMITTENT_WEEKDAYS&lt;/type&gt;
+    &lt;weeks_in_cycle&gt;2&lt;/weeks_in_cycle&gt;
+    &lt;use_separate_settings&gt;false&lt;/use_separate_settings&gt;
+    &lt;use_hours_for_weekdays&gt;false&lt;/use_hours_for_weekdays&gt;
+  &lt;/leave_time&gt;
+  &lt;entries&gt;
+    &lt;entry&gt;
+      &lt;id&gt;123456&lt;/id&gt;
+      &lt;category_id&gt;789&lt;/category_id&gt;
+      &lt;date&gt;2015-11-24&lt;/date&gt;
+      &lt;start&gt;288000000&lt;/start&gt;
+      &lt;end&gt;57600000&lt;/end&gt;
+      &lt;total_time&gt;28800000&lt;/total_time&gt;
+      &lt;days_off&gt;0&lt;/days_off&gt;
+      &lt;active&gt;true&lt;/active&gt;
+      &lt;is_start_end&gt;true&lt;/is_start_end&gt;
+    &lt;/entry&gt;
+  &lt;/entries&gt;
+  &lt;time_off_categories&gt;
+    &lt;time_off_category&gt;
+      &lt;id&gt;1661297&lt;/id&gt;
+      &lt;name&gt;Holiday&lt;/name&gt;
+    &lt;/time_off_category&gt;
+  &lt;/time_off_categories&gt;
+  &lt;time_off_entries&gt;
+    &lt;time_off_entry&gt;
+      &lt;date&gt;2015-11-24&lt;/date&gt;
+      &lt;pto_id&gt;1661297&lt;/pto_id&gt;
+      &lt;pto_name&gt;Holiday&lt;/pto_name&gt;
+      &lt;total_time&gt;28800000&lt;/total_time&gt;
+    &lt;/time_off_entry&gt;
+  &lt;/time_off_entries&gt;
+&lt;/case&gt;
+</pre>
+</div>
+<div class="get-example-resp-tab-1" id="get-tab-resp-schema-1">
+
+<div class="jsonschema" id="schema-1">&lt;xs:schema attributeFormDefault="unqualified" elementFormDefault="qualified"
+           xmlns:xs="http://www.w3.org/2001/XMLSchema"&gt;
+
+  &lt;xs:element name="case"&gt;
+    &lt;xs:complexType&gt;
+      &lt;xs:all&gt;
+        &lt;xs:element name="id" type="xs:long" minOccurs="0"/&gt;
+        &lt;xs:element name="employee" type="employee"/&gt;
+        &lt;xs:element name="reason" type="idAndName"/&gt;
+        &lt;xs:element name="start_date" type="limitedDate"/&gt;
+        &lt;xs:element name="est_end_date" type="limitedDate"/&gt;
+        &lt;xs:element name="end_date" type="limitedDate" minOccurs="0"/&gt;
+        &lt;xs:element name="categories" type="categoriesListType" minOccurs="0"/&gt;
+        &lt;xs:element name="ignore_look_back_rules" type="xs:boolean" minOccurs="0"/&gt;
+        &lt;xs:element name="time_sheet_populated" type="xs:boolean" minOccurs="0"/&gt;
+
+        &lt;xs:element name="time_sheet_correction_information" minOccurs="0"&gt;
+          &lt;xs:complexType&gt;
+            &lt;xs:choice&gt;
+              &lt;xs:element type="xs:boolean" name="allow_corrections_in_current_year_only"/&gt;
+              &lt;xs:element type="xs:int" name="allow_corrections_period"/&gt;
+              &lt;xs:element type="xs:int" name="allow_corrections_period_type"/&gt;
+              &lt;xs:element type="xs:boolean" name="note_required"/&gt;
+              &lt;xs:element type="xs:boolean" name="reason_code_required"/&gt;
+            &lt;/xs:choice&gt;
+          &lt;/xs:complexType&gt;
+        &lt;/xs:element&gt;
+
+        &lt;xs:element name="status" type="status" minOccurs="0"/&gt;
+        &lt;xs:element name="sub_status" type="sub_status" minOccurs="0"/&gt;
+        &lt;xs:element name="custom_fields" type="customFields" minOccurs="0"/&gt;
+        &lt;xs:element name="_attachments_count" type="xs:int" minOccurs="0"/&gt;
+        &lt;xs:element name="_notes_count" type="xs:int" minOccurs="0"/&gt;
+        &lt;xs:element name="case_number" minOccurs="0"&gt;
+          &lt;xs:simpleType&gt;
+            &lt;xs:restriction base="xs:string"&gt;
+              &lt;xs:minLength value="1"/&gt;
+              &lt;xs:maxLength value="20"/&gt;
+            &lt;/xs:restriction&gt;
+          &lt;/xs:simpleType&gt;
+        &lt;/xs:element&gt;
+        &lt;xs:element name="leave_time" type="leaveTimeType" minOccurs="0"/&gt;
+        &lt;xs:element name="entries" type="leaveEntries" minOccurs="0"/&gt;
+        &lt;xs:element name="resolution" type="idAndName" minOccurs="0"/&gt;
+        &lt;xs:element name="time_off_categories" type="timeOffCategories"/&gt;
+        &lt;xs:element name="time_off_entries" type="timeOffEntries"/&gt;
+      &lt;/xs:all&gt;
+    &lt;/xs:complexType&gt;
+  &lt;/xs:element&gt;
+
+  &lt;xs:complexType name="employee"&gt;
+    &lt;xs:choice&gt;
+      &lt;xs:element type="xs:long" name="account_id"/&gt;
+      &lt;xs:element type="xs:string" name="username"/&gt;
+      &lt;xs:element type="xs:string" name="external_id"/&gt;
+    &lt;/xs:choice&gt;
+  &lt;/xs:complexType&gt;
+
+  &lt;xs:complexType name="idAndName"&gt;
+    &lt;xs:choice&gt;
+      &lt;xs:element type="xs:long" name="id"/&gt;
+      &lt;xs:element type="xs:string" name="name"/&gt;
+    &lt;/xs:choice&gt;
+  &lt;/xs:complexType&gt;
+
+  &lt;xs:simpleType name="limitedDate"&gt;
+    &lt;xs:restriction base="xs:date"&gt;
+      &lt;xs:minInclusive value="1900-12-31"/&gt;
+      &lt;xs:maxInclusive value="2079-06-05"/&gt;
+    &lt;/xs:restriction&gt;
+  &lt;/xs:simpleType&gt;
+
+  &lt;xs:simpleType name="status"&gt;
+    &lt;xs:restriction base="xs:string"&gt;
+      &lt;xs:enumeration value="OPEN"/&gt;
+      &lt;xs:enumeration value="CLOSED"/&gt;
+    &lt;/xs:restriction&gt;
+  &lt;/xs:simpleType&gt;
+
+  &lt;xs:simpleType name="sub_status"&gt;
+    &lt;xs:restriction base="xs:string"&gt;
+      &lt;xs:enumeration value="EMPTY"/&gt;
+      &lt;xs:enumeration value="LEAVE_ENTRIES_GENERATED"/&gt;
+      &lt;xs:enumeration value="TIMESHEET_POPULATED"/&gt;
+    &lt;/xs:restriction&gt;
+  &lt;/xs:simpleType&gt;
+
+  &lt;xs:simpleType name="weekDayType"&gt;
+    &lt;xs:restriction base="xs:string"&gt;
+      &lt;xs:enumeration value="MONDAY"/&gt;
+      &lt;xs:enumeration value="TUESDAY"/&gt;
+      &lt;xs:enumeration value="WEDNESDAY"/&gt;
+      &lt;xs:enumeration value="THURSDAY"/&gt;
+      &lt;xs:enumeration value="FRIDAY"/&gt;
+      &lt;xs:enumeration value="SATURDAY"/&gt;
+      &lt;xs:enumeration value="SUNDAY"/&gt;
+    &lt;/xs:restriction&gt;
+  &lt;/xs:simpleType&gt;
+
+  &lt;xs:simpleType name="dynamicDurationType"&gt;
+    &lt;xs:restriction base="xs:string"&gt;
+      &lt;xs:enumeration value="UNKNOWN"/&gt;
+      &lt;xs:enumeration value="FULL_DAY"/&gt;
+      &lt;xs:enumeration value="FIRST_HALF_OF_DAY"/&gt;
+      &lt;xs:enumeration value="SECOND_HALF_OF_DAY"/&gt;
+      &lt;xs:enumeration value="HALF_DAY"/&gt;
+    &lt;/xs:restriction&gt;
+  &lt;/xs:simpleType&gt;
+
+  &lt;xs:complexType name="weekdayType"&gt;
+    &lt;xs:all&gt;
+      &lt;xs:element name="week_num" type="xs:integer"/&gt;
+      &lt;xs:element name="weekday" type="weekDayType"/&gt;
+      &lt;xs:element name="total_time" type="xs:long" minOccurs="0"/&gt;
+      &lt;xs:element name="dynamic_duration" type="dynamicDurationType" minOccurs="0"/&gt;
+      &lt;xs:element name="from" type="timeOfDay" minOccurs="0"/&gt;
+      &lt;xs:element name="to" type="timeOfDay" minOccurs="0"/&gt;
+      &lt;xs:element name="type" minOccurs="0"&gt;
+        &lt;xs:simpleType&gt;
+          &lt;xs:restriction base="xs:string"&gt;
+            &lt;xs:enumeration value="BULK"/&gt;
+            &lt;xs:enumeration value="STANDARD_WORK_DAY"/&gt;
+            &lt;xs:enumeration value="SCHEDULED"/&gt;
+            &lt;xs:enumeration value="START_END"/&gt;
+            &lt;xs:enumeration value="DYNAMIC_DURATION"/&gt;
+          &lt;/xs:restriction&gt;
+        &lt;/xs:simpleType&gt;
+      &lt;/xs:element&gt;
+    &lt;/xs:all&gt;
+  &lt;/xs:complexType&gt;
+
+  &lt;xs:complexType name="customField"&gt;
+    &lt;xs:all&gt;
+      &lt;xs:element name="index"&gt;
+        &lt;xs:simpleType&gt;
+          &lt;xs:restriction base="xs:integer"&gt;
+            &lt;xs:minInclusive value="0"/&gt;
+            &lt;xs:maxInclusive value="19"/&gt;
+          &lt;/xs:restriction&gt;
+        &lt;/xs:simpleType&gt;
+      &lt;/xs:element&gt;
+      &lt;xs:element name="value"&gt;
+        &lt;xs:simpleType&gt;
+          &lt;xs:restriction base="xs:string"&gt;
+            &lt;xs:minLength value="1"/&gt;
+            &lt;xs:maxLength value="255"/&gt;
+          &lt;/xs:restriction&gt;
+        &lt;/xs:simpleType&gt;
+      &lt;/xs:element&gt;
+    &lt;/xs:all&gt;
+  &lt;/xs:complexType&gt;
+
+  &lt;xs:complexType name="customFields"&gt;
+    &lt;xs:sequence&gt;
+      &lt;xs:element maxOccurs="unbounded" name="custom_field" type="customField"/&gt;
+    &lt;/xs:sequence&gt;
+  &lt;/xs:complexType&gt;
+
+  &lt;xs:simpleType name="timeOfDay"&gt;
+    &lt;xs:restriction base="xs:string"&gt;
+      &lt;xs:pattern value="([0-1][0-9]|2[0-3]):([0-5][0-9])( prev.| next)?"/&gt;
+    &lt;/xs:restriction&gt;
+  &lt;/xs:simpleType&gt;
+
+  &lt;xs:complexType name="leaveTimeType"&gt;
+    &lt;xs:all&gt;
+      &lt;xs:element name="type"&gt;
+        &lt;xs:simpleType&gt;
+          &lt;xs:restriction base="xs:string"&gt;
+            &lt;xs:enumeration value="CONTINUOUS"/&gt;
+            &lt;xs:enumeration value="INTERMITTENT"/&gt;
+            &lt;xs:enumeration value="INTERMITTENT_WEEKDAYS"/&gt;
+          &lt;/xs:restriction&gt;
+        &lt;/xs:simpleType&gt;
+      &lt;/xs:element&gt;
+      &lt;xs:element name="total_time" type="xs:long" minOccurs="0"/&gt;
+      &lt;xs:element name="frequency" type="xs:integer" minOccurs="0"/&gt;
+      &lt;xs:element name="frequency_interval" type="xs:integer" minOccurs="0"/&gt;
+      &lt;xs:element name="dynamic_duration" type="dynamicDurationType" minOccurs="0"/&gt;
+      &lt;xs:element name="intermittent_type" type="xs:string" minOccurs="0"/&gt;
+      &lt;xs:element name="use_separate_settings" type="xs:boolean" minOccurs="0"/&gt;
+      &lt;xs:element name="use_hours_for_weekdays" type="xs:boolean" minOccurs="0"/&gt;
+      &lt;xs:element name="weeks_in_cycle" type="xs:integer" minOccurs="0"/&gt;
+      &lt;xs:element name="frequency_interval_type" minOccurs="0"&gt;
+        &lt;xs:simpleType&gt;
+          &lt;xs:restriction base="xs:string"&gt;
+            &lt;xs:enumeration value="DAY"/&gt;
+            &lt;xs:enumeration value="WEEK"/&gt;
+          &lt;/xs:restriction&gt;
+        &lt;/xs:simpleType&gt;
+      &lt;/xs:element&gt;
+      &lt;xs:element name="total_time_type" minOccurs="0"&gt;
+        &lt;xs:simpleType&gt;
+          &lt;xs:restriction base="xs:string"&gt;
+            &lt;xs:enumeration value="CUSTOM"/&gt;
+            &lt;xs:enumeration value="STANDARD_WORK_DAY"/&gt;
+            &lt;xs:enumeration value="SCHEDULED"/&gt;
+            &lt;xs:enumeration value="STANDARD_TOTAL_HOURS"/&gt;
+            &lt;xs:enumeration value="DYNAMIC_DURATION"/&gt;
+          &lt;/xs:restriction&gt;
+        &lt;/xs:simpleType&gt;
+      &lt;/xs:element&gt;
+      &lt;xs:element name="schedule_type" minOccurs="0"&gt;
+        &lt;xs:simpleType&gt;
+          &lt;xs:restriction base="xs:string"&gt;
+            &lt;xs:enumeration value="MONDAY_FRIDAY"/&gt;
+            &lt;xs:enumeration value="MONDAY_SUNDAY"/&gt;
+          &lt;/xs:restriction&gt;
+        &lt;/xs:simpleType&gt;
+      &lt;/xs:element&gt;
+      &lt;xs:element name="weekdays" minOccurs="0"&gt;
+        &lt;xs:complexType&gt;
+          &lt;xs:sequence&gt;
+            &lt;xs:element name="weekday" type="weekdayType" maxOccurs="unbounded"/&gt;
+          &lt;/xs:sequence&gt;
+        &lt;/xs:complexType&gt;
+      &lt;/xs:element&gt;
+    &lt;/xs:all&gt;
+  &lt;/xs:complexType&gt;
+
+  &lt;xs:complexType name="categoriesListType"&gt;
+    &lt;xs:sequence&gt;
+      &lt;xs:element name="category" maxOccurs="unbounded" minOccurs="0"&gt;
+        &lt;xs:complexType&gt;
+          &lt;xs:choice&gt;
+            &lt;xs:element name="id" type="xs:long"/&gt;
+            &lt;xs:element name="external_id"&gt;
+              &lt;xs:simpleType&gt;
+                &lt;xs:restriction base="xs:string"&gt;
+                  &lt;xs:minLength value="1"/&gt;
+                  &lt;xs:maxLength value="50"/&gt;
+                &lt;/xs:restriction&gt;
+              &lt;/xs:simpleType&gt;
+            &lt;/xs:element&gt;
+            &lt;xs:element name="duration_unit" type="xs:integer"/&gt;
+          &lt;/xs:choice&gt;
+        &lt;/xs:complexType&gt;
+      &lt;/xs:element&gt;
+    &lt;/xs:sequence&gt;
+  &lt;/xs:complexType&gt;
+
+  &lt;xs:complexType name="leaveEntries"&gt;
+    &lt;xs:sequence&gt;
+      &lt;xs:element name="entry" type="leaveEntry" maxOccurs="unbounded"/&gt;
+    &lt;/xs:sequence&gt;
+  &lt;/xs:complexType&gt;
+
+  &lt;xs:complexType name="leaveEntry"&gt;
+    &lt;xs:all&gt;
+      &lt;xs:element name="id" type="xs:long"/&gt;
+      &lt;xs:element name="category_id" type="xs:long"/&gt;
+      &lt;xs:element name="date" type="limitedDate"/&gt;
+      &lt;xs:element name="start" type="xs:long"/&gt;
+      &lt;xs:element name="end" type="xs:long"/&gt;
+      &lt;xs:element name="total_time" type="xs:long"/&gt;
+      &lt;xs:element name="days_off" type="xs:double"/&gt;
+      &lt;xs:element name="active" type="xs:boolean"/&gt;
+      &lt;xs:element name="is_start_end" type="xs:boolean"/&gt;
+      &lt;xs:element name="dynamic_duration" type="dynamicDurationType" minOccurs="0"/&gt;
+    &lt;/xs:all&gt;
+  &lt;/xs:complexType&gt;
+
+  &lt;xs:complexType name="timeOffEntries"&gt;
+    &lt;xs:sequence&gt;
+      &lt;xs:element name="time_off_entry" type="timeOffEntry" maxOccurs="unbounded"/&gt;
+    &lt;/xs:sequence&gt;
+  &lt;/xs:complexType&gt;
+
+  &lt;xs:complexType name="timeOffCategories"&gt;
+    &lt;xs:sequence&gt;
+      &lt;xs:element name="time_off_category" type="timeOffCategory" maxOccurs="unbounded"/&gt;
+    &lt;/xs:sequence&gt;
+  &lt;/xs:complexType&gt;
+
+  &lt;xs:complexType name="timeOffCategory"&gt;
+    &lt;xs:all&gt;
+      &lt;xs:element name="id" type="xs:long"/&gt;
+      &lt;xs:element name="name" type="xs:string"/&gt;
+    &lt;/xs:all&gt;
+  &lt;/xs:complexType&gt;
+
+  &lt;xs:complexType name="timeOffEntry"&gt;
+    &lt;xs:all&gt;
+      &lt;xs:element name="date" type="limitedDate"/&gt;
+      &lt;xs:element name="pto_id" type="xs:long"/&gt;
+      &lt;xs:element name="pto_name" type="xs:string"/&gt;
+      &lt;xs:element name="total_time" type="xs:long"/&gt;
+    &lt;/xs:all&gt;
+  &lt;/xs:complexType&gt;
+
+&lt;/xs:schema&gt;
+</div>
+</div>
+</div>
+</div>
+<div class="resp-tab-get" id="resp-tab-id-get-2">
+<div class="example">
+
+<div class="get-example-resp-tab-2 activeTab" id="get-tab-resp-example-2">
+
+<pre class="highlightjs">&lt;?xml version='1.0' encoding='UTF-8'?&gt;
+&lt;case&gt;
+  &lt;employee&gt;
+    &lt;account_id&gt;123456&lt;/account_id&gt;
+  &lt;/employee&gt;
+  &lt;reason&gt;
+    &lt;id&gt;16640&lt;/id&gt;
+  &lt;/reason&gt;
+  &lt;start_date&gt;2015-11-24&lt;/start_date&gt;
+  &lt;est_end_date&gt;2015-11-24&lt;/est_end_date&gt;
+  &lt;ignore_look_back_rules&gt;false&lt;/ignore_look_back_rules&gt;
+  &lt;time_sheet_populated&gt;false&lt;/time_sheet_populated&gt;
+  &lt;case_number&gt;AA12&lt;/case_number&gt;
+  &lt;categories&gt;
+    &lt;category&gt;
+      &lt;id&gt;16640&lt;/id&gt;
+    &lt;/category&gt;
+  &lt;/categories&gt;
+  &lt;status&gt;OPEN&lt;/status&gt;
+  &lt;leave_time&gt;
+    &lt;weekdays&gt;
+      &lt;weekday&gt;
+        &lt;week_num&gt;1&lt;/week_num&gt;
+        &lt;weekday&gt;MONDAY&lt;/weekday&gt;
+        &lt;type&gt;START_END&lt;/type&gt;
+        &lt;from&gt;12:00&lt;/from&gt;
+        &lt;to&gt;19:30&lt;/to&gt;
+        &lt;total_time&gt;27000000&lt;/total_time&gt;
+      &lt;/weekday&gt;
+      &lt;weekday&gt;
+        &lt;week_num&gt;2&lt;/week_num&gt;
+        &lt;weekday&gt;THURSDAY&lt;/weekday&gt;
+        &lt;type&gt;START_END&lt;/type&gt;
+        &lt;from&gt;12:00&lt;/from&gt;
+        &lt;to&gt;19:30&lt;/to&gt;
+        &lt;total_time&gt;27000000&lt;/total_time&gt;
+      &lt;/weekday&gt;
+      &lt;weekday&gt;
+        &lt;week_num&gt;3&lt;/week_num&gt;
+        &lt;weekday&gt;FRIDAY&lt;/weekday&gt;
+        &lt;type&gt;DYNAMIC_DURATION&lt;/type&gt;
+        &lt;dynamic_duration&gt;HALF_DAY&lt;/dynamic_duration&gt;
+      &lt;/weekday&gt;
+    &lt;/weekdays&gt;
+    &lt;type&gt;INTERMITTENT_WEEKDAYS&lt;/type&gt;
+    &lt;weeks_in_cycle&gt;2&lt;/weeks_in_cycle&gt;
+    &lt;use_separate_settings&gt;false&lt;/use_separate_settings&gt;
+    &lt;use_hours_for_weekdays&gt;false&lt;/use_hours_for_weekdays&gt;
+  &lt;/leave_time&gt;
+  &lt;entries&gt;
+    &lt;entry&gt;
+      &lt;id&gt;123456&lt;/id&gt;
+      &lt;category_id&gt;789&lt;/category_id&gt;
+      &lt;date&gt;2015-11-24&lt;/date&gt;
+      &lt;start&gt;288000000&lt;/start&gt;
+      &lt;end&gt;57600000&lt;/end&gt;
+      &lt;total_time&gt;28800000&lt;/total_time&gt;
+      &lt;days_off&gt;0&lt;/days_off&gt;
+      &lt;active&gt;true&lt;/active&gt;
+      &lt;is_start_end&gt;true&lt;/is_start_end&gt;
+    &lt;/entry&gt;
+  &lt;/entries&gt;
+  &lt;time_off_categories&gt;
+    &lt;time_off_category&gt;
+      &lt;id&gt;1661297&lt;/id&gt;
+      &lt;name&gt;Holiday&lt;/name&gt;
+    &lt;/time_off_category&gt;
+  &lt;/time_off_categories&gt;
+  &lt;time_off_entries&gt;
+    &lt;time_off_entry&gt;
+      &lt;date&gt;2015-11-24&lt;/date&gt;
+      &lt;pto_id&gt;1661297&lt;/pto_id&gt;
+      &lt;pto_name&gt;Holiday&lt;/pto_name&gt;
+      &lt;total_time&gt;28800000&lt;/total_time&gt;
+    &lt;/time_off_entry&gt;
+  &lt;/time_off_entries&gt;
+&lt;/case&gt;
+</pre>
+</div>
+<div class="get-example-resp-tab-2" id="get-tab-resp-schema-2">
+
+<div class="jsonschema" id="schema-2">&lt;xs:schema attributeFormDefault="unqualified" elementFormDefault="qualified"
+           xmlns:xs="http://www.w3.org/2001/XMLSchema"&gt;
+
+  &lt;xs:element name="case"&gt;
+    &lt;xs:complexType&gt;
+      &lt;xs:all&gt;
+        &lt;xs:element name="id" type="xs:long" minOccurs="0"/&gt;
+        &lt;xs:element name="employee" type="employee"/&gt;
+        &lt;xs:element name="reason" type="idAndName"/&gt;
+        &lt;xs:element name="start_date" type="limitedDate"/&gt;
+        &lt;xs:element name="est_end_date" type="limitedDate"/&gt;
+        &lt;xs:element name="end_date" type="limitedDate" minOccurs="0"/&gt;
+        &lt;xs:element name="categories" type="categoriesListType" minOccurs="0"/&gt;
+        &lt;xs:element name="ignore_look_back_rules" type="xs:boolean" minOccurs="0"/&gt;
+        &lt;xs:element name="time_sheet_populated" type="xs:boolean" minOccurs="0"/&gt;
+
+        &lt;xs:element name="time_sheet_correction_information" minOccurs="0"&gt;
+          &lt;xs:complexType&gt;
+            &lt;xs:choice&gt;
+              &lt;xs:element type="xs:boolean" name="allow_corrections_in_current_year_only"/&gt;
+              &lt;xs:element type="xs:int" name="allow_corrections_period"/&gt;
+              &lt;xs:element type="xs:int" name="allow_corrections_period_type"/&gt;
+              &lt;xs:element type="xs:boolean" name="note_required"/&gt;
+              &lt;xs:element type="xs:boolean" name="reason_code_required"/&gt;
+            &lt;/xs:choice&gt;
+          &lt;/xs:complexType&gt;
+        &lt;/xs:element&gt;
+
+        &lt;xs:element name="status" type="status" minOccurs="0"/&gt;
+        &lt;xs:element name="sub_status" type="sub_status" minOccurs="0"/&gt;
+        &lt;xs:element name="custom_fields" type="customFields" minOccurs="0"/&gt;
+        &lt;xs:element name="_attachments_count" type="xs:int" minOccurs="0"/&gt;
+        &lt;xs:element name="_notes_count" type="xs:int" minOccurs="0"/&gt;
+        &lt;xs:element name="case_number" minOccurs="0"&gt;
+          &lt;xs:simpleType&gt;
+            &lt;xs:restriction base="xs:string"&gt;
+              &lt;xs:minLength value="1"/&gt;
+              &lt;xs:maxLength value="20"/&gt;
+            &lt;/xs:restriction&gt;
+          &lt;/xs:simpleType&gt;
+        &lt;/xs:element&gt;
+        &lt;xs:element name="leave_time" type="leaveTimeType" minOccurs="0"/&gt;
+        &lt;xs:element name="entries" type="leaveEntries" minOccurs="0"/&gt;
+        &lt;xs:element name="resolution" type="idAndName" minOccurs="0"/&gt;
+        &lt;xs:element name="time_off_categories" type="timeOffCategories"/&gt;
+        &lt;xs:element name="time_off_entries" type="timeOffEntries"/&gt;
+      &lt;/xs:all&gt;
+    &lt;/xs:complexType&gt;
+  &lt;/xs:element&gt;
+
+  &lt;xs:complexType name="employee"&gt;
+    &lt;xs:choice&gt;
+      &lt;xs:element type="xs:long" name="account_id"/&gt;
+      &lt;xs:element type="xs:string" name="username"/&gt;
+      &lt;xs:element type="xs:string" name="external_id"/&gt;
+    &lt;/xs:choice&gt;
+  &lt;/xs:complexType&gt;
+
+  &lt;xs:complexType name="idAndName"&gt;
+    &lt;xs:choice&gt;
+      &lt;xs:element type="xs:long" name="id"/&gt;
+      &lt;xs:element type="xs:string" name="name"/&gt;
+    &lt;/xs:choice&gt;
+  &lt;/xs:complexType&gt;
+
+  &lt;xs:simpleType name="limitedDate"&gt;
+    &lt;xs:restriction base="xs:date"&gt;
+      &lt;xs:minInclusive value="1900-12-31"/&gt;
+      &lt;xs:maxInclusive value="2079-06-05"/&gt;
+    &lt;/xs:restriction&gt;
+  &lt;/xs:simpleType&gt;
+
+  &lt;xs:simpleType name="status"&gt;
+    &lt;xs:restriction base="xs:string"&gt;
+      &lt;xs:enumeration value="OPEN"/&gt;
+      &lt;xs:enumeration value="CLOSED"/&gt;
+    &lt;/xs:restriction&gt;
+  &lt;/xs:simpleType&gt;
+
+  &lt;xs:simpleType name="sub_status"&gt;
+    &lt;xs:restriction base="xs:string"&gt;
+      &lt;xs:enumeration value="EMPTY"/&gt;
+      &lt;xs:enumeration value="LEAVE_ENTRIES_GENERATED"/&gt;
+      &lt;xs:enumeration value="TIMESHEET_POPULATED"/&gt;
+    &lt;/xs:restriction&gt;
+  &lt;/xs:simpleType&gt;
+
+  &lt;xs:simpleType name="weekDayType"&gt;
+    &lt;xs:restriction base="xs:string"&gt;
+      &lt;xs:enumeration value="MONDAY"/&gt;
+      &lt;xs:enumeration value="TUESDAY"/&gt;
+      &lt;xs:enumeration value="WEDNESDAY"/&gt;
+      &lt;xs:enumeration value="THURSDAY"/&gt;
+      &lt;xs:enumeration value="FRIDAY"/&gt;
+      &lt;xs:enumeration value="SATURDAY"/&gt;
+      &lt;xs:enumeration value="SUNDAY"/&gt;
+    &lt;/xs:restriction&gt;
+  &lt;/xs:simpleType&gt;
+
+  &lt;xs:simpleType name="dynamicDurationType"&gt;
+    &lt;xs:restriction base="xs:string"&gt;
+      &lt;xs:enumeration value="UNKNOWN"/&gt;
+      &lt;xs:enumeration value="FULL_DAY"/&gt;
+      &lt;xs:enumeration value="FIRST_HALF_OF_DAY"/&gt;
+      &lt;xs:enumeration value="SECOND_HALF_OF_DAY"/&gt;
+      &lt;xs:enumeration value="HALF_DAY"/&gt;
+    &lt;/xs:restriction&gt;
+  &lt;/xs:simpleType&gt;
+
+  &lt;xs:complexType name="weekdayType"&gt;
+    &lt;xs:all&gt;
+      &lt;xs:element name="week_num" type="xs:integer"/&gt;
+      &lt;xs:element name="weekday" type="weekDayType"/&gt;
+      &lt;xs:element name="total_time" type="xs:long" minOccurs="0"/&gt;
+      &lt;xs:element name="dynamic_duration" type="dynamicDurationType" minOccurs="0"/&gt;
+      &lt;xs:element name="from" type="timeOfDay" minOccurs="0"/&gt;
+      &lt;xs:element name="to" type="timeOfDay" minOccurs="0"/&gt;
+      &lt;xs:element name="type" minOccurs="0"&gt;
+        &lt;xs:simpleType&gt;
+          &lt;xs:restriction base="xs:string"&gt;
+            &lt;xs:enumeration value="BULK"/&gt;
+            &lt;xs:enumeration value="STANDARD_WORK_DAY"/&gt;
+            &lt;xs:enumeration value="SCHEDULED"/&gt;
+            &lt;xs:enumeration value="START_END"/&gt;
+            &lt;xs:enumeration value="DYNAMIC_DURATION"/&gt;
+          &lt;/xs:restriction&gt;
+        &lt;/xs:simpleType&gt;
+      &lt;/xs:element&gt;
+    &lt;/xs:all&gt;
+  &lt;/xs:complexType&gt;
+
+  &lt;xs:complexType name="customField"&gt;
+    &lt;xs:all&gt;
+      &lt;xs:element name="index"&gt;
+        &lt;xs:simpleType&gt;
+          &lt;xs:restriction base="xs:integer"&gt;
+            &lt;xs:minInclusive value="0"/&gt;
+            &lt;xs:maxInclusive value="19"/&gt;
+          &lt;/xs:restriction&gt;
+        &lt;/xs:simpleType&gt;
+      &lt;/xs:element&gt;
+      &lt;xs:element name="value"&gt;
+        &lt;xs:simpleType&gt;
+          &lt;xs:restriction base="xs:string"&gt;
+            &lt;xs:minLength value="1"/&gt;
+            &lt;xs:maxLength value="255"/&gt;
+          &lt;/xs:restriction&gt;
+        &lt;/xs:simpleType&gt;
+      &lt;/xs:element&gt;
+    &lt;/xs:all&gt;
+  &lt;/xs:complexType&gt;
+
+  &lt;xs:complexType name="customFields"&gt;
+    &lt;xs:sequence&gt;
+      &lt;xs:element maxOccurs="unbounded" name="custom_field" type="customField"/&gt;
+    &lt;/xs:sequence&gt;
+  &lt;/xs:complexType&gt;
+
+  &lt;xs:simpleType name="timeOfDay"&gt;
+    &lt;xs:restriction base="xs:string"&gt;
+      &lt;xs:pattern value="([0-1][0-9]|2[0-3]):([0-5][0-9])( prev.| next)?"/&gt;
+    &lt;/xs:restriction&gt;
+  &lt;/xs:simpleType&gt;
+
+  &lt;xs:complexType name="leaveTimeType"&gt;
+    &lt;xs:all&gt;
+      &lt;xs:element name="type"&gt;
+        &lt;xs:simpleType&gt;
+          &lt;xs:restriction base="xs:string"&gt;
+            &lt;xs:enumeration value="CONTINUOUS"/&gt;
+            &lt;xs:enumeration value="INTERMITTENT"/&gt;
+            &lt;xs:enumeration value="INTERMITTENT_WEEKDAYS"/&gt;
+          &lt;/xs:restriction&gt;
+        &lt;/xs:simpleType&gt;
+      &lt;/xs:element&gt;
+      &lt;xs:element name="total_time" type="xs:long" minOccurs="0"/&gt;
+      &lt;xs:element name="frequency" type="xs:integer" minOccurs="0"/&gt;
+      &lt;xs:element name="frequency_interval" type="xs:integer" minOccurs="0"/&gt;
+      &lt;xs:element name="dynamic_duration" type="dynamicDurationType" minOccurs="0"/&gt;
+      &lt;xs:element name="intermittent_type" type="xs:string" minOccurs="0"/&gt;
+      &lt;xs:element name="use_separate_settings" type="xs:boolean" minOccurs="0"/&gt;
+      &lt;xs:element name="use_hours_for_weekdays" type="xs:boolean" minOccurs="0"/&gt;
+      &lt;xs:element name="weeks_in_cycle" type="xs:integer" minOccurs="0"/&gt;
+      &lt;xs:element name="frequency_interval_type" minOccurs="0"&gt;
+        &lt;xs:simpleType&gt;
+          &lt;xs:restriction base="xs:string"&gt;
+            &lt;xs:enumeration value="DAY"/&gt;
+            &lt;xs:enumeration value="WEEK"/&gt;
+          &lt;/xs:restriction&gt;
+        &lt;/xs:simpleType&gt;
+      &lt;/xs:element&gt;
+      &lt;xs:element name="total_time_type" minOccurs="0"&gt;
+        &lt;xs:simpleType&gt;
+          &lt;xs:restriction base="xs:string"&gt;
+            &lt;xs:enumeration value="CUSTOM"/&gt;
+            &lt;xs:enumeration value="STANDARD_WORK_DAY"/&gt;
+            &lt;xs:enumeration value="SCHEDULED"/&gt;
+            &lt;xs:enumeration value="STANDARD_TOTAL_HOURS"/&gt;
+            &lt;xs:enumeration value="DYNAMIC_DURATION"/&gt;
+          &lt;/xs:restriction&gt;
+        &lt;/xs:simpleType&gt;
+      &lt;/xs:element&gt;
+      &lt;xs:element name="schedule_type" minOccurs="0"&gt;
+        &lt;xs:simpleType&gt;
+          &lt;xs:restriction base="xs:string"&gt;
+            &lt;xs:enumeration value="MONDAY_FRIDAY"/&gt;
+            &lt;xs:enumeration value="MONDAY_SUNDAY"/&gt;
+          &lt;/xs:restriction&gt;
+        &lt;/xs:simpleType&gt;
+      &lt;/xs:element&gt;
+      &lt;xs:element name="weekdays" minOccurs="0"&gt;
+        &lt;xs:complexType&gt;
+          &lt;xs:sequence&gt;
+            &lt;xs:element name="weekday" type="weekdayType" maxOccurs="unbounded"/&gt;
+          &lt;/xs:sequence&gt;
+        &lt;/xs:complexType&gt;
+      &lt;/xs:element&gt;
+    &lt;/xs:all&gt;
+  &lt;/xs:complexType&gt;
+
+  &lt;xs:complexType name="categoriesListType"&gt;
+    &lt;xs:sequence&gt;
+      &lt;xs:element name="category" maxOccurs="unbounded" minOccurs="0"&gt;
+        &lt;xs:complexType&gt;
+          &lt;xs:choice&gt;
+            &lt;xs:element name="id" type="xs:long"/&gt;
+            &lt;xs:element name="external_id"&gt;
+              &lt;xs:simpleType&gt;
+                &lt;xs:restriction base="xs:string"&gt;
+                  &lt;xs:minLength value="1"/&gt;
+                  &lt;xs:maxLength value="50"/&gt;
+                &lt;/xs:restriction&gt;
+              &lt;/xs:simpleType&gt;
+            &lt;/xs:element&gt;
+            &lt;xs:element name="duration_unit" type="xs:integer"/&gt;
+          &lt;/xs:choice&gt;
+        &lt;/xs:complexType&gt;
+      &lt;/xs:element&gt;
+    &lt;/xs:sequence&gt;
+  &lt;/xs:complexType&gt;
+
+  &lt;xs:complexType name="leaveEntries"&gt;
+    &lt;xs:sequence&gt;
+      &lt;xs:element name="entry" type="leaveEntry" maxOccurs="unbounded"/&gt;
+    &lt;/xs:sequence&gt;
+  &lt;/xs:complexType&gt;
+
+  &lt;xs:complexType name="leaveEntry"&gt;
+    &lt;xs:all&gt;
+      &lt;xs:element name="id" type="xs:long"/&gt;
+      &lt;xs:element name="category_id" type="xs:long"/&gt;
+      &lt;xs:element name="date" type="limitedDate"/&gt;
+      &lt;xs:element name="start" type="xs:long"/&gt;
+      &lt;xs:element name="end" type="xs:long"/&gt;
+      &lt;xs:element name="total_time" type="xs:long"/&gt;
+      &lt;xs:element name="days_off" type="xs:double"/&gt;
+      &lt;xs:element name="active" type="xs:boolean"/&gt;
+      &lt;xs:element name="is_start_end" type="xs:boolean"/&gt;
+      &lt;xs:element name="dynamic_duration" type="dynamicDurationType" minOccurs="0"/&gt;
+    &lt;/xs:all&gt;
+  &lt;/xs:complexType&gt;
+
+  &lt;xs:complexType name="timeOffEntries"&gt;
+    &lt;xs:sequence&gt;
+      &lt;xs:element name="time_off_entry" type="timeOffEntry" maxOccurs="unbounded"/&gt;
+    &lt;/xs:sequence&gt;
+  &lt;/xs:complexType&gt;
+
+  &lt;xs:complexType name="timeOffCategories"&gt;
+    &lt;xs:sequence&gt;
+      &lt;xs:element name="time_off_category" type="timeOffCategory" maxOccurs="unbounded"/&gt;
+    &lt;/xs:sequence&gt;
+  &lt;/xs:complexType&gt;
+
+  &lt;xs:complexType name="timeOffCategory"&gt;
+    &lt;xs:all&gt;
+      &lt;xs:element name="id" type="xs:long"/&gt;
+      &lt;xs:element name="name" type="xs:string"/&gt;
+    &lt;/xs:all&gt;
+  &lt;/xs:complexType&gt;
+
+  &lt;xs:complexType name="timeOffEntry"&gt;
+    &lt;xs:all&gt;
+      &lt;xs:element name="date" type="limitedDate"/&gt;
+      &lt;xs:element name="pto_id" type="xs:long"/&gt;
+      &lt;xs:element name="pto_name" type="xs:string"/&gt;
+      &lt;xs:element name="total_time" type="xs:long"/&gt;
+    &lt;/xs:all&gt;
+  &lt;/xs:complexType&gt;
+
+&lt;/xs:schema&gt;
+</div>
+</div>
+</div>
+</div>
+</div>
+</article>
+</section>
+<section class="clearfix">
+<article class="definition">
+<h3 class="anchored" id="put"><span>PUT</span>
+<a class="fa fa-link link-anchor" data-url="r=__v2__companies__(cid)__loa__cases__(id)#put" data-web-id="__v2__companies__(cid)__loa__cases__(id)"></a>
+</h3>
+<div class="md"><p>Endpoint for updating leave of absence case.
+Leave of absence functionality must be enabled in company.
+
+All basic requirements for request are the same as in POST endpoint, with the difference that several fields are read-only:
+- `status`
+- `sub_status`
+- `resolution`
+- `ignore_look_back_rules`
+- `reason`
+- `employee`
+</p></div>
+<div>
+<ul class="annotation-list">
+<li class="annotation">
+<span>v2</span>
+</li>
+</ul>
+</div>
+<h4>Parameters</h4>
+<h5>Path Parameters</h5>
+<ul class="param-list">
+<li>
+<div class="param-desc">
+<div class="param-name">cid</div>
+<div class="data-type">string</div>
+<div class="required">required</div>
+</div>
+<div class="param-content">
+<div>
+<p>Example: 123456</p>
+<div class="desc md">Company should be referenced via company id or company unique id or company short name using `|short_name` or `!short_name` format.
+</div>
+</div>
+</div>
+
+</li>
+<li>
+<div class="param-desc">
+<div class="param-name">id</div>
+<div class="data-type">integer</div>
+<div class="required">required</div>
+</div>
+<div class="param-content">
+<div>
+<div class="desc md">Case id.</div>
+</div>
+</div>
+
+</li>
+</ul>
+<h5>Query Parameters</h5>
+<ul class="param-list">
+<li>
+<div class="param-desc">
+<div class="param-name">ignore_warnings</div>
+<div class="data-type">boolean</div>
+</div>
+<div class="param-content">
+<div>
+<div class="desc md">Specifies whether warning messages should be ignored or not.</div>
+</div>
+</div>
+
+</li>
+</ul>
+<h5>Header Parameters</h5>
+<ul class="param-list">
+<li>
+<div class="param-desc">
+<div class="param-name">Accept</div>
+<div class="data-type">string</div>
+</div>
+<div class="param-content">
+<div>
+<p>Valid values: application/json, application/xml, text/xml</p>
+<p>Default: application/json</p>
+<p>Example: application/json</p>
+</div>
+</div>
+
+</li>
+<li>
+<div class="param-desc">
+<div class="param-name">Content-Type</div>
+<div class="data-type">string</div>
+<div class="required">required</div>
+</div>
+<div class="param-content">
+<div>
+<p>Valid values: application/xml, text/xml, application/json</p>
+<p>Example: application/json</p>
+</div>
+</div>
+
+</li>
+<li>
+<div class="param-desc">
+<div class="param-name">Content-Length</div>
+<div class="data-type">integer</div>
+<div class="required">required</div>
+</div>
+<div class="param-content">
+<div>
+</div>
+</div>
+
+</li>
+</ul>
+<h4>Responses</h4>
+<div class="responses">
+<div>
+<label class="response response-success">
+<span class="fa fa-check"></span>
+<input data-full-tab-id="put-resp-code-tab-id-0" data-tab-class="resp-code-tab-put" name="resp-code-tab-put" type="radio"/>
+<span class="status">204 No Content</span>
+</label>
+<div class="response-desc resp-code-tab-put" id="put-resp-code-tab-id-0">
+<div class="md"><p>Case was successfully updated.</p></div>
+</div>
+</div>
+<div>
+<label class="response response-error">
+<span class="fa fa-times"></span>
+<input data-full-tab-id="put-resp-code-tab-id-1" data-tab-class="resp-code-tab-put" name="resp-code-tab-put" type="radio"/>
+<span class="status">401 Unauthorized</span>
+</label>
+<div class="response-desc resp-code-tab-put" id="put-resp-code-tab-id-1">
+<div class="md"><p>Returned in case user is not authorized.</p></div>
+</div>
+</div>
+<div>
+<label class="response response-error">
+<span class="fa fa-times"></span>
+<input data-full-tab-id="put-resp-code-tab-id-2" data-tab-class="resp-code-tab-put" name="resp-code-tab-put" type="radio"/>
+<span class="status">403 Forbidden</span>
+</label>
+<div class="response-desc resp-code-tab-put" id="put-resp-code-tab-id-2">
+<div class="md"><p>Returned in case user has no access to the resource.</p></div>
+</div>
+</div>
+<div>
+<label class="response response-error">
+<span class="fa fa-times"></span>
+<input data-full-tab-id="put-resp-code-tab-id-3" data-tab-class="resp-code-tab-put" name="resp-code-tab-put" type="radio"/>
+<span class="status">404 Not Found</span>
+</label>
+<div class="response-desc resp-code-tab-put" id="put-resp-code-tab-id-3">
+<div class="md"><p>Returned in case resource does not exist.</p></div>
+</div>
+</div>
+<div>
+<label class="response response-error">
+<span class="fa fa-times"></span>
+<input data-full-tab-id="put-resp-code-tab-id-4" data-tab-class="resp-code-tab-put" name="resp-code-tab-put" type="radio"/>
+<span class="status">503 Service Unavailable</span>
+</label>
+<div class="response-desc resp-code-tab-put" id="put-resp-code-tab-id-4">
+<div class="md"><p>Returned in the event that the call limit is exceeded. The application will be unavailable for subsequent calls for the duration specified by the X-CallLimit-TimeToWait header.</p></div>
+</div>
+</div>
+</div>
+</article>
+<article class="code">
+<h4>Definition</h4>
+<div class="uri">
+<code>
+<span class="method put">put</span>
+<span class="textUri"><span class="baseUri">{{ getUriPrefix() }}</span><span class="relativeUri">/v2/companies/{cid}/loa/cases/{id}</span></span>
+</code>
+</div>
+<h4>Request Samples</h4>
+<div class="tab-title-group">
+<label>
+<input checked="checked" data-full-tab-id="req-tab-id-put-0" data-tab-class="req-tab-put" name="req-tab-put" type="radio"/>
+<span class="tab-title">application/json</span>
+</label>
+<label>
+<input data-full-tab-id="req-tab-id-put-1" data-tab-class="req-tab-put" name="req-tab-put" type="radio"/>
+<span class="tab-title">application/xml</span>
+</label>
+<label>
+<input data-full-tab-id="req-tab-id-put-2" data-tab-class="req-tab-put" name="req-tab-put" type="radio"/>
+<span class="tab-title">text/xml</span>
+</label>
+</div>
+<div>
+<div class="req-tab-put" id="req-tab-id-put-0">
+<div class="example">
+
+<div class="put-example-tab-0 activeTab" id="put-tab-example-0">
+
+<pre class="highlightjs">{
+  "employee": {
+    "account_id": 123456
+  },
+  "reason": {
+    "name": "Leave of Absence Reason"
+  },
+  "start_date": "2015-11-24",
+  "est_end_date": "2015-11-24",
+  "ignore_look_back_rules": false,
+  "time_sheet_populated": false,
+  "case_number": "AA12",
+  "status": "OPEN",
+  "categories": [
+    {
+      "id": 16640
+    }
+  ],
+  "leave_time": {
+    "weekdays": [
+      {
+        "week_num": 1,
+        "weekday": "MONDAY",
+        "type": "START_END",
+        "from": "12:00",
+        "to": "19:30",
+        "total_time": 27000000,
+        "dynamic_duration": "HALF_DAY"
+      },
+      {
+        "week_num": 2,
+        "weekday": "THURSDAY",
+        "type": "START_END",
+        "from": "12:00",
+        "to": "19:30",
+        "total_time": 27000000,
+        "dynamic_duration": "HALF_DAY"
+      },
+      {
+        "week_num": 3,
+        "weekday": "FRIDAY",
+        "type": "DYNAMIC_DURATION",
+        "dynamic_duration": "HALF_DAY"
+      }
+    ],
+    "type": "INTERMITTENT_WEEKDAYS",
+    "weeks_in_cycle": 2,
+    "use_separate_settings": false,
+    "use_hours_for_weekdays": false
+  },
+  "entries": [
+    {
+      "id": 123456,
+      "category_id": 789,
+      "date": "2015-11-24",
+      "start": 288000000,
+      "end": 57600000,
+      "total_time": 28800000,
+      "days_off": 0,
+      "active": true,
+      "is_start_end": true
+    }
+  ],
+  "time_off_categories": [{
+    "id": 1661297,
+    "name": "Holiday"
+  }],
+  "time_off_entries": [{
+    "date": "2015-11-24",
+    "pto_id": 1661297,
+    "pto_name": "Holiday",
+    "total_time": 28800000
+  }]
+}
+</pre>
+</div>
+<div class="put-example-tab-0" id="put-tab-schema-0">
+
+<div class="jsonschema" id="schema-3">{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "type": "object",
+  "properties": {
+    "id": {
+      "type": "integer",
+      "description": "Is used when retrieving object."
+    },
+    "employee": {
+      "type": "object",
+      "properties": {
+        "account_id": {
+          "type": "number",
+          "format": "long"
+        },
+        "username": {
+          "type": "string",
+          "description": "Can be used only for referencing account when creating a new case."
+        },
+        "external_id": {
+          "type": "string",
+          "description": "Can be used only for referencing account when creating a new case."
+        }
+      },
+      "anyOf": [
+        {
+          "required": [
+            "account_id"
+          ]
+        },
+        {
+          "required": [
+            "external_id"
+          ]
+        },
+        {
+          "required": [
+            "username"
+          ]
+        }
+      ],
+      "additionalProperties": false
+    },
+    "reason": {
+      "type": [
+        "object"
+      ],
+      "properties": {
+        "id": {
+          "type": "integer"
+        },
+        "name": {
+          "type": "string"
+        }
+      },
+      "anyOf": [
+        {
+          "required": [
+            "id"
+          ]
+        },
+        {
+          "required": [
+            "name"
+          ]
+        }
+      ],
+      "additionalProperties": false
+    },
+    "start_date": {
+      "type": "string",
+      "pattern": "^(19[0-9]{2}|20[0-6][0-9]|2070)-(0[1-9]|1[0-2])-(0[1-9]|[1-2][0-9]|3[0-1])$",
+      "description": "Date needs to be in the format yyyy-mm-dd within the 1900-12-31 and 2079-06-05 date range"
+    },
+    "est_end_date": {
+      "type": "string",
+      "pattern": "^(19[0-9]{2}|20[0-6][0-9]|2070)-(0[1-9]|1[0-2])-(0[1-9]|[1-2][0-9]|3[0-1])$",
+      "description": "Date needs to be in the format yyyy-mm-dd within the 1900-12-31 and 2079-06-05 date range"
+    },
+    "end_date": {
+      "type": "string",
+      "pattern": "^(19[0-9]{2}|20[0-6][0-9]|2070)-(0[1-9]|1[0-2])-(0[1-9]|[1-2][0-9]|3[0-1])$",
+      "description": "Date needs to be in the format yyyy-mm-dd within the 1900-12-31 and 2079-06-05 date range"
+    },
+    "categories": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer"
+          },
+          "name": {
+            "type": "string"
+          },
+          "external_id": {
+            "type": "string"
+          },
+          "duration_unit": {
+            "type": "integer"
+          }
+        },
+        "anyOf": [
+          {
+            "required": [
+              "id"
+            ]
+          },
+          {
+            "required": [
+              "external_id"
+            ]
+          }
+        ],
+        "additionalProperties": false
+      }
+    },
+    "ignore_look_back_rules": {
+      "type": "boolean"
+    },
+    "time_sheet_populated": {
+      "type": "boolean"
+    },
+    "time_sheet_correction_information": {
+      "type": "object",
+      "properties": {
+        "allow_corrections_period": {
+          "type": "boolean"
+        },
+        "allow_corrections_period_type": {
+          "type": "integer"
+        },
+        "note_required": {
+          "type": "boolean"
+        },
+        "reason_code_required": {
+          "type": "boolean"
+        }
+      }
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "OPEN",
+        "CLOSED"
+      ]
+    },
+    "sub_status": {
+      "type": "string",
+      "enum": [
+        "EMPTY",
+        "LEAVE_ENTRIES_GENERATED",
+        "TIMESHEET_POPULATED"
+      ]
+    },
+    "custom_fields": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "index": {
+            "type": "integer"
+          },
+          "value": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "index",
+          "value"
+        ],
+        "additionalProperties": false
+      },
+      "minItems": 0,
+      "maxItems": 20
+    },
+    "case_number": {
+      "type": "string"
+    },
+    "leave_time": {
+      "type": "object",
+      "properties": {
+        "type": {
+          "type": "string",
+          "enum": [
+            "CONTINUOUS",
+            "INTERMITTENT",
+            "INTERMITTENT_WEEKDAYS"
+          ]
+        },
+        "frequency_interval_type": {
+          "type": "string",
+          "enum": [
+            "DAY",
+            "WEEK"
+          ]
+        },
+        "total_time_type": {
+          "type": "string",
+          "enum": [
+            "CUSTOM",
+            "STANDARD_WORK_DAY",
+            "SCHEDULED",
+            "STANDARD_TOTAL_HOURS",
+            "DYNAMIC_DURATION"
+          ]
+        },
+        "dynamic_duration": {
+          "type": "string",
+          "enum": [
+            "UNKNOWN",
+            "FULL_DAY",
+            "FIRST_HALF_OF_DAY",
+            "SECOND_HALF_OF_DAY",
+            "HALF_DAY"
+          ]
+        },
+        "schedule_type": {
+          "type": "string",
+          "enum": [
+            "MONDAY_FRIDAY",
+            "MONDAY_SUNDAY"
+          ]
+        },
+        "total_time": {
+          "type": "integer"
+        },
+        "intermittent_type": {
+          "type": "string",
+          "enum": [
+            "BULK",
+            "DYNAMIC_DURATION"
+          ]
+        },
+        "frequency": {
+          "type": "integer"
+        },
+        "frequency_interval": {
+          "type": "integer"
+        },
+        "weeks_in_cycle": {
+          "type": "integer"
+        },
+        "use_separate_settings": {
+          "type": "boolean"
+        },
+        "use_hours_for_weekdays": {
+          "type": "boolean"
+        },
+        "weekdays": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "week_num": {
+                "type": "integer"
+              },
+              "total_time": {
+                "type": "integer"
+              },
+              "weekday": {
+                "type": "string",
+                "enum": [
+                  "MONDAY",
+                  "TUESDAY",
+                  "WEDNESDAY",
+                  "THURSDAY",
+                  "FRIDAY",
+                  "SATURDAY",
+                  "SUNDAY"
+                ]
+              },
+              "from": {
+                "type": "string",
+                "pattern": "([0-1][0-9]|2[0-3]):([0-5][0-9])"
+              },
+              "to": {
+                "type": "string",
+                "pattern": "([0-1][0-9]|2[0-3]):([0-5][0-9])"
+              },
+              "dynamic_duration": {
+                "type": "string",
+                "enum": [
+                  "UNKNOWN",
+                  "FULL_DAY",
+                  "FIRST_HALF_OF_DAY",
+                  "SECOND_HALF_OF_DAY",
+                  "HALF_DAY"
+                ]
+              },
+              "type": {
+                "type": "string",
+                "enum": [
+                  "EMPTY",
+                  "BULK",
+                  "SCHEDULED",
+                  "START_END",
+                  "STANDARD_WORK_DAY",
+                  "DYNAMIC_DURATION"
+                ]
+              }
+            },
+            "required": [
+              "week_num",
+              "type",
+              "weekday"
+            ],
+            "additionalProperties": false
+          }
+        }
+      },
+      "oneOf": [
+        {
+          "required": [
+            "type",
+            "total_time_type"
+          ]
+        },
+        {
+          "required": [
+            "type",
+            "frequency_interval",
+            "frequency_interval_type",
+            "intermittent_type"
+          ]
+        },
+        {
+          "required": [
+            "weeks_in_cycle",
+            "weekdays"
+          ]
+        }
+      ],
+      "additionalProperties": false
+    },
+    "resolution": {
+      "type": [
+        "object"
+      ],
+      "properties": {
+        "id": {
+          "type": "integer"
+        },
+        "name": {
+          "type": "string"
+        }
+      },
+      "anyOf": [
+        {
+          "required": [
+            "id"
+          ]
+        },
+        {
+          "required": [
+            "name"
+          ]
+        }
+      ],
+      "additionalProperties": false
+    },
+    "entries": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer"
+          },
+          "category_id": {
+            "type": "integer"
+          },
+          "date": {
+            "type": "string",
+            "pattern": "^(19[0-9]{2}|20[0-6][0-9]|2070)-(0[1-9]|1[0-2])-(0[1-9]|[1-2][0-9]|3[0-1])$",
+            "description": "Date needs to be in the format yyyy-mm-dd within the 1900-12-31 and 2079-06-05 date range"
+          },
+          "start": {
+            "type": "integer",
+            "description": "Time of day represented as milliseconds from midnight"
+          },
+          "end": {
+            "type": "integer",
+            "description": "Time of day represented as milliseconds from midnight"
+          },
+          "total_time": {
+            "type": "integer",
+            "description": "Duration of day's leave time represented in milliseconds"
+          },
+          "days_off": {
+            "type": "number"
+          },
+          "active": {
+            "type": "boolean"
+          },
+          "is_start_end": {
+            "type": "boolean",
+            "description": "Determines if the leave entry has a start and end or if it's only a bulk time leave"
+          },
+          "dynamic_duration": {
+            "type": "string",
+            "enum": [
+              "UNKNOWN",
+              "FULL_DAY",
+              "FIRST_HALF_OF_DAY",
+              "SECOND_HALF_OF_DAY",
+              "HALF_DAY"
+            ]
+          }
+        },
+        "required": [
+          "id",
+          "category_id",
+          "date",
+          "total_time"
+        ],
+        "additionalProperties": false
+      }
+    },
+    "_notes_count": {
+      "type": "integer"
+    },
+    "_attachments_count": {
+      "type": "integer"
+    },
+    "_links": {
+      "type": "object",
+      "additionalProperties": true
+    },
+    "time_off_categories": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "description": "Id of the time off cost center"
+          },
+          "name": {
+            "type": "string",
+            "description": "Localized name of the time off"
+          }
+        },
+        "required": [
+          "id",
+          "name"
+        ],
+        "additionalProperties": false
+      }
+    },
+    "time_off_entries": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "date": {
+            "type": "string",
+            "pattern": "^(19[0-9]{2}|20[0-6][0-9]|2070)-(0[1-9]|1[0-2])-(0[1-9]|[1-2][0-9]|3[0-1])$",
+            "description": "Date of time off entry. Needs to be in the format yyyy-mm-dd within the 1900-12-31 and 2079-06-05 date range"
+          },
+          "pto_id": {
+            "type": "integer",
+            "description": "Id of the time off cost center"
+          },
+          "pto_name": {
+            "type": "string",
+            "description": "Localized name of the time off"
+          },
+          "total_time": {
+            "type": "integer",
+            "description": "Total time in time off category for this date, in milliseconds"
+          },
+          "dynamic_duration": {
+            "type": "string",
+            "enum": [
+              "UNKNOWN",
+              "FULL_DAY",
+              "FIRST_HALF_OF_DAY",
+              "SECOND_HALF_OF_DAY",
+              "HALF_DAY"
+            ]
+          }
+        },
+        "required": [
+          "date",
+          "pto_id",
+          "pto_name",
+          "total_time"
+        ],
+        "additionalProperties": false
+      }
+    }
+  },
+  "required": [
+    "employee",
+    "reason",
+    "start_date",
+    "est_end_date",
+    "leave_time"
+  ],
+  "additionalProperties": false
+}</div>
+</div>
+</div>
+</div>
+<div class="req-tab-put" id="req-tab-id-put-1">
+<div class="example">
+
+<div class="put-example-tab-1 activeTab" id="put-tab-example-1">
+
+<pre class="highlightjs">&lt;?xml version='1.0' encoding='UTF-8'?&gt;
+&lt;case&gt;
+  &lt;employee&gt;
+    &lt;account_id&gt;123456&lt;/account_id&gt;
+  &lt;/employee&gt;
+  &lt;reason&gt;
+    &lt;id&gt;16640&lt;/id&gt;
+  &lt;/reason&gt;
+  &lt;start_date&gt;2015-11-24&lt;/start_date&gt;
+  &lt;est_end_date&gt;2015-11-24&lt;/est_end_date&gt;
+  &lt;ignore_look_back_rules&gt;false&lt;/ignore_look_back_rules&gt;
+  &lt;time_sheet_populated&gt;false&lt;/time_sheet_populated&gt;
+  &lt;case_number&gt;AA12&lt;/case_number&gt;
+  &lt;categories&gt;
+    &lt;category&gt;
+      &lt;id&gt;16640&lt;/id&gt;
+    &lt;/category&gt;
+  &lt;/categories&gt;
+  &lt;status&gt;OPEN&lt;/status&gt;
+  &lt;leave_time&gt;
+    &lt;weekdays&gt;
+      &lt;weekday&gt;
+        &lt;week_num&gt;1&lt;/week_num&gt;
+        &lt;weekday&gt;MONDAY&lt;/weekday&gt;
+        &lt;type&gt;START_END&lt;/type&gt;
+        &lt;from&gt;12:00&lt;/from&gt;
+        &lt;to&gt;19:30&lt;/to&gt;
+        &lt;total_time&gt;27000000&lt;/total_time&gt;
+      &lt;/weekday&gt;
+      &lt;weekday&gt;
+        &lt;week_num&gt;2&lt;/week_num&gt;
+        &lt;weekday&gt;THURSDAY&lt;/weekday&gt;
+        &lt;type&gt;START_END&lt;/type&gt;
+        &lt;from&gt;12:00&lt;/from&gt;
+        &lt;to&gt;19:30&lt;/to&gt;
+        &lt;total_time&gt;27000000&lt;/total_time&gt;
+      &lt;/weekday&gt;
+      &lt;weekday&gt;
+        &lt;week_num&gt;3&lt;/week_num&gt;
+        &lt;weekday&gt;FRIDAY&lt;/weekday&gt;
+        &lt;type&gt;DYNAMIC_DURATION&lt;/type&gt;
+        &lt;dynamic_duration&gt;HALF_DAY&lt;/dynamic_duration&gt;
+      &lt;/weekday&gt;
+    &lt;/weekdays&gt;
+    &lt;type&gt;INTERMITTENT_WEEKDAYS&lt;/type&gt;
+    &lt;weeks_in_cycle&gt;2&lt;/weeks_in_cycle&gt;
+    &lt;use_separate_settings&gt;false&lt;/use_separate_settings&gt;
+    &lt;use_hours_for_weekdays&gt;false&lt;/use_hours_for_weekdays&gt;
+  &lt;/leave_time&gt;
+  &lt;entries&gt;
+    &lt;entry&gt;
+      &lt;id&gt;123456&lt;/id&gt;
+      &lt;category_id&gt;789&lt;/category_id&gt;
+      &lt;date&gt;2015-11-24&lt;/date&gt;
+      &lt;start&gt;288000000&lt;/start&gt;
+      &lt;end&gt;57600000&lt;/end&gt;
+      &lt;total_time&gt;28800000&lt;/total_time&gt;
+      &lt;days_off&gt;0&lt;/days_off&gt;
+      &lt;active&gt;true&lt;/active&gt;
+      &lt;is_start_end&gt;true&lt;/is_start_end&gt;
+    &lt;/entry&gt;
+  &lt;/entries&gt;
+  &lt;time_off_categories&gt;
+    &lt;time_off_category&gt;
+      &lt;id&gt;1661297&lt;/id&gt;
+      &lt;name&gt;Holiday&lt;/name&gt;
+    &lt;/time_off_category&gt;
+  &lt;/time_off_categories&gt;
+  &lt;time_off_entries&gt;
+    &lt;time_off_entry&gt;
+      &lt;date&gt;2015-11-24&lt;/date&gt;
+      &lt;pto_id&gt;1661297&lt;/pto_id&gt;
+      &lt;pto_name&gt;Holiday&lt;/pto_name&gt;
+      &lt;total_time&gt;28800000&lt;/total_time&gt;
+    &lt;/time_off_entry&gt;
+  &lt;/time_off_entries&gt;
+&lt;/case&gt;
+</pre>
+</div>
+<div class="put-example-tab-1" id="put-tab-schema-1">
+
+<div class="jsonschema" id="schema-4">&lt;xs:schema attributeFormDefault="unqualified" elementFormDefault="qualified"
+           xmlns:xs="http://www.w3.org/2001/XMLSchema"&gt;
+
+  &lt;xs:element name="case"&gt;
+    &lt;xs:complexType&gt;
+      &lt;xs:all&gt;
+        &lt;xs:element name="id" type="xs:long" minOccurs="0"/&gt;
+        &lt;xs:element name="employee" type="employee"/&gt;
+        &lt;xs:element name="reason" type="idAndName"/&gt;
+        &lt;xs:element name="start_date" type="limitedDate"/&gt;
+        &lt;xs:element name="est_end_date" type="limitedDate"/&gt;
+        &lt;xs:element name="end_date" type="limitedDate" minOccurs="0"/&gt;
+        &lt;xs:element name="categories" type="categoriesListType" minOccurs="0"/&gt;
+        &lt;xs:element name="ignore_look_back_rules" type="xs:boolean" minOccurs="0"/&gt;
+        &lt;xs:element name="time_sheet_populated" type="xs:boolean" minOccurs="0"/&gt;
+
+        &lt;xs:element name="time_sheet_correction_information" minOccurs="0"&gt;
+          &lt;xs:complexType&gt;
+            &lt;xs:choice&gt;
+              &lt;xs:element type="xs:boolean" name="allow_corrections_in_current_year_only"/&gt;
+              &lt;xs:element type="xs:int" name="allow_corrections_period"/&gt;
+              &lt;xs:element type="xs:int" name="allow_corrections_period_type"/&gt;
+              &lt;xs:element type="xs:boolean" name="note_required"/&gt;
+              &lt;xs:element type="xs:boolean" name="reason_code_required"/&gt;
+            &lt;/xs:choice&gt;
+          &lt;/xs:complexType&gt;
+        &lt;/xs:element&gt;
+
+        &lt;xs:element name="status" type="status" minOccurs="0"/&gt;
+        &lt;xs:element name="sub_status" type="sub_status" minOccurs="0"/&gt;
+        &lt;xs:element name="custom_fields" type="customFields" minOccurs="0"/&gt;
+        &lt;xs:element name="_attachments_count" type="xs:int" minOccurs="0"/&gt;
+        &lt;xs:element name="_notes_count" type="xs:int" minOccurs="0"/&gt;
+        &lt;xs:element name="case_number" minOccurs="0"&gt;
+          &lt;xs:simpleType&gt;
+            &lt;xs:restriction base="xs:string"&gt;
+              &lt;xs:minLength value="1"/&gt;
+              &lt;xs:maxLength value="20"/&gt;
+            &lt;/xs:restriction&gt;
+          &lt;/xs:simpleType&gt;
+        &lt;/xs:element&gt;
+        &lt;xs:element name="leave_time" type="leaveTimeType" minOccurs="0"/&gt;
+        &lt;xs:element name="entries" type="leaveEntries" minOccurs="0"/&gt;
+        &lt;xs:element name="resolution" type="idAndName" minOccurs="0"/&gt;
+        &lt;xs:element name="time_off_categories" type="timeOffCategories"/&gt;
+        &lt;xs:element name="time_off_entries" type="timeOffEntries"/&gt;
+      &lt;/xs:all&gt;
+    &lt;/xs:complexType&gt;
+  &lt;/xs:element&gt;
+
+  &lt;xs:complexType name="employee"&gt;
+    &lt;xs:choice&gt;
+      &lt;xs:element type="xs:long" name="account_id"/&gt;
+      &lt;xs:element type="xs:string" name="username"/&gt;
+      &lt;xs:element type="xs:string" name="external_id"/&gt;
+    &lt;/xs:choice&gt;
+  &lt;/xs:complexType&gt;
+
+  &lt;xs:complexType name="idAndName"&gt;
+    &lt;xs:choice&gt;
+      &lt;xs:element type="xs:long" name="id"/&gt;
+      &lt;xs:element type="xs:string" name="name"/&gt;
+    &lt;/xs:choice&gt;
+  &lt;/xs:complexType&gt;
+
+  &lt;xs:simpleType name="limitedDate"&gt;
+    &lt;xs:restriction base="xs:date"&gt;
+      &lt;xs:minInclusive value="1900-12-31"/&gt;
+      &lt;xs:maxInclusive value="2079-06-05"/&gt;
+    &lt;/xs:restriction&gt;
+  &lt;/xs:simpleType&gt;
+
+  &lt;xs:simpleType name="status"&gt;
+    &lt;xs:restriction base="xs:string"&gt;
+      &lt;xs:enumeration value="OPEN"/&gt;
+      &lt;xs:enumeration value="CLOSED"/&gt;
+    &lt;/xs:restriction&gt;
+  &lt;/xs:simpleType&gt;
+
+  &lt;xs:simpleType name="sub_status"&gt;
+    &lt;xs:restriction base="xs:string"&gt;
+      &lt;xs:enumeration value="EMPTY"/&gt;
+      &lt;xs:enumeration value="LEAVE_ENTRIES_GENERATED"/&gt;
+      &lt;xs:enumeration value="TIMESHEET_POPULATED"/&gt;
+    &lt;/xs:restriction&gt;
+  &lt;/xs:simpleType&gt;
+
+  &lt;xs:simpleType name="weekDayType"&gt;
+    &lt;xs:restriction base="xs:string"&gt;
+      &lt;xs:enumeration value="MONDAY"/&gt;
+      &lt;xs:enumeration value="TUESDAY"/&gt;
+      &lt;xs:enumeration value="WEDNESDAY"/&gt;
+      &lt;xs:enumeration value="THURSDAY"/&gt;
+      &lt;xs:enumeration value="FRIDAY"/&gt;
+      &lt;xs:enumeration value="SATURDAY"/&gt;
+      &lt;xs:enumeration value="SUNDAY"/&gt;
+    &lt;/xs:restriction&gt;
+  &lt;/xs:simpleType&gt;
+
+  &lt;xs:simpleType name="dynamicDurationType"&gt;
+    &lt;xs:restriction base="xs:string"&gt;
+      &lt;xs:enumeration value="UNKNOWN"/&gt;
+      &lt;xs:enumeration value="FULL_DAY"/&gt;
+      &lt;xs:enumeration value="FIRST_HALF_OF_DAY"/&gt;
+      &lt;xs:enumeration value="SECOND_HALF_OF_DAY"/&gt;
+      &lt;xs:enumeration value="HALF_DAY"/&gt;
+    &lt;/xs:restriction&gt;
+  &lt;/xs:simpleType&gt;
+
+  &lt;xs:complexType name="weekdayType"&gt;
+    &lt;xs:all&gt;
+      &lt;xs:element name="week_num" type="xs:integer"/&gt;
+      &lt;xs:element name="weekday" type="weekDayType"/&gt;
+      &lt;xs:element name="total_time" type="xs:long" minOccurs="0"/&gt;
+      &lt;xs:element name="dynamic_duration" type="dynamicDurationType" minOccurs="0"/&gt;
+      &lt;xs:element name="from" type="timeOfDay" minOccurs="0"/&gt;
+      &lt;xs:element name="to" type="timeOfDay" minOccurs="0"/&gt;
+      &lt;xs:element name="type" minOccurs="0"&gt;
+        &lt;xs:simpleType&gt;
+          &lt;xs:restriction base="xs:string"&gt;
+            &lt;xs:enumeration value="BULK"/&gt;
+            &lt;xs:enumeration value="STANDARD_WORK_DAY"/&gt;
+            &lt;xs:enumeration value="SCHEDULED"/&gt;
+            &lt;xs:enumeration value="START_END"/&gt;
+            &lt;xs:enumeration value="DYNAMIC_DURATION"/&gt;
+          &lt;/xs:restriction&gt;
+        &lt;/xs:simpleType&gt;
+      &lt;/xs:element&gt;
+    &lt;/xs:all&gt;
+  &lt;/xs:complexType&gt;
+
+  &lt;xs:complexType name="customField"&gt;
+    &lt;xs:all&gt;
+      &lt;xs:element name="index"&gt;
+        &lt;xs:simpleType&gt;
+          &lt;xs:restriction base="xs:integer"&gt;
+            &lt;xs:minInclusive value="0"/&gt;
+            &lt;xs:maxInclusive value="19"/&gt;
+          &lt;/xs:restriction&gt;
+        &lt;/xs:simpleType&gt;
+      &lt;/xs:element&gt;
+      &lt;xs:element name="value"&gt;
+        &lt;xs:simpleType&gt;
+          &lt;xs:restriction base="xs:string"&gt;
+            &lt;xs:minLength value="1"/&gt;
+            &lt;xs:maxLength value="255"/&gt;
+          &lt;/xs:restriction&gt;
+        &lt;/xs:simpleType&gt;
+      &lt;/xs:element&gt;
+    &lt;/xs:all&gt;
+  &lt;/xs:complexType&gt;
+
+  &lt;xs:complexType name="customFields"&gt;
+    &lt;xs:sequence&gt;
+      &lt;xs:element maxOccurs="unbounded" name="custom_field" type="customField"/&gt;
+    &lt;/xs:sequence&gt;
+  &lt;/xs:complexType&gt;
+
+  &lt;xs:simpleType name="timeOfDay"&gt;
+    &lt;xs:restriction base="xs:string"&gt;
+      &lt;xs:pattern value="([0-1][0-9]|2[0-3]):([0-5][0-9])( prev.| next)?"/&gt;
+    &lt;/xs:restriction&gt;
+  &lt;/xs:simpleType&gt;
+
+  &lt;xs:complexType name="leaveTimeType"&gt;
+    &lt;xs:all&gt;
+      &lt;xs:element name="type"&gt;
+        &lt;xs:simpleType&gt;
+          &lt;xs:restriction base="xs:string"&gt;
+            &lt;xs:enumeration value="CONTINUOUS"/&gt;
+            &lt;xs:enumeration value="INTERMITTENT"/&gt;
+            &lt;xs:enumeration value="INTERMITTENT_WEEKDAYS"/&gt;
+          &lt;/xs:restriction&gt;
+        &lt;/xs:simpleType&gt;
+      &lt;/xs:element&gt;
+      &lt;xs:element name="total_time" type="xs:long" minOccurs="0"/&gt;
+      &lt;xs:element name="frequency" type="xs:integer" minOccurs="0"/&gt;
+      &lt;xs:element name="frequency_interval" type="xs:integer" minOccurs="0"/&gt;
+      &lt;xs:element name="dynamic_duration" type="dynamicDurationType" minOccurs="0"/&gt;
+      &lt;xs:element name="intermittent_type" type="xs:string" minOccurs="0"/&gt;
+      &lt;xs:element name="use_separate_settings" type="xs:boolean" minOccurs="0"/&gt;
+      &lt;xs:element name="use_hours_for_weekdays" type="xs:boolean" minOccurs="0"/&gt;
+      &lt;xs:element name="weeks_in_cycle" type="xs:integer" minOccurs="0"/&gt;
+      &lt;xs:element name="frequency_interval_type" minOccurs="0"&gt;
+        &lt;xs:simpleType&gt;
+          &lt;xs:restriction base="xs:string"&gt;
+            &lt;xs:enumeration value="DAY"/&gt;
+            &lt;xs:enumeration value="WEEK"/&gt;
+          &lt;/xs:restriction&gt;
+        &lt;/xs:simpleType&gt;
+      &lt;/xs:element&gt;
+      &lt;xs:element name="total_time_type" minOccurs="0"&gt;
+        &lt;xs:simpleType&gt;
+          &lt;xs:restriction base="xs:string"&gt;
+            &lt;xs:enumeration value="CUSTOM"/&gt;
+            &lt;xs:enumeration value="STANDARD_WORK_DAY"/&gt;
+            &lt;xs:enumeration value="SCHEDULED"/&gt;
+            &lt;xs:enumeration value="STANDARD_TOTAL_HOURS"/&gt;
+            &lt;xs:enumeration value="DYNAMIC_DURATION"/&gt;
+          &lt;/xs:restriction&gt;
+        &lt;/xs:simpleType&gt;
+      &lt;/xs:element&gt;
+      &lt;xs:element name="schedule_type" minOccurs="0"&gt;
+        &lt;xs:simpleType&gt;
+          &lt;xs:restriction base="xs:string"&gt;
+            &lt;xs:enumeration value="MONDAY_FRIDAY"/&gt;
+            &lt;xs:enumeration value="MONDAY_SUNDAY"/&gt;
+          &lt;/xs:restriction&gt;
+        &lt;/xs:simpleType&gt;
+      &lt;/xs:element&gt;
+      &lt;xs:element name="weekdays" minOccurs="0"&gt;
+        &lt;xs:complexType&gt;
+          &lt;xs:sequence&gt;
+            &lt;xs:element name="weekday" type="weekdayType" maxOccurs="unbounded"/&gt;
+          &lt;/xs:sequence&gt;
+        &lt;/xs:complexType&gt;
+      &lt;/xs:element&gt;
+    &lt;/xs:all&gt;
+  &lt;/xs:complexType&gt;
+
+  &lt;xs:complexType name="categoriesListType"&gt;
+    &lt;xs:sequence&gt;
+      &lt;xs:element name="category" maxOccurs="unbounded" minOccurs="0"&gt;
+        &lt;xs:complexType&gt;
+          &lt;xs:choice&gt;
+            &lt;xs:element name="id" type="xs:long"/&gt;
+            &lt;xs:element name="external_id"&gt;
+              &lt;xs:simpleType&gt;
+                &lt;xs:restriction base="xs:string"&gt;
+                  &lt;xs:minLength value="1"/&gt;
+                  &lt;xs:maxLength value="50"/&gt;
+                &lt;/xs:restriction&gt;
+              &lt;/xs:simpleType&gt;
+            &lt;/xs:element&gt;
+            &lt;xs:element name="duration_unit" type="xs:integer"/&gt;
+          &lt;/xs:choice&gt;
+        &lt;/xs:complexType&gt;
+      &lt;/xs:element&gt;
+    &lt;/xs:sequence&gt;
+  &lt;/xs:complexType&gt;
+
+  &lt;xs:complexType name="leaveEntries"&gt;
+    &lt;xs:sequence&gt;
+      &lt;xs:element name="entry" type="leaveEntry" maxOccurs="unbounded"/&gt;
+    &lt;/xs:sequence&gt;
+  &lt;/xs:complexType&gt;
+
+  &lt;xs:complexType name="leaveEntry"&gt;
+    &lt;xs:all&gt;
+      &lt;xs:element name="id" type="xs:long"/&gt;
+      &lt;xs:element name="category_id" type="xs:long"/&gt;
+      &lt;xs:element name="date" type="limitedDate"/&gt;
+      &lt;xs:element name="start" type="xs:long"/&gt;
+      &lt;xs:element name="end" type="xs:long"/&gt;
+      &lt;xs:element name="total_time" type="xs:long"/&gt;
+      &lt;xs:element name="days_off" type="xs:double"/&gt;
+      &lt;xs:element name="active" type="xs:boolean"/&gt;
+      &lt;xs:element name="is_start_end" type="xs:boolean"/&gt;
+      &lt;xs:element name="dynamic_duration" type="dynamicDurationType" minOccurs="0"/&gt;
+    &lt;/xs:all&gt;
+  &lt;/xs:complexType&gt;
+
+  &lt;xs:complexType name="timeOffEntries"&gt;
+    &lt;xs:sequence&gt;
+      &lt;xs:element name="time_off_entry" type="timeOffEntry" maxOccurs="unbounded"/&gt;
+    &lt;/xs:sequence&gt;
+  &lt;/xs:complexType&gt;
+
+  &lt;xs:complexType name="timeOffCategories"&gt;
+    &lt;xs:sequence&gt;
+      &lt;xs:element name="time_off_category" type="timeOffCategory" maxOccurs="unbounded"/&gt;
+    &lt;/xs:sequence&gt;
+  &lt;/xs:complexType&gt;
+
+  &lt;xs:complexType name="timeOffCategory"&gt;
+    &lt;xs:all&gt;
+      &lt;xs:element name="id" type="xs:long"/&gt;
+      &lt;xs:element name="name" type="xs:string"/&gt;
+    &lt;/xs:all&gt;
+  &lt;/xs:complexType&gt;
+
+  &lt;xs:complexType name="timeOffEntry"&gt;
+    &lt;xs:all&gt;
+      &lt;xs:element name="date" type="limitedDate"/&gt;
+      &lt;xs:element name="pto_id" type="xs:long"/&gt;
+      &lt;xs:element name="pto_name" type="xs:string"/&gt;
+      &lt;xs:element name="total_time" type="xs:long"/&gt;
+    &lt;/xs:all&gt;
+  &lt;/xs:complexType&gt;
+
+&lt;/xs:schema&gt;
+</div>
+</div>
+</div>
+</div>
+<div class="req-tab-put" id="req-tab-id-put-2">
+<div class="example">
+
+<div class="put-example-tab-2 activeTab" id="put-tab-example-2">
+
+<pre class="highlightjs">&lt;?xml version='1.0' encoding='UTF-8'?&gt;
+&lt;case&gt;
+  &lt;employee&gt;
+    &lt;account_id&gt;123456&lt;/account_id&gt;
+  &lt;/employee&gt;
+  &lt;reason&gt;
+    &lt;id&gt;16640&lt;/id&gt;
+  &lt;/reason&gt;
+  &lt;start_date&gt;2015-11-24&lt;/start_date&gt;
+  &lt;est_end_date&gt;2015-11-24&lt;/est_end_date&gt;
+  &lt;ignore_look_back_rules&gt;false&lt;/ignore_look_back_rules&gt;
+  &lt;time_sheet_populated&gt;false&lt;/time_sheet_populated&gt;
+  &lt;case_number&gt;AA12&lt;/case_number&gt;
+  &lt;categories&gt;
+    &lt;category&gt;
+      &lt;id&gt;16640&lt;/id&gt;
+    &lt;/category&gt;
+  &lt;/categories&gt;
+  &lt;status&gt;OPEN&lt;/status&gt;
+  &lt;leave_time&gt;
+    &lt;weekdays&gt;
+      &lt;weekday&gt;
+        &lt;week_num&gt;1&lt;/week_num&gt;
+        &lt;weekday&gt;MONDAY&lt;/weekday&gt;
+        &lt;type&gt;START_END&lt;/type&gt;
+        &lt;from&gt;12:00&lt;/from&gt;
+        &lt;to&gt;19:30&lt;/to&gt;
+        &lt;total_time&gt;27000000&lt;/total_time&gt;
+      &lt;/weekday&gt;
+      &lt;weekday&gt;
+        &lt;week_num&gt;2&lt;/week_num&gt;
+        &lt;weekday&gt;THURSDAY&lt;/weekday&gt;
+        &lt;type&gt;START_END&lt;/type&gt;
+        &lt;from&gt;12:00&lt;/from&gt;
+        &lt;to&gt;19:30&lt;/to&gt;
+        &lt;total_time&gt;27000000&lt;/total_time&gt;
+      &lt;/weekday&gt;
+      &lt;weekday&gt;
+        &lt;week_num&gt;3&lt;/week_num&gt;
+        &lt;weekday&gt;FRIDAY&lt;/weekday&gt;
+        &lt;type&gt;DYNAMIC_DURATION&lt;/type&gt;
+        &lt;dynamic_duration&gt;HALF_DAY&lt;/dynamic_duration&gt;
+      &lt;/weekday&gt;
+    &lt;/weekdays&gt;
+    &lt;type&gt;INTERMITTENT_WEEKDAYS&lt;/type&gt;
+    &lt;weeks_in_cycle&gt;2&lt;/weeks_in_cycle&gt;
+    &lt;use_separate_settings&gt;false&lt;/use_separate_settings&gt;
+    &lt;use_hours_for_weekdays&gt;false&lt;/use_hours_for_weekdays&gt;
+  &lt;/leave_time&gt;
+  &lt;entries&gt;
+    &lt;entry&gt;
+      &lt;id&gt;123456&lt;/id&gt;
+      &lt;category_id&gt;789&lt;/category_id&gt;
+      &lt;date&gt;2015-11-24&lt;/date&gt;
+      &lt;start&gt;288000000&lt;/start&gt;
+      &lt;end&gt;57600000&lt;/end&gt;
+      &lt;total_time&gt;28800000&lt;/total_time&gt;
+      &lt;days_off&gt;0&lt;/days_off&gt;
+      &lt;active&gt;true&lt;/active&gt;
+      &lt;is_start_end&gt;true&lt;/is_start_end&gt;
+    &lt;/entry&gt;
+  &lt;/entries&gt;
+  &lt;time_off_categories&gt;
+    &lt;time_off_category&gt;
+      &lt;id&gt;1661297&lt;/id&gt;
+      &lt;name&gt;Holiday&lt;/name&gt;
+    &lt;/time_off_category&gt;
+  &lt;/time_off_categories&gt;
+  &lt;time_off_entries&gt;
+    &lt;time_off_entry&gt;
+      &lt;date&gt;2015-11-24&lt;/date&gt;
+      &lt;pto_id&gt;1661297&lt;/pto_id&gt;
+      &lt;pto_name&gt;Holiday&lt;/pto_name&gt;
+      &lt;total_time&gt;28800000&lt;/total_time&gt;
+    &lt;/time_off_entry&gt;
+  &lt;/time_off_entries&gt;
+&lt;/case&gt;
+</pre>
+</div>
+<div class="put-example-tab-2" id="put-tab-schema-2">
+
+<div class="jsonschema" id="schema-5">&lt;xs:schema attributeFormDefault="unqualified" elementFormDefault="qualified"
+           xmlns:xs="http://www.w3.org/2001/XMLSchema"&gt;
+
+  &lt;xs:element name="case"&gt;
+    &lt;xs:complexType&gt;
+      &lt;xs:all&gt;
+        &lt;xs:element name="id" type="xs:long" minOccurs="0"/&gt;
+        &lt;xs:element name="employee" type="employee"/&gt;
+        &lt;xs:element name="reason" type="idAndName"/&gt;
+        &lt;xs:element name="start_date" type="limitedDate"/&gt;
+        &lt;xs:element name="est_end_date" type="limitedDate"/&gt;
+        &lt;xs:element name="end_date" type="limitedDate" minOccurs="0"/&gt;
+        &lt;xs:element name="categories" type="categoriesListType" minOccurs="0"/&gt;
+        &lt;xs:element name="ignore_look_back_rules" type="xs:boolean" minOccurs="0"/&gt;
+        &lt;xs:element name="time_sheet_populated" type="xs:boolean" minOccurs="0"/&gt;
+
+        &lt;xs:element name="time_sheet_correction_information" minOccurs="0"&gt;
+          &lt;xs:complexType&gt;
+            &lt;xs:choice&gt;
+              &lt;xs:element type="xs:boolean" name="allow_corrections_in_current_year_only"/&gt;
+              &lt;xs:element type="xs:int" name="allow_corrections_period"/&gt;
+              &lt;xs:element type="xs:int" name="allow_corrections_period_type"/&gt;
+              &lt;xs:element type="xs:boolean" name="note_required"/&gt;
+              &lt;xs:element type="xs:boolean" name="reason_code_required"/&gt;
+            &lt;/xs:choice&gt;
+          &lt;/xs:complexType&gt;
+        &lt;/xs:element&gt;
+
+        &lt;xs:element name="status" type="status" minOccurs="0"/&gt;
+        &lt;xs:element name="sub_status" type="sub_status" minOccurs="0"/&gt;
+        &lt;xs:element name="custom_fields" type="customFields" minOccurs="0"/&gt;
+        &lt;xs:element name="_attachments_count" type="xs:int" minOccurs="0"/&gt;
+        &lt;xs:element name="_notes_count" type="xs:int" minOccurs="0"/&gt;
+        &lt;xs:element name="case_number" minOccurs="0"&gt;
+          &lt;xs:simpleType&gt;
+            &lt;xs:restriction base="xs:string"&gt;
+              &lt;xs:minLength value="1"/&gt;
+              &lt;xs:maxLength value="20"/&gt;
+            &lt;/xs:restriction&gt;
+          &lt;/xs:simpleType&gt;
+        &lt;/xs:element&gt;
+        &lt;xs:element name="leave_time" type="leaveTimeType" minOccurs="0"/&gt;
+        &lt;xs:element name="entries" type="leaveEntries" minOccurs="0"/&gt;
+        &lt;xs:element name="resolution" type="idAndName" minOccurs="0"/&gt;
+        &lt;xs:element name="time_off_categories" type="timeOffCategories"/&gt;
+        &lt;xs:element name="time_off_entries" type="timeOffEntries"/&gt;
+      &lt;/xs:all&gt;
+    &lt;/xs:complexType&gt;
+  &lt;/xs:element&gt;
+
+  &lt;xs:complexType name="employee"&gt;
+    &lt;xs:choice&gt;
+      &lt;xs:element type="xs:long" name="account_id"/&gt;
+      &lt;xs:element type="xs:string" name="username"/&gt;
+      &lt;xs:element type="xs:string" name="external_id"/&gt;
+    &lt;/xs:choice&gt;
+  &lt;/xs:complexType&gt;
+
+  &lt;xs:complexType name="idAndName"&gt;
+    &lt;xs:choice&gt;
+      &lt;xs:element type="xs:long" name="id"/&gt;
+      &lt;xs:element type="xs:string" name="name"/&gt;
+    &lt;/xs:choice&gt;
+  &lt;/xs:complexType&gt;
+
+  &lt;xs:simpleType name="limitedDate"&gt;
+    &lt;xs:restriction base="xs:date"&gt;
+      &lt;xs:minInclusive value="1900-12-31"/&gt;
+      &lt;xs:maxInclusive value="2079-06-05"/&gt;
+    &lt;/xs:restriction&gt;
+  &lt;/xs:simpleType&gt;
+
+  &lt;xs:simpleType name="status"&gt;
+    &lt;xs:restriction base="xs:string"&gt;
+      &lt;xs:enumeration value="OPEN"/&gt;
+      &lt;xs:enumeration value="CLOSED"/&gt;
+    &lt;/xs:restriction&gt;
+  &lt;/xs:simpleType&gt;
+
+  &lt;xs:simpleType name="sub_status"&gt;
+    &lt;xs:restriction base="xs:string"&gt;
+      &lt;xs:enumeration value="EMPTY"/&gt;
+      &lt;xs:enumeration value="LEAVE_ENTRIES_GENERATED"/&gt;
+      &lt;xs:enumeration value="TIMESHEET_POPULATED"/&gt;
+    &lt;/xs:restriction&gt;
+  &lt;/xs:simpleType&gt;
+
+  &lt;xs:simpleType name="weekDayType"&gt;
+    &lt;xs:restriction base="xs:string"&gt;
+      &lt;xs:enumeration value="MONDAY"/&gt;
+      &lt;xs:enumeration value="TUESDAY"/&gt;
+      &lt;xs:enumeration value="WEDNESDAY"/&gt;
+      &lt;xs:enumeration value="THURSDAY"/&gt;
+      &lt;xs:enumeration value="FRIDAY"/&gt;
+      &lt;xs:enumeration value="SATURDAY"/&gt;
+      &lt;xs:enumeration value="SUNDAY"/&gt;
+    &lt;/xs:restriction&gt;
+  &lt;/xs:simpleType&gt;
+
+  &lt;xs:simpleType name="dynamicDurationType"&gt;
+    &lt;xs:restriction base="xs:string"&gt;
+      &lt;xs:enumeration value="UNKNOWN"/&gt;
+      &lt;xs:enumeration value="FULL_DAY"/&gt;
+      &lt;xs:enumeration value="FIRST_HALF_OF_DAY"/&gt;
+      &lt;xs:enumeration value="SECOND_HALF_OF_DAY"/&gt;
+      &lt;xs:enumeration value="HALF_DAY"/&gt;
+    &lt;/xs:restriction&gt;
+  &lt;/xs:simpleType&gt;
+
+  &lt;xs:complexType name="weekdayType"&gt;
+    &lt;xs:all&gt;
+      &lt;xs:element name="week_num" type="xs:integer"/&gt;
+      &lt;xs:element name="weekday" type="weekDayType"/&gt;
+      &lt;xs:element name="total_time" type="xs:long" minOccurs="0"/&gt;
+      &lt;xs:element name="dynamic_duration" type="dynamicDurationType" minOccurs="0"/&gt;
+      &lt;xs:element name="from" type="timeOfDay" minOccurs="0"/&gt;
+      &lt;xs:element name="to" type="timeOfDay" minOccurs="0"/&gt;
+      &lt;xs:element name="type" minOccurs="0"&gt;
+        &lt;xs:simpleType&gt;
+          &lt;xs:restriction base="xs:string"&gt;
+            &lt;xs:enumeration value="BULK"/&gt;
+            &lt;xs:enumeration value="STANDARD_WORK_DAY"/&gt;
+            &lt;xs:enumeration value="SCHEDULED"/&gt;
+            &lt;xs:enumeration value="START_END"/&gt;
+            &lt;xs:enumeration value="DYNAMIC_DURATION"/&gt;
+          &lt;/xs:restriction&gt;
+        &lt;/xs:simpleType&gt;
+      &lt;/xs:element&gt;
+    &lt;/xs:all&gt;
+  &lt;/xs:complexType&gt;
+
+  &lt;xs:complexType name="customField"&gt;
+    &lt;xs:all&gt;
+      &lt;xs:element name="index"&gt;
+        &lt;xs:simpleType&gt;
+          &lt;xs:restriction base="xs:integer"&gt;
+            &lt;xs:minInclusive value="0"/&gt;
+            &lt;xs:maxInclusive value="19"/&gt;
+          &lt;/xs:restriction&gt;
+        &lt;/xs:simpleType&gt;
+      &lt;/xs:element&gt;
+      &lt;xs:element name="value"&gt;
+        &lt;xs:simpleType&gt;
+          &lt;xs:restriction base="xs:string"&gt;
+            &lt;xs:minLength value="1"/&gt;
+            &lt;xs:maxLength value="255"/&gt;
+          &lt;/xs:restriction&gt;
+        &lt;/xs:simpleType&gt;
+      &lt;/xs:element&gt;
+    &lt;/xs:all&gt;
+  &lt;/xs:complexType&gt;
+
+  &lt;xs:complexType name="customFields"&gt;
+    &lt;xs:sequence&gt;
+      &lt;xs:element maxOccurs="unbounded" name="custom_field" type="customField"/&gt;
+    &lt;/xs:sequence&gt;
+  &lt;/xs:complexType&gt;
+
+  &lt;xs:simpleType name="timeOfDay"&gt;
+    &lt;xs:restriction base="xs:string"&gt;
+      &lt;xs:pattern value="([0-1][0-9]|2[0-3]):([0-5][0-9])( prev.| next)?"/&gt;
+    &lt;/xs:restriction&gt;
+  &lt;/xs:simpleType&gt;
+
+  &lt;xs:complexType name="leaveTimeType"&gt;
+    &lt;xs:all&gt;
+      &lt;xs:element name="type"&gt;
+        &lt;xs:simpleType&gt;
+          &lt;xs:restriction base="xs:string"&gt;
+            &lt;xs:enumeration value="CONTINUOUS"/&gt;
+            &lt;xs:enumeration value="INTERMITTENT"/&gt;
+            &lt;xs:enumeration value="INTERMITTENT_WEEKDAYS"/&gt;
+          &lt;/xs:restriction&gt;
+        &lt;/xs:simpleType&gt;
+      &lt;/xs:element&gt;
+      &lt;xs:element name="total_time" type="xs:long" minOccurs="0"/&gt;
+      &lt;xs:element name="frequency" type="xs:integer" minOccurs="0"/&gt;
+      &lt;xs:element name="frequency_interval" type="xs:integer" minOccurs="0"/&gt;
+      &lt;xs:element name="dynamic_duration" type="dynamicDurationType" minOccurs="0"/&gt;
+      &lt;xs:element name="intermittent_type" type="xs:string" minOccurs="0"/&gt;
+      &lt;xs:element name="use_separate_settings" type="xs:boolean" minOccurs="0"/&gt;
+      &lt;xs:element name="use_hours_for_weekdays" type="xs:boolean" minOccurs="0"/&gt;
+      &lt;xs:element name="weeks_in_cycle" type="xs:integer" minOccurs="0"/&gt;
+      &lt;xs:element name="frequency_interval_type" minOccurs="0"&gt;
+        &lt;xs:simpleType&gt;
+          &lt;xs:restriction base="xs:string"&gt;
+            &lt;xs:enumeration value="DAY"/&gt;
+            &lt;xs:enumeration value="WEEK"/&gt;
+          &lt;/xs:restriction&gt;
+        &lt;/xs:simpleType&gt;
+      &lt;/xs:element&gt;
+      &lt;xs:element name="total_time_type" minOccurs="0"&gt;
+        &lt;xs:simpleType&gt;
+          &lt;xs:restriction base="xs:string"&gt;
+            &lt;xs:enumeration value="CUSTOM"/&gt;
+            &lt;xs:enumeration value="STANDARD_WORK_DAY"/&gt;
+            &lt;xs:enumeration value="SCHEDULED"/&gt;
+            &lt;xs:enumeration value="STANDARD_TOTAL_HOURS"/&gt;
+            &lt;xs:enumeration value="DYNAMIC_DURATION"/&gt;
+          &lt;/xs:restriction&gt;
+        &lt;/xs:simpleType&gt;
+      &lt;/xs:element&gt;
+      &lt;xs:element name="schedule_type" minOccurs="0"&gt;
+        &lt;xs:simpleType&gt;
+          &lt;xs:restriction base="xs:string"&gt;
+            &lt;xs:enumeration value="MONDAY_FRIDAY"/&gt;
+            &lt;xs:enumeration value="MONDAY_SUNDAY"/&gt;
+          &lt;/xs:restriction&gt;
+        &lt;/xs:simpleType&gt;
+      &lt;/xs:element&gt;
+      &lt;xs:element name="weekdays" minOccurs="0"&gt;
+        &lt;xs:complexType&gt;
+          &lt;xs:sequence&gt;
+            &lt;xs:element name="weekday" type="weekdayType" maxOccurs="unbounded"/&gt;
+          &lt;/xs:sequence&gt;
+        &lt;/xs:complexType&gt;
+      &lt;/xs:element&gt;
+    &lt;/xs:all&gt;
+  &lt;/xs:complexType&gt;
+
+  &lt;xs:complexType name="categoriesListType"&gt;
+    &lt;xs:sequence&gt;
+      &lt;xs:element name="category" maxOccurs="unbounded" minOccurs="0"&gt;
+        &lt;xs:complexType&gt;
+          &lt;xs:choice&gt;
+            &lt;xs:element name="id" type="xs:long"/&gt;
+            &lt;xs:element name="external_id"&gt;
+              &lt;xs:simpleType&gt;
+                &lt;xs:restriction base="xs:string"&gt;
+                  &lt;xs:minLength value="1"/&gt;
+                  &lt;xs:maxLength value="50"/&gt;
+                &lt;/xs:restriction&gt;
+              &lt;/xs:simpleType&gt;
+            &lt;/xs:element&gt;
+            &lt;xs:element name="duration_unit" type="xs:integer"/&gt;
+          &lt;/xs:choice&gt;
+        &lt;/xs:complexType&gt;
+      &lt;/xs:element&gt;
+    &lt;/xs:sequence&gt;
+  &lt;/xs:complexType&gt;
+
+  &lt;xs:complexType name="leaveEntries"&gt;
+    &lt;xs:sequence&gt;
+      &lt;xs:element name="entry" type="leaveEntry" maxOccurs="unbounded"/&gt;
+    &lt;/xs:sequence&gt;
+  &lt;/xs:complexType&gt;
+
+  &lt;xs:complexType name="leaveEntry"&gt;
+    &lt;xs:all&gt;
+      &lt;xs:element name="id" type="xs:long"/&gt;
+      &lt;xs:element name="category_id" type="xs:long"/&gt;
+      &lt;xs:element name="date" type="limitedDate"/&gt;
+      &lt;xs:element name="start" type="xs:long"/&gt;
+      &lt;xs:element name="end" type="xs:long"/&gt;
+      &lt;xs:element name="total_time" type="xs:long"/&gt;
+      &lt;xs:element name="days_off" type="xs:double"/&gt;
+      &lt;xs:element name="active" type="xs:boolean"/&gt;
+      &lt;xs:element name="is_start_end" type="xs:boolean"/&gt;
+      &lt;xs:element name="dynamic_duration" type="dynamicDurationType" minOccurs="0"/&gt;
+    &lt;/xs:all&gt;
+  &lt;/xs:complexType&gt;
+
+  &lt;xs:complexType name="timeOffEntries"&gt;
+    &lt;xs:sequence&gt;
+      &lt;xs:element name="time_off_entry" type="timeOffEntry" maxOccurs="unbounded"/&gt;
+    &lt;/xs:sequence&gt;
+  &lt;/xs:complexType&gt;
+
+  &lt;xs:complexType name="timeOffCategories"&gt;
+    &lt;xs:sequence&gt;
+      &lt;xs:element name="time_off_category" type="timeOffCategory" maxOccurs="unbounded"/&gt;
+    &lt;/xs:sequence&gt;
+  &lt;/xs:complexType&gt;
+
+  &lt;xs:complexType name="timeOffCategory"&gt;
+    &lt;xs:all&gt;
+      &lt;xs:element name="id" type="xs:long"/&gt;
+      &lt;xs:element name="name" type="xs:string"/&gt;
+    &lt;/xs:all&gt;
+  &lt;/xs:complexType&gt;
+
+  &lt;xs:complexType name="timeOffEntry"&gt;
+    &lt;xs:all&gt;
+      &lt;xs:element name="date" type="limitedDate"/&gt;
+      &lt;xs:element name="pto_id" type="xs:long"/&gt;
+      &lt;xs:element name="pto_name" type="xs:string"/&gt;
+      &lt;xs:element name="total_time" type="xs:long"/&gt;
+    &lt;/xs:all&gt;
+  &lt;/xs:complexType&gt;
+
+&lt;/xs:schema&gt;
+</div>
+</div>
+</div>
+</div>
+</div>
+</article>
+</section>
+<section class="clearfix">
+<article class="definition">
+<h3 class="anchored" id="delete"><span>DELETE</span>
+<a class="fa fa-link link-anchor" data-url="r=__v2__companies__(cid)__loa__cases__(id)#delete" data-web-id="__v2__companies__(cid)__loa__cases__(id)"></a>
+</h3>
+<div class="md"><p>Endpoint for delete leave of absence case.
+Leave of absence functionality must be enabled in company.
+</p></div>
+<div>
+<ul class="annotation-list">
+<li class="annotation">
+<span>v2</span>
+</li>
+</ul>
+</div>
+<h4>Parameters</h4>
+<h5>Path Parameters</h5>
+<ul class="param-list">
+<li>
+<div class="param-desc">
+<div class="param-name">cid</div>
+<div class="data-type">string</div>
+<div class="required">required</div>
+</div>
+<div class="param-content">
+<div>
+<p>Example: 123456</p>
+<div class="desc md">Company should be referenced via company id or company unique id or company short name using `|short_name` or `!short_name` format.
+</div>
+</div>
+</div>
+
+</li>
+<li>
+<div class="param-desc">
+<div class="param-name">id</div>
+<div class="data-type">integer</div>
+<div class="required">required</div>
+</div>
+<div class="param-content">
+<div>
+<div class="desc md">Case id.</div>
+</div>
+</div>
+
+</li>
+</ul>
+<h4>Responses</h4>
+<div class="responses">
+<div>
+<label class="response response-success">
+<span class="fa fa-check"></span>
+<input data-full-tab-id="delete-resp-code-tab-id-0" data-tab-class="resp-code-tab-delete" name="resp-code-tab-delete" type="radio"/>
+<span class="status">204 No Content</span>
+</label>
+<div class="response-desc resp-code-tab-delete" id="delete-resp-code-tab-id-0">
+<div class="md"><p>Case was successfully deleted.</p></div>
+</div>
+</div>
+<div>
+<label class="response response-error">
+<span class="fa fa-times"></span>
+<input data-full-tab-id="delete-resp-code-tab-id-1" data-tab-class="resp-code-tab-delete" name="resp-code-tab-delete" type="radio"/>
+<span class="status">401 Unauthorized</span>
+</label>
+<div class="response-desc resp-code-tab-delete" id="delete-resp-code-tab-id-1">
+<div class="md"><p>Returned in case user is not authorized.</p></div>
+</div>
+</div>
+<div>
+<label class="response response-error">
+<span class="fa fa-times"></span>
+<input data-full-tab-id="delete-resp-code-tab-id-2" data-tab-class="resp-code-tab-delete" name="resp-code-tab-delete" type="radio"/>
+<span class="status">403 Forbidden</span>
+</label>
+<div class="response-desc resp-code-tab-delete" id="delete-resp-code-tab-id-2">
+<div class="md"><p>Returned in case user has no access to the resource.</p></div>
+</div>
+</div>
+<div>
+<label class="response response-error">
+<span class="fa fa-times"></span>
+<input data-full-tab-id="delete-resp-code-tab-id-3" data-tab-class="resp-code-tab-delete" name="resp-code-tab-delete" type="radio"/>
+<span class="status">404 Not Found</span>
+</label>
+<div class="response-desc resp-code-tab-delete" id="delete-resp-code-tab-id-3">
+<div class="md"><p>Returned in case resource does not exist.</p></div>
+</div>
+</div>
+<div>
+<label class="response response-error">
+<span class="fa fa-times"></span>
+<input data-full-tab-id="delete-resp-code-tab-id-4" data-tab-class="resp-code-tab-delete" name="resp-code-tab-delete" type="radio"/>
+<span class="status">503 Service Unavailable</span>
+</label>
+<div class="response-desc resp-code-tab-delete" id="delete-resp-code-tab-id-4">
+<div class="md"><p>Returned in the event that the call limit is exceeded. The application will be unavailable for subsequent calls for the duration specified by the X-CallLimit-TimeToWait header.</p></div>
+</div>
+</div>
+</div>
+</article>
+<article class="code">
+<h4>Definition</h4>
+<div class="uri">
+<code>
+<span class="method delete">delete</span>
+<span class="textUri"><span class="baseUri">{{ getUriPrefix() }}</span><span class="relativeUri">/v2/companies/{cid}/loa/cases/{id}</span></span>
+</code>
+</div>
+</article>
+</section>
+</div>
+</body></html>

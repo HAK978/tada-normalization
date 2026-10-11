@@ -1,0 +1,44 @@
+<!doctype html>
+<html><head><meta charset="utf-8"><title>Version 2 resources and operations</title><style>body{font:16px system-ui;max-width:1100px;margin:2rem auto;padding:0 1rem;line-height:1.5}aside{background:#fff3cc;padding:1rem}.jsonschema,pre{white-space:pre-wrap;font:13px monospace;overflow-wrap:anywhere;background:#f4f5f7;padding:1rem}.uri{font-family:monospace}h2,h3{margin-top:2rem}</style></head><body><aside><strong>Modified private reference — 2026-10-09.</strong> Provider-documented illustrative examples are included; authentication token examples are redacted. These are not customer exports or guaranteed production behavior. Candidate sharing is pending. This is not OpenAPI.</aside>
+<div class="group">
+<h2 class="docTitle">Version 2 resources and operations</h2>
+<section class="clearfix">
+<article class="documentation md">
+<pre>This topic correlates version 2 resources and operations with the deprecated version 1 resources and operations they replace.
+
+---
+
+**Important Note**: We recommend you update your implementations to utilize version 2 operations immediately as they provide better security, performance, and functionality.
+
+
+| Deprecated Operation                                          | Replacement Operations                                      | Deprecation Date  | Enforcement Start Date | End of Support   |
+|---------------------------------------------------------------|-------------------------------------------------------------|-------------------|------------------------|------------------|
+| GET v1/company/profiles                                       | GET v2/companies/{cid}/lookup/profiles/                     | April 03, 2023    | January 29, 2026       | January 29, 2026 |
+| GET v1/employee/time-entries/notes                            | GET v2/companies/{cid}/time-entries/notes                   | August 19, 2021   | January 29, 2026       | January 29, 2026 |
+| POST v1/employee/time-entries/notes                           | POST v2/companies/{cid}/time-entries/notes/collection       | August 19, 2021   | January 29, 2026       | January 29, 2026 |
+| DELETE v1/employee/time-entries/notes                         | DELETE v2/companies/{cid}/time-entries/notes/collection     | August 19, 2021   | January 29, 2026       | January 29, 2026 |
+| GET v1/employees/                                             | GET v2/companies/{cid}/employees                            | June 22, 2017     | January 29, 2026       | January 29, 2026 |
+| POST v1/employees/                                            | POST v2/companies/{cid}/employees                           | June 22, 2017     | January 29, 2026       | January 29, 2026 |
+| PUT v1/employees/                                             | PUT v2/companies/{cid}/employees/{account_id}               | June 22, 2017     | January 29, 2026       | January 29, 2026 |
+| GET v1/employees/{account_id}                                 | GET v2/companies/{cid}/employees/{account_id}               | June 22, 2017     | January 29, 2026       | January 29, 2026 |
+| GET v1/export/{data_export_id}                                | GET v2/companies/{cid}/data-export/{data_export_id}/execute | April 03, 2023    | January 29, 2026       | January 29, 2026 |
+| GET v1/export/status/{job_id}                                 | GET v2/companies/{cid}/exports/status/{job_id}              | April 03, 2023    | January 29, 2026       | January 29, 2026 |
+| GET v1/exports                                                | GET v2/companies/{cid}/data-export                          | April 03, 2023    | January 29, 2026       | January 29, 2026 |
+| POST v1/employee/contracts                                    | POST v2/companies/{cid}/employee/contracts                  | October 20, 2022  | January 29, 2026       | January 29, 2026 |
+| PUT v1/employee/contracts                                     | PUT v2/companies/{cid}/employee/contracts/{contract_id}     | October 20, 2022  | January 29, 2026       | January 29, 2026 |
+| DELETE v1/employee/contracts                                  | DELETE v2/companies/{cid}/employee/contracts/{contract_id}  | October 20, 2022  | January 29, 2026       | January 29, 2026 |
+| POST v1/login                                                 | POST v2/companies/{cid}/oauth2/token                        | November 25, 2025 | January 24, 2026       |                  |
+| POST v2/companies/{cid}/direct-deposits                       | N/A                                                         | April 13, 2023    | January 29, 2026       | January 29, 2026 |
+| GET v2/companies/{cid}/direct-deposits/{id}                   | N/A                                                         | April 13, 2023    | January 29, 2026       | January 29, 2026 |
+| PUT v2/companies/{cid}/direct-deposits/{id}                   | N/A                                                         | April 13, 2023    | January 29, 2026       | January 29, 2026 |
+| DELETE v2/companies/{cid}/direct-deposits/{id}                | N/A                                                         | April 13, 2023    | January 29, 2026       | January 29, 2026 |
+| PUT v2/companies/{cid}/direct-deposits/actions/mass-edit      | N/A                                                         | April 13, 2023    | January 29, 2026       | January 29, 2026 |
+| PUT v2/companies/{cid}/direct-deposits/cancel-pre-note        | N/A                                                         | April 13, 2023    | January 29, 2026       | January 29, 2026 |
+| GET v2/companies/{cid}/employees/{account_id}/direct-deposits | N/A                                                         | April 13, 2023    | January 29, 2026       | January 29, 2026 |
+| GET v2/companies/{cid}/employees/{account_id}/forms/pay       | GET v2/companies/{cid}/employees/{account_id}/forms/system  | October 8, 2022   | January 29, 2026       | January 29, 2026 |
+
+</pre>
+</article>
+</section>
+</div>
+</body></html>

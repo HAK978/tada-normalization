@@ -1,0 +1,1019 @@
+<!doctype html>
+<html><head><meta charset="utf-8"><title>Managed Cost Center</title><style>body{font:16px system-ui;max-width:1100px;margin:2rem auto;padding:0 1rem;line-height:1.5}aside{background:#fff3cc;padding:1rem}.jsonschema,pre{white-space:pre-wrap;font:13px monospace;overflow-wrap:anywhere;background:#f4f5f7;padding:1rem}.uri{font-family:monospace}h2,h3{margin-top:2rem}</style></head><body><aside><strong>Modified private reference — 2026-10-09.</strong> Provider-documented illustrative examples are included; authentication token examples are redacted. These are not customer exports or guaranteed production behavior. Candidate sharing is pending. This is not OpenAPI.</aside>
+<div class="group">
+<h2 class="anchored" id="item.anchor">
+<span>Managed Cost Center</span>
+<a class="fa fa-link link-anchor" data-url="r=__v2__companies__(cid)__employees__(aid)__managed-cost-centers__(mccid)#" data-web-id="__v2__companies__(cid)__employees__(aid)__managed-cost-centers__(mccid)"></a>
+</h2>
+<section class="clearfix">
+<article class="definition">
+<h3 class="anchored" id="get"><span>GET</span>
+<a class="fa fa-link link-anchor" data-url="r=__v2__companies__(cid)__employees__(aid)__managed-cost-centers__(mccid)#get" data-web-id="__v2__companies__(cid)__employees__(aid)__managed-cost-centers__(mccid)"></a>
+</h3>
+<div class="md"><p>Endpoint for fetching MCC by Maneged Cost Center ACL id.</p></div>
+<div>
+<ul class="annotation-list">
+<li class="annotation">
+<span>v2</span>
+</li>
+</ul>
+</div>
+<h4>Parameters</h4>
+<h5>Path Parameters</h5>
+<ul class="param-list">
+<li>
+<div class="param-desc">
+<div class="param-name">cid</div>
+<div class="data-type">string</div>
+<div class="required">required</div>
+</div>
+<div class="param-content">
+<div>
+<p>Example: 123456</p>
+<div class="desc md">Company should be referenced via company id or company unique id or company short name using `|short_name` or `!short_name` format.
+</div>
+</div>
+</div>
+
+</li>
+<li>
+<div class="param-desc">
+<div class="param-name">aid</div>
+<div class="data-type">string</div>
+<div class="required">required</div>
+</div>
+<div class="param-content">
+<div>
+<p>Example: 1234567</p>
+<div class="desc md">Account should be referenced via account id or account external id using `|external_id` or `!external_id` format.
+</div>
+</div>
+</div>
+
+</li>
+<li>
+<div class="param-desc">
+<div class="param-name">mccid</div>
+<div class="data-type">integer</div>
+<div class="required">required</div>
+</div>
+<div class="param-content">
+<div>
+<p>Example: 1231212</p>
+<div class="desc md">Managed Cost Center Id.</div>
+</div>
+</div>
+
+</li>
+</ul>
+<h5>Header Parameters</h5>
+<ul class="param-list">
+<li>
+<div class="param-desc">
+<div class="param-name">Accept</div>
+<div class="data-type">string</div>
+</div>
+<div class="param-content">
+<div>
+<p>Valid values: application/json, application/xml, text/xml</p>
+<p>Default: application/json</p>
+<p>Example: application/json</p>
+</div>
+</div>
+
+</li>
+</ul>
+<h4>Responses</h4>
+<div class="responses">
+<div>
+<label class="response response-success">
+<span class="fa fa-check"></span>
+<input data-full-tab-id="get-resp-code-tab-id-0" data-tab-class="resp-code-tab-get" name="resp-code-tab-get" type="radio"/>
+<span class="status">200 Ok</span>
+</label>
+<div class="response-desc resp-code-tab-get" id="get-resp-code-tab-id-0">
+</div>
+</div>
+<div>
+<label class="response response-error">
+<span class="fa fa-times"></span>
+<input data-full-tab-id="get-resp-code-tab-id-1" data-tab-class="resp-code-tab-get" name="resp-code-tab-get" type="radio"/>
+<span class="status">401 Unauthorized</span>
+</label>
+<div class="response-desc resp-code-tab-get" id="get-resp-code-tab-id-1">
+<div class="md"><p>Returned in case user is not authorized.</p></div>
+</div>
+</div>
+<div>
+<label class="response response-error">
+<span class="fa fa-times"></span>
+<input data-full-tab-id="get-resp-code-tab-id-2" data-tab-class="resp-code-tab-get" name="resp-code-tab-get" type="radio"/>
+<span class="status">403 Forbidden</span>
+</label>
+<div class="response-desc resp-code-tab-get" id="get-resp-code-tab-id-2">
+<div class="md"><p>Returned in case user has no access to the resource.</p></div>
+</div>
+</div>
+<div>
+<label class="response response-error">
+<span class="fa fa-times"></span>
+<input data-full-tab-id="get-resp-code-tab-id-3" data-tab-class="resp-code-tab-get" name="resp-code-tab-get" type="radio"/>
+<span class="status">404 Not Found</span>
+</label>
+<div class="response-desc resp-code-tab-get" id="get-resp-code-tab-id-3">
+<div class="md"><p>Returned in case resource does not exist.</p></div>
+</div>
+</div>
+<div>
+<label class="response response-error">
+<span class="fa fa-times"></span>
+<input data-full-tab-id="get-resp-code-tab-id-4" data-tab-class="resp-code-tab-get" name="resp-code-tab-get" type="radio"/>
+<span class="status">503 Service Unavailable</span>
+</label>
+<div class="response-desc resp-code-tab-get" id="get-resp-code-tab-id-4">
+<div class="md"><p>Returned in the event that the call limit is exceeded. The application will be unavailable for subsequent calls for the duration specified by the X-CallLimit-TimeToWait header.</p></div>
+</div>
+</div>
+</div>
+</article>
+<article class="code">
+<h4>Definition</h4>
+<div class="uri">
+<code>
+<span class="method get">get</span>
+<span class="textUri"><span class="baseUri">{{ getUriPrefix() }}</span><span class="relativeUri">/v2/companies/{cid}/employees/{aid}/managed-cost-centers/{mccid}</span></span>
+</code>
+</div>
+<h4>Response Samples</h4>
+<div class="tab-title-group">
+<label>
+<input checked="checked" data-full-tab-id="resp-tab-id-get-0" data-tab-class="resp-tab-get" name="resp-tab-get" type="radio"/>
+<span class="tab-title">application/json</span>
+</label>
+<label>
+<input data-full-tab-id="resp-tab-id-get-1" data-tab-class="resp-tab-get" name="resp-tab-get" type="radio"/>
+<span class="tab-title">application/xml</span>
+</label>
+</div>
+<div>
+<div class="resp-tab-get" id="resp-tab-id-get-0">
+<div class="example">
+
+<div class="get-example-resp-tab-0 activeTab" id="get-tab-resp-example-0">
+
+<pre class="highlightjs">{
+  "id": 65536,
+  "cost_center": {
+    "id": 1547793,
+    "name": "cc11"
+  },
+  "cost_center_tree": {
+    "id": 1547777,
+    "tree_index": 0,
+    "display_name": "Cost 2Center"
+  },
+  "permissions": {
+    "edit_account": true,
+    "view_base_compensation": true,
+    "employee_time": {
+      "view_timesheet": true,
+      "approve_time_off_requests": false,
+      "approve_timesheet_change_requests_mcc": false,
+      "approve_time_entries": true,
+      "time_entry_approve_level": 1,
+      "time_entry_type": {
+        "time": true,
+        "time_off": true,
+        "adjustment": true,
+        "extra_pay": true
+      }
+    },
+    "employee_hr": {
+      "approve_applicant_custom_form": true,
+      "applicant_custom_form_approval_level": 1,
+      "approve_hiring_stage": false,
+      "hiring_stage_approval_level": 1,
+      "approve_job_requisition": false,
+      "job_requisition_approval_level": 1,
+      "approve_hr_action": false,
+      "hr_action_approval_level": 1,
+      "approve_offer_letter": false,
+      "offer_letter_approval_level": 1,
+      "view_applicant": false,
+      "view_job_application": false,
+      "view_job_requisition": false
+    }
+  }
+}</pre>
+</div>
+<div class="get-example-resp-tab-0" id="get-tab-resp-schema-0">
+
+<div class="jsonschema" id="schema-0">{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "type": "object",
+  "properties": {
+    "id": {
+      "type": "integer"
+    },
+    "cost_center": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer"
+        },
+        "name": {
+          "type": "string"
+        }
+      }
+    },
+    "cost_center_tree": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer"
+        },
+        "tree_index": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 9
+        },
+        "display_name": {
+          "type": "string"
+        }
+      }
+    },
+    "permissions": {
+      "type": "object",
+      "properties": {
+        "edit_account": {
+          "type": "boolean"
+        },
+        "view_base_compensation": {
+          "type": "boolean"
+        },
+        "employee_time": {
+          "type": "object",
+          "properties": {
+            "view_timesheet": {
+              "type": "boolean"
+            },
+            "approve_time_off_requests": {
+              "type": "boolean"
+            },
+            "approve_timesheet_change_requests_mcc": {
+              "type": "boolean"
+            },
+            "approve_time_entries": {
+              "type": "boolean"
+            },
+            "time_entry_approve_level": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 5
+            },
+            "time_entry_type": {
+              "type": "object",
+              "properties": {
+                "all": {
+                  "type": "boolean"
+                },
+                "time": {
+                  "type": "boolean"
+                },
+                "time_off": {
+                  "type": "boolean"
+                },
+                "adjustment": {
+                  "type": "boolean"
+                },
+                "extra_pay": {
+                  "type": "boolean"
+                }
+              }
+            }
+          }
+        },
+        "employee_hr": {
+          "type": "object",
+          "properties": {
+            "approve_applicant_custom_form": {
+              "type": "boolean"
+            },
+            "applicant_custom_form_approval_level": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 5
+            },
+            "approve_hiring_stage": {
+              "type": "boolean"
+            },
+            "hiring_stage_approval_level": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 5
+            },
+            "approve_job_requisition": {
+              "type": "boolean"
+            },
+            "job_requisition_approval_level": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 5
+            },
+            "approve_hr_action": {
+              "type": "boolean"
+            },
+            "hr_action_approval_level": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 5
+            },
+            "approve_offer_letter": {
+              "type": "boolean"
+            },
+            "offer_letter_approval_level": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 5
+            },
+            "view_applicant": {
+              "type": "boolean"
+            },
+            "view_job_application": {
+              "type": "boolean"
+            },
+            "view_job_requisition": {
+              "type": "boolean"
+            }
+          }
+        }
+      }
+    }
+  },
+  "additionalProperties": false,
+  "required": [
+    "id",
+    "cost_center",
+    "cost_center_tree",
+    "permissions"
+  ]
+}</div>
+</div>
+</div>
+</div>
+<div class="resp-tab-get" id="resp-tab-id-get-1">
+<div class="example">
+
+<div class="get-example-resp-tab-1 activeTab" id="get-tab-resp-example-1">
+
+<pre class="highlightjs">&lt;?xml version='1.0' encoding='UTF-8'?&gt;
+&lt;managed_cost_center&gt;
+  &lt;id&gt;65536&lt;/id&gt;
+  &lt;cost_center&gt;
+    &lt;id&gt;1547793&lt;/id&gt;
+    &lt;name&gt;cc11&lt;/name&gt;
+  &lt;/cost_center&gt;
+  &lt;cost_center_tree&gt;
+    &lt;id&gt;1547777&lt;/id&gt;
+    &lt;tree_index&gt;0&lt;/tree_index&gt;
+    &lt;display_name&gt;Cost Center&lt;/display_name&gt;
+  &lt;/cost_center_tree&gt;
+  &lt;permissions&gt;
+    &lt;edit_account&gt;true&lt;/edit_account&gt;
+    &lt;view_base_compensation&gt;true&lt;/view_base_compensation&gt;
+    &lt;employee_time&gt;
+      &lt;view_timesheet&gt;true&lt;/view_timesheet&gt;
+      &lt;approve_time_off_requests&gt;false&lt;/approve_time_off_requests&gt;
+      &lt;approve_timesheet_change_requests_mcc&gt;false&lt;/approve_timesheet_change_requests_mcc&gt;
+      &lt;approve_time_entries&gt;true&lt;/approve_time_entries&gt;
+      &lt;time_entry_approve_level&gt;1&lt;/time_entry_approve_level&gt;
+      &lt;time_entry_type&gt;
+        &lt;all&gt;true&lt;/all&gt;
+        &lt;time&gt;true&lt;/time&gt;
+        &lt;time_off&gt;true&lt;/time_off&gt;
+        &lt;adjustment&gt;true&lt;/adjustment&gt;
+        &lt;extra_pay&gt;true&lt;/extra_pay&gt;
+      &lt;/time_entry_type&gt;
+    &lt;/employee_time&gt;
+    &lt;employee_hr&gt;
+      &lt;approve_applicant_custom_form&gt;true&lt;/approve_applicant_custom_form&gt;
+      &lt;applicant_custom_form_approval_level&gt;1&lt;/applicant_custom_form_approval_level&gt;
+      &lt;approve_hiring_stage&gt;false&lt;/approve_hiring_stage&gt;
+      &lt;hiring_stage_approval_level&gt;1&lt;/hiring_stage_approval_level&gt;
+      &lt;approve_job_requisition&gt;false&lt;/approve_job_requisition&gt;
+      &lt;job_requisition_approval_level&gt;1&lt;/job_requisition_approval_level&gt;
+      &lt;approve_hr_action&gt;false&lt;/approve_hr_action&gt;
+      &lt;hr_action_approval_level&gt;1&lt;/hr_action_approval_level&gt;
+      &lt;approve_offer_letter&gt;false&lt;/approve_offer_letter&gt;
+      &lt;offer_letter_approval_level&gt;1&lt;/offer_letter_approval_level&gt;
+      &lt;view_applicant&gt;false&lt;/view_applicant&gt;
+      &lt;view_job_application&gt;false&lt;/view_job_application&gt;
+      &lt;view_job_requisition&gt;false&lt;/view_job_requisition&gt;
+    &lt;/employee_hr&gt;
+  &lt;/permissions&gt;
+&lt;/managed_cost_center&gt;</pre>
+</div>
+<div class="get-example-resp-tab-1" id="get-tab-resp-schema-1">
+
+<div class="jsonschema" id="schema-1">&lt;xs:schema elementFormDefault="qualified" xmlns:xs="http://www.w3.org/2001/XMLSchema"&gt;
+  &lt;xs:element name="managed_cost_center"&gt;
+    &lt;xs:complexType&gt;
+      &lt;xs:sequence&gt;
+        &lt;xs:element name="id" type="xs:long"/&gt;
+        &lt;xs:element name="cost_center"&gt;
+          &lt;xs:complexType&gt;
+            &lt;xs:all&gt;
+              &lt;xs:element name="id" type="xs:long"/&gt;
+              &lt;xs:element name="name" type="xs:string"/&gt;
+            &lt;/xs:all&gt;
+          &lt;/xs:complexType&gt;
+        &lt;/xs:element&gt;
+        &lt;xs:element name="cost_center_tree"&gt;
+          &lt;xs:complexType&gt;
+            &lt;xs:all&gt;
+              &lt;xs:element name="id" type="xs:long"/&gt;
+              &lt;xs:element name="tree_index"&gt;
+                &lt;xs:simpleType&gt;
+                  &lt;xs:restriction base="xs:int"&gt;
+                    &lt;xs:minInclusive value="0"/&gt;
+                    &lt;xs:maxInclusive value="9"/&gt;
+                  &lt;/xs:restriction&gt;
+                &lt;/xs:simpleType&gt;
+              &lt;/xs:element&gt;
+              &lt;xs:element name="display_name" type="xs:string"/&gt;
+            &lt;/xs:all&gt;
+          &lt;/xs:complexType&gt;
+        &lt;/xs:element&gt;
+        &lt;xs:element name="permissions" minOccurs="0"&gt;
+          &lt;xs:complexType&gt;
+            &lt;xs:all&gt;
+              &lt;xs:element name="edit_account" type="xs:boolean" minOccurs="0"/&gt;
+              &lt;xs:element name="view_base_compensation" type="xs:boolean" minOccurs="0"/&gt;
+              &lt;xs:element name="employee_time" minOccurs="0"&gt;
+                &lt;xs:complexType&gt;
+                  &lt;xs:all&gt;
+                    &lt;xs:element name="view_timesheet" type="xs:boolean" minOccurs="0"/&gt;
+                    &lt;xs:element name="approve_time_off_requests" type="xs:boolean" minOccurs="0"/&gt;
+                    &lt;xs:element name="approve_timesheet_change_requests_mcc" type="xs:boolean" minOccurs="0"/&gt;
+                    &lt;xs:element name="approve_time_entries" type="xs:boolean" minOccurs="0"/&gt;
+                    &lt;xs:element name="time_entry_approve_level" minOccurs="0"&gt;
+                      &lt;xs:simpleType&gt;
+                        &lt;xs:restriction base="xs:integer"&gt;
+                          &lt;xs:minInclusive value="1"/&gt;
+                          &lt;xs:maxInclusive value="5"/&gt;
+                        &lt;/xs:restriction&gt;
+                      &lt;/xs:simpleType&gt;
+                    &lt;/xs:element&gt;
+                    &lt;xs:element name="time_entry_type" minOccurs="0"&gt;
+                      &lt;xs:complexType&gt;
+                        &lt;xs:all&gt;
+                          &lt;xs:element name="all" type="xs:boolean" minOccurs="0"/&gt;
+                          &lt;xs:element name="time" type="xs:boolean" minOccurs="0"/&gt;
+                          &lt;xs:element name="time_off" type="xs:boolean" minOccurs="0"/&gt;
+                          &lt;xs:element name="adjustment" type="xs:boolean" minOccurs="0"/&gt;
+                          &lt;xs:element name="extra_pay" type="xs:boolean" minOccurs="0"/&gt;
+                        &lt;/xs:all&gt;
+                      &lt;/xs:complexType&gt;
+                    &lt;/xs:element&gt;
+                  &lt;/xs:all&gt;
+                &lt;/xs:complexType&gt;
+              &lt;/xs:element&gt;
+              &lt;xs:element name="employee_hr"&gt;
+                &lt;xs:complexType&gt;
+                  &lt;xs:all&gt;
+                    &lt;xs:element type="xs:boolean" name="approve_applicant_custom_form" minOccurs="0"/&gt;
+                    &lt;xs:element name="applicant_custom_form_approval_level" minOccurs="0"&gt;
+                      &lt;xs:simpleType&gt;
+                        &lt;xs:restriction base="xs:integer"&gt;
+                          &lt;xs:minInclusive value="1"/&gt;
+                          &lt;xs:maxInclusive value="5"/&gt;
+                        &lt;/xs:restriction&gt;
+                      &lt;/xs:simpleType&gt;
+                    &lt;/xs:element&gt;
+                    &lt;xs:element type="xs:boolean" name="approve_hiring_stage" minOccurs="0"/&gt;
+                    &lt;xs:element name="hiring_stage_approval_level" minOccurs="0"&gt;
+                      &lt;xs:simpleType&gt;
+                        &lt;xs:restriction base="xs:integer"&gt;
+                          &lt;xs:minInclusive value="1"/&gt;
+                          &lt;xs:maxInclusive value="5"/&gt;
+                        &lt;/xs:restriction&gt;
+                      &lt;/xs:simpleType&gt;
+                    &lt;/xs:element&gt;
+                    &lt;xs:element type="xs:boolean" name="approve_job_requisition" minOccurs="0"/&gt;
+                    &lt;xs:element name="job_requisition_approval_level" minOccurs="0"&gt;
+                      &lt;xs:simpleType&gt;
+                        &lt;xs:restriction base="xs:integer"&gt;
+                          &lt;xs:minInclusive value="1"/&gt;
+                          &lt;xs:maxInclusive value="5"/&gt;
+                        &lt;/xs:restriction&gt;
+                      &lt;/xs:simpleType&gt;
+                    &lt;/xs:element&gt;
+                    &lt;xs:element type="xs:boolean" name="approve_hr_action" minOccurs="0"/&gt;
+                    &lt;xs:element name="hr_action_approval_level" minOccurs="0"&gt;
+                      &lt;xs:simpleType&gt;
+                        &lt;xs:restriction base="xs:integer"&gt;
+                          &lt;xs:minInclusive value="1"/&gt;
+                          &lt;xs:maxInclusive value="5"/&gt;
+                        &lt;/xs:restriction&gt;
+                      &lt;/xs:simpleType&gt;
+                    &lt;/xs:element&gt;
+                    &lt;xs:element type="xs:boolean" name="approve_offer_letter" minOccurs="0"/&gt;
+                    &lt;xs:element name="offer_letter_approval_level" minOccurs="0"&gt;
+                      &lt;xs:simpleType&gt;
+                        &lt;xs:restriction base="xs:integer"&gt;
+                          &lt;xs:minInclusive value="1"/&gt;
+                          &lt;xs:maxInclusive value="5"/&gt;
+                        &lt;/xs:restriction&gt;
+                      &lt;/xs:simpleType&gt;
+                    &lt;/xs:element&gt;
+                    &lt;xs:element type="xs:boolean" name="view_applicant" minOccurs="0"/&gt;
+                    &lt;xs:element type="xs:boolean" name="view_job_application" minOccurs="0"/&gt;
+                    &lt;xs:element type="xs:boolean" name="view_job_requisition" minOccurs="0"/&gt;
+                  &lt;/xs:all&gt;
+                &lt;/xs:complexType&gt;
+              &lt;/xs:element&gt;
+            &lt;/xs:all&gt;
+          &lt;/xs:complexType&gt;
+        &lt;/xs:element&gt;
+      &lt;/xs:sequence&gt;
+    &lt;/xs:complexType&gt;
+  &lt;/xs:element&gt;
+&lt;/xs:schema&gt;</div>
+</div>
+</div>
+</div>
+</div>
+</article>
+</section>
+<section class="clearfix">
+<article class="definition">
+<h3 class="anchored" id="put"><span>PUT</span>
+<a class="fa fa-link link-anchor" data-url="r=__v2__companies__(cid)__employees__(aid)__managed-cost-centers__(mccid)#put" data-web-id="__v2__companies__(cid)__employees__(aid)__managed-cost-centers__(mccid)"></a>
+</h3>
+<div class="md"><p>Endpoint for updating MCC by Maneged Cost Center ACL id.</p></div>
+<div>
+<ul class="annotation-list">
+<li class="annotation">
+<span>v2</span>
+</li>
+</ul>
+</div>
+<h4>Parameters</h4>
+<h5>Path Parameters</h5>
+<ul class="param-list">
+<li>
+<div class="param-desc">
+<div class="param-name">cid</div>
+<div class="data-type">string</div>
+<div class="required">required</div>
+</div>
+<div class="param-content">
+<div>
+<p>Example: 123456</p>
+<div class="desc md">Company should be referenced via company id or company unique id or company short name using `|short_name` or `!short_name` format.
+</div>
+</div>
+</div>
+
+</li>
+<li>
+<div class="param-desc">
+<div class="param-name">aid</div>
+<div class="data-type">string</div>
+<div class="required">required</div>
+</div>
+<div class="param-content">
+<div>
+<p>Example: 1234567</p>
+<div class="desc md">Account should be referenced via account id or account external id using `|external_id` or `!external_id` format.
+</div>
+</div>
+</div>
+
+</li>
+<li>
+<div class="param-desc">
+<div class="param-name">mccid</div>
+<div class="data-type">integer</div>
+<div class="required">required</div>
+</div>
+<div class="param-content">
+<div>
+<p>Example: 1231212</p>
+<div class="desc md">Managed Cost Center Id.</div>
+</div>
+</div>
+
+</li>
+</ul>
+<h5>Header Parameters</h5>
+<ul class="param-list">
+<li>
+<div class="param-desc">
+<div class="param-name">Accept</div>
+<div class="data-type">string</div>
+</div>
+<div class="param-content">
+<div>
+<p>Valid values: application/json, application/xml, text/xml</p>
+<p>Default: application/json</p>
+<p>Example: application/json</p>
+</div>
+</div>
+
+</li>
+<li>
+<div class="param-desc">
+<div class="param-name">Content-Type</div>
+<div class="data-type">string</div>
+<div class="required">required</div>
+</div>
+<div class="param-content">
+<div>
+<p>Valid values: application/xml, text/xml, application/json</p>
+<p>Example: application/json</p>
+</div>
+</div>
+
+</li>
+<li>
+<div class="param-desc">
+<div class="param-name">Content-Length</div>
+<div class="data-type">integer</div>
+<div class="required">required</div>
+</div>
+<div class="param-content">
+<div>
+</div>
+</div>
+
+</li>
+</ul>
+<h4>Responses</h4>
+<div class="responses">
+<div>
+<label class="response response-success">
+<span class="fa fa-check"></span>
+<input data-full-tab-id="put-resp-code-tab-id-0" data-tab-class="resp-code-tab-put" name="resp-code-tab-put" type="radio"/>
+<span class="status">204 No Content</span>
+</label>
+<div class="response-desc resp-code-tab-put" id="put-resp-code-tab-id-0">
+<div class="md"><p>MCC was successfully updated.</p></div>
+</div>
+</div>
+<div>
+<label class="response response-error">
+<span class="fa fa-times"></span>
+<input data-full-tab-id="put-resp-code-tab-id-1" data-tab-class="resp-code-tab-put" name="resp-code-tab-put" type="radio"/>
+<span class="status">401 Unauthorized</span>
+</label>
+<div class="response-desc resp-code-tab-put" id="put-resp-code-tab-id-1">
+<div class="md"><p>Returned in case user is not authorized.</p></div>
+</div>
+</div>
+<div>
+<label class="response response-error">
+<span class="fa fa-times"></span>
+<input data-full-tab-id="put-resp-code-tab-id-2" data-tab-class="resp-code-tab-put" name="resp-code-tab-put" type="radio"/>
+<span class="status">403 Forbidden</span>
+</label>
+<div class="response-desc resp-code-tab-put" id="put-resp-code-tab-id-2">
+<div class="md"><p>Returned in case user has no access to the resource.</p></div>
+</div>
+</div>
+<div>
+<label class="response response-error">
+<span class="fa fa-times"></span>
+<input data-full-tab-id="put-resp-code-tab-id-3" data-tab-class="resp-code-tab-put" name="resp-code-tab-put" type="radio"/>
+<span class="status">404 Not Found</span>
+</label>
+<div class="response-desc resp-code-tab-put" id="put-resp-code-tab-id-3">
+<div class="md"><p>Returned in case resource does not exist.</p></div>
+</div>
+</div>
+<div>
+<label class="response response-error">
+<span class="fa fa-times"></span>
+<input data-full-tab-id="put-resp-code-tab-id-4" data-tab-class="resp-code-tab-put" name="resp-code-tab-put" type="radio"/>
+<span class="status">503 Service Unavailable</span>
+</label>
+<div class="response-desc resp-code-tab-put" id="put-resp-code-tab-id-4">
+<div class="md"><p>Returned in the event that the call limit is exceeded. The application will be unavailable for subsequent calls for the duration specified by the X-CallLimit-TimeToWait header.</p></div>
+</div>
+</div>
+</div>
+</article>
+<article class="code">
+<h4>Definition</h4>
+<div class="uri">
+<code>
+<span class="method put">put</span>
+<span class="textUri"><span class="baseUri">{{ getUriPrefix() }}</span><span class="relativeUri">/v2/companies/{cid}/employees/{aid}/managed-cost-centers/{mccid}</span></span>
+</code>
+</div>
+<h4>Request Samples</h4>
+<div class="tab-title-group">
+<label>
+<input checked="checked" data-full-tab-id="req-tab-id-put-0" data-tab-class="req-tab-put" name="req-tab-put" type="radio"/>
+<span class="tab-title">application/json</span>
+</label>
+<label>
+<input data-full-tab-id="req-tab-id-put-1" data-tab-class="req-tab-put" name="req-tab-put" type="radio"/>
+<span class="tab-title">application/xml</span>
+</label>
+</div>
+<div>
+<div class="req-tab-put" id="req-tab-id-put-0">
+<div class="example">
+
+<div class="put-example-tab-0 activeTab" id="put-tab-example-0">
+
+<pre class="highlightjs">{
+  "permissions": {
+    "employee_time": {
+      "view_timesheet": true,
+      "approve_time_off_requests": false,
+      "approve_timesheet_change_requests_mcc": false,
+      "approve_time_entries": true,
+      "time_entry_approve_level": 1,
+      "time_entry_type": {
+        "time": true
+      }
+    },
+    "employee_hr": {
+      "approve_applicant_custom_form": true,
+      "applicant_custom_form_approval_level": 1,
+      "approve_hiring_stage": false,
+      "hiring_stage_approval_level": 1,
+      "approve_job_requisition": false,
+      "job_requisition_approval_level": 1,
+      "approve_hr_action": false,
+      "hr_action_approval_level": 1,
+      "approve_offer_letter": false,
+      "offer_letter_approval_level": 1,
+      "view_applicant": false,
+      "view_job_application": false,
+      "view_job_requisition": false
+    }
+  }
+}</pre>
+</div>
+<div class="put-example-tab-0" id="put-tab-schema-0">
+
+<div class="jsonschema" id="schema-2">{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "type": "object",
+  "properties": {
+    "permissions": {
+      "type": "object",
+      "properties": {
+        "employee_time": {
+          "type": "object",
+          "properties": {
+            "view_timesheet": {
+              "type": "boolean"
+            },
+            "approve_time_off_requests": {
+              "type": "boolean"
+            },
+            "approve_timesheet_change_requests_mcc": {
+              "type": "boolean"
+            },
+            "approve_time_entries": {
+              "type": "boolean"
+            },
+            "time_entry_approve_level": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 5
+            },
+            "time_entry_type": {
+              "type": "object",
+              "properties": {
+                "all": {
+                  "type": "boolean"
+                },
+                "time": {
+                  "type": "boolean"
+                },
+                "time_off": {
+                  "type": "boolean"
+                },
+                "adjustment": {
+                  "type": "boolean"
+                },
+                "extra_pay": {
+                  "type": "boolean"
+                }
+              }
+            }
+          }
+        },
+        "employee_hr": {
+          "type": "object",
+          "properties": {
+            "approve_applicant_custom_form": {
+              "type": "boolean"
+            },
+            "applicant_custom_form_approval_level": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 5
+            },
+            "approve_hiring_stage": {
+              "type": "boolean"
+            },
+            "hiring_stage_approval_level": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 5
+            },
+            "approve_job_requisition": {
+              "type": "boolean"
+            },
+            "job_requisition_approval_level": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 5
+            },
+            "approve_hr_action": {
+              "type": "boolean"
+            },
+            "hr_action_approval_level": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 5
+            },
+            "approve_offer_letter": {
+              "type": "boolean"
+            },
+            "offer_letter_approval_level": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 5
+            },
+            "view_applicant": {
+              "type": "boolean"
+            },
+            "view_job_application": {
+              "type": "boolean"
+            },
+            "view_job_requisition": {
+              "type": "boolean"
+            }
+          }
+        }
+      }
+    }
+  },
+  "additionalProperties": false,
+  "required": [
+    "permissions"
+  ]
+}</div>
+</div>
+</div>
+</div>
+<div class="req-tab-put" id="req-tab-id-put-1">
+<div class="example">
+
+<div class="put-example-tab-1 activeTab" id="put-tab-example-1">
+
+<pre class="highlightjs">&lt;?xml version="1.0" encoding="UTF-8" ?&gt;
+&lt;managed_cost_center&gt;
+  &lt;permissions&gt;
+    &lt;employee_time&gt;
+      &lt;view_timesheet&gt;true&lt;/view_timesheet&gt;
+      &lt;approve_time_off_requests&gt;false&lt;/approve_time_off_requests&gt;
+      &lt;approve_timesheet_change_requests_mcc&gt;false&lt;/approve_timesheet_change_requests_mcc&gt;
+      &lt;approve_time_entries&gt;true&lt;/approve_time_entries&gt;
+      &lt;time_entry_approve_level&gt;1&lt;/time_entry_approve_level&gt;
+      &lt;time_entry_type&gt;
+        &lt;time&gt;true&lt;/time&gt;
+      &lt;/time_entry_type&gt;
+    &lt;/employee_time&gt;
+    &lt;employee_hr&gt;
+      &lt;approve_applicant_custom_form&gt;true&lt;/approve_applicant_custom_form&gt;
+      &lt;applicant_custom_form_approval_level&gt;1&lt;/applicant_custom_form_approval_level&gt;
+      &lt;approve_hiring_stage&gt;false&lt;/approve_hiring_stage&gt;
+      &lt;hiring_stage_approval_level&gt;1&lt;/hiring_stage_approval_level&gt;
+      &lt;approve_job_requisition&gt;false&lt;/approve_job_requisition&gt;
+      &lt;job_requisition_approval_level&gt;1&lt;/job_requisition_approval_level&gt;
+      &lt;approve_hr_action&gt;false&lt;/approve_hr_action&gt;
+      &lt;hr_action_approval_level&gt;1&lt;/hr_action_approval_level&gt;
+      &lt;approve_offer_letter&gt;false&lt;/approve_offer_letter&gt;
+      &lt;offer_letter_approval_level&gt;1&lt;/offer_letter_approval_level&gt;
+      &lt;view_applicant&gt;false&lt;/view_applicant&gt;
+      &lt;view_job_application&gt;false&lt;/view_job_application&gt;
+      &lt;view_job_requisition&gt;false&lt;/view_job_requisition&gt;
+    &lt;/employee_hr&gt;
+  &lt;/permissions&gt;
+&lt;/managed_cost_center&gt;</pre>
+</div>
+<div class="put-example-tab-1" id="put-tab-schema-1">
+
+<div class="jsonschema" id="schema-3">&lt;xs:schema elementFormDefault="qualified" xmlns:xs="http://www.w3.org/2001/XMLSchema"&gt;
+  &lt;xs:element name="managed_cost_center"&gt;
+    &lt;xs:complexType&gt;
+      &lt;xs:sequence&gt;
+        &lt;xs:element name="permissions"&gt;
+          &lt;xs:complexType&gt;
+            &lt;xs:all&gt;
+              &lt;xs:element name="employee_time" minOccurs="0"&gt;
+                &lt;xs:complexType&gt;
+                  &lt;xs:all&gt;
+                    &lt;xs:element name="view_timesheet" type="xs:boolean" minOccurs="0"/&gt;
+                    &lt;xs:element name="approve_time_off_requests" type="xs:boolean" minOccurs="0"/&gt;
+                    &lt;xs:element name="approve_timesheet_change_requests_mcc" type="xs:boolean" minOccurs="0"/&gt;
+                    &lt;xs:element name="approve_time_entries" type="xs:boolean" minOccurs="0"/&gt;
+                    &lt;xs:element name="time_entry_approve_level" minOccurs="0"&gt;
+                      &lt;xs:simpleType&gt;
+                        &lt;xs:restriction base="xs:integer"&gt;
+                          &lt;xs:minInclusive value="1"/&gt;
+                          &lt;xs:maxInclusive value="5"/&gt;
+                        &lt;/xs:restriction&gt;
+                      &lt;/xs:simpleType&gt;
+                    &lt;/xs:element&gt;
+                    &lt;xs:element name="time_entry_type" minOccurs="0"&gt;
+                      &lt;xs:complexType&gt;
+                        &lt;xs:all&gt;
+                          &lt;xs:element name="time" type="xs:boolean" minOccurs="0"/&gt;
+                          &lt;xs:element name="all" type="xs:boolean" minOccurs="0"/&gt;
+                          &lt;xs:element name="time_off" type="xs:boolean" minOccurs="0"/&gt;
+                          &lt;xs:element name="adjustment" type="xs:boolean" minOccurs="0"/&gt;
+                          &lt;xs:element name="extra_pay" type="xs:boolean" minOccurs="0"/&gt;
+                        &lt;/xs:all&gt;
+                      &lt;/xs:complexType&gt;
+                    &lt;/xs:element&gt;
+                  &lt;/xs:all&gt;
+                &lt;/xs:complexType&gt;
+              &lt;/xs:element&gt;
+              &lt;xs:element name="employee_hr"&gt;
+                &lt;xs:complexType&gt;
+                  &lt;xs:all&gt;
+                    &lt;xs:element type="xs:boolean" name="approve_applicant_custom_form" minOccurs="0"/&gt;
+                    &lt;xs:element name="applicant_custom_form_approval_level" minOccurs="0"&gt;
+                      &lt;xs:simpleType&gt;
+                        &lt;xs:restriction base="xs:integer"&gt;
+                          &lt;xs:minInclusive value="1"/&gt;
+                          &lt;xs:maxInclusive value="5"/&gt;
+                        &lt;/xs:restriction&gt;
+                      &lt;/xs:simpleType&gt;
+                    &lt;/xs:element&gt;
+                    &lt;xs:element type="xs:boolean" name="approve_hiring_stage" minOccurs="0"/&gt;
+                    &lt;xs:element name="hiring_stage_approval_level" minOccurs="0"&gt;
+                      &lt;xs:simpleType&gt;
+                        &lt;xs:restriction base="xs:integer"&gt;
+                          &lt;xs:minInclusive value="1"/&gt;
+                          &lt;xs:maxInclusive value="5"/&gt;
+                        &lt;/xs:restriction&gt;
+                      &lt;/xs:simpleType&gt;
+                    &lt;/xs:element&gt;
+                    &lt;xs:element type="xs:boolean" name="approve_job_requisition" minOccurs="0"/&gt;
+                    &lt;xs:element name="job_requisition_approval_level" minOccurs="0"&gt;
+                      &lt;xs:simpleType&gt;
+                        &lt;xs:restriction base="xs:integer"&gt;
+                          &lt;xs:minInclusive value="1"/&gt;
+                          &lt;xs:maxInclusive value="5"/&gt;
+                        &lt;/xs:restriction&gt;
+                      &lt;/xs:simpleType&gt;
+                    &lt;/xs:element&gt;
+                    &lt;xs:element type="xs:boolean" name="approve_hr_action" minOccurs="0"/&gt;
+                    &lt;xs:element name="hr_action_approval_level" minOccurs="0"&gt;
+                      &lt;xs:simpleType&gt;
+                        &lt;xs:restriction base="xs:integer"&gt;
+                          &lt;xs:minInclusive value="1"/&gt;
+                          &lt;xs:maxInclusive value="5"/&gt;
+                        &lt;/xs:restriction&gt;
+                      &lt;/xs:simpleType&gt;
+                    &lt;/xs:element&gt;
+                    &lt;xs:element type="xs:boolean" name="approve_offer_letter" minOccurs="0"/&gt;
+                    &lt;xs:element name="offer_letter_approval_level" minOccurs="0"&gt;
+                      &lt;xs:simpleType&gt;
+                        &lt;xs:restriction base="xs:integer"&gt;
+                          &lt;xs:minInclusive value="1"/&gt;
+                          &lt;xs:maxInclusive value="5"/&gt;
+                        &lt;/xs:restriction&gt;
+                      &lt;/xs:simpleType&gt;
+                    &lt;/xs:element&gt;
+                    &lt;xs:element type="xs:boolean" name="view_applicant" minOccurs="0"/&gt;
+                    &lt;xs:element type="xs:boolean" name="view_job_application" minOccurs="0"/&gt;
+                    &lt;xs:element type="xs:boolean" name="view_job_requisition" minOccurs="0"/&gt;
+                  &lt;/xs:all&gt;
+                &lt;/xs:complexType&gt;
+              &lt;/xs:element&gt;
+            &lt;/xs:all&gt;
+          &lt;/xs:complexType&gt;
+        &lt;/xs:element&gt;
+      &lt;/xs:sequence&gt;
+    &lt;/xs:complexType&gt;
+  &lt;/xs:element&gt;
+&lt;/xs:schema&gt;</div>
+</div>
+</div>
+</div>
+</div>
+</article>
+</section>
+</div>
+</body></html>

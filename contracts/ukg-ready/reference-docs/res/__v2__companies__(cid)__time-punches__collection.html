@@ -1,0 +1,652 @@
+<!doctype html>
+<html><head><meta charset="utf-8"><title>Time Punches</title><style>body{font:16px system-ui;max-width:1100px;margin:2rem auto;padding:0 1rem;line-height:1.5}aside{background:#fff3cc;padding:1rem}.jsonschema,pre{white-space:pre-wrap;font:13px monospace;overflow-wrap:anywhere;background:#f4f5f7;padding:1rem}.uri{font-family:monospace}h2,h3{margin-top:2rem}</style></head><body><aside><strong>Modified private reference — 2026-10-09.</strong> Provider-documented illustrative examples are included; authentication token examples are redacted. These are not customer exports or guaranteed production behavior. Candidate sharing is pending. This is not OpenAPI.</aside>
+<div class="group">
+<h2 class="anchored" id="item.anchor">
+<span>Time Punches</span>
+<a class="fa fa-link link-anchor" data-url="r=__v2__companies__(cid)__time-punches__collection#" data-web-id="__v2__companies__(cid)__time-punches__collection"></a>
+</h2>
+<section class="clearfix">
+<article class="definition">
+<h3 class="anchored" id="post"><span>POST</span>
+<a class="fa fa-link link-anchor" data-url="r=__v2__companies__(cid)__time-punches__collection#post" data-web-id="__v2__companies__(cid)__time-punches__collection"></a>
+</h3>
+<div class="md"><p>Endpoint for import punches
+
+The Time Punches APIs use a separate security profile item to control access rights which is located in the company security profile in the following location:
+ 1. `Modules -&gt; REST API Resources -&gt; Time Punches -&gt; Edit`.
+
+For integration flow the following Cost Center validations are ignored: Employee 'Cost Centers Limit', Cost Center 'Visibility' setting, Cost Center 'Allow Time Allocation' setting, Cost Center Trees 'Used' setting on Company Setup level.
+</p></div>
+<div>
+<ul class="annotation-list">
+<li class="annotation">
+<span>v2</span>
+</li>
+</ul>
+</div>
+<h4>Parameters</h4>
+<h5>Path Parameters</h5>
+<ul class="param-list">
+<li>
+<div class="param-desc">
+<div class="param-name">cid</div>
+<div class="data-type">string</div>
+<div class="required">required</div>
+</div>
+<div class="param-content">
+<div>
+<p>Example: 123456</p>
+<div class="desc md">Company should be referenced via company id or company unique id or company short name using `|short_name` or `!short_name` format.
+</div>
+</div>
+</div>
+
+</li>
+</ul>
+<h5>Query Parameters</h5>
+<ul class="param-list">
+<li>
+<div class="param-desc">
+<div class="param-name">allow_missing_accounts</div>
+<div class="data-type">boolean</div>
+</div>
+<div class="param-content">
+<div>
+<div class="desc md">If set to 'false', an error will be returned if an account cannot be found, punch will not be recorded.
+If set to 'true', punches will be recorded but not processed if an account cannot be found.
+</div>
+</div>
+</div>
+
+</li>
+</ul>
+<h5>Header Parameters</h5>
+<ul class="param-list">
+<li>
+<div class="param-desc">
+<div class="param-name">Accept</div>
+<div class="data-type">string</div>
+</div>
+<div class="param-content">
+<div>
+<p>Valid values: application/json, application/xml, text/xml</p>
+<p>Default: application/json</p>
+<p>Example: application/json</p>
+</div>
+</div>
+
+</li>
+<li>
+<div class="param-desc">
+<div class="param-name">Content-Type</div>
+<div class="data-type">string</div>
+<div class="required">required</div>
+</div>
+<div class="param-content">
+<div>
+<p>Valid values: application/xml, text/xml, application/json</p>
+<p>Example: application/json</p>
+</div>
+</div>
+
+</li>
+<li>
+<div class="param-desc">
+<div class="param-name">Content-Length</div>
+<div class="data-type">integer</div>
+<div class="required">required</div>
+</div>
+<div class="param-content">
+<div>
+</div>
+</div>
+
+</li>
+</ul>
+<h4>Responses</h4>
+<div class="responses">
+<div>
+<label class="response response-success">
+<span class="fa fa-check"></span>
+<input data-full-tab-id="post-resp-code-tab-id-0" data-tab-class="resp-code-tab-post" name="resp-code-tab-post" type="radio"/>
+<span class="status">200 Ok</span>
+</label>
+<div class="response-desc resp-code-tab-post" id="post-resp-code-tab-id-0">
+<div class="md"><p>Returned in case payload was successfully processed.
+Note: each separate item in the payload may contain errors.
+Refer to the corresponding error code table and response schema.
+</p></div>
+</div>
+</div>
+<div>
+<label class="response response-error">
+<span class="fa fa-times"></span>
+<input data-full-tab-id="post-resp-code-tab-id-1" data-tab-class="resp-code-tab-post" name="resp-code-tab-post" type="radio"/>
+<span class="status">401 Unauthorized</span>
+</label>
+<div class="response-desc resp-code-tab-post" id="post-resp-code-tab-id-1">
+<div class="md"><p>Returned in case user is not authorized.</p></div>
+</div>
+</div>
+<div>
+<label class="response response-error">
+<span class="fa fa-times"></span>
+<input data-full-tab-id="post-resp-code-tab-id-2" data-tab-class="resp-code-tab-post" name="resp-code-tab-post" type="radio"/>
+<span class="status">403 Forbidden</span>
+</label>
+<div class="response-desc resp-code-tab-post" id="post-resp-code-tab-id-2">
+<div class="md"><p>Returned in case user has no access to the resource.</p></div>
+</div>
+</div>
+<div>
+<label class="response response-error">
+<span class="fa fa-times"></span>
+<input data-full-tab-id="post-resp-code-tab-id-3" data-tab-class="resp-code-tab-post" name="resp-code-tab-post" type="radio"/>
+<span class="status">413 Request Entity Too Large</span>
+</label>
+<div class="response-desc resp-code-tab-post" id="post-resp-code-tab-id-3">
+<div class="md"><p>Returned in the event that the size of the payload exceeds defined limits. Refer to the Restrictions section for details.</p></div>
+</div>
+</div>
+<div>
+<label class="response response-error">
+<span class="fa fa-times"></span>
+<input data-full-tab-id="post-resp-code-tab-id-4" data-tab-class="resp-code-tab-post" name="resp-code-tab-post" type="radio"/>
+<span class="status">503 Service Unavailable</span>
+</label>
+<div class="response-desc resp-code-tab-post" id="post-resp-code-tab-id-4">
+<div class="md"><p>Returned in the event that the call limit is exceeded. The application will be unavailable for subsequent calls for the duration specified by the X-CallLimit-TimeToWait header.</p></div>
+</div>
+</div>
+</div>
+</article>
+<article class="code">
+<h4>Definition</h4>
+<div class="uri">
+<code>
+<span class="method post">post</span>
+<span class="textUri"><span class="baseUri">{{ getUriPrefix() }}</span><span class="relativeUri">/v2/companies/{cid}/time-punches/collection</span></span>
+</code>
+</div>
+<h4>Request Samples</h4>
+<div class="tab-title-group">
+<label>
+<input checked="checked" data-full-tab-id="req-tab-id-post-0" data-tab-class="req-tab-post" name="req-tab-post" type="radio"/>
+<span class="tab-title">application/json</span>
+</label>
+<label>
+<input data-full-tab-id="req-tab-id-post-1" data-tab-class="req-tab-post" name="req-tab-post" type="radio"/>
+<span class="tab-title">application/xml</span>
+</label>
+</div>
+<div>
+<div class="req-tab-post" id="req-tab-id-post-0">
+<div class="example">
+
+<div class="post-example-tab-0 activeTab" id="post-tab-example-0">
+
+<pre class="highlightjs">{
+  "punches": [
+    {
+      "employee": {
+        "account_id": 2354242
+      },
+      "raw_type": "PUNCH_IN",
+      "timestamp": "2016-12-26T08:42:43.324-05:00",
+      "timestamp_type": "EMPLOYEE",
+      "ip": "192.168.111.111",
+      "latitude": 12.42323,
+      "longitude": 21.21323,
+      "cost_centers": [
+        {
+          "index": 0,
+          "value": {
+            "id": 1542209
+          }
+        },
+        {
+          "index": 3,
+          "value": {
+            "id": 1542210
+          }
+        }
+      ],
+      "status": 1
+    },
+    {
+      "employee": {
+        "account_id": 2354242
+      },
+      "raw_type": "PUNCH_OUT",
+      "timestamp": "2016-12-26T08:42:43.324-06:00",
+      "ip": "192.168.111.111",
+      "terminal_id": 101290,
+      "status": 1
+    },
+    {
+      "employee": {
+        "account_id": 2354242
+      },
+      "raw_type": "PUNCH",
+      "timestamp": "2016-12-26T08:42:43.324-07:00",
+      "ip": "192.168.111.111",
+      "device_id": "090042",
+      "terminal_id": 101290,
+      "status": 1
+    }
+  ]
+}</pre>
+</div>
+<div class="post-example-tab-0" id="post-tab-schema-0">
+
+<div class="jsonschema" id="schema-0">{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "properties": {
+    "punches": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "employee": {
+            "type": "object",
+            "properties": {
+              "account_id": {
+                "type": "number",
+                "format": "long"
+              },
+              "badge_id": {
+                "type": "string"
+              }
+            },
+            "minProperties": 1
+          },
+          "ip": {
+            "description": "Optional field. If ip not set, use default value",
+            "type": "string"
+          },
+          "timestamp": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "timestamp_type": {
+            "type": "string",
+            "enum": [
+              "UTC",
+              "EMPLOYEE"
+            ]
+          },
+          "raw_type": {
+            "type": "string",
+            "enum": [
+              "PUNCH",
+              "PUNCH_IN",
+              "PUNCH_OUT"
+            ]
+          },
+          "latitude": {
+            "type": [
+              "number",
+              "null"
+            ]
+          },
+          "longitude": {
+            "type": [
+              "number",
+              "null"
+            ]
+          },
+          "cost_centers": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "index": {
+                  "type": "integer",
+                  "minValue": 0,
+                  "maxValue": 9
+                },
+                "value": {
+                  "type": [
+                    "object",
+                    "null"
+                  ],
+                  "properties": {
+                    "id": {
+                      "type": "integer"
+                    }
+                  },
+                  "required": [
+                    "id"
+                  ]
+                }
+              },
+              "required": [
+                "index",
+                "value"
+              ]
+            }
+          },
+          "device_id": {
+            "type": "string"
+          },
+          "terminal_id": {
+            "type": "integer"
+          },
+          "status": {
+            "type": "integer"
+          }
+        },
+        "required": [
+          "employee",
+          "raw_type",
+          "timestamp"
+        ],
+        "additionalProperties": false
+      }
+    }
+  },
+  "required": [
+    "punches"
+  ],
+  "additionalProperties": false
+}</div>
+</div>
+</div>
+</div>
+<div class="req-tab-post" id="req-tab-id-post-1">
+<div class="example">
+
+<div class="post-example-tab-1 activeTab" id="post-tab-example-1">
+
+<pre class="highlightjs">&lt;?xml version="1.0" encoding="UTF-8"?&gt;
+&lt;punches&gt;
+  &lt;punch&gt;
+    &lt;employee&gt;
+      &lt;account_id&gt;2354242&lt;/account_id&gt;
+    &lt;/employee&gt;
+    &lt;ip&gt;192.168.111.111&lt;/ip&gt;
+    &lt;timestamp&gt;2016-12-26T08:42:43.324-05:00&lt;/timestamp&gt;
+    &lt;raw_type&gt;PUNCH_IN&lt;/raw_type&gt;
+    &lt;latitude&gt;12.42323&lt;/latitude&gt;
+    &lt;longitude&gt;21.21323&lt;/longitude&gt;
+    &lt;cost_centers&gt;
+      &lt;cost_center&gt;
+        &lt;index&gt;0&lt;/index&gt;
+        &lt;value&gt;
+          &lt;id&gt;234525&lt;/id&gt;
+        &lt;/value&gt;
+      &lt;/cost_center&gt;
+      &lt;cost_center&gt;
+        &lt;index&gt;3&lt;/index&gt;
+        &lt;value&gt;
+          &lt;id&gt;2345427&lt;/id&gt;
+        &lt;/value&gt;
+      &lt;/cost_center&gt;
+    &lt;/cost_centers&gt;
+  &lt;/punch&gt;
+  &lt;punch&gt;
+    &lt;employee&gt;
+      &lt;account_id&gt;2354242&lt;/account_id&gt;
+    &lt;/employee&gt;
+    &lt;ip&gt;192.168.111.111&lt;/ip&gt;
+    &lt;timestamp&gt;2016-12-26T08:42:43.324-06:00&lt;/timestamp&gt;
+    &lt;raw_type&gt;PUNCH_OUT&lt;/raw_type&gt;
+    &lt;terminal_id&gt;101290&lt;/terminal_id&gt;
+  &lt;/punch&gt;
+  &lt;punch&gt;
+    &lt;employee&gt;
+      &lt;account_id&gt;2354242&lt;/account_id&gt;
+    &lt;/employee&gt;
+    &lt;ip&gt;192.168.111.111&lt;/ip&gt;
+    &lt;timestamp&gt;2016-12-26T08:42:43.324-07:00&lt;/timestamp&gt;
+    &lt;raw_type&gt;PUNCH&lt;/raw_type&gt;
+    &lt;device_id&gt;090042&lt;/device_id&gt;
+    &lt;terminal_id&gt;101290&lt;/terminal_id&gt;
+  &lt;/punch&gt;
+&lt;/punches&gt;</pre>
+</div>
+<div class="post-example-tab-1" id="post-tab-schema-1">
+
+<div class="jsonschema" id="schema-1">&lt;xs:schema attributeFormDefault="unqualified" elementFormDefault="qualified"
+           xmlns:xs="http://www.w3.org/2001/XMLSchema"&gt;
+    &lt;xs:element name="punches"&gt;
+        &lt;xs:complexType&gt;
+            &lt;xs:sequence&gt;
+                &lt;xs:element name="punch" maxOccurs="unbounded" minOccurs="0"&gt;
+                    &lt;xs:complexType&gt;
+                        &lt;xs:all&gt;
+                            &lt;xs:element name="employee" minOccurs="1"&gt;
+                                &lt;xs:complexType&gt;
+                                    &lt;xs:sequence&gt;
+                                        &lt;xs:element type="xs:long" name="account_id"/&gt;
+                                        &lt;xs:element type="xs:string" name="badge_id" minOccurs="0"/&gt;
+                                    &lt;/xs:sequence&gt;
+                                &lt;/xs:complexType&gt;
+                            &lt;/xs:element&gt;
+                            &lt;xs:element name="raw_type" minOccurs="1"&gt;
+                                &lt;xs:simpleType&gt;
+                                    &lt;xs:restriction base="xs:string"&gt;
+                                        &lt;xs:enumeration value="PUNCH_IN"/&gt;
+                                        &lt;xs:enumeration value="PUNCH_OUT"/&gt;
+                                        &lt;xs:enumeration value="PUNCH"/&gt;
+                                    &lt;/xs:restriction&gt;
+                                &lt;/xs:simpleType&gt;
+                            &lt;/xs:element&gt;
+                            &lt;xs:element type="xs:decimal" name="latitude" minOccurs="0"/&gt;
+                            &lt;xs:element type="xs:decimal" name="longitude" minOccurs="0"/&gt;
+                            &lt;xs:element type="xs:dateTime" name="timestamp" minOccurs="1"/&gt;
+                            &lt;xs:element type="xs:string" name="ip" minOccurs="0"/&gt;
+                            &lt;xs:element type="cost_centers_collection" name="cost_centers" minOccurs="0" maxOccurs="1"/&gt;
+                            &lt;xs:element type="xs:string" name="device_id" minOccurs="0"/&gt;
+                            &lt;xs:element type="xs:long" name="terminal_id" minOccurs="0"/&gt;
+                        &lt;/xs:all&gt;
+                    &lt;/xs:complexType&gt;
+                &lt;/xs:element&gt;
+            &lt;/xs:sequence&gt;
+        &lt;/xs:complexType&gt;
+    &lt;/xs:element&gt;
+    &lt;xs:complexType name="cost_centers_collection"&gt;
+        &lt;xs:sequence&gt;
+            &lt;xs:element name="cost_center" type="cost_center_ref_indexed" minOccurs="0" maxOccurs="10"/&gt;
+        &lt;/xs:sequence&gt;
+    &lt;/xs:complexType&gt;
+    &lt;xs:complexType name="cost_center_ref_indexed"&gt;
+        &lt;xs:all&gt;
+            &lt;xs:element name="index"&gt;
+                &lt;xs:simpleType&gt;
+                    &lt;xs:restriction base="xs:nonNegativeInteger"&gt;
+                        &lt;xs:maxInclusive value="9"/&gt;
+                    &lt;/xs:restriction&gt;
+                &lt;/xs:simpleType&gt;
+            &lt;/xs:element&gt;
+            &lt;xs:element name="value" type="cost_center_ref"/&gt;
+        &lt;/xs:all&gt;
+    &lt;/xs:complexType&gt;
+    &lt;xs:complexType name="cost_center_ref"&gt;
+        &lt;xs:sequence&gt;
+            &lt;xs:element type="xs:integer" name="id" minOccurs="1" maxOccurs="1"/&gt;
+        &lt;/xs:sequence&gt;
+    &lt;/xs:complexType&gt;
+&lt;/xs:schema&gt;
+</div>
+</div>
+</div>
+</div>
+</div>
+<h4>Response Samples</h4>
+<div class="tab-title-group">
+<label>
+<input checked="checked" data-full-tab-id="resp-tab-id-post-0" data-tab-class="resp-tab-post" name="resp-tab-post" type="radio"/>
+<span class="tab-title">application/json</span>
+</label>
+<label>
+<input data-full-tab-id="resp-tab-id-post-1" data-tab-class="resp-tab-post" name="resp-tab-post" type="radio"/>
+<span class="tab-title">application/xml</span>
+</label>
+</div>
+<div>
+<div class="resp-tab-post" id="resp-tab-id-post-0">
+<div class="example">
+
+<div class="post-example-resp-tab-0 activeTab" id="post-tab-resp-example-0">
+
+<pre class="highlightjs">{
+  "items": [
+    {
+      "index": 0,
+      "id": "153467",
+      "status": "OK"
+    },
+    {
+      "index": 1,
+      "status": "FAILURE",
+      "errors": [
+        {
+          "code": 153652,
+          "message": "Cannot process entity because of ..."
+        }
+      ]
+    }
+  ]
+}</pre>
+</div>
+<div class="post-example-resp-tab-0" id="post-tab-resp-schema-0">
+
+<div class="jsonschema" id="schema-2">{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "type": "object",
+  "properties": {
+    "items": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "index": {
+            "type": [
+              "integer",
+              "null"
+            ]
+          },
+          "id": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "status": {
+            "type": "string",
+            "enum": [
+              "OK",
+              "FAILURE"
+            ]
+          },
+          "errors": {
+            "type": [
+              "array",
+              "null"
+            ],
+            "items": {
+              "type": "object",
+              "properties": {
+                "code": {
+                  "type": "integer"
+                },
+                "message": {
+                  "type": "string"
+                },
+                "key": {
+                  "type": "string"
+                }
+              },
+              "additionalProperties": false,
+              "required": [
+                "code",
+                "message"
+              ]
+            }
+          }
+        },
+        "additionalProperties": false
+      }
+    }
+  },
+  "additionalProperties": false
+}</div>
+</div>
+</div>
+</div>
+<div class="resp-tab-post" id="resp-tab-id-post-1">
+<div class="example">
+
+<div class="post-example-resp-tab-1 activeTab" id="post-tab-resp-example-1">
+
+<pre class="highlightjs">&lt;?xml version="1.0" encoding="UTF-8" ?&gt;
+&lt;result&gt;
+  &lt;item&gt;
+    &lt;index&gt;0&lt;/index&gt;
+    &lt;id&gt;153467&lt;/id&gt;
+    &lt;status&gt;OK&lt;/status&gt;
+  &lt;/item&gt;
+  &lt;item&gt;
+    &lt;index&gt;0&lt;/index&gt;
+    &lt;status&gt;FAILURE&lt;/status&gt;
+    &lt;errors&gt;
+      &lt;error&gt;
+        &lt;code&gt;153652&lt;/code&gt;
+        &lt;message&gt;Cannot process entity because of ...&lt;/message&gt;
+      &lt;/error&gt;
+    &lt;/errors&gt;
+  &lt;/item&gt;
+&lt;/result&gt;</pre>
+</div>
+<div class="post-example-resp-tab-1" id="post-tab-resp-schema-1">
+
+<div class="jsonschema" id="schema-3">&lt;xs:schema attributeFormDefault="unqualified" elementFormDefault="qualified"
+           xmlns:xs="http://www.w3.org/2001/XMLSchema"&gt;
+
+    &lt;xs:element name="result"&gt;
+        &lt;xs:complexType&gt;
+            &lt;xs:sequence maxOccurs="unbounded"&gt;
+                &lt;xs:element type="item" name="item"/&gt;
+            &lt;/xs:sequence&gt;
+        &lt;/xs:complexType&gt;
+    &lt;/xs:element&gt;
+
+    &lt;xs:complexType name="item"&gt;
+        &lt;xs:all&gt;
+            &lt;xs:element type="xs:nonNegativeInteger" name="index" minOccurs="1"/&gt;
+            &lt;xs:element type="xs:string" name="id" minOccurs="0"/&gt;
+            &lt;xs:element type="errors" name="errors" minOccurs="0"/&gt;
+            &lt;xs:element type="status" name="status" minOccurs="1" maxOccurs="1"/&gt;
+        &lt;/xs:all&gt;
+    &lt;/xs:complexType&gt;
+
+    &lt;xs:complexType name="errorType"&gt;
+        &lt;xs:all&gt;
+            &lt;xs:element type="xs:integer" name="code"/&gt;
+            &lt;xs:element type="xs:string" name="message"/&gt;
+            &lt;xs:element type="xs:string" name="key" minOccurs="0"/&gt;
+        &lt;/xs:all&gt;
+    &lt;/xs:complexType&gt;
+
+    &lt;xs:complexType name="errors"&gt;
+        &lt;xs:sequence minOccurs="0" maxOccurs="unbounded"&gt;
+            &lt;xs:element type="errorType" name="error"/&gt;
+        &lt;/xs:sequence&gt;
+    &lt;/xs:complexType&gt;
+
+    &lt;xs:simpleType name="status"&gt;
+        &lt;xs:restriction base="xs:string"&gt;
+            &lt;xs:enumeration value="OK"/&gt;
+            &lt;xs:enumeration value="FAILURE"/&gt;
+        &lt;/xs:restriction&gt;
+    &lt;/xs:simpleType&gt;
+&lt;/xs:schema&gt;</div>
+</div>
+</div>
+</div>
+</div>
+</article>
+</section>
+</div>
+</body></html>

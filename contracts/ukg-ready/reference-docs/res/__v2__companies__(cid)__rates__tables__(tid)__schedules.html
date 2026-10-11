@@ -1,0 +1,2709 @@
+<!doctype html>
+<html><head><meta charset="utf-8"><title>Rate Schedules</title><style>body{font:16px system-ui;max-width:1100px;margin:2rem auto;padding:0 1rem;line-height:1.5}aside{background:#fff3cc;padding:1rem}.jsonschema,pre{white-space:pre-wrap;font:13px monospace;overflow-wrap:anywhere;background:#f4f5f7;padding:1rem}.uri{font-family:monospace}h2,h3{margin-top:2rem}</style></head><body><aside><strong>Modified private reference — 2026-10-09.</strong> Provider-documented illustrative examples are included; authentication token examples are redacted. These are not customer exports or guaranteed production behavior. Candidate sharing is pending. This is not OpenAPI.</aside>
+<div class="group">
+<h2 class="anchored" id="item.anchor">
+<span>Rate Schedules</span>
+<a class="fa fa-link link-anchor" data-url="r=__v2__companies__(cid)__rates__tables__(tid)__schedules#" data-web-id="__v2__companies__(cid)__rates__tables__(tid)__schedules"></a>
+</h2>
+<section class="clearfix">
+<article class="definition">
+<h3 class="anchored" id="get"><span>GET</span>
+<a class="fa fa-link link-anchor" data-url="r=__v2__companies__(cid)__rates__tables__(tid)__schedules#get" data-web-id="__v2__companies__(cid)__rates__tables__(tid)__schedules"></a>
+</h3>
+<div class="md"><p>Get all rate schedules data of a rate table.</p></div>
+<div>
+<ul class="annotation-list">
+<li class="annotation">
+<span>v2</span>
+</li>
+</ul>
+</div>
+<h4>Parameters</h4>
+<h5>Path Parameters</h5>
+<ul class="param-list">
+<li>
+<div class="param-desc">
+<div class="param-name">cid</div>
+<div class="data-type">string</div>
+<div class="required">required</div>
+</div>
+<div class="param-content">
+<div>
+<p>Example: 123456</p>
+<div class="desc md">Company should be referenced via company id or company unique id or company short name using `|short_name` or `!short_name` format.
+</div>
+</div>
+</div>
+
+</li>
+<li>
+<div class="param-desc">
+<div class="param-name">tid</div>
+<div class="data-type">integer</div>
+<div class="required">required</div>
+</div>
+<div class="param-content">
+<div>
+<div class="desc md">Rate Table id.</div>
+</div>
+</div>
+
+</li>
+</ul>
+<h5>Query Parameters</h5>
+<ul class="param-list">
+<li>
+<div class="param-desc">
+<div class="param-name">filter</div>
+<div class="data-type">string</div>
+</div>
+<div class="param-content">
+<div>
+<p>Valid values: ALL, ACTIVE, INACTIVE</p>
+<div class="desc md">Query parameter to filter active/inactive rate schedules.</div>
+</div>
+</div>
+
+</li>
+<li>
+<div class="param-desc">
+<div class="param-name">page</div>
+<div class="data-type">integer</div>
+</div>
+<div class="param-content">
+<div>
+<div class="desc md">Page number.</div>
+</div>
+</div>
+
+</li>
+<li>
+<div class="param-desc">
+<div class="param-name">size</div>
+<div class="data-type">integer</div>
+</div>
+<div class="param-content">
+<div>
+<div class="desc md">Iitems per page.</div>
+</div>
+</div>
+
+</li>
+</ul>
+<h5>Header Parameters</h5>
+<ul class="param-list">
+<li>
+<div class="param-desc">
+<div class="param-name">Accept</div>
+<div class="data-type">string</div>
+</div>
+<div class="param-content">
+<div>
+<p>Valid values: application/json, application/xml, text/xml</p>
+<p>Default: application/json</p>
+<p>Example: application/json</p>
+</div>
+</div>
+
+</li>
+</ul>
+<h4>Responses</h4>
+<div class="responses">
+<div>
+<label class="response response-success">
+<span class="fa fa-check"></span>
+<input data-full-tab-id="get-resp-code-tab-id-0" data-tab-class="resp-code-tab-get" name="resp-code-tab-get" type="radio"/>
+<span class="status">200 Ok</span>
+</label>
+<div class="response-desc resp-code-tab-get" id="get-resp-code-tab-id-0">
+</div>
+</div>
+<div>
+<label class="response response-error">
+<span class="fa fa-times"></span>
+<input data-full-tab-id="get-resp-code-tab-id-1" data-tab-class="resp-code-tab-get" name="resp-code-tab-get" type="radio"/>
+<span class="status">404 Not Found</span>
+</label>
+<div class="response-desc resp-code-tab-get" id="get-resp-code-tab-id-1">
+<div class="md"><p>Returned when RateTable with the given Id was not found.</p></div>
+</div>
+</div>
+<div>
+<label class="response response-error">
+<span class="fa fa-times"></span>
+<input data-full-tab-id="get-resp-code-tab-id-2" data-tab-class="resp-code-tab-get" name="resp-code-tab-get" type="radio"/>
+<span class="status">401 Unauthorized</span>
+</label>
+<div class="response-desc resp-code-tab-get" id="get-resp-code-tab-id-2">
+<div class="md"><p>Returned in case user is not authorized.</p></div>
+</div>
+</div>
+<div>
+<label class="response response-error">
+<span class="fa fa-times"></span>
+<input data-full-tab-id="get-resp-code-tab-id-3" data-tab-class="resp-code-tab-get" name="resp-code-tab-get" type="radio"/>
+<span class="status">403 Forbidden</span>
+</label>
+<div class="response-desc resp-code-tab-get" id="get-resp-code-tab-id-3">
+<div class="md"><p>Returned in case user has no access to the resource.</p></div>
+</div>
+</div>
+<div>
+<label class="response response-error">
+<span class="fa fa-times"></span>
+<input data-full-tab-id="get-resp-code-tab-id-4" data-tab-class="resp-code-tab-get" name="resp-code-tab-get" type="radio"/>
+<span class="status">503 Service Unavailable</span>
+</label>
+<div class="response-desc resp-code-tab-get" id="get-resp-code-tab-id-4">
+<div class="md"><p>Returned in the event that the call limit is exceeded. The application will be unavailable for subsequent calls for the duration specified by the X-CallLimit-TimeToWait header.</p></div>
+</div>
+</div>
+</div>
+</article>
+<article class="code">
+<h4>Definition</h4>
+<div class="uri">
+<code>
+<span class="method get">get</span>
+<span class="textUri"><span class="baseUri">{{ getUriPrefix() }}</span><span class="relativeUri">/v2/companies/{cid}/rates/tables/{tid}/schedules</span></span>
+</code>
+</div>
+<h4>Response Samples</h4>
+<div class="tab-title-group">
+<label>
+<input checked="checked" data-full-tab-id="resp-tab-id-get-0" data-tab-class="resp-tab-get" name="resp-tab-get" type="radio"/>
+<span class="tab-title">application/json</span>
+</label>
+<label>
+<input data-full-tab-id="resp-tab-id-get-1" data-tab-class="resp-tab-get" name="resp-tab-get" type="radio"/>
+<span class="tab-title">application/xml</span>
+</label>
+<label>
+<input data-full-tab-id="resp-tab-id-get-2" data-tab-class="resp-tab-get" name="resp-tab-get" type="radio"/>
+<span class="tab-title">text/xml</span>
+</label>
+</div>
+<div>
+<div class="resp-tab-get" id="resp-tab-id-get-0">
+<div class="example">
+
+<div class="get-example-resp-tab-0 activeTab" id="get-tab-resp-example-0">
+
+<pre class="highlightjs">{
+  "rate_schedules": [
+    {
+      "id": 424848,
+      "line": 1,
+      "rate_table": {
+        "id": 429584,
+        "name": "Personal",
+        "effective_from": "1900-12-31",
+        "effective_to": "9999-12-31",
+        "current_effective_from": "1900-12-31",
+        "current_effective_to": "9999-12-31",
+        "current_rate": 0.0
+      },
+      "type": "HOUR",
+      "description": "Base Compensation Record",
+      "tied_to_base_compensation": true,
+      "rate_items": [
+        {
+          "effective_from": "1900-12-31",
+          "effective_to": "9999-12-31",
+          "id": 544012,
+          "rate": 0.0
+        }
+      ],
+      "rate_reason_code": {
+        "id": 567553,
+        "name": "New Hire"
+      },
+      "usage": {
+        "time_entry": true,
+        "pay_record": true,
+        "payroll": true,
+        "counter": true,
+        "tlm_shift": true
+      },
+      "time_entry_rec": {
+        "time_value": "DO_NOT_CHECK",
+        "piece_value": "DO_NOT_CHECK",
+        "time_off": {
+          "is_time_off": "IS",
+          "incl_subtree": false
+        }
+      },
+      "counter_rec": {
+        "time_off": {
+          "is_time_off": "IS",
+          "incl_subtree": false
+        }
+      }
+    },
+    {
+      "id": 451969,
+      "line": 2,
+      "rate_table": {
+        "id": 429584,
+        "name": "Personal",
+        "effective_from": "1900-12-31",
+        "effective_to": "9999-12-31",
+        "current_effective_from": "1900-12-31",
+        "current_effective_to": "9999-12-31",
+        "current_rate": 100.0
+      },
+      "type": "HOUR",
+      "description": "test_row1",
+      "tied_to_base_compensation": false,
+      "rate_items": [
+        {
+          "effective_from": "1900-12-31",
+          "effective_to": "9999-12-31",
+          "id": 545857,
+          "rate": 100.0
+        }
+      ],
+      "usage": {
+        "time_entry": true,
+        "pay_record": false,
+        "payroll": false,
+        "counter": false,
+        "tlm_shift": false
+      },
+      "global_rec": {
+        "cost_centers": [
+          {
+            "index": 0,
+            "cost_center": {
+              "id": 1602312,
+              "name": "Child 1",
+              "display_name": "Child 1"
+            },
+            "incl_subtree": false,
+            "custom_fields": [
+              {
+                "index": 0,
+                "value": "Single"
+              },
+              {
+                "index": 1,
+                "value": "sddd"
+              }
+            ]
+          },
+          {
+            "index": 2,
+            "cost_center": {
+              "id": 1603394,
+              "name": "tesst_CC3_1",
+              "display_name": "tesst_CC3_1"
+            },
+            "incl_subtree": false
+          },
+          {
+            "index": 5,
+            "cost_center": {
+              "id": 1603397,
+              "name": "test_CC6_2",
+              "display_name": "test_CC6_2"
+            },
+            "incl_subtree": false
+          },
+          {
+            "index": 8,
+            "incl_subtree": false,
+            "custom_fields": [
+              {
+                "index": 0,
+                "value": "Single"
+              }
+            ]
+          },
+          {
+            "index": 9,
+            "cost_center": {
+              "id": 1603328,
+              "name": "test",
+              "display_name": "test"
+            },
+            "incl_subtree": false
+          }
+        ]
+      },
+      "time_entry_rec": {
+        "time_value": "DO_NOT_CHECK",
+        "piece_value": "DO_NOT_CHECK",
+        "time_off": {
+          "is_time_off": "IS",
+          "time_off_ref": {
+            "id": 1603456,
+            "display_name": "test_shubhanshu"
+          },
+          "incl_subtree": false
+        },
+        "pay_category": {
+          "id": 155009,
+          "display_name": "OVERTIME"
+        },
+        "week_day": "TUESDAY",
+        "custom_fields": [
+          {
+            "index": 0,
+            "value": "xcxzczcds"
+          },
+          {
+            "index": 2,
+            "value": "test_val2"
+          }
+        ]
+      },
+      "payroll_rec": {
+        "earning": {
+          "id": 53187,
+          "display_name": "Regular"
+        }
+      },
+      "counter_rec": {
+        "counter": {
+          "display_name": "counter2",
+          "id": 245760
+        },
+        "time_off": {
+          "is_time_off": "IS",
+          "time_off_ref": {
+            "id": 1603456,
+            "display_name": "test_shubhanshu"
+          },
+          "incl_subtree": true
+        },
+        "week_day": "THURSDAY"
+      }
+    }
+  ],
+  "_total_count": 2
+}</pre>
+</div>
+<div class="get-example-resp-tab-0" id="get-tab-resp-schema-0">
+
+<div class="jsonschema" id="schema-0">{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "rate_schedules": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "id",
+          "line",
+          "rate_items",
+          "type",
+          "rate_table"
+        ],
+        "properties": {
+          "id": {
+            "type": "integer"
+          },
+          "line": {
+            "type": "integer"
+          },
+          "rate_table": {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+              "id": {
+                "type": "integer"
+              },
+              "name": {
+                "type": "string"
+              },
+              "effective_from": {
+                "type": "string"
+              },
+              "effective_to": {
+                "type": "string"
+              },
+              "current_effective_from": {
+                "type": "string"
+              },
+              "current_effective_to": {
+                "type": "string"
+              },
+              "current_rate": {
+                "type": "number"
+              }
+            }
+          },
+          "type": {
+            "type": "string",
+            "enum": [
+              "HOUR",
+              "PIECE"
+            ]
+          },
+          "description": {
+            "type": "string"
+          },
+          "tied_to_base_compensation": {
+            "type": "boolean"
+          },
+          "rate_items": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "additionalProperties": false,
+              "properties": {
+                "effective_from": {
+                  "type": "string"
+                },
+                "effective_to": {
+                  "type": "string"
+                },
+                "id": {
+                  "type": "integer"
+                },
+                "rate": {
+                  "type": "number"
+                }
+              }
+            }
+          },
+          "rate_reason_code": {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+              "id": {
+                "type": "integer"
+              },
+              "name": {
+                "type": "string"
+              }
+            }
+          },
+          "usage": {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+              "time_entry": {
+                "type": "boolean"
+              },
+              "pay_record": {
+                "type": "boolean"
+              },
+              "payroll": {
+                "type": "boolean"
+              },
+              "counter": {
+                "type": "boolean"
+              },
+              "tlm_shift": {
+                "type": "boolean"
+              }
+            }
+          },
+          "global_rec": {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+              "cost_centers": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "additionalProperties": false,
+                  "properties": {
+                    "index": {
+                      "type": "integer"
+                    },
+                    "cost_center": {
+                      "type": "object",
+                      "additionalProperties": false,
+                      "properties": {
+                        "id": {
+                          "type": "integer"
+                        },
+                        "external_id": {
+                          "type": "string"
+                        },
+                        "path": {
+                          "type": "string"
+                        },
+                        "name": {
+                          "type": "string"
+                        },
+                        "payroll_code": {
+                          "type": "string"
+                        },
+                        "display_name": {
+                          "type": "string"
+                        }
+                      }
+                    },
+                    "incl_subtree": {
+                      "type": "boolean"
+                    },
+                    "custom_fields": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "additionalProperties": false,
+                        "properties": {
+                          "index": {
+                            "type": "integer"
+                          },
+                          "value": {
+                            "type": "string"
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              },
+              "premium_shift": {
+                "type": "object",
+                "additionalProperties": false,
+                "properties": {
+                  "id": {
+                    "type": "integer"
+                  },
+                  "name": {
+                    "type": "string"
+                  },
+                  "display_name": {
+                    "type": "string"
+                  }
+                }
+              }
+            }
+          },
+          "time_entry_rec": {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+              "time_value": {
+                "type": "string",
+                "enum": [
+                  "DO_NOT_CHECK",
+                  "VALUE_IS_SET",
+                  "VALUE_IS_NOT_SET"
+                ]
+              },
+              "piece_value": {
+                "type": "string",
+                "enum": [
+                  "DO_NOT_CHECK",
+                  "VALUE_IS_SET",
+                  "VALUE_IS_NOT_SET"
+                ]
+              },
+              "time_off": {
+                "type": "object",
+                "additionalProperties": false,
+                "properties": {
+                  "is_time_off": {
+                    "type": "string",
+                    "enum": [
+                      "IS",
+                      "IS_SET",
+                      "IS_NOT_SET"
+                    ]
+                  },
+                  "time_off_ref": {
+                    "type": "object",
+                    "additionalProperties": false,
+                    "properties": {
+                      "id": {
+                        "type": "integer"
+                      },
+                      "name": {
+                        "type": "string"
+                      },
+                      "payroll_code": {
+                        "type": "string"
+                      },
+                      "external_id": {
+                        "type": "string"
+                      },
+                      "path": {
+                        "type": "string"
+                      },
+                      "display_name": {
+                        "type": "string"
+                      }
+                    }
+                  },
+                  "incl_subtree": {
+                    "type": "boolean"
+                  }
+                }
+              },
+              "pay_category": {
+                "type": "object",
+                "additionalProperties": false,
+                "properties": {
+                  "id": {
+                    "type": "integer"
+                  },
+                  "name": {
+                    "type": "string"
+                  },
+                  "payroll_code": {
+                    "type": "string"
+                  },
+                  "display_name": {
+                    "type": "string"
+                  }
+                }
+              },
+              "week_day": {
+                "type": [
+                  "string"
+                ],
+                "enum": [
+                  "MONDAY",
+                  "TUESDAY",
+                  "WEDNESDAY",
+                  "THURSDAY",
+                  "FRIDAY",
+                  "SATURDAY",
+                  "SUNDAY"
+                ]
+              },
+              "custom_fields": {
+                "type": "array",
+                "items": {
+                  "type": "object"
+                }
+              }
+            }
+          },
+          "payroll_rec": {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+              "deduction": {
+                "type": "object",
+                "additionalProperties": false,
+                "properties": {
+                  "name": {
+                    "type": "string"
+                  },
+                  "external_id": {
+                    "type": "string"
+                  },
+                  "code": {
+                    "type": "string"
+                  },
+                  "id": {
+                    "type": "integer"
+                  },
+                  "type": {
+                    "type": "string"
+                  },
+                  "currency": {
+                    "type": "string",
+                    "enum": [
+                      "USD",
+                      "GBP",
+                      "EUR",
+                      "CAD",
+                      "AUD",
+                      "NZD",
+                      "MXN",
+                      "CNY",
+                      "SEK",
+                      "BRL",
+                      "INR",
+                      "SGD",
+                      "HKD",
+                      "CHF",
+                      "CRC",
+                      "UAH",
+                      "MOP",
+                      "DKK",
+                      "XXX"
+                    ]
+                  },
+                  "display_name": {
+                    "type": "string"
+                  }
+                }
+              },
+              "earning": {
+                "type": "object",
+                "additionalProperties": false,
+                "properties": {
+                  "name": {
+                    "type": "string"
+                  },
+                  "external_id": {
+                    "type": "string"
+                  },
+                  "code": {
+                    "type": "string"
+                  },
+                  "id": {
+                    "type": "integer"
+                  },
+                  "display_name": {
+                    "type": "string"
+                  }
+                }
+              }
+            }
+          },
+          "counter_rec": {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+              "counter": {
+                "type": "object",
+                "additionalProperties": false,
+                "properties": {
+                  "display_name": {
+                    "type": "string"
+                  },
+                  "id": {
+                    "type": "integer"
+                  }
+                }
+              },
+              "time_off": {
+                "type": "object"
+              },
+              "week_day": {
+                "type": [
+                  "string"
+                ],
+                "enum": [
+                  "MONDAY",
+                  "TUESDAY",
+                  "WEDNESDAY",
+                  "THURSDAY",
+                  "FRIDAY",
+                  "SATURDAY",
+                  "SUNDAY"
+                ]
+              }
+            }
+          },
+          "is_position": {
+            "type": "boolean"
+          },
+          "_links": {
+            "type": "object",
+            "properties": {
+              "self": {
+                "type": "string"
+              },
+              "edit": {
+                "type": "string"
+              },
+              "delete": {
+                "type": "string"
+              }
+            }
+          }
+        }
+      }
+    },
+    "dynamic_columns": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "column_label": {
+            "type": "string"
+          },
+          "column_name": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "_total_count": {
+      "type": "integer"
+    },
+    "_links": {
+      "type": "object",
+      "properties": {
+        "self": {
+          "type": "string"
+        },
+        "create": {
+          "type": "string"
+        }
+      }
+    }
+  }
+}</div>
+</div>
+</div>
+</div>
+<div class="resp-tab-get" id="resp-tab-id-get-1">
+<div class="example">
+
+<div class="get-example-resp-tab-1 activeTab" id="get-tab-resp-example-1">
+
+<pre class="highlightjs">&lt;?xml version='1.0' encoding='UTF-8'?&gt;
+&lt;rate_table_schedules&gt;
+  &lt;rate_schedules&gt;
+    &lt;rate_schedule&gt;
+      &lt;id&gt;6914048&lt;/id&gt;
+      &lt;line&gt;1&lt;/line&gt;
+      &lt;rate_table&gt;
+        &lt;id&gt;5816320&lt;/id&gt;
+        &lt;name&gt;Personal&lt;/name&gt;
+        &lt;effective_from&gt;1900-12-31&lt;/effective_from&gt;
+        &lt;effective_to&gt;9999-12-31&lt;/effective_to&gt;
+        &lt;current_effective_from&gt;1900-12-31&lt;/current_effective_from&gt;
+        &lt;current_effective_to&gt;9999-12-31&lt;/current_effective_to&gt;
+        &lt;current_rate&gt;10.000000&lt;/current_rate&gt;
+      &lt;/rate_table&gt;
+      &lt;type&gt;HOUR&lt;/type&gt;
+      &lt;description&gt;test&lt;/description&gt;
+      &lt;tied_to_base_compensation&gt;false&lt;/tied_to_base_compensation&gt;
+      &lt;rate_items&gt;
+        &lt;rate_item&gt;
+          &lt;id&gt;2312704&lt;/id&gt;
+          &lt;effective_from&gt;1900-12-31&lt;/effective_from&gt;
+          &lt;effective_to&gt;9999-12-31&lt;/effective_to&gt;
+          &lt;rate&gt;10.000000&lt;/rate&gt;
+        &lt;/rate_item&gt;
+      &lt;/rate_items&gt;
+      &lt;usage&gt;
+        &lt;time_entry&gt;true&lt;/time_entry&gt;
+        &lt;pay_record&gt;true&lt;/pay_record&gt;
+        &lt;payroll&gt;true&lt;/payroll&gt;
+        &lt;counter&gt;true&lt;/counter&gt;
+        &lt;tlm_shift&gt;true&lt;/tlm_shift&gt;
+      &lt;/usage&gt;
+      &lt;global_rec&gt;
+        &lt;cost_centers&gt;
+          &lt;cost_center&gt;
+            &lt;index&gt;0&lt;/index&gt;
+            &lt;cost_center_ref&gt;
+              &lt;id&gt;3508480&lt;/id&gt;
+              &lt;name&gt;10&lt;/name&gt;
+              &lt;display_name&gt;10&lt;/display_name&gt;
+            &lt;/cost_center_ref&gt;
+            &lt;incl_subtree&gt;false&lt;/incl_subtree&gt;
+          &lt;/cost_center&gt;
+        &lt;/cost_centers&gt;
+      &lt;/global_rec&gt;
+      &lt;time_entry_rec&gt;
+        &lt;time_value&gt;VALUE_IS_SET&lt;/time_value&gt;
+        &lt;piece_value&gt;DO_NOT_CHECK&lt;/piece_value&gt;
+        &lt;time_off&gt;
+          &lt;is_time_off&gt;IS&lt;/is_time_off&gt;
+          &lt;incl_subtree&gt;false&lt;/incl_subtree&gt;
+        &lt;/time_off&gt;
+        &lt;week_day&gt;TUESDAY&lt;/week_day&gt;
+      &lt;/time_entry_rec&gt;
+      &lt;payroll_rec&gt;
+        &lt;earning&gt;
+          &lt;id&gt;458752&lt;/id&gt;
+          &lt;display_name&gt;Regular&lt;/display_name&gt;
+        &lt;/earning&gt;
+      &lt;/payroll_rec&gt;
+      &lt;counter_rec&gt;
+        &lt;time_off&gt;
+          &lt;is_time_off&gt;IS&lt;/is_time_off&gt;
+          &lt;incl_subtree&gt;false&lt;/incl_subtree&gt;
+        &lt;/time_off&gt;
+      &lt;/counter_rec&gt;
+      &lt;is_position&gt;false&lt;/is_position&gt;
+    &lt;/rate_schedule&gt;
+    &lt;rate_schedule&gt;
+      &lt;id&gt;6947072&lt;/id&gt;
+      &lt;line&gt;2&lt;/line&gt;
+      &lt;rate_table&gt;
+        &lt;id&gt;5816320&lt;/id&gt;
+        &lt;name&gt;Personal&lt;/name&gt;
+        &lt;effective_from&gt;1900-12-31&lt;/effective_from&gt;
+        &lt;effective_to&gt;9999-12-31&lt;/effective_to&gt;
+        &lt;current_effective_from&gt;1900-12-31&lt;/current_effective_from&gt;
+        &lt;current_effective_to&gt;9999-12-31&lt;/current_effective_to&gt;
+        &lt;current_rate&gt;11.000000&lt;/current_rate&gt;
+      &lt;/rate_table&gt;
+      &lt;type&gt;HOUR&lt;/type&gt;
+      &lt;tied_to_base_compensation&gt;false&lt;/tied_to_base_compensation&gt;
+      &lt;rate_items&gt;
+        &lt;rate_item&gt;
+          &lt;id&gt;2261248&lt;/id&gt;
+          &lt;effective_from&gt;1900-12-31&lt;/effective_from&gt;
+          &lt;effective_to&gt;9999-12-31&lt;/effective_to&gt;
+          &lt;rate&gt;11.000000&lt;/rate&gt;
+        &lt;/rate_item&gt;
+      &lt;/rate_items&gt;
+      &lt;usage&gt;
+        &lt;time_entry&gt;true&lt;/time_entry&gt;
+        &lt;pay_record&gt;true&lt;/pay_record&gt;
+        &lt;payroll&gt;true&lt;/payroll&gt;
+        &lt;counter&gt;true&lt;/counter&gt;
+        &lt;tlm_shift&gt;true&lt;/tlm_shift&gt;
+      &lt;/usage&gt;
+      &lt;time_entry_rec&gt;
+        &lt;time_value&gt;DO_NOT_CHECK&lt;/time_value&gt;
+        &lt;piece_value&gt;DO_NOT_CHECK&lt;/piece_value&gt;
+        &lt;time_off&gt;
+          &lt;is_time_off&gt;IS&lt;/is_time_off&gt;
+          &lt;incl_subtree&gt;false&lt;/incl_subtree&gt;
+        &lt;/time_off&gt;
+      &lt;/time_entry_rec&gt;
+      &lt;counter_rec&gt;
+        &lt;time_off&gt;
+          &lt;is_time_off&gt;IS&lt;/is_time_off&gt;
+          &lt;incl_subtree&gt;false&lt;/incl_subtree&gt;
+        &lt;/time_off&gt;
+      &lt;/counter_rec&gt;
+      &lt;is_position&gt;false&lt;/is_position&gt;
+    &lt;/rate_schedule&gt;
+    &lt;rate_schedule&gt;
+      &lt;id&gt;6980096&lt;/id&gt;
+      &lt;line&gt;3&lt;/line&gt;
+      &lt;rate_table&gt;
+        &lt;id&gt;5816320&lt;/id&gt;
+        &lt;name&gt;Personal&lt;/name&gt;
+        &lt;effective_from&gt;1900-12-31&lt;/effective_from&gt;
+        &lt;effective_to&gt;2021-04-19&lt;/effective_to&gt;
+      &lt;/rate_table&gt;
+      &lt;type&gt;HOUR&lt;/type&gt;
+      &lt;description&gt;testdfgdgdf&lt;/description&gt;
+      &lt;tied_to_base_compensation&gt;false&lt;/tied_to_base_compensation&gt;
+      &lt;rate_items&gt;
+        &lt;rate_item&gt;
+          &lt;id&gt;2312192&lt;/id&gt;
+          &lt;effective_from&gt;1900-12-31&lt;/effective_from&gt;
+          &lt;effective_to&gt;2021-04-19&lt;/effective_to&gt;
+          &lt;rate&gt;8.000000&lt;/rate&gt;
+        &lt;/rate_item&gt;
+      &lt;/rate_items&gt;
+      &lt;usage&gt;
+        &lt;time_entry&gt;true&lt;/time_entry&gt;
+        &lt;pay_record&gt;true&lt;/pay_record&gt;
+        &lt;payroll&gt;true&lt;/payroll&gt;
+        &lt;counter&gt;true&lt;/counter&gt;
+        &lt;tlm_shift&gt;false&lt;/tlm_shift&gt;
+      &lt;/usage&gt;
+      &lt;time_entry_rec&gt;
+        &lt;time_value&gt;VALUE_IS_SET&lt;/time_value&gt;
+        &lt;piece_value&gt;DO_NOT_CHECK&lt;/piece_value&gt;
+        &lt;time_off&gt;
+          &lt;is_time_off&gt;IS&lt;/is_time_off&gt;
+          &lt;incl_subtree&gt;false&lt;/incl_subtree&gt;
+        &lt;/time_off&gt;
+      &lt;/time_entry_rec&gt;
+      &lt;counter_rec&gt;
+        &lt;time_off&gt;
+          &lt;is_time_off&gt;IS&lt;/is_time_off&gt;
+          &lt;incl_subtree&gt;false&lt;/incl_subtree&gt;
+        &lt;/time_off&gt;
+      &lt;/counter_rec&gt;
+      &lt;is_position&gt;false&lt;/is_position&gt;
+    &lt;/rate_schedule&gt;
+  &lt;/rate_schedules&gt;
+  &lt;_total_count&gt;3&lt;/_total_count&gt;
+&lt;/rate_table_schedules&gt;</pre>
+</div>
+<div class="get-example-resp-tab-1" id="get-tab-resp-schema-1">
+
+<div class="jsonschema" id="schema-1">&lt;?xml version="1.0" encoding="UTF-8" ?&gt;
+&lt;xs:schema attributeFormDefault="unqualified" elementFormDefault="qualified"
+           xmlns:xs="http://www.w3.org/2001/XMLSchema"&gt;
+
+  &lt;xs:element name="rate_table_schedules"&gt;
+    &lt;xs:complexType&gt;
+      &lt;xs:sequence&gt;
+        &lt;xs:element ref="rate_schedules"/&gt;
+        &lt;xs:element name="_total_count" type="xs:long"/&gt;
+        &lt;xs:element ref="_links" minOccurs="0"/&gt;
+      &lt;/xs:sequence&gt;
+    &lt;/xs:complexType&gt;
+  &lt;/xs:element&gt;
+
+  &lt;xs:element name="rate_schedules"&gt;
+    &lt;xs:complexType&gt;
+      &lt;xs:sequence&gt;
+        &lt;xs:element name="rate_schedule" maxOccurs="unbounded" minOccurs="0"&gt;
+          &lt;xs:complexType&gt;
+            &lt;xs:sequence&gt;
+              &lt;xs:element name="id" type="xs:long"/&gt;
+              &lt;xs:element name="line" type="xs:byte"/&gt;
+              &lt;xs:element ref="rate_table"/&gt;
+              &lt;xs:element ref="type"/&gt;
+              &lt;xs:element name="description" type="xs:string" minOccurs="0"/&gt;
+              &lt;xs:element name="tied_to_base_compensation" type="xs:boolean"/&gt;
+
+              &lt;xs:element name="rate_items"&gt;
+                &lt;xs:complexType&gt;
+                  &lt;xs:sequence&gt;
+                    &lt;xs:element name="rate_item"&gt;
+                      &lt;xs:complexType&gt;
+                        &lt;xs:sequence&gt;
+                          &lt;xs:element name="id" type="xs:int"/&gt;
+                          &lt;xs:element name="effective_from" type="xs:date"/&gt;
+                          &lt;xs:element name="effective_to" type="xs:date"/&gt;
+                          &lt;xs:element name="rate" type="xs:float"/&gt;
+                        &lt;/xs:sequence&gt;
+                      &lt;/xs:complexType&gt;
+                    &lt;/xs:element&gt;
+                  &lt;/xs:sequence&gt;
+                &lt;/xs:complexType&gt;
+              &lt;/xs:element&gt;
+
+              &lt;xs:element name="usage"&gt;
+                &lt;xs:complexType&gt;
+                  &lt;xs:sequence&gt;
+                    &lt;xs:element name="time_entry" type="xs:string"/&gt;
+                    &lt;xs:element name="pay_record" type="xs:string"/&gt;
+                    &lt;xs:element name="payroll" type="xs:string"/&gt;
+                    &lt;xs:element name="counter" type="xs:string"/&gt;
+                    &lt;xs:element name="tlm_shift" type="xs:string"/&gt;
+                  &lt;/xs:sequence&gt;
+                &lt;/xs:complexType&gt;
+              &lt;/xs:element&gt;
+
+              &lt;xs:element name="global_rec" minOccurs="0"&gt;
+                &lt;xs:complexType&gt;
+                  &lt;xs:sequence&gt;
+                    &lt;xs:element ref="cost_centers"/&gt;
+                  &lt;/xs:sequence&gt;
+                &lt;/xs:complexType&gt;
+              &lt;/xs:element&gt;
+
+              &lt;xs:element name="time_entry_rec" minOccurs="0"&gt;
+                &lt;xs:complexType&gt;
+                  &lt;xs:sequence&gt;
+                    &lt;xs:element ref="time_value"/&gt;
+                    &lt;xs:element ref="piece_value"/&gt;
+                    &lt;xs:element ref="time_off"/&gt;
+                    &lt;xs:element name="week_day" type="xs:string" minOccurs="0"/&gt;
+                  &lt;/xs:sequence&gt;
+                &lt;/xs:complexType&gt;
+              &lt;/xs:element&gt;
+
+              &lt;xs:element name="payroll_rec" minOccurs="0"&gt;
+                &lt;xs:complexType&gt;
+                  &lt;xs:sequence&gt;
+                    &lt;xs:element ref="earning"/&gt;
+                  &lt;/xs:sequence&gt;
+                &lt;/xs:complexType&gt;
+              &lt;/xs:element&gt;
+              &lt;xs:element name="counter_rec" minOccurs="0"&gt;
+                &lt;xs:complexType&gt;
+                  &lt;xs:sequence&gt;
+                    &lt;xs:element ref="time_off"/&gt;
+                  &lt;/xs:sequence&gt;
+                &lt;/xs:complexType&gt;
+              &lt;/xs:element&gt;
+              &lt;xs:element name="is_position" type="xs:string" minOccurs="0"/&gt;
+            &lt;/xs:sequence&gt;
+          &lt;/xs:complexType&gt;
+        &lt;/xs:element&gt;
+      &lt;/xs:sequence&gt;
+    &lt;/xs:complexType&gt;
+  &lt;/xs:element&gt;
+
+  &lt;xs:element name="type"&gt;
+    &lt;xs:simpleType&gt;
+      &lt;xs:restriction base="xs:string"&gt;
+        &lt;xs:enumeration value="HOUR"/&gt;
+        &lt;xs:enumeration value="PIECE"/&gt;
+      &lt;/xs:restriction&gt;
+    &lt;/xs:simpleType&gt;
+  &lt;/xs:element&gt;
+
+  &lt;xs:element name="rate_table"&gt;
+    &lt;xs:complexType&gt;
+      &lt;xs:sequence&gt;
+        &lt;xs:element name="id" type="xs:int"/&gt;
+        &lt;xs:element name="name" type="xs:string"/&gt;
+        &lt;xs:element name="effective_from" type="xs:date"/&gt;
+        &lt;xs:element name="effective_to" type="xs:date"/&gt;
+        &lt;xs:element name="current_effective_from" type="xs:date" minOccurs="0"/&gt;
+        &lt;xs:element name="current_effective_to" type="xs:date" minOccurs="0"/&gt;
+        &lt;xs:element name="current_rate" type="xs:float" minOccurs="0"/&gt;
+      &lt;/xs:sequence&gt;
+    &lt;/xs:complexType&gt;
+  &lt;/xs:element&gt;
+
+  &lt;xs:element name="cost_centers"&gt;
+    &lt;xs:complexType&gt;
+      &lt;xs:sequence&gt;
+        &lt;xs:element name="cost_center"&gt;
+          &lt;xs:complexType&gt;
+            &lt;xs:sequence&gt;
+              &lt;xs:element name="index" type="xs:byte"/&gt;
+              &lt;xs:element name="cost_center_ref"&gt;
+                &lt;xs:complexType&gt;
+                  &lt;xs:sequence&gt;
+                    &lt;xs:element name="id" type="xs:long"/&gt;
+                    &lt;xs:element name="name" type="xs:string"/&gt;
+                    &lt;xs:element name="display_name" type="xs:string"/&gt;
+                  &lt;/xs:sequence&gt;
+                &lt;/xs:complexType&gt;
+              &lt;/xs:element&gt;
+              &lt;xs:element name="incl_subtree" type="xs:string"/&gt;
+            &lt;/xs:sequence&gt;
+          &lt;/xs:complexType&gt;
+        &lt;/xs:element&gt;
+      &lt;/xs:sequence&gt;
+    &lt;/xs:complexType&gt;
+  &lt;/xs:element&gt;
+
+  &lt;xs:element name="time_value"&gt;
+    &lt;xs:simpleType&gt;
+      &lt;xs:restriction base="xs:string"&gt;
+        &lt;xs:enumeration value="DO_NOT_CHECK"/&gt;
+        &lt;xs:enumeration value="VALUE_IS_SET"/&gt;
+        &lt;xs:enumeration value="VALUE_IS_NOT_SET"/&gt;
+      &lt;/xs:restriction&gt;
+    &lt;/xs:simpleType&gt;
+  &lt;/xs:element&gt;
+
+  &lt;xs:element name="piece_value"&gt;
+    &lt;xs:simpleType&gt;
+      &lt;xs:restriction base="xs:string"&gt;
+        &lt;xs:enumeration value="DO_NOT_CHECK"/&gt;
+        &lt;xs:enumeration value="VALUE_IS_SET"/&gt;
+        &lt;xs:enumeration value="VALUE_IS_NOT_SET"/&gt;
+      &lt;/xs:restriction&gt;
+    &lt;/xs:simpleType&gt;
+  &lt;/xs:element&gt;
+
+  &lt;xs:element name="time_off"&gt;
+    &lt;xs:complexType&gt;
+      &lt;xs:sequence&gt;
+        &lt;xs:element name="is_time_off"&gt;
+          &lt;xs:simpleType&gt;
+            &lt;xs:restriction base="xs:string"&gt;
+              &lt;xs:enumeration value="IS"/&gt;
+              &lt;xs:enumeration value="IS_SET"/&gt;
+              &lt;xs:enumeration value="IS_NOT_SET"/&gt;
+            &lt;/xs:restriction&gt;
+          &lt;/xs:simpleType&gt;
+        &lt;/xs:element&gt;
+        &lt;xs:element name="incl_subtree" type="xs:string"/&gt;
+      &lt;/xs:sequence&gt;
+    &lt;/xs:complexType&gt;
+  &lt;/xs:element&gt;
+
+  &lt;xs:element name="deduction"&gt;
+    &lt;xs:complexType&gt;
+      &lt;xs:sequence&gt;
+        &lt;xs:element name="id" type="xs:long"/&gt;
+        &lt;xs:element name="name" type="xs:string"/&gt;
+        &lt;xs:element name="code" type="xs:string" minOccurs="0"/&gt;
+        &lt;xs:element name="external_id" type="xs:string" minOccurs="0"/&gt;
+        &lt;xs:element name="type" type="xs:string" minOccurs="0"/&gt;
+        &lt;xs:element ref="currency" minOccurs="0"/&gt;
+      &lt;/xs:sequence&gt;
+    &lt;/xs:complexType&gt;
+  &lt;/xs:element&gt;
+
+  &lt;xs:element name="currency"&gt;
+    &lt;xs:simpleType&gt;
+      &lt;xs:restriction base="xs:string"&gt;
+        &lt;xs:enumeration value="USD"/&gt;
+        &lt;xs:enumeration value="GBP"/&gt;
+        &lt;xs:enumeration value="EUR"/&gt;
+        &lt;xs:enumeration value="CAD"/&gt;
+        &lt;xs:enumeration value="AUD"/&gt;
+        &lt;xs:enumeration value="NZD"/&gt;
+        &lt;xs:enumeration value="MXN"/&gt;
+        &lt;xs:enumeration value="CNY"/&gt;
+        &lt;xs:enumeration value="SEK"/&gt;
+        &lt;xs:enumeration value="BRL"/&gt;
+        &lt;xs:enumeration value="INR"/&gt;
+        &lt;xs:enumeration value="SGD"/&gt;
+        &lt;xs:enumeration value="HKD"/&gt;
+        &lt;xs:enumeration value="CHF"/&gt;
+        &lt;xs:enumeration value="CRC"/&gt;
+        &lt;xs:enumeration value="UAH"/&gt;
+        &lt;xs:enumeration value="MOP"/&gt;
+        &lt;xs:enumeration value="DKK"/&gt;
+        &lt;xs:enumeration value="XXX"/&gt;
+      &lt;/xs:restriction&gt;
+    &lt;/xs:simpleType&gt;
+  &lt;/xs:element&gt;
+
+  &lt;xs:element name="earning"&gt;
+    &lt;xs:complexType&gt;
+      &lt;xs:sequence&gt;
+        &lt;xs:element name="id" type="xs:long"/&gt;
+        &lt;xs:element name="display_name" type="xs:string"/&gt;
+        &lt;xs:element name="name" type="xs:string" minOccurs="0"/&gt;
+        &lt;xs:element name="code" type="xs:string" minOccurs="0"/&gt;
+        &lt;xs:element name="external_id" type="xs:string" minOccurs="0"/&gt;
+      &lt;/xs:sequence&gt;
+    &lt;/xs:complexType&gt;
+  &lt;/xs:element&gt;
+
+  &lt;xs:element name="_links"&gt;
+    &lt;xs:complexType&gt;
+      &lt;xs:sequence&gt;
+        &lt;xs:element name="self" type="xs:anyURI"/&gt;
+        &lt;xs:element name="create" type="xs:anyURI"/&gt;
+        &lt;xs:element name="edit" type="xs:anyURI"/&gt;
+        &lt;xs:element name="delete" type="xs:anyURI"/&gt;
+      &lt;/xs:sequence&gt;
+    &lt;/xs:complexType&gt;
+  &lt;/xs:element&gt;
+
+&lt;/xs:schema&gt;</div>
+</div>
+</div>
+</div>
+<div class="resp-tab-get" id="resp-tab-id-get-2">
+<div class="example">
+
+<div class="get-example-resp-tab-2 activeTab" id="get-tab-resp-example-2">
+
+<pre class="highlightjs">&lt;?xml version='1.0' encoding='UTF-8'?&gt;
+&lt;rate_table_schedules&gt;
+  &lt;rate_schedules&gt;
+    &lt;rate_schedule&gt;
+      &lt;id&gt;6914048&lt;/id&gt;
+      &lt;line&gt;1&lt;/line&gt;
+      &lt;rate_table&gt;
+        &lt;id&gt;5816320&lt;/id&gt;
+        &lt;name&gt;Personal&lt;/name&gt;
+        &lt;effective_from&gt;1900-12-31&lt;/effective_from&gt;
+        &lt;effective_to&gt;9999-12-31&lt;/effective_to&gt;
+        &lt;current_effective_from&gt;1900-12-31&lt;/current_effective_from&gt;
+        &lt;current_effective_to&gt;9999-12-31&lt;/current_effective_to&gt;
+        &lt;current_rate&gt;10.000000&lt;/current_rate&gt;
+      &lt;/rate_table&gt;
+      &lt;type&gt;HOUR&lt;/type&gt;
+      &lt;description&gt;test&lt;/description&gt;
+      &lt;tied_to_base_compensation&gt;false&lt;/tied_to_base_compensation&gt;
+      &lt;rate_items&gt;
+        &lt;rate_item&gt;
+          &lt;id&gt;2312704&lt;/id&gt;
+          &lt;effective_from&gt;1900-12-31&lt;/effective_from&gt;
+          &lt;effective_to&gt;9999-12-31&lt;/effective_to&gt;
+          &lt;rate&gt;10.000000&lt;/rate&gt;
+        &lt;/rate_item&gt;
+      &lt;/rate_items&gt;
+      &lt;usage&gt;
+        &lt;time_entry&gt;true&lt;/time_entry&gt;
+        &lt;pay_record&gt;true&lt;/pay_record&gt;
+        &lt;payroll&gt;true&lt;/payroll&gt;
+        &lt;counter&gt;true&lt;/counter&gt;
+        &lt;tlm_shift&gt;true&lt;/tlm_shift&gt;
+      &lt;/usage&gt;
+      &lt;global_rec&gt;
+        &lt;cost_centers&gt;
+          &lt;cost_center&gt;
+            &lt;index&gt;0&lt;/index&gt;
+            &lt;cost_center_ref&gt;
+              &lt;id&gt;3508480&lt;/id&gt;
+              &lt;name&gt;10&lt;/name&gt;
+              &lt;display_name&gt;10&lt;/display_name&gt;
+            &lt;/cost_center_ref&gt;
+            &lt;incl_subtree&gt;false&lt;/incl_subtree&gt;
+          &lt;/cost_center&gt;
+        &lt;/cost_centers&gt;
+      &lt;/global_rec&gt;
+      &lt;time_entry_rec&gt;
+        &lt;time_value&gt;VALUE_IS_SET&lt;/time_value&gt;
+        &lt;piece_value&gt;DO_NOT_CHECK&lt;/piece_value&gt;
+        &lt;time_off&gt;
+          &lt;is_time_off&gt;IS&lt;/is_time_off&gt;
+          &lt;incl_subtree&gt;false&lt;/incl_subtree&gt;
+        &lt;/time_off&gt;
+        &lt;week_day&gt;TUESDAY&lt;/week_day&gt;
+      &lt;/time_entry_rec&gt;
+      &lt;payroll_rec&gt;
+        &lt;earning&gt;
+          &lt;id&gt;458752&lt;/id&gt;
+          &lt;display_name&gt;Regular&lt;/display_name&gt;
+        &lt;/earning&gt;
+      &lt;/payroll_rec&gt;
+      &lt;counter_rec&gt;
+        &lt;time_off&gt;
+          &lt;is_time_off&gt;IS&lt;/is_time_off&gt;
+          &lt;incl_subtree&gt;false&lt;/incl_subtree&gt;
+        &lt;/time_off&gt;
+      &lt;/counter_rec&gt;
+      &lt;is_position&gt;false&lt;/is_position&gt;
+    &lt;/rate_schedule&gt;
+    &lt;rate_schedule&gt;
+      &lt;id&gt;6947072&lt;/id&gt;
+      &lt;line&gt;2&lt;/line&gt;
+      &lt;rate_table&gt;
+        &lt;id&gt;5816320&lt;/id&gt;
+        &lt;name&gt;Personal&lt;/name&gt;
+        &lt;effective_from&gt;1900-12-31&lt;/effective_from&gt;
+        &lt;effective_to&gt;9999-12-31&lt;/effective_to&gt;
+        &lt;current_effective_from&gt;1900-12-31&lt;/current_effective_from&gt;
+        &lt;current_effective_to&gt;9999-12-31&lt;/current_effective_to&gt;
+        &lt;current_rate&gt;11.000000&lt;/current_rate&gt;
+      &lt;/rate_table&gt;
+      &lt;type&gt;HOUR&lt;/type&gt;
+      &lt;tied_to_base_compensation&gt;false&lt;/tied_to_base_compensation&gt;
+      &lt;rate_items&gt;
+        &lt;rate_item&gt;
+          &lt;id&gt;2261248&lt;/id&gt;
+          &lt;effective_from&gt;1900-12-31&lt;/effective_from&gt;
+          &lt;effective_to&gt;9999-12-31&lt;/effective_to&gt;
+          &lt;rate&gt;11.000000&lt;/rate&gt;
+        &lt;/rate_item&gt;
+      &lt;/rate_items&gt;
+      &lt;usage&gt;
+        &lt;time_entry&gt;true&lt;/time_entry&gt;
+        &lt;pay_record&gt;true&lt;/pay_record&gt;
+        &lt;payroll&gt;true&lt;/payroll&gt;
+        &lt;counter&gt;true&lt;/counter&gt;
+        &lt;tlm_shift&gt;true&lt;/tlm_shift&gt;
+      &lt;/usage&gt;
+      &lt;time_entry_rec&gt;
+        &lt;time_value&gt;DO_NOT_CHECK&lt;/time_value&gt;
+        &lt;piece_value&gt;DO_NOT_CHECK&lt;/piece_value&gt;
+        &lt;time_off&gt;
+          &lt;is_time_off&gt;IS&lt;/is_time_off&gt;
+          &lt;incl_subtree&gt;false&lt;/incl_subtree&gt;
+        &lt;/time_off&gt;
+      &lt;/time_entry_rec&gt;
+      &lt;counter_rec&gt;
+        &lt;time_off&gt;
+          &lt;is_time_off&gt;IS&lt;/is_time_off&gt;
+          &lt;incl_subtree&gt;false&lt;/incl_subtree&gt;
+        &lt;/time_off&gt;
+      &lt;/counter_rec&gt;
+      &lt;is_position&gt;false&lt;/is_position&gt;
+    &lt;/rate_schedule&gt;
+    &lt;rate_schedule&gt;
+      &lt;id&gt;6980096&lt;/id&gt;
+      &lt;line&gt;3&lt;/line&gt;
+      &lt;rate_table&gt;
+        &lt;id&gt;5816320&lt;/id&gt;
+        &lt;name&gt;Personal&lt;/name&gt;
+        &lt;effective_from&gt;1900-12-31&lt;/effective_from&gt;
+        &lt;effective_to&gt;2021-04-19&lt;/effective_to&gt;
+      &lt;/rate_table&gt;
+      &lt;type&gt;HOUR&lt;/type&gt;
+      &lt;description&gt;testdfgdgdf&lt;/description&gt;
+      &lt;tied_to_base_compensation&gt;false&lt;/tied_to_base_compensation&gt;
+      &lt;rate_items&gt;
+        &lt;rate_item&gt;
+          &lt;id&gt;2312192&lt;/id&gt;
+          &lt;effective_from&gt;1900-12-31&lt;/effective_from&gt;
+          &lt;effective_to&gt;2021-04-19&lt;/effective_to&gt;
+          &lt;rate&gt;8.000000&lt;/rate&gt;
+        &lt;/rate_item&gt;
+      &lt;/rate_items&gt;
+      &lt;usage&gt;
+        &lt;time_entry&gt;true&lt;/time_entry&gt;
+        &lt;pay_record&gt;true&lt;/pay_record&gt;
+        &lt;payroll&gt;true&lt;/payroll&gt;
+        &lt;counter&gt;true&lt;/counter&gt;
+        &lt;tlm_shift&gt;false&lt;/tlm_shift&gt;
+      &lt;/usage&gt;
+      &lt;time_entry_rec&gt;
+        &lt;time_value&gt;VALUE_IS_SET&lt;/time_value&gt;
+        &lt;piece_value&gt;DO_NOT_CHECK&lt;/piece_value&gt;
+        &lt;time_off&gt;
+          &lt;is_time_off&gt;IS&lt;/is_time_off&gt;
+          &lt;incl_subtree&gt;false&lt;/incl_subtree&gt;
+        &lt;/time_off&gt;
+      &lt;/time_entry_rec&gt;
+      &lt;counter_rec&gt;
+        &lt;time_off&gt;
+          &lt;is_time_off&gt;IS&lt;/is_time_off&gt;
+          &lt;incl_subtree&gt;false&lt;/incl_subtree&gt;
+        &lt;/time_off&gt;
+      &lt;/counter_rec&gt;
+      &lt;is_position&gt;false&lt;/is_position&gt;
+    &lt;/rate_schedule&gt;
+  &lt;/rate_schedules&gt;
+  &lt;_total_count&gt;3&lt;/_total_count&gt;
+&lt;/rate_table_schedules&gt;</pre>
+</div>
+<div class="get-example-resp-tab-2" id="get-tab-resp-schema-2">
+
+<div class="jsonschema" id="schema-2">&lt;?xml version="1.0" encoding="UTF-8" ?&gt;
+&lt;xs:schema attributeFormDefault="unqualified" elementFormDefault="qualified"
+           xmlns:xs="http://www.w3.org/2001/XMLSchema"&gt;
+
+  &lt;xs:element name="rate_table_schedules"&gt;
+    &lt;xs:complexType&gt;
+      &lt;xs:sequence&gt;
+        &lt;xs:element ref="rate_schedules"/&gt;
+        &lt;xs:element name="_total_count" type="xs:long"/&gt;
+        &lt;xs:element ref="_links" minOccurs="0"/&gt;
+      &lt;/xs:sequence&gt;
+    &lt;/xs:complexType&gt;
+  &lt;/xs:element&gt;
+
+  &lt;xs:element name="rate_schedules"&gt;
+    &lt;xs:complexType&gt;
+      &lt;xs:sequence&gt;
+        &lt;xs:element name="rate_schedule" maxOccurs="unbounded" minOccurs="0"&gt;
+          &lt;xs:complexType&gt;
+            &lt;xs:sequence&gt;
+              &lt;xs:element name="id" type="xs:long"/&gt;
+              &lt;xs:element name="line" type="xs:byte"/&gt;
+              &lt;xs:element ref="rate_table"/&gt;
+              &lt;xs:element ref="type"/&gt;
+              &lt;xs:element name="description" type="xs:string" minOccurs="0"/&gt;
+              &lt;xs:element name="tied_to_base_compensation" type="xs:boolean"/&gt;
+
+              &lt;xs:element name="rate_items"&gt;
+                &lt;xs:complexType&gt;
+                  &lt;xs:sequence&gt;
+                    &lt;xs:element name="rate_item"&gt;
+                      &lt;xs:complexType&gt;
+                        &lt;xs:sequence&gt;
+                          &lt;xs:element name="id" type="xs:int"/&gt;
+                          &lt;xs:element name="effective_from" type="xs:date"/&gt;
+                          &lt;xs:element name="effective_to" type="xs:date"/&gt;
+                          &lt;xs:element name="rate" type="xs:float"/&gt;
+                        &lt;/xs:sequence&gt;
+                      &lt;/xs:complexType&gt;
+                    &lt;/xs:element&gt;
+                  &lt;/xs:sequence&gt;
+                &lt;/xs:complexType&gt;
+              &lt;/xs:element&gt;
+
+              &lt;xs:element name="usage"&gt;
+                &lt;xs:complexType&gt;
+                  &lt;xs:sequence&gt;
+                    &lt;xs:element name="time_entry" type="xs:string"/&gt;
+                    &lt;xs:element name="pay_record" type="xs:string"/&gt;
+                    &lt;xs:element name="payroll" type="xs:string"/&gt;
+                    &lt;xs:element name="counter" type="xs:string"/&gt;
+                    &lt;xs:element name="tlm_shift" type="xs:string"/&gt;
+                  &lt;/xs:sequence&gt;
+                &lt;/xs:complexType&gt;
+              &lt;/xs:element&gt;
+
+              &lt;xs:element name="global_rec" minOccurs="0"&gt;
+                &lt;xs:complexType&gt;
+                  &lt;xs:sequence&gt;
+                    &lt;xs:element ref="cost_centers"/&gt;
+                  &lt;/xs:sequence&gt;
+                &lt;/xs:complexType&gt;
+              &lt;/xs:element&gt;
+
+              &lt;xs:element name="time_entry_rec" minOccurs="0"&gt;
+                &lt;xs:complexType&gt;
+                  &lt;xs:sequence&gt;
+                    &lt;xs:element ref="time_value"/&gt;
+                    &lt;xs:element ref="piece_value"/&gt;
+                    &lt;xs:element ref="time_off"/&gt;
+                    &lt;xs:element name="week_day" type="xs:string" minOccurs="0"/&gt;
+                  &lt;/xs:sequence&gt;
+                &lt;/xs:complexType&gt;
+              &lt;/xs:element&gt;
+
+              &lt;xs:element name="payroll_rec" minOccurs="0"&gt;
+                &lt;xs:complexType&gt;
+                  &lt;xs:sequence&gt;
+                    &lt;xs:element ref="earning"/&gt;
+                  &lt;/xs:sequence&gt;
+                &lt;/xs:complexType&gt;
+              &lt;/xs:element&gt;
+              &lt;xs:element name="counter_rec" minOccurs="0"&gt;
+                &lt;xs:complexType&gt;
+                  &lt;xs:sequence&gt;
+                    &lt;xs:element ref="time_off"/&gt;
+                  &lt;/xs:sequence&gt;
+                &lt;/xs:complexType&gt;
+              &lt;/xs:element&gt;
+              &lt;xs:element name="is_position" type="xs:string" minOccurs="0"/&gt;
+            &lt;/xs:sequence&gt;
+          &lt;/xs:complexType&gt;
+        &lt;/xs:element&gt;
+      &lt;/xs:sequence&gt;
+    &lt;/xs:complexType&gt;
+  &lt;/xs:element&gt;
+
+  &lt;xs:element name="type"&gt;
+    &lt;xs:simpleType&gt;
+      &lt;xs:restriction base="xs:string"&gt;
+        &lt;xs:enumeration value="HOUR"/&gt;
+        &lt;xs:enumeration value="PIECE"/&gt;
+      &lt;/xs:restriction&gt;
+    &lt;/xs:simpleType&gt;
+  &lt;/xs:element&gt;
+
+  &lt;xs:element name="rate_table"&gt;
+    &lt;xs:complexType&gt;
+      &lt;xs:sequence&gt;
+        &lt;xs:element name="id" type="xs:int"/&gt;
+        &lt;xs:element name="name" type="xs:string"/&gt;
+        &lt;xs:element name="effective_from" type="xs:date"/&gt;
+        &lt;xs:element name="effective_to" type="xs:date"/&gt;
+        &lt;xs:element name="current_effective_from" type="xs:date" minOccurs="0"/&gt;
+        &lt;xs:element name="current_effective_to" type="xs:date" minOccurs="0"/&gt;
+        &lt;xs:element name="current_rate" type="xs:float" minOccurs="0"/&gt;
+      &lt;/xs:sequence&gt;
+    &lt;/xs:complexType&gt;
+  &lt;/xs:element&gt;
+
+  &lt;xs:element name="cost_centers"&gt;
+    &lt;xs:complexType&gt;
+      &lt;xs:sequence&gt;
+        &lt;xs:element name="cost_center"&gt;
+          &lt;xs:complexType&gt;
+            &lt;xs:sequence&gt;
+              &lt;xs:element name="index" type="xs:byte"/&gt;
+              &lt;xs:element name="cost_center_ref"&gt;
+                &lt;xs:complexType&gt;
+                  &lt;xs:sequence&gt;
+                    &lt;xs:element name="id" type="xs:long"/&gt;
+                    &lt;xs:element name="name" type="xs:string"/&gt;
+                    &lt;xs:element name="display_name" type="xs:string"/&gt;
+                  &lt;/xs:sequence&gt;
+                &lt;/xs:complexType&gt;
+              &lt;/xs:element&gt;
+              &lt;xs:element name="incl_subtree" type="xs:string"/&gt;
+            &lt;/xs:sequence&gt;
+          &lt;/xs:complexType&gt;
+        &lt;/xs:element&gt;
+      &lt;/xs:sequence&gt;
+    &lt;/xs:complexType&gt;
+  &lt;/xs:element&gt;
+
+  &lt;xs:element name="time_value"&gt;
+    &lt;xs:simpleType&gt;
+      &lt;xs:restriction base="xs:string"&gt;
+        &lt;xs:enumeration value="DO_NOT_CHECK"/&gt;
+        &lt;xs:enumeration value="VALUE_IS_SET"/&gt;
+        &lt;xs:enumeration value="VALUE_IS_NOT_SET"/&gt;
+      &lt;/xs:restriction&gt;
+    &lt;/xs:simpleType&gt;
+  &lt;/xs:element&gt;
+
+  &lt;xs:element name="piece_value"&gt;
+    &lt;xs:simpleType&gt;
+      &lt;xs:restriction base="xs:string"&gt;
+        &lt;xs:enumeration value="DO_NOT_CHECK"/&gt;
+        &lt;xs:enumeration value="VALUE_IS_SET"/&gt;
+        &lt;xs:enumeration value="VALUE_IS_NOT_SET"/&gt;
+      &lt;/xs:restriction&gt;
+    &lt;/xs:simpleType&gt;
+  &lt;/xs:element&gt;
+
+  &lt;xs:element name="time_off"&gt;
+    &lt;xs:complexType&gt;
+      &lt;xs:sequence&gt;
+        &lt;xs:element name="is_time_off"&gt;
+          &lt;xs:simpleType&gt;
+            &lt;xs:restriction base="xs:string"&gt;
+              &lt;xs:enumeration value="IS"/&gt;
+              &lt;xs:enumeration value="IS_SET"/&gt;
+              &lt;xs:enumeration value="IS_NOT_SET"/&gt;
+            &lt;/xs:restriction&gt;
+          &lt;/xs:simpleType&gt;
+        &lt;/xs:element&gt;
+        &lt;xs:element name="incl_subtree" type="xs:string"/&gt;
+      &lt;/xs:sequence&gt;
+    &lt;/xs:complexType&gt;
+  &lt;/xs:element&gt;
+
+  &lt;xs:element name="deduction"&gt;
+    &lt;xs:complexType&gt;
+      &lt;xs:sequence&gt;
+        &lt;xs:element name="id" type="xs:long"/&gt;
+        &lt;xs:element name="name" type="xs:string"/&gt;
+        &lt;xs:element name="code" type="xs:string" minOccurs="0"/&gt;
+        &lt;xs:element name="external_id" type="xs:string" minOccurs="0"/&gt;
+        &lt;xs:element name="type" type="xs:string" minOccurs="0"/&gt;
+        &lt;xs:element ref="currency" minOccurs="0"/&gt;
+      &lt;/xs:sequence&gt;
+    &lt;/xs:complexType&gt;
+  &lt;/xs:element&gt;
+
+  &lt;xs:element name="currency"&gt;
+    &lt;xs:simpleType&gt;
+      &lt;xs:restriction base="xs:string"&gt;
+        &lt;xs:enumeration value="USD"/&gt;
+        &lt;xs:enumeration value="GBP"/&gt;
+        &lt;xs:enumeration value="EUR"/&gt;
+        &lt;xs:enumeration value="CAD"/&gt;
+        &lt;xs:enumeration value="AUD"/&gt;
+        &lt;xs:enumeration value="NZD"/&gt;
+        &lt;xs:enumeration value="MXN"/&gt;
+        &lt;xs:enumeration value="CNY"/&gt;
+        &lt;xs:enumeration value="SEK"/&gt;
+        &lt;xs:enumeration value="BRL"/&gt;
+        &lt;xs:enumeration value="INR"/&gt;
+        &lt;xs:enumeration value="SGD"/&gt;
+        &lt;xs:enumeration value="HKD"/&gt;
+        &lt;xs:enumeration value="CHF"/&gt;
+        &lt;xs:enumeration value="CRC"/&gt;
+        &lt;xs:enumeration value="UAH"/&gt;
+        &lt;xs:enumeration value="MOP"/&gt;
+        &lt;xs:enumeration value="DKK"/&gt;
+        &lt;xs:enumeration value="XXX"/&gt;
+      &lt;/xs:restriction&gt;
+    &lt;/xs:simpleType&gt;
+  &lt;/xs:element&gt;
+
+  &lt;xs:element name="earning"&gt;
+    &lt;xs:complexType&gt;
+      &lt;xs:sequence&gt;
+        &lt;xs:element name="id" type="xs:long"/&gt;
+        &lt;xs:element name="display_name" type="xs:string"/&gt;
+        &lt;xs:element name="name" type="xs:string" minOccurs="0"/&gt;
+        &lt;xs:element name="code" type="xs:string" minOccurs="0"/&gt;
+        &lt;xs:element name="external_id" type="xs:string" minOccurs="0"/&gt;
+      &lt;/xs:sequence&gt;
+    &lt;/xs:complexType&gt;
+  &lt;/xs:element&gt;
+
+  &lt;xs:element name="_links"&gt;
+    &lt;xs:complexType&gt;
+      &lt;xs:sequence&gt;
+        &lt;xs:element name="self" type="xs:anyURI"/&gt;
+        &lt;xs:element name="create" type="xs:anyURI"/&gt;
+        &lt;xs:element name="edit" type="xs:anyURI"/&gt;
+        &lt;xs:element name="delete" type="xs:anyURI"/&gt;
+      &lt;/xs:sequence&gt;
+    &lt;/xs:complexType&gt;
+  &lt;/xs:element&gt;
+
+&lt;/xs:schema&gt;</div>
+</div>
+</div>
+</div>
+</div>
+</article>
+</section>
+<section class="clearfix">
+<article class="definition">
+<h3 class="anchored" id="post"><span>POST</span>
+<a class="fa fa-link link-anchor" data-url="r=__v2__companies__(cid)__rates__tables__(tid)__schedules#post" data-web-id="__v2__companies__(cid)__rates__tables__(tid)__schedules"></a>
+</h3>
+<div class="md"><p>Create rate schedule.</p></div>
+<div>
+<ul class="annotation-list">
+<li class="annotation">
+<span>v2</span>
+</li>
+</ul>
+</div>
+<h4>Parameters</h4>
+<h5>Path Parameters</h5>
+<ul class="param-list">
+<li>
+<div class="param-desc">
+<div class="param-name">cid</div>
+<div class="data-type">string</div>
+<div class="required">required</div>
+</div>
+<div class="param-content">
+<div>
+<p>Example: 123456</p>
+<div class="desc md">Company should be referenced via company id or company unique id or company short name using `|short_name` or `!short_name` format.
+</div>
+</div>
+</div>
+
+</li>
+<li>
+<div class="param-desc">
+<div class="param-name">tid</div>
+<div class="data-type">integer</div>
+<div class="required">required</div>
+</div>
+<div class="param-content">
+<div>
+<div class="desc md">Rate Table id.</div>
+</div>
+</div>
+
+</li>
+</ul>
+<h4>Responses</h4>
+<div class="responses">
+<div>
+<label class="response response-success">
+<span class="fa fa-check"></span>
+<input data-full-tab-id="post-resp-code-tab-id-0" data-tab-class="resp-code-tab-post" name="resp-code-tab-post" type="radio"/>
+<span class="status">201 Created</span>
+</label>
+<div class="response-desc resp-code-tab-post" id="post-resp-code-tab-id-0">
+<div class="md"><p>Rate schedule was successfully created.</p></div>
+</div>
+</div>
+</div>
+</article>
+<article class="code">
+<h4>Definition</h4>
+<div class="uri">
+<code>
+<span class="method post">post</span>
+<span class="textUri"><span class="baseUri">{{ getUriPrefix() }}</span><span class="relativeUri">/v2/companies/{cid}/rates/tables/{tid}/schedules</span></span>
+</code>
+</div>
+<h4>Request Samples</h4>
+<div class="tab-title-group">
+<label>
+<input checked="checked" data-full-tab-id="req-tab-id-post-0" data-tab-class="req-tab-post" name="req-tab-post" type="radio"/>
+<span class="tab-title">application/json</span>
+</label>
+<label>
+<input data-full-tab-id="req-tab-id-post-1" data-tab-class="req-tab-post" name="req-tab-post" type="radio"/>
+<span class="tab-title">application/xml</span>
+</label>
+<label>
+<input data-full-tab-id="req-tab-id-post-2" data-tab-class="req-tab-post" name="req-tab-post" type="radio"/>
+<span class="tab-title">text/xml</span>
+</label>
+</div>
+<div>
+<div class="req-tab-post" id="req-tab-id-post-0">
+<div class="example">
+
+<div class="post-example-tab-0 activeTab" id="post-tab-example-0">
+
+<pre class="highlightjs">{
+  "line": 1,
+  "type": "HOUR",
+  "description": "Base Compensation Record",
+  "rate_items": [
+    {
+      "effective_from": "1900-12-31",
+      "effective_to": "9999-12-31",
+      "id": 544012,
+      "rate": 0.0
+    }
+  ],
+  "rate_reason_code": {
+    "id": 567553
+  },
+  "usage": {
+    "time_entry": true,
+    "pay_record": true,
+    "payroll": true,
+    "counter": true,
+    "tlm_shift": true
+  },
+  "time_entry_rec": {
+    "time_value": "DO_NOT_CHECK",
+    "piece_value": "DO_NOT_CHECK",
+    "time_off": {
+      "is_time_off": "IS",
+      "incl_subtree": false
+    }
+  },
+  "counter_rec": {
+    "time_off": {
+      "is_time_off": "IS",
+      "incl_subtree": false
+    }
+  }
+}</pre>
+</div>
+<div class="post-example-tab-0" id="post-tab-schema-0">
+
+<div class="jsonschema" id="schema-3">{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "rate_items"
+  ],
+  "properties": {
+    "line": {
+      "type": "integer"
+    },
+    "type": {
+      "type": "string",
+      "enum": [
+        "HOUR",
+        "PIECE"
+      ]
+    },
+    "description": {
+      "type": "string"
+    },
+    "rate_items": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "effective_from": {
+            "type": "string"
+          },
+          "effective_to": {
+            "type": "string"
+          },
+          "id": {
+            "type": "integer"
+          },
+          "rate": {
+            "type": "number"
+          }
+        }
+      }
+    },
+    "rate_reason_code": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "id": {
+          "type": "integer"
+        },
+        "name": {
+          "type": "string"
+        }
+      }
+    },
+    "usage": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "time_entry": {
+          "type": "boolean"
+        },
+        "pay_record": {
+          "type": "boolean"
+        },
+        "payroll": {
+          "type": "boolean"
+        },
+        "counter": {
+          "type": "boolean"
+        },
+        "tlm_shift": {
+          "type": "boolean"
+        }
+      }
+    },
+    "global_rec": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "cost_centers": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+              "index": {
+                "type": "integer"
+              },
+              "cost_center": {
+                "type": "object",
+                "additionalProperties": false,
+                "properties": {
+                  "id": {
+                    "type": "integer"
+                  },
+                  "external_id": {
+                    "type": "string"
+                  },
+                  "path": {
+                    "type": "string"
+                  },
+                  "name": {
+                    "type": "string"
+                  },
+                  "payroll_code": {
+                    "type": "string"
+                  },
+                  "display_name": {
+                    "type": "string"
+                  }
+                }
+              },
+              "incl_subtree": {
+                "type": "boolean"
+              },
+              "custom_fields": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "additionalProperties": false,
+                  "properties": {
+                    "index": {
+                      "type": "integer"
+                    },
+                    "value": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "premium_shift": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "id": {
+              "type": "integer"
+            },
+            "name": {
+              "type": "string"
+            },
+            "display_name": {
+              "type": "string"
+            }
+          }
+        }
+      }
+    },
+    "time_entry_rec": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "time_value": {
+          "type": "string",
+          "enum": [
+            "DO_NOT_CHECK",
+            "VALUE_IS_SET",
+            "VALUE_IS_NOT_SET"
+          ]
+        },
+        "piece_value": {
+          "type": "string",
+          "enum": [
+            "DO_NOT_CHECK",
+            "VALUE_IS_SET",
+            "VALUE_IS_NOT_SET"
+          ]
+        },
+        "time_off": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "is_time_off": {
+              "type": "string",
+              "enum": [
+                "IS",
+                "IS_SET",
+                "IS_NOT_SET"
+              ]
+            },
+            "time_off_ref": {
+              "type": "object",
+              "additionalProperties": false,
+              "properties": {
+                "id": {
+                  "type": "integer"
+                },
+                "name": {
+                  "type": "string"
+                },
+                "payroll_code": {
+                  "type": "string"
+                },
+                "external_id": {
+                  "type": "string"
+                },
+                "path": {
+                  "type": "string"
+                },
+                "display_name": {
+                  "type": "string"
+                }
+              }
+            },
+            "incl_subtree": {
+              "type": "boolean"
+            }
+          }
+        },
+        "pay_category": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "id": {
+              "type": "integer"
+            },
+            "name": {
+              "type": "string"
+            },
+            "payroll_code": {
+              "type": "string"
+            },
+            "display_name": {
+              "type": "string"
+            }
+          }
+        },
+        "week_day": {
+          "type": [
+            "string"
+          ],
+          "enum": [
+            "MONDAY",
+            "TUESDAY",
+            "WEDNESDAY",
+            "THURSDAY",
+            "FRIDAY",
+            "SATURDAY",
+            "SUNDAY"
+          ]
+        },
+        "custom_fields": {
+          "type": "array",
+          "items": {
+            "type": "object"
+          }
+        }
+      }
+    },
+    "payroll_rec": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "deduction": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "name": {
+              "type": "string"
+            },
+            "external_id": {
+              "type": "string"
+            },
+            "code": {
+              "type": "string"
+            },
+            "id": {
+              "type": "integer"
+            },
+            "type": {
+              "type": "string"
+            },
+            "currency": {
+              "type": "string",
+              "enum": [
+                "USD",
+                "GBP",
+                "EUR",
+                "CAD",
+                "AUD",
+                "NZD",
+                "MXN",
+                "CNY",
+                "SEK",
+                "BRL",
+                "INR",
+                "SGD",
+                "HKD",
+                "CHF",
+                "CRC",
+                "UAH",
+                "MOP",
+                "DKK",
+                "XXX"
+              ]
+            },
+            "display_name": {
+              "type": "string"
+            }
+          }
+        },
+        "earning": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "name": {
+              "type": "string"
+            },
+            "external_id": {
+              "type": "string"
+            },
+            "code": {
+              "type": "string"
+            },
+            "id": {
+              "type": "integer"
+            },
+            "display_name": {
+              "type": "string"
+            }
+          }
+        }
+      }
+    },
+    "counter_rec": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "counter": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "display_name": {
+              "type": "string"
+            },
+            "id": {
+              "type": "integer"
+            }
+          }
+        },
+        "time_off": {
+          "type": "object"
+        },
+        "week_day": {
+          "type": [
+            "string"
+          ],
+          "enum": [
+            "MONDAY",
+            "TUESDAY",
+            "WEDNESDAY",
+            "THURSDAY",
+            "FRIDAY",
+            "SATURDAY",
+            "SUNDAY"
+          ]
+        }
+      }
+    }
+  }
+}</div>
+</div>
+</div>
+</div>
+<div class="req-tab-post" id="req-tab-id-post-1">
+<div class="example">
+
+<div class="post-example-tab-1 activeTab" id="post-tab-example-1">
+
+<pre class="highlightjs">&lt;rate_schedule&gt;
+  &lt;line&gt;1&lt;/line&gt;
+  &lt;type&gt;HOUR&lt;/type&gt;
+  &lt;description&gt;test&lt;/description&gt;
+  &lt;rate_items&gt;
+    &lt;rate_item&gt;
+      &lt;id&gt;2312704&lt;/id&gt;
+      &lt;effective_from&gt;1900-12-31&lt;/effective_from&gt;
+      &lt;effective_to&gt;9999-12-31&lt;/effective_to&gt;
+      &lt;rate&gt;10.000000&lt;/rate&gt;
+    &lt;/rate_item&gt;
+  &lt;/rate_items&gt;
+  &lt;usage&gt;
+    &lt;time_entry&gt;true&lt;/time_entry&gt;
+    &lt;pay_record&gt;true&lt;/pay_record&gt;
+    &lt;payroll&gt;true&lt;/payroll&gt;
+    &lt;counter&gt;true&lt;/counter&gt;
+    &lt;tlm_shift&gt;true&lt;/tlm_shift&gt;
+  &lt;/usage&gt;
+  &lt;global_rec&gt;
+    &lt;cost_centers&gt;
+      &lt;cost_center&gt;
+        &lt;index&gt;0&lt;/index&gt;
+        &lt;cost_center_ref&gt;
+          &lt;id&gt;3508480&lt;/id&gt;
+          &lt;name&gt;10&lt;/name&gt;
+          &lt;display_name&gt;10&lt;/display_name&gt;
+        &lt;/cost_center_ref&gt;
+        &lt;incl_subtree&gt;false&lt;/incl_subtree&gt;
+      &lt;/cost_center&gt;
+    &lt;/cost_centers&gt;
+  &lt;/global_rec&gt;
+  &lt;time_entry_rec&gt;
+    &lt;time_value&gt;VALUE_IS_SET&lt;/time_value&gt;
+    &lt;piece_value&gt;DO_NOT_CHECK&lt;/piece_value&gt;
+    &lt;time_off&gt;
+      &lt;is_time_off&gt;IS&lt;/is_time_off&gt;
+      &lt;incl_subtree&gt;false&lt;/incl_subtree&gt;
+    &lt;/time_off&gt;
+    &lt;week_day&gt;TUESDAY&lt;/week_day&gt;
+  &lt;/time_entry_rec&gt;
+  &lt;payroll_rec&gt;
+    &lt;earning&gt;
+      &lt;id&gt;458752&lt;/id&gt;
+      &lt;display_name&gt;Regular&lt;/display_name&gt;
+    &lt;/earning&gt;
+  &lt;/payroll_rec&gt;
+  &lt;counter_rec&gt;
+    &lt;time_off&gt;
+      &lt;is_time_off&gt;IS&lt;/is_time_off&gt;
+      &lt;incl_subtree&gt;false&lt;/incl_subtree&gt;
+    &lt;/time_off&gt;
+  &lt;/counter_rec&gt;
+  &lt;is_position&gt;false&lt;/is_position&gt;
+&lt;/rate_schedule&gt;</pre>
+</div>
+<div class="post-example-tab-1" id="post-tab-schema-1">
+
+<div class="jsonschema" id="schema-4">&lt;?xml version="1.0" encoding="UTF-8" ?&gt;
+&lt;xs:schema attributeFormDefault="unqualified" elementFormDefault="qualified"
+           xmlns:xs="http://www.w3.org/2001/XMLSchema"&gt;
+
+    &lt;xs:element name="rate_schedule"&gt;
+      &lt;xs:complexType&gt;
+        &lt;xs:sequence&gt;
+          &lt;xs:element name="line" type="xs:byte"/&gt;
+          &lt;xs:element ref="type"/&gt;
+          &lt;xs:element name="description" type="xs:string" minOccurs="0"/&gt;
+
+          &lt;xs:element name="rate_items"&gt;
+            &lt;xs:complexType&gt;
+              &lt;xs:sequence&gt;
+                &lt;xs:element name="rate_item"&gt;
+                  &lt;xs:complexType&gt;
+                    &lt;xs:sequence&gt;
+                      &lt;xs:element name="id" type="xs:int"/&gt;
+                      &lt;xs:element name="effective_from" type="xs:date"/&gt;
+                      &lt;xs:element name="effective_to" type="xs:date"/&gt;
+                      &lt;xs:element name="rate" type="xs:float"/&gt;
+                    &lt;/xs:sequence&gt;
+                  &lt;/xs:complexType&gt;
+                &lt;/xs:element&gt;
+              &lt;/xs:sequence&gt;
+            &lt;/xs:complexType&gt;
+          &lt;/xs:element&gt;
+
+          &lt;xs:element name="usage"&gt;
+            &lt;xs:complexType&gt;
+              &lt;xs:sequence&gt;
+                &lt;xs:element name="time_entry" type="xs:string"/&gt;
+                &lt;xs:element name="pay_record" type="xs:string"/&gt;
+                &lt;xs:element name="payroll" type="xs:string"/&gt;
+                &lt;xs:element name="counter" type="xs:string"/&gt;
+                &lt;xs:element name="tlm_shift" type="xs:string"/&gt;
+              &lt;/xs:sequence&gt;
+            &lt;/xs:complexType&gt;
+          &lt;/xs:element&gt;
+
+          &lt;xs:element name="global_rec" minOccurs="0"&gt;
+            &lt;xs:complexType&gt;
+              &lt;xs:sequence&gt;
+                &lt;xs:element ref="cost_centers"/&gt;
+              &lt;/xs:sequence&gt;
+            &lt;/xs:complexType&gt;
+          &lt;/xs:element&gt;
+
+          &lt;xs:element name="time_entry_rec" minOccurs="0"&gt;
+            &lt;xs:complexType&gt;
+              &lt;xs:sequence&gt;
+                &lt;xs:element ref="time_value"/&gt;
+                &lt;xs:element ref="piece_value"/&gt;
+                &lt;xs:element ref="time_off"/&gt;
+                &lt;xs:element name="week_day" type="xs:string" minOccurs="0"/&gt;
+              &lt;/xs:sequence&gt;
+            &lt;/xs:complexType&gt;
+          &lt;/xs:element&gt;
+
+          &lt;xs:element name="payroll_rec" minOccurs="0"&gt;
+            &lt;xs:complexType&gt;
+              &lt;xs:sequence&gt;
+                &lt;xs:element ref="earning"/&gt;
+              &lt;/xs:sequence&gt;
+            &lt;/xs:complexType&gt;
+          &lt;/xs:element&gt;
+          &lt;xs:element name="counter_rec" minOccurs="0"&gt;
+            &lt;xs:complexType&gt;
+              &lt;xs:sequence&gt;
+                &lt;xs:element ref="time_off"/&gt;
+              &lt;/xs:sequence&gt;
+            &lt;/xs:complexType&gt;
+          &lt;/xs:element&gt;
+          &lt;xs:element name="is_position" type="xs:string" minOccurs="0"/&gt;
+        &lt;/xs:sequence&gt;
+      &lt;/xs:complexType&gt;
+    &lt;/xs:element&gt;
+
+  &lt;xs:element name="type"&gt;
+    &lt;xs:simpleType&gt;
+      &lt;xs:restriction base="xs:string"&gt;
+        &lt;xs:enumeration value="HOUR"/&gt;
+        &lt;xs:enumeration value="PIECE"/&gt;
+      &lt;/xs:restriction&gt;
+    &lt;/xs:simpleType&gt;
+  &lt;/xs:element&gt;
+
+  &lt;xs:element name="cost_centers"&gt;
+    &lt;xs:complexType&gt;
+      &lt;xs:sequence&gt;
+        &lt;xs:element name="cost_center"&gt;
+          &lt;xs:complexType&gt;
+            &lt;xs:sequence&gt;
+              &lt;xs:element name="index" type="xs:byte"/&gt;
+              &lt;xs:element name="cost_center_ref"&gt;
+                &lt;xs:complexType&gt;
+                  &lt;xs:sequence&gt;
+                    &lt;xs:element name="id" type="xs:long"/&gt;
+                    &lt;xs:element name="name" type="xs:string"/&gt;
+                    &lt;xs:element name="display_name" type="xs:string"/&gt;
+                  &lt;/xs:sequence&gt;
+                &lt;/xs:complexType&gt;
+              &lt;/xs:element&gt;
+              &lt;xs:element name="incl_subtree" type="xs:string"/&gt;
+            &lt;/xs:sequence&gt;
+          &lt;/xs:complexType&gt;
+        &lt;/xs:element&gt;
+      &lt;/xs:sequence&gt;
+    &lt;/xs:complexType&gt;
+  &lt;/xs:element&gt;
+
+  &lt;xs:element name="time_value"&gt;
+    &lt;xs:simpleType&gt;
+      &lt;xs:restriction base="xs:string"&gt;
+        &lt;xs:enumeration value="DO_NOT_CHECK"/&gt;
+        &lt;xs:enumeration value="VALUE_IS_SET"/&gt;
+        &lt;xs:enumeration value="VALUE_IS_NOT_SET"/&gt;
+      &lt;/xs:restriction&gt;
+    &lt;/xs:simpleType&gt;
+  &lt;/xs:element&gt;
+
+  &lt;xs:element name="piece_value"&gt;
+    &lt;xs:simpleType&gt;
+      &lt;xs:restriction base="xs:string"&gt;
+        &lt;xs:enumeration value="DO_NOT_CHECK"/&gt;
+        &lt;xs:enumeration value="VALUE_IS_SET"/&gt;
+        &lt;xs:enumeration value="VALUE_IS_NOT_SET"/&gt;
+      &lt;/xs:restriction&gt;
+    &lt;/xs:simpleType&gt;
+  &lt;/xs:element&gt;
+
+  &lt;xs:element name="time_off"&gt;
+    &lt;xs:complexType&gt;
+      &lt;xs:sequence&gt;
+        &lt;xs:element name="is_time_off"&gt;
+          &lt;xs:simpleType&gt;
+            &lt;xs:restriction base="xs:string"&gt;
+              &lt;xs:enumeration value="IS"/&gt;
+              &lt;xs:enumeration value="IS_SET"/&gt;
+              &lt;xs:enumeration value="IS_NOT_SET"/&gt;
+            &lt;/xs:restriction&gt;
+          &lt;/xs:simpleType&gt;
+        &lt;/xs:element&gt;
+        &lt;xs:element name="incl_subtree" type="xs:string"/&gt;
+      &lt;/xs:sequence&gt;
+    &lt;/xs:complexType&gt;
+  &lt;/xs:element&gt;
+
+  &lt;xs:element name="deduction"&gt;
+    &lt;xs:complexType&gt;
+      &lt;xs:sequence&gt;
+        &lt;xs:element name="id" type="xs:long"/&gt;
+        &lt;xs:element name="name" type="xs:string"/&gt;
+        &lt;xs:element name="code" type="xs:string" minOccurs="0"/&gt;
+        &lt;xs:element name="external_id" type="xs:string" minOccurs="0"/&gt;
+        &lt;xs:element name="type" type="xs:string" minOccurs="0"/&gt;
+        &lt;xs:element ref="currency" minOccurs="0"/&gt;
+      &lt;/xs:sequence&gt;
+    &lt;/xs:complexType&gt;
+  &lt;/xs:element&gt;
+
+  &lt;xs:element name="currency"&gt;
+    &lt;xs:simpleType&gt;
+      &lt;xs:restriction base="xs:string"&gt;
+        &lt;xs:enumeration value="USD"/&gt;
+        &lt;xs:enumeration value="GBP"/&gt;
+        &lt;xs:enumeration value="EUR"/&gt;
+        &lt;xs:enumeration value="CAD"/&gt;
+        &lt;xs:enumeration value="AUD"/&gt;
+        &lt;xs:enumeration value="NZD"/&gt;
+        &lt;xs:enumeration value="MXN"/&gt;
+        &lt;xs:enumeration value="CNY"/&gt;
+        &lt;xs:enumeration value="SEK"/&gt;
+        &lt;xs:enumeration value="BRL"/&gt;
+        &lt;xs:enumeration value="INR"/&gt;
+        &lt;xs:enumeration value="SGD"/&gt;
+        &lt;xs:enumeration value="HKD"/&gt;
+        &lt;xs:enumeration value="CHF"/&gt;
+        &lt;xs:enumeration value="CRC"/&gt;
+        &lt;xs:enumeration value="UAH"/&gt;
+        &lt;xs:enumeration value="MOP"/&gt;
+        &lt;xs:enumeration value="DKK"/&gt;
+        &lt;xs:enumeration value="XXX"/&gt;
+      &lt;/xs:restriction&gt;
+    &lt;/xs:simpleType&gt;
+  &lt;/xs:element&gt;
+
+  &lt;xs:element name="earning"&gt;
+    &lt;xs:complexType&gt;
+      &lt;xs:sequence&gt;
+        &lt;xs:element name="id" type="xs:long"/&gt;
+        &lt;xs:element name="display_name" type="xs:string"/&gt;
+        &lt;xs:element name="name" type="xs:string" minOccurs="0"/&gt;
+        &lt;xs:element name="code" type="xs:string" minOccurs="0"/&gt;
+        &lt;xs:element name="external_id" type="xs:string" minOccurs="0"/&gt;
+      &lt;/xs:sequence&gt;
+    &lt;/xs:complexType&gt;
+  &lt;/xs:element&gt;
+
+&lt;/xs:schema&gt;</div>
+</div>
+</div>
+</div>
+<div class="req-tab-post" id="req-tab-id-post-2">
+<div class="example">
+
+<div class="post-example-tab-2 activeTab" id="post-tab-example-2">
+
+<pre class="highlightjs">&lt;rate_schedule&gt;
+  &lt;line&gt;1&lt;/line&gt;
+  &lt;type&gt;HOUR&lt;/type&gt;
+  &lt;description&gt;test&lt;/description&gt;
+  &lt;rate_items&gt;
+    &lt;rate_item&gt;
+      &lt;id&gt;2312704&lt;/id&gt;
+      &lt;effective_from&gt;1900-12-31&lt;/effective_from&gt;
+      &lt;effective_to&gt;9999-12-31&lt;/effective_to&gt;
+      &lt;rate&gt;10.000000&lt;/rate&gt;
+    &lt;/rate_item&gt;
+  &lt;/rate_items&gt;
+  &lt;usage&gt;
+    &lt;time_entry&gt;true&lt;/time_entry&gt;
+    &lt;pay_record&gt;true&lt;/pay_record&gt;
+    &lt;payroll&gt;true&lt;/payroll&gt;
+    &lt;counter&gt;true&lt;/counter&gt;
+    &lt;tlm_shift&gt;true&lt;/tlm_shift&gt;
+  &lt;/usage&gt;
+  &lt;global_rec&gt;
+    &lt;cost_centers&gt;
+      &lt;cost_center&gt;
+        &lt;index&gt;0&lt;/index&gt;
+        &lt;cost_center_ref&gt;
+          &lt;id&gt;3508480&lt;/id&gt;
+          &lt;name&gt;10&lt;/name&gt;
+          &lt;display_name&gt;10&lt;/display_name&gt;
+        &lt;/cost_center_ref&gt;
+        &lt;incl_subtree&gt;false&lt;/incl_subtree&gt;
+      &lt;/cost_center&gt;
+    &lt;/cost_centers&gt;
+  &lt;/global_rec&gt;
+  &lt;time_entry_rec&gt;
+    &lt;time_value&gt;VALUE_IS_SET&lt;/time_value&gt;
+    &lt;piece_value&gt;DO_NOT_CHECK&lt;/piece_value&gt;
+    &lt;time_off&gt;
+      &lt;is_time_off&gt;IS&lt;/is_time_off&gt;
+      &lt;incl_subtree&gt;false&lt;/incl_subtree&gt;
+    &lt;/time_off&gt;
+    &lt;week_day&gt;TUESDAY&lt;/week_day&gt;
+  &lt;/time_entry_rec&gt;
+  &lt;payroll_rec&gt;
+    &lt;earning&gt;
+      &lt;id&gt;458752&lt;/id&gt;
+      &lt;display_name&gt;Regular&lt;/display_name&gt;
+    &lt;/earning&gt;
+  &lt;/payroll_rec&gt;
+  &lt;counter_rec&gt;
+    &lt;time_off&gt;
+      &lt;is_time_off&gt;IS&lt;/is_time_off&gt;
+      &lt;incl_subtree&gt;false&lt;/incl_subtree&gt;
+    &lt;/time_off&gt;
+  &lt;/counter_rec&gt;
+  &lt;is_position&gt;false&lt;/is_position&gt;
+&lt;/rate_schedule&gt;</pre>
+</div>
+<div class="post-example-tab-2" id="post-tab-schema-2">
+
+<div class="jsonschema" id="schema-5">&lt;?xml version="1.0" encoding="UTF-8" ?&gt;
+&lt;xs:schema attributeFormDefault="unqualified" elementFormDefault="qualified"
+           xmlns:xs="http://www.w3.org/2001/XMLSchema"&gt;
+
+    &lt;xs:element name="rate_schedule"&gt;
+      &lt;xs:complexType&gt;
+        &lt;xs:sequence&gt;
+          &lt;xs:element name="line" type="xs:byte"/&gt;
+          &lt;xs:element ref="type"/&gt;
+          &lt;xs:element name="description" type="xs:string" minOccurs="0"/&gt;
+
+          &lt;xs:element name="rate_items"&gt;
+            &lt;xs:complexType&gt;
+              &lt;xs:sequence&gt;
+                &lt;xs:element name="rate_item"&gt;
+                  &lt;xs:complexType&gt;
+                    &lt;xs:sequence&gt;
+                      &lt;xs:element name="id" type="xs:int"/&gt;
+                      &lt;xs:element name="effective_from" type="xs:date"/&gt;
+                      &lt;xs:element name="effective_to" type="xs:date"/&gt;
+                      &lt;xs:element name="rate" type="xs:float"/&gt;
+                    &lt;/xs:sequence&gt;
+                  &lt;/xs:complexType&gt;
+                &lt;/xs:element&gt;
+              &lt;/xs:sequence&gt;
+            &lt;/xs:complexType&gt;
+          &lt;/xs:element&gt;
+
+          &lt;xs:element name="usage"&gt;
+            &lt;xs:complexType&gt;
+              &lt;xs:sequence&gt;
+                &lt;xs:element name="time_entry" type="xs:string"/&gt;
+                &lt;xs:element name="pay_record" type="xs:string"/&gt;
+                &lt;xs:element name="payroll" type="xs:string"/&gt;
+                &lt;xs:element name="counter" type="xs:string"/&gt;
+                &lt;xs:element name="tlm_shift" type="xs:string"/&gt;
+              &lt;/xs:sequence&gt;
+            &lt;/xs:complexType&gt;
+          &lt;/xs:element&gt;
+
+          &lt;xs:element name="global_rec" minOccurs="0"&gt;
+            &lt;xs:complexType&gt;
+              &lt;xs:sequence&gt;
+                &lt;xs:element ref="cost_centers"/&gt;
+              &lt;/xs:sequence&gt;
+            &lt;/xs:complexType&gt;
+          &lt;/xs:element&gt;
+
+          &lt;xs:element name="time_entry_rec" minOccurs="0"&gt;
+            &lt;xs:complexType&gt;
+              &lt;xs:sequence&gt;
+                &lt;xs:element ref="time_value"/&gt;
+                &lt;xs:element ref="piece_value"/&gt;
+                &lt;xs:element ref="time_off"/&gt;
+                &lt;xs:element name="week_day" type="xs:string" minOccurs="0"/&gt;
+              &lt;/xs:sequence&gt;
+            &lt;/xs:complexType&gt;
+          &lt;/xs:element&gt;
+
+          &lt;xs:element name="payroll_rec" minOccurs="0"&gt;
+            &lt;xs:complexType&gt;
+              &lt;xs:sequence&gt;
+                &lt;xs:element ref="earning"/&gt;
+              &lt;/xs:sequence&gt;
+            &lt;/xs:complexType&gt;
+          &lt;/xs:element&gt;
+          &lt;xs:element name="counter_rec" minOccurs="0"&gt;
+            &lt;xs:complexType&gt;
+              &lt;xs:sequence&gt;
+                &lt;xs:element ref="time_off"/&gt;
+              &lt;/xs:sequence&gt;
+            &lt;/xs:complexType&gt;
+          &lt;/xs:element&gt;
+          &lt;xs:element name="is_position" type="xs:string" minOccurs="0"/&gt;
+        &lt;/xs:sequence&gt;
+      &lt;/xs:complexType&gt;
+    &lt;/xs:element&gt;
+
+  &lt;xs:element name="type"&gt;
+    &lt;xs:simpleType&gt;
+      &lt;xs:restriction base="xs:string"&gt;
+        &lt;xs:enumeration value="HOUR"/&gt;
+        &lt;xs:enumeration value="PIECE"/&gt;
+      &lt;/xs:restriction&gt;
+    &lt;/xs:simpleType&gt;
+  &lt;/xs:element&gt;
+
+  &lt;xs:element name="cost_centers"&gt;
+    &lt;xs:complexType&gt;
+      &lt;xs:sequence&gt;
+        &lt;xs:element name="cost_center"&gt;
+          &lt;xs:complexType&gt;
+            &lt;xs:sequence&gt;
+              &lt;xs:element name="index" type="xs:byte"/&gt;
+              &lt;xs:element name="cost_center_ref"&gt;
+                &lt;xs:complexType&gt;
+                  &lt;xs:sequence&gt;
+                    &lt;xs:element name="id" type="xs:long"/&gt;
+                    &lt;xs:element name="name" type="xs:string"/&gt;
+                    &lt;xs:element name="display_name" type="xs:string"/&gt;
+                  &lt;/xs:sequence&gt;
+                &lt;/xs:complexType&gt;
+              &lt;/xs:element&gt;
+              &lt;xs:element name="incl_subtree" type="xs:string"/&gt;
+            &lt;/xs:sequence&gt;
+          &lt;/xs:complexType&gt;
+        &lt;/xs:element&gt;
+      &lt;/xs:sequence&gt;
+    &lt;/xs:complexType&gt;
+  &lt;/xs:element&gt;
+
+  &lt;xs:element name="time_value"&gt;
+    &lt;xs:simpleType&gt;
+      &lt;xs:restriction base="xs:string"&gt;
+        &lt;xs:enumeration value="DO_NOT_CHECK"/&gt;
+        &lt;xs:enumeration value="VALUE_IS_SET"/&gt;
+        &lt;xs:enumeration value="VALUE_IS_NOT_SET"/&gt;
+      &lt;/xs:restriction&gt;
+    &lt;/xs:simpleType&gt;
+  &lt;/xs:element&gt;
+
+  &lt;xs:element name="piece_value"&gt;
+    &lt;xs:simpleType&gt;
+      &lt;xs:restriction base="xs:string"&gt;
+        &lt;xs:enumeration value="DO_NOT_CHECK"/&gt;
+        &lt;xs:enumeration value="VALUE_IS_SET"/&gt;
+        &lt;xs:enumeration value="VALUE_IS_NOT_SET"/&gt;
+      &lt;/xs:restriction&gt;
+    &lt;/xs:simpleType&gt;
+  &lt;/xs:element&gt;
+
+  &lt;xs:element name="time_off"&gt;
+    &lt;xs:complexType&gt;
+      &lt;xs:sequence&gt;
+        &lt;xs:element name="is_time_off"&gt;
+          &lt;xs:simpleType&gt;
+            &lt;xs:restriction base="xs:string"&gt;
+              &lt;xs:enumeration value="IS"/&gt;
+              &lt;xs:enumeration value="IS_SET"/&gt;
+              &lt;xs:enumeration value="IS_NOT_SET"/&gt;
+            &lt;/xs:restriction&gt;
+          &lt;/xs:simpleType&gt;
+        &lt;/xs:element&gt;
+        &lt;xs:element name="incl_subtree" type="xs:string"/&gt;
+      &lt;/xs:sequence&gt;
+    &lt;/xs:complexType&gt;
+  &lt;/xs:element&gt;
+
+  &lt;xs:element name="deduction"&gt;
+    &lt;xs:complexType&gt;
+      &lt;xs:sequence&gt;
+        &lt;xs:element name="id" type="xs:long"/&gt;
+        &lt;xs:element name="name" type="xs:string"/&gt;
+        &lt;xs:element name="code" type="xs:string" minOccurs="0"/&gt;
+        &lt;xs:element name="external_id" type="xs:string" minOccurs="0"/&gt;
+        &lt;xs:element name="type" type="xs:string" minOccurs="0"/&gt;
+        &lt;xs:element ref="currency" minOccurs="0"/&gt;
+      &lt;/xs:sequence&gt;
+    &lt;/xs:complexType&gt;
+  &lt;/xs:element&gt;
+
+  &lt;xs:element name="currency"&gt;
+    &lt;xs:simpleType&gt;
+      &lt;xs:restriction base="xs:string"&gt;
+        &lt;xs:enumeration value="USD"/&gt;
+        &lt;xs:enumeration value="GBP"/&gt;
+        &lt;xs:enumeration value="EUR"/&gt;
+        &lt;xs:enumeration value="CAD"/&gt;
+        &lt;xs:enumeration value="AUD"/&gt;
+        &lt;xs:enumeration value="NZD"/&gt;
+        &lt;xs:enumeration value="MXN"/&gt;
+        &lt;xs:enumeration value="CNY"/&gt;
+        &lt;xs:enumeration value="SEK"/&gt;
+        &lt;xs:enumeration value="BRL"/&gt;
+        &lt;xs:enumeration value="INR"/&gt;
+        &lt;xs:enumeration value="SGD"/&gt;
+        &lt;xs:enumeration value="HKD"/&gt;
+        &lt;xs:enumeration value="CHF"/&gt;
+        &lt;xs:enumeration value="CRC"/&gt;
+        &lt;xs:enumeration value="UAH"/&gt;
+        &lt;xs:enumeration value="MOP"/&gt;
+        &lt;xs:enumeration value="DKK"/&gt;
+        &lt;xs:enumeration value="XXX"/&gt;
+      &lt;/xs:restriction&gt;
+    &lt;/xs:simpleType&gt;
+  &lt;/xs:element&gt;
+
+  &lt;xs:element name="earning"&gt;
+    &lt;xs:complexType&gt;
+      &lt;xs:sequence&gt;
+        &lt;xs:element name="id" type="xs:long"/&gt;
+        &lt;xs:element name="display_name" type="xs:string"/&gt;
+        &lt;xs:element name="name" type="xs:string" minOccurs="0"/&gt;
+        &lt;xs:element name="code" type="xs:string" minOccurs="0"/&gt;
+        &lt;xs:element name="external_id" type="xs:string" minOccurs="0"/&gt;
+      &lt;/xs:sequence&gt;
+    &lt;/xs:complexType&gt;
+  &lt;/xs:element&gt;
+
+&lt;/xs:schema&gt;</div>
+</div>
+</div>
+</div>
+</div>
+</article>
+</section>
+</div>
+</body></html>

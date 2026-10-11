@@ -1,0 +1,432 @@
+<!doctype html>
+<html><head><meta charset="utf-8"><title>Notification Tags</title><style>body{font:16px system-ui;max-width:1100px;margin:2rem auto;padding:0 1rem;line-height:1.5}aside{background:#fff3cc;padding:1rem}.jsonschema,pre{white-space:pre-wrap;font:13px monospace;overflow-wrap:anywhere;background:#f4f5f7;padding:1rem}.uri{font-family:monospace}h2,h3{margin-top:2rem}</style></head><body><aside><strong>Modified private reference — 2026-10-09.</strong> Provider-documented illustrative examples are included; authentication token examples are redacted. These are not customer exports or guaranteed production behavior. Candidate sharing is pending. This is not OpenAPI.</aside>
+<div class="group">
+<h2 class="anchored" id="item.anchor">
+<span>Notification Tags</span>
+<a class="fa fa-link link-anchor" data-url="r=__v2__companies__(cid)__lookup__notification-tags#" data-web-id="__v2__companies__(cid)__lookup__notification-tags"></a>
+</h2>
+<section class="clearfix">
+<article class="definition">
+<h3 class="anchored" id="get"><span>GET</span>
+<a class="fa fa-link link-anchor" data-url="r=__v2__companies__(cid)__lookup__notification-tags#get" data-web-id="__v2__companies__(cid)__lookup__notification-tags"></a>
+</h3>
+<div class="md"><p>Endpoint to fetch list of all notification tags.</p></div>
+<div>
+<ul class="annotation-list">
+<li class="annotation">
+<span>v2</span>
+</li>
+</ul>
+</div>
+<h4>Parameters</h4>
+<h5>Path Parameters</h5>
+<ul class="param-list">
+<li>
+<div class="param-desc">
+<div class="param-name">cid</div>
+<div class="data-type">string</div>
+<div class="required">required</div>
+</div>
+<div class="param-content">
+<div>
+<p>Example: 123456</p>
+<div class="desc md">Company should be referenced via company id or company unique id or company short name using `|short_name` or `!short_name` format.
+</div>
+</div>
+</div>
+
+</li>
+</ul>
+<h5>Query Parameters</h5>
+<ul class="param-list">
+<li>
+<div class="param-desc">
+<div class="param-name">event_id</div>
+<div class="data-type">string</div>
+<div class="required">required</div>
+</div>
+<div class="param-content">
+<div>
+<p>Example: APPLICANT_COMMUNICATION</p>
+<div class="desc md">If event_id is present, api will return notification tags.</div>
+</div>
+</div>
+
+</li>
+</ul>
+<h4>Responses</h4>
+<div class="responses">
+<div>
+<label class="response response-success">
+<span class="fa fa-check"></span>
+<input data-full-tab-id="get-resp-code-tab-id-0" data-tab-class="resp-code-tab-get" name="resp-code-tab-get" type="radio"/>
+<span class="status">200 Ok</span>
+</label>
+<div class="response-desc resp-code-tab-get" id="get-resp-code-tab-id-0">
+</div>
+</div>
+</div>
+</article>
+<article class="code">
+<h4>Definition</h4>
+<div class="uri">
+<code>
+<span class="method get">get</span>
+<span class="textUri"><span class="baseUri">{{ getUriPrefix() }}</span><span class="relativeUri">/v2/companies/{cid}/lookup/notification-tags</span></span>
+</code>
+</div>
+<h4>Response Samples</h4>
+<div class="tab-title-group">
+<label>
+<input checked="checked" data-full-tab-id="resp-tab-id-get-0" data-tab-class="resp-tab-get" name="resp-tab-get" type="radio"/>
+<span class="tab-title">application/json</span>
+</label>
+<label>
+<input data-full-tab-id="resp-tab-id-get-1" data-tab-class="resp-tab-get" name="resp-tab-get" type="radio"/>
+<span class="tab-title">application/xml</span>
+</label>
+</div>
+<div>
+<div class="resp-tab-get" id="resp-tab-id-get-0">
+<div class="example">
+
+<div class="get-example-resp-tab-0 activeTab" id="get-tab-resp-example-0">
+
+<pre class="highlightjs">{
+    "items": [
+        {
+            "name": "ACCOUNT_ADDRESS_NUMBER",
+            "info_message": "New Zealand, Netherlands"
+        },
+        {
+            "name": "ACCOUNT_ADDRESS_NUMBER_ADDITION",
+            "info_message": "Netherlands"
+        },
+        {
+            "name": "ACCOUNT_CELL_PHONE"
+        },
+        {
+            "name": "ACCOUNT_CITIZEN_SERVICE_NUMBER"
+        },
+        {
+            "name": "ACCOUNT_CITY",
+            "info_message": "All countries except New Zealand."
+        },
+        {
+            "name": "ACCOUNT_COLONY",
+            "info_message": "Mexico"
+        },
+        {
+            "name": "ACCOUNT_COUNTRY"
+        },
+        {
+            "name": "ACCOUNT_FIRST_NAME"
+        },
+        {
+            "name": "ACCOUNT_FULL_ADDRESS"
+        },
+        {
+            "name": "ACCOUNT_FULL_NAME"
+        },
+        {
+            "name": "ACCOUNT_HOME_PHONE"
+        },
+        {
+            "name": "ACCOUNT_LAST_NAME"
+        },
+        {
+            "name": "ACCOUNT_POSTAL_CODE",
+            "info_message": "All countries except United States, Australia."
+        },
+        {
+            "name": "ACCOUNT_PRIMARY_EMAIL"
+        },
+        {
+            "name": "ACCOUNT_PRIMARY_PHONE"
+        },
+        {
+            "name": "ACCOUNT_PROVINCE",
+            "info_message": "Mexico, Canada"
+        },
+        {
+            "name": "ACCOUNT_SECONDARY_EMAIL"
+        },
+        {
+            "name": "ACCOUNT_SOCIAL_INSURANCE_NUMBER"
+        },
+        {
+            "name": "ACCOUNT_SOCIAL_SECURITY"
+        },
+        {
+            "name": "ACCOUNT_STATE",
+            "info_message": "United States, Australia"
+        },
+        {
+            "name": "ACCOUNT_STREET_1"
+        },
+        {
+            "name": "ACCOUNT_STREET_2",
+            "info_message": "All countries except Mexico, New Zealand."
+        },
+        {
+            "name": "ACCOUNT_STREET_3",
+            "info_message": "All countries except Mexico, New Zealand, Netherlands, Belgium, United States, Australia, Canada, Spain, United Kingdom."
+        },
+        {
+            "name": "ACCOUNT_SUBURB",
+            "info_message": "New Zealand"
+        },
+        {
+            "name": "ACCOUNT_TOWN",
+            "info_message": "New Zealand"
+        },
+        {
+            "name": "ACCOUNT_USER_NAME"
+        },
+        {
+            "name": "ACCOUNT_VILLAGE",
+            "info_message": "Mexico"
+        },
+        {
+            "name": "ACCOUNT_WORK_PHONE"
+        },
+        {
+            "name": "ACCOUNT_ZIP",
+            "info_message": "Australia, United States"
+        },
+        {
+            "name": "APPLICANT_ALL_JOB_TITLES"
+        },
+        {
+            "name": "APPLICANT_CUSTOM_FIELD_1",
+            "description": "New Field 1"
+        },
+        {
+            "name": "APPLICANT_CUSTOM_FIELD_2",
+            "description": "New Fieldd 2"
+        },
+        {
+            "name": "APPLICANT_LOGIN"
+        },
+        {
+            "name": "COMPANY_NAME"
+        },
+        {
+            "name": "COMPANY_SHORT_NAME"
+        },
+        {
+            "name": "CURRENT_DATE"
+        },
+        {
+            "name": "CURRENT_DATE_TIME"
+        },
+        {
+            "name": "LOGIN"
+        }
+    ]
+}</pre>
+</div>
+<div class="get-example-resp-tab-0" id="get-tab-resp-schema-0">
+
+<div class="jsonschema" id="schema-0">{
+  "$schema": "http://json-schema.org/draft-06/schema#",
+  "type": "object",
+  "properties": {
+    "items": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string"
+          },
+          "description": {
+            "type": "string"
+          },
+          "info_message": {
+            "type": "string"
+          }
+        }
+      }
+    }
+  },
+  "additionalProperties": false
+}</div>
+</div>
+</div>
+</div>
+<div class="resp-tab-get" id="resp-tab-id-get-1">
+<div class="example">
+
+<div class="get-example-resp-tab-1 activeTab" id="get-tab-resp-example-1">
+
+<pre class="highlightjs">&lt;?xml version="1.0" encoding="UTF-8"?&gt;
+&lt;root&gt;
+   &lt;items&gt;
+      &lt;element&gt;
+         &lt;info_message&gt;New Zealand, Netherlands&lt;/info_message&gt;
+         &lt;name&gt;ACCOUNT_ADDRESS_NUMBER&lt;/name&gt;
+      &lt;/element&gt;
+      &lt;element&gt;
+         &lt;info_message&gt;Netherlands&lt;/info_message&gt;
+         &lt;name&gt;ACCOUNT_ADDRESS_NUMBER_ADDITION&lt;/name&gt;
+      &lt;/element&gt;
+      &lt;element&gt;
+         &lt;name&gt;ACCOUNT_CELL_PHONE&lt;/name&gt;
+      &lt;/element&gt;
+      &lt;element&gt;
+         &lt;name&gt;ACCOUNT_CITIZEN_SERVICE_NUMBER&lt;/name&gt;
+      &lt;/element&gt;
+      &lt;element&gt;
+         &lt;info_message&gt;All countries except New Zealand.&lt;/info_message&gt;
+         &lt;name&gt;ACCOUNT_CITY&lt;/name&gt;
+      &lt;/element&gt;
+      &lt;element&gt;
+         &lt;info_message&gt;Mexico&lt;/info_message&gt;
+         &lt;name&gt;ACCOUNT_COLONY&lt;/name&gt;
+      &lt;/element&gt;
+      &lt;element&gt;
+         &lt;name&gt;ACCOUNT_COUNTRY&lt;/name&gt;
+      &lt;/element&gt;
+      &lt;element&gt;
+         &lt;name&gt;ACCOUNT_FIRST_NAME&lt;/name&gt;
+      &lt;/element&gt;
+      &lt;element&gt;
+         &lt;name&gt;ACCOUNT_FULL_ADDRESS&lt;/name&gt;
+      &lt;/element&gt;
+      &lt;element&gt;
+         &lt;name&gt;ACCOUNT_FULL_NAME&lt;/name&gt;
+      &lt;/element&gt;
+      &lt;element&gt;
+         &lt;name&gt;ACCOUNT_HOME_PHONE&lt;/name&gt;
+      &lt;/element&gt;
+      &lt;element&gt;
+         &lt;name&gt;ACCOUNT_LAST_NAME&lt;/name&gt;
+      &lt;/element&gt;
+      &lt;element&gt;
+         &lt;info_message&gt;All countries except United States, Australia.&lt;/info_message&gt;
+         &lt;name&gt;ACCOUNT_POSTAL_CODE&lt;/name&gt;
+      &lt;/element&gt;
+      &lt;element&gt;
+         &lt;name&gt;ACCOUNT_PRIMARY_EMAIL&lt;/name&gt;
+      &lt;/element&gt;
+      &lt;element&gt;
+         &lt;name&gt;ACCOUNT_PRIMARY_PHONE&lt;/name&gt;
+      &lt;/element&gt;
+      &lt;element&gt;
+         &lt;info_message&gt;Mexico, Canada&lt;/info_message&gt;
+         &lt;name&gt;ACCOUNT_PROVINCE&lt;/name&gt;
+      &lt;/element&gt;
+      &lt;element&gt;
+         &lt;name&gt;ACCOUNT_SECONDARY_EMAIL&lt;/name&gt;
+      &lt;/element&gt;
+      &lt;element&gt;
+         &lt;name&gt;ACCOUNT_SOCIAL_INSURANCE_NUMBER&lt;/name&gt;
+      &lt;/element&gt;
+      &lt;element&gt;
+         &lt;name&gt;ACCOUNT_SOCIAL_SECURITY&lt;/name&gt;
+      &lt;/element&gt;
+      &lt;element&gt;
+         &lt;info_message&gt;United States, Australia&lt;/info_message&gt;
+         &lt;name&gt;ACCOUNT_STATE&lt;/name&gt;
+      &lt;/element&gt;
+      &lt;element&gt;
+         &lt;name&gt;ACCOUNT_STREET_1&lt;/name&gt;
+      &lt;/element&gt;
+      &lt;element&gt;
+         &lt;info_message&gt;All countries except Mexico, New Zealand.&lt;/info_message&gt;
+         &lt;name&gt;ACCOUNT_STREET_2&lt;/name&gt;
+      &lt;/element&gt;
+      &lt;element&gt;
+         &lt;info_message&gt;All countries except Mexico, New Zealand, Netherlands, Belgium, United States, Australia, Canada, Spain, United Kingdom.&lt;/info_message&gt;
+         &lt;name&gt;ACCOUNT_STREET_3&lt;/name&gt;
+      &lt;/element&gt;
+      &lt;element&gt;
+         &lt;info_message&gt;New Zealand&lt;/info_message&gt;
+         &lt;name&gt;ACCOUNT_SUBURB&lt;/name&gt;
+      &lt;/element&gt;
+      &lt;element&gt;
+         &lt;info_message&gt;New Zealand&lt;/info_message&gt;
+         &lt;name&gt;ACCOUNT_TOWN&lt;/name&gt;
+      &lt;/element&gt;
+      &lt;element&gt;
+         &lt;name&gt;ACCOUNT_USER_NAME&lt;/name&gt;
+      &lt;/element&gt;
+      &lt;element&gt;
+         &lt;info_message&gt;Mexico&lt;/info_message&gt;
+         &lt;name&gt;ACCOUNT_VILLAGE&lt;/name&gt;
+      &lt;/element&gt;
+      &lt;element&gt;
+         &lt;name&gt;ACCOUNT_WORK_PHONE&lt;/name&gt;
+      &lt;/element&gt;
+      &lt;element&gt;
+         &lt;info_message&gt;Australia, United States&lt;/info_message&gt;
+         &lt;name&gt;ACCOUNT_ZIP&lt;/name&gt;
+      &lt;/element&gt;
+      &lt;element&gt;
+         &lt;name&gt;APPLICANT_ALL_JOB_TITLES&lt;/name&gt;
+      &lt;/element&gt;
+      &lt;element&gt;
+         &lt;description&gt;New Field 1&lt;/description&gt;
+         &lt;name&gt;APPLICANT_CUSTOM_FIELD_1&lt;/name&gt;
+      &lt;/element&gt;
+      &lt;element&gt;
+         &lt;description&gt;New Fieldd 2&lt;/description&gt;
+         &lt;name&gt;APPLICANT_CUSTOM_FIELD_2&lt;/name&gt;
+      &lt;/element&gt;
+      &lt;element&gt;
+         &lt;name&gt;APPLICANT_LOGIN&lt;/name&gt;
+      &lt;/element&gt;
+      &lt;element&gt;
+         &lt;name&gt;COMPANY_NAME&lt;/name&gt;
+      &lt;/element&gt;
+      &lt;element&gt;
+         &lt;name&gt;COMPANY_SHORT_NAME&lt;/name&gt;
+      &lt;/element&gt;
+      &lt;element&gt;
+         &lt;name&gt;CURRENT_DATE&lt;/name&gt;
+      &lt;/element&gt;
+      &lt;element&gt;
+         &lt;name&gt;CURRENT_DATE_TIME&lt;/name&gt;
+      &lt;/element&gt;
+      &lt;element&gt;
+         &lt;name&gt;LOGIN&lt;/name&gt;
+      &lt;/element&gt;
+   &lt;/items&gt;
+&lt;/root&gt;</pre>
+</div>
+<div class="get-example-resp-tab-1" id="get-tab-resp-schema-1">
+
+<div class="jsonschema" id="schema-1">&lt;?xml version="1.0" encoding="utf-8"?&gt;
+&lt;!-- Created with Liquid Technologies Online Tools 1.0 (https://www.liquid-technologies.com) --&gt;
+&lt;xs:schema attributeFormDefault="unqualified" elementFormDefault="qualified" xmlns:xs="http://www.w3.org/2001/XMLSchema"&gt;
+  &lt;xs:element name="root"&gt;
+    &lt;xs:complexType mixed="true"&gt;
+      &lt;xs:sequence&gt;
+        &lt;xs:element name="items"&gt;
+          &lt;xs:complexType mixed="true"&gt;
+            &lt;xs:sequence&gt;
+              &lt;xs:element maxOccurs="unbounded" name="element"&gt;
+                &lt;xs:complexType&gt;
+                  &lt;xs:sequence&gt;
+                    &lt;xs:element minOccurs="0" name="description" type="xs:string" /&gt;
+                    &lt;xs:element minOccurs="0" name="info_message" type="xs:string" /&gt;
+                    &lt;xs:element name="name" type="xs:string" /&gt;
+                  &lt;/xs:sequence&gt;
+                &lt;/xs:complexType&gt;
+              &lt;/xs:element&gt;
+            &lt;/xs:sequence&gt;
+          &lt;/xs:complexType&gt;
+        &lt;/xs:element&gt;
+      &lt;/xs:sequence&gt;
+    &lt;/xs:complexType&gt;
+  &lt;/xs:element&gt;
+&lt;/xs:schema&gt;</div>
+</div>
+</div>
+</div>
+</div>
+</article>
+</section>
+</div>
+</body></html>

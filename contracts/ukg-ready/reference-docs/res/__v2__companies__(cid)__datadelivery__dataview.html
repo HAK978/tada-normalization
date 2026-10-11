@@ -1,0 +1,448 @@
+<!doctype html>
+<html><head><meta charset="utf-8"><title>DataView</title><style>body{font:16px system-ui;max-width:1100px;margin:2rem auto;padding:0 1rem;line-height:1.5}aside{background:#fff3cc;padding:1rem}.jsonschema,pre{white-space:pre-wrap;font:13px monospace;overflow-wrap:anywhere;background:#f4f5f7;padding:1rem}.uri{font-family:monospace}h2,h3{margin-top:2rem}</style></head><body><aside><strong>Modified private reference — 2026-10-09.</strong> Provider-documented illustrative examples are included; authentication token examples are redacted. These are not customer exports or guaranteed production behavior. Candidate sharing is pending. This is not OpenAPI.</aside>
+<div class="group">
+<h2 class="anchored" id="item.anchor">
+<span>DataView</span>
+<a class="fa fa-link link-anchor" data-url="r=__v2__companies__(cid)__datadelivery__dataview#" data-web-id="__v2__companies__(cid)__datadelivery__dataview"></a>
+</h2>
+<section class="clearfix">
+<article class="definition">
+<h3 class="anchored" id="post"><span>POST</span>
+<a class="fa fa-link link-anchor" data-url="r=__v2__companies__(cid)__datadelivery__dataview#post" data-web-id="__v2__companies__(cid)__datadelivery__dataview"></a>
+</h3>
+<div class="md"><p>Provides the requested data for an employee.</p></div>
+<div>
+<ul class="annotation-list">
+<li class="annotation">
+<span>dev</span>
+</li>
+</ul>
+</div>
+<h4>Parameters</h4>
+<h5>Path Parameters</h5>
+<ul class="param-list">
+<li>
+<div class="param-desc">
+<div class="param-name">cid</div>
+<div class="data-type">string</div>
+<div class="required">required</div>
+</div>
+<div class="param-content">
+<div>
+<p>Example: 123456</p>
+<div class="desc md">Company should be referenced via company id or company unique id or company short name using `|short_name` or `!short_name` format.
+</div>
+</div>
+</div>
+
+</li>
+</ul>
+<h5>Header Parameters</h5>
+<ul class="param-list">
+<li>
+<div class="param-desc">
+<div class="param-name">Accept</div>
+<div class="data-type">string</div>
+</div>
+<div class="param-content">
+<div>
+<p>Valid values: application/json, application/xml, text/xml</p>
+<p>Default: application/json</p>
+<p>Example: application/json</p>
+</div>
+</div>
+
+</li>
+<li>
+<div class="param-desc">
+<div class="param-name">Content-Type</div>
+<div class="data-type">string</div>
+<div class="required">required</div>
+</div>
+<div class="param-content">
+<div>
+<p>Valid values: application/xml, text/xml, application/json</p>
+<p>Example: application/json</p>
+</div>
+</div>
+
+</li>
+<li>
+<div class="param-desc">
+<div class="param-name">Content-Length</div>
+<div class="data-type">integer</div>
+<div class="required">required</div>
+</div>
+<div class="param-content">
+<div>
+</div>
+</div>
+
+</li>
+</ul>
+<h4>Responses</h4>
+<div class="responses">
+<div>
+<label class="response response-success">
+<span class="fa fa-check"></span>
+<input data-full-tab-id="post-resp-code-tab-id-0" data-tab-class="resp-code-tab-post" name="resp-code-tab-post" type="radio"/>
+<span class="status">200 Ok</span>
+</label>
+<div class="response-desc resp-code-tab-post" id="post-resp-code-tab-id-0">
+<div class="md"><p>Able to retrieve data successfully.</p></div>
+</div>
+</div>
+<div>
+<label class="response response-error">
+<span class="fa fa-times"></span>
+<input data-full-tab-id="post-resp-code-tab-id-1" data-tab-class="resp-code-tab-post" name="resp-code-tab-post" type="radio"/>
+<span class="status">401 Unauthorized</span>
+</label>
+<div class="response-desc resp-code-tab-post" id="post-resp-code-tab-id-1">
+<div class="md"><p>Returned in case user is not authorized.</p></div>
+</div>
+</div>
+<div>
+<label class="response response-error">
+<span class="fa fa-times"></span>
+<input data-full-tab-id="post-resp-code-tab-id-2" data-tab-class="resp-code-tab-post" name="resp-code-tab-post" type="radio"/>
+<span class="status">403 Forbidden</span>
+</label>
+<div class="response-desc resp-code-tab-post" id="post-resp-code-tab-id-2">
+<div class="md"><p>Returned in case user has no access to the resource.</p></div>
+</div>
+</div>
+<div>
+<label class="response response-error">
+<span class="fa fa-times"></span>
+<input data-full-tab-id="post-resp-code-tab-id-3" data-tab-class="resp-code-tab-post" name="resp-code-tab-post" type="radio"/>
+<span class="status">413 Request Entity Too Large</span>
+</label>
+<div class="response-desc resp-code-tab-post" id="post-resp-code-tab-id-3">
+<div class="md"><p>Returned in the event that the size of the payload exceeds defined limits. Refer to the Restrictions section for details.</p></div>
+</div>
+</div>
+<div>
+<label class="response response-error">
+<span class="fa fa-times"></span>
+<input data-full-tab-id="post-resp-code-tab-id-4" data-tab-class="resp-code-tab-post" name="resp-code-tab-post" type="radio"/>
+<span class="status">503 Service Unavailable</span>
+</label>
+<div class="response-desc resp-code-tab-post" id="post-resp-code-tab-id-4">
+<div class="md"><p>Returned in the event that the call limit is exceeded. The application will be unavailable for subsequent calls for the duration specified by the X-CallLimit-TimeToWait header.</p></div>
+</div>
+</div>
+</div>
+</article>
+<article class="code">
+<h4>Definition</h4>
+<div class="uri">
+<code>
+<span class="method post">post</span>
+<span class="textUri"><span class="baseUri">{{ getUriPrefix() }}</span><span class="relativeUri">/v2/companies/{cid}/datadelivery/dataview</span></span>
+</code>
+</div>
+<h4>Request Samples</h4>
+<div class="tab-title-group">
+<label>
+<input checked="checked" data-full-tab-id="req-tab-id-post-0" data-tab-class="req-tab-post" name="req-tab-post" type="radio"/>
+<span class="tab-title">application/json</span>
+</label>
+</div>
+<div>
+<div class="req-tab-post" id="req-tab-id-post-0">
+<div class="example">
+
+<div class="post-example-tab-0 activeTab" id="post-tab-example-0">
+
+<pre class="highlightjs">{
+    "fields": [
+        {
+            "externalFieldId": "PERSONAL_INFORMATION_EMPL_EMPLOYEE_ID"
+        },
+        {
+            "externalFieldId": "PERSPECTIVE_SCORE_SCORE",
+            "parameter": 23555
+        },
+        {
+            "externalFieldId": "PERSPECTIVE_SCORE_SCORE",
+            "parameter": 456653
+        }
+    ],
+    "filters": [
+        {
+            "field_name": "PERSONAL_INFORMATION_EMPL_EMPLOYEE_ID",
+            "operator": {
+                "name": "in"
+            },
+            "values": [
+                "JT12345",
+                "VikasEmpId",
+                "asdf1"
+            ]
+        }
+    ],
+    "date_filters": [
+        {
+            "filter_name": "timeFrame",
+            "operator": {
+                "name": "between"
+            },
+            "startDate": "09/02/2018",
+            "endDate": "09/15/2018"
+        }
+    ]
+}</pre>
+</div>
+<div class="post-example-tab-0" id="post-tab-schema-0">
+
+<div class="jsonschema" id="schema-0">{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "type": "object",
+  "properties": {
+    "fields": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "externalFieldId": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "filters": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "field_name": {
+            "type": "string"
+          },
+          "operator": {
+            "type": "object",
+            "properties": {
+              "name": {
+                "type": "string"
+              }
+            }
+          },
+          "values": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          }
+        }
+      }
+    },
+    "date_filters": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "filter_name": {
+            "type": "string"
+          },
+          "operator": {
+            "type": "object",
+            "properties": {
+              "name": {
+                "type": "string"
+              }
+            }
+          },
+          "startdate": {
+            "type": "string"
+          },
+          "enddate": {
+            "type": "string"
+          }
+        }
+      }
+    }
+  }
+}</div>
+</div>
+</div>
+</div>
+</div>
+<h4>Response Samples</h4>
+<div class="tab-title-group">
+<label>
+<input checked="checked" data-full-tab-id="resp-tab-id-post-0" data-tab-class="resp-tab-post" name="resp-tab-post" type="radio"/>
+<span class="tab-title">application/json</span>
+</label>
+</div>
+<div>
+<div class="resp-tab-post" id="resp-tab-id-post-0">
+<div class="example">
+
+<div class="post-example-resp-tab-0 activeTab" id="post-tab-resp-example-0">
+
+<pre class="highlightjs">{
+    "meta": {
+        "company_id": 464890,
+        "user_id": 2241472,
+        "total_rows": 2
+    },
+    "header": {
+        "fields": [
+            {
+                "externalFieldId": "PERSONAL_INFORMATION_EMPL_EMPLOYEE_ID",
+                "label": "Employee Id"
+            },
+            {
+                "externalFieldId": "DATES_EMPL_DATE_HIRED_MONTH",
+                "label": "Hired Month"
+            },
+            {
+                "externalFieldId": "DATES_EMPL_DATE_STARTED",
+                "label": "Date Started"
+            },
+            {
+                "externalFieldId": "DATES_DAYS_EMPL_AGE",
+                "label": "Age"
+            },
+            {
+                "externalFieldId": "PERSONAL_INFORMATION_EMPL_STATUS_NAME",
+                "label": "Employee Status"
+            }
+        ]
+    },
+    "body": {
+        "rows": [
+            {
+                "values": [
+                    "43432",
+                    "October",
+                    "10/03/2018",
+                    29,
+                    "Active"
+                ]
+            },
+            {
+                "values": [
+                    "65484077",
+                    "October",
+                    "10/05/2018",
+                    21,
+                    "Active"
+                ]
+            }
+        ]
+    },
+    "errors": [
+        {
+            "code": "20005",
+            "message": "Invalid fields",
+            "detail": "[sfd, 423, gkkdf]"
+        },
+        {
+            "code": "20008",
+            "message": "Duplicate Employees",
+            "detail": "[65484077]"
+        },
+        {
+            "code": "20009",
+            "message": "Invalid Employees",
+            "detail": "[123]"
+        },
+        {
+            "code": "20006",
+            "message": "Fields unavailable",
+            "detail": "[EmplGender]"
+        }
+    ]
+}
+</pre>
+</div>
+<div class="post-example-resp-tab-0" id="post-tab-resp-schema-0">
+
+<div class="jsonschema" id="schema-1">{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "type": "object",
+  "properties": {
+    "meta": {
+      "type": "object",
+      "properties": {
+        "company_id": {
+          "type": "integer"
+        },
+        "user_id": {
+          "type": "integer"
+        },
+        "total_rows": {
+          "type": "integer"
+        }
+      }
+    },
+    "header": {
+      "type": "object",
+      "properties": {
+        "fields": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "externalFieldId": {
+                "type": "string"
+              },
+              "label": {
+                "type": "string"
+              }
+            }
+          }
+        }
+      }
+    },
+    "body": {
+      "type": "object",
+      "properties": {
+        "rows": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "values": {
+                "type": "array",
+                "items": {
+                  "type": [
+                    "number",
+                    "string",
+                    "boolean"
+                  ]
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "errors": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "code": {
+            "type": "string"
+          },
+          "message": {
+            "type": "string"
+          },
+          "detail": {
+            "type": "string"
+          }
+        }
+      }
+    }
+  }
+}</div>
+</div>
+</div>
+</div>
+</div>
+</article>
+</section>
+</div>
+</body></html>

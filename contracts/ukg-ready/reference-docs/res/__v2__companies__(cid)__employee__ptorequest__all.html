@@ -1,0 +1,431 @@
+<!doctype html>
+<html><head><meta charset="utf-8"><title>All PTO Requests</title><style>body{font:16px system-ui;max-width:1100px;margin:2rem auto;padding:0 1rem;line-height:1.5}aside{background:#fff3cc;padding:1rem}.jsonschema,pre{white-space:pre-wrap;font:13px monospace;overflow-wrap:anywhere;background:#f4f5f7;padding:1rem}.uri{font-family:monospace}h2,h3{margin-top:2rem}</style></head><body><aside><strong>Modified private reference — 2026-10-09.</strong> Provider-documented illustrative examples are included; authentication token examples are redacted. These are not customer exports or guaranteed production behavior. Candidate sharing is pending. This is not OpenAPI.</aside>
+<div class="group">
+<h2 class="anchored" id="item.anchor">
+<span>All PTO Requests</span>
+<a class="fa fa-link link-anchor" data-url="r=__v2__companies__(cid)__employee__ptorequest__all#" data-web-id="__v2__companies__(cid)__employee__ptorequest__all"></a>
+</h2>
+<section class="clearfix">
+<article class="definition">
+<h3 class="anchored" id="get"><span>GET</span>
+<a class="fa fa-link link-anchor" data-url="r=__v2__companies__(cid)__employee__ptorequest__all#get" data-web-id="__v2__companies__(cid)__employee__ptorequest__all"></a>
+</h3>
+<div class="md"><p>Endpoint to list PTO requests for subordinate employees. `TA|TALITE|HR` functionality must be enabled in company setup.</p></div>
+<h4>Parameters</h4>
+<h5>Path Parameters</h5>
+<ul class="param-list">
+<li>
+<div class="param-desc">
+<div class="param-name">cid</div>
+<div class="data-type">string</div>
+<div class="required">required</div>
+</div>
+<div class="param-content">
+<div>
+<p>Example: 123456</p>
+<div class="desc md">Company should be referenced via company id or company unique id or company short name using `|short_name` or `!short_name` format.
+</div>
+</div>
+</div>
+
+</li>
+</ul>
+<h5>Query Parameters</h5>
+<ul class="param-list">
+<li>
+<div class="param-desc">
+<div class="param-name">fromDate</div>
+<div class="data-type">string</div>
+</div>
+<div class="param-content">
+<div>
+<div class="desc md">pto request date date range start</div>
+</div>
+</div>
+
+</li>
+<li>
+<div class="param-desc">
+<div class="param-name">toDate</div>
+<div class="data-type">string</div>
+</div>
+<div class="param-content">
+<div>
+<div class="desc md">pto request date date range end</div>
+</div>
+</div>
+
+</li>
+<li>
+<div class="param-desc">
+<div class="param-name">acc_ids</div>
+<div class="data-type">string</div>
+</div>
+<div class="param-content">
+<div>
+<p>Example: 123,432,5366,22145</p>
+<div class="desc md">IDs of employees which you want to choose</div>
+</div>
+</div>
+
+</li>
+<li>
+<div class="param-desc">
+<div class="param-name">ext_ids</div>
+<div class="data-type">string</div>
+</div>
+<div class="param-content">
+<div>
+<p>Example: 123,432,5366,22145</p>
+<div class="desc md">External_IDs of employees which you want to choose</div>
+</div>
+</div>
+
+</li>
+<li>
+<div class="param-desc">
+<div class="param-name">user_names</div>
+<div class="data-type">string</div>
+</div>
+<div class="param-content">
+<div>
+<p>Example: mgellar</p>
+<div class="desc md">User names of employees which you want to choose</div>
+</div>
+</div>
+
+</li>
+<li>
+<div class="param-desc">
+<div class="param-name">sort</div>
+<div class="data-type">string</div>
+</div>
+<div class="param-content">
+<div>
+<p>Example: -from_date</p>
+<div class="desc md">Query parameter to control sorting order. Default is descending by requested date.
+Supported fields to sort by:
+- `from_date`
+</div>
+</div>
+</div>
+
+</li>
+</ul>
+<h4>Responses</h4>
+<div class="responses">
+<div>
+<label class="response response-success">
+<span class="fa fa-check"></span>
+<input data-full-tab-id="get-resp-code-tab-id-0" data-tab-class="resp-code-tab-get" name="resp-code-tab-get" type="radio"/>
+<span class="status">200 Ok</span>
+</label>
+<div class="response-desc resp-code-tab-get" id="get-resp-code-tab-id-0">
+<div class="md"><p>Contains filtered list of PTO requests</p></div>
+</div>
+</div>
+<div>
+<label class="response response-error">
+<span class="fa fa-times"></span>
+<input data-full-tab-id="get-resp-code-tab-id-1" data-tab-class="resp-code-tab-get" name="resp-code-tab-get" type="radio"/>
+<span class="status">401 Unauthorized</span>
+</label>
+<div class="response-desc resp-code-tab-get" id="get-resp-code-tab-id-1">
+<div class="md"><p>Unauthorized, Authentication is required</p></div>
+</div>
+</div>
+<div>
+<label class="response response-error">
+<span class="fa fa-times"></span>
+<input data-full-tab-id="get-resp-code-tab-id-2" data-tab-class="resp-code-tab-get" name="resp-code-tab-get" type="radio"/>
+<span class="status">404 Not Found</span>
+</label>
+<div class="response-desc resp-code-tab-get" id="get-resp-code-tab-id-2">
+<div class="md"><p>Not found, Account was not found</p></div>
+</div>
+</div>
+<div>
+<label class="response response-error">
+<span class="fa fa-times"></span>
+<input data-full-tab-id="get-resp-code-tab-id-3" data-tab-class="resp-code-tab-get" name="resp-code-tab-get" type="radio"/>
+<span class="status">403 Forbidden</span>
+</label>
+<div class="response-desc resp-code-tab-get" id="get-resp-code-tab-id-3">
+<div class="md"><p>Required functionality is not enabled</p></div>
+</div>
+</div>
+<div>
+<label class="response response-error">
+<span class="fa fa-times"></span>
+<input data-full-tab-id="get-resp-code-tab-id-4" data-tab-class="resp-code-tab-get" name="resp-code-tab-get" type="radio"/>
+<span class="status">500 Internal Server Error</span>
+</label>
+<div class="response-desc resp-code-tab-get" id="get-resp-code-tab-id-4">
+<div class="md"><p>Returned in the event an internal server error occurred while processing the request.</p></div>
+</div>
+</div>
+<div>
+<label class="response response-error">
+<span class="fa fa-times"></span>
+<input data-full-tab-id="get-resp-code-tab-id-5" data-tab-class="resp-code-tab-get" name="resp-code-tab-get" type="radio"/>
+<span class="status">503 Service Unavailable</span>
+</label>
+<div class="response-desc resp-code-tab-get" id="get-resp-code-tab-id-5">
+<div class="md"><p>Returned in the event that the call limit is exceeded. The application will be unavailable for subsequent calls for the duration specified by the X-CallLimit-TimeToWait header.</p></div>
+</div>
+</div>
+</div>
+</article>
+<article class="code">
+<h4>Definition</h4>
+<div class="uri">
+<code>
+<span class="method get">get</span>
+<span class="textUri"><span class="baseUri">{{ getUriPrefix() }}</span><span class="relativeUri">/v2/companies/{cid}/employee/ptorequest/all</span></span>
+</code>
+</div>
+<h4>Response Samples</h4>
+<div class="tab-title-group">
+<label>
+<input checked="checked" data-full-tab-id="resp-tab-id-get-0" data-tab-class="resp-tab-get" name="resp-tab-get" type="radio"/>
+<span class="tab-title">application/json</span>
+</label>
+</div>
+<div>
+<div class="resp-tab-get" id="resp-tab-id-get-0">
+<div class="example">
+
+<div class="get-example-resp-tab-0 activeTab" id="get-tab-resp-example-0">
+
+<pre class="highlightjs">{
+  "ptorequests": [
+    {
+      "dynamicDurationAs": "Unknown",
+      "employee": {
+        "account_id": 2152390,
+        "full_name": "Monica Gellar",
+        "ein_name" : "12-3456789"
+      },
+      "time_off": {
+        "id": 1486785,
+        "name": "Personal"
+      },
+      "from_date": "2016-09-09",
+      "to_date": "2016-09-09",
+      "from_time": "00:00",
+      "to_time": "00:00",
+      "pto_details": {
+        "request_id": "4958849",
+        "request_state": "New",
+        "request_type": "Partial",
+        "requested_time": "08:00",
+        "duration_unit": "HOURS",
+        "created": "2016-09-08",
+        "can_delete": true,
+        "cancel_needs_approval": false,
+        "approved_by": {
+          "account_id": 123434,
+          "full_name": "Full Name"
+        },
+        "note_thread_id": "9841476",
+        "cost_center_ids": [
+          "1486594",
+          "1486665",
+          "1486666",
+          "1486667",
+          "1486668",
+          "1486669",
+          "1486670",
+          "1486671",
+          "1486672",
+          "1486673"
+        ]
+      },
+      "notes_count": 1
+    },
+    {
+      "dynamicDurationAs": "Unknown",
+      "employee": {
+        "account_id": 2152390,
+        "full_name": "Monica Gellar"
+      },
+      "time_off": {
+        "id": 1486785,
+        "name": "Personal"
+      },
+      "from_date": "2016-09-10",
+      "to_date": "2016-09-10",
+      "from_time": "00:00",
+      "to_time": "00:00",
+      "pto_details": {
+        "request_id": "4958850",
+        "request_state": "New",
+        "requested_time": "08:00",
+        "duration_unit": "HOURS",
+        "created": "2016-09-08",
+        "can_delete": true,
+        "cancel_needs_approval": false,
+        "rejected_by": {
+          "account_id": 123434,
+          "full_name": "Full Name"
+        },
+        "note_thread_id": "9841477",
+        "cost_center_ids": [
+          "1486594",
+          "1486665",
+          "1486666",
+          "1486667",
+          "1486668",
+          "1486669",
+          "1486670",
+          "1486671",
+          "1486672",
+          "1486673"
+        ]
+      },
+      "notes_count": 1
+    }
+  ]
+}</pre>
+</div>
+<div class="get-example-resp-tab-0" id="get-tab-resp-schema-0">
+
+<div class="jsonschema" id="schema-0">{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "type": "object",
+  "properties": {
+    "ptorequests": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "employee": {
+            "type": "object",
+            "properties": {
+              "account_id": {
+                "type": "number",
+                "format": "long"
+              },
+              "username": {
+                "type": "string"
+              },
+              "ein_name": {
+                "type": "string"
+              },
+              "ein_tax_id": {
+                "type": "string"
+              }
+            }
+          },
+          "time_off": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "integer"
+              },
+              "name": {
+                "type": "string"
+              }
+            }
+          },
+          "pto_details": {
+            "type": "object",
+            "properties": {
+              "request_id": {
+                "type": "string"
+              },
+              "request_state": {
+                "type": "string"
+              },
+              "request_type": {
+                "type": "string"
+              },
+              "requested_date": {
+                "type": "string"
+              },
+              "requested_time": {
+                "type": "string"
+              },
+              "time_per_day": {
+                "type": "string"
+              },
+              "duration_unit": {
+                "type": "string",
+                "enum": [
+                  "HOURS",
+                  "DAYS"
+                ]
+              },
+              "created": {
+                "type": "string"
+              },
+              "work_flow_status": {
+                "type": "string"
+              },
+              "can_delete": {
+                "type": "boolean"
+              },
+              "cancel_needs_approval": {
+                "type": "boolean"
+              },
+              "approved_by": {
+                "type": "object",
+                "properties": {
+                  "account_id": {
+                    "type": "number",
+                    "format": "long"
+                  },
+                  "full_name": {
+                    "type": "string"
+                  }
+                }
+              },
+              "rejected_by": {
+                "type": "object",
+                "properties": {
+                  "account_id": {
+                    "type": "number",
+                    "format": "long"
+                  },
+                  "full_name": {
+                    "type": "string"
+                  }
+                }
+              },
+              "note_thread_id": {
+                "type": "string"
+              },
+              "cost_center_ids": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
+              }
+            }
+          },
+          "notes_count": {
+            "type": "integer"
+          },
+          "dynamic_duration_type": {
+            "type": "string",
+            "enum": [
+              "Full Day",
+              "Half Day",
+              "First Half",
+              "Second Half",
+              "Fill Day"
+            ]
+          }
+        }
+      }
+    }
+  }
+}</div>
+</div>
+</div>
+</div>
+</div>
+</article>
+</section>
+</div>
+</body></html>

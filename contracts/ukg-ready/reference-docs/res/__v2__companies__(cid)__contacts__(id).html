@@ -1,0 +1,2186 @@
+<!doctype html>
+<html><head><meta charset="utf-8"><title>Contact</title><style>body{font:16px system-ui;max-width:1100px;margin:2rem auto;padding:0 1rem;line-height:1.5}aside{background:#fff3cc;padding:1rem}.jsonschema,pre{white-space:pre-wrap;font:13px monospace;overflow-wrap:anywhere;background:#f4f5f7;padding:1rem}.uri{font-family:monospace}h2,h3{margin-top:2rem}</style></head><body><aside><strong>Modified private reference — 2026-10-09.</strong> Provider-documented illustrative examples are included; authentication token examples are redacted. These are not customer exports or guaranteed production behavior. Candidate sharing is pending. This is not OpenAPI.</aside>
+<div class="group">
+<h2 class="anchored" id="item.anchor">
+<span>Contact</span>
+<a class="fa fa-link link-anchor" data-url="r=__v2__companies__(cid)__contacts__(id)#" data-web-id="__v2__companies__(cid)__contacts__(id)"></a>
+</h2>
+<section class="clearfix">
+<article class="definition">
+<h3 class="anchored" id="get"><span>GET</span>
+<a class="fa fa-link link-anchor" data-url="r=__v2__companies__(cid)__contacts__(id)#get" data-web-id="__v2__companies__(cid)__contacts__(id)"></a>
+</h3>
+<div class="md"><p>Retrieves an employee contact by its ID.
+The fields 'bsn', 'social_insurance', 'social_security', and 'national_insurance' are for backward compatibility and are populated if data exists.
+The new pattern for national identification numbers is represented by the 'national_id_numbers' field.
+</p></div>
+<div>
+<ul class="annotation-list">
+<li class="annotation">
+<span>v2</span>
+</li>
+</ul>
+</div>
+<h4>Parameters</h4>
+<h5>Path Parameters</h5>
+<ul class="param-list">
+<li>
+<div class="param-desc">
+<div class="param-name">cid</div>
+<div class="data-type">string</div>
+<div class="required">required</div>
+</div>
+<div class="param-content">
+<div>
+<p>Example: 123456</p>
+<div class="desc md">Company should be referenced via company id or company unique id or company short name using `|short_name` or `!short_name` format.
+</div>
+</div>
+</div>
+
+</li>
+<li>
+<div class="param-desc">
+<div class="param-name">id</div>
+<div class="data-type">integer</div>
+<div class="required">required</div>
+</div>
+<div class="param-content">
+<div>
+<div class="desc md">Employee Contact id.</div>
+</div>
+</div>
+
+</li>
+</ul>
+<h5>Header Parameters</h5>
+<ul class="param-list">
+<li>
+<div class="param-desc">
+<div class="param-name">Accept</div>
+<div class="data-type">string</div>
+</div>
+<div class="param-content">
+<div>
+<p>Valid values: application/json, application/xml, text/xml</p>
+<p>Default: application/json</p>
+<p>Example: application/json</p>
+</div>
+</div>
+
+</li>
+</ul>
+<h4>Responses</h4>
+<div class="responses">
+<div>
+<label class="response response-success">
+<span class="fa fa-check"></span>
+<input data-full-tab-id="get-resp-code-tab-id-0" data-tab-class="resp-code-tab-get" name="resp-code-tab-get" type="radio"/>
+<span class="status">200 Ok</span>
+</label>
+<div class="response-desc resp-code-tab-get" id="get-resp-code-tab-id-0">
+</div>
+</div>
+<div>
+<label class="response response-error">
+<span class="fa fa-times"></span>
+<input data-full-tab-id="get-resp-code-tab-id-1" data-tab-class="resp-code-tab-get" name="resp-code-tab-get" type="radio"/>
+<span class="status">401 Unauthorized</span>
+</label>
+<div class="response-desc resp-code-tab-get" id="get-resp-code-tab-id-1">
+<div class="md"><p>Returned in case user is not authorized.</p></div>
+</div>
+</div>
+<div>
+<label class="response response-error">
+<span class="fa fa-times"></span>
+<input data-full-tab-id="get-resp-code-tab-id-2" data-tab-class="resp-code-tab-get" name="resp-code-tab-get" type="radio"/>
+<span class="status">403 Forbidden</span>
+</label>
+<div class="response-desc resp-code-tab-get" id="get-resp-code-tab-id-2">
+<div class="md"><p>Returned in case user has no access to the resource.</p></div>
+</div>
+</div>
+<div>
+<label class="response response-error">
+<span class="fa fa-times"></span>
+<input data-full-tab-id="get-resp-code-tab-id-3" data-tab-class="resp-code-tab-get" name="resp-code-tab-get" type="radio"/>
+<span class="status">404 Not Found</span>
+</label>
+<div class="response-desc resp-code-tab-get" id="get-resp-code-tab-id-3">
+<div class="md"><p>Returned in case resource does not exist.</p></div>
+</div>
+</div>
+<div>
+<label class="response response-error">
+<span class="fa fa-times"></span>
+<input data-full-tab-id="get-resp-code-tab-id-4" data-tab-class="resp-code-tab-get" name="resp-code-tab-get" type="radio"/>
+<span class="status">503 Service Unavailable</span>
+</label>
+<div class="response-desc resp-code-tab-get" id="get-resp-code-tab-id-4">
+<div class="md"><p>Returned in the event that the call limit is exceeded. The application will be unavailable for subsequent calls for the duration specified by the X-CallLimit-TimeToWait header.</p></div>
+</div>
+</div>
+</div>
+</article>
+<article class="code">
+<h4>Definition</h4>
+<div class="uri">
+<code>
+<span class="method get">get</span>
+<span class="textUri"><span class="baseUri">{{ getUriPrefix() }}</span><span class="relativeUri">/v2/companies/{cid}/contacts/{id}</span></span>
+</code>
+</div>
+<h4>Response Samples</h4>
+<div class="tab-title-group">
+<label>
+<input checked="checked" data-full-tab-id="resp-tab-id-get-0" data-tab-class="resp-tab-get" name="resp-tab-get" type="radio"/>
+<span class="tab-title">application/json</span>
+</label>
+<label>
+<input data-full-tab-id="resp-tab-id-get-1" data-tab-class="resp-tab-get" name="resp-tab-get" type="radio"/>
+<span class="tab-title">application/xml</span>
+</label>
+</div>
+<div>
+<div class="resp-tab-get" id="resp-tab-id-get-0">
+<div class="example">
+
+<div class="get-example-resp-tab-0 activeTab" id="get-tab-resp-example-0">
+
+<pre class="highlightjs">{
+  "id": 75969,
+  "employee": {
+    "account_id": 52353250
+  },
+  "primary": true,
+  "emergency": true,
+  "dependent": false,
+  "beneficiary": false,
+  "emergency_notif": null,
+  "salutation": "Hola",
+  "first_name": "John",
+  "middle_name": "Bob",
+  "last_name": "Smith",
+  "name_suffix": "PhD",
+  "national_id_numbers": {
+    "primary_number": {
+      "type": "SSN",
+      "value": "123456789"
+    },
+    "secondary_numbers": [
+      {
+        "type": "BSN",
+        "value": "111222333"
+      }
+    ]
+  },
+  "relationship": "Spouse",
+  "work_phone": {
+    "code": 0,
+    "number": "+1(42)461-23-64",
+    "primary": true
+  },
+  "home_phone": {
+    "code": 0,
+    "number": "+375(29)461-23-64",
+    "primary": false
+  },
+  "cell_phone": {
+    "code": 0,
+    "number": "+91(33)461-23-64",
+    "primary": false
+  },
+  "email": "email@example.com",
+  "ssn": "123-45-6789",
+  "birthdate": "1982-09-21",
+  "gender": "MALE",
+  "height": "180cm",
+  "weight": "90kg",
+  "ethnicity": "HISPANIC_OR_LATINO",
+  "smoker": false,
+  "actual_marital_status": "Married",
+  "full_time_student": false,
+  "disability": true,
+  "always_eligible_for_benefit_plans": true,
+  "is_in_any_benefit_plan": true,
+  "use_employee_address": true,
+  "_links": {
+    "self": "https://secure2.saashr.com/ta/rest/v2/companies/453121/employees/53312326/contacts/75969",
+    "edit": "https://secure2.saashr.com/ta/rest/v2/companies/453121/employees/53312326/contacts/75969",
+    "delete": "https://secure2.saashr.com/ta/rest/v2/companies/453121/employees/53312326/contacts/75969"
+  }
+}
+</pre>
+</div>
+<div class="get-example-resp-tab-0" id="get-tab-resp-schema-0">
+
+<div class="jsonschema" id="schema-0">{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "type": "object",
+  "properties": {
+    "id": {
+      "type": "integer"
+    },
+    "account_id": {
+      "type": "number",
+      "format": "long"
+    },
+    "employee": {
+      "type": "object",
+      "properties": {
+        "account_id": {
+          "type": "number",
+          "format": "long"
+        }
+      },
+      "additionalProperties": false,
+      "required": [
+        "account_id"
+      ]
+    },
+    "primary": {
+      "type": "boolean",
+      "default": false
+    },
+    "national_id_numbers": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "primary_number": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "value": {
+              "type": "string",
+              "maxLength": 25
+            },
+            "type": {
+              "type": "string",
+              "enum": [
+                "SSN",
+                "BSN",
+                "SIN",
+                "NIN",
+                "TFN",
+                "NSS",
+                "OTHER_1",
+                "OTHER_2",
+                "OTHER_3",
+                "OTHER_4",
+                "OTHER_5",
+                "OTHER_6",
+                "OTHER_7",
+                "OTHER_8",
+                "OTHER_9",
+                "OTHER_10",
+                "NO_ID_NEEDED"
+              ]
+            }
+          }
+        },
+        "secondary_numbers": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+              "value": {
+                "type": "string",
+                "maxLength": 25
+              },
+              "type": {
+                "type": "string",
+                "enum": [
+                  "SSN",
+                  "BSN",
+                  "SIN",
+                  "NIN",
+                  "TFN",
+                  "NSS",
+                  "OTHER_1",
+                  "OTHER_2",
+                  "OTHER_3",
+                  "OTHER_4",
+                  "OTHER_5",
+                  "OTHER_6",
+                  "OTHER_7",
+                  "OTHER_8",
+                  "OTHER_9",
+                  "OTHER_10"
+                ]
+              }
+            }
+          }
+        }
+      }
+    },
+    "emergency": {
+      "type": "boolean",
+      "default": false
+    },
+    "dependent": {
+      "type": "boolean",
+      "default": false
+    },
+    "beneficiary": {
+      "type": "boolean",
+      "default": false
+    },
+    "emergency_notif": {
+      "type": [
+        "boolean",
+        "null"
+      ],
+      "default": null
+    },
+    "salutation": {
+      "type": "string",
+      "maxLength": 35
+    },
+    "first_name": {
+      "type": "string",
+      "maxLength": 75
+    },
+    "middle_name": {
+      "type": "string",
+      "maxLength": 75
+    },
+    "last_name": {
+      "type": "string",
+      "maxLength": 75
+    },
+    "name_suffix": {
+      "type": "string",
+      "maxLength": 15
+    },
+    "relationship": {
+      "type": "string",
+      "maxLength": 128
+    },
+    "work_phone": {
+      "type": "object",
+      "properties": {
+        "code": {
+          "type": "integer"
+        },
+        "number": {
+          "type": "string",
+          "maxLength": 55
+        },
+        "primary": {
+          "type": "boolean",
+          "default": false
+        }
+      },
+      "additionalProperties": false,
+      "required": [
+        "number"
+      ]
+    },
+    "home_phone": {
+      "type": "object",
+      "properties": {
+        "code": {
+          "type": "integer"
+        },
+        "number": {
+          "type": "string",
+          "maxLength": 55
+        },
+        "primary": {
+          "type": "boolean",
+          "default": false
+        }
+      },
+      "additionalProperties": false,
+      "required": [
+        "number"
+      ]
+    },
+    "cell_phone": {
+      "type": "object",
+      "properties": {
+        "code": {
+          "type": "integer"
+        },
+        "number": {
+          "type": "string",
+          "maxLength": 55
+        },
+        "primary": {
+          "type": "boolean",
+          "default": false
+        }
+      },
+      "additionalProperties": false,
+      "required": [
+        "number"
+      ]
+    },
+    "email": {
+      "type": "string",
+      "format": "email",
+      "maxLength": 75
+    },
+    "ssn": {
+      "description": "Social Security Number",
+      "type": "string",
+      "maxLength": 20
+    },
+    "bsn": {
+      "description": "Citizen Service Number",
+      "type": "string",
+      "maxLength": 20
+    },
+    "sin": {
+      "description": "Social Insurance Number",
+      "type": "string",
+      "maxLength": 20
+    },
+    "nin": {
+      "description": "National Insurance Number",
+      "type": "string",
+      "maxLength": 20
+    },
+    "birthdate": {
+      "type": "string",
+      "description": "Date needs to be in the format yyyy-mm-dd within the 1900-12-31 and 2079-06-05 date range",
+      "pattern": "^(19[0-9]{2}|20[0-6][0-9]|2070)-(0[1-9]|1[0-2])-(0[1-9]|[1-2][0-9]|3[0-1])$"
+    },
+    "gender": {
+      "type": "string",
+      "enum": [
+        "MALE",
+        "FEMALE",
+        "UNDEFINED"
+      ],
+      "default": "UNDEFINED"
+    },
+    "has_activate_deactivate_permission": {
+      "type": "boolean",
+      "default": false
+    },
+    "has_emergency_notification_permission": {
+      "type": "boolean",
+      "default": false
+    },
+    "height": {
+      "type": "string",
+      "maxLength": 10
+    },
+    "weight": {
+      "type": "string",
+      "maxLength": 10
+    },
+    "ethnicity": {
+      "type": "string",
+      "enum": [
+        "HISPANIC_OR_LATINO",
+        "WHITE",
+        "BLACK_OR_AFRICAN_AMERICAN",
+        "NATIVE_HAWAIIAN_OR_OTHER_PACIFIC_ISLANDER",
+        "ASIAN",
+        "AMERICAN_INDIAN_OR_ALASKA_NATIVE",
+        "TWO_OR_MORE_RACES",
+        "ASIAN_OTHER",
+        "BANGLADESHI",
+        "BLACK_AFRICAN",
+        "BLACK_CARIBBEAN",
+        "BLACK_OTHER",
+        "CHINESE",
+        "INDIAN",
+        "MIXED_AFRICAN",
+        "MIXED_ASIAN",
+        "MIXED_CARIBBEAN",
+        "MIXED_OTHER",
+        "OTHER",
+        "PAKISTANI",
+        "WHITE_BRITISH",
+        "WHITE_IRISH",
+        "WHITE_OTHER"
+      ]
+    },
+    "smoker": {
+      "type": "boolean"
+    },
+    "actual_marital_status": {
+      "type": "string",
+      "maxLength": 55
+    },
+    "full_time_student": {
+      "type": "boolean"
+    },
+    "disability": {
+      "type": "boolean"
+    },
+    "always_eligible_for_benefit_plans": {
+      "type": "boolean",
+      "default": "false"
+    },
+    "is_in_any_benefit_plan": {
+      "type": "boolean"
+    },
+    "use_employee_address": {
+      "type": "boolean",
+      "default": "false"
+    },
+    "address": {
+      "type": "object",
+      "properties": {
+        "address_line_1": {
+          "type": "string",
+          "maxLength": 128
+        },
+        "address_line_2": {
+          "type": "string",
+          "maxLength": 128
+        },
+        "address_line_3": {
+          "type": "string",
+          "maxLength": 128
+        },
+        "country": {
+          "type": "string",
+          "maxLength": 55
+        },
+        "city": {
+          "type": "string",
+          "maxLength": 64
+        },
+        "state": {
+          "type": "string",
+          "maxLength": 55
+        },
+        "zip": {
+          "type": "string",
+          "maxLength": 15
+        },
+        "number": {
+          "type": "string",
+          "maxLength": 10
+        },
+        "number_addition": {
+          "type": "string",
+          "maxLength": 10
+        }
+      }
+    },
+    "comments": {
+      "type": "string"
+    },
+    "_links": {
+      "type": "object",
+      "properties": {
+        "self": {
+          "type": "string"
+        },
+        "edit": {
+          "type": "string"
+        },
+        "delete": {
+          "type": "string"
+        }
+      },
+      "additionalProperties": false,
+      "required": [
+        "self"
+      ]
+    }
+  },
+  "additionalProperties": false,
+  "required": [
+    "first_name",
+    "last_name",
+    "relationship"
+  ]
+}</div>
+</div>
+</div>
+</div>
+<div class="resp-tab-get" id="resp-tab-id-get-1">
+<div class="example">
+
+<div class="get-example-resp-tab-1 activeTab" id="get-tab-resp-example-1">
+
+<pre class="highlightjs">&lt;?xml version='1.0' encoding='UTF-8'?&gt;
+&lt;contact xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"&gt;
+  &lt;id&gt;75969&lt;/id&gt;
+  &lt;employee&gt;
+    &lt;account_id&gt;52353250&lt;/account_id&gt;
+  &lt;/employee&gt;
+  &lt;primary&gt;true&lt;/primary&gt;
+  &lt;emergency&gt;true&lt;/emergency&gt;
+  &lt;dependent&gt;true&lt;/dependent&gt;
+  &lt;beneficiary&gt;false&lt;/beneficiary&gt;
+  &lt;emergency_notif xsi:nil="true"/&gt;
+  &lt;salutation&gt;Hola&lt;/salutation&gt;
+  &lt;first_name&gt;John&lt;/first_name&gt;
+  &lt;middle_name&gt;Bob&lt;/middle_name&gt;
+  &lt;last_name&gt;Smith&lt;/last_name&gt;
+  &lt;national_id_numbers&gt;
+    &lt;primary_number&gt;
+      &lt;type&gt;BSN&lt;/type&gt;
+      &lt;value&gt;123456782&lt;/value&gt;
+    &lt;/primary_number&gt;
+    &lt;secondary_numbers&gt;
+      &lt;secondary_number&gt;
+        &lt;type&gt;SSN&lt;/type&gt;
+        &lt;value&gt;123456789&lt;/value&gt;
+      &lt;/secondary_number&gt;
+      &lt;secondary_number&gt;
+        &lt;type&gt;TFN&lt;/type&gt;
+        &lt;value&gt;987654321&lt;/value&gt;
+      &lt;/secondary_number&gt;
+    &lt;/secondary_numbers&gt;
+  &lt;/national_id_numbers&gt;
+  &lt;name_suffix&gt;PhD&lt;/name_suffix&gt;
+  &lt;relationship&gt;Spouse&lt;/relationship&gt;
+  &lt;work_phone&gt;
+    &lt;number&gt;+1(42)461-23-64&lt;/number&gt;
+    &lt;primary&gt;true&lt;/primary&gt;
+  &lt;/work_phone&gt;
+  &lt;home_phone&gt;
+    &lt;number&gt;+375(29)461-23-64&lt;/number&gt;
+    &lt;primary&gt;false&lt;/primary&gt;
+  &lt;/home_phone&gt;
+  &lt;cell_phone&gt;
+    &lt;number&gt;+91(33)461-23-64&lt;/number&gt;
+    &lt;primary&gt;false&lt;/primary&gt;
+  &lt;/cell_phone&gt;
+  &lt;email&gt;email@example.com&lt;/email&gt;
+  &lt;ssn&gt;123-45-6789&lt;/ssn&gt;
+  &lt;birthdate&gt;1982-09-21&lt;/birthdate&gt;
+  &lt;gender&gt;MALE&lt;/gender&gt;
+  &lt;height&gt;180cm&lt;/height&gt;
+  &lt;weight&gt;90kg&lt;/weight&gt;
+  &lt;ethnicity&gt;HISPANIC_OR_LATINO&lt;/ethnicity&gt;
+  &lt;smoker&gt;false&lt;/smoker&gt;
+  &lt;actual_marital_status&gt;Married&lt;/actual_marital_status&gt;
+  &lt;full_time_student&gt;false&lt;/full_time_student&gt;
+  &lt;disability&gt;true&lt;/disability&gt;
+  &lt;always_eligible_for_benefit_plans&gt;true&lt;/always_eligible_for_benefit_plans&gt;
+  &lt;is_in_any_benefit_plan&gt;true&lt;/is_in_any_benefit_plan&gt;
+  &lt;use_employee_address&gt;false&lt;/use_employee_address&gt;
+  &lt;_links&gt;
+    &lt;self&gt;http://localhost:8080/ta/rest/v2/companies/453121/employees/2201602/contacts/75969&lt;/self&gt;
+    &lt;edit&gt;http://localhost:8080/ta/rest/v2/companies/453121/employees/2201602/contacts/75969&lt;/edit&gt;
+    &lt;delete&gt;http://localhost:8080/ta/rest/v2/companies/453121/employees/2201602/contacts/75969&lt;/delete&gt;
+  &lt;/_links&gt;
+&lt;/contact&gt;</pre>
+</div>
+<div class="get-example-resp-tab-1" id="get-tab-resp-schema-1">
+
+<div class="jsonschema" id="schema-1">&lt;?xml version='1.0' encoding='UTF-8'?&gt;
+&lt;xs:schema attributeFormDefault="unqualified" elementFormDefault="qualified"
+           xmlns:xs="http://www.w3.org/2001/XMLSchema"&gt;
+
+  &lt;xs:element name="contact"&gt;
+    &lt;xs:complexType&gt;
+      &lt;xs:all&gt;
+        &lt;xs:element name="id" type="xs:long" minOccurs="0"/&gt;
+        &lt;xs:element name="account_id" type="xs:long" minOccurs="0"/&gt;
+        &lt;xs:element name="employee" minOccurs="0"&gt;
+          &lt;xs:complexType&gt;
+            &lt;xs:all&gt;
+              &lt;xs:element name="account_id" type="xs:long"/&gt;
+            &lt;/xs:all&gt;
+          &lt;/xs:complexType&gt;
+        &lt;/xs:element&gt;
+        &lt;xs:element name="primary" type="xs:boolean" default="false" minOccurs="0"/&gt;
+        &lt;xs:element name="emergency" type="xs:boolean" default="false" minOccurs="0"/&gt;
+        &lt;xs:element name="dependent" type="xs:boolean" default="false" minOccurs="0"/&gt;
+        &lt;xs:element name="national_id_numbers" minOccurs="0"&gt;
+          &lt;xs:complexType&gt;
+            &lt;xs:all&gt;
+              &lt;xs:element name="primary_number" type="primary_national_id_number" minOccurs="0"/&gt;
+              &lt;xs:element name="secondary_numbers" minOccurs="0"&gt;
+                &lt;xs:complexType&gt;
+                    &lt;xs:sequence&gt;
+                        &lt;xs:element name="secondary_number" type="secondary_national_id_number" minOccurs="0"
+                                    maxOccurs="unbounded"/&gt;
+                    &lt;/xs:sequence&gt;
+                &lt;/xs:complexType&gt;
+              &lt;/xs:element&gt;
+            &lt;/xs:all&gt;
+          &lt;/xs:complexType&gt;
+        &lt;/xs:element&gt;
+        &lt;xs:element name="beneficiary" type="xs:boolean" default="false" minOccurs="0"/&gt;
+        &lt;xs:element name="emergency_notif" type="xs:boolean" nillable="true" minOccurs="0"/&gt;
+        &lt;xs:element name="salutation" minOccurs="0"&gt;
+          &lt;xs:simpleType&gt;
+            &lt;xs:restriction base="xs:string"&gt;
+              &lt;xs:maxLength value="75"/&gt;
+            &lt;/xs:restriction&gt;
+          &lt;/xs:simpleType&gt;
+        &lt;/xs:element&gt;
+        &lt;xs:element name="first_name"&gt;
+          &lt;xs:simpleType&gt;
+            &lt;xs:restriction base="xs:string"&gt;
+              &lt;xs:maxLength value="75"/&gt;
+            &lt;/xs:restriction&gt;
+          &lt;/xs:simpleType&gt;
+        &lt;/xs:element&gt;
+        &lt;xs:element name="middle_name" minOccurs="0"&gt;
+          &lt;xs:simpleType&gt;
+            &lt;xs:restriction base="xs:string"&gt;
+              &lt;xs:maxLength value="75"/&gt;
+            &lt;/xs:restriction&gt;
+          &lt;/xs:simpleType&gt;
+        &lt;/xs:element&gt;
+        &lt;xs:element name="last_name"&gt;
+          &lt;xs:simpleType&gt;
+            &lt;xs:restriction base="xs:string"&gt;
+              &lt;xs:maxLength value="75"/&gt;
+            &lt;/xs:restriction&gt;
+          &lt;/xs:simpleType&gt;
+        &lt;/xs:element&gt;
+        &lt;xs:element name="name_suffix" minOccurs="0"&gt;
+          &lt;xs:simpleType&gt;
+            &lt;xs:restriction base="xs:string"&gt;
+              &lt;xs:maxLength value="15"/&gt;
+            &lt;/xs:restriction&gt;
+          &lt;/xs:simpleType&gt;
+        &lt;/xs:element&gt;
+        &lt;xs:element name="relationship"&gt;
+          &lt;xs:simpleType&gt;
+            &lt;xs:restriction base="xs:string"&gt;
+              &lt;xs:maxLength value="128"/&gt;
+            &lt;/xs:restriction&gt;
+          &lt;/xs:simpleType&gt;
+        &lt;/xs:element&gt;
+        &lt;xs:element name="work_phone" type="phone" minOccurs="0"/&gt;
+        &lt;xs:element name="home_phone" type="phone" minOccurs="0"/&gt;
+        &lt;xs:element name="cell_phone" type="phone" minOccurs="0"/&gt;
+        &lt;xs:element name="email" minOccurs="0"&gt;
+          &lt;xs:simpleType&gt;
+            &lt;xs:restriction base="xs:string"&gt;
+              &lt;xs:maxLength value="75"/&gt;
+            &lt;/xs:restriction&gt;
+          &lt;/xs:simpleType&gt;
+        &lt;/xs:element&gt;
+        &lt;xs:element name="ssn" minOccurs="0"&gt;
+          &lt;xs:annotation&gt;
+            &lt;xs:documentation xml:lang="en"&gt;Social Security Number&lt;/xs:documentation&gt;
+          &lt;/xs:annotation&gt;
+          &lt;xs:simpleType&gt;
+            &lt;xs:restriction base="xs:string"&gt;
+              &lt;xs:maxLength value="20"/&gt;
+            &lt;/xs:restriction&gt;
+          &lt;/xs:simpleType&gt;
+        &lt;/xs:element&gt;
+        &lt;xs:element name="bsn" minOccurs="0"&gt;
+          &lt;xs:annotation&gt;
+            &lt;xs:documentation xml:lang="en"&gt;Citizen Service Number&lt;/xs:documentation&gt;
+          &lt;/xs:annotation&gt;
+          &lt;xs:simpleType&gt;
+            &lt;xs:restriction base="xs:string"&gt;
+              &lt;xs:maxLength value="20"/&gt;
+            &lt;/xs:restriction&gt;
+          &lt;/xs:simpleType&gt;
+        &lt;/xs:element&gt;
+        &lt;xs:element name="sin" minOccurs="0"&gt;
+          &lt;xs:annotation&gt;
+            &lt;xs:documentation xml:lang="en"&gt;Social Insurance Number&lt;/xs:documentation&gt;
+          &lt;/xs:annotation&gt;
+          &lt;xs:simpleType&gt;
+            &lt;xs:restriction base="xs:string"&gt;
+              &lt;xs:maxLength value="20"/&gt;
+            &lt;/xs:restriction&gt;
+          &lt;/xs:simpleType&gt;
+        &lt;/xs:element&gt;
+        &lt;xs:element name="nin" minOccurs="0"&gt;
+          &lt;xs:annotation&gt;
+            &lt;xs:documentation xml:lang="en"&gt;National Insurance Number&lt;/xs:documentation&gt;
+          &lt;/xs:annotation&gt;
+          &lt;xs:simpleType&gt;
+            &lt;xs:restriction base="xs:string"&gt;
+              &lt;xs:maxLength value="20"/&gt;
+            &lt;/xs:restriction&gt;
+          &lt;/xs:simpleType&gt;
+        &lt;/xs:element&gt;
+        &lt;xs:element name="birthdate" type="xs:date" minOccurs="0"/&gt;
+        &lt;xs:element name="gender" type="gender" default="UNDEFINED" minOccurs="0"/&gt;
+        &lt;xs:element name="height" minOccurs="0"&gt;
+          &lt;xs:simpleType&gt;
+            &lt;xs:restriction base="xs:string"&gt;
+              &lt;xs:maxLength value="10"/&gt;
+            &lt;/xs:restriction&gt;
+          &lt;/xs:simpleType&gt;
+        &lt;/xs:element&gt;
+        &lt;xs:element name="weight" minOccurs="0"&gt;
+          &lt;xs:simpleType&gt;
+            &lt;xs:restriction base="xs:string"&gt;
+              &lt;xs:maxLength value="10"/&gt;
+            &lt;/xs:restriction&gt;
+          &lt;/xs:simpleType&gt;
+        &lt;/xs:element&gt;
+        &lt;xs:element name="ethnicity" type="ethnicity" minOccurs="0"/&gt;
+        &lt;xs:element name="smoker" type="xs:boolean" minOccurs="0"/&gt;
+        &lt;xs:element name="actual_marital_status" minOccurs="0"&gt;
+          &lt;xs:simpleType&gt;
+            &lt;xs:restriction base="xs:string"&gt;
+              &lt;xs:maxLength value="55"/&gt;
+            &lt;/xs:restriction&gt;
+          &lt;/xs:simpleType&gt;
+        &lt;/xs:element&gt;
+        &lt;xs:element name="full_time_student" type="xs:boolean" minOccurs="0"/&gt;
+        &lt;xs:element name="disability" type="xs:boolean" minOccurs="0"/&gt;
+        &lt;xs:element name="always_eligible_for_benefit_plans" type="xs:boolean" default="false" minOccurs="0"/&gt;
+        &lt;xs:element name="is_in_any_benefit_plan" type="xs:boolean" minOccurs="0"/&gt;
+        &lt;xs:element name="use_employee_address" type="xs:boolean" default="false" minOccurs="0"/&gt;
+        &lt;xs:element name="address" type="address" minOccurs="0"/&gt;
+        &lt;xs:element name="comments" type="xs:string" minOccurs="0"/&gt;
+        &lt;xs:element name="_links" minOccurs="0"&gt;
+          &lt;xs:complexType&gt;
+            &lt;xs:all&gt;
+              &lt;xs:element name="self" type="xs:string"/&gt;
+              &lt;xs:element name="edit" type="xs:string" minOccurs="0"/&gt;
+              &lt;xs:element name="delete" type="xs:string" minOccurs="0"/&gt;
+            &lt;/xs:all&gt;
+          &lt;/xs:complexType&gt;
+        &lt;/xs:element&gt;
+      &lt;/xs:all&gt;
+    &lt;/xs:complexType&gt;
+  &lt;/xs:element&gt;
+
+  &lt;xs:complexType name="phone"&gt;
+    &lt;xs:all&gt;
+      &lt;xs:element name="number"&gt;
+        &lt;xs:simpleType&gt;
+          &lt;xs:restriction base="xs:string"&gt;
+            &lt;xs:maxLength value="55"/&gt;
+          &lt;/xs:restriction&gt;
+        &lt;/xs:simpleType&gt;
+      &lt;/xs:element&gt;
+      &lt;xs:element name="primary" type="xs:boolean" default="false" minOccurs="0"/&gt;
+    &lt;/xs:all&gt;
+  &lt;/xs:complexType&gt;
+
+  &lt;xs:simpleType name="gender"&gt;
+    &lt;xs:restriction base="xs:string"&gt;
+      &lt;xs:enumeration value="MALE"/&gt;
+      &lt;xs:enumeration value="FEMALE"/&gt;
+      &lt;xs:enumeration value="UNDEFINED"/&gt;
+    &lt;/xs:restriction&gt;
+  &lt;/xs:simpleType&gt;
+
+  &lt;xs:simpleType name="ethnicity"&gt;
+    &lt;xs:restriction base="xs:string"&gt;
+      &lt;xs:enumeration value="HISPANIC_OR_LATINO"/&gt;
+      &lt;xs:enumeration value="WHITE"/&gt;
+      &lt;xs:enumeration value="BLACK_OR_AFRICAN_AMERICAN"/&gt;
+      &lt;xs:enumeration value="NATIVE_HAWAIIAN_OR_OTHER_PACIFIC_ISLANDER"/&gt;
+      &lt;xs:enumeration value="ASIAN"/&gt;
+      &lt;xs:enumeration value="AMERICAN_INDIAN_OR_ALASKA_NATIVE"/&gt;
+      &lt;xs:enumeration value="TWO_OR_MORE_RACES"/&gt;
+      &lt;xs:enumeration value="ASIAN_OTHER"/&gt;
+      &lt;xs:enumeration value="BANGLADESHI"/&gt;
+      &lt;xs:enumeration value="BLACK_AFRICAN"/&gt;
+      &lt;xs:enumeration value="BLACK_CARIBBEAN"/&gt;
+      &lt;xs:enumeration value="BLACK_OTHER"/&gt;
+      &lt;xs:enumeration value="CHINESE"/&gt;
+      &lt;xs:enumeration value="INDIAN"/&gt;
+      &lt;xs:enumeration value="MIXED_AFRICAN"/&gt;
+      &lt;xs:enumeration value="MIXED_ASIAN"/&gt;
+      &lt;xs:enumeration value="MIXED_CARIBBEAN"/&gt;
+      &lt;xs:enumeration value="MIXED_OTHER"/&gt;
+      &lt;xs:enumeration value="OTHER"/&gt;
+      &lt;xs:enumeration value="PAKISTANI"/&gt;
+      &lt;xs:enumeration value="WHITE_BRITISH"/&gt;
+      &lt;xs:enumeration value="WHITE_IRISH"/&gt;
+      &lt;xs:enumeration value="WHITE_OTHER"/&gt;
+    &lt;/xs:restriction&gt;
+  &lt;/xs:simpleType&gt;
+
+  &lt;xs:complexType name="address"&gt;
+    &lt;xs:sequence&gt;
+      &lt;xs:element name="address_line_1" minOccurs="0"&gt;
+        &lt;xs:simpleType&gt;
+          &lt;xs:restriction base="xs:string"&gt;
+            &lt;xs:maxLength value="128"/&gt;
+          &lt;/xs:restriction&gt;
+        &lt;/xs:simpleType&gt;
+      &lt;/xs:element&gt;
+      &lt;xs:element name="address_line_2" minOccurs="0"&gt;
+        &lt;xs:simpleType&gt;
+          &lt;xs:restriction base="xs:string"&gt;
+            &lt;xs:maxLength value="128"/&gt;
+          &lt;/xs:restriction&gt;
+        &lt;/xs:simpleType&gt;
+      &lt;/xs:element&gt;
+      &lt;xs:element name="address_line_3" minOccurs="0"&gt;
+        &lt;xs:simpleType&gt;
+          &lt;xs:restriction base="xs:string"&gt;
+            &lt;xs:maxLength value="128"/&gt;
+          &lt;/xs:restriction&gt;
+        &lt;/xs:simpleType&gt;
+      &lt;/xs:element&gt;
+      &lt;xs:element name="country" minOccurs="0"&gt;
+        &lt;xs:simpleType&gt;
+          &lt;xs:restriction base="xs:string"&gt;
+            &lt;xs:maxLength value="55"/&gt;
+          &lt;/xs:restriction&gt;
+        &lt;/xs:simpleType&gt;
+      &lt;/xs:element&gt;
+      &lt;xs:element name="city" minOccurs="0"&gt;
+      &lt;xs:simpleType&gt;
+        &lt;xs:restriction base="xs:string"&gt;
+          &lt;xs:maxLength value="64"/&gt;
+        &lt;/xs:restriction&gt;
+      &lt;/xs:simpleType&gt;
+    &lt;/xs:element&gt;
+      &lt;xs:element name="state" minOccurs="0"&gt;
+        &lt;xs:simpleType&gt;
+          &lt;xs:restriction base="xs:string"&gt;
+            &lt;xs:maxLength value="55"/&gt;
+          &lt;/xs:restriction&gt;
+        &lt;/xs:simpleType&gt;
+      &lt;/xs:element&gt;
+      &lt;xs:element name="zip" minOccurs="0"&gt;
+        &lt;xs:simpleType&gt;
+          &lt;xs:restriction base="xs:string"&gt;
+            &lt;xs:maxLength value="15"/&gt;
+          &lt;/xs:restriction&gt;
+        &lt;/xs:simpleType&gt;
+      &lt;/xs:element&gt;
+      &lt;xs:element name="number" minOccurs="0"&gt;
+        &lt;xs:simpleType&gt;
+          &lt;xs:restriction base="xs:string"&gt;
+            &lt;xs:maxLength value="10"/&gt;
+          &lt;/xs:restriction&gt;
+        &lt;/xs:simpleType&gt;
+      &lt;/xs:element&gt;
+      &lt;xs:element name="number_addition" minOccurs="0"&gt;
+        &lt;xs:simpleType&gt;
+          &lt;xs:restriction base="xs:string"&gt;
+            &lt;xs:maxLength value="10"/&gt;
+          &lt;/xs:restriction&gt;
+        &lt;/xs:simpleType&gt;
+      &lt;/xs:element&gt;
+    &lt;/xs:sequence&gt;
+  &lt;/xs:complexType&gt;
+
+  &lt;xs:complexType name="primary_national_id_number"&gt;
+    &lt;xs:all&gt;
+      &lt;xs:element name="type" type="primary_national_id_type"/&gt;
+      &lt;xs:element name="value" minOccurs="0"&gt;
+        &lt;xs:simpleType&gt;
+          &lt;xs:restriction base="xs:string"&gt;
+            &lt;xs:maxLength value="25"/&gt;
+          &lt;/xs:restriction&gt;
+        &lt;/xs:simpleType&gt;
+      &lt;/xs:element&gt;
+    &lt;/xs:all&gt;
+  &lt;/xs:complexType&gt;
+  &lt;xs:complexType name="secondary_national_id_number"&gt;
+    &lt;xs:all&gt;
+      &lt;xs:element name="type" type="secondary_national_id_type"/&gt;
+      &lt;xs:element name="value" minOccurs="0"&gt;
+        &lt;xs:simpleType&gt;
+          &lt;xs:restriction base="xs:string"&gt;
+            &lt;xs:maxLength value="25"/&gt;
+          &lt;/xs:restriction&gt;
+        &lt;/xs:simpleType&gt;
+      &lt;/xs:element&gt;
+    &lt;/xs:all&gt;
+  &lt;/xs:complexType&gt;
+  &lt;xs:simpleType name="primary_national_id_type"&gt;
+    &lt;xs:restriction base="xs:string"&gt;
+      &lt;xs:enumeration value="SSN"/&gt;
+      &lt;xs:enumeration value="BSN"/&gt;
+      &lt;xs:enumeration value="SIN"/&gt;
+      &lt;xs:enumeration value="NIN"/&gt;
+      &lt;xs:enumeration value="TFN"/&gt;
+      &lt;xs:enumeration value="NSS"/&gt;
+      &lt;xs:enumeration value="OTHER_1"/&gt;
+      &lt;xs:enumeration value="OTHER_2"/&gt;
+      &lt;xs:enumeration value="OTHER_3"/&gt;
+      &lt;xs:enumeration value="OTHER_4"/&gt;
+      &lt;xs:enumeration value="OTHER_5"/&gt;
+      &lt;xs:enumeration value="OTHER_6"/&gt;
+      &lt;xs:enumeration value="OTHER_7"/&gt;
+      &lt;xs:enumeration value="OTHER_8"/&gt;
+      &lt;xs:enumeration value="OTHER_9"/&gt;
+      &lt;xs:enumeration value="OTHER_10"/&gt;
+      &lt;xs:enumeration value="NO_ID_NEEDED"/&gt;
+    &lt;/xs:restriction&gt;
+  &lt;/xs:simpleType&gt;
+  &lt;xs:simpleType name="secondary_national_id_type"&gt;
+    &lt;xs:restriction base="xs:string"&gt;
+      &lt;xs:enumeration value="SSN"/&gt;
+      &lt;xs:enumeration value="BSN"/&gt;
+      &lt;xs:enumeration value="SIN"/&gt;
+      &lt;xs:enumeration value="NIN"/&gt;
+      &lt;xs:enumeration value="TFN"/&gt;
+      &lt;xs:enumeration value="NSS"/&gt;
+      &lt;xs:enumeration value="OTHER_1"/&gt;
+      &lt;xs:enumeration value="OTHER_2"/&gt;
+      &lt;xs:enumeration value="OTHER_3"/&gt;
+      &lt;xs:enumeration value="OTHER_4"/&gt;
+      &lt;xs:enumeration value="OTHER_5"/&gt;
+      &lt;xs:enumeration value="OTHER_6"/&gt;
+      &lt;xs:enumeration value="OTHER_7"/&gt;
+      &lt;xs:enumeration value="OTHER_8"/&gt;
+      &lt;xs:enumeration value="OTHER_9"/&gt;
+      &lt;xs:enumeration value="OTHER_10"/&gt;
+    &lt;/xs:restriction&gt;
+  &lt;/xs:simpleType&gt;
+&lt;/xs:schema&gt;</div>
+</div>
+</div>
+</div>
+</div>
+</article>
+</section>
+<section class="clearfix">
+<article class="definition">
+<h3 class="anchored" id="put"><span>PUT</span>
+<a class="fa fa-link link-anchor" data-url="r=__v2__companies__(cid)__contacts__(id)#put" data-web-id="__v2__companies__(cid)__contacts__(id)"></a>
+</h3>
+<div class="md"><p>Updates an existing employee's contact information.
+The fields 'bsn', 'social_insurance', 'social_security', and 'national_insurance' are for backward compatibility; the system uses old processing rules if they are included in the request.
+The new pattern for national identification numbers is represented by the 'national_id_numbers' field.
+&lt;b&gt;Note&lt;/b&gt;: 'national_id_numbers' is ignored if the request contains any of 'bsn', 'social_insurance', 'social_security', or 'national_insurance' fields.
+</p></div>
+<div>
+<ul class="annotation-list">
+<li class="annotation">
+<span>v2</span>
+</li>
+</ul>
+</div>
+<h4>Parameters</h4>
+<h5>Path Parameters</h5>
+<ul class="param-list">
+<li>
+<div class="param-desc">
+<div class="param-name">cid</div>
+<div class="data-type">string</div>
+<div class="required">required</div>
+</div>
+<div class="param-content">
+<div>
+<p>Example: 123456</p>
+<div class="desc md">Company should be referenced via company id or company unique id or company short name using `|short_name` or `!short_name` format.
+</div>
+</div>
+</div>
+
+</li>
+<li>
+<div class="param-desc">
+<div class="param-name">id</div>
+<div class="data-type">integer</div>
+<div class="required">required</div>
+</div>
+<div class="param-content">
+<div>
+<div class="desc md">Employee Contact id.</div>
+</div>
+</div>
+
+</li>
+</ul>
+<h5>Header Parameters</h5>
+<ul class="param-list">
+<li>
+<div class="param-desc">
+<div class="param-name">Accept</div>
+<div class="data-type">string</div>
+</div>
+<div class="param-content">
+<div>
+<p>Valid values: application/json, application/xml, text/xml</p>
+<p>Default: application/json</p>
+<p>Example: application/json</p>
+</div>
+</div>
+
+</li>
+<li>
+<div class="param-desc">
+<div class="param-name">Content-Type</div>
+<div class="data-type">string</div>
+<div class="required">required</div>
+</div>
+<div class="param-content">
+<div>
+<p>Valid values: application/xml, text/xml, application/json</p>
+<p>Example: application/json</p>
+</div>
+</div>
+
+</li>
+<li>
+<div class="param-desc">
+<div class="param-name">Content-Length</div>
+<div class="data-type">integer</div>
+<div class="required">required</div>
+</div>
+<div class="param-content">
+<div>
+</div>
+</div>
+
+</li>
+</ul>
+<h4>Responses</h4>
+<div class="responses">
+<div>
+<label class="response response-success">
+<span class="fa fa-check"></span>
+<input data-full-tab-id="put-resp-code-tab-id-0" data-tab-class="resp-code-tab-put" name="resp-code-tab-put" type="radio"/>
+<span class="status">204 No Content</span>
+</label>
+<div class="response-desc resp-code-tab-put" id="put-resp-code-tab-id-0">
+<div class="md"><p>Employee contact was successfully updated.</p></div>
+</div>
+</div>
+<div>
+<label class="response response-error">
+<span class="fa fa-times"></span>
+<input data-full-tab-id="put-resp-code-tab-id-1" data-tab-class="resp-code-tab-put" name="resp-code-tab-put" type="radio"/>
+<span class="status">401 Unauthorized</span>
+</label>
+<div class="response-desc resp-code-tab-put" id="put-resp-code-tab-id-1">
+<div class="md"><p>Returned in case user is not authorized.</p></div>
+</div>
+</div>
+<div>
+<label class="response response-error">
+<span class="fa fa-times"></span>
+<input data-full-tab-id="put-resp-code-tab-id-2" data-tab-class="resp-code-tab-put" name="resp-code-tab-put" type="radio"/>
+<span class="status">403 Forbidden</span>
+</label>
+<div class="response-desc resp-code-tab-put" id="put-resp-code-tab-id-2">
+<div class="md"><p>Returned in case user has no access to the resource.</p></div>
+</div>
+</div>
+<div>
+<label class="response response-error">
+<span class="fa fa-times"></span>
+<input data-full-tab-id="put-resp-code-tab-id-3" data-tab-class="resp-code-tab-put" name="resp-code-tab-put" type="radio"/>
+<span class="status">404 Not Found</span>
+</label>
+<div class="response-desc resp-code-tab-put" id="put-resp-code-tab-id-3">
+<div class="md"><p>Returned in case resource does not exist.</p></div>
+</div>
+</div>
+<div>
+<label class="response response-error">
+<span class="fa fa-times"></span>
+<input data-full-tab-id="put-resp-code-tab-id-4" data-tab-class="resp-code-tab-put" name="resp-code-tab-put" type="radio"/>
+<span class="status">503 Service Unavailable</span>
+</label>
+<div class="response-desc resp-code-tab-put" id="put-resp-code-tab-id-4">
+<div class="md"><p>Returned in the event that the call limit is exceeded. The application will be unavailable for subsequent calls for the duration specified by the X-CallLimit-TimeToWait header.</p></div>
+</div>
+</div>
+</div>
+</article>
+<article class="code">
+<h4>Definition</h4>
+<div class="uri">
+<code>
+<span class="method put">put</span>
+<span class="textUri"><span class="baseUri">{{ getUriPrefix() }}</span><span class="relativeUri">/v2/companies/{cid}/contacts/{id}</span></span>
+</code>
+</div>
+<h4>Request Samples</h4>
+<div class="tab-title-group">
+<label>
+<input checked="checked" data-full-tab-id="req-tab-id-put-0" data-tab-class="req-tab-put" name="req-tab-put" type="radio"/>
+<span class="tab-title">application/json</span>
+</label>
+<label>
+<input data-full-tab-id="req-tab-id-put-1" data-tab-class="req-tab-put" name="req-tab-put" type="radio"/>
+<span class="tab-title">application/xml</span>
+</label>
+</div>
+<div>
+<div class="req-tab-put" id="req-tab-id-put-0">
+<div class="example">
+
+<div class="put-example-tab-0 activeTab" id="put-tab-example-0">
+
+<pre class="highlightjs">{
+  "employee": {
+    "account_id": 52353250
+  },
+  "primary": true,
+  "emergency": true,
+  "dependent": false,
+  "beneficiary": false,
+  "emergency_notif": null,
+  "salutation": "Hola",
+  "first_name": "John",
+  "middle_name": "Bob",
+  "last_name": "Smith",
+  "name_suffix": "PhD",
+  "relationship": "Spouse",
+  "work_phone": {
+    "code": 0,
+    "number": "+1(42)461-23-64",
+    "primary": true
+  },
+  "home_phone": {
+    "code": 0,
+    "number": "+375(29)461-23-64",
+    "primary": false
+  },
+  "cell_phone": {
+    "code": 0,
+    "number": "+91(33)461-23-64",
+    "primary": false
+  },
+  "email": "email@example.com",
+  "national_id_numbers": {
+    "primary_number": {
+      "type": "SSN",
+      "value": "123-45-6789"
+    },
+    "secondary_numbers": [
+      {
+        "type": "BSN",
+        "value": "111222333"
+      }
+    ]
+  },
+  "ssn": "123-45-6789",
+  "birthdate": "1982-09-21",
+  "gender": "MALE",
+  "height": "180cm",
+  "weight": "90kg",
+  "ethnicity": "HISPANIC_OR_LATINO",
+  "smoker": false,
+  "actual_marital_status": "Married",
+  "full_time_student": false,
+  "disability": true,
+  "always_eligible_for_benefit_plans": true,
+  "use_employee_address": true,
+  "is_in_any_benefit_plan": false
+}
+</pre>
+</div>
+<div class="put-example-tab-0" id="put-tab-schema-0">
+
+<div class="jsonschema" id="schema-2">{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "type": "object",
+  "properties": {
+    "id": {
+      "type": "integer"
+    },
+    "account_id": {
+      "type": "number",
+      "format": "long"
+    },
+    "employee": {
+      "type": "object",
+      "properties": {
+        "account_id": {
+          "type": "number",
+          "format": "long"
+        }
+      },
+      "additionalProperties": false,
+      "required": [
+        "account_id"
+      ]
+    },
+    "primary": {
+      "type": "boolean",
+      "default": false
+    },
+    "national_id_numbers": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "primary_number": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "value": {
+              "type": "string",
+              "maxLength": 25
+            },
+            "type": {
+              "type": "string",
+              "enum": [
+                "SSN",
+                "BSN",
+                "SIN",
+                "NIN",
+                "TFN",
+                "NSS",
+                "OTHER_1",
+                "OTHER_2",
+                "OTHER_3",
+                "OTHER_4",
+                "OTHER_5",
+                "OTHER_6",
+                "OTHER_7",
+                "OTHER_8",
+                "OTHER_9",
+                "OTHER_10",
+                "NO_ID_NEEDED"
+              ]
+            }
+          }
+        },
+        "secondary_numbers": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+              "value": {
+                "type": "string",
+                "maxLength": 25
+              },
+              "type": {
+                "type": "string",
+                "enum": [
+                  "SSN",
+                  "BSN",
+                  "SIN",
+                  "NIN",
+                  "TFN",
+                  "NSS",
+                  "OTHER_1",
+                  "OTHER_2",
+                  "OTHER_3",
+                  "OTHER_4",
+                  "OTHER_5",
+                  "OTHER_6",
+                  "OTHER_7",
+                  "OTHER_8",
+                  "OTHER_9",
+                  "OTHER_10"
+                ]
+              }
+            }
+          }
+        }
+      }
+    },
+    "emergency": {
+      "type": "boolean",
+      "default": false
+    },
+    "dependent": {
+      "type": "boolean",
+      "default": false
+    },
+    "beneficiary": {
+      "type": "boolean",
+      "default": false
+    },
+    "emergency_notif": {
+      "type": [
+        "boolean",
+        "null"
+      ],
+      "default": null
+    },
+    "salutation": {
+      "type": "string",
+      "maxLength": 35
+    },
+    "first_name": {
+      "type": "string",
+      "maxLength": 75
+    },
+    "middle_name": {
+      "type": "string",
+      "maxLength": 75
+    },
+    "last_name": {
+      "type": "string",
+      "maxLength": 75
+    },
+    "name_suffix": {
+      "type": "string",
+      "maxLength": 15
+    },
+    "relationship": {
+      "type": "string",
+      "maxLength": 128
+    },
+    "work_phone": {
+      "type": "object",
+      "properties": {
+        "code": {
+          "type": "integer"
+        },
+        "number": {
+          "type": "string",
+          "maxLength": 55
+        },
+        "primary": {
+          "type": "boolean",
+          "default": false
+        }
+      },
+      "additionalProperties": false,
+      "required": [
+        "number"
+      ]
+    },
+    "home_phone": {
+      "type": "object",
+      "properties": {
+        "code": {
+          "type": "integer"
+        },
+        "number": {
+          "type": "string",
+          "maxLength": 55
+        },
+        "primary": {
+          "type": "boolean",
+          "default": false
+        }
+      },
+      "additionalProperties": false,
+      "required": [
+        "number"
+      ]
+    },
+    "cell_phone": {
+      "type": "object",
+      "properties": {
+        "code": {
+          "type": "integer"
+        },
+        "number": {
+          "type": "string",
+          "maxLength": 55
+        },
+        "primary": {
+          "type": "boolean",
+          "default": false
+        }
+      },
+      "additionalProperties": false,
+      "required": [
+        "number"
+      ]
+    },
+    "email": {
+      "type": "string",
+      "format": "email",
+      "maxLength": 75
+    },
+    "ssn": {
+      "description": "Social Security Number",
+      "type": "string",
+      "maxLength": 20
+    },
+    "bsn": {
+      "description": "Citizen Service Number",
+      "type": "string",
+      "maxLength": 20
+    },
+    "sin": {
+      "description": "Social Insurance Number",
+      "type": "string",
+      "maxLength": 20
+    },
+    "nin": {
+      "description": "National Insurance Number",
+      "type": "string",
+      "maxLength": 20
+    },
+    "birthdate": {
+      "type": "string",
+      "description": "Date needs to be in the format yyyy-mm-dd within the 1900-12-31 and 2079-06-05 date range",
+      "pattern": "^(19[0-9]{2}|20[0-6][0-9]|2070)-(0[1-9]|1[0-2])-(0[1-9]|[1-2][0-9]|3[0-1])$"
+    },
+    "gender": {
+      "type": "string",
+      "enum": [
+        "MALE",
+        "FEMALE",
+        "UNDEFINED"
+      ],
+      "default": "UNDEFINED"
+    },
+    "has_activate_deactivate_permission": {
+      "type": "boolean",
+      "default": false
+    },
+    "has_emergency_notification_permission": {
+      "type": "boolean",
+      "default": false
+    },
+    "height": {
+      "type": "string",
+      "maxLength": 10
+    },
+    "weight": {
+      "type": "string",
+      "maxLength": 10
+    },
+    "ethnicity": {
+      "type": "string",
+      "enum": [
+        "HISPANIC_OR_LATINO",
+        "WHITE",
+        "BLACK_OR_AFRICAN_AMERICAN",
+        "NATIVE_HAWAIIAN_OR_OTHER_PACIFIC_ISLANDER",
+        "ASIAN",
+        "AMERICAN_INDIAN_OR_ALASKA_NATIVE",
+        "TWO_OR_MORE_RACES",
+        "ASIAN_OTHER",
+        "BANGLADESHI",
+        "BLACK_AFRICAN",
+        "BLACK_CARIBBEAN",
+        "BLACK_OTHER",
+        "CHINESE",
+        "INDIAN",
+        "MIXED_AFRICAN",
+        "MIXED_ASIAN",
+        "MIXED_CARIBBEAN",
+        "MIXED_OTHER",
+        "OTHER",
+        "PAKISTANI",
+        "WHITE_BRITISH",
+        "WHITE_IRISH",
+        "WHITE_OTHER"
+      ]
+    },
+    "smoker": {
+      "type": "boolean"
+    },
+    "actual_marital_status": {
+      "type": "string",
+      "maxLength": 55
+    },
+    "full_time_student": {
+      "type": "boolean"
+    },
+    "disability": {
+      "type": "boolean"
+    },
+    "always_eligible_for_benefit_plans": {
+      "type": "boolean",
+      "default": "false"
+    },
+    "is_in_any_benefit_plan": {
+      "type": "boolean"
+    },
+    "use_employee_address": {
+      "type": "boolean",
+      "default": "false"
+    },
+    "address": {
+      "type": "object",
+      "properties": {
+        "address_line_1": {
+          "type": "string",
+          "maxLength": 128
+        },
+        "address_line_2": {
+          "type": "string",
+          "maxLength": 128
+        },
+        "address_line_3": {
+          "type": "string",
+          "maxLength": 128
+        },
+        "country": {
+          "type": "string",
+          "maxLength": 55
+        },
+        "city": {
+          "type": "string",
+          "maxLength": 64
+        },
+        "state": {
+          "type": "string",
+          "maxLength": 55
+        },
+        "zip": {
+          "type": "string",
+          "maxLength": 15
+        },
+        "number": {
+          "type": "string",
+          "maxLength": 10
+        },
+        "number_addition": {
+          "type": "string",
+          "maxLength": 10
+        }
+      }
+    },
+    "comments": {
+      "type": "string"
+    },
+    "_links": {
+      "type": "object",
+      "properties": {
+        "self": {
+          "type": "string"
+        },
+        "edit": {
+          "type": "string"
+        },
+        "delete": {
+          "type": "string"
+        }
+      },
+      "additionalProperties": false,
+      "required": [
+        "self"
+      ]
+    }
+  },
+  "additionalProperties": false,
+  "required": [
+    "first_name",
+    "last_name",
+    "relationship"
+  ]
+}</div>
+</div>
+</div>
+</div>
+<div class="req-tab-put" id="req-tab-id-put-1">
+<div class="example">
+
+<div class="put-example-tab-1 activeTab" id="put-tab-example-1">
+
+<pre class="highlightjs">&lt;?xml version='1.0' encoding='UTF-8'?&gt;
+&lt;contact xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"&gt;
+  &lt;primary&gt;true&lt;/primary&gt;
+  &lt;emergency&gt;true&lt;/emergency&gt;
+  &lt;dependent&gt;true&lt;/dependent&gt;
+  &lt;beneficiary&gt;false&lt;/beneficiary&gt;
+  &lt;emergency_notif xsi:nil="true"/&gt;
+  &lt;salutation&gt;Hola&lt;/salutation&gt;
+  &lt;first_name&gt;John&lt;/first_name&gt;
+  &lt;middle_name&gt;Bob&lt;/middle_name&gt;
+  &lt;last_name&gt;Smith&lt;/last_name&gt;
+  &lt;name_suffix&gt;PhD&lt;/name_suffix&gt;
+  &lt;relationship&gt;Spouse&lt;/relationship&gt;
+  &lt;work_phone&gt;
+    &lt;number&gt;+1(42)461-23-64&lt;/number&gt;
+    &lt;primary&gt;true&lt;/primary&gt;
+  &lt;/work_phone&gt;
+  &lt;home_phone&gt;
+    &lt;number&gt;+375(29)461-23-64&lt;/number&gt;
+    &lt;primary&gt;false&lt;/primary&gt;
+  &lt;/home_phone&gt;
+  &lt;cell_phone&gt;
+    &lt;number&gt;+91(33)461-23-64&lt;/number&gt;
+    &lt;primary&gt;false&lt;/primary&gt;
+  &lt;/cell_phone&gt;
+  &lt;email&gt;email@example.com&lt;/email&gt;
+  &lt;national_id_numbers&gt;
+    &lt;primary_number&gt;
+      &lt;type&gt;BSN&lt;/type&gt;
+      &lt;value&gt;123456782&lt;/value&gt;
+    &lt;/primary_number&gt;
+    &lt;secondary_numbers&gt;
+      &lt;secondary_number&gt;
+        &lt;type&gt;SSN&lt;/type&gt;
+        &lt;value&gt;123456789&lt;/value&gt;
+      &lt;/secondary_number&gt;
+      &lt;secondary_number&gt;
+        &lt;type&gt;TFN&lt;/type&gt;
+        &lt;value&gt;987654321&lt;/value&gt;
+      &lt;/secondary_number&gt;
+    &lt;/secondary_numbers&gt;
+  &lt;/national_id_numbers&gt;
+  &lt;ssn&gt;123-45-6789&lt;/ssn&gt;
+  &lt;birthdate&gt;1982-09-21&lt;/birthdate&gt;
+  &lt;gender&gt;MALE&lt;/gender&gt;
+  &lt;height&gt;180cm&lt;/height&gt;
+  &lt;weight&gt;90kg&lt;/weight&gt;
+  &lt;ethnicity&gt;HISPANIC_OR_LATINO&lt;/ethnicity&gt;
+  &lt;smoker&gt;false&lt;/smoker&gt;
+  &lt;actual_marital_status&gt;Married&lt;/actual_marital_status&gt;
+  &lt;full_time_student&gt;false&lt;/full_time_student&gt;
+  &lt;disability&gt;true&lt;/disability&gt;
+  &lt;always_eligible_for_benefit_plans&gt;true&lt;/always_eligible_for_benefit_plans&gt;
+  &lt;use_employee_address&gt;false&lt;/use_employee_address&gt;
+&lt;/contact&gt;</pre>
+</div>
+<div class="put-example-tab-1" id="put-tab-schema-1">
+
+<div class="jsonschema" id="schema-3">&lt;?xml version='1.0' encoding='UTF-8'?&gt;
+&lt;xs:schema attributeFormDefault="unqualified" elementFormDefault="qualified"
+           xmlns:xs="http://www.w3.org/2001/XMLSchema"&gt;
+
+  &lt;xs:element name="contact"&gt;
+    &lt;xs:complexType&gt;
+      &lt;xs:all&gt;
+        &lt;xs:element name="id" type="xs:long" minOccurs="0"/&gt;
+        &lt;xs:element name="account_id" type="xs:long" minOccurs="0"/&gt;
+        &lt;xs:element name="employee" minOccurs="0"&gt;
+          &lt;xs:complexType&gt;
+            &lt;xs:all&gt;
+              &lt;xs:element name="account_id" type="xs:long"/&gt;
+            &lt;/xs:all&gt;
+          &lt;/xs:complexType&gt;
+        &lt;/xs:element&gt;
+        &lt;xs:element name="primary" type="xs:boolean" default="false" minOccurs="0"/&gt;
+        &lt;xs:element name="emergency" type="xs:boolean" default="false" minOccurs="0"/&gt;
+        &lt;xs:element name="dependent" type="xs:boolean" default="false" minOccurs="0"/&gt;
+        &lt;xs:element name="national_id_numbers" minOccurs="0"&gt;
+          &lt;xs:complexType&gt;
+            &lt;xs:all&gt;
+              &lt;xs:element name="primary_number" type="primary_national_id_number" minOccurs="0"/&gt;
+              &lt;xs:element name="secondary_numbers" minOccurs="0"&gt;
+                &lt;xs:complexType&gt;
+                    &lt;xs:sequence&gt;
+                        &lt;xs:element name="secondary_number" type="secondary_national_id_number" minOccurs="0"
+                                    maxOccurs="unbounded"/&gt;
+                    &lt;/xs:sequence&gt;
+                &lt;/xs:complexType&gt;
+              &lt;/xs:element&gt;
+            &lt;/xs:all&gt;
+          &lt;/xs:complexType&gt;
+        &lt;/xs:element&gt;
+        &lt;xs:element name="beneficiary" type="xs:boolean" default="false" minOccurs="0"/&gt;
+        &lt;xs:element name="emergency_notif" type="xs:boolean" nillable="true" minOccurs="0"/&gt;
+        &lt;xs:element name="salutation" minOccurs="0"&gt;
+          &lt;xs:simpleType&gt;
+            &lt;xs:restriction base="xs:string"&gt;
+              &lt;xs:maxLength value="75"/&gt;
+            &lt;/xs:restriction&gt;
+          &lt;/xs:simpleType&gt;
+        &lt;/xs:element&gt;
+        &lt;xs:element name="first_name"&gt;
+          &lt;xs:simpleType&gt;
+            &lt;xs:restriction base="xs:string"&gt;
+              &lt;xs:maxLength value="75"/&gt;
+            &lt;/xs:restriction&gt;
+          &lt;/xs:simpleType&gt;
+        &lt;/xs:element&gt;
+        &lt;xs:element name="middle_name" minOccurs="0"&gt;
+          &lt;xs:simpleType&gt;
+            &lt;xs:restriction base="xs:string"&gt;
+              &lt;xs:maxLength value="75"/&gt;
+            &lt;/xs:restriction&gt;
+          &lt;/xs:simpleType&gt;
+        &lt;/xs:element&gt;
+        &lt;xs:element name="last_name"&gt;
+          &lt;xs:simpleType&gt;
+            &lt;xs:restriction base="xs:string"&gt;
+              &lt;xs:maxLength value="75"/&gt;
+            &lt;/xs:restriction&gt;
+          &lt;/xs:simpleType&gt;
+        &lt;/xs:element&gt;
+        &lt;xs:element name="name_suffix" minOccurs="0"&gt;
+          &lt;xs:simpleType&gt;
+            &lt;xs:restriction base="xs:string"&gt;
+              &lt;xs:maxLength value="15"/&gt;
+            &lt;/xs:restriction&gt;
+          &lt;/xs:simpleType&gt;
+        &lt;/xs:element&gt;
+        &lt;xs:element name="relationship"&gt;
+          &lt;xs:simpleType&gt;
+            &lt;xs:restriction base="xs:string"&gt;
+              &lt;xs:maxLength value="128"/&gt;
+            &lt;/xs:restriction&gt;
+          &lt;/xs:simpleType&gt;
+        &lt;/xs:element&gt;
+        &lt;xs:element name="work_phone" type="phone" minOccurs="0"/&gt;
+        &lt;xs:element name="home_phone" type="phone" minOccurs="0"/&gt;
+        &lt;xs:element name="cell_phone" type="phone" minOccurs="0"/&gt;
+        &lt;xs:element name="email" minOccurs="0"&gt;
+          &lt;xs:simpleType&gt;
+            &lt;xs:restriction base="xs:string"&gt;
+              &lt;xs:maxLength value="75"/&gt;
+            &lt;/xs:restriction&gt;
+          &lt;/xs:simpleType&gt;
+        &lt;/xs:element&gt;
+        &lt;xs:element name="ssn" minOccurs="0"&gt;
+          &lt;xs:annotation&gt;
+            &lt;xs:documentation xml:lang="en"&gt;Social Security Number&lt;/xs:documentation&gt;
+          &lt;/xs:annotation&gt;
+          &lt;xs:simpleType&gt;
+            &lt;xs:restriction base="xs:string"&gt;
+              &lt;xs:maxLength value="20"/&gt;
+            &lt;/xs:restriction&gt;
+          &lt;/xs:simpleType&gt;
+        &lt;/xs:element&gt;
+        &lt;xs:element name="bsn" minOccurs="0"&gt;
+          &lt;xs:annotation&gt;
+            &lt;xs:documentation xml:lang="en"&gt;Citizen Service Number&lt;/xs:documentation&gt;
+          &lt;/xs:annotation&gt;
+          &lt;xs:simpleType&gt;
+            &lt;xs:restriction base="xs:string"&gt;
+              &lt;xs:maxLength value="20"/&gt;
+            &lt;/xs:restriction&gt;
+          &lt;/xs:simpleType&gt;
+        &lt;/xs:element&gt;
+        &lt;xs:element name="sin" minOccurs="0"&gt;
+          &lt;xs:annotation&gt;
+            &lt;xs:documentation xml:lang="en"&gt;Social Insurance Number&lt;/xs:documentation&gt;
+          &lt;/xs:annotation&gt;
+          &lt;xs:simpleType&gt;
+            &lt;xs:restriction base="xs:string"&gt;
+              &lt;xs:maxLength value="20"/&gt;
+            &lt;/xs:restriction&gt;
+          &lt;/xs:simpleType&gt;
+        &lt;/xs:element&gt;
+        &lt;xs:element name="nin" minOccurs="0"&gt;
+          &lt;xs:annotation&gt;
+            &lt;xs:documentation xml:lang="en"&gt;National Insurance Number&lt;/xs:documentation&gt;
+          &lt;/xs:annotation&gt;
+          &lt;xs:simpleType&gt;
+            &lt;xs:restriction base="xs:string"&gt;
+              &lt;xs:maxLength value="20"/&gt;
+            &lt;/xs:restriction&gt;
+          &lt;/xs:simpleType&gt;
+        &lt;/xs:element&gt;
+        &lt;xs:element name="birthdate" type="xs:date" minOccurs="0"/&gt;
+        &lt;xs:element name="gender" type="gender" default="UNDEFINED" minOccurs="0"/&gt;
+        &lt;xs:element name="height" minOccurs="0"&gt;
+          &lt;xs:simpleType&gt;
+            &lt;xs:restriction base="xs:string"&gt;
+              &lt;xs:maxLength value="10"/&gt;
+            &lt;/xs:restriction&gt;
+          &lt;/xs:simpleType&gt;
+        &lt;/xs:element&gt;
+        &lt;xs:element name="weight" minOccurs="0"&gt;
+          &lt;xs:simpleType&gt;
+            &lt;xs:restriction base="xs:string"&gt;
+              &lt;xs:maxLength value="10"/&gt;
+            &lt;/xs:restriction&gt;
+          &lt;/xs:simpleType&gt;
+        &lt;/xs:element&gt;
+        &lt;xs:element name="ethnicity" type="ethnicity" minOccurs="0"/&gt;
+        &lt;xs:element name="smoker" type="xs:boolean" minOccurs="0"/&gt;
+        &lt;xs:element name="actual_marital_status" minOccurs="0"&gt;
+          &lt;xs:simpleType&gt;
+            &lt;xs:restriction base="xs:string"&gt;
+              &lt;xs:maxLength value="55"/&gt;
+            &lt;/xs:restriction&gt;
+          &lt;/xs:simpleType&gt;
+        &lt;/xs:element&gt;
+        &lt;xs:element name="full_time_student" type="xs:boolean" minOccurs="0"/&gt;
+        &lt;xs:element name="disability" type="xs:boolean" minOccurs="0"/&gt;
+        &lt;xs:element name="always_eligible_for_benefit_plans" type="xs:boolean" default="false" minOccurs="0"/&gt;
+        &lt;xs:element name="is_in_any_benefit_plan" type="xs:boolean" minOccurs="0"/&gt;
+        &lt;xs:element name="use_employee_address" type="xs:boolean" default="false" minOccurs="0"/&gt;
+        &lt;xs:element name="address" type="address" minOccurs="0"/&gt;
+        &lt;xs:element name="comments" type="xs:string" minOccurs="0"/&gt;
+        &lt;xs:element name="_links" minOccurs="0"&gt;
+          &lt;xs:complexType&gt;
+            &lt;xs:all&gt;
+              &lt;xs:element name="self" type="xs:string"/&gt;
+              &lt;xs:element name="edit" type="xs:string" minOccurs="0"/&gt;
+              &lt;xs:element name="delete" type="xs:string" minOccurs="0"/&gt;
+            &lt;/xs:all&gt;
+          &lt;/xs:complexType&gt;
+        &lt;/xs:element&gt;
+      &lt;/xs:all&gt;
+    &lt;/xs:complexType&gt;
+  &lt;/xs:element&gt;
+
+  &lt;xs:complexType name="phone"&gt;
+    &lt;xs:all&gt;
+      &lt;xs:element name="number"&gt;
+        &lt;xs:simpleType&gt;
+          &lt;xs:restriction base="xs:string"&gt;
+            &lt;xs:maxLength value="55"/&gt;
+          &lt;/xs:restriction&gt;
+        &lt;/xs:simpleType&gt;
+      &lt;/xs:element&gt;
+      &lt;xs:element name="primary" type="xs:boolean" default="false" minOccurs="0"/&gt;
+    &lt;/xs:all&gt;
+  &lt;/xs:complexType&gt;
+
+  &lt;xs:simpleType name="gender"&gt;
+    &lt;xs:restriction base="xs:string"&gt;
+      &lt;xs:enumeration value="MALE"/&gt;
+      &lt;xs:enumeration value="FEMALE"/&gt;
+      &lt;xs:enumeration value="UNDEFINED"/&gt;
+    &lt;/xs:restriction&gt;
+  &lt;/xs:simpleType&gt;
+
+  &lt;xs:simpleType name="ethnicity"&gt;
+    &lt;xs:restriction base="xs:string"&gt;
+      &lt;xs:enumeration value="HISPANIC_OR_LATINO"/&gt;
+      &lt;xs:enumeration value="WHITE"/&gt;
+      &lt;xs:enumeration value="BLACK_OR_AFRICAN_AMERICAN"/&gt;
+      &lt;xs:enumeration value="NATIVE_HAWAIIAN_OR_OTHER_PACIFIC_ISLANDER"/&gt;
+      &lt;xs:enumeration value="ASIAN"/&gt;
+      &lt;xs:enumeration value="AMERICAN_INDIAN_OR_ALASKA_NATIVE"/&gt;
+      &lt;xs:enumeration value="TWO_OR_MORE_RACES"/&gt;
+      &lt;xs:enumeration value="ASIAN_OTHER"/&gt;
+      &lt;xs:enumeration value="BANGLADESHI"/&gt;
+      &lt;xs:enumeration value="BLACK_AFRICAN"/&gt;
+      &lt;xs:enumeration value="BLACK_CARIBBEAN"/&gt;
+      &lt;xs:enumeration value="BLACK_OTHER"/&gt;
+      &lt;xs:enumeration value="CHINESE"/&gt;
+      &lt;xs:enumeration value="INDIAN"/&gt;
+      &lt;xs:enumeration value="MIXED_AFRICAN"/&gt;
+      &lt;xs:enumeration value="MIXED_ASIAN"/&gt;
+      &lt;xs:enumeration value="MIXED_CARIBBEAN"/&gt;
+      &lt;xs:enumeration value="MIXED_OTHER"/&gt;
+      &lt;xs:enumeration value="OTHER"/&gt;
+      &lt;xs:enumeration value="PAKISTANI"/&gt;
+      &lt;xs:enumeration value="WHITE_BRITISH"/&gt;
+      &lt;xs:enumeration value="WHITE_IRISH"/&gt;
+      &lt;xs:enumeration value="WHITE_OTHER"/&gt;
+    &lt;/xs:restriction&gt;
+  &lt;/xs:simpleType&gt;
+
+  &lt;xs:complexType name="address"&gt;
+    &lt;xs:sequence&gt;
+      &lt;xs:element name="address_line_1" minOccurs="0"&gt;
+        &lt;xs:simpleType&gt;
+          &lt;xs:restriction base="xs:string"&gt;
+            &lt;xs:maxLength value="128"/&gt;
+          &lt;/xs:restriction&gt;
+        &lt;/xs:simpleType&gt;
+      &lt;/xs:element&gt;
+      &lt;xs:element name="address_line_2" minOccurs="0"&gt;
+        &lt;xs:simpleType&gt;
+          &lt;xs:restriction base="xs:string"&gt;
+            &lt;xs:maxLength value="128"/&gt;
+          &lt;/xs:restriction&gt;
+        &lt;/xs:simpleType&gt;
+      &lt;/xs:element&gt;
+      &lt;xs:element name="address_line_3" minOccurs="0"&gt;
+        &lt;xs:simpleType&gt;
+          &lt;xs:restriction base="xs:string"&gt;
+            &lt;xs:maxLength value="128"/&gt;
+          &lt;/xs:restriction&gt;
+        &lt;/xs:simpleType&gt;
+      &lt;/xs:element&gt;
+      &lt;xs:element name="country" minOccurs="0"&gt;
+        &lt;xs:simpleType&gt;
+          &lt;xs:restriction base="xs:string"&gt;
+            &lt;xs:maxLength value="55"/&gt;
+          &lt;/xs:restriction&gt;
+        &lt;/xs:simpleType&gt;
+      &lt;/xs:element&gt;
+      &lt;xs:element name="city" minOccurs="0"&gt;
+      &lt;xs:simpleType&gt;
+        &lt;xs:restriction base="xs:string"&gt;
+          &lt;xs:maxLength value="64"/&gt;
+        &lt;/xs:restriction&gt;
+      &lt;/xs:simpleType&gt;
+    &lt;/xs:element&gt;
+      &lt;xs:element name="state" minOccurs="0"&gt;
+        &lt;xs:simpleType&gt;
+          &lt;xs:restriction base="xs:string"&gt;
+            &lt;xs:maxLength value="55"/&gt;
+          &lt;/xs:restriction&gt;
+        &lt;/xs:simpleType&gt;
+      &lt;/xs:element&gt;
+      &lt;xs:element name="zip" minOccurs="0"&gt;
+        &lt;xs:simpleType&gt;
+          &lt;xs:restriction base="xs:string"&gt;
+            &lt;xs:maxLength value="15"/&gt;
+          &lt;/xs:restriction&gt;
+        &lt;/xs:simpleType&gt;
+      &lt;/xs:element&gt;
+      &lt;xs:element name="number" minOccurs="0"&gt;
+        &lt;xs:simpleType&gt;
+          &lt;xs:restriction base="xs:string"&gt;
+            &lt;xs:maxLength value="10"/&gt;
+          &lt;/xs:restriction&gt;
+        &lt;/xs:simpleType&gt;
+      &lt;/xs:element&gt;
+      &lt;xs:element name="number_addition" minOccurs="0"&gt;
+        &lt;xs:simpleType&gt;
+          &lt;xs:restriction base="xs:string"&gt;
+            &lt;xs:maxLength value="10"/&gt;
+          &lt;/xs:restriction&gt;
+        &lt;/xs:simpleType&gt;
+      &lt;/xs:element&gt;
+    &lt;/xs:sequence&gt;
+  &lt;/xs:complexType&gt;
+
+  &lt;xs:complexType name="primary_national_id_number"&gt;
+    &lt;xs:all&gt;
+      &lt;xs:element name="type" type="primary_national_id_type"/&gt;
+      &lt;xs:element name="value" minOccurs="0"&gt;
+        &lt;xs:simpleType&gt;
+          &lt;xs:restriction base="xs:string"&gt;
+            &lt;xs:maxLength value="25"/&gt;
+          &lt;/xs:restriction&gt;
+        &lt;/xs:simpleType&gt;
+      &lt;/xs:element&gt;
+    &lt;/xs:all&gt;
+  &lt;/xs:complexType&gt;
+  &lt;xs:complexType name="secondary_national_id_number"&gt;
+    &lt;xs:all&gt;
+      &lt;xs:element name="type" type="secondary_national_id_type"/&gt;
+      &lt;xs:element name="value" minOccurs="0"&gt;
+        &lt;xs:simpleType&gt;
+          &lt;xs:restriction base="xs:string"&gt;
+            &lt;xs:maxLength value="25"/&gt;
+          &lt;/xs:restriction&gt;
+        &lt;/xs:simpleType&gt;
+      &lt;/xs:element&gt;
+    &lt;/xs:all&gt;
+  &lt;/xs:complexType&gt;
+  &lt;xs:simpleType name="primary_national_id_type"&gt;
+    &lt;xs:restriction base="xs:string"&gt;
+      &lt;xs:enumeration value="SSN"/&gt;
+      &lt;xs:enumeration value="BSN"/&gt;
+      &lt;xs:enumeration value="SIN"/&gt;
+      &lt;xs:enumeration value="NIN"/&gt;
+      &lt;xs:enumeration value="TFN"/&gt;
+      &lt;xs:enumeration value="NSS"/&gt;
+      &lt;xs:enumeration value="OTHER_1"/&gt;
+      &lt;xs:enumeration value="OTHER_2"/&gt;
+      &lt;xs:enumeration value="OTHER_3"/&gt;
+      &lt;xs:enumeration value="OTHER_4"/&gt;
+      &lt;xs:enumeration value="OTHER_5"/&gt;
+      &lt;xs:enumeration value="OTHER_6"/&gt;
+      &lt;xs:enumeration value="OTHER_7"/&gt;
+      &lt;xs:enumeration value="OTHER_8"/&gt;
+      &lt;xs:enumeration value="OTHER_9"/&gt;
+      &lt;xs:enumeration value="OTHER_10"/&gt;
+      &lt;xs:enumeration value="NO_ID_NEEDED"/&gt;
+    &lt;/xs:restriction&gt;
+  &lt;/xs:simpleType&gt;
+  &lt;xs:simpleType name="secondary_national_id_type"&gt;
+    &lt;xs:restriction base="xs:string"&gt;
+      &lt;xs:enumeration value="SSN"/&gt;
+      &lt;xs:enumeration value="BSN"/&gt;
+      &lt;xs:enumeration value="SIN"/&gt;
+      &lt;xs:enumeration value="NIN"/&gt;
+      &lt;xs:enumeration value="TFN"/&gt;
+      &lt;xs:enumeration value="NSS"/&gt;
+      &lt;xs:enumeration value="OTHER_1"/&gt;
+      &lt;xs:enumeration value="OTHER_2"/&gt;
+      &lt;xs:enumeration value="OTHER_3"/&gt;
+      &lt;xs:enumeration value="OTHER_4"/&gt;
+      &lt;xs:enumeration value="OTHER_5"/&gt;
+      &lt;xs:enumeration value="OTHER_6"/&gt;
+      &lt;xs:enumeration value="OTHER_7"/&gt;
+      &lt;xs:enumeration value="OTHER_8"/&gt;
+      &lt;xs:enumeration value="OTHER_9"/&gt;
+      &lt;xs:enumeration value="OTHER_10"/&gt;
+    &lt;/xs:restriction&gt;
+  &lt;/xs:simpleType&gt;
+&lt;/xs:schema&gt;</div>
+</div>
+</div>
+</div>
+</div>
+</article>
+</section>
+<section class="clearfix">
+<article class="definition">
+<h3 class="anchored" id="delete"><span>DELETE</span>
+<a class="fa fa-link link-anchor" data-url="r=__v2__companies__(cid)__contacts__(id)#delete" data-web-id="__v2__companies__(cid)__contacts__(id)"></a>
+</h3>
+<div class="md"><p>Deletes an employee contact.</p></div>
+<div>
+<ul class="annotation-list">
+<li class="annotation">
+<span>v2</span>
+</li>
+</ul>
+</div>
+<h4>Parameters</h4>
+<h5>Path Parameters</h5>
+<ul class="param-list">
+<li>
+<div class="param-desc">
+<div class="param-name">cid</div>
+<div class="data-type">string</div>
+<div class="required">required</div>
+</div>
+<div class="param-content">
+<div>
+<p>Example: 123456</p>
+<div class="desc md">Company should be referenced via company id or company unique id or company short name using `|short_name` or `!short_name` format.
+</div>
+</div>
+</div>
+
+</li>
+<li>
+<div class="param-desc">
+<div class="param-name">id</div>
+<div class="data-type">integer</div>
+<div class="required">required</div>
+</div>
+<div class="param-content">
+<div>
+<div class="desc md">Employee Contact id.</div>
+</div>
+</div>
+
+</li>
+</ul>
+<h4>Responses</h4>
+<div class="responses">
+<div>
+<label class="response response-success">
+<span class="fa fa-check"></span>
+<input data-full-tab-id="delete-resp-code-tab-id-0" data-tab-class="resp-code-tab-delete" name="resp-code-tab-delete" type="radio"/>
+<span class="status">204 No Content</span>
+</label>
+<div class="response-desc resp-code-tab-delete" id="delete-resp-code-tab-id-0">
+<div class="md"><p>Employee contact was successfully deleted.</p></div>
+</div>
+</div>
+<div>
+<label class="response response-error">
+<span class="fa fa-times"></span>
+<input data-full-tab-id="delete-resp-code-tab-id-1" data-tab-class="resp-code-tab-delete" name="resp-code-tab-delete" type="radio"/>
+<span class="status">401 Unauthorized</span>
+</label>
+<div class="response-desc resp-code-tab-delete" id="delete-resp-code-tab-id-1">
+<div class="md"><p>Returned in case user is not authorized.</p></div>
+</div>
+</div>
+<div>
+<label class="response response-error">
+<span class="fa fa-times"></span>
+<input data-full-tab-id="delete-resp-code-tab-id-2" data-tab-class="resp-code-tab-delete" name="resp-code-tab-delete" type="radio"/>
+<span class="status">403 Forbidden</span>
+</label>
+<div class="response-desc resp-code-tab-delete" id="delete-resp-code-tab-id-2">
+<div class="md"><p>Returned in case user has no access to the resource.</p></div>
+</div>
+</div>
+<div>
+<label class="response response-error">
+<span class="fa fa-times"></span>
+<input data-full-tab-id="delete-resp-code-tab-id-3" data-tab-class="resp-code-tab-delete" name="resp-code-tab-delete" type="radio"/>
+<span class="status">404 Not Found</span>
+</label>
+<div class="response-desc resp-code-tab-delete" id="delete-resp-code-tab-id-3">
+<div class="md"><p>Returned in case resource does not exist.</p></div>
+</div>
+</div>
+<div>
+<label class="response response-error">
+<span class="fa fa-times"></span>
+<input data-full-tab-id="delete-resp-code-tab-id-4" data-tab-class="resp-code-tab-delete" name="resp-code-tab-delete" type="radio"/>
+<span class="status">503 Service Unavailable</span>
+</label>
+<div class="response-desc resp-code-tab-delete" id="delete-resp-code-tab-id-4">
+<div class="md"><p>Returned in the event that the call limit is exceeded. The application will be unavailable for subsequent calls for the duration specified by the X-CallLimit-TimeToWait header.</p></div>
+</div>
+</div>
+</div>
+</article>
+<article class="code">
+<h4>Definition</h4>
+<div class="uri">
+<code>
+<span class="method delete">delete</span>
+<span class="textUri"><span class="baseUri">{{ getUriPrefix() }}</span><span class="relativeUri">/v2/companies/{cid}/contacts/{id}</span></span>
+</code>
+</div>
+</article>
+</section>
+</div>
+</body></html>

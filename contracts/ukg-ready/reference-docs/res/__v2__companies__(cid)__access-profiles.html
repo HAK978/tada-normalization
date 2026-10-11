@@ -1,0 +1,365 @@
+<!doctype html>
+<html><head><meta charset="utf-8"><title>Access Policy Profiles</title><style>body{font:16px system-ui;max-width:1100px;margin:2rem auto;padding:0 1rem;line-height:1.5}aside{background:#fff3cc;padding:1rem}.jsonschema,pre{white-space:pre-wrap;font:13px monospace;overflow-wrap:anywhere;background:#f4f5f7;padding:1rem}.uri{font-family:monospace}h2,h3{margin-top:2rem}</style></head><body><aside><strong>Modified private reference — 2026-10-09.</strong> Provider-documented illustrative examples are included; authentication token examples are redacted. These are not customer exports or guaranteed production behavior. Candidate sharing is pending. This is not OpenAPI.</aside>
+<div class="group">
+<h2 class="anchored" id="item.anchor">
+<span>Access Policy Profiles</span>
+<a class="fa fa-link link-anchor" data-url="r=__v2__companies__(cid)__access-profiles#" data-web-id="__v2__companies__(cid)__access-profiles"></a>
+</h2>
+<p class="md">Provides operations to manage access policy profile configurations.
+</p>
+<section class="clearfix">
+<article class="definition">
+<h3 class="anchored" id="post"><span>POST</span>
+<a class="fa fa-link link-anchor" data-url="r=__v2__companies__(cid)__access-profiles#post" data-web-id="__v2__companies__(cid)__access-profiles"></a>
+</h3>
+<div class="md"><p>Creates a new access policy profile.
+Requires 'Add Access Policies (System)' permission.
+</p></div>
+<div>
+<ul class="annotation-list">
+<li class="annotation">
+<span>v2</span>
+</li>
+</ul>
+</div>
+<h4>Parameters</h4>
+<h5>Path Parameters</h5>
+<ul class="param-list">
+<li>
+<div class="param-desc">
+<div class="param-name">cid</div>
+<div class="data-type">string</div>
+<div class="required">required</div>
+</div>
+<div class="param-content">
+<div>
+<p>Example: 123456</p>
+<div class="desc md">Company should be referenced via company id or company unique id or company short name using `|short_name` or `!short_name` format.
+</div>
+</div>
+</div>
+
+</li>
+</ul>
+<h5>Header Parameters</h5>
+<ul class="param-list">
+<li>
+<div class="param-desc">
+<div class="param-name">Accept</div>
+<div class="data-type">string</div>
+</div>
+<div class="param-content">
+<div>
+<p>Valid values: application/json, application/xml, text/xml</p>
+<p>Default: application/json</p>
+<p>Example: application/json</p>
+</div>
+</div>
+
+</li>
+<li>
+<div class="param-desc">
+<div class="param-name">Content-Type</div>
+<div class="data-type">string</div>
+<div class="required">required</div>
+</div>
+<div class="param-content">
+<div>
+<p>Valid values: application/xml, text/xml, application/json</p>
+<p>Example: application/json</p>
+</div>
+</div>
+
+</li>
+<li>
+<div class="param-desc">
+<div class="param-name">Content-Length</div>
+<div class="data-type">integer</div>
+<div class="required">required</div>
+</div>
+<div class="param-content">
+<div>
+</div>
+</div>
+
+</li>
+</ul>
+<h4>Responses</h4>
+<div class="responses">
+<div>
+<label class="response response-success">
+<span class="fa fa-check"></span>
+<input data-full-tab-id="post-resp-code-tab-id-0" data-tab-class="resp-code-tab-post" name="resp-code-tab-post" type="radio"/>
+<span class="status">201 Created</span>
+</label>
+<div class="response-desc resp-code-tab-post" id="post-resp-code-tab-id-0">
+<div class="md"><p>Access profile has been created successfully.</p></div>
+<ul class="param-list">
+<li>
+<div class="param-desc">
+<div class="param-name">Location</div>
+<div class="data-type">string</div>
+<div class="required">required</div>
+</div>
+<div class="param-content">
+<div>
+<div class="desc md">Location of the newly created profile.</div>
+</div>
+</div>
+
+</li>
+</ul>
+</div>
+</div>
+<div>
+<label class="response response-error">
+<span class="fa fa-times"></span>
+<input data-full-tab-id="post-resp-code-tab-id-1" data-tab-class="resp-code-tab-post" name="resp-code-tab-post" type="radio"/>
+<span class="status">400 Bad Request</span>
+</label>
+<div class="response-desc resp-code-tab-post" id="post-resp-code-tab-id-1">
+<div class="md"><p>Returned if there are any validation errors.
+</p></div>
+</div>
+</div>
+<div>
+<label class="response response-error">
+<span class="fa fa-times"></span>
+<input data-full-tab-id="post-resp-code-tab-id-2" data-tab-class="resp-code-tab-post" name="resp-code-tab-post" type="radio"/>
+<span class="status">401 Unauthorized</span>
+</label>
+<div class="response-desc resp-code-tab-post" id="post-resp-code-tab-id-2">
+<div class="md"><p>Returned in case user is not authorized.</p></div>
+</div>
+</div>
+<div>
+<label class="response response-error">
+<span class="fa fa-times"></span>
+<input data-full-tab-id="post-resp-code-tab-id-3" data-tab-class="resp-code-tab-post" name="resp-code-tab-post" type="radio"/>
+<span class="status">403 Forbidden</span>
+</label>
+<div class="response-desc resp-code-tab-post" id="post-resp-code-tab-id-3">
+<div class="md"><p>Returned in case user has no access to the resource.</p></div>
+</div>
+</div>
+<div>
+<label class="response response-error">
+<span class="fa fa-times"></span>
+<input data-full-tab-id="post-resp-code-tab-id-4" data-tab-class="resp-code-tab-post" name="resp-code-tab-post" type="radio"/>
+<span class="status">503 Service Unavailable</span>
+</label>
+<div class="response-desc resp-code-tab-post" id="post-resp-code-tab-id-4">
+<div class="md"><p>Returned in the event that the call limit is exceeded. The application will be unavailable for subsequent calls for the duration specified by the X-CallLimit-TimeToWait header.</p></div>
+</div>
+</div>
+</div>
+</article>
+<article class="code">
+<h4>Definition</h4>
+<div class="uri">
+<code>
+<span class="method post">post</span>
+<span class="textUri"><span class="baseUri">{{ getUriPrefix() }}</span><span class="relativeUri">/v2/companies/{cid}/access-profiles</span></span>
+</code>
+</div>
+<h4>Request Samples</h4>
+<div class="tab-title-group">
+<label>
+<input checked="checked" data-full-tab-id="req-tab-id-post-0" data-tab-class="req-tab-post" name="req-tab-post" type="radio"/>
+<span class="tab-title">application/json</span>
+</label>
+<label>
+<input data-full-tab-id="req-tab-id-post-1" data-tab-class="req-tab-post" name="req-tab-post" type="radio"/>
+<span class="tab-title">application/xml</span>
+</label>
+</div>
+<div>
+<div class="req-tab-post" id="req-tab-id-post-0">
+<div class="example">
+
+<div class="post-example-tab-0 activeTab" id="post-tab-example-0">
+
+<pre class="highlightjs">{
+  "id": 9933,
+  "name": "East",
+  "description": "Eastern Region",
+  "active": true,
+  "allow_mobile": true,
+  "access_options": [
+    {
+      "option_id": 64128,
+      "type": "IPv4",
+      "ip_range_start": "10.10.255.0",
+      "ip_range_end": "10.10.255.255",
+      "comment": "Internal Ips"
+    },
+    {
+      "option_id": 64129,
+      "type": "IPv4",
+      "ip_range_start": "192.168.1.1",
+      "ip_range_end": "192.168.1.1",
+      "comment": "Single IP"
+    },
+    {
+      "option_id": 64130,
+      "type": "IPv6",
+      "ip_range_start": "2001:0db8:0000:0000:0000:0000:0000:0123",
+      "ip_range_end": "2001:0db8:0000:0000:0000:0000:0000:0456",
+      "comment": "IPv6 Range"
+    }
+  ]
+}</pre>
+</div>
+<div class="post-example-tab-0" id="post-tab-schema-0">
+
+<div class="jsonschema" id="schema-0">{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "type": "object",
+  "properties": {
+    "id": {
+      "type": "integer",
+      "description": "This field is only used for GET."
+    },
+    "name": {
+      "type": "string"
+    },
+    "description": {
+      "type": "string"
+    },
+    "active": {
+      "type": "boolean"
+    },
+    "allow_mobile": {
+      "type": "boolean"
+    },
+    "access_options": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "option_id": {
+            "type": "integer",
+            "description": "This field is only used for GET."
+          },
+          "type": {
+            "type": "string",
+            "description": "Can be either 'IPv4' or 'IPv6'."
+          },
+          "ip_range_start": {
+            "type": "string"
+          },
+          "ip_range_end": {
+            "type": "string"
+          },
+          "comment": {
+            "type": "string"
+          }
+        },
+        "additionalProperties": false,
+        "required": [
+          "type",
+          "ip_range_start",
+          "ip_range_end"
+        ]
+      }
+    }
+  },
+  "additionalProperties": false,
+  "required": [
+    "name",
+    "active",
+    "allow_mobile"
+  ]
+}</div>
+</div>
+</div>
+</div>
+<div class="req-tab-post" id="req-tab-id-post-1">
+<div class="example">
+
+<div class="post-example-tab-1 activeTab" id="post-tab-example-1">
+
+<pre class="highlightjs">&lt;?xml version='1.0' encoding='UTF-8'?&gt;
+&lt;access_profile&gt;
+  &lt;id&gt;9933&lt;/id&gt;
+  &lt;name&gt;East&lt;/name&gt;
+  &lt;description&gt;Eastern Region&lt;/description&gt;
+  &lt;active&gt;true&lt;/active&gt;
+  &lt;allow_mobile&gt;true&lt;/allow_mobile&gt;
+  &lt;access_options&gt;
+    &lt;access_option&gt;
+      &lt;option_id&gt;64128&lt;/option_id&gt;
+      &lt;type&gt;IPv4&lt;/type&gt;
+      &lt;ip_range_start&gt;10.10.255.0&lt;/ip_range_start&gt;
+      &lt;ip_range_end&gt;10.10.255.255&lt;/ip_range_end&gt;
+      &lt;comment&gt;Internal Ips&lt;/comment&gt;
+    &lt;/access_option&gt;
+    &lt;access_option&gt;
+      &lt;option_id&gt;64129&lt;/option_id&gt;
+      &lt;type&gt;IPv4&lt;/type&gt;
+      &lt;ip_range_start&gt;192.168.1.1&lt;/ip_range_start&gt;
+      &lt;ip_range_end&gt;192.168.1.1&lt;/ip_range_end&gt;
+      &lt;comment&gt;Single IP&lt;/comment&gt;
+    &lt;/access_option&gt;
+    &lt;access_option&gt;
+      &lt;option_id&gt;64130&lt;/option_id&gt;
+      &lt;type&gt;IPv6&lt;/type&gt;
+      &lt;ip_range_start&gt;2001:0db8:0000:0000:0000:0000:0000:0123&lt;/ip_range_start&gt;
+      &lt;ip_range_end&gt;2001:0db8:0000:0000:0000:0000:0000:0456&lt;/ip_range_end&gt;
+      &lt;comment&gt;IPv6 Range&lt;/comment&gt;
+    &lt;/access_option&gt;
+  &lt;/access_options&gt;
+&lt;/access_profile&gt;</pre>
+</div>
+<div class="post-example-tab-1" id="post-tab-schema-1">
+
+<div class="jsonschema" id="schema-1">&lt;xs:schema attributeFormDefault="unqualified" elementFormDefault="qualified" xmlns:xs="http://www.w3.org/2001/XMLSchema"&gt;
+    &lt;xs:element name="access_profile"&gt;
+        &lt;xs:complexType&gt;
+            &lt;xs:all&gt;
+                &lt;xs:element type="xs:long" name="id" minOccurs="0"&gt;
+                    &lt;xs:annotation&gt;
+                        &lt;xs:documentation&gt;This field is only used for GET.&lt;/xs:documentation&gt;
+                    &lt;/xs:annotation&gt;
+                &lt;/xs:element&gt;
+                &lt;xs:element type="xs:string" name="name"/&gt;
+                &lt;xs:element type="xs:string" name="description" minOccurs="0"/&gt;
+                &lt;xs:element type="xs:boolean" name="active" /&gt;
+                &lt;xs:element type="xs:boolean" name="allow_mobile" /&gt;
+                &lt;xs:element name="access_options" minOccurs="0"&gt;
+                    &lt;xs:complexType&gt;
+                        &lt;xs:sequence&gt;
+                            &lt;xs:element name="access_option" maxOccurs="unbounded" minOccurs="0"&gt;
+                                &lt;xs:complexType&gt;
+                                    &lt;xs:all&gt;
+                                        &lt;xs:element type="xs:long" name="option_id"&gt;
+                                            &lt;xs:annotation&gt;
+                                                &lt;xs:documentation&gt;This field is only used for GET.&lt;/xs:documentation&gt;
+                                            &lt;/xs:annotation&gt;
+                                        &lt;/xs:element&gt;
+                                        &lt;xs:element type="xs:string" name="type"&gt;
+                                            &lt;xs:annotation&gt;
+                                                &lt;xs:documentation&gt;Can be either 'IPv4' or 'IPv6'.&lt;/xs:documentation&gt;
+                                            &lt;/xs:annotation&gt;
+                                        &lt;/xs:element&gt;
+                                        &lt;xs:element type="xs:string" name="ip_range_start"/&gt;
+                                        &lt;xs:element type="xs:string" name="ip_range_end"/&gt;
+                                        &lt;xs:element type="xs:string" name="comment" minOccurs="0"/&gt;
+                                    &lt;/xs:all&gt;
+                                &lt;/xs:complexType&gt;
+                            &lt;/xs:element&gt;
+                        &lt;/xs:sequence&gt;
+                    &lt;/xs:complexType&gt;
+                &lt;/xs:element&gt;
+            &lt;/xs:all&gt;
+        &lt;/xs:complexType&gt;
+    &lt;/xs:element&gt;
+&lt;/xs:schema&gt;</div>
+</div>
+</div>
+</div>
+</div>
+</article>
+</section>
+</div>
+</body></html>

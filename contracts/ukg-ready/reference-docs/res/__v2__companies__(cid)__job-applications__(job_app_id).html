@@ -1,0 +1,764 @@
+<!doctype html>
+<html><head><meta charset="utf-8"><title>Job Application</title><style>body{font:16px system-ui;max-width:1100px;margin:2rem auto;padding:0 1rem;line-height:1.5}aside{background:#fff3cc;padding:1rem}.jsonschema,pre{white-space:pre-wrap;font:13px monospace;overflow-wrap:anywhere;background:#f4f5f7;padding:1rem}.uri{font-family:monospace}h2,h3{margin-top:2rem}</style></head><body><aside><strong>Modified private reference — 2026-10-09.</strong> Provider-documented illustrative examples are included; authentication token examples are redacted. These are not customer exports or guaranteed production behavior. Candidate sharing is pending. This is not OpenAPI.</aside>
+<div class="group">
+<h2 class="anchored" id="item.anchor">
+<span>Job Application</span>
+<a class="fa fa-link link-anchor" data-url="r=__v2__companies__(cid)__job-applications__(job_app_id)#" data-web-id="__v2__companies__(cid)__job-applications__(job_app_id)"></a>
+</h2>
+<section class="clearfix">
+<article class="definition">
+<h3 class="anchored" id="get"><span>GET</span>
+<a class="fa fa-link link-anchor" data-url="r=__v2__companies__(cid)__job-applications__(job_app_id)#get" data-web-id="__v2__companies__(cid)__job-applications__(job_app_id)"></a>
+</h3>
+<div class="md"><p>End point to fetch specific job application by job_app_id.</p></div>
+<div>
+<ul class="annotation-list">
+<li class="annotation">
+<span>v2</span>
+</li>
+</ul>
+</div>
+<h4>Parameters</h4>
+<h5>Path Parameters</h5>
+<ul class="param-list">
+<li>
+<div class="param-desc">
+<div class="param-name">cid</div>
+<div class="data-type">string</div>
+<div class="required">required</div>
+</div>
+<div class="param-content">
+<div>
+<p>Example: 123456</p>
+<div class="desc md">Company should be referenced via company id or company unique id or company short name using `|short_name` or `!short_name` format.
+</div>
+</div>
+</div>
+
+</li>
+<li>
+<div class="param-desc">
+<div class="param-name">job_app_id</div>
+<div class="data-type">integer</div>
+<div class="required">required</div>
+</div>
+<div class="param-content">
+<div>
+<div class="desc md">Id to locate the job application.</div>
+</div>
+</div>
+
+</li>
+</ul>
+<h5>Header Parameters</h5>
+<ul class="param-list">
+<li>
+<div class="param-desc">
+<div class="param-name">Accept</div>
+<div class="data-type">string</div>
+</div>
+<div class="param-content">
+<div>
+<p>Valid values: application/json, application/xml, text/xml</p>
+<p>Default: application/json</p>
+<p>Example: application/json</p>
+</div>
+</div>
+
+</li>
+</ul>
+<h4>Responses</h4>
+<div class="responses">
+<div>
+<label class="response response-success">
+<span class="fa fa-check"></span>
+<input data-full-tab-id="get-resp-code-tab-id-0" data-tab-class="resp-code-tab-get" name="resp-code-tab-get" type="radio"/>
+<span class="status">200 Ok</span>
+</label>
+<div class="response-desc resp-code-tab-get" id="get-resp-code-tab-id-0">
+</div>
+</div>
+<div>
+<label class="response response-error">
+<span class="fa fa-times"></span>
+<input data-full-tab-id="get-resp-code-tab-id-1" data-tab-class="resp-code-tab-get" name="resp-code-tab-get" type="radio"/>
+<span class="status">404 Not Found</span>
+</label>
+<div class="response-desc resp-code-tab-get" id="get-resp-code-tab-id-1">
+<div class="md"><p>Returned when requested job application was not found.</p></div>
+</div>
+</div>
+<div>
+<label class="response response-error">
+<span class="fa fa-times"></span>
+<input data-full-tab-id="get-resp-code-tab-id-2" data-tab-class="resp-code-tab-get" name="resp-code-tab-get" type="radio"/>
+<span class="status">401 Unauthorized</span>
+</label>
+<div class="response-desc resp-code-tab-get" id="get-resp-code-tab-id-2">
+<div class="md"><p>Returned in case user is not authorized.</p></div>
+</div>
+</div>
+<div>
+<label class="response response-error">
+<span class="fa fa-times"></span>
+<input data-full-tab-id="get-resp-code-tab-id-3" data-tab-class="resp-code-tab-get" name="resp-code-tab-get" type="radio"/>
+<span class="status">403 Forbidden</span>
+</label>
+<div class="response-desc resp-code-tab-get" id="get-resp-code-tab-id-3">
+<div class="md"><p>Returned in case user has no access to the resource.</p></div>
+</div>
+</div>
+<div>
+<label class="response response-error">
+<span class="fa fa-times"></span>
+<input data-full-tab-id="get-resp-code-tab-id-4" data-tab-class="resp-code-tab-get" name="resp-code-tab-get" type="radio"/>
+<span class="status">503 Service Unavailable</span>
+</label>
+<div class="response-desc resp-code-tab-get" id="get-resp-code-tab-id-4">
+<div class="md"><p>Returned in the event that the call limit is exceeded. The application will be unavailable for subsequent calls for the duration specified by the X-CallLimit-TimeToWait header.</p></div>
+</div>
+</div>
+</div>
+</article>
+<article class="code">
+<h4>Definition</h4>
+<div class="uri">
+<code>
+<span class="method get">get</span>
+<span class="textUri"><span class="baseUri">{{ getUriPrefix() }}</span><span class="relativeUri">/v2/companies/{cid}/job-applications/{job_app_id}</span></span>
+</code>
+</div>
+<h4>Response Samples</h4>
+<div class="tab-title-group">
+<label>
+<input checked="checked" data-full-tab-id="resp-tab-id-get-0" data-tab-class="resp-tab-get" name="resp-tab-get" type="radio"/>
+<span class="tab-title">application/json</span>
+</label>
+<label>
+<input data-full-tab-id="resp-tab-id-get-1" data-tab-class="resp-tab-get" name="resp-tab-get" type="radio"/>
+<span class="tab-title">application/xml</span>
+</label>
+</div>
+<div>
+<div class="resp-tab-get" id="resp-tab-id-get-0">
+<div class="example">
+
+<div class="get-example-resp-tab-0 activeTab" id="get-tab-resp-example-0">
+
+<pre class="highlightjs">{
+    "id": 73456472,
+    "account": {
+        "id": 733308507,
+        "display_name": "account name"
+    },
+    "applicant_comment": "applicantComment example value",
+    "applied_on": "2018-12-30T07:30:00.000-05:00",
+    "company_comment": "companyComment example value",
+    "created": "2018-12-21T07:30:00.000-05:00",
+    "hiring_stage": {
+        "id": 1528014211,
+        "display_name": "hiring_stage name"
+    },
+    "job_application_status": {
+        "id": 520631945,
+        "display_name": "job_application_status name"
+    },
+    "job_requisition": {
+        "id": 74991374,
+        "display_name": "job_requisition name"
+    },
+    "rank": 123,
+    "_links": {
+        "self": "https://kronos.com/ta/rest/v2/companies/19950604/job-applications/73456472"
+    }
+}</pre>
+</div>
+<div class="get-example-resp-tab-0" id="get-tab-resp-schema-0">
+
+<div class="jsonschema" id="schema-0">{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "type": "object",
+  "properties": {
+    "id": {
+      "type": "integer"
+    },
+    "account": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "number",
+          "format": "long"
+        },
+        "display_name": {
+          "type": "string"
+        }
+      }
+    },
+    "applicant_comment": {
+      "type": "string",
+      "description": "The length should not be more then 2048 characters"
+    },
+    "applied_on": {
+      "type": "string",
+      "description": "TimeStamp needs to be in the format yyyy-MM-dd'T'HH:mm:ss.SSS'Z' within the 1900-12-31T00:00:01.000Z and 2079-06-05T23:59:59.000Z date range"
+    },
+    "company_comment": {
+      "type": "string",
+      "description": "The length should not be more then 1024 characters"
+    },
+    "created": {
+      "type": "string",
+      "description": "TimeStamp needs to be in the format yyyy-MM-dd'T'HH:mm:ss.SSS'Z' within the 1900-12-31T00:00:01.000Z and 2079-06-05T23:59:59.000Z date range"
+    },
+    "hiring_stage": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer"
+        },
+        "display_name": {
+          "type": "string"
+        }
+      }
+    },
+    "job_application_status": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer"
+        },
+        "display_name": {
+          "type": "string"
+        }
+      }
+    },
+    "job_requisition": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer"
+        },
+        "display_name": {
+          "type": "string"
+        }
+      }
+    },
+    "rank": {
+      "type": "integer"
+    },
+    "_links": {
+      "type": "object",
+      "properties": {
+        "self": {
+          "type": "string",
+          "format": "uri"
+        }
+      }
+    }
+  }
+}</div>
+</div>
+</div>
+</div>
+<div class="resp-tab-get" id="resp-tab-id-get-1">
+<div class="example">
+
+<div class="get-example-resp-tab-1 activeTab" id="get-tab-resp-example-1">
+
+<pre class="highlightjs">&lt;?xml version='1.0' encoding='UTF-8'?&gt;
+&lt;job_application&gt;
+    &lt;id&gt;73456472&lt;/id&gt;
+    &lt;account&gt;
+        &lt;id&gt;706540720&lt;/id&gt;
+        &lt;display_name&gt;account name&lt;/display_name&gt;
+    &lt;/account&gt;
+    &lt;applicant_comment&gt;applicantComment example value&lt;/applicant_comment&gt;
+    &lt;applied_on&gt;2018-12-30T07:30:00.000-05:00&lt;/applied_on&gt;
+    &lt;company_comment&gt;companyComment example value&lt;/company_comment&gt;
+    &lt;created&gt;2018-12-21T07:30:00.000-05:00&lt;/created&gt;
+    &lt;hiring_stage&gt;
+        &lt;id&gt;216178254&lt;/id&gt;
+        &lt;display_name&gt;hiringStage name&lt;/display_name&gt;
+    &lt;/hiring_stage&gt;
+    &lt;job_application_status&gt;
+        &lt;id&gt;999146841&lt;/id&gt;
+        &lt;display_name&gt;jobApplicationStatus name&lt;/display_name&gt;
+    &lt;/job_application_status&gt;
+    &lt;job_requisition&gt;
+        &lt;id&gt;1403951142&lt;/id&gt;
+        &lt;display_name&gt;jobRequisition name&lt;/display_name&gt;
+    &lt;/job_requisition&gt;
+    &lt;rank&gt;123&lt;/rank&gt;
+  &lt;_links&gt;
+    &lt;self&gt;https://kronos.com/ta/rest/v2/companies/19950604/job-applications/73456472&lt;/self&gt;
+  &lt;/_links&gt;
+&lt;/job_application&gt;</pre>
+</div>
+<div class="get-example-resp-tab-1" id="get-tab-resp-schema-1">
+
+<div class="jsonschema" id="schema-1">&lt;xs:schema elementFormDefault="qualified"
+    xmlns:xs="http://www.w3.org/2001/XMLSchema"&gt;
+    &lt;xs:element name="job_application"&gt;
+        &lt;xs:complexType&gt;
+            &lt;xs:all&gt;
+                &lt;xs:element type="xs:long" name="id" /&gt;
+                &lt;xs:element name="account" minOccurs="0"&gt;
+                    &lt;xs:complexType&gt;
+                        &lt;xs:sequence&gt;
+                            &lt;xs:element type="xs:long" name="id" /&gt;
+                            &lt;xs:element type="xs:string" name="display_name" /&gt;
+                        &lt;/xs:sequence&gt;
+                    &lt;/xs:complexType&gt;
+                &lt;/xs:element&gt;
+                &lt;xs:element type="xs:string" name="applicant_comment"
+                    minOccurs="0" /&gt;
+                &lt;xs:element type="xs:dateTime" name="applied_on"
+                    minOccurs="0" /&gt;
+                &lt;xs:element type="xs:string" name="company_comment"
+                    minOccurs="0" /&gt;
+                &lt;xs:element type="xs:dateTime" name="created" minOccurs="0" /&gt;
+                &lt;xs:element name="hiring_stage" minOccurs="0"&gt;
+                    &lt;xs:complexType&gt;
+                        &lt;xs:sequence&gt;
+                            &lt;xs:element type="xs:long" name="id" /&gt;
+                            &lt;xs:element type="xs:string" name="display_name" /&gt;
+                        &lt;/xs:sequence&gt;
+                    &lt;/xs:complexType&gt;
+                &lt;/xs:element&gt;
+                &lt;xs:element name="job_application_status" minOccurs="0"&gt;
+                    &lt;xs:complexType&gt;
+                        &lt;xs:sequence&gt;
+                            &lt;xs:element type="xs:long" name="id" /&gt;
+                            &lt;xs:element type="xs:string" name="display_name" /&gt;
+                        &lt;/xs:sequence&gt;
+                    &lt;/xs:complexType&gt;
+                &lt;/xs:element&gt;
+                &lt;xs:element name="job_requisition" minOccurs="0"&gt;
+                    &lt;xs:complexType&gt;
+                        &lt;xs:sequence&gt;
+                            &lt;xs:element type="xs:long" name="id" /&gt;
+                            &lt;xs:element type="xs:string" name="display_name" /&gt;
+                        &lt;/xs:sequence&gt;
+                    &lt;/xs:complexType&gt;
+                &lt;/xs:element&gt;
+                &lt;xs:element type="xs:integer" name="rank" minOccurs="0" /&gt;
+                &lt;xs:element name="_links"&gt;
+                    &lt;xs:complexType&gt;
+                        &lt;xs:sequence&gt;
+                            &lt;xs:element type="xs:anyURI" name="self" /&gt;
+                        &lt;/xs:sequence&gt;
+                    &lt;/xs:complexType&gt;
+                &lt;/xs:element&gt;
+            &lt;/xs:all&gt;
+        &lt;/xs:complexType&gt;
+    &lt;/xs:element&gt;
+&lt;/xs:schema&gt;</div>
+</div>
+</div>
+</div>
+</div>
+</article>
+</section>
+<section class="clearfix">
+<article class="definition">
+<h3 class="anchored" id="put"><span>PUT</span>
+<a class="fa fa-link link-anchor" data-url="r=__v2__companies__(cid)__job-applications__(job_app_id)#put" data-web-id="__v2__companies__(cid)__job-applications__(job_app_id)"></a>
+</h3>
+<div class="md"><p>Endpoint replaces given job application by job_app_id with a new one provided in payload.</p></div>
+<div>
+<ul class="annotation-list">
+<li class="annotation">
+<span>v2</span>
+</li>
+</ul>
+</div>
+<h4>Parameters</h4>
+<h5>Path Parameters</h5>
+<ul class="param-list">
+<li>
+<div class="param-desc">
+<div class="param-name">cid</div>
+<div class="data-type">string</div>
+<div class="required">required</div>
+</div>
+<div class="param-content">
+<div>
+<p>Example: 123456</p>
+<div class="desc md">Company should be referenced via company id or company unique id or company short name using `|short_name` or `!short_name` format.
+</div>
+</div>
+</div>
+
+</li>
+<li>
+<div class="param-desc">
+<div class="param-name">job_app_id</div>
+<div class="data-type">integer</div>
+<div class="required">required</div>
+</div>
+<div class="param-content">
+<div>
+<div class="desc md">Id to locate the job application.</div>
+</div>
+</div>
+
+</li>
+</ul>
+<h5>Header Parameters</h5>
+<ul class="param-list">
+<li>
+<div class="param-desc">
+<div class="param-name">Accept</div>
+<div class="data-type">string</div>
+</div>
+<div class="param-content">
+<div>
+<p>Valid values: application/json, application/xml, text/xml</p>
+<p>Default: application/json</p>
+<p>Example: application/json</p>
+</div>
+</div>
+
+</li>
+<li>
+<div class="param-desc">
+<div class="param-name">Content-Type</div>
+<div class="data-type">string</div>
+<div class="required">required</div>
+</div>
+<div class="param-content">
+<div>
+<p>Valid values: application/xml, text/xml, application/json</p>
+<p>Example: application/json</p>
+</div>
+</div>
+
+</li>
+<li>
+<div class="param-desc">
+<div class="param-name">Content-Length</div>
+<div class="data-type">integer</div>
+<div class="required">required</div>
+</div>
+<div class="param-content">
+<div>
+</div>
+</div>
+
+</li>
+</ul>
+<h4>Responses</h4>
+<div class="responses">
+<div>
+<label class="response response-success">
+<span class="fa fa-check"></span>
+<input data-full-tab-id="put-resp-code-tab-id-0" data-tab-class="resp-code-tab-put" name="resp-code-tab-put" type="radio"/>
+<span class="status">204 No Content</span>
+</label>
+<div class="response-desc resp-code-tab-put" id="put-resp-code-tab-id-0">
+<div class="md"><p>Job application was successfully replaced.</p></div>
+</div>
+</div>
+<div>
+<label class="response response-error">
+<span class="fa fa-times"></span>
+<input data-full-tab-id="put-resp-code-tab-id-1" data-tab-class="resp-code-tab-put" name="resp-code-tab-put" type="radio"/>
+<span class="status">401 Unauthorized</span>
+</label>
+<div class="response-desc resp-code-tab-put" id="put-resp-code-tab-id-1">
+<div class="md"><p>Returned in case user is not authorized.</p></div>
+</div>
+</div>
+<div>
+<label class="response response-error">
+<span class="fa fa-times"></span>
+<input data-full-tab-id="put-resp-code-tab-id-2" data-tab-class="resp-code-tab-put" name="resp-code-tab-put" type="radio"/>
+<span class="status">403 Forbidden</span>
+</label>
+<div class="response-desc resp-code-tab-put" id="put-resp-code-tab-id-2">
+<div class="md"><p>Returned in case user has no access to the resource.</p></div>
+</div>
+</div>
+<div>
+<label class="response response-error">
+<span class="fa fa-times"></span>
+<input data-full-tab-id="put-resp-code-tab-id-3" data-tab-class="resp-code-tab-put" name="resp-code-tab-put" type="radio"/>
+<span class="status">404 Not Found</span>
+</label>
+<div class="response-desc resp-code-tab-put" id="put-resp-code-tab-id-3">
+<div class="md"><p>Returned in case resource does not exist.</p></div>
+</div>
+</div>
+<div>
+<label class="response response-error">
+<span class="fa fa-times"></span>
+<input data-full-tab-id="put-resp-code-tab-id-4" data-tab-class="resp-code-tab-put" name="resp-code-tab-put" type="radio"/>
+<span class="status">503 Service Unavailable</span>
+</label>
+<div class="response-desc resp-code-tab-put" id="put-resp-code-tab-id-4">
+<div class="md"><p>Returned in the event that the call limit is exceeded. The application will be unavailable for subsequent calls for the duration specified by the X-CallLimit-TimeToWait header.</p></div>
+</div>
+</div>
+</div>
+</article>
+<article class="code">
+<h4>Definition</h4>
+<div class="uri">
+<code>
+<span class="method put">put</span>
+<span class="textUri"><span class="baseUri">{{ getUriPrefix() }}</span><span class="relativeUri">/v2/companies/{cid}/job-applications/{job_app_id}</span></span>
+</code>
+</div>
+<h4>Request Samples</h4>
+<div class="tab-title-group">
+<label>
+<input checked="checked" data-full-tab-id="req-tab-id-put-0" data-tab-class="req-tab-put" name="req-tab-put" type="radio"/>
+<span class="tab-title">application/json</span>
+</label>
+<label>
+<input data-full-tab-id="req-tab-id-put-1" data-tab-class="req-tab-put" name="req-tab-put" type="radio"/>
+<span class="tab-title">application/xml</span>
+</label>
+</div>
+<div>
+<div class="req-tab-put" id="req-tab-id-put-0">
+<div class="example">
+
+<div class="put-example-tab-0 activeTab" id="put-tab-example-0">
+
+<pre class="highlightjs">{
+    "applicant_comment": "applicantComment example value",
+    "applied_on": "2018-12-30T07:30:00.000-05:00",
+    "company_comment": "companyComment example value",
+    "hiring_stage": {
+        "id": 1761487789,
+        "display_name": "hiring_stage name"
+    },
+    "job_application_status": {
+        "id": 1088557826,
+        "display_name": "job_application_status name"
+    },
+    "rank": 123
+}</pre>
+</div>
+<div class="put-example-tab-0" id="put-tab-schema-0">
+
+<div class="jsonschema" id="schema-2">{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "type": "object",
+  "properties": {
+    "applicant_comment": {
+      "type": "string",
+      "description": "The length should not be more then 2048 characters"
+    },
+    "applied_on": {
+      "type": "string",
+      "description": "TimeStamp needs to be in the format yyyy-MM-dd'T'HH:mm:ss.SSS'Z' within the 1900-12-31T00:00:01.000Z and 2079-06-05T23:59:59.000Z date range"
+    },
+    "company_comment": {
+      "type": "string",
+      "description": "The length should not be more then 1024 characters"
+    },
+    "hiring_stage": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer"
+        },
+        "display_name": {
+          "type": "string"
+        }
+      }
+    },
+    "job_application_status": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer"
+        },
+        "display_name": {
+          "type": "string"
+        }
+      }
+    },
+    "rank": {
+      "type": "integer"
+    }
+  }
+}</div>
+</div>
+</div>
+</div>
+<div class="req-tab-put" id="req-tab-id-put-1">
+<div class="example">
+
+<div class="put-example-tab-1 activeTab" id="put-tab-example-1">
+
+<pre class="highlightjs">&lt;?xml version='1.0' encoding='UTF-8'?&gt;
+&lt;job_application&gt;
+    &lt;applicant_comment&gt;applicantComment example value&lt;/applicant_comment&gt;
+    &lt;applied_on&gt;2018-12-30T07:30:00.000-05:00&lt;/applied_on&gt;
+    &lt;company_comment&gt;companyComment example value&lt;/company_comment&gt;
+    &lt;hiring_stage&gt;
+        &lt;id&gt;1844719078&lt;/id&gt;
+        &lt;display_name&gt;hiringStage name&lt;/display_name&gt;
+    &lt;/hiring_stage&gt;
+    &lt;job_application_status&gt;
+        &lt;id&gt;306082228&lt;/id&gt;
+        &lt;display_name&gt;jobApplicationStatus name&lt;/display_name&gt;
+    &lt;/job_application_status&gt;
+    &lt;rank&gt;123&lt;/rank&gt;
+&lt;/job_application&gt;</pre>
+</div>
+<div class="put-example-tab-1" id="put-tab-schema-1">
+
+<div class="jsonschema" id="schema-3">&lt;xs:schema elementFormDefault="qualified"
+    xmlns:xs="http://www.w3.org/2001/XMLSchema"&gt;
+    &lt;xs:element name="job_application"&gt;
+        &lt;xs:complexType&gt;
+            &lt;xs:all&gt;
+                &lt;xs:element type="xs:string" name="applicant_comment"
+                    minOccurs="0" /&gt;
+                &lt;xs:element type="xs:dateTime" name="applied_on"
+                    minOccurs="0" /&gt;
+                &lt;xs:element type="xs:string" name="company_comment"
+                    minOccurs="0" /&gt;
+                &lt;xs:element name="hiring_stage" minOccurs="0"&gt;
+                    &lt;xs:complexType&gt;
+                        &lt;xs:sequence&gt;
+                            &lt;xs:element type="xs:long" name="id" /&gt;
+                            &lt;xs:element type="xs:string" name="display_name" /&gt;
+                        &lt;/xs:sequence&gt;
+                    &lt;/xs:complexType&gt;
+                &lt;/xs:element&gt;
+                &lt;xs:element name="job_application_status" minOccurs="0"&gt;
+                    &lt;xs:complexType&gt;
+                        &lt;xs:sequence&gt;
+                            &lt;xs:element type="xs:long" name="id" /&gt;
+                            &lt;xs:element type="xs:string" name="display_name" /&gt;
+                        &lt;/xs:sequence&gt;
+                    &lt;/xs:complexType&gt;
+                &lt;/xs:element&gt;
+                &lt;xs:element type="xs:integer" name="rank" minOccurs="0" /&gt;
+            &lt;/xs:all&gt;
+        &lt;/xs:complexType&gt;
+    &lt;/xs:element&gt;
+&lt;/xs:schema&gt;</div>
+</div>
+</div>
+</div>
+</div>
+</article>
+</section>
+<section class="clearfix">
+<article class="definition">
+<h3 class="anchored" id="delete"><span>DELETE</span>
+<a class="fa fa-link link-anchor" data-url="r=__v2__companies__(cid)__job-applications__(job_app_id)#delete" data-web-id="__v2__companies__(cid)__job-applications__(job_app_id)"></a>
+</h3>
+<div class="md"><p>Endpoint to delete specific job application by job_app_id.
+</p></div>
+<div>
+<ul class="annotation-list">
+<li class="annotation">
+<span>v2</span>
+</li>
+</ul>
+</div>
+<h4>Parameters</h4>
+<h5>Path Parameters</h5>
+<ul class="param-list">
+<li>
+<div class="param-desc">
+<div class="param-name">cid</div>
+<div class="data-type">string</div>
+<div class="required">required</div>
+</div>
+<div class="param-content">
+<div>
+<p>Example: 123456</p>
+<div class="desc md">Company should be referenced via company id or company unique id or company short name using `|short_name` or `!short_name` format.
+</div>
+</div>
+</div>
+
+</li>
+<li>
+<div class="param-desc">
+<div class="param-name">job_app_id</div>
+<div class="data-type">integer</div>
+<div class="required">required</div>
+</div>
+<div class="param-content">
+<div>
+<div class="desc md">Id to locate the job application.</div>
+</div>
+</div>
+
+</li>
+</ul>
+<h4>Responses</h4>
+<div class="responses">
+<div>
+<label class="response response-success">
+<span class="fa fa-check"></span>
+<input data-full-tab-id="delete-resp-code-tab-id-0" data-tab-class="resp-code-tab-delete" name="resp-code-tab-delete" type="radio"/>
+<span class="status">204 No Content</span>
+</label>
+<div class="response-desc resp-code-tab-delete" id="delete-resp-code-tab-id-0">
+<div class="md"><p>Job application was successfully deleted.</p></div>
+</div>
+</div>
+<div>
+<label class="response response-error">
+<span class="fa fa-times"></span>
+<input data-full-tab-id="delete-resp-code-tab-id-1" data-tab-class="resp-code-tab-delete" name="resp-code-tab-delete" type="radio"/>
+<span class="status">401 Unauthorized</span>
+</label>
+<div class="response-desc resp-code-tab-delete" id="delete-resp-code-tab-id-1">
+<div class="md"><p>Returned in case user is not authorized.</p></div>
+</div>
+</div>
+<div>
+<label class="response response-error">
+<span class="fa fa-times"></span>
+<input data-full-tab-id="delete-resp-code-tab-id-2" data-tab-class="resp-code-tab-delete" name="resp-code-tab-delete" type="radio"/>
+<span class="status">403 Forbidden</span>
+</label>
+<div class="response-desc resp-code-tab-delete" id="delete-resp-code-tab-id-2">
+<div class="md"><p>Returned in case user has no access to the resource.</p></div>
+</div>
+</div>
+<div>
+<label class="response response-error">
+<span class="fa fa-times"></span>
+<input data-full-tab-id="delete-resp-code-tab-id-3" data-tab-class="resp-code-tab-delete" name="resp-code-tab-delete" type="radio"/>
+<span class="status">404 Not Found</span>
+</label>
+<div class="response-desc resp-code-tab-delete" id="delete-resp-code-tab-id-3">
+<div class="md"><p>Returned in case resource does not exist.</p></div>
+</div>
+</div>
+<div>
+<label class="response response-error">
+<span class="fa fa-times"></span>
+<input data-full-tab-id="delete-resp-code-tab-id-4" data-tab-class="resp-code-tab-delete" name="resp-code-tab-delete" type="radio"/>
+<span class="status">503 Service Unavailable</span>
+</label>
+<div class="response-desc resp-code-tab-delete" id="delete-resp-code-tab-id-4">
+<div class="md"><p>Returned in the event that the call limit is exceeded. The application will be unavailable for subsequent calls for the duration specified by the X-CallLimit-TimeToWait header.</p></div>
+</div>
+</div>
+</div>
+</article>
+<article class="code">
+<h4>Definition</h4>
+<div class="uri">
+<code>
+<span class="method delete">delete</span>
+<span class="textUri"><span class="baseUri">{{ getUriPrefix() }}</span><span class="relativeUri">/v2/companies/{cid}/job-applications/{job_app_id}</span></span>
+</code>
+</div>
+</article>
+</section>
+</div>
+</body></html>

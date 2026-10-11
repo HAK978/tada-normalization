@@ -1,0 +1,398 @@
+<!doctype html>
+<html><head><meta charset="utf-8"><title>Pay</title><style>body{font:16px system-ui;max-width:1100px;margin:2rem auto;padding:0 1rem;line-height:1.5}aside{background:#fff3cc;padding:1rem}.jsonschema,pre{white-space:pre-wrap;font:13px monospace;overflow-wrap:anywhere;background:#f4f5f7;padding:1rem}.uri{font-family:monospace}h2,h3{margin-top:2rem}</style></head><body><aside><strong>Modified private reference — 2026-10-09.</strong> Provider-documented illustrative examples are included; authentication token examples are redacted. These are not customer exports or guaranteed production behavior. Candidate sharing is pending. This is not OpenAPI.</aside>
+<div class="group">
+<h2 class="anchored" id="item.anchor">
+<span>Pay</span>
+<a class="fa fa-link link-anchor" data-url="r=__v2__companies__(cid)__employees__(aid)__forms__pay#" data-web-id="__v2__companies__(cid)__employees__(aid)__forms__pay"></a>
+</h2>
+<section class="clearfix">
+<article class="definition">
+<h3 class="anchored" id="get"><span>GET</span>
+<a class="fa fa-link link-anchor" data-url="r=__v2__companies__(cid)__employees__(aid)__forms__pay#get" data-web-id="__v2__companies__(cid)__employees__(aid)__forms__pay"></a>
+</h3>
+<div class="md"><p>__This resource has been deprecated as of October 8, 2022.
+It will continue to work as per the deprecation policy.
+For an alternative solution, see GET /v2/companies/{cid}/employees/{account_id}/forms/system.__
+
+Endpoint returns list of employee's pay forms (1099, W2) for various tax years.This endpoint can be accessed by only employees to get their pay forms.
+</p></div>
+<div>
+<ul class="annotation-list">
+<li class="annotation">
+<span>v2</span>
+</li>
+<li class="annotation">
+<span>deprecated</span>
+</li>
+</ul>
+</div>
+<h4>Parameters</h4>
+<h5>Path Parameters</h5>
+<ul class="param-list">
+<li>
+<div class="param-desc">
+<div class="param-name">cid</div>
+<div class="data-type">string</div>
+<div class="required">required</div>
+</div>
+<div class="param-content">
+<div>
+<p>Example: 123456</p>
+<div class="desc md">Company should be referenced via company id or company unique id or company short name using `|short_name` or `!short_name` format.
+</div>
+</div>
+</div>
+
+</li>
+<li>
+<div class="param-desc">
+<div class="param-name">aid</div>
+<div class="data-type">string</div>
+<div class="required">required</div>
+</div>
+<div class="param-content">
+<div>
+<p>Example: 1234567</p>
+<div class="desc md">Account should be referenced via account id or account external id using `|external_id` or `!external_id` format.
+</div>
+</div>
+</div>
+
+</li>
+</ul>
+<h5>Query Parameters</h5>
+<ul class="param-list">
+<li>
+<div class="param-desc">
+<div class="param-name">form_type</div>
+<div class="data-type">string</div>
+</div>
+<div class="param-content">
+<div>
+<div class="desc md">Defines which form type to return; ie 1099, W2</div>
+</div>
+</div>
+
+</li>
+<li>
+<div class="param-desc">
+<div class="param-name">start_year</div>
+<div class="data-type">integer</div>
+</div>
+<div class="param-content">
+<div>
+<p>Example: 2014</p>
+<div class="desc md">Starting tax year for which to retrieve forms. Defaults to current year minus 4 for a 5 year inclusive range.</div>
+</div>
+</div>
+
+</li>
+<li>
+<div class="param-desc">
+<div class="param-name">end_year</div>
+<div class="data-type">integer</div>
+</div>
+<div class="param-content">
+<div>
+<p>Example: 2017</p>
+<div class="desc md">Ending tax year for which to retrieve forms. Defaults to current year.</div>
+</div>
+</div>
+
+</li>
+</ul>
+<h5>Header Parameters</h5>
+<ul class="param-list">
+<li>
+<div class="param-desc">
+<div class="param-name">X-End-of-Support-Timeline</div>
+<div class="data-type">string</div>
+<div class="required">required</div>
+</div>
+<div class="param-content">
+<div>
+<p>Default: 2026-01-29</p>
+</div>
+</div>
+
+</li>
+<li>
+<div class="param-desc">
+<div class="param-name">Accept</div>
+<div class="data-type">string</div>
+</div>
+<div class="param-content">
+<div>
+<p>Valid values: application/json, application/xml, text/xml</p>
+<p>Default: application/json</p>
+<p>Example: application/json</p>
+</div>
+</div>
+
+</li>
+</ul>
+<h4>Responses</h4>
+<div class="responses">
+<div>
+<label class="response response-success">
+<span class="fa fa-check"></span>
+<input data-full-tab-id="get-resp-code-tab-id-0" data-tab-class="resp-code-tab-get" name="resp-code-tab-get" type="radio"/>
+<span class="status">200 Ok</span>
+</label>
+<div class="response-desc resp-code-tab-get" id="get-resp-code-tab-id-0">
+</div>
+</div>
+<div>
+<label class="response response-error">
+<span class="fa fa-times"></span>
+<input data-full-tab-id="get-resp-code-tab-id-1" data-tab-class="resp-code-tab-get" name="resp-code-tab-get" type="radio"/>
+<span class="status">401 Unauthorized</span>
+</label>
+<div class="response-desc resp-code-tab-get" id="get-resp-code-tab-id-1">
+<div class="md"><p>Returned in case user is not authorized.</p></div>
+</div>
+</div>
+<div>
+<label class="response response-error">
+<span class="fa fa-times"></span>
+<input data-full-tab-id="get-resp-code-tab-id-2" data-tab-class="resp-code-tab-get" name="resp-code-tab-get" type="radio"/>
+<span class="status">403 Forbidden</span>
+</label>
+<div class="response-desc resp-code-tab-get" id="get-resp-code-tab-id-2">
+<div class="md"><p>Returned in case user has no access to the resource.</p></div>
+</div>
+</div>
+<div>
+<label class="response response-error">
+<span class="fa fa-times"></span>
+<input data-full-tab-id="get-resp-code-tab-id-3" data-tab-class="resp-code-tab-get" name="resp-code-tab-get" type="radio"/>
+<span class="status">503 Service Unavailable</span>
+</label>
+<div class="response-desc resp-code-tab-get" id="get-resp-code-tab-id-3">
+<div class="md"><p>Returned in the event that the call limit is exceeded. The application will be unavailable for subsequent calls for the duration specified by the X-CallLimit-TimeToWait header.</p></div>
+</div>
+</div>
+</div>
+</article>
+<article class="code">
+<h4>Definition</h4>
+<div class="uri">
+<code>
+<span class="method get">get</span>
+<span class="textUri"><span class="baseUri">{{ getUriPrefix() }}</span><span class="relativeUri">/v2/companies/{cid}/employees/{aid}/forms/pay</span></span>
+</code>
+</div>
+<h4>Response Samples</h4>
+<div class="tab-title-group">
+<label>
+<input checked="checked" data-full-tab-id="resp-tab-id-get-0" data-tab-class="resp-tab-get" name="resp-tab-get" type="radio"/>
+<span class="tab-title">application/json</span>
+</label>
+<label>
+<input data-full-tab-id="resp-tab-id-get-1" data-tab-class="resp-tab-get" name="resp-tab-get" type="radio"/>
+<span class="tab-title">application/xml</span>
+</label>
+</div>
+<div>
+<div class="resp-tab-get" id="resp-tab-id-get-0">
+<div class="example">
+
+<div class="get-example-resp-tab-0 activeTab" id="get-tab-resp-example-0">
+
+<pre class="highlightjs">{
+  "forms": [
+    {
+      "id": 10992241,
+      "name": "Tax form 1099 for year 2017",
+      "type": "1099",
+      "tax_year": 2017,
+      "_links": {
+        "download": "http://example.com/ta/fs?ticket=[REDACTED_DOCUMENTATION_TOKEN]"
+     }
+    },
+    {
+      "id": 3322249,
+      "name": "Tax form W2 for year 2017",
+      "type": "W2",
+      "tax_year": 2017,
+      "_links": {
+        "download": "http://example.com/ta/fs?ticket=[REDACTED_DOCUMENTATION_TOKEN]"
+      }
+    },
+    {
+      "id": 10992242,
+      "name": "Tax form 1099 for year 2016",
+      "type": "1099",
+      "tax_year": 2016,
+      "_links": {
+        "download": "http://example.com/ta/fs?ticket=[REDACTED_DOCUMENTATION_TOKEN]"
+      }
+    },
+    {
+      "id": 3322248,
+      "name": "Tax form W2 for year 2015",
+      "type": "W2",
+      "tax_year": 2015,
+      "_links": {
+        "download": "http://example.com/ta/fs?ticket=[REDACTED_DOCUMENTATION_TOKEN]"
+      }
+    },
+    {
+      "id": 10992244,
+      "name": "Tax form 1099 for year 2014",
+      "type": "1099",
+      "tax_year": 2014,
+      "_links": {
+        "download": "http://example.com/ta/fs?ticket=[REDACTED_DOCUMENTATION_TOKEN]"
+      }
+    }
+  ]
+}</pre>
+</div>
+<div class="get-example-resp-tab-0" id="get-tab-resp-schema-0">
+
+<div class="jsonschema" id="schema-0">{
+  "definitions": {},
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "type": "object",
+  "properties": {
+    "forms": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer"
+          },
+          "name": {
+            "type": "string"
+          },
+          "type": {
+            "enum": [
+              "W2",
+              "1099"
+            ]
+          },
+          "tax_year": {
+            "type": "integer"
+          },
+          "_links": {
+            "type": "object",
+            "properties": {
+              "download": {
+                "type": "string"
+              }
+            },
+            "additionalProperties": false
+          }
+        },
+        "required": [
+          "id",
+          "type",
+          "tax_year"
+        ],
+        "additionalProperties": false
+      }
+    }
+  },
+  "additionalProperties": false
+}</div>
+</div>
+</div>
+</div>
+<div class="resp-tab-get" id="resp-tab-id-get-1">
+<div class="example">
+
+<div class="get-example-resp-tab-1 activeTab" id="get-tab-resp-example-1">
+
+<pre class="highlightjs">&lt;?xml version="1.0" encoding="UTF-8"?&gt;
+&lt;forms&gt;
+  &lt;form&gt;
+    &lt;_links&gt;
+      &lt;download&gt;http://example.com/ta/fs?ticket=[REDACTED_DOCUMENTATION_TOKEN]&lt;/download&gt;
+    &lt;/_links&gt;
+    &lt;id&gt;10992241&lt;/id&gt;
+    &lt;name&gt;Tax form 1099 for year 2017&lt;/name&gt;
+    &lt;tax_year&gt;2017&lt;/tax_year&gt;
+    &lt;type&gt;1099&lt;/type&gt;
+  &lt;/form&gt;
+  &lt;form&gt;
+    &lt;_links&gt;
+      &lt;download&gt;http://example.com/ta/fs?ticket=[REDACTED_DOCUMENTATION_TOKEN]&lt;/download&gt;
+    &lt;/_links&gt;
+    &lt;id&gt;3322249&lt;/id&gt;
+    &lt;name&gt;Tax form W2 for year 2017&lt;/name&gt;
+    &lt;tax_year&gt;2017&lt;/tax_year&gt;
+    &lt;type&gt;W2&lt;/type&gt;
+  &lt;/form&gt;
+  &lt;form&gt;
+    &lt;_links&gt;
+      &lt;download&gt;http://example.com/ta/fs?ticket=[REDACTED_DOCUMENTATION_TOKEN]&lt;/download&gt;
+    &lt;/_links&gt;
+    &lt;id&gt;10992242&lt;/id&gt;
+    &lt;name&gt;Tax form 1099 for year 2016&lt;/name&gt;
+    &lt;tax_year&gt;2016&lt;/tax_year&gt;
+    &lt;type&gt;1099&lt;/type&gt;
+  &lt;/form&gt;
+  &lt;form&gt;
+    &lt;_links&gt;
+      &lt;download&gt;http://example.com/ta/fs?ticket=[REDACTED_DOCUMENTATION_TOKEN]&lt;/download&gt;
+    &lt;/_links&gt;
+    &lt;id&gt;3322248&lt;/id&gt;
+    &lt;name&gt;Tax form W2 for year 2015&lt;/name&gt;
+    &lt;tax_year&gt;2015&lt;/tax_year&gt;
+    &lt;type&gt;W2&lt;/type&gt;
+  &lt;/form&gt;
+  &lt;form&gt;
+    &lt;_links&gt;
+      &lt;download&gt;http://example.com/ta/fs?ticket=[REDACTED_DOCUMENTATION_TOKEN]&lt;/download&gt;
+    &lt;/_links&gt;
+    &lt;id&gt;10992244&lt;/id&gt;
+    &lt;name&gt;Tax form 1099 for year 2014&lt;/name&gt;
+    &lt;tax_year&gt;2014&lt;/tax_year&gt;
+    &lt;type&gt;1099&lt;/type&gt;
+  &lt;/form&gt;
+&lt;/forms&gt;</pre>
+</div>
+<div class="get-example-resp-tab-1" id="get-tab-resp-schema-1">
+
+<div class="jsonschema" id="schema-1">&lt;xs:schema attributeFormDefault="unqualified" elementFormDefault="qualified" xmlns:xs="http://www.w3.org/2001/XMLSchema"&gt;
+  &lt;xs:element name="forms"&gt;
+    &lt;xs:complexType&gt;
+      &lt;xs:sequence&gt;
+        &lt;xs:element name="form" maxOccurs="unbounded" minOccurs="0"&gt;
+          &lt;xs:complexType&gt;
+            &lt;xs:sequence&gt;
+              &lt;xs:element name="_links"&gt;
+                &lt;xs:complexType&gt;
+                  &lt;xs:sequence&gt;
+                    &lt;xs:element type="xs:anyURI" name="download"/&gt;
+                  &lt;/xs:sequence&gt;
+                &lt;/xs:complexType&gt;
+              &lt;/xs:element&gt;
+              &lt;xs:element type="xs:integer" name="id"/&gt;
+              &lt;xs:element type="xs:string" name="name"/&gt;
+              &lt;xs:element type="xs:integer" name="tax_year"/&gt;
+              &lt;xs:element name="type"&gt;
+                &lt;xs:simpleType&gt;
+                  &lt;xs:restriction base="xs:string"&gt;
+                    &lt;xs:enumeration value="W2"/&gt;
+                    &lt;xs:enumeration value="1099"/&gt;
+                  &lt;/xs:restriction&gt;
+                &lt;/xs:simpleType&gt;
+              &lt;/xs:element&gt;
+            &lt;/xs:sequence&gt;
+          &lt;/xs:complexType&gt;
+        &lt;/xs:element&gt;
+      &lt;/xs:sequence&gt;
+    &lt;/xs:complexType&gt;
+  &lt;/xs:element&gt;
+&lt;/xs:schema&gt;</div>
+</div>
+</div>
+</div>
+</div>
+</article>
+</section>
+</div>
+</body></html>

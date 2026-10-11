@@ -1,0 +1,894 @@
+<!doctype html>
+<html><head><meta charset="utf-8"><title>Shifts</title><style>body{font:16px system-ui;max-width:1100px;margin:2rem auto;padding:0 1rem;line-height:1.5}aside{background:#fff3cc;padding:1rem}.jsonschema,pre{white-space:pre-wrap;font:13px monospace;overflow-wrap:anywhere;background:#f4f5f7;padding:1rem}.uri{font-family:monospace}h2,h3{margin-top:2rem}</style></head><body><aside><strong>Modified private reference — 2026-10-09.</strong> Provider-documented illustrative examples are included; authentication token examples are redacted. These are not customer exports or guaranteed production behavior. Candidate sharing is pending. This is not OpenAPI.</aside>
+<div class="group">
+<h2 class="anchored" id="item.anchor">
+<span>Shifts</span>
+<a class="fa fa-link link-anchor" data-url="r=__v2__companies__(cid)__schedules__(schedule_id)__shifts#" data-web-id="__v2__companies__(cid)__schedules__(schedule_id)__shifts"></a>
+</h2>
+<section class="clearfix">
+<article class="definition">
+<h3 class="anchored" id="get"><span>GET</span>
+<a class="fa fa-link link-anchor" data-url="r=__v2__companies__(cid)__schedules__(schedule_id)__shifts#get" data-web-id="__v2__companies__(cid)__schedules__(schedule_id)__shifts"></a>
+</h3>
+<div class="md"><p>Gets the list of Shifts being housed in a Schedule
+Advanced Scheduler (&lt;b&gt;SCHEDULE&lt;/b&gt;) Subsystem must be enabled in company setup.
+</p></div>
+<h4>Parameters</h4>
+<h5>Path Parameters</h5>
+<ul class="param-list">
+<li>
+<div class="param-desc">
+<div class="param-name">cid</div>
+<div class="data-type">string</div>
+<div class="required">required</div>
+</div>
+<div class="param-content">
+<div>
+<p>Example: 123456</p>
+<div class="desc md">Company should be referenced via company id or company unique id or company short name using `|short_name` or `!short_name` format.
+</div>
+</div>
+</div>
+
+</li>
+<li>
+<div class="param-desc">
+<div class="param-name">schedule_id</div>
+<div class="data-type">integer</div>
+<div class="required">required</div>
+</div>
+<div class="param-content">
+<div>
+<p>Example: 123456</p>
+<div class="desc md">Schedule ID
+</div>
+</div>
+</div>
+
+</li>
+</ul>
+<h5>Header Parameters</h5>
+<ul class="param-list">
+<li>
+<div class="param-desc">
+<div class="param-name">Accept</div>
+<div class="data-type">string</div>
+</div>
+<div class="param-content">
+<div>
+<p>Valid values: application/json, application/xml, text/xml</p>
+<p>Default: application/json</p>
+<p>Example: application/json</p>
+</div>
+</div>
+
+</li>
+</ul>
+<h4>Responses</h4>
+<div class="responses">
+<div>
+<label class="response response-success">
+<span class="fa fa-check"></span>
+<input data-full-tab-id="get-resp-code-tab-id-0" data-tab-class="resp-code-tab-get" name="resp-code-tab-get" type="radio"/>
+<span class="status">200 Ok</span>
+</label>
+<div class="response-desc resp-code-tab-get" id="get-resp-code-tab-id-0">
+</div>
+</div>
+<div>
+<label class="response response-error">
+<span class="fa fa-times"></span>
+<input data-full-tab-id="get-resp-code-tab-id-1" data-tab-class="resp-code-tab-get" name="resp-code-tab-get" type="radio"/>
+<span class="status">401 Unauthorized</span>
+</label>
+<div class="response-desc resp-code-tab-get" id="get-resp-code-tab-id-1">
+<div class="md"><p>Returned in case user is not authorized.</p></div>
+</div>
+</div>
+<div>
+<label class="response response-error">
+<span class="fa fa-times"></span>
+<input data-full-tab-id="get-resp-code-tab-id-2" data-tab-class="resp-code-tab-get" name="resp-code-tab-get" type="radio"/>
+<span class="status">403 Forbidden</span>
+</label>
+<div class="response-desc resp-code-tab-get" id="get-resp-code-tab-id-2">
+<div class="md"><p>Returned in case user has no access to the resource.</p></div>
+</div>
+</div>
+<div>
+<label class="response response-error">
+<span class="fa fa-times"></span>
+<input data-full-tab-id="get-resp-code-tab-id-3" data-tab-class="resp-code-tab-get" name="resp-code-tab-get" type="radio"/>
+<span class="status">503 Service Unavailable</span>
+</label>
+<div class="response-desc resp-code-tab-get" id="get-resp-code-tab-id-3">
+<div class="md"><p>Returned in the event that the call limit is exceeded. The application will be unavailable for subsequent calls for the duration specified by the X-CallLimit-TimeToWait header.</p></div>
+</div>
+</div>
+</div>
+</article>
+<article class="code">
+<h4>Definition</h4>
+<div class="uri">
+<code>
+<span class="method get">get</span>
+<span class="textUri"><span class="baseUri">{{ getUriPrefix() }}</span><span class="relativeUri">/v2/companies/{cid}/schedules/{schedule_id}/shifts</span></span>
+</code>
+</div>
+<h4>Response Samples</h4>
+<div class="tab-title-group">
+<label>
+<input checked="checked" data-full-tab-id="resp-tab-id-get-0" data-tab-class="resp-tab-get" name="resp-tab-get" type="radio"/>
+<span class="tab-title">application/json</span>
+</label>
+<label>
+<input data-full-tab-id="resp-tab-id-get-1" data-tab-class="resp-tab-get" name="resp-tab-get" type="radio"/>
+<span class="tab-title">application/xml</span>
+</label>
+</div>
+<div>
+<div class="resp-tab-get" id="resp-tab-id-get-0">
+<div class="example">
+
+<div class="get-example-resp-tab-0 activeTab" id="get-tab-resp-example-0">
+
+<pre class="highlightjs">{
+  "shifts": [
+    {
+      "id": 5686528,
+      "account": {
+        "account_id": 2203589
+      },
+      "date": "2016-11-25",
+      "type": "FIXED",
+      "shift_start": "2016-11-25T19:00:00.000-06:00",
+      "shift_end": "2016-11-26T09:00:00.000-06:00",
+      "total_standard_hours": 124512354,
+      "cost_centers": [
+        {
+          "index": 1,
+          "tree_name": "Cost Center List 1",
+          "value": {
+            "id": 1573698,
+            "display_name": "Houston/33 East 17th Street"
+          }
+        }
+      ],
+      "skill": {
+        "schedulable": true,
+        "id": 43906,
+        "name": "C#"
+      },
+      "shift_premium": {
+        "id": 435214,
+        "name": "Premium",
+        "code": "11111",
+        "description": "Desc"
+      },
+      "average_rate": 10.0,
+      "_links": {
+        "self": "http://example.com/ta/rest/v1/p/companies/459716/schedules/1475072/shifts/5686528",
+        "delete": "http://example.com/ta/rest/v1/p/companies/459716/schedules/1475072/shifts/5686528"
+      }
+    },
+    {
+      "id": 5566345,
+      "account": {
+        "account_id": 2203589
+      },
+      "date": "2016-11-25",
+      "type": "FLOATING",
+      "floating_start_min": "2016-11-25T8:00:00.000-06:00",
+      "floating_start_max": "2016-11-25T09:00:00.000-06:00",
+      "floating_total_time": 1728000000,
+      "total_standard_hours": 395939593,
+      "cost_centers": [
+        {
+          "index": 1,
+          "tree_name": "Cost Center List 1",
+          "value": {
+            "id": 1573698,
+            "display_name": "Houston/33 East 17th Street"
+          }
+        }
+      ],
+      "skill": {
+        "schedulable": true,
+        "id": 43906,
+        "name": "JAVA"
+      },
+      "shift_premium": {
+        "id": 435214,
+        "name": "Premium",
+        "code": "11111",
+        "description": "Desc"
+      },
+      "day_type": {
+        "id": 123,
+        "display_name": "Second Shift",
+        "description": "",
+        "enabled": true,
+        "editable": true,
+        "scheduled_day_off": false
+      },
+      "average_rate": 20.0,
+      "_links": {
+        "self": "http://example.com/ta/rest/v1/p/companies/459716/schedules/1475072/shifts/5566345",
+        "delete": "http://example.com/ta/rest/v1/p/companies/459716/schedules/1475072/shifts/5566345"
+      }
+    },
+    {
+      "locked":false,
+      "id":1805123584,
+      "schedule_id":1803502336,
+      "account":{
+        "account_id":9384133
+      },
+      "date":"2020-05-05",
+      "type":"FIXED",
+      "abbreviation": "ABBR",
+      "daily_rule_name": "Daily rule xxx",
+      "name": "My Shift Name",
+      "shift_start":"2020-05-05T10:00:00.000+03:00",
+      "shift_end":"2020-05-05T18:00:00.000+03:00",
+      "cost_centers":[
+        {
+          "index":0,
+          "tree_name": "Cost Center List 2",
+          "value":{
+            "id":8598025,
+            "display_name":"CC1"
+          }
+        }
+      ],
+      "time_off":{
+        "id":8598080,
+        "name":"VAC",
+        "payroll_code":"",
+        "external_id":"",
+        "path":"VAC"
+      },
+      "skill":{
+        "schedulable":true,
+        "id":1811945280,
+        "name":"Skill1",
+        "category":""
+      },
+      "shift_premium": {
+        "id": 435214,
+        "name": "Premium",
+        "code": "11111",
+        "description": "Desc"
+      },
+      "additional_data":{
+        "type":"TIME_OFF",
+        "is_pto_scheduled":true,
+        "is_hide_name_in_schedule":true
+      },
+      "color": "#FF3300",
+      "workday_breakdown": {
+        "id": 123,
+        "display_name": "workday breakdown example"
+      },
+      "frozen":false
+    }
+  ],
+  "summary": {
+    "2025-03-30": {
+      "total_ms": 122400000,
+      "head_count": 31
+    },
+    "2025-03-31": {
+      "total_ms": 136800000,
+      "head_count": 33
+    },
+    "2025-04-01": {
+      "total_ms": 133200000,
+      "head_count": 30
+    },
+    "2025-04-02": {
+      "total_ms": 133200000,
+      "head_count": 33
+    },
+    "2025-03-24": {
+      "total_ms": 133200000,
+      "head_count": 30
+    },
+    "2025-04-14": {
+      "total_ms": 133200000,
+      "head_count": 35
+    },
+    "2025-03-25": {
+      "total_ms": 122400000,
+      "head_count": 28
+    },
+    "2025-04-15": {
+      "total_ms": 129600000,
+      "head_count": 31
+    },
+    "2025-03-26": {
+      "total_ms": 118800000,
+      "head_count": 30
+    },
+    "2025-04-16": {
+      "total_ms": 122400000,
+      "head_count": 29
+    }
+  }
+}</pre>
+</div>
+<div class="get-example-resp-tab-0" id="get-tab-resp-schema-0">
+
+<div class="jsonschema" id="schema-0">{
+  "$id": "http://example.com/example.json",
+  "type": "object",
+  "properties": {
+    "shifts": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer"
+          },
+          "schedule_id": {
+            "type": "integer"
+          },
+          "account": {
+            "type": "object",
+            "properties": {
+              "account_id": {
+                "type": "integer"
+              }
+            },
+            "additionalProperties": false
+          },
+          "date": {
+            "type": "string"
+          },
+          "type": {
+            "type": "string",
+            "enum": [
+              "FIXED",
+              "FLOATING"
+            ]
+          },
+          "abbreviation": {
+            "type": "string"
+          },
+          "daily_rule_name": {
+            "type": "string"
+          },
+          "name": {
+            "type": "string"
+          },
+          "shift_start": {
+            "type": "string"
+          },
+          "shift_end": {
+            "type": "string"
+          },
+          "floating_start_min": {
+            "type": "string"
+          },
+          "floating_start_max": {
+            "type": "string"
+          },
+          "floating_total_time": {
+            "type": "number"
+          },
+          "lunch_start": {
+            "type": "string"
+          },
+          "lunch_end": {
+            "type": "string"
+          },
+          "lunch_time": {
+            "type": "number"
+          },
+          "total_standard_hours": {
+            "type": "number"
+          },
+          "frozen": {
+            "type": "boolean"
+          },
+          "locked": {
+            "type": "boolean"
+          },
+          "cost_centers": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "index": {
+                  "type": "integer"
+                },
+                "tree_name": {
+                  "type": "string"
+                },
+                "value": {
+                  "type": "object",
+                  "properties": {
+                    "id": {
+                      "type": "integer"
+                    },
+                    "display_name": {
+                      "type": "string"
+                    }
+                  }
+                }
+              },
+              "additionalProperties": true
+            }
+          },
+          "skill": {
+            "type": "object",
+            "properties": {
+              "schedulable": {
+                "type": "boolean"
+              },
+              "id": {
+                "type": "integer"
+              },
+              "name": {
+                "type": "string"
+              },
+              "category": {
+                "type": "string"
+              },
+              "color": {
+                "type": "string"
+              }
+            },
+            "additionalProperties": false
+          },
+          "shift_premium": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "integer"
+              },
+              "name": {
+                "type": "string"
+              },
+              "code": {
+                "type": "string"
+              },
+              "description": {
+                "type": "string"
+              }
+            },
+            "additionalProperties": false
+          },
+          "day_type": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "integer"
+              },
+              "display_name": {
+                "type": "string"
+              }
+            },
+            "additionalProperties": true
+          },
+          "time_off": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "integer"
+              },
+              "name": {
+                "type": "string"
+              },
+              "payroll_code": {
+                "type": "string"
+              },
+              "external_id": {
+                "type": "string"
+              },
+              "path": {
+                "type": "string"
+              },
+              "display_name": {
+                "type": "string"
+              }
+            },
+            "additionalProperties": false
+          },
+          "average_rate": {
+            "type": "number"
+          },
+          "additional_data": {
+            "type": "object"
+          },
+          "certifications": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "id": {
+                  "type": "integer"
+                },
+                "display_name": {
+                  "type": "string"
+                }
+              },
+              "required": [
+                "id",
+                "display_name"
+              ],
+              "additionalProperties": false
+            }
+          },
+          "credentials": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "id": {
+                  "type": "integer"
+                },
+                "display_name": {
+                  "type": "string"
+                }
+              },
+              "required": [
+                "id",
+                "display_name"
+              ],
+              "additionalProperties": false
+            }
+          },
+          "color": {
+            "type": "string"
+          },
+          "workday_breakdown": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "integer"
+              },
+              "display_name": {
+                "type": "string"
+              }
+            },
+            "additionalProperties": false
+          },
+          "_links": {
+            "type": "object",
+            "properties": {
+              "self": {
+                "type": "string"
+              },
+              "delete": {
+                "type": "string"
+              },
+              "post": {
+                "type": "string"
+              },
+              "notes": {
+                "type": "string"
+              },
+              "add_note": {
+                "type": "string"
+              },
+              "edit": {
+                "type": "string"
+              },
+              "assign": {
+                "type": "string"
+              }
+            },
+            "additionalProperties": false
+          }
+        },
+        "required": [
+          "date",
+          "type"
+        ],
+        "additionalProperties": false
+      }
+    },
+    "messages": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "severity": {
+            "type": "string",
+            "enum": [
+              "ERROR",
+              "WARN",
+              "INFO"
+            ]
+          },
+          "text": {
+            "type": "string"
+          },
+          "key": {
+            "type": "string"
+          },
+          "details": {
+            "type": "object"
+          }
+        },
+        "additionalProperties": false,
+        "required": [
+          "severity",
+          "text"
+        ]
+      }
+    },
+    "user_messages": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "severity": {
+            "type": "string",
+            "enum": [
+              "ERROR",
+              "WARN",
+              "INFO"
+            ]
+          },
+          "text": {
+            "type": "string"
+          },
+          "key": {
+            "type": "string"
+          },
+          "details": {
+            "type": "object"
+          }
+        },
+        "additionalProperties": false,
+        "required": [
+          "severity",
+          "text"
+        ]
+      }
+    },
+    "errors": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "code": {
+            "type": "integer"
+          },
+          "message": {
+            "type": "string"
+          },
+          "key": {
+            "type": "string"
+          }
+        },
+        "additionalProperties": false,
+        "required": [
+          "message"
+        ]
+      }
+    },
+    "summary": {
+      "type": "object",
+      "patternProperties": {
+        "\\d{4}-\\d{2}-\\d{2}": {
+          "type": "object",
+          "properties": {
+            "head_count": {
+              "type": "integer"
+            },
+            "total_ms": {
+              "type": "integer"
+            }
+          },
+          "additionalProperties": false
+        }
+      }
+    }
+  },
+  "additionalProperties": false
+}</div>
+</div>
+</div>
+</div>
+<div class="resp-tab-get" id="resp-tab-id-get-1">
+<div class="example">
+
+<div class="get-example-resp-tab-1 activeTab" id="get-tab-resp-example-1">
+
+<pre class="highlightjs">&lt;?xml version="1.0" encoding="UTF-8"?&gt;
+&lt;shifts&gt;
+  &lt;shift&gt;
+    &lt;id&gt;5686528&lt;/id&gt;
+    &lt;account&gt;
+      &lt;account_id&gt;2203589&lt;/account_id&gt;
+    &lt;/account&gt;
+    &lt;date&gt;2016-11-25&lt;/date&gt;
+    &lt;type&gt;FIXED&lt;/type&gt;
+    &lt;shift_start&gt;2016-11-25T19:00:00.000-06:00&lt;/shift_start&gt;
+    &lt;shift_end&gt;2016-11-26T09:00:00.000-06:00&lt;/shift_end&gt;
+    &lt;total_standard_hours&gt;513553254&lt;/total_standard_hours&gt;
+    &lt;cost_centers&gt;
+      &lt;cost_center&gt;
+        &lt;index&gt;1&lt;/index&gt;
+        &lt;value&gt;
+          &lt;display_name&gt;Houston/33 East 17th Street&lt;/display_name&gt;
+          &lt;id&gt;1573698&lt;/id&gt;
+        &lt;/value&gt;
+      &lt;/cost_center&gt;
+    &lt;/cost_centers&gt;
+    &lt;skill&gt;
+      &lt;id&gt;43906&lt;/id&gt;
+      &lt;name&gt;C#&lt;/name&gt;
+      &lt;schedulable&gt;true&lt;/schedulable&gt;
+    &lt;/skill&gt;
+    &lt;shift_premium&gt;
+      &lt;id&gt;123&lt;/id&gt;
+      &lt;name&gt;Premium&lt;/name&gt;
+      &lt;code&gt;1111&lt;/code&gt;
+      &lt;description&gt;Desc&lt;/description&gt;
+    &lt;/shift_premium&gt;
+    &lt;average_rate&gt;10.0&lt;/average_rate&gt;
+    &lt;_links&gt;
+      &lt;delete&gt;http://example.com/ta/rest/v1/p/companies/459716/schedules/1475072/shifts/5686528&lt;/delete&gt;
+      &lt;self&gt;http://example.com/ta/rest/v1/p/companies/459716/schedules/1475072/shifts/5686528&lt;/self&gt;
+    &lt;/_links&gt;
+  &lt;/shift&gt;
+  &lt;shift&gt;
+    &lt;id&gt;5566345&lt;/id&gt;
+    &lt;account&gt;
+      &lt;account_id&gt;2203589&lt;/account_id&gt;
+    &lt;/account&gt;
+    &lt;date&gt;2016-11-25&lt;/date&gt;
+    &lt;type&gt;FLOATING&lt;/type&gt;
+    &lt;abbreviation&gt;ABBR&lt;/abbreviation&gt;
+    &lt;daily_rule_name&gt;Daily rule xxx&lt;/daily_rule_name&gt;
+    &lt;name&gt;My Shift Name&lt;/name&gt;
+    &lt;floating_start_min&gt;2016-11-25T8:00:00.000-06:00&lt;/floating_start_min&gt;
+    &lt;floating_start_max&gt;2016-11-25T09:00:00.000-06:00&lt;/floating_start_max&gt;
+    &lt;floating_total_time&gt;1728000000&lt;/floating_total_time&gt;
+    &lt;cost_centers&gt;
+      &lt;cost_center&gt;
+        &lt;index&gt;1&lt;/index&gt;
+        &lt;value&gt;
+          &lt;display_name&gt;Houston/33 East 17th Street&lt;/display_name&gt;
+          &lt;id&gt;1573698&lt;/id&gt;
+        &lt;/value&gt;
+      &lt;/cost_center&gt;
+    &lt;/cost_centers&gt;
+    &lt;skill&gt;
+      &lt;id&gt;43906&lt;/id&gt;
+      &lt;name&gt;JAVA&lt;/name&gt;
+      &lt;schedulable&gt;true&lt;/schedulable&gt;
+    &lt;/skill&gt;
+    &lt;shift_premium&gt;
+      &lt;id&gt;123&lt;/id&gt;
+      &lt;name&gt;Premium&lt;/name&gt;
+      &lt;code&gt;1111&lt;/code&gt;
+      &lt;description&gt;Desc&lt;/description&gt;
+    &lt;/shift_premium&gt;
+    &lt;day_type&gt;
+      &lt;display_name&gt;Second Shift&lt;/display_name&gt;
+      &lt;id&gt;123&lt;/id&gt;
+      &lt;description&gt;Second Shift&lt;/description&gt;
+      &lt;enabled&gt;true&lt;/enabled&gt;
+      &lt;editable&gt;true&lt;/editable&gt;
+      &lt;scheduled_day_off&gt;false&lt;/scheduled_day_off&gt;
+    &lt;/day_type&gt;
+    &lt;average_rate&gt;20.0&lt;/average_rate&gt;
+    &lt;_links&gt;
+      &lt;delete&gt;http://example.com/ta/rest/v1/p/companies/459716/schedules/1475072/shifts/5566345&lt;/delete&gt;
+      &lt;self&gt;http://example.com/ta/rest/v1/p/companies/459716/schedules/1475072/shifts/5566345&lt;/self&gt;
+    &lt;/_links&gt;
+  &lt;/shift&gt;
+&lt;/shifts&gt;
+</pre>
+</div>
+<div class="get-example-resp-tab-1" id="get-tab-resp-schema-1">
+
+<div class="jsonschema" id="schema-1">&lt;xs:schema attributeFormDefault="unqualified" elementFormDefault="qualified" xmlns:xs="http://www.w3.org/2001/XMLSchema"&gt;
+    &lt;xs:element name="shifts"&gt;
+        &lt;xs:complexType&gt;
+            &lt;xs:sequence&gt;
+                &lt;xs:element name="shift" maxOccurs="unbounded" minOccurs="0"&gt;
+                    &lt;xs:complexType&gt;
+                        &lt;xs:sequence&gt;
+                            &lt;xs:element type="xs:int" name="id"/&gt;
+                            &lt;xs:element name="account"&gt;
+                                &lt;xs:complexType&gt;
+                                    &lt;xs:sequence&gt;
+                                        &lt;xs:element type="xs:int" name="account_id"/&gt;
+                                    &lt;/xs:sequence&gt;
+                                &lt;/xs:complexType&gt;
+                            &lt;/xs:element&gt;
+                            &lt;xs:element type="xs:date" name="date"/&gt;
+                            &lt;xs:element type="xs:string" name="type"/&gt;
+                            &lt;xs:element type="xs:string" name="abbreviation" minOccurs="0"/&gt;
+                            &lt;xs:element type="xs:string" name="daily_rule_name" minOccurs="0"/&gt;
+                            &lt;xs:element type="xs:string" name="name" minOccurs="0"/&gt;
+                            &lt;xs:element type="xs:dateTime" name="shift_start" minOccurs="0"/&gt;
+                            &lt;xs:element type="xs:dateTime" name="shift_end" minOccurs="0"/&gt;
+                            &lt;xs:element type="xs:string" name="floating_start_min" minOccurs="0"/&gt;
+                            &lt;xs:element type="xs:dateTime" name="floating_start_max" minOccurs="0"/&gt;
+                            &lt;xs:element type="xs:int" name="floating_total_time" minOccurs="0"/&gt;
+                            &lt;xs:element type="xs:int" name="total_standard_hours" minOccurs="0"/&gt;
+                            &lt;xs:element name="cost_centers"&gt;
+                                &lt;xs:complexType&gt;
+                                    &lt;xs:sequence&gt;
+                                        &lt;xs:element name="cost_center"&gt;
+                                            &lt;xs:complexType&gt;
+                                                &lt;xs:sequence&gt;
+                                                    &lt;xs:element type="xs:byte" name="index"/&gt;
+                                                    &lt;xs:element name="value"&gt;
+                                                        &lt;xs:complexType&gt;
+                                                            &lt;xs:sequence&gt;
+                                                                &lt;xs:element type="xs:string" name="display_name"/&gt;
+                                                                &lt;xs:element type="xs:int" name="id"/&gt;
+                                                            &lt;/xs:sequence&gt;
+                                                        &lt;/xs:complexType&gt;
+                                                    &lt;/xs:element&gt;
+                                                &lt;/xs:sequence&gt;
+                                            &lt;/xs:complexType&gt;
+                                        &lt;/xs:element&gt;
+                                    &lt;/xs:sequence&gt;
+                                &lt;/xs:complexType&gt;
+                            &lt;/xs:element&gt;
+                            &lt;xs:element name="skill"&gt;
+                                &lt;xs:complexType&gt;
+                                    &lt;xs:sequence&gt;
+                                        &lt;xs:element type="xs:int" name="id"/&gt;
+                                        &lt;xs:element type="xs:string" name="name"/&gt;
+                                        &lt;xs:element type="xs:string" name="schedulable"/&gt;
+                                    &lt;/xs:sequence&gt;
+                                &lt;/xs:complexType&gt;
+                            &lt;/xs:element&gt;
+                            &lt;xs:element name="shift_premium" minOccurs="0"&gt;
+                                &lt;xs:complexType&gt;
+                                    &lt;xs:sequence&gt;
+                                        &lt;xs:element type="xs:int" name="id"/&gt;
+                                        &lt;xs:element type="xs:string" name="name"/&gt;
+                                        &lt;xs:element type="xs:string" name="code"/&gt;
+                                        &lt;xs:element type="xs:string" name="description"/&gt;
+                                    &lt;/xs:sequence&gt;
+                                &lt;/xs:complexType&gt;
+                            &lt;/xs:element&gt;
+                            &lt;xs:element name="day_type" minOccurs="0"&gt;
+                                &lt;xs:complexType&gt;
+                                    &lt;xs:sequence&gt;
+                                        &lt;xs:element type="xs:string" name="display_name"/&gt;
+                                        &lt;xs:element type="xs:byte" name="id"/&gt;
+                                        &lt;xs:element type="xs:string" name="description"/&gt;
+                                        &lt;xs:element type="xs:boolean" name="enabled"/&gt;
+                                        &lt;xs:element type="xs:boolean" name="editable"/&gt;
+                                        &lt;xs:element type="xs:boolean" name="scheduled_day_off"/&gt;
+                                    &lt;/xs:sequence&gt;
+                                &lt;/xs:complexType&gt;
+                            &lt;/xs:element&gt;
+                            &lt;xs:element type="xs:float" name="average_rate"/&gt;
+                            &lt;xs:element name="_links"&gt;
+                                &lt;xs:complexType&gt;
+                                    &lt;xs:sequence&gt;
+                                        &lt;xs:element type="xs:anyURI" name="delete"/&gt;
+                                        &lt;xs:element type="xs:anyURI" name="self"/&gt;
+                                    &lt;/xs:sequence&gt;
+                                &lt;/xs:complexType&gt;
+                            &lt;/xs:element&gt;
+                        &lt;/xs:sequence&gt;
+                    &lt;/xs:complexType&gt;
+                &lt;/xs:element&gt;
+            &lt;/xs:sequence&gt;
+        &lt;/xs:complexType&gt;
+    &lt;/xs:element&gt;
+&lt;/xs:schema&gt;
+</div>
+</div>
+</div>
+</div>
+</div>
+</article>
+</section>
+</div>
+</body></html>

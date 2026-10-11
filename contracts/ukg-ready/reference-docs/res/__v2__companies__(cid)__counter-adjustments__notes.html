@@ -1,0 +1,864 @@
+<!doctype html>
+<html><head><meta charset="utf-8"><title>Counter Adjustment Notes</title><style>body{font:16px system-ui;max-width:1100px;margin:2rem auto;padding:0 1rem;line-height:1.5}aside{background:#fff3cc;padding:1rem}.jsonschema,pre{white-space:pre-wrap;font:13px monospace;overflow-wrap:anywhere;background:#f4f5f7;padding:1rem}.uri{font-family:monospace}h2,h3{margin-top:2rem}</style></head><body><aside><strong>Modified private reference — 2026-10-09.</strong> Provider-documented illustrative examples are included; authentication token examples are redacted. These are not customer exports or guaranteed production behavior. Candidate sharing is pending. This is not OpenAPI.</aside>
+<div class="group">
+<h2 class="anchored" id="item.anchor">
+<span>Counter Adjustment Notes</span>
+<a class="fa fa-link link-anchor" data-url="r=__v2__companies__(cid)__counter-adjustments__notes#" data-web-id="__v2__companies__(cid)__counter-adjustments__notes"></a>
+</h2>
+<section class="clearfix">
+<article class="definition">
+<h3 class="anchored" id="get"><span>GET</span>
+<a class="fa fa-link link-anchor" data-url="r=__v2__companies__(cid)__counter-adjustments__notes#get" data-web-id="__v2__companies__(cid)__counter-adjustments__notes"></a>
+</h3>
+<div class="md"><p>Retrieves notes for counter adjustments.
+</p></div>
+<div>
+<ul class="annotation-list">
+<li class="annotation">
+<span>v2</span>
+</li>
+</ul>
+</div>
+<h4>Parameters</h4>
+<h5>Path Parameters</h5>
+<ul class="param-list">
+<li>
+<div class="param-desc">
+<div class="param-name">cid</div>
+<div class="data-type">string</div>
+<div class="required">required</div>
+</div>
+<div class="param-content">
+<div>
+<p>Example: 123456</p>
+<div class="desc md">Company should be referenced via company id or company unique id or company short name using `|short_name` or `!short_name` format.
+</div>
+</div>
+</div>
+
+</li>
+</ul>
+<h5>Query Parameters</h5>
+<ul class="param-list">
+<li>
+<div class="param-desc">
+<div class="param-name">counter_adjustment_ids</div>
+<div class="data-type">string</div>
+<div class="required">required</div>
+</div>
+<div class="param-content">
+<div>
+<p>Example: 123,432,5366,22145</p>
+<div class="desc md">IDs of the counter adjustments whose notes will be returned</div>
+</div>
+</div>
+
+</li>
+</ul>
+<h5>Header Parameters</h5>
+<ul class="param-list">
+<li>
+<div class="param-desc">
+<div class="param-name">Accept</div>
+<div class="data-type">string</div>
+</div>
+<div class="param-content">
+<div>
+<p>Valid values: application/json, application/xml, text/xml</p>
+<p>Default: application/json</p>
+<p>Example: application/json</p>
+</div>
+</div>
+
+</li>
+</ul>
+<h4>Responses</h4>
+<div class="responses">
+<div>
+<label class="response response-success">
+<span class="fa fa-check"></span>
+<input data-full-tab-id="get-resp-code-tab-id-0" data-tab-class="resp-code-tab-get" name="resp-code-tab-get" type="radio"/>
+<span class="status">200 Ok</span>
+</label>
+<div class="response-desc resp-code-tab-get" id="get-resp-code-tab-id-0">
+</div>
+</div>
+<div>
+<label class="response response-error">
+<span class="fa fa-times"></span>
+<input data-full-tab-id="get-resp-code-tab-id-1" data-tab-class="resp-code-tab-get" name="resp-code-tab-get" type="radio"/>
+<span class="status">403 Forbidden</span>
+</label>
+<div class="response-desc resp-code-tab-get" id="get-resp-code-tab-id-1">
+<div class="md"><p>Returned in case user has no access to the resource.</p></div>
+</div>
+</div>
+<div>
+<label class="response response-error">
+<span class="fa fa-times"></span>
+<input data-full-tab-id="get-resp-code-tab-id-2" data-tab-class="resp-code-tab-get" name="resp-code-tab-get" type="radio"/>
+<span class="status">503 Service Unavailable</span>
+</label>
+<div class="response-desc resp-code-tab-get" id="get-resp-code-tab-id-2">
+<div class="md"><p>Returned in the event that the call limit is exceeded. The application will be unavailable for subsequent calls for the duration specified by the X-CallLimit-TimeToWait header.</p></div>
+</div>
+</div>
+<div>
+<label class="response response-error">
+<span class="fa fa-times"></span>
+<input data-full-tab-id="get-resp-code-tab-id-3" data-tab-class="resp-code-tab-get" name="resp-code-tab-get" type="radio"/>
+<span class="status">401 Unauthorized</span>
+</label>
+<div class="response-desc resp-code-tab-get" id="get-resp-code-tab-id-3">
+<div class="md"><p>Returned in case user is not authorized.</p></div>
+</div>
+</div>
+</div>
+</article>
+<article class="code">
+<h4>Definition</h4>
+<div class="uri">
+<code>
+<span class="method get">get</span>
+<span class="textUri"><span class="baseUri">{{ getUriPrefix() }}</span><span class="relativeUri">/v2/companies/{cid}/counter-adjustments/notes</span></span>
+</code>
+</div>
+<h4>Response Samples</h4>
+<div class="tab-title-group">
+<label>
+<input checked="checked" data-full-tab-id="resp-tab-id-get-0" data-tab-class="resp-tab-get" name="resp-tab-get" type="radio"/>
+<span class="tab-title">application/json</span>
+</label>
+<label>
+<input data-full-tab-id="resp-tab-id-get-1" data-tab-class="resp-tab-get" name="resp-tab-get" type="radio"/>
+<span class="tab-title">application/xml</span>
+</label>
+</div>
+<div>
+<div class="resp-tab-get" id="resp-tab-id-get-0">
+<div class="example">
+
+<div class="get-example-resp-tab-0 activeTab" id="get-tab-resp-example-0">
+
+<pre class="highlightjs">{
+  "counter_adjustment_notes": [
+    {
+      "counter_adjustment_id": 2412608815108,
+      "id": 17261981697,
+      "text": "note from post"
+    },
+    {
+      "counter_adjustment_id": 2412608815108,
+      "id": 17261981505,
+      "text": "employee note"
+    },
+    {
+      "counter_adjustment_id": 2412608815108,
+      "id": 17261981440,
+      "text": "4321"
+    }
+  ]
+}</pre>
+</div>
+<div class="get-example-resp-tab-0" id="get-tab-resp-schema-0">
+
+<div class="jsonschema" id="schema-0">{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "type": "object",
+  "properties": {
+    "counter_adjustment_notes": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer"
+          },
+          "counter_adjustment_id": {
+            "type": "integer"
+          },
+          "text": {
+            "type": "string",
+            "minLength": 1
+          }
+        },
+        "required": [
+          "id",
+          "counter_adjustment_id",
+          "text"
+        ]
+      }
+    }
+  },
+  "required": [
+    "counter_adjustment_notes"
+  ]
+}</div>
+</div>
+</div>
+</div>
+<div class="resp-tab-get" id="resp-tab-id-get-1">
+<div class="example">
+
+<div class="get-example-resp-tab-1 activeTab" id="get-tab-resp-example-1">
+
+<pre class="highlightjs">&lt;?xml version='1.0' encoding='UTF-8'?&gt;
+&lt;counter_adjustment_notes&gt;
+  &lt;counter_adjustment_note&gt;
+    &lt;id&gt;1234561&lt;/id&gt;
+    &lt;text&gt;Initial Note&lt;/text&gt;
+    &lt;counter_adjustment_id&gt;1234567890&lt;/counter_adjustment_id&gt;
+  &lt;/counter_adjustment_note&gt;
+  &lt;counter_adjustment_note&gt;
+    &lt;id&gt;1234562&lt;/id&gt;
+    &lt;text&gt;Time Entry Note #1&lt;/text&gt;
+    &lt;counter_adjustment_id&gt;1234567890&lt;/counter_adjustment_id&gt;
+  &lt;/counter_adjustment_note&gt;
+  &lt;counter_adjustment_note&gt;
+    &lt;id&gt;1234563&lt;/id&gt;
+    &lt;text&gt;Time Entry Note #2&lt;/text&gt;
+    &lt;counter_adjustment_id&gt;1234567890&lt;/counter_adjustment_id&gt;
+  &lt;/counter_adjustment_note&gt;
+&lt;/counter_adjustment_notes&gt;</pre>
+</div>
+<div class="get-example-resp-tab-1" id="get-tab-resp-schema-1">
+
+<div class="jsonschema" id="schema-1">&lt;xs:schema elementFormDefault="qualified"
+           xmlns:xs="http://www.w3.org/2001/XMLSchema"&gt;
+
+    &lt;xs:element name="counter_adjustment_notes"&gt;
+        &lt;xs:complexType&gt;
+            &lt;xs:sequence maxOccurs="unbounded"&gt;
+                &lt;xs:element name="counter_adjustment_note"&gt;
+                    &lt;xs:complexType&gt;
+                        &lt;xs:all&gt;
+                            &lt;xs:element type="xs:long" name="id"/&gt;
+                            &lt;xs:element type="xs:long" name="counter_adjustment_id"/&gt;
+                            &lt;xs:element name="text"&gt;
+                                &lt;xs:simpleType&gt;
+                                    &lt;xs:restriction base="xs:string"&gt;
+                                        &lt;xs:minLength value="1"/&gt;
+                                    &lt;/xs:restriction&gt;
+                                &lt;/xs:simpleType&gt;
+                            &lt;/xs:element&gt;
+                        &lt;/xs:all&gt;
+                    &lt;/xs:complexType&gt;
+                &lt;/xs:element&gt;
+            &lt;/xs:sequence&gt;
+        &lt;/xs:complexType&gt;
+    &lt;/xs:element&gt;
+&lt;/xs:schema&gt;</div>
+</div>
+</div>
+</div>
+</div>
+</article>
+</section>
+<section class="clearfix">
+<article class="definition">
+<h3 class="anchored" id="post"><span>POST</span>
+<a class="fa fa-link link-anchor" data-url="r=__v2__companies__(cid)__counter-adjustments__notes#post" data-web-id="__v2__companies__(cid)__counter-adjustments__notes"></a>
+</h3>
+<div class="md"><p>Creates notes for counter adjustments.
+</p></div>
+<div>
+<ul class="annotation-list">
+<li class="annotation">
+<span>v2</span>
+</li>
+</ul>
+</div>
+<h4>Parameters</h4>
+<h5>Path Parameters</h5>
+<ul class="param-list">
+<li>
+<div class="param-desc">
+<div class="param-name">cid</div>
+<div class="data-type">string</div>
+<div class="required">required</div>
+</div>
+<div class="param-content">
+<div>
+<p>Example: 123456</p>
+<div class="desc md">Company should be referenced via company id or company unique id or company short name using `|short_name` or `!short_name` format.
+</div>
+</div>
+</div>
+
+</li>
+</ul>
+<h5>Header Parameters</h5>
+<ul class="param-list">
+<li>
+<div class="param-desc">
+<div class="param-name">Accept</div>
+<div class="data-type">string</div>
+</div>
+<div class="param-content">
+<div>
+<p>Valid values: application/json, application/xml, text/xml</p>
+<p>Default: application/json</p>
+<p>Example: application/json</p>
+</div>
+</div>
+
+</li>
+<li>
+<div class="param-desc">
+<div class="param-name">Content-Type</div>
+<div class="data-type">string</div>
+<div class="required">required</div>
+</div>
+<div class="param-content">
+<div>
+<p>Valid values: application/xml, text/xml, application/json</p>
+<p>Example: application/json</p>
+</div>
+</div>
+
+</li>
+<li>
+<div class="param-desc">
+<div class="param-name">Content-Length</div>
+<div class="data-type">integer</div>
+<div class="required">required</div>
+</div>
+<div class="param-content">
+<div>
+</div>
+</div>
+
+</li>
+</ul>
+<h4>Responses</h4>
+<div class="responses">
+<div>
+<label class="response response-success">
+<span class="fa fa-check"></span>
+<input data-full-tab-id="post-resp-code-tab-id-0" data-tab-class="resp-code-tab-post" name="resp-code-tab-post" type="radio"/>
+<span class="status">200 Ok</span>
+</label>
+<div class="response-desc resp-code-tab-post" id="post-resp-code-tab-id-0">
+</div>
+</div>
+<div>
+<label class="response response-success">
+<span class="fa fa-check"></span>
+<input data-full-tab-id="post-resp-code-tab-id-1" data-tab-class="resp-code-tab-post" name="resp-code-tab-post" type="radio"/>
+<span class="status">201 Created</span>
+</label>
+<div class="response-desc resp-code-tab-post" id="post-resp-code-tab-id-1">
+</div>
+</div>
+<div>
+<label class="response response-error">
+<span class="fa fa-times"></span>
+<input data-full-tab-id="post-resp-code-tab-id-2" data-tab-class="resp-code-tab-post" name="resp-code-tab-post" type="radio"/>
+<span class="status">401 Unauthorized</span>
+</label>
+<div class="response-desc resp-code-tab-post" id="post-resp-code-tab-id-2">
+<div class="md"><p>Returned in case user is not authorized.</p></div>
+</div>
+</div>
+<div>
+<label class="response response-error">
+<span class="fa fa-times"></span>
+<input data-full-tab-id="post-resp-code-tab-id-3" data-tab-class="resp-code-tab-post" name="resp-code-tab-post" type="radio"/>
+<span class="status">403 Forbidden</span>
+</label>
+<div class="response-desc resp-code-tab-post" id="post-resp-code-tab-id-3">
+<div class="md"><p>Returned in case user has no access to the resource.</p></div>
+</div>
+</div>
+<div>
+<label class="response response-error">
+<span class="fa fa-times"></span>
+<input data-full-tab-id="post-resp-code-tab-id-4" data-tab-class="resp-code-tab-post" name="resp-code-tab-post" type="radio"/>
+<span class="status">503 Service Unavailable</span>
+</label>
+<div class="response-desc resp-code-tab-post" id="post-resp-code-tab-id-4">
+<div class="md"><p>Returned in the event that the call limit is exceeded. The application will be unavailable for subsequent calls for the duration specified by the X-CallLimit-TimeToWait header.</p></div>
+</div>
+</div>
+</div>
+</article>
+<article class="code">
+<h4>Definition</h4>
+<div class="uri">
+<code>
+<span class="method post">post</span>
+<span class="textUri"><span class="baseUri">{{ getUriPrefix() }}</span><span class="relativeUri">/v2/companies/{cid}/counter-adjustments/notes</span></span>
+</code>
+</div>
+<h4>Request Samples</h4>
+<div class="tab-title-group">
+<label>
+<input checked="checked" data-full-tab-id="req-tab-id-post-0" data-tab-class="req-tab-post" name="req-tab-post" type="radio"/>
+<span class="tab-title">application/json</span>
+</label>
+<label>
+<input data-full-tab-id="req-tab-id-post-1" data-tab-class="req-tab-post" name="req-tab-post" type="radio"/>
+<span class="tab-title">application/xml</span>
+</label>
+</div>
+<div>
+<div class="req-tab-post" id="req-tab-id-post-0">
+<div class="example">
+
+<div class="post-example-tab-0 activeTab" id="post-tab-example-0">
+
+<pre class="highlightjs">{
+  "counter_adjustment_notes": [
+    {
+      "counter_adjustment_id": 1234567890,
+      "text": "Initial Note"
+    },
+    {
+      "counter_adjustment_id": 1234567890,
+      "text": "Counter Adjustment Note #1"
+    },
+    {
+      "counter_adjustment_id": 1234567890,
+      "text": "Counter Adjustment Note #2"
+    }
+  ]
+}</pre>
+</div>
+<div class="post-example-tab-0" id="post-tab-schema-0">
+
+<div class="jsonschema" id="schema-2">{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "type": "object",
+  "properties": {
+    "counter_adjustment_notes": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "counter_adjustment_id": {
+            "type": "integer"
+          },
+          "text": {
+            "type": "string",
+            "minLength": 1
+          }
+        },
+        "required": [
+          "counter_adjustment_id",
+          "text"
+        ]
+      }
+    }
+  },
+  "required": [
+    "counter_adjustment_notes"
+  ]
+}</div>
+</div>
+</div>
+</div>
+<div class="req-tab-post" id="req-tab-id-post-1">
+<div class="example">
+
+<div class="post-example-tab-1 activeTab" id="post-tab-example-1">
+
+<pre class="highlightjs">&lt;?xml version='1.0' encoding='UTF-8'?&gt;
+&lt;counter_adjustment_notes&gt;
+  &lt;counter_adjustment_note&gt;
+    &lt;counter_adjustment_id&gt;1234567890&lt;/counter_adjustment_id&gt;
+    &lt;text&gt;Initial Note&lt;/text&gt;
+  &lt;/counter_adjustment_note&gt;
+  &lt;counter_adjustment_note&gt;
+    &lt;counter_adjustment_id&gt;1234567891&lt;/counter_adjustment_id&gt;
+    &lt;text&gt;Note #1&lt;/text&gt;
+  &lt;/counter_adjustment_note&gt;
+  &lt;counter_adjustment_note&gt;
+    &lt;counter_adjustment_id&gt;1234567892&lt;/counter_adjustment_id&gt;
+    &lt;text&gt;Note #2&lt;/text&gt;
+  &lt;/counter_adjustment_note&gt;
+&lt;/counter_adjustment_notes&gt;</pre>
+</div>
+<div class="post-example-tab-1" id="post-tab-schema-1">
+
+<div class="jsonschema" id="schema-3">&lt;xs:schema elementFormDefault="qualified"
+           xmlns:xs="http://www.w3.org/2001/XMLSchema"&gt;
+    &lt;xs:element name="counter_adjustment_notes"&gt;
+        &lt;xs:complexType&gt;
+            &lt;xs:sequence maxOccurs="unbounded"&gt;
+                &lt;xs:element name="counter_adjustment_note"&gt;
+                    &lt;xs:complexType&gt;
+                        &lt;xs:all&gt;
+                            &lt;xs:element type="xs:long" name="counter_adjustment_id"/&gt;
+                            &lt;xs:element name="text"&gt;
+                                &lt;xs:simpleType&gt;
+                                    &lt;xs:restriction base="xs:string"&gt;
+                                        &lt;xs:minLength value="1"/&gt;
+                                    &lt;/xs:restriction&gt;
+                                &lt;/xs:simpleType&gt;
+                            &lt;/xs:element&gt;
+                        &lt;/xs:all&gt;
+                    &lt;/xs:complexType&gt;
+                &lt;/xs:element&gt;
+            &lt;/xs:sequence&gt;
+        &lt;/xs:complexType&gt;
+    &lt;/xs:element&gt;
+&lt;/xs:schema&gt;</div>
+</div>
+</div>
+</div>
+</div>
+<h4>Response Samples</h4>
+<div class="tab-title-group">
+<label>
+<input checked="checked" data-full-tab-id="resp-tab-id-post-0" data-tab-class="resp-tab-post" name="resp-tab-post" type="radio"/>
+<span class="tab-title">application/json</span>
+</label>
+<label>
+<input data-full-tab-id="resp-tab-id-post-1" data-tab-class="resp-tab-post" name="resp-tab-post" type="radio"/>
+<span class="tab-title">application/xml</span>
+</label>
+</div>
+<div>
+<div class="resp-tab-post" id="resp-tab-id-post-0">
+<div class="example">
+
+<div class="post-example-resp-tab-0 activeTab" id="post-tab-resp-example-0">
+
+<pre class="highlightjs">{
+  "notes": [
+    {
+      "index": 0,
+      "status": "OK",
+      "note_id": "17261981760"
+    }
+  ]
+}</pre>
+</div>
+<div class="post-example-resp-tab-0" id="post-tab-resp-schema-0">
+
+<div class="jsonschema" id="schema-4">{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "type": "object",
+  "properties": {
+    "notes": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "index": {
+            "type": [
+              "integer",
+              "null"
+            ]
+          },
+          "note_id": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "status": {
+            "type": "string",
+            "enum": [
+              "OK",
+              "FAILURE"
+            ]
+          },
+          "error": {
+            "type": "object",
+            "properties": {
+              "message": {
+                "type": "string"
+              }
+            },
+            "additionalProperties": false,
+            "required": [
+              "message"
+            ]
+          }
+        }
+      },
+      "additionalProperties": false
+    }
+  },
+  "additionalProperties": false
+}</div>
+</div>
+</div>
+</div>
+<div class="resp-tab-post" id="resp-tab-id-post-1">
+<div class="example">
+
+<div class="post-example-resp-tab-1 activeTab" id="post-tab-resp-example-1">
+
+<pre class="highlightjs">&lt;?xml version='1.0' encoding='UTF-8'?&gt;
+&lt;result&gt;
+  &lt;note&gt;
+    &lt;index&gt;0&lt;/index&gt;
+    &lt;status&gt;OK&lt;/status&gt;
+    &lt;note_id&gt;17261981824&lt;/note_id&gt;
+  &lt;/note&gt;
+&lt;/result&gt;</pre>
+</div>
+<div class="post-example-resp-tab-1" id="post-tab-resp-schema-1">
+
+<div class="jsonschema" id="schema-5">&lt;xs:schema elementFormDefault="qualified"
+           xmlns:xs="http://www.w3.org/2001/XMLSchema"&gt;
+
+    &lt;xs:element name="result"&gt;
+        &lt;xs:complexType&gt;
+            &lt;xs:sequence maxOccurs="unbounded"&gt;
+                &lt;xs:element type="note" name="note"/&gt;
+            &lt;/xs:sequence&gt;
+        &lt;/xs:complexType&gt;
+    &lt;/xs:element&gt;
+
+    &lt;xs:complexType name="note"&gt;
+        &lt;xs:all&gt;
+            &lt;xs:element type="xs:nonNegativeInteger" name="index" /&gt;
+            &lt;xs:element type="xs:string" name="note_id" minOccurs="0"/&gt;
+            &lt;xs:element type="error" name="error" minOccurs="0"/&gt;
+            &lt;xs:element type="status" name="status"/&gt;
+        &lt;/xs:all&gt;
+    &lt;/xs:complexType&gt;
+
+    &lt;xs:complexType name="error"&gt;
+        &lt;xs:all&gt;
+            &lt;xs:element type="xs:string" name="message"/&gt;
+        &lt;/xs:all&gt;
+    &lt;/xs:complexType&gt;
+
+    &lt;xs:simpleType name="status"&gt;
+        &lt;xs:restriction base="xs:string"&gt;
+            &lt;xs:enumeration value="OK"/&gt;
+            &lt;xs:enumeration value="FAILURE"/&gt;
+        &lt;/xs:restriction&gt;
+    &lt;/xs:simpleType&gt;
+&lt;/xs:schema&gt;</div>
+</div>
+</div>
+</div>
+</div>
+</article>
+</section>
+<section class="clearfix">
+<article class="definition">
+<h3 class="anchored" id="delete"><span>DELETE</span>
+<a class="fa fa-link link-anchor" data-url="r=__v2__companies__(cid)__counter-adjustments__notes#delete" data-web-id="__v2__companies__(cid)__counter-adjustments__notes"></a>
+</h3>
+<div class="md"><p>Deletes notes for counter adjustments.
+</p></div>
+<div>
+<ul class="annotation-list">
+<li class="annotation">
+<span>v2</span>
+</li>
+</ul>
+</div>
+<h4>Parameters</h4>
+<h5>Path Parameters</h5>
+<ul class="param-list">
+<li>
+<div class="param-desc">
+<div class="param-name">cid</div>
+<div class="data-type">string</div>
+<div class="required">required</div>
+</div>
+<div class="param-content">
+<div>
+<p>Example: 123456</p>
+<div class="desc md">Company should be referenced via company id or company unique id or company short name using `|short_name` or `!short_name` format.
+</div>
+</div>
+</div>
+
+</li>
+</ul>
+<h5>Query Parameters</h5>
+<ul class="param-list">
+<li>
+<div class="param-desc">
+<div class="param-name">note_ids</div>
+<div class="data-type">string</div>
+<div class="required">required</div>
+</div>
+<div class="param-content">
+<div>
+<p>Example: 123,432,5366,22145</p>
+<div class="desc md">IDs of the notes to be deleted</div>
+</div>
+</div>
+
+</li>
+</ul>
+<h4>Responses</h4>
+<div class="responses">
+<div>
+<label class="response response-success">
+<span class="fa fa-check"></span>
+<input data-full-tab-id="delete-resp-code-tab-id-0" data-tab-class="resp-code-tab-delete" name="resp-code-tab-delete" type="radio"/>
+<span class="status">200 Ok</span>
+</label>
+<div class="response-desc resp-code-tab-delete" id="delete-resp-code-tab-id-0">
+<div class="md"><p>Note items were processed, return list contains processing results.</p></div>
+</div>
+</div>
+<div>
+<label class="response response-error">
+<span class="fa fa-times"></span>
+<input data-full-tab-id="delete-resp-code-tab-id-1" data-tab-class="resp-code-tab-delete" name="resp-code-tab-delete" type="radio"/>
+<span class="status">403 Forbidden</span>
+</label>
+<div class="response-desc resp-code-tab-delete" id="delete-resp-code-tab-id-1">
+<div class="md"><p>Returned in case user has no access to the resource.</p></div>
+</div>
+</div>
+<div>
+<label class="response response-error">
+<span class="fa fa-times"></span>
+<input data-full-tab-id="delete-resp-code-tab-id-2" data-tab-class="resp-code-tab-delete" name="resp-code-tab-delete" type="radio"/>
+<span class="status">503 Service Unavailable</span>
+</label>
+<div class="response-desc resp-code-tab-delete" id="delete-resp-code-tab-id-2">
+<div class="md"><p>Returned in the event that the call limit is exceeded. The application will be unavailable for subsequent calls for the duration specified by the X-CallLimit-TimeToWait header.</p></div>
+</div>
+</div>
+</div>
+</article>
+<article class="code">
+<h4>Definition</h4>
+<div class="uri">
+<code>
+<span class="method delete">delete</span>
+<span class="textUri"><span class="baseUri">{{ getUriPrefix() }}</span><span class="relativeUri">/v2/companies/{cid}/counter-adjustments/notes</span></span>
+</code>
+</div>
+<h4>Response Samples</h4>
+<div class="tab-title-group">
+<label>
+<input checked="checked" data-full-tab-id="resp-tab-id-delete-0" data-tab-class="resp-tab-delete" name="resp-tab-delete" type="radio"/>
+<span class="tab-title">application/json</span>
+</label>
+<label>
+<input data-full-tab-id="resp-tab-id-delete-1" data-tab-class="resp-tab-delete" name="resp-tab-delete" type="radio"/>
+<span class="tab-title">application/xml</span>
+</label>
+</div>
+<div>
+<div class="resp-tab-delete" id="resp-tab-id-delete-0">
+<div class="example">
+
+<div class="delete-example-resp-tab-0 activeTab" id="delete-tab-resp-example-0">
+
+<pre class="highlightjs">{
+  "notes": [
+    {
+      "status": "OK",
+      "note_id": "17261981760"
+    }
+  ]
+}</pre>
+</div>
+<div class="delete-example-resp-tab-0" id="delete-tab-resp-schema-0">
+
+<div class="jsonschema" id="schema-6">{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "type": "object",
+  "properties": {
+    "notes": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "note_id": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "status": {
+            "type": "string",
+            "enum": [
+              "OK",
+              "FAILURE"
+            ]
+          },
+          "error": {
+            "type": "object",
+            "properties": {
+              "message": {
+                "type": "string"
+              }
+            },
+            "additionalProperties": false,
+            "required": [
+              "message"
+            ]
+          }
+        }
+      },
+      "additionalProperties": false
+    }
+  },
+  "additionalProperties": false
+}</div>
+</div>
+</div>
+</div>
+<div class="resp-tab-delete" id="resp-tab-id-delete-1">
+<div class="example">
+
+<div class="delete-example-resp-tab-1 activeTab" id="delete-tab-resp-example-1">
+
+<pre class="highlightjs">&lt;?xml version='1.0' encoding='UTF-8'?&gt;
+&lt;result&gt;
+  &lt;note&gt;
+    &lt;index&gt;0&lt;/index&gt;
+    &lt;status&gt;OK&lt;/status&gt;
+    &lt;note_id&gt;17261981824&lt;/note_id&gt;
+  &lt;/note&gt;
+&lt;/result&gt;</pre>
+</div>
+<div class="delete-example-resp-tab-1" id="delete-tab-resp-schema-1">
+
+<div class="jsonschema" id="schema-7">&lt;xs:schema elementFormDefault="qualified"
+           xmlns:xs="http://www.w3.org/2001/XMLSchema"&gt;
+
+    &lt;xs:element name="result"&gt;
+        &lt;xs:complexType&gt;
+            &lt;xs:sequence maxOccurs="unbounded"&gt;
+                &lt;xs:element type="note" name="note"/&gt;
+            &lt;/xs:sequence&gt;
+        &lt;/xs:complexType&gt;
+    &lt;/xs:element&gt;
+
+    &lt;xs:complexType name="note"&gt;
+        &lt;xs:all&gt;
+            &lt;xs:element type="xs:nonNegativeInteger" name="index" /&gt;
+            &lt;xs:element type="xs:string" name="note_id" minOccurs="0"/&gt;
+            &lt;xs:element type="error" name="error" minOccurs="0"/&gt;
+            &lt;xs:element type="status" name="status"/&gt;
+        &lt;/xs:all&gt;
+    &lt;/xs:complexType&gt;
+
+    &lt;xs:complexType name="error"&gt;
+        &lt;xs:all&gt;
+            &lt;xs:element type="xs:string" name="message"/&gt;
+        &lt;/xs:all&gt;
+    &lt;/xs:complexType&gt;
+
+    &lt;xs:simpleType name="status"&gt;
+        &lt;xs:restriction base="xs:string"&gt;
+            &lt;xs:enumeration value="OK"/&gt;
+            &lt;xs:enumeration value="FAILURE"/&gt;
+        &lt;/xs:restriction&gt;
+    &lt;/xs:simpleType&gt;
+&lt;/xs:schema&gt;</div>
+</div>
+</div>
+</div>
+</div>
+</article>
+</section>
+</div>
+</body></html>

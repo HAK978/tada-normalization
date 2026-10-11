@@ -1,0 +1,2737 @@
+<!doctype html>
+<html><head><meta charset="utf-8"><title>Demographics</title><style>body{font:16px system-ui;max-width:1100px;margin:2rem auto;padding:0 1rem;line-height:1.5}aside{background:#fff3cc;padding:1rem}.jsonschema,pre{white-space:pre-wrap;font:13px monospace;overflow-wrap:anywhere;background:#f4f5f7;padding:1rem}.uri{font-family:monospace}h2,h3{margin-top:2rem}</style></head><body><aside><strong>Modified private reference — 2026-10-09.</strong> Provider-documented illustrative examples are included; authentication token examples are redacted. These are not customer exports or guaranteed production behavior. Candidate sharing is pending. This is not OpenAPI.</aside>
+<div class="group">
+<h2 class="anchored" id="item.anchor">
+<span>Demographics</span>
+<a class="fa fa-link link-anchor" data-url="r=__v2__companies__(cid)__employees__(aid)__demographics#" data-web-id="__v2__companies__(cid)__employees__(aid)__demographics"></a>
+</h2>
+<section class="clearfix">
+<article class="definition">
+<h3 class="anchored" id="get"><span>GET</span>
+<a class="fa fa-link link-anchor" data-url="r=__v2__companies__(cid)__employees__(aid)__demographics#get" data-web-id="__v2__companies__(cid)__employees__(aid)__demographics"></a>
+</h3>
+<div class="md"><p>Returns the employee demographic information.
+
+The Employee APIs use a separate security profile item to control access rights which is located in the company security profile in the following location:
+  1. `Modules -&gt; REST API Resources -&gt; Employee Demographics -&gt; View`.
+  2. `Modules -&gt; REST API Resources -&gt; Employee Demographics -&gt; ESS View`.
+
+&lt;b&gt;Only the 'REST API RESOURCES' security profile items in combination with 'manager permissions' are considered by this REST API resource.&lt;/b&gt;
+</p></div>
+<div>
+<ul class="annotation-list">
+<li class="annotation">
+<span>v2</span>
+</li>
+</ul>
+</div>
+<h4>Parameters</h4>
+<h5>Path Parameters</h5>
+<ul class="param-list">
+<li>
+<div class="param-desc">
+<div class="param-name">cid</div>
+<div class="data-type">string</div>
+<div class="required">required</div>
+</div>
+<div class="param-content">
+<div>
+<p>Example: 123456</p>
+<div class="desc md">Company should be referenced via company id or company unique id or company short name using `|short_name` or `!short_name` format.
+</div>
+</div>
+</div>
+
+</li>
+<li>
+<div class="param-desc">
+<div class="param-name">aid</div>
+<div class="data-type">string</div>
+<div class="required">required</div>
+</div>
+<div class="param-content">
+<div>
+<p>Example: 1234567</p>
+<div class="desc md">Account should be referenced via account id or account external id using `|external_id` or `!external_id` format.
+</div>
+</div>
+</div>
+
+</li>
+</ul>
+<h5>Header Parameters</h5>
+<ul class="param-list">
+<li>
+<div class="param-desc">
+<div class="param-name">Accept</div>
+<div class="data-type">string</div>
+</div>
+<div class="param-content">
+<div>
+<p>Valid values: application/json, application/xml, text/xml</p>
+<p>Default: application/json</p>
+<p>Example: application/json</p>
+</div>
+</div>
+
+</li>
+</ul>
+<h4>Responses</h4>
+<div class="responses">
+<div>
+<label class="response response-success">
+<span class="fa fa-check"></span>
+<input data-full-tab-id="get-resp-code-tab-id-0" data-tab-class="resp-code-tab-get" name="resp-code-tab-get" type="radio"/>
+<span class="status">200 Ok</span>
+</label>
+<div class="response-desc resp-code-tab-get" id="get-resp-code-tab-id-0">
+</div>
+</div>
+<div>
+<label class="response response-error">
+<span class="fa fa-times"></span>
+<input data-full-tab-id="get-resp-code-tab-id-1" data-tab-class="resp-code-tab-get" name="resp-code-tab-get" type="radio"/>
+<span class="status">401 Unauthorized</span>
+</label>
+<div class="response-desc resp-code-tab-get" id="get-resp-code-tab-id-1">
+<div class="md"><p>Returned in case user is not authorized.</p></div>
+</div>
+</div>
+<div>
+<label class="response response-error">
+<span class="fa fa-times"></span>
+<input data-full-tab-id="get-resp-code-tab-id-2" data-tab-class="resp-code-tab-get" name="resp-code-tab-get" type="radio"/>
+<span class="status">403 Forbidden</span>
+</label>
+<div class="response-desc resp-code-tab-get" id="get-resp-code-tab-id-2">
+<div class="md"><p>Returned in case user has no access to the resource.</p></div>
+</div>
+</div>
+<div>
+<label class="response response-error">
+<span class="fa fa-times"></span>
+<input data-full-tab-id="get-resp-code-tab-id-3" data-tab-class="resp-code-tab-get" name="resp-code-tab-get" type="radio"/>
+<span class="status">404 Not Found</span>
+</label>
+<div class="response-desc resp-code-tab-get" id="get-resp-code-tab-id-3">
+<div class="md"><p>Returned in case resource does not exist.</p></div>
+</div>
+</div>
+<div>
+<label class="response response-error">
+<span class="fa fa-times"></span>
+<input data-full-tab-id="get-resp-code-tab-id-4" data-tab-class="resp-code-tab-get" name="resp-code-tab-get" type="radio"/>
+<span class="status">503 Service Unavailable</span>
+</label>
+<div class="response-desc resp-code-tab-get" id="get-resp-code-tab-id-4">
+<div class="md"><p>Returned in the event that the call limit is exceeded. The application will be unavailable for subsequent calls for the duration specified by the X-CallLimit-TimeToWait header.</p></div>
+</div>
+</div>
+</div>
+</article>
+<article class="code">
+<h4>Definition</h4>
+<div class="uri">
+<code>
+<span class="method get">get</span>
+<span class="textUri"><span class="baseUri">{{ getUriPrefix() }}</span><span class="relativeUri">/v2/companies/{cid}/employees/{aid}/demographics</span></span>
+</code>
+</div>
+<h4>Response Samples</h4>
+<div class="tab-title-group">
+<label>
+<input checked="checked" data-full-tab-id="resp-tab-id-get-0" data-tab-class="resp-tab-get" name="resp-tab-get" type="radio"/>
+<span class="tab-title">application/json</span>
+</label>
+<label>
+<input data-full-tab-id="resp-tab-id-get-1" data-tab-class="resp-tab-get" name="resp-tab-get" type="radio"/>
+<span class="tab-title">application/xml</span>
+</label>
+</div>
+<div>
+<div class="resp-tab-get" id="resp-tab-id-get-0">
+<div class="example">
+
+<div class="get-example-resp-tab-0 activeTab" id="get-tab-resp-example-0">
+
+<pre class="highlightjs">{
+  "citizenship": "US_CITIZEN",
+  "ethnicity": "AMERICAN_INDIAN_OR_ALASKA_NATIVE",
+  "eye_color": "Blue",
+  "full_time_student": false,
+  "gender": "MALE",
+  "height": "183cm",
+  "referral": {
+    "id": 2758
+  },
+  "recruiter": {
+    "account_id": 12345,
+    "display_name": "Xyz"
+  },
+  "seasonal": false,
+  "visa": {
+    "type": "H2A",
+    "number": "YHF25",
+    "expiration_date": "2017-03-30"
+  }
+}</pre>
+</div>
+<div class="get-example-resp-tab-0" id="get-tab-resp-schema-0">
+
+<div class="jsonschema" id="schema-0">{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "type": "object",
+  "properties": {
+    "citizenship": {
+      "type": "string",
+      "enum": [
+        "US_CITIZEN",
+        "PERMANENT_RESIDENT",
+        "ALIEN_WITH_WORK_PERMIT",
+        "NONCITIZEN_NATIONAL_OF_US"
+      ]
+    },
+    "ethnicity": {
+      "type": "string",
+      "enum": [
+        "HISPANIC_OR_LATINO",
+        "WHITE",
+        "BLACK_OR_AFRICAN_AMERICAN",
+        "NATIVE_HAWAIIAN_OR_OTHER_PACIFIC_ISLANDER",
+        "ASIAN",
+        "AMERICAN_INDIAN_OR_ALASKA_NATIVE",
+        "TWO_OR_MORE_RACES"
+      ]
+    },
+    "eye_color": {
+      "type": "string",
+      "maxLength": 50
+    },
+    "full_time_student": {
+      "type": "boolean"
+    },
+    "gender": {
+      "type": "string",
+      "enum": [
+        "MALE",
+        "FEMALE",
+        "UNDEFINED"
+      ],
+      "default": "UNDEFINED"
+    },
+    "height": {
+      "type": "string",
+      "maxLength": 10
+    },
+    "referral": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer"
+        }
+      },
+      "required": [
+        "id"
+      ],
+      "additionalProperties": false
+    },
+    "recruiter": {
+      "type": "object",
+      "properties": {
+        "account_id": {
+          "type": "number",
+          "format": "long"
+        },
+        "display_name": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "account_id"
+      ]
+    },
+    "seasonal": {
+      "type": "boolean"
+    },
+    "visa": {
+      "type": "object",
+      "properties": {
+        "type": {
+          "type": "string",
+          "enum": [
+            "B-1",
+            "CW-1",
+            "E-1",
+            "E-2",
+            "E-3",
+            "F-1",
+            "F-2",
+            "F-3",
+            "H-1B",
+            "H-1C",
+            "H-2A",
+            "H-2B",
+            "H-3",
+            "H-4",
+            "J-1",
+            "J-2",
+            "M-1",
+            "M-2",
+            "M-3",
+            "O-1",
+            "P-2",
+            "P-3",
+            "R-1",
+            "EB-1",
+            "EB-2",
+            "EB-3",
+            "EB-4",
+            "EB-5",
+            "L-1A",
+            "L-1B",
+            "P-1A",
+            "P-1B",
+            "EB1",
+            "EB2",
+            "EB3",
+            "EB4",
+            "EB5",
+            "L1A",
+            "L1B",
+            "P1A",
+            "P1B",
+            "GB",
+            "WB",
+            "Q",
+            "E3",
+            "H1B",
+            "H2A",
+            "H2B",
+            "H3",
+            "H4",
+            "J1",
+            "CW1",
+            "E1",
+            "E2",
+            "H1C",
+            "I",
+            "O1",
+            "P2",
+            "P3",
+            "R1",
+            "TN",
+            "F1",
+            "F2",
+            "F3",
+            "M1",
+            "M2",
+            "M3",
+            "J2",
+            "B1",
+            "A1",
+            "A2",
+            "A3",
+            "B2",
+            "B1/B2",
+            "C1",
+            "C1/D",
+            "C2",
+            "C3",
+            "CW2",
+            "D",
+            "E2C",
+            "E3D",
+            "E3R",
+            "G1",
+            "G2",
+            "G3",
+            "G4",
+            "G5",
+            "H1B1",
+            "K1",
+            "K2",
+            "K3",
+            "K4",
+            "L1",
+            "L2",
+            "N8",
+            "N9",
+            "NATO 1",
+            "NATO 2",
+            "NATO 3",
+            "NATO 4",
+            "NATO 5",
+            "NATO 6",
+            "NATO 7",
+            "O2",
+            "O3",
+            "P1",
+            "P4",
+            "Q1",
+            "R2",
+            "S5",
+            "S6",
+            "S7",
+            "T1",
+            "T2",
+            "T3",
+            "T4",
+            "T5",
+            "T6",
+            "TD",
+            "U1",
+            "U2",
+            "U3",
+            "U4",
+            "U5",
+            "V1",
+            "V2",
+            "V3",
+            "IR1",
+            "IR2",
+            "IR3",
+            "IH3",
+            "IR4",
+            "IH4",
+            "IR5",
+            "CR1",
+            "CR2",
+            "IW1",
+            "IW2",
+            "IB1",
+            "IB2",
+            "IB3",
+            "VI5",
+            "AM1",
+            "AM2",
+            "AM3",
+            "SB1",
+            "SC1",
+            "SC2",
+            "SI1",
+            "SI2",
+            "SI3",
+            "SM1",
+            "SM2",
+            "SM3",
+            "SQ1",
+            "SQ2",
+            "SQ3",
+            "SU2",
+            "SU3",
+            "SU5",
+            "F11",
+            "F12",
+            "B11",
+            "B12",
+            "F21",
+            "F22",
+            "F23",
+            "F24",
+            "F25",
+            "C21",
+            "C22",
+            "C23",
+            "C24",
+            "C25",
+            "B21",
+            "B22",
+            "B23",
+            "B24",
+            "B25",
+            "FX1",
+            "FX2",
+            "FX3",
+            "CX1",
+            "CX2",
+            "CX3",
+            "BX1",
+            "BX2",
+            "BX3",
+            "F31",
+            "F32",
+            "F33",
+            "C31",
+            "C32",
+            "C33",
+            "C11",
+            "B31",
+            "B32",
+            "B33",
+            "F41",
+            "F42",
+            "F43",
+            "E11",
+            "E12",
+            "E13",
+            "E14",
+            "E15",
+            "E21",
+            "E22",
+            "E23",
+            "E31",
+            "E32",
+            "E34",
+            "E35",
+            "EW3",
+            "EW4",
+            "EW5",
+            "BC1",
+            "BC2",
+            "BC3",
+            "SD1",
+            "SD2",
+            "SD3",
+            "SE1",
+            "SE2",
+            "SE3",
+            "SF1",
+            "SF2",
+            "SG1",
+            "SG2",
+            "SH1",
+            "SH2",
+            "SJ1",
+            "SJ2",
+            "SK1",
+            "SK2",
+            "SK3",
+            "SK4",
+            "SL1",
+            "SN1",
+            "SN2",
+            "SN3",
+            "SN4",
+            "SP",
+            "SR1",
+            "SR2",
+            "SR3",
+            "C51",
+            "C52",
+            "C53",
+            "T51",
+            "T52",
+            "T53",
+            "R51",
+            "R52",
+            "R53",
+            "I51",
+            "I52",
+            "I53",
+            "DV1",
+            "DV2",
+            "DV3",
+            "A5",
+            "C8",
+            "C9",
+            "AUS_601",
+            "AUS_651",
+            "AUS_771",
+            "AUS_600",
+            "AUS_462",
+            "AUS_417",
+            "AUS_888",
+            "AUS_188",
+            "AUS_890",
+            "AUS_132",
+            "AUS_124",
+            "AUS_858",
+            "AUS_186",
+            "AUS_405",
+            "AUS_891",
+            "AUS_187",
+            "AUS_189",
+            "AUS_190",
+            "AUS_476",
+            "AUS_489",
+            "AUS_887",
+            "AUS_892",
+            "AUS_893",
+            "AUS_485",
+            "AUS_403",
+            "AUS_400",
+            "AUS_457",
+            "AUS_482",
+            "AUS_500",
+            "AUS_590",
+            "AUS_407",
+            "AUS_102",
+            "AUS_114",
+            "AUS_838",
+            "AUS_804",
+            "AUS_836",
+            "AUS_116",
+            "AUS_101",
+            "AUS_802",
+            "AUS_884",
+            "AUS_864",
+            "AUS_173",
+            "AUS_143",
+            "AUS_445",
+            "AUS_461",
+            "AUS_117",
+            "AUS_837",
+            "AUS_103",
+            "AUS_309",
+            "AUS_100",
+            "AUS_801",
+            "AUS_820",
+            "AUS_300",
+            "AUS_115",
+            "AUS_835",
+            "AUS_202",
+            "AUS_201",
+            "AUS_790",
+            "AUS_851",
+            "AUS_449",
+            "AUS_491",
+            "AUS_494",
+            "AUS_866",
+            "AUS_200",
+            "AUS_204",
+            "AUS_203",
+            "AUS_456",
+            "AUS_160",
+            "AUS_161",
+            "AUS_162",
+            "AUS_163",
+            "AUS_164",
+            "AUS_165",
+            "AUS_676",
+            "AUS_426",
+            "AUS_427",
+            "AUS_956",
+            "AUS_977",
+            "AUS_976",
+            "AUS_121",
+            "AUS_856",
+            "AUS_845",
+            "AUS_411",
+            "AUS_415",
+            "AUS_406",
+            "AUS_120",
+            "AUS_855",
+            "AUS_423",
+            "AUS_422",
+            "AUS_675",
+            "AUS_685",
+            "AUS_119",
+            "AUS_857",
+            "AUS_428",
+            "AUS_410",
+            "AUS_496",
+            "AUS_495",
+            "AUS_175",
+            "AUS_885",
+            "AUS_475",
+            "AUS_487",
+            "AUS_176",
+            "AUS_416",
+            "AUS_459",
+            "AUS_679",
+            "AUS_886",
+            "AUS_421",
+            "AUS_488",
+            "AUS_846",
+            "AUS_420",
+            "AUS_401",
+            "AUS_402",
+            "AUS_419",
+            "AUS_576",
+            "AUS_573",
+            "AUS_570",
+            "AUS_575",
+            "AUS_574",
+            "AUS_571",
+            "AUS_580",
+            "AUS_572",
+            "AUS_010",
+            "AUS_020",
+            "AUS_030",
+            "AUS_040",
+            "AUS_041",
+            "AUS_050",
+            "AUS_051",
+            "AUS_942",
+            "AUS_151",
+            "AUS_988",
+            "AUS_602",
+            "AUS_155",
+            "AUS_157",
+            "AUS_444",
+            "AUS_Spec"
+          ]
+        },
+        "number": {
+          "type": "string",
+          "maxLength": 50
+        },
+        "expiration_date": {
+          "type": "string",
+          "description": "Date needs to be in the format yyyy-mm-dd within the 1900-12-31 and 2079-06-05 date range"
+        }
+      },
+      "required": [
+        "type"
+      ],
+      "additionalProperties": false
+    }
+  },
+  "additionalProperties": false
+}</div>
+</div>
+</div>
+</div>
+<div class="resp-tab-get" id="resp-tab-id-get-1">
+<div class="example">
+
+<div class="get-example-resp-tab-1 activeTab" id="get-tab-resp-example-1">
+
+<pre class="highlightjs">&lt;?xml version='1.0' encoding='UTF-8'?&gt;
+&lt;demographics&gt;
+    &lt;citizenship&gt;US_CITIZEN&lt;/citizenship&gt;
+    &lt;ethnicity&gt;AMERICAN_INDIAN_OR_ALASKA_NATIVE&lt;/ethnicity&gt;
+    &lt;eye_color&gt;Blue&lt;/eye_color&gt;
+    &lt;full_time_student&gt;false&lt;/full_time_student&gt;
+    &lt;gender&gt;MALE&lt;/gender&gt;
+    &lt;height&gt;183cm&lt;/height&gt;
+    &lt;seasonal&gt;false&lt;/seasonal&gt;
+    &lt;referral&gt;
+        &lt;id&gt;2758&lt;/id&gt;
+    &lt;/referral&gt;
+    &lt;visa&gt;
+        &lt;type&gt;H2A&lt;/type&gt;
+        &lt;number&gt;YHF25&lt;/number&gt;
+        &lt;expiration_date&gt;2017-03-30&lt;/expiration_date&gt;
+    &lt;/visa&gt;
+&lt;/demographics&gt;
+</pre>
+</div>
+<div class="get-example-resp-tab-1" id="get-tab-resp-schema-1">
+
+<div class="jsonschema" id="schema-1">&lt;xs:schema attributeFormDefault="unqualified" elementFormDefault="qualified"
+           xmlns:xs="http://www.w3.org/2001/XMLSchema"&gt;
+    &lt;xs:element name="demographics"&gt;
+        &lt;xs:complexType&gt;
+            &lt;xs:all&gt;
+                &lt;xs:element type="citizenship" name="citizenship" minOccurs="0"/&gt;
+                &lt;xs:element type="ethnicity" name="ethnicity" minOccurs="0"/&gt;
+                &lt;xs:element type="xs:string" name="eye_color" minOccurs="0"/&gt;
+                &lt;xs:element type="xs:boolean" name="full_time_student" minOccurs="0"/&gt;
+                &lt;xs:element type="gender" name="gender" default="UNDEFINED" minOccurs="0"/&gt;
+                &lt;xs:element type="xs:string" name="height" minOccurs="0"/&gt;
+                &lt;xs:element type="xs:boolean" name="seasonal" minOccurs="0"/&gt;
+                &lt;xs:element name="referral" minOccurs="0"&gt;
+                    &lt;xs:complexType&gt;
+                        &lt;xs:all&gt;
+                            &lt;xs:element type="xs:integer" name="id"/&gt;
+                        &lt;/xs:all&gt;
+                    &lt;/xs:complexType&gt;
+                &lt;/xs:element&gt;
+                &lt;xs:element name="visa" minOccurs="0"&gt;
+                    &lt;xs:complexType&gt;
+                        &lt;xs:all&gt;
+                            &lt;xs:element type="visa_type" name="type"/&gt;
+                            &lt;xs:element type="xs:string" name="number" minOccurs="0"/&gt;
+                            &lt;xs:element type="visa_expiration_date" name="expiration_date" minOccurs="0"/&gt;
+                        &lt;/xs:all&gt;
+                    &lt;/xs:complexType&gt;
+                &lt;/xs:element&gt;
+            &lt;/xs:all&gt;
+        &lt;/xs:complexType&gt;
+    &lt;/xs:element&gt;
+
+    &lt;xs:simpleType name="citizenship"&gt;
+        &lt;xs:restriction base="xs:string"&gt;
+            &lt;xs:enumeration value="US_CITIZEN"/&gt;
+            &lt;xs:enumeration value="PERMANENT_RESIDENT"/&gt;
+            &lt;xs:enumeration value="ALIEN_WITH_WORK_PERMIT"/&gt;
+            &lt;xs:enumeration value="NONCITIZEN_NATIONAL_OF_US"/&gt;
+        &lt;/xs:restriction&gt;
+    &lt;/xs:simpleType&gt;
+
+    &lt;xs:simpleType name="ethnicity"&gt;
+        &lt;xs:restriction base="xs:string"&gt;
+            &lt;xs:enumeration value="HISPANIC_OR_LATINO"/&gt;
+            &lt;xs:enumeration value="WHITE"/&gt;
+            &lt;xs:enumeration value="BLACK_OR_AFRICAN_AMERICAN"/&gt;
+            &lt;xs:enumeration value="NATIVE_HAWAIIAN_OR_OTHER_PACIFIC_ISLANDER"/&gt;
+            &lt;xs:enumeration value="ASIAN"/&gt;
+            &lt;xs:enumeration value="AMERICAN_INDIAN_OR_ALASKA_NATIVE"/&gt;
+            &lt;xs:enumeration value="TWO_OR_MORE_RACES"/&gt;
+        &lt;/xs:restriction&gt;
+    &lt;/xs:simpleType&gt;
+
+    &lt;xs:simpleType name="gender"&gt;
+        &lt;xs:restriction base="xs:string"&gt;
+            &lt;xs:enumeration value="MALE"/&gt;
+            &lt;xs:enumeration value="FEMALE"/&gt;
+            &lt;xs:enumeration value="UNDEFINED"/&gt;
+        &lt;/xs:restriction&gt;
+    &lt;/xs:simpleType&gt;
+
+    &lt;xs:simpleType name="visa_type"&gt;
+        &lt;xs:restriction base="xs:string"&gt;
+            &lt;!-- United States visas --&gt;
+            &lt;xs:enumeration value="B-1"/&gt;
+            &lt;xs:enumeration value="CW-1"/&gt;
+            &lt;xs:enumeration value="E-1"/&gt;
+            &lt;xs:enumeration value="E-2"/&gt;
+            &lt;xs:enumeration value="E-3"/&gt;
+            &lt;xs:enumeration value="F-1"/&gt;
+            &lt;xs:enumeration value="F-2"/&gt;
+            &lt;xs:enumeration value="F-3"/&gt;
+            &lt;xs:enumeration value="H-1B"/&gt;
+            &lt;xs:enumeration value="H-1C"/&gt;
+            &lt;xs:enumeration value="H-2A"/&gt;
+            &lt;xs:enumeration value="H-2B"/&gt;
+            &lt;xs:enumeration value="H-3"/&gt;
+            &lt;xs:enumeration value="H-4"/&gt;
+            &lt;xs:enumeration value="J-1"/&gt;
+            &lt;xs:enumeration value="J-2"/&gt;
+            &lt;xs:enumeration value="M-1"/&gt;
+            &lt;xs:enumeration value="M-2"/&gt;
+            &lt;xs:enumeration value="M-3"/&gt;
+            &lt;xs:enumeration value="O-1"/&gt;
+            &lt;xs:enumeration value="P-2"/&gt;
+            &lt;xs:enumeration value="P-3"/&gt;
+            &lt;xs:enumeration value="R-1"/&gt;
+            &lt;xs:enumeration value="EB-1"/&gt;
+            &lt;xs:enumeration value="EB-2"/&gt;
+            &lt;xs:enumeration value="EB-3"/&gt;
+            &lt;xs:enumeration value="EB-4"/&gt;
+            &lt;xs:enumeration value="EB-5"/&gt;
+            &lt;xs:enumeration value="L-1A"/&gt;
+            &lt;xs:enumeration value="L-1B"/&gt;
+            &lt;xs:enumeration value="P-1A"/&gt;
+            &lt;xs:enumeration value="P-1B"/&gt;
+            &lt;xs:enumeration value="CW1"/&gt;
+            &lt;xs:enumeration value="E1"/&gt;
+            &lt;xs:enumeration value="E2"/&gt;
+            &lt;xs:enumeration value="E3"/&gt;
+            &lt;xs:enumeration value="H1B"/&gt;
+            &lt;xs:enumeration value="H1C"/&gt;
+            &lt;xs:enumeration value="H2A"/&gt;
+            &lt;xs:enumeration value="H2B"/&gt;
+            &lt;xs:enumeration value="H3"/&gt;
+            &lt;xs:enumeration value="I"/&gt;
+            &lt;xs:enumeration value="O1"/&gt;
+            &lt;xs:enumeration value="P2"/&gt;
+            &lt;xs:enumeration value="P3"/&gt;
+            &lt;xs:enumeration value="R1"/&gt;
+            &lt;xs:enumeration value="TN"/&gt;
+            &lt;xs:enumeration value="F1"/&gt;
+            &lt;xs:enumeration value="F2"/&gt;
+            &lt;xs:enumeration value="F3"/&gt;
+            &lt;xs:enumeration value="M1"/&gt;
+            &lt;xs:enumeration value="M2"/&gt;
+            &lt;xs:enumeration value="M3"/&gt;
+            &lt;xs:enumeration value="B1"/&gt;
+            &lt;xs:enumeration value="EB1"/&gt;
+            &lt;xs:enumeration value="EB2"/&gt;
+            &lt;xs:enumeration value="EB3"/&gt;
+            &lt;xs:enumeration value="EB4"/&gt;
+            &lt;xs:enumeration value="EB5"/&gt;
+            &lt;xs:enumeration value="L1A"/&gt;
+            &lt;xs:enumeration value="L1B"/&gt;
+            &lt;xs:enumeration value="P1A"/&gt;
+            &lt;xs:enumeration value="P1B"/&gt;
+            &lt;xs:enumeration value="GB"/&gt;
+            &lt;xs:enumeration value="WB"/&gt;
+            &lt;xs:enumeration value="Q"/&gt;
+
+            &lt;xs:enumeration value="A1"/&gt;
+            &lt;xs:enumeration value="A2"/&gt;
+            &lt;xs:enumeration value="A3"/&gt;
+            &lt;xs:enumeration value="B2"/&gt;
+            &lt;xs:enumeration value="B1/B2"/&gt;
+            &lt;xs:enumeration value="C1"/&gt;
+            &lt;xs:enumeration value="C1/D"/&gt;
+            &lt;xs:enumeration value="C2"/&gt;
+            &lt;xs:enumeration value="C3"/&gt;
+            &lt;xs:enumeration value="CW2"/&gt;
+            &lt;xs:enumeration value="D"/&gt;
+            &lt;xs:enumeration value="E2C"/&gt;
+            &lt;xs:enumeration value="E3D"/&gt;
+            &lt;xs:enumeration value="E3R"/&gt;
+            &lt;xs:enumeration value="G1"/&gt;
+            &lt;xs:enumeration value="G2"/&gt;
+            &lt;xs:enumeration value="G3"/&gt;
+            &lt;xs:enumeration value="G4"/&gt;
+            &lt;xs:enumeration value="G5"/&gt;
+            &lt;xs:enumeration value="H1B1"/&gt;
+            &lt;xs:enumeration value="K1"/&gt;
+            &lt;xs:enumeration value="K2"/&gt;
+            &lt;xs:enumeration value="K3"/&gt;
+            &lt;xs:enumeration value="K4"/&gt;
+            &lt;xs:enumeration value="L1"/&gt;
+            &lt;xs:enumeration value="L2"/&gt;
+            &lt;xs:enumeration value="N8"/&gt;
+            &lt;xs:enumeration value="N9"/&gt;
+            &lt;xs:enumeration value="NATO 1"/&gt;
+            &lt;xs:enumeration value="NATO 2"/&gt;
+            &lt;xs:enumeration value="NATO 3"/&gt;
+            &lt;xs:enumeration value="NATO 4"/&gt;
+            &lt;xs:enumeration value="NATO 5"/&gt;
+            &lt;xs:enumeration value="NATO 6"/&gt;
+            &lt;xs:enumeration value="NATO 7"/&gt;
+            &lt;xs:enumeration value="O2"/&gt;
+            &lt;xs:enumeration value="O3"/&gt;
+            &lt;xs:enumeration value="P1"/&gt;
+            &lt;xs:enumeration value="P4"/&gt;
+            &lt;xs:enumeration value="Q1"/&gt;
+            &lt;xs:enumeration value="R2"/&gt;
+            &lt;xs:enumeration value="S5"/&gt;
+            &lt;xs:enumeration value="S6"/&gt;
+            &lt;xs:enumeration value="S7"/&gt;
+            &lt;xs:enumeration value="T1"/&gt;
+            &lt;xs:enumeration value="T2"/&gt;
+            &lt;xs:enumeration value="T3"/&gt;
+            &lt;xs:enumeration value="T4"/&gt;
+            &lt;xs:enumeration value="T5"/&gt;
+            &lt;xs:enumeration value="T6"/&gt;
+            &lt;xs:enumeration value="TD"/&gt;
+            &lt;xs:enumeration value="U1"/&gt;
+            &lt;xs:enumeration value="U2"/&gt;
+            &lt;xs:enumeration value="U3"/&gt;
+            &lt;xs:enumeration value="U4"/&gt;
+            &lt;xs:enumeration value="U5"/&gt;
+            &lt;xs:enumeration value="V1"/&gt;
+            &lt;xs:enumeration value="V2"/&gt;
+            &lt;xs:enumeration value="V3"/&gt;
+            &lt;xs:enumeration value="IR1"/&gt;
+            &lt;xs:enumeration value="IR2"/&gt;
+            &lt;xs:enumeration value="IR3"/&gt;
+            &lt;xs:enumeration value="IH3"/&gt;
+            &lt;xs:enumeration value="IR4"/&gt;
+            &lt;xs:enumeration value="IH4"/&gt;
+            &lt;xs:enumeration value="IR5"/&gt;
+            &lt;xs:enumeration value="CR1"/&gt;
+            &lt;xs:enumeration value="CR2"/&gt;
+            &lt;xs:enumeration value="IW1"/&gt;
+            &lt;xs:enumeration value="IW2"/&gt;
+            &lt;xs:enumeration value="IB1"/&gt;
+            &lt;xs:enumeration value="IB2"/&gt;
+            &lt;xs:enumeration value="IB3"/&gt;
+            &lt;xs:enumeration value="VI5"/&gt;
+            &lt;xs:enumeration value="AM1"/&gt;
+            &lt;xs:enumeration value="AM2"/&gt;
+            &lt;xs:enumeration value="AM3"/&gt;
+            &lt;xs:enumeration value="SB1"/&gt;
+            &lt;xs:enumeration value="SC1"/&gt;
+            &lt;xs:enumeration value="SC2"/&gt;
+            &lt;xs:enumeration value="SI1"/&gt;
+            &lt;xs:enumeration value="SI2"/&gt;
+            &lt;xs:enumeration value="SI3"/&gt;
+            &lt;xs:enumeration value="SM1"/&gt;
+            &lt;xs:enumeration value="SM2"/&gt;
+            &lt;xs:enumeration value="SM3"/&gt;
+            &lt;xs:enumeration value="SQ1"/&gt;
+            &lt;xs:enumeration value="SQ2"/&gt;
+            &lt;xs:enumeration value="SQ3"/&gt;
+            &lt;xs:enumeration value="SU2"/&gt;
+            &lt;xs:enumeration value="SU3"/&gt;
+            &lt;xs:enumeration value="SU5"/&gt;
+            &lt;xs:enumeration value="F11"/&gt;
+            &lt;xs:enumeration value="F12"/&gt;
+            &lt;xs:enumeration value="B11"/&gt;
+            &lt;xs:enumeration value="B12"/&gt;
+            &lt;xs:enumeration value="F21"/&gt;
+            &lt;xs:enumeration value="F22"/&gt;
+            &lt;xs:enumeration value="F23"/&gt;
+            &lt;xs:enumeration value="F24"/&gt;
+            &lt;xs:enumeration value="F25"/&gt;
+            &lt;xs:enumeration value="C21"/&gt;
+            &lt;xs:enumeration value="C22"/&gt;
+            &lt;xs:enumeration value="C23"/&gt;
+            &lt;xs:enumeration value="C24"/&gt;
+            &lt;xs:enumeration value="C25"/&gt;
+            &lt;xs:enumeration value="B21"/&gt;
+            &lt;xs:enumeration value="B22"/&gt;
+            &lt;xs:enumeration value="B23"/&gt;
+            &lt;xs:enumeration value="B24"/&gt;
+            &lt;xs:enumeration value="B25"/&gt;
+            &lt;xs:enumeration value="FX1"/&gt;
+            &lt;xs:enumeration value="FX2"/&gt;
+            &lt;xs:enumeration value="FX3"/&gt;
+            &lt;xs:enumeration value="CX1"/&gt;
+            &lt;xs:enumeration value="CX2"/&gt;
+            &lt;xs:enumeration value="CX3"/&gt;
+            &lt;xs:enumeration value="BX1"/&gt;
+            &lt;xs:enumeration value="BX2"/&gt;
+            &lt;xs:enumeration value="BX3"/&gt;
+            &lt;xs:enumeration value="F31"/&gt;
+            &lt;xs:enumeration value="F32"/&gt;
+            &lt;xs:enumeration value="F33"/&gt;
+            &lt;xs:enumeration value="C31"/&gt;
+            &lt;xs:enumeration value="C32"/&gt;
+            &lt;xs:enumeration value="C33"/&gt;
+            &lt;xs:enumeration value="C11"/&gt;
+            &lt;xs:enumeration value="B31"/&gt;
+            &lt;xs:enumeration value="B32"/&gt;
+            &lt;xs:enumeration value="B33"/&gt;
+            &lt;xs:enumeration value="F41"/&gt;
+            &lt;xs:enumeration value="F42"/&gt;
+            &lt;xs:enumeration value="F43"/&gt;
+            &lt;xs:enumeration value="E11"/&gt;
+            &lt;xs:enumeration value="E12"/&gt;
+            &lt;xs:enumeration value="E13"/&gt;
+            &lt;xs:enumeration value="E14"/&gt;
+            &lt;xs:enumeration value="E15"/&gt;
+            &lt;xs:enumeration value="E21"/&gt;
+            &lt;xs:enumeration value="E22"/&gt;
+            &lt;xs:enumeration value="E23"/&gt;
+            &lt;xs:enumeration value="E31"/&gt;
+            &lt;xs:enumeration value="E32"/&gt;
+            &lt;xs:enumeration value="E34"/&gt;
+            &lt;xs:enumeration value="E35"/&gt;
+            &lt;xs:enumeration value="EW3"/&gt;
+            &lt;xs:enumeration value="EW4"/&gt;
+            &lt;xs:enumeration value="EW5"/&gt;
+            &lt;xs:enumeration value="BC1"/&gt;
+            &lt;xs:enumeration value="BC2"/&gt;
+            &lt;xs:enumeration value="BC3"/&gt;
+            &lt;xs:enumeration value="SD1"/&gt;
+            &lt;xs:enumeration value="SD2"/&gt;
+            &lt;xs:enumeration value="SD3"/&gt;
+            &lt;xs:enumeration value="SE1"/&gt;
+            &lt;xs:enumeration value="SE2"/&gt;
+            &lt;xs:enumeration value="SE3"/&gt;
+            &lt;xs:enumeration value="SF1"/&gt;
+            &lt;xs:enumeration value="SF2"/&gt;
+            &lt;xs:enumeration value="SG1"/&gt;
+            &lt;xs:enumeration value="SG2"/&gt;
+            &lt;xs:enumeration value="SH1"/&gt;
+            &lt;xs:enumeration value="SH2"/&gt;
+            &lt;xs:enumeration value="SJ1"/&gt;
+            &lt;xs:enumeration value="SJ2"/&gt;
+            &lt;xs:enumeration value="SK1"/&gt;
+            &lt;xs:enumeration value="SK2"/&gt;
+            &lt;xs:enumeration value="SK3"/&gt;
+            &lt;xs:enumeration value="SK4"/&gt;
+            &lt;xs:enumeration value="SL1"/&gt;
+            &lt;xs:enumeration value="SN1"/&gt;
+            &lt;xs:enumeration value="SN2"/&gt;
+            &lt;xs:enumeration value="SN3"/&gt;
+            &lt;xs:enumeration value="SN4"/&gt;
+            &lt;xs:enumeration value="SP"/&gt;
+            &lt;xs:enumeration value="SR1"/&gt;
+            &lt;xs:enumeration value="SR2"/&gt;
+            &lt;xs:enumeration value="SR3"/&gt;
+            &lt;xs:enumeration value="C51"/&gt;
+            &lt;xs:enumeration value="C52"/&gt;
+            &lt;xs:enumeration value="C53"/&gt;
+            &lt;xs:enumeration value="T51"/&gt;
+            &lt;xs:enumeration value="T52"/&gt;
+            &lt;xs:enumeration value="T53"/&gt;
+            &lt;xs:enumeration value="R51"/&gt;
+            &lt;xs:enumeration value="R52"/&gt;
+            &lt;xs:enumeration value="R53"/&gt;
+            &lt;xs:enumeration value="I51"/&gt;
+            &lt;xs:enumeration value="I52"/&gt;
+            &lt;xs:enumeration value="I53"/&gt;
+            &lt;xs:enumeration value="DV1"/&gt;
+            &lt;xs:enumeration value="DV2"/&gt;
+            &lt;xs:enumeration value="DV3"/&gt;
+            &lt;xs:enumeration value="A5"/&gt;
+            &lt;xs:enumeration value="C8"/&gt;
+            &lt;xs:enumeration value="C9"/&gt;
+
+            &lt;!-- Australian visas --&gt;
+            &lt;xs:enumeration value="AUS_601"/&gt;
+            &lt;xs:enumeration value="AUS_651"/&gt;
+            &lt;xs:enumeration value="AUS_771"/&gt;
+            &lt;xs:enumeration value="AUS_600"/&gt;
+            &lt;xs:enumeration value="AUS_462"/&gt;
+            &lt;xs:enumeration value="AUS_417"/&gt;
+            &lt;xs:enumeration value="AUS_888"/&gt;
+            &lt;xs:enumeration value="AUS_188"/&gt;
+            &lt;xs:enumeration value="AUS_890"/&gt;
+            &lt;xs:enumeration value="AUS_132"/&gt;
+            &lt;xs:enumeration value="AUS_124"/&gt;
+            &lt;xs:enumeration value="AUS_858"/&gt;
+            &lt;xs:enumeration value="AUS_186"/&gt;
+            &lt;xs:enumeration value="AUS_405"/&gt;
+            &lt;xs:enumeration value="AUS_891"/&gt;
+            &lt;xs:enumeration value="AUS_187"/&gt;
+            &lt;xs:enumeration value="AUS_189"/&gt;
+            &lt;xs:enumeration value="AUS_190"/&gt;
+            &lt;xs:enumeration value="AUS_476"/&gt;
+            &lt;xs:enumeration value="AUS_489"/&gt;
+            &lt;xs:enumeration value="AUS_887"/&gt;
+            &lt;xs:enumeration value="AUS_892"/&gt;
+            &lt;xs:enumeration value="AUS_893"/&gt;
+            &lt;xs:enumeration value="AUS_485"/&gt;
+            &lt;xs:enumeration value="AUS_403"/&gt;
+            &lt;xs:enumeration value="AUS_400"/&gt;
+            &lt;xs:enumeration value="AUS_457"/&gt;
+            &lt;xs:enumeration value="AUS_482"/&gt;
+            &lt;xs:enumeration value="AUS_500"/&gt;
+            &lt;xs:enumeration value="AUS_590"/&gt;
+            &lt;xs:enumeration value="AUS_407"/&gt;
+            &lt;xs:enumeration value="AUS_102"/&gt;
+            &lt;xs:enumeration value="AUS_114"/&gt;
+            &lt;xs:enumeration value="AUS_838"/&gt;
+            &lt;xs:enumeration value="AUS_804"/&gt;
+            &lt;xs:enumeration value="AUS_836"/&gt;
+            &lt;xs:enumeration value="AUS_116"/&gt;
+            &lt;xs:enumeration value="AUS_101"/&gt;
+            &lt;xs:enumeration value="AUS_802"/&gt;
+            &lt;xs:enumeration value="AUS_884"/&gt;
+            &lt;xs:enumeration value="AUS_864"/&gt;
+            &lt;xs:enumeration value="AUS_173"/&gt;
+            &lt;xs:enumeration value="AUS_143"/&gt;
+            &lt;xs:enumeration value="AUS_445"/&gt;
+            &lt;xs:enumeration value="AUS_461"/&gt;
+            &lt;xs:enumeration value="AUS_117"/&gt;
+            &lt;xs:enumeration value="AUS_837"/&gt;
+            &lt;xs:enumeration value="AUS_103"/&gt;
+            &lt;xs:enumeration value="AUS_309"/&gt;
+            &lt;xs:enumeration value="AUS_100"/&gt;
+            &lt;xs:enumeration value="AUS_801"/&gt;
+            &lt;xs:enumeration value="AUS_820"/&gt;
+            &lt;xs:enumeration value="AUS_300"/&gt;
+            &lt;xs:enumeration value="AUS_115"/&gt;
+            &lt;xs:enumeration value="AUS_835"/&gt;
+            &lt;xs:enumeration value="AUS_202"/&gt;
+            &lt;xs:enumeration value="AUS_201"/&gt;
+            &lt;xs:enumeration value="AUS_790"/&gt;
+            &lt;xs:enumeration value="AUS_851"/&gt;
+            &lt;xs:enumeration value="AUS_449"/&gt;
+            &lt;xs:enumeration value="AUS_491"/&gt;
+            &lt;xs:enumeration value="AUS_494"/&gt;
+            &lt;xs:enumeration value="AUS_866"/&gt;
+            &lt;xs:enumeration value="AUS_200"/&gt;
+            &lt;xs:enumeration value="AUS_204"/&gt;
+            &lt;xs:enumeration value="AUS_203"/&gt;
+            &lt;xs:enumeration value="AUS_459"/&gt;
+            &lt;xs:enumeration value="AUS_456"/&gt;
+            &lt;xs:enumeration value="AUS_160"/&gt;
+            &lt;xs:enumeration value="AUS_161"/&gt;
+            &lt;xs:enumeration value="AUS_162"/&gt;
+            &lt;xs:enumeration value="AUS_163"/&gt;
+            &lt;xs:enumeration value="AUS_164"/&gt;
+            &lt;xs:enumeration value="AUS_165"/&gt;
+            &lt;xs:enumeration value="AUS_676"/&gt;
+            &lt;xs:enumeration value="AUS_426"/&gt;
+            &lt;xs:enumeration value="AUS_427"/&gt;
+            &lt;xs:enumeration value="AUS_956"/&gt;
+            &lt;xs:enumeration value="AUS_977"/&gt;
+            &lt;xs:enumeration value="AUS_956"/&gt;
+            &lt;xs:enumeration value="AUS_977"/&gt;
+            &lt;xs:enumeration value="AUS_976"/&gt;
+            &lt;xs:enumeration value="AUS_121"/&gt;
+            &lt;xs:enumeration value="AUS_856"/&gt;
+            &lt;xs:enumeration value="AUS_845"/&gt;
+            &lt;xs:enumeration value="AUS_411"/&gt;
+            &lt;xs:enumeration value="AUS_415"/&gt;
+            &lt;xs:enumeration value="AUS_406"/&gt;
+            &lt;xs:enumeration value="AUS_120"/&gt;
+            &lt;xs:enumeration value="AUS_855"/&gt;
+            &lt;xs:enumeration value="AUS_423"/&gt;
+            &lt;xs:enumeration value="AUS_422"/&gt;
+            &lt;xs:enumeration value="AUS_675"/&gt;
+            &lt;xs:enumeration value="AUS_685"/&gt;
+            &lt;xs:enumeration value="AUS_119"/&gt;
+            &lt;xs:enumeration value="AUS_857"/&gt;
+            &lt;xs:enumeration value="AUS_428"/&gt;
+            &lt;xs:enumeration value="AUS_410"/&gt;
+            &lt;xs:enumeration value="AUS_496"/&gt;
+            &lt;xs:enumeration value="AUS_495"/&gt;
+            &lt;xs:enumeration value="AUS_175"/&gt;
+            &lt;xs:enumeration value="AUS_885"/&gt;
+            &lt;xs:enumeration value="AUS_475"/&gt;
+            &lt;xs:enumeration value="AUS_487"/&gt;
+            &lt;xs:enumeration value="AUS_176"/&gt;
+            &lt;xs:enumeration value="AUS_416"/&gt;
+            &lt;xs:enumeration value="AUS_459"/&gt;
+            &lt;xs:enumeration value="AUS_679"/&gt;
+            &lt;xs:enumeration value="AUS_886"/&gt;
+            &lt;xs:enumeration value="AUS_421"/&gt;
+            &lt;xs:enumeration value="AUS_488"/&gt;
+            &lt;xs:enumeration value="AUS_846"/&gt;
+            &lt;xs:enumeration value="AUS_420"/&gt;
+            &lt;xs:enumeration value="AUS_401"/&gt;
+            &lt;xs:enumeration value="AUS_402"/&gt;
+            &lt;xs:enumeration value="AUS_419"/&gt;
+            &lt;xs:enumeration value="AUS_576"/&gt;
+            &lt;xs:enumeration value="AUS_573"/&gt;
+            &lt;xs:enumeration value="AUS_570"/&gt;
+            &lt;xs:enumeration value="AUS_575"/&gt;
+            &lt;xs:enumeration value="AUS_574"/&gt;
+            &lt;xs:enumeration value="AUS_571"/&gt;
+            &lt;xs:enumeration value="AUS_580"/&gt;
+            &lt;xs:enumeration value="AUS_572"/&gt;
+            &lt;xs:enumeration value="AUS_010"/&gt;
+            &lt;xs:enumeration value="AUS_020"/&gt;
+            &lt;xs:enumeration value="AUS_030"/&gt;
+            &lt;xs:enumeration value="AUS_040"/&gt;
+            &lt;xs:enumeration value="AUS_041"/&gt;
+            &lt;xs:enumeration value="AUS_050"/&gt;
+            &lt;xs:enumeration value="AUS_051"/&gt;
+            &lt;xs:enumeration value="AUS_942"/&gt;
+            &lt;xs:enumeration value="AUS_151"/&gt;
+            &lt;xs:enumeration value="AUS_988"/&gt;
+            &lt;xs:enumeration value="AUS_602"/&gt;
+            &lt;xs:enumeration value="AUS_155"/&gt;
+            &lt;xs:enumeration value="AUS_157"/&gt;
+            &lt;xs:enumeration value="AUS_444"/&gt;
+            &lt;xs:enumeration value="AUS_Spec"/&gt;
+        &lt;/xs:restriction&gt;
+    &lt;/xs:simpleType&gt;
+
+    &lt;xs:simpleType name="visa_expiration_date"&gt;
+        &lt;xs:restriction base="xs:date"&gt;
+            &lt;xs:minInclusive value="1900-12-31"/&gt;
+            &lt;xs:maxInclusive value="2079-06-05"/&gt;
+        &lt;/xs:restriction&gt;
+    &lt;/xs:simpleType&gt;
+&lt;/xs:schema&gt;</div>
+</div>
+</div>
+</div>
+</div>
+</article>
+</section>
+<section class="clearfix">
+<article class="definition">
+<h3 class="anchored" id="patch"><span>PATCH</span>
+<a class="fa fa-link link-anchor" data-url="r=__v2__companies__(cid)__employees__(aid)__demographics#patch" data-web-id="__v2__companies__(cid)__employees__(aid)__demographics"></a>
+</h3>
+<div class="md"><p>Partial update to the employee demographic information using JSON Patch.
+Additionally required field validation will not be performed for fields that are marked as required as part of the demographic profile.
+
+The Employee APIs use a separate security profile item to control access rights which is located in the company security profile in the following location:
+  1. `Modules -&gt; REST API Resources -&gt; Employee Demographics -&gt; View`.
+  2. `Modules -&gt; REST API Resources -&gt; Employee Demographics -&gt; ESS View`.
+  3. `Modules -&gt; REST API Resources -&gt; Employee Demographics -&gt; Edit`.
+  4. `Modules -&gt; REST API Resources -&gt; Employee Demographics -&gt; ESS Edit`.
+
+&lt;b&gt;Only the 'REST API RESOURCES' security profile items in combination with 'manager permissions' are considered by this REST API resource.&lt;/b&gt;
+To see which fields are available to be modified reference the Employee V2 GET or PUT request.
+
+**Existing Employee Data:**
+```json
+{
+  "ethnicity": "TWO_OR_MORE_RACES",
+  "gender": "FEMALE",
+  "recruiter": {
+    "account_id": 4345638512,
+    "display_name": "Test Administrator"
+  }
+}
+```
+
+**PATCH Request Body:**
+```json
+[
+  { "op": "add", "path": "/eye_color", "value": "Green" },
+  { "op": "add", "path": "/height", "value": "180cm" },
+  { "op": "remove", "path": "/ethnicity" },
+  { "op": "replace", "path": "/gender", "value": "MALE" },
+  { "op": "add", "path": "/referral", "value": { "id": 33812245 } },
+  { "op": "add", "path": "/seasonal",  "value": false },
+  { "op": "replace", "path": "/recruiter/account_id", "value": 4345638511 }
+]
+```
+
+**Updated Employee Demographics Data:**
+```json
+{
+  "eye_color": "Green",
+  "gender": "MALE",
+  "height": "180cm",
+  "referral": {
+    "id": 33812245
+  },
+  "seasonal": false,
+  "recruiter": {
+    "account_id": 4345638511,
+    "display_name": "Test Manager1"
+  }
+}
+```
+</p></div>
+<div>
+<ul class="annotation-list">
+<li class="annotation">
+<span>v2</span>
+</li>
+</ul>
+</div>
+<h4>Parameters</h4>
+<h5>Path Parameters</h5>
+<ul class="param-list">
+<li>
+<div class="param-desc">
+<div class="param-name">cid</div>
+<div class="data-type">string</div>
+<div class="required">required</div>
+</div>
+<div class="param-content">
+<div>
+<p>Example: 123456</p>
+<div class="desc md">Company should be referenced via company id or company unique id or company short name using `|short_name` or `!short_name` format.
+</div>
+</div>
+</div>
+
+</li>
+<li>
+<div class="param-desc">
+<div class="param-name">aid</div>
+<div class="data-type">string</div>
+<div class="required">required</div>
+</div>
+<div class="param-content">
+<div>
+<p>Example: 1234567</p>
+<div class="desc md">Account should be referenced via account id or account external id using `|external_id` or `!external_id` format.
+</div>
+</div>
+</div>
+
+</li>
+</ul>
+<h5>Header Parameters</h5>
+<ul class="param-list">
+<li>
+<div class="param-desc">
+<div class="param-name">Accept</div>
+<div class="data-type">string</div>
+</div>
+<div class="param-content">
+<div>
+<p>Valid values: application/json</p>
+<p>Example: application/json</p>
+</div>
+</div>
+
+</li>
+<li>
+<div class="param-desc">
+<div class="param-name">Content-Type</div>
+<div class="data-type">string</div>
+<div class="required">required</div>
+</div>
+<div class="param-content">
+<div>
+<p>Valid values: application/json-patch+json</p>
+<p>Example: application/json-patch+json</p>
+</div>
+</div>
+
+</li>
+</ul>
+<h4>Responses</h4>
+<div class="responses">
+<div>
+<label class="response response-success">
+<span class="fa fa-check"></span>
+<input data-full-tab-id="patch-resp-code-tab-id-0" data-tab-class="resp-code-tab-patch" name="resp-code-tab-patch" type="radio"/>
+<span class="status">204 No Content</span>
+</label>
+<div class="response-desc resp-code-tab-patch" id="patch-resp-code-tab-id-0">
+<div class="md"><p>Employee demographics successfully updated.
+</p></div>
+</div>
+</div>
+<div>
+<label class="response response-error">
+<span class="fa fa-times"></span>
+<input data-full-tab-id="patch-resp-code-tab-id-1" data-tab-class="resp-code-tab-patch" name="resp-code-tab-patch" type="radio"/>
+<span class="status">400 Bad Request</span>
+</label>
+<div class="response-desc resp-code-tab-patch" id="patch-resp-code-tab-id-1">
+<div class="md"><p>In case of any validation errors.
+</p></div>
+</div>
+</div>
+<div>
+<label class="response response-error">
+<span class="fa fa-times"></span>
+<input data-full-tab-id="patch-resp-code-tab-id-2" data-tab-class="resp-code-tab-patch" name="resp-code-tab-patch" type="radio"/>
+<span class="status">401 Unauthorized</span>
+</label>
+<div class="response-desc resp-code-tab-patch" id="patch-resp-code-tab-id-2">
+<div class="md"><p>In case of any authorization issues.
+</p></div>
+</div>
+</div>
+<div>
+<label class="response response-error">
+<span class="fa fa-times"></span>
+<input data-full-tab-id="patch-resp-code-tab-id-3" data-tab-class="resp-code-tab-patch" name="resp-code-tab-patch" type="radio"/>
+<span class="status">403 Forbidden</span>
+</label>
+<div class="response-desc resp-code-tab-patch" id="patch-resp-code-tab-id-3">
+<div class="md"><p>In case of any security issues.
+</p></div>
+</div>
+</div>
+<div>
+<label class="response response-error">
+<span class="fa fa-times"></span>
+<input data-full-tab-id="patch-resp-code-tab-id-4" data-tab-class="resp-code-tab-patch" name="resp-code-tab-patch" type="radio"/>
+<span class="status">404 Not Found</span>
+</label>
+<div class="response-desc resp-code-tab-patch" id="patch-resp-code-tab-id-4">
+<div class="md"><p>If company or employee is not found.</p></div>
+</div>
+</div>
+<div>
+<label class="response response-error">
+<span class="fa fa-times"></span>
+<input data-full-tab-id="patch-resp-code-tab-id-5" data-tab-class="resp-code-tab-patch" name="resp-code-tab-patch" type="radio"/>
+<span class="status">415 Unsupported Media Type</span>
+</label>
+<div class="response-desc resp-code-tab-patch" id="patch-resp-code-tab-id-5">
+<div class="md"><p>In case of unsupported media type. The request body must be in JSON Patch format.
+</p></div>
+</div>
+</div>
+<div>
+<label class="response response-error">
+<span class="fa fa-times"></span>
+<input data-full-tab-id="patch-resp-code-tab-id-6" data-tab-class="resp-code-tab-patch" name="resp-code-tab-patch" type="radio"/>
+<span class="status">503 Service Unavailable</span>
+</label>
+<div class="response-desc resp-code-tab-patch" id="patch-resp-code-tab-id-6">
+<div class="md"><p>Returned in the event that the call limit is exceeded. The application will be unavailable for subsequent calls for the duration specified by the X-CallLimit-TimeToWait header.</p></div>
+</div>
+</div>
+</div>
+</article>
+<article class="code">
+<h4>Definition</h4>
+<div class="uri">
+<code>
+<span class="method patch">patch</span>
+<span class="textUri"><span class="baseUri">{{ getUriPrefix() }}</span><span class="relativeUri">/v2/companies/{cid}/employees/{aid}/demographics</span></span>
+</code>
+</div>
+<h4>Request Samples</h4>
+<div class="tab-title-group">
+<label>
+<input checked="checked" data-full-tab-id="req-tab-id-patch-0" data-tab-class="req-tab-patch" name="req-tab-patch" type="radio"/>
+<span class="tab-title">application/json-patch+json</span>
+</label>
+</div>
+<div>
+<div class="req-tab-patch" id="req-tab-id-patch-0">
+<div class="example">
+
+<div class="patch-example-tab-0 activeTab" id="patch-tab-example-0">
+
+<pre class="highlightjs">[
+  {
+    "op": "add",
+    "path": "/eye_color",
+    "value" : "green"
+  },
+  {
+    "op": "add",
+    "path": "/height",
+    "value": "180cm"
+  },
+  {
+    "op": "replace",
+    "path": "/ethnicity",
+    "value" : "AMERICAN_INDIAN_OR_ALASKA_NATIVE"
+  },
+  {
+    "op": "remove",
+    "path": "/gender"
+  },
+  {
+    "op": "add",
+    "path": "/referral",
+    "value": {
+      "id": 4443
+    }
+  },
+  {
+    "op": "add",
+    "path": "/recruiter",
+    "value": {
+      "account_id": 12345,
+      "display_name": "XYZ"
+    }
+  },
+  {
+    "op": "add",
+    "path": "/seasonal",
+    "value": true
+  },
+  {
+    "op": "add",
+    "path": "/visa",
+    "value": {
+      "type" : "A3"
+    }
+  }
+]</pre>
+</div>
+<div class="patch-example-tab-0" id="patch-tab-schema-0">
+
+<div class="jsonschema" id="schema-2">{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "type": "array",
+  "items": {
+    "type": "object",
+    "properties": {
+      "op": {
+        "type": "string",
+        "enum": [
+          "add",
+          "remove",
+          "replace"
+        ],
+        "description": "The operation to be performed."
+      },
+      "path": {
+        "type": "string",
+        "description": "A JSON Pointer path that specifies the target location within the document."
+      },
+      "value": {
+        "type": [
+          "string",
+          "number",
+          "boolean",
+          "object",
+          "array",
+          "null"
+        ],
+        "description": "The value to be used within the operations. Required for 'add', 'replace' and 'remove' andoperations."
+      }
+    },
+    "required": [
+      "op",
+      "path"
+    ],
+    "additionalProperties": false
+  }
+}</div>
+</div>
+</div>
+</div>
+</div>
+</article>
+</section>
+<section class="clearfix">
+<article class="definition">
+<h3 class="anchored" id="put"><span>PUT</span>
+<a class="fa fa-link link-anchor" data-url="r=__v2__companies__(cid)__employees__(aid)__demographics#put" data-web-id="__v2__companies__(cid)__employees__(aid)__demographics"></a>
+</h3>
+<div class="md"><p>Additionally required field validation will not performed for fields that are marked as required as part of the demographic profile.
+
+The Employee APIs use a separate security profile item to control access rights which is located in the company security profile in the following location:
+  1. `Modules -&gt; REST API Resources -&gt; Employee Demographics -&gt; Edit`.
+  2. `Modules -&gt; REST API Resources -&gt; Employee Demographics -&gt; ESS Edit`.
+
+&lt;b&gt;Only the 'REST API RESOURCES' security profile items in combination with 'manager permissions' are considered by this REST API resource.&lt;/b&gt;
+</p></div>
+<div>
+<ul class="annotation-list">
+<li class="annotation">
+<span>v2</span>
+</li>
+</ul>
+</div>
+<h4>Parameters</h4>
+<h5>Path Parameters</h5>
+<ul class="param-list">
+<li>
+<div class="param-desc">
+<div class="param-name">cid</div>
+<div class="data-type">string</div>
+<div class="required">required</div>
+</div>
+<div class="param-content">
+<div>
+<p>Example: 123456</p>
+<div class="desc md">Company should be referenced via company id or company unique id or company short name using `|short_name` or `!short_name` format.
+</div>
+</div>
+</div>
+
+</li>
+<li>
+<div class="param-desc">
+<div class="param-name">aid</div>
+<div class="data-type">string</div>
+<div class="required">required</div>
+</div>
+<div class="param-content">
+<div>
+<p>Example: 1234567</p>
+<div class="desc md">Account should be referenced via account id or account external id using `|external_id` or `!external_id` format.
+</div>
+</div>
+</div>
+
+</li>
+</ul>
+<h5>Header Parameters</h5>
+<ul class="param-list">
+<li>
+<div class="param-desc">
+<div class="param-name">Accept</div>
+<div class="data-type">string</div>
+</div>
+<div class="param-content">
+<div>
+<p>Valid values: application/json, application/xml, text/xml</p>
+<p>Default: application/json</p>
+<p>Example: application/json</p>
+</div>
+</div>
+
+</li>
+<li>
+<div class="param-desc">
+<div class="param-name">Content-Type</div>
+<div class="data-type">string</div>
+<div class="required">required</div>
+</div>
+<div class="param-content">
+<div>
+<p>Valid values: application/xml, text/xml, application/json</p>
+<p>Example: application/json</p>
+</div>
+</div>
+
+</li>
+<li>
+<div class="param-desc">
+<div class="param-name">Content-Length</div>
+<div class="data-type">integer</div>
+<div class="required">required</div>
+</div>
+<div class="param-content">
+<div>
+</div>
+</div>
+
+</li>
+</ul>
+<h4>Responses</h4>
+<div class="responses">
+<div>
+<label class="response response-success">
+<span class="fa fa-check"></span>
+<input data-full-tab-id="put-resp-code-tab-id-0" data-tab-class="resp-code-tab-put" name="resp-code-tab-put" type="radio"/>
+<span class="status">204 No Content</span>
+</label>
+<div class="response-desc resp-code-tab-put" id="put-resp-code-tab-id-0">
+<div class="md"><p>Demographics data were successfully updated.</p></div>
+</div>
+</div>
+<div>
+<label class="response response-error">
+<span class="fa fa-times"></span>
+<input data-full-tab-id="put-resp-code-tab-id-1" data-tab-class="resp-code-tab-put" name="resp-code-tab-put" type="radio"/>
+<span class="status">401 Unauthorized</span>
+</label>
+<div class="response-desc resp-code-tab-put" id="put-resp-code-tab-id-1">
+<div class="md"><p>Returned in case user is not authorized.</p></div>
+</div>
+</div>
+<div>
+<label class="response response-error">
+<span class="fa fa-times"></span>
+<input data-full-tab-id="put-resp-code-tab-id-2" data-tab-class="resp-code-tab-put" name="resp-code-tab-put" type="radio"/>
+<span class="status">403 Forbidden</span>
+</label>
+<div class="response-desc resp-code-tab-put" id="put-resp-code-tab-id-2">
+<div class="md"><p>Returned in case user has no access to the resource.</p></div>
+</div>
+</div>
+<div>
+<label class="response response-error">
+<span class="fa fa-times"></span>
+<input data-full-tab-id="put-resp-code-tab-id-3" data-tab-class="resp-code-tab-put" name="resp-code-tab-put" type="radio"/>
+<span class="status">404 Not Found</span>
+</label>
+<div class="response-desc resp-code-tab-put" id="put-resp-code-tab-id-3">
+<div class="md"><p>Returned in case resource does not exist.</p></div>
+</div>
+</div>
+<div>
+<label class="response response-error">
+<span class="fa fa-times"></span>
+<input data-full-tab-id="put-resp-code-tab-id-4" data-tab-class="resp-code-tab-put" name="resp-code-tab-put" type="radio"/>
+<span class="status">503 Service Unavailable</span>
+</label>
+<div class="response-desc resp-code-tab-put" id="put-resp-code-tab-id-4">
+<div class="md"><p>Returned in the event that the call limit is exceeded. The application will be unavailable for subsequent calls for the duration specified by the X-CallLimit-TimeToWait header.</p></div>
+</div>
+</div>
+</div>
+</article>
+<article class="code">
+<h4>Definition</h4>
+<div class="uri">
+<code>
+<span class="method put">put</span>
+<span class="textUri"><span class="baseUri">{{ getUriPrefix() }}</span><span class="relativeUri">/v2/companies/{cid}/employees/{aid}/demographics</span></span>
+</code>
+</div>
+<h4>Request Samples</h4>
+<div class="tab-title-group">
+<label>
+<input checked="checked" data-full-tab-id="req-tab-id-put-0" data-tab-class="req-tab-put" name="req-tab-put" type="radio"/>
+<span class="tab-title">application/json</span>
+</label>
+<label>
+<input data-full-tab-id="req-tab-id-put-1" data-tab-class="req-tab-put" name="req-tab-put" type="radio"/>
+<span class="tab-title">application/xml</span>
+</label>
+</div>
+<div>
+<div class="req-tab-put" id="req-tab-id-put-0">
+<div class="example">
+
+<div class="put-example-tab-0 activeTab" id="put-tab-example-0">
+
+<pre class="highlightjs">{
+  "citizenship": "US_CITIZEN",
+  "ethnicity": "AMERICAN_INDIAN_OR_ALASKA_NATIVE",
+  "eye_color": "Blue",
+  "full_time_student": false,
+  "gender": "MALE",
+  "height": "183cm",
+  "referral": {
+    "id": 2758
+  },
+  "recruiter": {
+    "account_id": 12345,
+    "display_name": "Xyz"
+  },
+  "seasonal": false,
+  "visa": {
+    "type": "H2A",
+    "number": "YHF25",
+    "expiration_date": "2017-03-30"
+  }
+}</pre>
+</div>
+<div class="put-example-tab-0" id="put-tab-schema-0">
+
+<div class="jsonschema" id="schema-3">{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "type": "object",
+  "properties": {
+    "citizenship": {
+      "type": "string",
+      "enum": [
+        "US_CITIZEN",
+        "PERMANENT_RESIDENT",
+        "ALIEN_WITH_WORK_PERMIT",
+        "NONCITIZEN_NATIONAL_OF_US"
+      ]
+    },
+    "ethnicity": {
+      "type": "string",
+      "enum": [
+        "HISPANIC_OR_LATINO",
+        "WHITE",
+        "BLACK_OR_AFRICAN_AMERICAN",
+        "NATIVE_HAWAIIAN_OR_OTHER_PACIFIC_ISLANDER",
+        "ASIAN",
+        "AMERICAN_INDIAN_OR_ALASKA_NATIVE",
+        "TWO_OR_MORE_RACES"
+      ]
+    },
+    "eye_color": {
+      "type": "string",
+      "maxLength": 50
+    },
+    "full_time_student": {
+      "type": "boolean"
+    },
+    "gender": {
+      "type": "string",
+      "enum": [
+        "MALE",
+        "FEMALE",
+        "UNDEFINED"
+      ],
+      "default": "UNDEFINED"
+    },
+    "height": {
+      "type": "string",
+      "maxLength": 10
+    },
+    "referral": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer"
+        }
+      },
+      "required": [
+        "id"
+      ],
+      "additionalProperties": false
+    },
+    "recruiter": {
+      "type": "object",
+      "properties": {
+        "account_id": {
+          "type": "number",
+          "format": "long"
+        },
+        "display_name": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "account_id"
+      ]
+    },
+    "seasonal": {
+      "type": "boolean"
+    },
+    "visa": {
+      "type": "object",
+      "properties": {
+        "type": {
+          "type": "string",
+          "enum": [
+            "B-1",
+            "CW-1",
+            "E-1",
+            "E-2",
+            "E-3",
+            "F-1",
+            "F-2",
+            "F-3",
+            "H-1B",
+            "H-1C",
+            "H-2A",
+            "H-2B",
+            "H-3",
+            "H-4",
+            "J-1",
+            "J-2",
+            "M-1",
+            "M-2",
+            "M-3",
+            "O-1",
+            "P-2",
+            "P-3",
+            "R-1",
+            "EB-1",
+            "EB-2",
+            "EB-3",
+            "EB-4",
+            "EB-5",
+            "L-1A",
+            "L-1B",
+            "P-1A",
+            "P-1B",
+            "EB1",
+            "EB2",
+            "EB3",
+            "EB4",
+            "EB5",
+            "L1A",
+            "L1B",
+            "P1A",
+            "P1B",
+            "GB",
+            "WB",
+            "Q",
+            "E3",
+            "H1B",
+            "H2A",
+            "H2B",
+            "H3",
+            "H4",
+            "J1",
+            "CW1",
+            "E1",
+            "E2",
+            "H1C",
+            "I",
+            "O1",
+            "P2",
+            "P3",
+            "R1",
+            "TN",
+            "F1",
+            "F2",
+            "F3",
+            "M1",
+            "M2",
+            "M3",
+            "J2",
+            "B1",
+            "A1",
+            "A2",
+            "A3",
+            "B2",
+            "B1/B2",
+            "C1",
+            "C1/D",
+            "C2",
+            "C3",
+            "CW2",
+            "D",
+            "E2C",
+            "E3D",
+            "E3R",
+            "G1",
+            "G2",
+            "G3",
+            "G4",
+            "G5",
+            "H1B1",
+            "K1",
+            "K2",
+            "K3",
+            "K4",
+            "L1",
+            "L2",
+            "N8",
+            "N9",
+            "NATO 1",
+            "NATO 2",
+            "NATO 3",
+            "NATO 4",
+            "NATO 5",
+            "NATO 6",
+            "NATO 7",
+            "O2",
+            "O3",
+            "P1",
+            "P4",
+            "Q1",
+            "R2",
+            "S5",
+            "S6",
+            "S7",
+            "T1",
+            "T2",
+            "T3",
+            "T4",
+            "T5",
+            "T6",
+            "TD",
+            "U1",
+            "U2",
+            "U3",
+            "U4",
+            "U5",
+            "V1",
+            "V2",
+            "V3",
+            "IR1",
+            "IR2",
+            "IR3",
+            "IH3",
+            "IR4",
+            "IH4",
+            "IR5",
+            "CR1",
+            "CR2",
+            "IW1",
+            "IW2",
+            "IB1",
+            "IB2",
+            "IB3",
+            "VI5",
+            "AM1",
+            "AM2",
+            "AM3",
+            "SB1",
+            "SC1",
+            "SC2",
+            "SI1",
+            "SI2",
+            "SI3",
+            "SM1",
+            "SM2",
+            "SM3",
+            "SQ1",
+            "SQ2",
+            "SQ3",
+            "SU2",
+            "SU3",
+            "SU5",
+            "F11",
+            "F12",
+            "B11",
+            "B12",
+            "F21",
+            "F22",
+            "F23",
+            "F24",
+            "F25",
+            "C21",
+            "C22",
+            "C23",
+            "C24",
+            "C25",
+            "B21",
+            "B22",
+            "B23",
+            "B24",
+            "B25",
+            "FX1",
+            "FX2",
+            "FX3",
+            "CX1",
+            "CX2",
+            "CX3",
+            "BX1",
+            "BX2",
+            "BX3",
+            "F31",
+            "F32",
+            "F33",
+            "C31",
+            "C32",
+            "C33",
+            "C11",
+            "B31",
+            "B32",
+            "B33",
+            "F41",
+            "F42",
+            "F43",
+            "E11",
+            "E12",
+            "E13",
+            "E14",
+            "E15",
+            "E21",
+            "E22",
+            "E23",
+            "E31",
+            "E32",
+            "E34",
+            "E35",
+            "EW3",
+            "EW4",
+            "EW5",
+            "BC1",
+            "BC2",
+            "BC3",
+            "SD1",
+            "SD2",
+            "SD3",
+            "SE1",
+            "SE2",
+            "SE3",
+            "SF1",
+            "SF2",
+            "SG1",
+            "SG2",
+            "SH1",
+            "SH2",
+            "SJ1",
+            "SJ2",
+            "SK1",
+            "SK2",
+            "SK3",
+            "SK4",
+            "SL1",
+            "SN1",
+            "SN2",
+            "SN3",
+            "SN4",
+            "SP",
+            "SR1",
+            "SR2",
+            "SR3",
+            "C51",
+            "C52",
+            "C53",
+            "T51",
+            "T52",
+            "T53",
+            "R51",
+            "R52",
+            "R53",
+            "I51",
+            "I52",
+            "I53",
+            "DV1",
+            "DV2",
+            "DV3",
+            "A5",
+            "C8",
+            "C9",
+            "AUS_601",
+            "AUS_651",
+            "AUS_771",
+            "AUS_600",
+            "AUS_462",
+            "AUS_417",
+            "AUS_888",
+            "AUS_188",
+            "AUS_890",
+            "AUS_132",
+            "AUS_124",
+            "AUS_858",
+            "AUS_186",
+            "AUS_405",
+            "AUS_891",
+            "AUS_187",
+            "AUS_189",
+            "AUS_190",
+            "AUS_476",
+            "AUS_489",
+            "AUS_887",
+            "AUS_892",
+            "AUS_893",
+            "AUS_485",
+            "AUS_403",
+            "AUS_400",
+            "AUS_457",
+            "AUS_482",
+            "AUS_500",
+            "AUS_590",
+            "AUS_407",
+            "AUS_102",
+            "AUS_114",
+            "AUS_838",
+            "AUS_804",
+            "AUS_836",
+            "AUS_116",
+            "AUS_101",
+            "AUS_802",
+            "AUS_884",
+            "AUS_864",
+            "AUS_173",
+            "AUS_143",
+            "AUS_445",
+            "AUS_461",
+            "AUS_117",
+            "AUS_837",
+            "AUS_103",
+            "AUS_309",
+            "AUS_100",
+            "AUS_801",
+            "AUS_820",
+            "AUS_300",
+            "AUS_115",
+            "AUS_835",
+            "AUS_202",
+            "AUS_201",
+            "AUS_790",
+            "AUS_851",
+            "AUS_449",
+            "AUS_491",
+            "AUS_494",
+            "AUS_866",
+            "AUS_200",
+            "AUS_204",
+            "AUS_203",
+            "AUS_456",
+            "AUS_160",
+            "AUS_161",
+            "AUS_162",
+            "AUS_163",
+            "AUS_164",
+            "AUS_165",
+            "AUS_676",
+            "AUS_426",
+            "AUS_427",
+            "AUS_956",
+            "AUS_977",
+            "AUS_976",
+            "AUS_121",
+            "AUS_856",
+            "AUS_845",
+            "AUS_411",
+            "AUS_415",
+            "AUS_406",
+            "AUS_120",
+            "AUS_855",
+            "AUS_423",
+            "AUS_422",
+            "AUS_675",
+            "AUS_685",
+            "AUS_119",
+            "AUS_857",
+            "AUS_428",
+            "AUS_410",
+            "AUS_496",
+            "AUS_495",
+            "AUS_175",
+            "AUS_885",
+            "AUS_475",
+            "AUS_487",
+            "AUS_176",
+            "AUS_416",
+            "AUS_459",
+            "AUS_679",
+            "AUS_886",
+            "AUS_421",
+            "AUS_488",
+            "AUS_846",
+            "AUS_420",
+            "AUS_401",
+            "AUS_402",
+            "AUS_419",
+            "AUS_576",
+            "AUS_573",
+            "AUS_570",
+            "AUS_575",
+            "AUS_574",
+            "AUS_571",
+            "AUS_580",
+            "AUS_572",
+            "AUS_010",
+            "AUS_020",
+            "AUS_030",
+            "AUS_040",
+            "AUS_041",
+            "AUS_050",
+            "AUS_051",
+            "AUS_942",
+            "AUS_151",
+            "AUS_988",
+            "AUS_602",
+            "AUS_155",
+            "AUS_157",
+            "AUS_444",
+            "AUS_Spec"
+          ]
+        },
+        "number": {
+          "type": "string",
+          "maxLength": 50
+        },
+        "expiration_date": {
+          "type": "string",
+          "description": "Date needs to be in the format yyyy-mm-dd within the 1900-12-31 and 2079-06-05 date range"
+        }
+      },
+      "required": [
+        "type"
+      ],
+      "additionalProperties": false
+    }
+  },
+  "additionalProperties": false
+}</div>
+</div>
+</div>
+</div>
+<div class="req-tab-put" id="req-tab-id-put-1">
+<div class="example">
+
+<div class="put-example-tab-1 activeTab" id="put-tab-example-1">
+
+<pre class="highlightjs">&lt;?xml version='1.0' encoding='UTF-8'?&gt;
+&lt;demographics&gt;
+    &lt;citizenship&gt;US_CITIZEN&lt;/citizenship&gt;
+    &lt;ethnicity&gt;AMERICAN_INDIAN_OR_ALASKA_NATIVE&lt;/ethnicity&gt;
+    &lt;eye_color&gt;Blue&lt;/eye_color&gt;
+    &lt;full_time_student&gt;false&lt;/full_time_student&gt;
+    &lt;gender&gt;MALE&lt;/gender&gt;
+    &lt;height&gt;183cm&lt;/height&gt;
+    &lt;seasonal&gt;false&lt;/seasonal&gt;
+    &lt;referral&gt;
+        &lt;id&gt;2758&lt;/id&gt;
+    &lt;/referral&gt;
+    &lt;visa&gt;
+        &lt;type&gt;H2A&lt;/type&gt;
+        &lt;number&gt;YHF25&lt;/number&gt;
+        &lt;expiration_date&gt;2017-03-30&lt;/expiration_date&gt;
+    &lt;/visa&gt;
+&lt;/demographics&gt;
+</pre>
+</div>
+<div class="put-example-tab-1" id="put-tab-schema-1">
+
+<div class="jsonschema" id="schema-4">&lt;xs:schema attributeFormDefault="unqualified" elementFormDefault="qualified"
+           xmlns:xs="http://www.w3.org/2001/XMLSchema"&gt;
+    &lt;xs:element name="demographics"&gt;
+        &lt;xs:complexType&gt;
+            &lt;xs:all&gt;
+                &lt;xs:element type="citizenship" name="citizenship" minOccurs="0"/&gt;
+                &lt;xs:element type="ethnicity" name="ethnicity" minOccurs="0"/&gt;
+                &lt;xs:element type="xs:string" name="eye_color" minOccurs="0"/&gt;
+                &lt;xs:element type="xs:boolean" name="full_time_student" minOccurs="0"/&gt;
+                &lt;xs:element type="gender" name="gender" default="UNDEFINED" minOccurs="0"/&gt;
+                &lt;xs:element type="xs:string" name="height" minOccurs="0"/&gt;
+                &lt;xs:element type="xs:boolean" name="seasonal" minOccurs="0"/&gt;
+                &lt;xs:element name="referral" minOccurs="0"&gt;
+                    &lt;xs:complexType&gt;
+                        &lt;xs:all&gt;
+                            &lt;xs:element type="xs:integer" name="id"/&gt;
+                        &lt;/xs:all&gt;
+                    &lt;/xs:complexType&gt;
+                &lt;/xs:element&gt;
+                &lt;xs:element name="visa" minOccurs="0"&gt;
+                    &lt;xs:complexType&gt;
+                        &lt;xs:all&gt;
+                            &lt;xs:element type="visa_type" name="type"/&gt;
+                            &lt;xs:element type="xs:string" name="number" minOccurs="0"/&gt;
+                            &lt;xs:element type="visa_expiration_date" name="expiration_date" minOccurs="0"/&gt;
+                        &lt;/xs:all&gt;
+                    &lt;/xs:complexType&gt;
+                &lt;/xs:element&gt;
+            &lt;/xs:all&gt;
+        &lt;/xs:complexType&gt;
+    &lt;/xs:element&gt;
+
+    &lt;xs:simpleType name="citizenship"&gt;
+        &lt;xs:restriction base="xs:string"&gt;
+            &lt;xs:enumeration value="US_CITIZEN"/&gt;
+            &lt;xs:enumeration value="PERMANENT_RESIDENT"/&gt;
+            &lt;xs:enumeration value="ALIEN_WITH_WORK_PERMIT"/&gt;
+            &lt;xs:enumeration value="NONCITIZEN_NATIONAL_OF_US"/&gt;
+        &lt;/xs:restriction&gt;
+    &lt;/xs:simpleType&gt;
+
+    &lt;xs:simpleType name="ethnicity"&gt;
+        &lt;xs:restriction base="xs:string"&gt;
+            &lt;xs:enumeration value="HISPANIC_OR_LATINO"/&gt;
+            &lt;xs:enumeration value="WHITE"/&gt;
+            &lt;xs:enumeration value="BLACK_OR_AFRICAN_AMERICAN"/&gt;
+            &lt;xs:enumeration value="NATIVE_HAWAIIAN_OR_OTHER_PACIFIC_ISLANDER"/&gt;
+            &lt;xs:enumeration value="ASIAN"/&gt;
+            &lt;xs:enumeration value="AMERICAN_INDIAN_OR_ALASKA_NATIVE"/&gt;
+            &lt;xs:enumeration value="TWO_OR_MORE_RACES"/&gt;
+        &lt;/xs:restriction&gt;
+    &lt;/xs:simpleType&gt;
+
+    &lt;xs:simpleType name="gender"&gt;
+        &lt;xs:restriction base="xs:string"&gt;
+            &lt;xs:enumeration value="MALE"/&gt;
+            &lt;xs:enumeration value="FEMALE"/&gt;
+            &lt;xs:enumeration value="UNDEFINED"/&gt;
+        &lt;/xs:restriction&gt;
+    &lt;/xs:simpleType&gt;
+
+    &lt;xs:simpleType name="visa_type"&gt;
+        &lt;xs:restriction base="xs:string"&gt;
+            &lt;!-- United States visas --&gt;
+            &lt;xs:enumeration value="B-1"/&gt;
+            &lt;xs:enumeration value="CW-1"/&gt;
+            &lt;xs:enumeration value="E-1"/&gt;
+            &lt;xs:enumeration value="E-2"/&gt;
+            &lt;xs:enumeration value="E-3"/&gt;
+            &lt;xs:enumeration value="F-1"/&gt;
+            &lt;xs:enumeration value="F-2"/&gt;
+            &lt;xs:enumeration value="F-3"/&gt;
+            &lt;xs:enumeration value="H-1B"/&gt;
+            &lt;xs:enumeration value="H-1C"/&gt;
+            &lt;xs:enumeration value="H-2A"/&gt;
+            &lt;xs:enumeration value="H-2B"/&gt;
+            &lt;xs:enumeration value="H-3"/&gt;
+            &lt;xs:enumeration value="H-4"/&gt;
+            &lt;xs:enumeration value="J-1"/&gt;
+            &lt;xs:enumeration value="J-2"/&gt;
+            &lt;xs:enumeration value="M-1"/&gt;
+            &lt;xs:enumeration value="M-2"/&gt;
+            &lt;xs:enumeration value="M-3"/&gt;
+            &lt;xs:enumeration value="O-1"/&gt;
+            &lt;xs:enumeration value="P-2"/&gt;
+            &lt;xs:enumeration value="P-3"/&gt;
+            &lt;xs:enumeration value="R-1"/&gt;
+            &lt;xs:enumeration value="EB-1"/&gt;
+            &lt;xs:enumeration value="EB-2"/&gt;
+            &lt;xs:enumeration value="EB-3"/&gt;
+            &lt;xs:enumeration value="EB-4"/&gt;
+            &lt;xs:enumeration value="EB-5"/&gt;
+            &lt;xs:enumeration value="L-1A"/&gt;
+            &lt;xs:enumeration value="L-1B"/&gt;
+            &lt;xs:enumeration value="P-1A"/&gt;
+            &lt;xs:enumeration value="P-1B"/&gt;
+            &lt;xs:enumeration value="CW1"/&gt;
+            &lt;xs:enumeration value="E1"/&gt;
+            &lt;xs:enumeration value="E2"/&gt;
+            &lt;xs:enumeration value="E3"/&gt;
+            &lt;xs:enumeration value="H1B"/&gt;
+            &lt;xs:enumeration value="H1C"/&gt;
+            &lt;xs:enumeration value="H2A"/&gt;
+            &lt;xs:enumeration value="H2B"/&gt;
+            &lt;xs:enumeration value="H3"/&gt;
+            &lt;xs:enumeration value="I"/&gt;
+            &lt;xs:enumeration value="O1"/&gt;
+            &lt;xs:enumeration value="P2"/&gt;
+            &lt;xs:enumeration value="P3"/&gt;
+            &lt;xs:enumeration value="R1"/&gt;
+            &lt;xs:enumeration value="TN"/&gt;
+            &lt;xs:enumeration value="F1"/&gt;
+            &lt;xs:enumeration value="F2"/&gt;
+            &lt;xs:enumeration value="F3"/&gt;
+            &lt;xs:enumeration value="M1"/&gt;
+            &lt;xs:enumeration value="M2"/&gt;
+            &lt;xs:enumeration value="M3"/&gt;
+            &lt;xs:enumeration value="B1"/&gt;
+            &lt;xs:enumeration value="EB1"/&gt;
+            &lt;xs:enumeration value="EB2"/&gt;
+            &lt;xs:enumeration value="EB3"/&gt;
+            &lt;xs:enumeration value="EB4"/&gt;
+            &lt;xs:enumeration value="EB5"/&gt;
+            &lt;xs:enumeration value="L1A"/&gt;
+            &lt;xs:enumeration value="L1B"/&gt;
+            &lt;xs:enumeration value="P1A"/&gt;
+            &lt;xs:enumeration value="P1B"/&gt;
+            &lt;xs:enumeration value="GB"/&gt;
+            &lt;xs:enumeration value="WB"/&gt;
+            &lt;xs:enumeration value="Q"/&gt;
+
+            &lt;xs:enumeration value="A1"/&gt;
+            &lt;xs:enumeration value="A2"/&gt;
+            &lt;xs:enumeration value="A3"/&gt;
+            &lt;xs:enumeration value="B2"/&gt;
+            &lt;xs:enumeration value="B1/B2"/&gt;
+            &lt;xs:enumeration value="C1"/&gt;
+            &lt;xs:enumeration value="C1/D"/&gt;
+            &lt;xs:enumeration value="C2"/&gt;
+            &lt;xs:enumeration value="C3"/&gt;
+            &lt;xs:enumeration value="CW2"/&gt;
+            &lt;xs:enumeration value="D"/&gt;
+            &lt;xs:enumeration value="E2C"/&gt;
+            &lt;xs:enumeration value="E3D"/&gt;
+            &lt;xs:enumeration value="E3R"/&gt;
+            &lt;xs:enumeration value="G1"/&gt;
+            &lt;xs:enumeration value="G2"/&gt;
+            &lt;xs:enumeration value="G3"/&gt;
+            &lt;xs:enumeration value="G4"/&gt;
+            &lt;xs:enumeration value="G5"/&gt;
+            &lt;xs:enumeration value="H1B1"/&gt;
+            &lt;xs:enumeration value="K1"/&gt;
+            &lt;xs:enumeration value="K2"/&gt;
+            &lt;xs:enumeration value="K3"/&gt;
+            &lt;xs:enumeration value="K4"/&gt;
+            &lt;xs:enumeration value="L1"/&gt;
+            &lt;xs:enumeration value="L2"/&gt;
+            &lt;xs:enumeration value="N8"/&gt;
+            &lt;xs:enumeration value="N9"/&gt;
+            &lt;xs:enumeration value="NATO 1"/&gt;
+            &lt;xs:enumeration value="NATO 2"/&gt;
+            &lt;xs:enumeration value="NATO 3"/&gt;
+            &lt;xs:enumeration value="NATO 4"/&gt;
+            &lt;xs:enumeration value="NATO 5"/&gt;
+            &lt;xs:enumeration value="NATO 6"/&gt;
+            &lt;xs:enumeration value="NATO 7"/&gt;
+            &lt;xs:enumeration value="O2"/&gt;
+            &lt;xs:enumeration value="O3"/&gt;
+            &lt;xs:enumeration value="P1"/&gt;
+            &lt;xs:enumeration value="P4"/&gt;
+            &lt;xs:enumeration value="Q1"/&gt;
+            &lt;xs:enumeration value="R2"/&gt;
+            &lt;xs:enumeration value="S5"/&gt;
+            &lt;xs:enumeration value="S6"/&gt;
+            &lt;xs:enumeration value="S7"/&gt;
+            &lt;xs:enumeration value="T1"/&gt;
+            &lt;xs:enumeration value="T2"/&gt;
+            &lt;xs:enumeration value="T3"/&gt;
+            &lt;xs:enumeration value="T4"/&gt;
+            &lt;xs:enumeration value="T5"/&gt;
+            &lt;xs:enumeration value="T6"/&gt;
+            &lt;xs:enumeration value="TD"/&gt;
+            &lt;xs:enumeration value="U1"/&gt;
+            &lt;xs:enumeration value="U2"/&gt;
+            &lt;xs:enumeration value="U3"/&gt;
+            &lt;xs:enumeration value="U4"/&gt;
+            &lt;xs:enumeration value="U5"/&gt;
+            &lt;xs:enumeration value="V1"/&gt;
+            &lt;xs:enumeration value="V2"/&gt;
+            &lt;xs:enumeration value="V3"/&gt;
+            &lt;xs:enumeration value="IR1"/&gt;
+            &lt;xs:enumeration value="IR2"/&gt;
+            &lt;xs:enumeration value="IR3"/&gt;
+            &lt;xs:enumeration value="IH3"/&gt;
+            &lt;xs:enumeration value="IR4"/&gt;
+            &lt;xs:enumeration value="IH4"/&gt;
+            &lt;xs:enumeration value="IR5"/&gt;
+            &lt;xs:enumeration value="CR1"/&gt;
+            &lt;xs:enumeration value="CR2"/&gt;
+            &lt;xs:enumeration value="IW1"/&gt;
+            &lt;xs:enumeration value="IW2"/&gt;
+            &lt;xs:enumeration value="IB1"/&gt;
+            &lt;xs:enumeration value="IB2"/&gt;
+            &lt;xs:enumeration value="IB3"/&gt;
+            &lt;xs:enumeration value="VI5"/&gt;
+            &lt;xs:enumeration value="AM1"/&gt;
+            &lt;xs:enumeration value="AM2"/&gt;
+            &lt;xs:enumeration value="AM3"/&gt;
+            &lt;xs:enumeration value="SB1"/&gt;
+            &lt;xs:enumeration value="SC1"/&gt;
+            &lt;xs:enumeration value="SC2"/&gt;
+            &lt;xs:enumeration value="SI1"/&gt;
+            &lt;xs:enumeration value="SI2"/&gt;
+            &lt;xs:enumeration value="SI3"/&gt;
+            &lt;xs:enumeration value="SM1"/&gt;
+            &lt;xs:enumeration value="SM2"/&gt;
+            &lt;xs:enumeration value="SM3"/&gt;
+            &lt;xs:enumeration value="SQ1"/&gt;
+            &lt;xs:enumeration value="SQ2"/&gt;
+            &lt;xs:enumeration value="SQ3"/&gt;
+            &lt;xs:enumeration value="SU2"/&gt;
+            &lt;xs:enumeration value="SU3"/&gt;
+            &lt;xs:enumeration value="SU5"/&gt;
+            &lt;xs:enumeration value="F11"/&gt;
+            &lt;xs:enumeration value="F12"/&gt;
+            &lt;xs:enumeration value="B11"/&gt;
+            &lt;xs:enumeration value="B12"/&gt;
+            &lt;xs:enumeration value="F21"/&gt;
+            &lt;xs:enumeration value="F22"/&gt;
+            &lt;xs:enumeration value="F23"/&gt;
+            &lt;xs:enumeration value="F24"/&gt;
+            &lt;xs:enumeration value="F25"/&gt;
+            &lt;xs:enumeration value="C21"/&gt;
+            &lt;xs:enumeration value="C22"/&gt;
+            &lt;xs:enumeration value="C23"/&gt;
+            &lt;xs:enumeration value="C24"/&gt;
+            &lt;xs:enumeration value="C25"/&gt;
+            &lt;xs:enumeration value="B21"/&gt;
+            &lt;xs:enumeration value="B22"/&gt;
+            &lt;xs:enumeration value="B23"/&gt;
+            &lt;xs:enumeration value="B24"/&gt;
+            &lt;xs:enumeration value="B25"/&gt;
+            &lt;xs:enumeration value="FX1"/&gt;
+            &lt;xs:enumeration value="FX2"/&gt;
+            &lt;xs:enumeration value="FX3"/&gt;
+            &lt;xs:enumeration value="CX1"/&gt;
+            &lt;xs:enumeration value="CX2"/&gt;
+            &lt;xs:enumeration value="CX3"/&gt;
+            &lt;xs:enumeration value="BX1"/&gt;
+            &lt;xs:enumeration value="BX2"/&gt;
+            &lt;xs:enumeration value="BX3"/&gt;
+            &lt;xs:enumeration value="F31"/&gt;
+            &lt;xs:enumeration value="F32"/&gt;
+            &lt;xs:enumeration value="F33"/&gt;
+            &lt;xs:enumeration value="C31"/&gt;
+            &lt;xs:enumeration value="C32"/&gt;
+            &lt;xs:enumeration value="C33"/&gt;
+            &lt;xs:enumeration value="C11"/&gt;
+            &lt;xs:enumeration value="B31"/&gt;
+            &lt;xs:enumeration value="B32"/&gt;
+            &lt;xs:enumeration value="B33"/&gt;
+            &lt;xs:enumeration value="F41"/&gt;
+            &lt;xs:enumeration value="F42"/&gt;
+            &lt;xs:enumeration value="F43"/&gt;
+            &lt;xs:enumeration value="E11"/&gt;
+            &lt;xs:enumeration value="E12"/&gt;
+            &lt;xs:enumeration value="E13"/&gt;
+            &lt;xs:enumeration value="E14"/&gt;
+            &lt;xs:enumeration value="E15"/&gt;
+            &lt;xs:enumeration value="E21"/&gt;
+            &lt;xs:enumeration value="E22"/&gt;
+            &lt;xs:enumeration value="E23"/&gt;
+            &lt;xs:enumeration value="E31"/&gt;
+            &lt;xs:enumeration value="E32"/&gt;
+            &lt;xs:enumeration value="E34"/&gt;
+            &lt;xs:enumeration value="E35"/&gt;
+            &lt;xs:enumeration value="EW3"/&gt;
+            &lt;xs:enumeration value="EW4"/&gt;
+            &lt;xs:enumeration value="EW5"/&gt;
+            &lt;xs:enumeration value="BC1"/&gt;
+            &lt;xs:enumeration value="BC2"/&gt;
+            &lt;xs:enumeration value="BC3"/&gt;
+            &lt;xs:enumeration value="SD1"/&gt;
+            &lt;xs:enumeration value="SD2"/&gt;
+            &lt;xs:enumeration value="SD3"/&gt;
+            &lt;xs:enumeration value="SE1"/&gt;
+            &lt;xs:enumeration value="SE2"/&gt;
+            &lt;xs:enumeration value="SE3"/&gt;
+            &lt;xs:enumeration value="SF1"/&gt;
+            &lt;xs:enumeration value="SF2"/&gt;
+            &lt;xs:enumeration value="SG1"/&gt;
+            &lt;xs:enumeration value="SG2"/&gt;
+            &lt;xs:enumeration value="SH1"/&gt;
+            &lt;xs:enumeration value="SH2"/&gt;
+            &lt;xs:enumeration value="SJ1"/&gt;
+            &lt;xs:enumeration value="SJ2"/&gt;
+            &lt;xs:enumeration value="SK1"/&gt;
+            &lt;xs:enumeration value="SK2"/&gt;
+            &lt;xs:enumeration value="SK3"/&gt;
+            &lt;xs:enumeration value="SK4"/&gt;
+            &lt;xs:enumeration value="SL1"/&gt;
+            &lt;xs:enumeration value="SN1"/&gt;
+            &lt;xs:enumeration value="SN2"/&gt;
+            &lt;xs:enumeration value="SN3"/&gt;
+            &lt;xs:enumeration value="SN4"/&gt;
+            &lt;xs:enumeration value="SP"/&gt;
+            &lt;xs:enumeration value="SR1"/&gt;
+            &lt;xs:enumeration value="SR2"/&gt;
+            &lt;xs:enumeration value="SR3"/&gt;
+            &lt;xs:enumeration value="C51"/&gt;
+            &lt;xs:enumeration value="C52"/&gt;
+            &lt;xs:enumeration value="C53"/&gt;
+            &lt;xs:enumeration value="T51"/&gt;
+            &lt;xs:enumeration value="T52"/&gt;
+            &lt;xs:enumeration value="T53"/&gt;
+            &lt;xs:enumeration value="R51"/&gt;
+            &lt;xs:enumeration value="R52"/&gt;
+            &lt;xs:enumeration value="R53"/&gt;
+            &lt;xs:enumeration value="I51"/&gt;
+            &lt;xs:enumeration value="I52"/&gt;
+            &lt;xs:enumeration value="I53"/&gt;
+            &lt;xs:enumeration value="DV1"/&gt;
+            &lt;xs:enumeration value="DV2"/&gt;
+            &lt;xs:enumeration value="DV3"/&gt;
+            &lt;xs:enumeration value="A5"/&gt;
+            &lt;xs:enumeration value="C8"/&gt;
+            &lt;xs:enumeration value="C9"/&gt;
+
+            &lt;!-- Australian visas --&gt;
+            &lt;xs:enumeration value="AUS_601"/&gt;
+            &lt;xs:enumeration value="AUS_651"/&gt;
+            &lt;xs:enumeration value="AUS_771"/&gt;
+            &lt;xs:enumeration value="AUS_600"/&gt;
+            &lt;xs:enumeration value="AUS_462"/&gt;
+            &lt;xs:enumeration value="AUS_417"/&gt;
+            &lt;xs:enumeration value="AUS_888"/&gt;
+            &lt;xs:enumeration value="AUS_188"/&gt;
+            &lt;xs:enumeration value="AUS_890"/&gt;
+            &lt;xs:enumeration value="AUS_132"/&gt;
+            &lt;xs:enumeration value="AUS_124"/&gt;
+            &lt;xs:enumeration value="AUS_858"/&gt;
+            &lt;xs:enumeration value="AUS_186"/&gt;
+            &lt;xs:enumeration value="AUS_405"/&gt;
+            &lt;xs:enumeration value="AUS_891"/&gt;
+            &lt;xs:enumeration value="AUS_187"/&gt;
+            &lt;xs:enumeration value="AUS_189"/&gt;
+            &lt;xs:enumeration value="AUS_190"/&gt;
+            &lt;xs:enumeration value="AUS_476"/&gt;
+            &lt;xs:enumeration value="AUS_489"/&gt;
+            &lt;xs:enumeration value="AUS_887"/&gt;
+            &lt;xs:enumeration value="AUS_892"/&gt;
+            &lt;xs:enumeration value="AUS_893"/&gt;
+            &lt;xs:enumeration value="AUS_485"/&gt;
+            &lt;xs:enumeration value="AUS_403"/&gt;
+            &lt;xs:enumeration value="AUS_400"/&gt;
+            &lt;xs:enumeration value="AUS_457"/&gt;
+            &lt;xs:enumeration value="AUS_482"/&gt;
+            &lt;xs:enumeration value="AUS_500"/&gt;
+            &lt;xs:enumeration value="AUS_590"/&gt;
+            &lt;xs:enumeration value="AUS_407"/&gt;
+            &lt;xs:enumeration value="AUS_102"/&gt;
+            &lt;xs:enumeration value="AUS_114"/&gt;
+            &lt;xs:enumeration value="AUS_838"/&gt;
+            &lt;xs:enumeration value="AUS_804"/&gt;
+            &lt;xs:enumeration value="AUS_836"/&gt;
+            &lt;xs:enumeration value="AUS_116"/&gt;
+            &lt;xs:enumeration value="AUS_101"/&gt;
+            &lt;xs:enumeration value="AUS_802"/&gt;
+            &lt;xs:enumeration value="AUS_884"/&gt;
+            &lt;xs:enumeration value="AUS_864"/&gt;
+            &lt;xs:enumeration value="AUS_173"/&gt;
+            &lt;xs:enumeration value="AUS_143"/&gt;
+            &lt;xs:enumeration value="AUS_445"/&gt;
+            &lt;xs:enumeration value="AUS_461"/&gt;
+            &lt;xs:enumeration value="AUS_117"/&gt;
+            &lt;xs:enumeration value="AUS_837"/&gt;
+            &lt;xs:enumeration value="AUS_103"/&gt;
+            &lt;xs:enumeration value="AUS_309"/&gt;
+            &lt;xs:enumeration value="AUS_100"/&gt;
+            &lt;xs:enumeration value="AUS_801"/&gt;
+            &lt;xs:enumeration value="AUS_820"/&gt;
+            &lt;xs:enumeration value="AUS_300"/&gt;
+            &lt;xs:enumeration value="AUS_115"/&gt;
+            &lt;xs:enumeration value="AUS_835"/&gt;
+            &lt;xs:enumeration value="AUS_202"/&gt;
+            &lt;xs:enumeration value="AUS_201"/&gt;
+            &lt;xs:enumeration value="AUS_790"/&gt;
+            &lt;xs:enumeration value="AUS_851"/&gt;
+            &lt;xs:enumeration value="AUS_449"/&gt;
+            &lt;xs:enumeration value="AUS_491"/&gt;
+            &lt;xs:enumeration value="AUS_494"/&gt;
+            &lt;xs:enumeration value="AUS_866"/&gt;
+            &lt;xs:enumeration value="AUS_200"/&gt;
+            &lt;xs:enumeration value="AUS_204"/&gt;
+            &lt;xs:enumeration value="AUS_203"/&gt;
+            &lt;xs:enumeration value="AUS_459"/&gt;
+            &lt;xs:enumeration value="AUS_456"/&gt;
+            &lt;xs:enumeration value="AUS_160"/&gt;
+            &lt;xs:enumeration value="AUS_161"/&gt;
+            &lt;xs:enumeration value="AUS_162"/&gt;
+            &lt;xs:enumeration value="AUS_163"/&gt;
+            &lt;xs:enumeration value="AUS_164"/&gt;
+            &lt;xs:enumeration value="AUS_165"/&gt;
+            &lt;xs:enumeration value="AUS_676"/&gt;
+            &lt;xs:enumeration value="AUS_426"/&gt;
+            &lt;xs:enumeration value="AUS_427"/&gt;
+            &lt;xs:enumeration value="AUS_956"/&gt;
+            &lt;xs:enumeration value="AUS_977"/&gt;
+            &lt;xs:enumeration value="AUS_956"/&gt;
+            &lt;xs:enumeration value="AUS_977"/&gt;
+            &lt;xs:enumeration value="AUS_976"/&gt;
+            &lt;xs:enumeration value="AUS_121"/&gt;
+            &lt;xs:enumeration value="AUS_856"/&gt;
+            &lt;xs:enumeration value="AUS_845"/&gt;
+            &lt;xs:enumeration value="AUS_411"/&gt;
+            &lt;xs:enumeration value="AUS_415"/&gt;
+            &lt;xs:enumeration value="AUS_406"/&gt;
+            &lt;xs:enumeration value="AUS_120"/&gt;
+            &lt;xs:enumeration value="AUS_855"/&gt;
+            &lt;xs:enumeration value="AUS_423"/&gt;
+            &lt;xs:enumeration value="AUS_422"/&gt;
+            &lt;xs:enumeration value="AUS_675"/&gt;
+            &lt;xs:enumeration value="AUS_685"/&gt;
+            &lt;xs:enumeration value="AUS_119"/&gt;
+            &lt;xs:enumeration value="AUS_857"/&gt;
+            &lt;xs:enumeration value="AUS_428"/&gt;
+            &lt;xs:enumeration value="AUS_410"/&gt;
+            &lt;xs:enumeration value="AUS_496"/&gt;
+            &lt;xs:enumeration value="AUS_495"/&gt;
+            &lt;xs:enumeration value="AUS_175"/&gt;
+            &lt;xs:enumeration value="AUS_885"/&gt;
+            &lt;xs:enumeration value="AUS_475"/&gt;
+            &lt;xs:enumeration value="AUS_487"/&gt;
+            &lt;xs:enumeration value="AUS_176"/&gt;
+            &lt;xs:enumeration value="AUS_416"/&gt;
+            &lt;xs:enumeration value="AUS_459"/&gt;
+            &lt;xs:enumeration value="AUS_679"/&gt;
+            &lt;xs:enumeration value="AUS_886"/&gt;
+            &lt;xs:enumeration value="AUS_421"/&gt;
+            &lt;xs:enumeration value="AUS_488"/&gt;
+            &lt;xs:enumeration value="AUS_846"/&gt;
+            &lt;xs:enumeration value="AUS_420"/&gt;
+            &lt;xs:enumeration value="AUS_401"/&gt;
+            &lt;xs:enumeration value="AUS_402"/&gt;
+            &lt;xs:enumeration value="AUS_419"/&gt;
+            &lt;xs:enumeration value="AUS_576"/&gt;
+            &lt;xs:enumeration value="AUS_573"/&gt;
+            &lt;xs:enumeration value="AUS_570"/&gt;
+            &lt;xs:enumeration value="AUS_575"/&gt;
+            &lt;xs:enumeration value="AUS_574"/&gt;
+            &lt;xs:enumeration value="AUS_571"/&gt;
+            &lt;xs:enumeration value="AUS_580"/&gt;
+            &lt;xs:enumeration value="AUS_572"/&gt;
+            &lt;xs:enumeration value="AUS_010"/&gt;
+            &lt;xs:enumeration value="AUS_020"/&gt;
+            &lt;xs:enumeration value="AUS_030"/&gt;
+            &lt;xs:enumeration value="AUS_040"/&gt;
+            &lt;xs:enumeration value="AUS_041"/&gt;
+            &lt;xs:enumeration value="AUS_050"/&gt;
+            &lt;xs:enumeration value="AUS_051"/&gt;
+            &lt;xs:enumeration value="AUS_942"/&gt;
+            &lt;xs:enumeration value="AUS_151"/&gt;
+            &lt;xs:enumeration value="AUS_988"/&gt;
+            &lt;xs:enumeration value="AUS_602"/&gt;
+            &lt;xs:enumeration value="AUS_155"/&gt;
+            &lt;xs:enumeration value="AUS_157"/&gt;
+            &lt;xs:enumeration value="AUS_444"/&gt;
+            &lt;xs:enumeration value="AUS_Spec"/&gt;
+        &lt;/xs:restriction&gt;
+    &lt;/xs:simpleType&gt;
+
+    &lt;xs:simpleType name="visa_expiration_date"&gt;
+        &lt;xs:restriction base="xs:date"&gt;
+            &lt;xs:minInclusive value="1900-12-31"/&gt;
+            &lt;xs:maxInclusive value="2079-06-05"/&gt;
+        &lt;/xs:restriction&gt;
+    &lt;/xs:simpleType&gt;
+&lt;/xs:schema&gt;</div>
+</div>
+</div>
+</div>
+</div>
+</article>
+</section>
+</div>
+</body></html>

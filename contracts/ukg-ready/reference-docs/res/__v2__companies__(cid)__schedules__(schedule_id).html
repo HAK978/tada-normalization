@@ -1,0 +1,593 @@
+<!doctype html>
+<html><head><meta charset="utf-8"><title>Schedule</title><style>body{font:16px system-ui;max-width:1100px;margin:2rem auto;padding:0 1rem;line-height:1.5}aside{background:#fff3cc;padding:1rem}.jsonschema,pre{white-space:pre-wrap;font:13px monospace;overflow-wrap:anywhere;background:#f4f5f7;padding:1rem}.uri{font-family:monospace}h2,h3{margin-top:2rem}</style></head><body><aside><strong>Modified private reference — 2026-10-09.</strong> Provider-documented illustrative examples are included; authentication token examples are redacted. These are not customer exports or guaranteed production behavior. Candidate sharing is pending. This is not OpenAPI.</aside>
+<div class="group">
+<h2 class="anchored" id="item.anchor">
+<span>Schedule</span>
+<a class="fa fa-link link-anchor" data-url="r=__v2__companies__(cid)__schedules__(schedule_id)#" data-web-id="__v2__companies__(cid)__schedules__(schedule_id)"></a>
+</h2>
+<section class="clearfix">
+<article class="definition">
+<h3 class="anchored" id="get"><span>GET</span>
+<a class="fa fa-link link-anchor" data-url="r=__v2__companies__(cid)__schedules__(schedule_id)#get" data-web-id="__v2__companies__(cid)__schedules__(schedule_id)"></a>
+</h3>
+<div class="md"><p>Gets a Schedule by ID
+Advanced Scheduler (&lt;b&gt;SCHEDULE&lt;/b&gt;) Subsystem must be enabled in company setup.
+</p></div>
+<h4>Parameters</h4>
+<h5>Path Parameters</h5>
+<ul class="param-list">
+<li>
+<div class="param-desc">
+<div class="param-name">cid</div>
+<div class="data-type">string</div>
+<div class="required">required</div>
+</div>
+<div class="param-content">
+<div>
+<p>Example: 123456</p>
+<div class="desc md">Company should be referenced via company id or company unique id or company short name using `|short_name` or `!short_name` format.
+</div>
+</div>
+</div>
+
+</li>
+<li>
+<div class="param-desc">
+<div class="param-name">schedule_id</div>
+<div class="data-type">integer</div>
+<div class="required">required</div>
+</div>
+<div class="param-content">
+<div>
+<p>Example: 123456</p>
+<div class="desc md">Schedule ID
+</div>
+</div>
+</div>
+
+</li>
+</ul>
+<h5>Header Parameters</h5>
+<ul class="param-list">
+<li>
+<div class="param-desc">
+<div class="param-name">Accept</div>
+<div class="data-type">string</div>
+</div>
+<div class="param-content">
+<div>
+<p>Valid values: application/json, application/xml, text/xml</p>
+<p>Default: application/json</p>
+<p>Example: application/json</p>
+</div>
+</div>
+
+</li>
+</ul>
+<h4>Responses</h4>
+<div class="responses">
+<div>
+<label class="response response-success">
+<span class="fa fa-check"></span>
+<input data-full-tab-id="get-resp-code-tab-id-0" data-tab-class="resp-code-tab-get" name="resp-code-tab-get" type="radio"/>
+<span class="status">200 Ok</span>
+</label>
+<div class="response-desc resp-code-tab-get" id="get-resp-code-tab-id-0">
+</div>
+</div>
+<div>
+<label class="response response-error">
+<span class="fa fa-times"></span>
+<input data-full-tab-id="get-resp-code-tab-id-1" data-tab-class="resp-code-tab-get" name="resp-code-tab-get" type="radio"/>
+<span class="status">401 Unauthorized</span>
+</label>
+<div class="response-desc resp-code-tab-get" id="get-resp-code-tab-id-1">
+<div class="md"><p>Returned in case user is not authorized.</p></div>
+</div>
+</div>
+<div>
+<label class="response response-error">
+<span class="fa fa-times"></span>
+<input data-full-tab-id="get-resp-code-tab-id-2" data-tab-class="resp-code-tab-get" name="resp-code-tab-get" type="radio"/>
+<span class="status">403 Forbidden</span>
+</label>
+<div class="response-desc resp-code-tab-get" id="get-resp-code-tab-id-2">
+<div class="md"><p>Returned in case user has no access to the resource.</p></div>
+</div>
+</div>
+<div>
+<label class="response response-error">
+<span class="fa fa-times"></span>
+<input data-full-tab-id="get-resp-code-tab-id-3" data-tab-class="resp-code-tab-get" name="resp-code-tab-get" type="radio"/>
+<span class="status">404 Not Found</span>
+</label>
+<div class="response-desc resp-code-tab-get" id="get-resp-code-tab-id-3">
+<div class="md"><p>Returned in case resource does not exist.</p></div>
+</div>
+</div>
+<div>
+<label class="response response-error">
+<span class="fa fa-times"></span>
+<input data-full-tab-id="get-resp-code-tab-id-4" data-tab-class="resp-code-tab-get" name="resp-code-tab-get" type="radio"/>
+<span class="status">503 Service Unavailable</span>
+</label>
+<div class="response-desc resp-code-tab-get" id="get-resp-code-tab-id-4">
+<div class="md"><p>Returned in the event that the call limit is exceeded. The application will be unavailable for subsequent calls for the duration specified by the X-CallLimit-TimeToWait header.</p></div>
+</div>
+</div>
+</div>
+</article>
+<article class="code">
+<h4>Definition</h4>
+<div class="uri">
+<code>
+<span class="method get">get</span>
+<span class="textUri"><span class="baseUri">{{ getUriPrefix() }}</span><span class="relativeUri">/v2/companies/{cid}/schedules/{schedule_id}</span></span>
+</code>
+</div>
+<h4>Response Samples</h4>
+<div class="tab-title-group">
+<label>
+<input checked="checked" data-full-tab-id="resp-tab-id-get-0" data-tab-class="resp-tab-get" name="resp-tab-get" type="radio"/>
+<span class="tab-title">application/json</span>
+</label>
+<label>
+<input data-full-tab-id="resp-tab-id-get-1" data-tab-class="resp-tab-get" name="resp-tab-get" type="radio"/>
+<span class="tab-title">application/xml</span>
+</label>
+</div>
+<div>
+<div class="resp-tab-get" id="resp-tab-id-get-0">
+<div class="example">
+
+<div class="get-example-resp-tab-0 activeTab" id="get-tab-resp-example-0">
+
+<pre class="highlightjs">{
+  "id": 1475072,
+  "settings_id": 295168,
+  "name": "Default Planner Settings",
+  "schedule_start": "2016-11-23",
+  "schedule_end": "2016-11-23",
+  "status": "Posted",
+  "time_zone": {
+    "id": 107,
+    "display_name": "Central"
+  },
+  "template": false,
+  "is_continuous": true,
+  "snapshot": false,
+  "scheduled_cost_centers": [
+    {
+      "id": 1573698,
+      "display_name": "Houston/33 East 17th Street"
+    },
+    {
+      "id": 1573761,
+      "display_name": "Houston/708 Third Avenue"
+    },
+    {
+      "id": 1573697,
+      "display_name": "Houston/22 West 16th Street"
+    }
+  ],
+  "cost_centers_trees": [
+    {
+      "scheduled": true,
+      "tree_index": 1,
+      "display_name": "Team"
+    },
+    {
+      "scheduled": false,
+      "tree_index": 5,
+      "display_name": "Location"
+    }
+  ],
+  "is_locked": false,
+  "_links": {
+    "self": "http://example.com/ta/rest/v2/companies/459716/schedules/1475072",
+    "delete": "http://example.com/ta/rest/v2/companies/459716/schedules/1475072",
+    "unpost": "http://example.com/ta/rest/v2/companies/459716/schedules/1475072/actions/unpost"
+  }
+}</pre>
+</div>
+<div class="get-example-resp-tab-0" id="get-tab-resp-schema-0">
+
+<div class="jsonschema" id="schema-0">{
+  "type": "object",
+  "properties": {
+    "id": {
+      "type": "integer"
+    },
+    "settings_id": {
+      "type": "integer"
+    },
+    "name": {
+      "type": "string"
+    },
+    "display_name": {
+      "type": "string"
+    },
+    "schedule_start": {
+      "type": "string"
+    },
+    "schedule_end": {
+      "type": "string"
+    },
+    "status": {
+      "type": "string"
+    },
+    "time_zone": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer"
+        },
+        "display_name": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "id",
+        "display_name"
+      ],
+      "additionalProperties": false
+    },
+    "template": {
+      "type": "boolean"
+    },
+    "optional_scheduled_cost_center": {
+      "type": "boolean"
+    },
+    "shift_count": {
+      "type": "integer"
+    },
+    "snapshot": {
+      "type": "boolean"
+    },
+    "is_continuous": {
+      "type": "boolean"
+    },
+    "is_engine_enabled": {
+      "type": "boolean"
+    },
+    "os_managing_strategy": {
+      "type": "string",
+      "enum": [
+        "NONE",
+        "ADD_DROP",
+        "POST_OPEN_SHIFT"
+      ]
+    },
+    "violation_by_type": {
+      "type": "object"
+    },
+    "scheduled_cost_centers": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer"
+          },
+          "name": {
+            "type": "string"
+          },
+          "display_name": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "id",
+          "display_name"
+        ],
+        "additionalProperties": false
+      }
+    },
+    "cost_centers_trees": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer"
+          },
+          "scheduled": {
+            "type": "boolean"
+          },
+          "tree_index": {
+            "type": "integer",
+            "minimum": 0,
+            "maximum": 9
+          },
+          "display_name": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "scheduled",
+          "tree_index"
+        ],
+        "additionalProperties": false
+      }
+    },
+    "is_locked": {
+      "type": "boolean"
+    },
+    "_links": {
+      "type": "object",
+      "properties": {
+        "self": {
+          "type": "string"
+        },
+        "delete": {
+          "type": "string"
+        },
+        "post": {
+          "type": "string"
+        },
+        "unpost": {
+          "type": "string"
+        },
+        "notes": {
+          "type": "string"
+        },
+        "add_note": {
+          "type": "string"
+        },
+        "create": {
+          "type": "string"
+        }
+      },
+      "additionalProperties": false
+    }
+  },
+  "required": [
+    "id",
+    "settings_id",
+    "name",
+    "schedule_start",
+    "schedule_end",
+    "time_zone",
+    "template",
+    "snapshot"
+  ],
+  "additionalProperties": false
+}</div>
+</div>
+</div>
+</div>
+<div class="resp-tab-get" id="resp-tab-id-get-1">
+<div class="example">
+
+<div class="get-example-resp-tab-1 activeTab" id="get-tab-resp-example-1">
+
+<pre class="highlightjs">&lt;?xml version="1.0" encoding="UTF-8"?&gt;
+&lt;schedule_object&gt;
+  &lt;id&gt;1475072&lt;/id&gt;
+  &lt;settings_id&gt;295168&lt;/settings_id&gt;
+  &lt;name&gt;Default Planner Settings&lt;/name&gt;
+  &lt;schedule_start&gt;2016-11-23&lt;/schedule_start&gt;
+  &lt;schedule_end&gt;2016-11-23&lt;/schedule_end&gt;
+  &lt;status&gt;Posted&lt;/status&gt;
+  &lt;time_zone&gt;
+    &lt;id&gt;107&lt;/id&gt;
+    &lt;display_name&gt;Central&lt;/display_name&gt;
+  &lt;/time_zone&gt;
+  &lt;template&gt;false&lt;/template&gt;
+  &lt;snapshot&gt;false&lt;/snapshot&gt;
+  &lt;scheduled_cost_centers&gt;
+    &lt;scheduled_cost_center&gt;
+      &lt;display_name&gt;Houston/33 East 17th Street&lt;/display_name&gt;
+      &lt;id&gt;1573698&lt;/id&gt;
+    &lt;/scheduled_cost_center&gt;
+    &lt;scheduled_cost_center&gt;
+      &lt;display_name&gt;Houston/708 Third Avenue&lt;/display_name&gt;
+      &lt;id&gt;1573761&lt;/id&gt;
+    &lt;/scheduled_cost_center&gt;
+    &lt;scheduled_cost_center&gt;
+      &lt;display_name&gt;Houston/22 West 16th Street&lt;/display_name&gt;
+      &lt;id&gt;1573697&lt;/id&gt;
+    &lt;/scheduled_cost_center&gt;
+  &lt;/scheduled_cost_centers&gt;
+  &lt;cost_centers_trees&gt;
+    &lt;cost_centers_tree&gt;
+      &lt;display_name&gt;Team&lt;/display_name&gt;
+      &lt;scheduled&gt;true&lt;/scheduled&gt;
+      &lt;tree_index&gt;1&lt;/tree_index&gt;
+    &lt;/cost_centers_tree&gt;
+    &lt;cost_centers_tree&gt;
+      &lt;display_name&gt;Location&lt;/display_name&gt;
+      &lt;scheduled&gt;false&lt;/scheduled&gt;
+      &lt;tree_index&gt;5&lt;/tree_index&gt;
+    &lt;/cost_centers_tree&gt;
+  &lt;/cost_centers_trees&gt;
+  &lt;is_locked&gt;false&lt;/is_locked&gt;
+  &lt;_links&gt;
+    &lt;self&gt;http://example.com/ta/rest/v2/companies/459716/schedules/1475072&lt;/self&gt;
+    &lt;delete&gt;http://example.com/ta/rest/v2/companies/459716/schedules/1475072&lt;/delete&gt;
+    &lt;unpost&gt;http://example.com/ta/rest/v2/companies/459716/schedules/1475072/actions/unpost&lt;/unpost&gt;
+  &lt;/_links&gt;
+&lt;/schedule_object&gt;
+</pre>
+</div>
+<div class="get-example-resp-tab-1" id="get-tab-resp-schema-1">
+
+<div class="jsonschema" id="schema-1">&lt;xs:schema attributeFormDefault="unqualified" elementFormDefault="qualified" xmlns:xs="http://www.w3.org/2001/XMLSchema"&gt;
+    &lt;xs:element name="schedule_object"&gt;
+        &lt;xs:complexType&gt;
+            &lt;xs:sequence&gt;
+                &lt;xs:element type="xs:int" name="id"/&gt;
+                &lt;xs:element type="xs:int" name="settings_id"/&gt;
+                &lt;xs:element type="xs:string" name="name"/&gt;
+                &lt;xs:element type="xs:date" name="schedule_start"/&gt;
+                &lt;xs:element type="xs:date" name="schedule_end"/&gt;
+                &lt;xs:element type="xs:string" name="status" minOccurs="0"/&gt;
+                &lt;xs:element name="time_zone"&gt;
+                    &lt;xs:complexType&gt;
+                        &lt;xs:sequence&gt;
+                            &lt;xs:element type="xs:byte" name="id"/&gt;
+                            &lt;xs:element type="xs:string" name="display_name"/&gt;
+                        &lt;/xs:sequence&gt;
+                    &lt;/xs:complexType&gt;
+                &lt;/xs:element&gt;
+                &lt;xs:element type="xs:string" name="template"/&gt;
+                &lt;xs:element type="xs:string" name="snapshot"/&gt;
+                &lt;xs:element name="scheduled_cost_centers"&gt;
+                    &lt;xs:complexType&gt;
+                        &lt;xs:sequence&gt;
+                            &lt;xs:element name="scheduled_cost_center" maxOccurs="unbounded" minOccurs="0"&gt;
+                                &lt;xs:complexType&gt;
+                                    &lt;xs:sequence&gt;
+                                        &lt;xs:element type="xs:string" name="display_name"/&gt;
+                                        &lt;xs:element type="xs:int" name="id"/&gt;
+                                    &lt;/xs:sequence&gt;
+                                &lt;/xs:complexType&gt;
+                            &lt;/xs:element&gt;
+                        &lt;/xs:sequence&gt;
+                    &lt;/xs:complexType&gt;
+                &lt;/xs:element&gt;
+                &lt;xs:element name="cost_centers_trees"&gt;
+                    &lt;xs:complexType&gt;
+                        &lt;xs:sequence&gt;
+                            &lt;xs:element name="cost_centers_tree" maxOccurs="unbounded" minOccurs="0"&gt;
+                                &lt;xs:complexType&gt;
+                                    &lt;xs:sequence&gt;
+                                        &lt;xs:element type="xs:string" name="display_name"/&gt;
+                                        &lt;xs:element type="xs:string" name="scheduled"/&gt;
+                                        &lt;xs:element type="xs:byte" name="tree_index"/&gt;
+                                    &lt;/xs:sequence&gt;
+                                &lt;/xs:complexType&gt;
+                            &lt;/xs:element&gt;
+                        &lt;/xs:sequence&gt;
+                    &lt;/xs:complexType&gt;
+                &lt;/xs:element&gt;
+                &lt;xs:element type="xs:boolean" name="is_locked"/&gt;
+                &lt;xs:element name="_links"&gt;
+                    &lt;xs:complexType&gt;
+                        &lt;xs:sequence&gt;
+                            &lt;xs:element type="xs:anyURI" name="self"/&gt;
+                            &lt;xs:element type="xs:anyURI" name="delete"/&gt;
+                            &lt;xs:element type="xs:anyURI" name="post" minOccurs="0"/&gt;
+                            &lt;xs:element type="xs:anyURI" name="unpost"/&gt;
+                        &lt;/xs:sequence&gt;
+                    &lt;/xs:complexType&gt;
+                &lt;/xs:element&gt;
+            &lt;/xs:sequence&gt;
+        &lt;/xs:complexType&gt;
+    &lt;/xs:element&gt;
+&lt;/xs:schema&gt;
+</div>
+</div>
+</div>
+</div>
+</div>
+</article>
+</section>
+<section class="clearfix">
+<article class="definition">
+<h3 class="anchored" id="delete"><span>DELETE</span>
+<a class="fa fa-link link-anchor" data-url="r=__v2__companies__(cid)__schedules__(schedule_id)#delete" data-web-id="__v2__companies__(cid)__schedules__(schedule_id)"></a>
+</h3>
+<div class="md"><p>Deletes a Schedule
+Advanced Scheduler (&lt;b&gt;SCHEDULE&lt;/b&gt;) Subsystem must be enabled in company setup.
+</p></div>
+<h4>Parameters</h4>
+<h5>Path Parameters</h5>
+<ul class="param-list">
+<li>
+<div class="param-desc">
+<div class="param-name">cid</div>
+<div class="data-type">string</div>
+<div class="required">required</div>
+</div>
+<div class="param-content">
+<div>
+<p>Example: 123456</p>
+<div class="desc md">Company should be referenced via company id or company unique id or company short name using `|short_name` or `!short_name` format.
+</div>
+</div>
+</div>
+
+</li>
+<li>
+<div class="param-desc">
+<div class="param-name">schedule_id</div>
+<div class="data-type">integer</div>
+<div class="required">required</div>
+</div>
+<div class="param-content">
+<div>
+<p>Example: 123456</p>
+<div class="desc md">Schedule ID
+</div>
+</div>
+</div>
+
+</li>
+</ul>
+<h4>Responses</h4>
+<div class="responses">
+<div>
+<label class="response response-success">
+<span class="fa fa-check"></span>
+<input data-full-tab-id="delete-resp-code-tab-id-0" data-tab-class="resp-code-tab-delete" name="resp-code-tab-delete" type="radio"/>
+<span class="status">204 No Content</span>
+</label>
+<div class="response-desc resp-code-tab-delete" id="delete-resp-code-tab-id-0">
+<div class="md"><p>Schedule successfully deleted</p></div>
+</div>
+</div>
+<div>
+<label class="response response-error">
+<span class="fa fa-times"></span>
+<input data-full-tab-id="delete-resp-code-tab-id-1" data-tab-class="resp-code-tab-delete" name="resp-code-tab-delete" type="radio"/>
+<span class="status">401 Unauthorized</span>
+</label>
+<div class="response-desc resp-code-tab-delete" id="delete-resp-code-tab-id-1">
+<div class="md"><p>Returned in case user is not authorized.</p></div>
+</div>
+</div>
+<div>
+<label class="response response-error">
+<span class="fa fa-times"></span>
+<input data-full-tab-id="delete-resp-code-tab-id-2" data-tab-class="resp-code-tab-delete" name="resp-code-tab-delete" type="radio"/>
+<span class="status">403 Forbidden</span>
+</label>
+<div class="response-desc resp-code-tab-delete" id="delete-resp-code-tab-id-2">
+<div class="md"><p>Returned in case user has no access to the resource.</p></div>
+</div>
+</div>
+<div>
+<label class="response response-error">
+<span class="fa fa-times"></span>
+<input data-full-tab-id="delete-resp-code-tab-id-3" data-tab-class="resp-code-tab-delete" name="resp-code-tab-delete" type="radio"/>
+<span class="status">404 Not Found</span>
+</label>
+<div class="response-desc resp-code-tab-delete" id="delete-resp-code-tab-id-3">
+<div class="md"><p>Returned in case resource does not exist.</p></div>
+</div>
+</div>
+<div>
+<label class="response response-error">
+<span class="fa fa-times"></span>
+<input data-full-tab-id="delete-resp-code-tab-id-4" data-tab-class="resp-code-tab-delete" name="resp-code-tab-delete" type="radio"/>
+<span class="status">503 Service Unavailable</span>
+</label>
+<div class="response-desc resp-code-tab-delete" id="delete-resp-code-tab-id-4">
+<div class="md"><p>Returned in the event that the call limit is exceeded. The application will be unavailable for subsequent calls for the duration specified by the X-CallLimit-TimeToWait header.</p></div>
+</div>
+</div>
+</div>
+</article>
+<article class="code">
+<h4>Definition</h4>
+<div class="uri">
+<code>
+<span class="method delete">delete</span>
+<span class="textUri"><span class="baseUri">{{ getUriPrefix() }}</span><span class="relativeUri">/v2/companies/{cid}/schedules/{schedule_id}</span></span>
+</code>
+</div>
+</article>
+</section>
+</div>
+</body></html>

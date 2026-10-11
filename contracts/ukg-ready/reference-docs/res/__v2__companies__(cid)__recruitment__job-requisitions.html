@@ -1,0 +1,722 @@
+<!doctype html>
+<html><head><meta charset="utf-8"><title>Job Requisitions</title><style>body{font:16px system-ui;max-width:1100px;margin:2rem auto;padding:0 1rem;line-height:1.5}aside{background:#fff3cc;padding:1rem}.jsonschema,pre{white-space:pre-wrap;font:13px monospace;overflow-wrap:anywhere;background:#f4f5f7;padding:1rem}.uri{font-family:monospace}h2,h3{margin-top:2rem}</style></head><body><aside><strong>Modified private reference — 2026-10-09.</strong> Provider-documented illustrative examples are included; authentication token examples are redacted. These are not customer exports or guaranteed production behavior. Candidate sharing is pending. This is not OpenAPI.</aside>
+<div class="group">
+<h2 class="anchored" id="item.anchor">
+<span>Job Requisitions</span>
+<a class="fa fa-link link-anchor" data-url="r=__v2__companies__(cid)__recruitment__job-requisitions#" data-web-id="__v2__companies__(cid)__recruitment__job-requisitions"></a>
+</h2>
+<section class="clearfix">
+<article class="definition">
+<h3 class="anchored" id="get"><span>GET</span>
+<a class="fa fa-link link-anchor" data-url="r=__v2__companies__(cid)__recruitment__job-requisitions#get" data-web-id="__v2__companies__(cid)__recruitment__job-requisitions"></a>
+</h3>
+<div class="md"><p>Endpoint returns List of Job Requisitions available within the company. This is going to work with Authentication.
+</p></div>
+<div>
+<ul class="annotation-list">
+<li class="annotation">
+<span>v2</span>
+</li>
+</ul>
+</div>
+<h4>Parameters</h4>
+<h5>Path Parameters</h5>
+<ul class="param-list">
+<li>
+<div class="param-desc">
+<div class="param-name">cid</div>
+<div class="data-type">string</div>
+<div class="required">required</div>
+</div>
+<div class="param-content">
+<div>
+<p>Example: 123456</p>
+<div class="desc md">Company should be referenced via company id or company unique id or company short name using `|short_name` or `!short_name` format.
+</div>
+</div>
+</div>
+
+</li>
+</ul>
+<h5>Query Parameters</h5>
+<ul class="param-list">
+<li>
+<div class="param-desc">
+<div class="param-name">job_locations</div>
+<div class="data-type">string</div>
+</div>
+<div class="param-content">
+<div>
+<p>Example: Schenectady, NY</p>
+<div class="desc md">Query parameter for job locations to filter out records.</div>
+</div>
+</div>
+
+</li>
+<li>
+<div class="param-desc">
+<div class="param-name">job_categories</div>
+<div class="data-type">string</div>
+</div>
+<div class="param-content">
+<div>
+<p>Example: Business Associate</p>
+<div class="desc md">Query parameter for job categories to filter out records.</div>
+</div>
+</div>
+
+</li>
+<li>
+<div class="param-desc">
+<div class="param-name">keywords</div>
+<div class="data-type">string</div>
+</div>
+<div class="param-content">
+<div>
+<p>Example: General Manager</p>
+<div class="desc md">Query parameter for keyword based filtering.</div>
+</div>
+</div>
+
+</li>
+<li>
+<div class="param-desc">
+<div class="param-name">offset</div>
+<div class="data-type">integer</div>
+</div>
+<div class="param-content">
+<div>
+<p>Example: 1</p>
+<div class="desc md">Offset query parameter for pagination.</div>
+</div>
+</div>
+
+</li>
+<li>
+<div class="param-desc">
+<div class="param-name">size</div>
+<div class="data-type">integer</div>
+</div>
+<div class="param-content">
+<div>
+<p>Example: 1</p>
+<div class="desc md">Lot size query parameter for pagination.</div>
+</div>
+</div>
+
+</li>
+<li>
+<div class="param-desc">
+<div class="param-name">include_all</div>
+<div class="data-type">boolean</div>
+</div>
+<div class="param-content">
+<div>
+<p>Example: false</p>
+<div class="desc md">Query parameter to fetch all records.</div>
+</div>
+</div>
+
+</li>
+<li>
+<div class="param-desc">
+<div class="param-name">ein_id</div>
+<div class="data-type">integer</div>
+</div>
+<div class="param-content">
+<div>
+<p>Example: 12345</p>
+<div class="desc md">Query parameter used to fetch job details of specific EIN.</div>
+</div>
+</div>
+
+</li>
+</ul>
+<h4>Responses</h4>
+<div class="responses">
+<div>
+<label class="response response-success">
+<span class="fa fa-check"></span>
+<input data-full-tab-id="get-resp-code-tab-id-0" data-tab-class="resp-code-tab-get" name="resp-code-tab-get" type="radio"/>
+<span class="status">200 Ok</span>
+</label>
+<div class="response-desc resp-code-tab-get" id="get-resp-code-tab-id-0">
+</div>
+</div>
+<div>
+<label class="response response-error">
+<span class="fa fa-times"></span>
+<input data-full-tab-id="get-resp-code-tab-id-1" data-tab-class="resp-code-tab-get" name="resp-code-tab-get" type="radio"/>
+<span class="status">404 Not Found</span>
+</label>
+<div class="response-desc resp-code-tab-get" id="get-resp-code-tab-id-1">
+<div class="md"><p>Returned when invalid EIN Id is given as query parameter.</p></div>
+</div>
+</div>
+</div>
+</article>
+<article class="code">
+<h4>Definition</h4>
+<div class="uri">
+<code>
+<span class="method get">get</span>
+<span class="textUri"><span class="baseUri">{{ getUriPrefix() }}</span><span class="relativeUri">/v2/companies/{cid}/recruitment/job-requisitions</span></span>
+</code>
+</div>
+<h4>Response Samples</h4>
+<div class="tab-title-group">
+<label>
+<input checked="checked" data-full-tab-id="resp-tab-id-get-0" data-tab-class="resp-tab-get" name="resp-tab-get" type="radio"/>
+<span class="tab-title">application/json</span>
+</label>
+<label>
+<input data-full-tab-id="resp-tab-id-get-1" data-tab-class="resp-tab-get" name="resp-tab-get" type="radio"/>
+<span class="tab-title">application/xml</span>
+</label>
+</div>
+<div>
+<div class="resp-tab-get" id="resp-tab-id-get-0">
+<div class="example">
+
+<div class="get-example-resp-tab-0 activeTab" id="get-tab-resp-example-0">
+
+<pre class="highlightjs">{
+    "job_requisitions": [{
+            "id": 2561,
+            "job_title": "architect",
+            "location": {
+                "address_line_1": "4008 Gaelic Lane",
+                "address_line_2": "Gaelic Lane",
+                "country": "USA",
+                "city": "Glen Allen",
+                "state": "VA",
+                "zip": "23060"
+            },
+            "job_cc_id": {
+                "id": 1416321,
+                "display_name": "Receptionist"
+            }
+        },
+        {
+            "id": 2754,
+            "job_title": "Accounts Payable Specialist 1",
+            "location": {
+                "address_line_1": "4008 Gaelic Lane",
+                "address_line_2": "Gaelic Lane",
+                "country": "USA",
+                "city": "Glen Allen",
+                "state": "VA",
+                "zip": "23060"
+            },
+            "job_categories": [
+                "Full-time"
+            ],
+            "job_cc_id": {
+                "id": 1416321,
+                "display_name": "Receptionist"
+            }
+        },
+        {
+            "id": 2756,
+            "job_title": "Purshasing &amp; Property Director",
+            "location": {
+                "address_line_1": "4008 Gaelic Lane",
+                "address_line_2": "Gaelic Lane",
+                "country": "USA",
+                "city": "Glen Allen",
+                "state": "VA",
+                "zip": "23060"
+            },
+            "job_categories": [
+                "Full-time"
+            ],
+            "job_cc_id": {
+                "id": 1416321,
+                "display_name": "Receptionist"
+            }
+        },
+        {
+            "id": 2758,
+            "job_title": "Senior Marketing Director",
+            "location": {
+                "address_line_1": "4008 Gaelic Lane",
+                "address_line_2": "Gaelic Lane",
+                "country": "USA",
+                "city": "Glen Allen",
+                "state": "VA",
+                "zip": "23060"
+            },
+            "job_categories": [
+                "Full-time"
+            ],
+            "job_cc_id": {
+                "id": 1416321,
+                "display_name": "Receptionist"
+            }
+        },
+        {
+            "id": 2760,
+            "job_title": "Payroll Specialist",
+            "location": {
+                "address_line_1": "4008 Gaelic Lane",
+                "address_line_2": "Gaelic Lane",
+                "country": "USA",
+                "city": "Glen Allen",
+                "state": "VA",
+                "zip": "23060"
+            },
+            "job_categories": [
+                "Full-time"
+            ],
+            "job_cc_id": {
+                "id": 1416321,
+                "display_name": "Receptionist"
+            }
+        },
+        {
+            "id": 2762,
+            "job_title": "On-Call Community Manager",
+            "location": {
+                "address_line_1": "4008 Gaelic Lane",
+                "address_line_2": "Gaelic Lane",
+                "country": "USA",
+                "city": "Glen Allen",
+                "state": "VA",
+                "zip": "23060"
+            },
+            "job_categories": [
+                "Contract"
+            ],
+            "job_cc_id": {
+                "id": 1416321,
+                "display_name": "Receptionist"
+            }
+        },
+        {
+            "id": 2764,
+            "job_title": "Manager",
+            "location": {
+                "address_line_1": "4008 Gaelic Lane",
+                "address_line_2": "Gaelic Lane",
+                "country": "USA",
+                "city": "Glen Allen",
+                "state": "VA",
+                "zip": "23060"
+            },
+            "job_categories": [
+                "Full-time"
+            ],
+            "job_cc_id": {
+                "id": 1416321,
+                "display_name": "Receptionist"
+            }
+        },
+        {
+            "id": 3521,
+            "job_title": "architect",
+            "location": {
+                "address_line_1": "4008 Gaelic Lane",
+                "address_line_2": "Gaelic Lane",
+                "country": "USA",
+                "city": "Glen Allen",
+                "state": "VA",
+                "zip": "23060"
+            },
+            "job_cc_id": {
+                "id": 1416321,
+                "display_name": "Receptionist"
+            }
+        },
+        {
+            "id": 3522,
+            "job_title": "architect",
+            "location": {
+                "address_line_1": "4008 Gaelic Lane",
+                "address_line_2": "Gaelic Lane",
+                "country": "USA",
+                "city": "Glen Allen",
+                "state": "VA",
+                "zip": "23060"
+            },
+            "job_cc_id": {
+                "id": 1416321,
+                "display_name": "Receptionist"
+            }
+        },
+        {
+            "id": 3523,
+            "job_title": "architect",
+            "location": {
+                "address_line_1": "4008 Gaelic Lane",
+                "address_line_2": "Gaelic Lane",
+                "country": "USA",
+                "city": "Glen Allen",
+                "state": "VA",
+                "zip": "23060"
+            },
+            "job_cc_id": {
+                "id": 1416321,
+                "display_name": "Receptionist"
+            }
+        }
+    ],
+    "_paging": {
+        "offset": 0,
+        "size": 100,
+        "total": 5
+    }
+}</pre>
+</div>
+<div class="get-example-resp-tab-0" id="get-tab-resp-schema-0">
+
+<div class="jsonschema" id="schema-0">{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "type": "object",
+  "properties": {
+    "job_requisitions": {
+      "items": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer"
+          },
+          "job_categories": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array"
+          },
+          "job_title": {
+            "type": "string"
+          },
+          "job_cc_id": {
+            "type ": "object ",
+            "properties": {
+              "id": {
+                "type": "integer"
+              },
+              "display_name": {
+                "type": "string"
+              }
+            }
+          },
+          "location": {
+            "type": "object",
+            "properties": {
+              "address_line_1": {
+                "type": "string"
+              },
+              "address_line_2": {
+                "type": "string"
+              },
+              "address_line_3": {
+                "type": "string"
+              },
+              "city": {
+                "type": "string"
+              },
+              "country": {
+                "type": "string"
+              },
+              "state": {
+                "type": "string"
+              },
+              "zip": {
+                "type": "string"
+              }
+            },
+            "additionalProperties": false
+          }
+        },
+        "additionalProperties": false,
+        "required": [
+          "id",
+          "job_title"
+        ]
+      },
+      "type": "array"
+    },
+    "_paging": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "offset": {
+          "type": "integer"
+        },
+        "size": {
+          "type": "integer"
+        },
+        "total": {
+          "type": "integer"
+        }
+      },
+      "required": [
+        "offset",
+        "size",
+        "total"
+      ]
+    }
+  },
+  "additionalProperties": false
+}</div>
+</div>
+</div>
+</div>
+<div class="resp-tab-get" id="resp-tab-id-get-1">
+<div class="example">
+
+<div class="get-example-resp-tab-1 activeTab" id="get-tab-resp-example-1">
+
+<pre class="highlightjs">&lt;job_requisitions&gt;
+    &lt;job_requisition&gt;
+        &lt;id&gt;2561&lt;/id&gt;
+        &lt;job_title&gt;architect&lt;/job_title&gt;
+        &lt;location&gt;
+            &lt;address_line_1&gt;4008 Gaelic Lane&lt;/address_line_1&gt;
+            &lt;address_line_2&gt;Gaelic Lane&lt;/address_line_2&gt;
+            &lt;country&gt;USA&lt;/country&gt;
+            &lt;city&gt;Glen Allen&lt;/city&gt;
+            &lt;state&gt;VA&lt;/state&gt;
+            &lt;zip&gt;23060&lt;/zip&gt;
+        &lt;/location&gt;
+    &lt;/job_requisition&gt;
+    &lt;job_requisition&gt;
+        &lt;id&gt;2754&lt;/id&gt;
+        &lt;job_title&gt;Accounts Payable Specialist 1&lt;/job_title&gt;
+        &lt;location&gt;
+            &lt;address_line_1&gt;4008 Gaelic Lane&lt;/address_line_1&gt;
+            &lt;address_line_2&gt;Gaelic Lane&lt;/address_line_2&gt;
+            &lt;country&gt;USA&lt;/country&gt;
+            &lt;city&gt;Glen Allen&lt;/city&gt;
+            &lt;state&gt;VA&lt;/state&gt;
+            &lt;zip&gt;23060&lt;/zip&gt;
+        &lt;/location&gt;
+        &lt;job_categories&gt;
+            &lt;job_category&gt;job cat1&lt;/job_category&gt;
+            &lt;job_category&gt;job cat2&lt;/job_category&gt;
+            &lt;job_category&gt;job cat3&lt;/job_category&gt;
+        &lt;/job_categories&gt;
+        &lt;job_industries&gt;
+            &lt;job_industry&gt;job ind1&lt;/job_industry&gt;
+            &lt;job_industry&gt;job ind2&lt;/job_industry&gt;
+            &lt;job_industry&gt;job ind3&lt;/job_industry&gt;
+        &lt;/job_industries&gt;
+    &lt;/job_requisition&gt;
+    &lt;job_requisition&gt;
+        &lt;id&gt;2756&lt;/id&gt;
+        &lt;job_title&gt;Purshasing &amp;amp; Property Director&lt;/job_title&gt;
+        &lt;location&gt;
+            &lt;address_line_1&gt;4008 Gaelic Lane&lt;/address_line_1&gt;
+            &lt;address_line_2&gt;Gaelic Lane&lt;/address_line_2&gt;
+            &lt;country&gt;USA&lt;/country&gt;
+            &lt;city&gt;Glen Allen&lt;/city&gt;
+            &lt;state&gt;VA&lt;/state&gt;
+            &lt;zip&gt;23060&lt;/zip&gt;
+        &lt;/location&gt;
+        &lt;job_categories&gt;
+            &lt;job_category&gt;job cat1&lt;/job_category&gt;
+            &lt;job_category&gt;job cat2&lt;/job_category&gt;
+            &lt;job_category&gt;job cat3&lt;/job_category&gt;
+        &lt;/job_categories&gt;
+        &lt;job_industries&gt;
+            &lt;job_industry&gt;job ind1&lt;/job_industry&gt;
+            &lt;job_industry&gt;job ind2&lt;/job_industry&gt;
+            &lt;job_industry&gt;job ind3&lt;/job_industry&gt;
+        &lt;/job_industries&gt;
+    &lt;/job_requisition&gt;
+    &lt;job_requisition&gt;
+        &lt;id&gt;2758&lt;/id&gt;
+        &lt;job_title&gt;Senior Marketing Director&lt;/job_title&gt;
+        &lt;location&gt;
+            &lt;address_line_1&gt;4008 Gaelic Lane&lt;/address_line_1&gt;
+            &lt;address_line_2&gt;Gaelic Lane&lt;/address_line_2&gt;
+            &lt;country&gt;USA&lt;/country&gt;
+            &lt;city&gt;Glen Allen&lt;/city&gt;
+            &lt;state&gt;VA&lt;/state&gt;
+            &lt;zip&gt;23060&lt;/zip&gt;
+        &lt;/location&gt;
+        &lt;job_categories&gt;
+            &lt;job_category&gt;job cat1&lt;/job_category&gt;
+            &lt;job_category&gt;job cat2&lt;/job_category&gt;
+            &lt;job_category&gt;job cat3&lt;/job_category&gt;
+        &lt;/job_categories&gt;
+        &lt;job_industries&gt;
+            &lt;job_industry&gt;job ind1&lt;/job_industry&gt;
+            &lt;job_industry&gt;job ind2&lt;/job_industry&gt;
+            &lt;job_industry&gt;job ind3&lt;/job_industry&gt;
+        &lt;/job_industries&gt;
+    &lt;/job_requisition&gt;
+    &lt;job_requisition&gt;
+        &lt;id&gt;2760&lt;/id&gt;
+        &lt;job_title&gt;Payroll Specialist&lt;/job_title&gt;
+        &lt;location&gt;
+            &lt;address_line_1&gt;4008 Gaelic Lane&lt;/address_line_1&gt;
+            &lt;address_line_2&gt;Gaelic Lane&lt;/address_line_2&gt;
+            &lt;country&gt;USA&lt;/country&gt;
+            &lt;city&gt;Glen Allen&lt;/city&gt;
+            &lt;state&gt;VA&lt;/state&gt;
+            &lt;zip&gt;23060&lt;/zip&gt;
+        &lt;/location&gt;
+        &lt;job_categories&gt;
+            &lt;job_category&gt;job cat1&lt;/job_category&gt;
+            &lt;job_category&gt;job cat2&lt;/job_category&gt;
+            &lt;job_category&gt;job cat3&lt;/job_category&gt;
+        &lt;/job_categories&gt;
+        &lt;job_industries&gt;
+            &lt;job_industry&gt;job ind1&lt;/job_industry&gt;
+            &lt;job_industry&gt;job ind2&lt;/job_industry&gt;
+            &lt;job_industry&gt;job ind3&lt;/job_industry&gt;
+        &lt;/job_industries&gt;
+    &lt;/job_requisition&gt;
+    &lt;job_requisition&gt;
+        &lt;id&gt;2762&lt;/id&gt;
+        &lt;job_title&gt;On-Call Community Manager&lt;/job_title&gt;
+        &lt;location&gt;
+            &lt;address_line_1&gt;4008 Gaelic Lane&lt;/address_line_1&gt;
+            &lt;address_line_2&gt;Gaelic Lane&lt;/address_line_2&gt;
+            &lt;country&gt;USA&lt;/country&gt;
+            &lt;city&gt;Glen Allen&lt;/city&gt;
+            &lt;state&gt;VA&lt;/state&gt;
+            &lt;zip&gt;23060&lt;/zip&gt;
+        &lt;/location&gt;
+        &lt;job_categories&gt;
+            &lt;job_category&gt;job cat1&lt;/job_category&gt;
+            &lt;job_category&gt;job cat2&lt;/job_category&gt;
+            &lt;job_category&gt;job cat3&lt;/job_category&gt;
+        &lt;/job_categories&gt;
+        &lt;job_industries&gt;
+            &lt;job_industry&gt;job ind1&lt;/job_industry&gt;
+            &lt;job_industry&gt;job ind2&lt;/job_industry&gt;
+            &lt;job_industry&gt;job ind3&lt;/job_industry&gt;
+        &lt;/job_industries&gt;
+    &lt;/job_requisition&gt;
+    &lt;job_requisition&gt;
+        &lt;id&gt;2764&lt;/id&gt;
+        &lt;job_title&gt;Manager&lt;/job_title&gt;
+        &lt;location&gt;
+            &lt;address_line_1&gt;4008 Gaelic Lane&lt;/address_line_1&gt;
+            &lt;address_line_2&gt;Gaelic Lane&lt;/address_line_2&gt;
+            &lt;country&gt;USA&lt;/country&gt;
+            &lt;city&gt;Glen Allen&lt;/city&gt;
+            &lt;state&gt;VA&lt;/state&gt;
+            &lt;zip&gt;23060&lt;/zip&gt;
+        &lt;/location&gt;
+        &lt;job_categories&gt;
+            &lt;job_category&gt;job cat1&lt;/job_category&gt;
+            &lt;job_category&gt;job cat2&lt;/job_category&gt;
+            &lt;job_category&gt;job cat3&lt;/job_category&gt;
+        &lt;/job_categories&gt;
+        &lt;job_industries&gt;
+            &lt;job_industry&gt;job ind1&lt;/job_industry&gt;
+            &lt;job_industry&gt;job ind2&lt;/job_industry&gt;
+            &lt;job_industry&gt;job ind3&lt;/job_industry&gt;
+        &lt;/job_industries&gt;
+    &lt;/job_requisition&gt;
+    &lt;job_requisition&gt;
+        &lt;id&gt;3521&lt;/id&gt;
+        &lt;job_title&gt;architect&lt;/job_title&gt;
+        &lt;location&gt;
+            &lt;address_line_1&gt;4008 Gaelic Lane&lt;/address_line_1&gt;
+            &lt;address_line_2&gt;Gaelic Lane&lt;/address_line_2&gt;
+            &lt;country&gt;USA&lt;/country&gt;
+            &lt;city&gt;Glen Allen&lt;/city&gt;
+            &lt;state&gt;VA&lt;/state&gt;
+            &lt;zip&gt;23060&lt;/zip&gt;
+        &lt;/location&gt;
+    &lt;/job_requisition&gt;
+    &lt;job_requisition&gt;
+        &lt;id&gt;3522&lt;/id&gt;
+        &lt;job_title&gt;architect&lt;/job_title&gt;
+        &lt;location&gt;
+            &lt;address_line_1&gt;4008 Gaelic Lane&lt;/address_line_1&gt;
+            &lt;address_line_2&gt;Gaelic Lane&lt;/address_line_2&gt;
+            &lt;country&gt;USA&lt;/country&gt;
+            &lt;city&gt;Glen Allen&lt;/city&gt;
+            &lt;state&gt;VA&lt;/state&gt;
+            &lt;zip&gt;23060&lt;/zip&gt;
+        &lt;/location&gt;
+    &lt;/job_requisition&gt;
+    &lt;job_requisition&gt;
+        &lt;id&gt;3523&lt;/id&gt;
+        &lt;job_title&gt;architect&lt;/job_title&gt;
+        &lt;location&gt;
+            &lt;address_line_1&gt;4008 Gaelic Lane&lt;/address_line_1&gt;
+            &lt;address_line_2&gt;Gaelic Lane&lt;/address_line_2&gt;
+            &lt;country&gt;USA&lt;/country&gt;
+            &lt;city&gt;Glen Allen&lt;/city&gt;
+            &lt;state&gt;VA&lt;/state&gt;
+            &lt;zip&gt;23060&lt;/zip&gt;
+        &lt;/location&gt;
+    &lt;/job_requisition&gt;
+    &lt;_paging&gt;
+        &lt;offset&gt;0&lt;/offset&gt;
+        &lt;size&gt;100&lt;/size&gt;
+        &lt;total&gt;5&lt;/total&gt;
+    &lt;/_paging&gt;
+&lt;/job_requisitions&gt;
+</pre>
+</div>
+<div class="get-example-resp-tab-1" id="get-tab-resp-schema-1">
+
+<div class="jsonschema" id="schema-1">&lt;xs:schema attributeFormDefault="unqualified" elementFormDefault="qualified" xmlns:xs="http://www.w3.org/2001/XMLSchema"&gt;
+  &lt;xs:element name="job_requisitions"&gt;
+    &lt;xs:complexType&gt;
+      &lt;xs:sequence&gt;
+        &lt;xs:element name="job_requisition" maxOccurs="unbounded" minOccurs="0"&gt;
+          &lt;xs:complexType&gt;
+            &lt;xs:sequence&gt;
+              &lt;xs:element type="xs:short" name="id"/&gt;
+              &lt;xs:element type="xs:string" name="job_title" minOccurs="0"/&gt;
+              &lt;xs:element name="location" minOccurs="0"&gt;
+                &lt;xs:complexType&gt;
+                  &lt;xs:sequence&gt;
+                      &lt;xs:element type="xs:string" name="address_line_1" minOccurs="0"/&gt;
+                      &lt;xs:element type="xs:string" name="address_line_2" minOccurs="0"/&gt;
+                      &lt;xs:element type="xs:string" name="address_line_3" minOccurs="0"/&gt;
+                      &lt;xs:element type="xs:string" name="country" minOccurs="0"/&gt;
+                      &lt;xs:element type="xs:string" name="city" minOccurs="0"/&gt;
+                      &lt;xs:element type="xs:string" name="state" minOccurs="0"/&gt;
+                      &lt;xs:element type="xs:string" name="zip" minOccurs="0"/&gt;
+                      &lt;xs:element type="xs:string" name="number" minOccurs="0"/&gt;
+                      &lt;xs:element type="xs:string" name="number_addition" minOccurs="0"/&gt;
+                  &lt;/xs:sequence&gt;
+                &lt;/xs:complexType&gt;
+              &lt;/xs:element&gt;
+              &lt;xs:element name="job_categories" minOccurs="0"&gt;
+                &lt;xs:complexType&gt;
+                  &lt;xs:choice maxOccurs="3" minOccurs="0"&gt;
+                    &lt;xs:element type="xs:string" name="job_category"/&gt;
+                  &lt;/xs:choice&gt;
+                &lt;/xs:complexType&gt;
+              &lt;/xs:element&gt;
+              &lt;xs:element name="job_industries" minOccurs="0"&gt;
+                &lt;xs:complexType&gt;
+                  &lt;xs:sequence&gt;
+                    &lt;xs:element type="xs:string" name="job_industry" maxOccurs="3" minOccurs="0"/&gt;
+                  &lt;/xs:sequence&gt;
+                &lt;/xs:complexType&gt;
+              &lt;/xs:element&gt;
+            &lt;/xs:sequence&gt;
+          &lt;/xs:complexType&gt;
+        &lt;/xs:element&gt;
+        &lt;xs:element name="_paging" minOccurs="0"&gt;
+          &lt;xs:complexType&gt;
+            &lt;xs:sequence&gt;
+              &lt;xs:element type="xs:byte" name="offset"/&gt;
+              &lt;xs:element type="xs:byte" name="size"/&gt;
+              &lt;xs:element type="xs:byte" name="total"/&gt;
+            &lt;/xs:sequence&gt;
+          &lt;/xs:complexType&gt;
+        &lt;/xs:element&gt;
+      &lt;/xs:sequence&gt;
+    &lt;/xs:complexType&gt;
+  &lt;/xs:element&gt;
+&lt;/xs:schema&gt;</div>
+</div>
+</div>
+</div>
+</div>
+</article>
+</section>
+</div>
+</body></html>

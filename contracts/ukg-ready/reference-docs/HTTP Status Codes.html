@@ -1,0 +1,77 @@
+<!doctype html>
+<html><head><meta charset="utf-8"><title>HTTP Status Codes</title><style>body{font:16px system-ui;max-width:1100px;margin:2rem auto;padding:0 1rem;line-height:1.5}aside{background:#fff3cc;padding:1rem}.jsonschema,pre{white-space:pre-wrap;font:13px monospace;overflow-wrap:anywhere;background:#f4f5f7;padding:1rem}.uri{font-family:monospace}h2,h3{margin-top:2rem}</style></head><body><aside><strong>Modified private reference — 2026-10-09.</strong> Provider-documented illustrative examples are included; authentication token examples are redacted. These are not customer exports or guaranteed production behavior. Candidate sharing is pending. This is not OpenAPI.</aside>
+<div class="group">
+<h2 class="docTitle">HTTP Status Codes</h2>
+<section class="clearfix">
+<article class="documentation md">
+<pre>The API uses a subset of the conventional HTTP response codes to indicate a request's success or failure.
+
+---
+The HTTP status maps to client errors (4XX) and server errors (5XX) per IETF standards. Codes in the 2xx range indicate success, codes in the 4xx range indicate an error that failed due to information provided by the client (for example, a required parameter was omitted, authentication failed, and so on), and codes in the 5xx range indicate an error with our servers.
+
+Not all errors fit easily into HTTP status code categories. Always check the error response message and detail fields for more information.
+
+# Structure
+When the API returns an error, it consists of an HTTP status code and a JSON body.
+
+## HTTP status codes
+
+### Success codes
+
+**Key**
+
+* {HTTP code} : {HTTP code message}
+    * {semantics}
+#### Codes
+
+* 200 : OK
+    * A successful call with a response body
+    * **Note:** The API returns status code 200, not 201, for successful create operations
+* 201: Created
+    *  Status of a request to create new record(s)
+* 202 : Accepted
+    * Status of an asynchronous request
+* 204 : No Content
+    * Success after DELETE
+* 207 : Partial Success
+    * A partially successful call with a response body; refer to the Partial success section in the Error handling topic for more information
+
+### Error codes
+**Key**
+
+* {HTTP code} : {HTTP code message}
+    * {semantics}
+#### Codes
+
+* 400 : Bad request
+    * A syntax or validation error in the request, such as:
+    * Invalid JSON
+    * Invalid parameters, including missing data
+    * Referenced data is not available
+    * Failed business validation
+* 403 : Forbidden
+    * The user is forbidden from accessing this resource; This may be due to a failed Function Access Profile (FAP) or License validation, or due to a user trying to access a deprecated API endpoint.
+* 404 : Not Found
+    * For /{id} paths where the ID is not found; not used for multi_* operations.
+* 405 : Method Not Allowed
+    * The HTTP Verb specified is invalid for the API.
+* 406 : Not Acceptable
+    * The server is unable to provide a response based on the provided Content headers. This likely indicates an invalid Content-Type or Accept header for the API.
+* 409 : Conflict
+    * The operation resulted in an optimistic locking error; refer to the error body for more information
+* 413 : Service limit violation; request entity too large
+    * Either the request payload is larger than the server is willing or able to process or a service limit has been violated; refer to the Limits topic for more information on service limits. By default, request payload JSONs are limited to 1 megabyte in size. Some operations allow for a larger request payload. The increased size is documented in the operation's description. For example, see the Import Labor Budgets (POST /v1/forecasting/labor_budget/import) API operation.
+* 415 : Unsupported Media Type
+    * Content-Type or Accept has an invalid value
+* 429 : Throttling violation; rate or daily limit exceeded
+    * The request exceeds the load level the server is willing or able to process; refer to the Limits topic for more information on throttling
+* 500 : Server error
+    * Internal server error; if this error occurs unexpectedly, it is possible the servers are down. Check the Trust Site or the Community forums
+* 503 : Service unavailable
+    * The request exceeds the load level the server is willing or able to process; refer to the Limits topic for more information on throttling
+* 504 : Gateway Timeout
+    * The request couldn’t be completed due to an internal problem or gateway timeout; this should not indicate that our servers are unavailable</pre>
+</article>
+</section>
+</div>
+</body></html>

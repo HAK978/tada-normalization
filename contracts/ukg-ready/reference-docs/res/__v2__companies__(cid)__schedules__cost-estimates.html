@@ -1,0 +1,375 @@
+<!doctype html>
+<html><head><meta charset="utf-8"><title>Schedule Employee Cost Estimates</title><style>body{font:16px system-ui;max-width:1100px;margin:2rem auto;padding:0 1rem;line-height:1.5}aside{background:#fff3cc;padding:1rem}.jsonschema,pre{white-space:pre-wrap;font:13px monospace;overflow-wrap:anywhere;background:#f4f5f7;padding:1rem}.uri{font-family:monospace}h2,h3{margin-top:2rem}</style></head><body><aside><strong>Modified private reference — 2026-10-09.</strong> Provider-documented illustrative examples are included; authentication token examples are redacted. These are not customer exports or guaranteed production behavior. Candidate sharing is pending. This is not OpenAPI.</aside>
+<div class="group">
+<h2 class="anchored" id="item.anchor">
+<span>Schedule Employee Cost Estimates</span>
+<a class="fa fa-link link-anchor" data-url="r=__v2__companies__(cid)__schedules__cost-estimates#" data-web-id="__v2__companies__(cid)__schedules__cost-estimates"></a>
+</h2>
+<section class="clearfix">
+<article class="definition">
+<h3 class="anchored" id="get"><span>GET</span>
+<a class="fa fa-link link-anchor" data-url="r=__v2__companies__(cid)__schedules__cost-estimates#get" data-web-id="__v2__companies__(cid)__schedules__cost-estimates"></a>
+</h3>
+<div class="md"><p>Returns a list of cost estimates for each schedule, giving both the full schedule estimated costs for
+each employee on each schedule, and the daily cost estimates for each employee on each schedule.
+(If no from and to parameters are provided, the default date range is from the first day of the previous month
+to the first day of the next month (2 months). A date range longer than a quarter (3 months/93 days) is not
+allowed.)
+</p></div>
+<h4>Parameters</h4>
+<h5>Path Parameters</h5>
+<ul class="param-list">
+<li>
+<div class="param-desc">
+<div class="param-name">cid</div>
+<div class="data-type">string</div>
+<div class="required">required</div>
+</div>
+<div class="param-content">
+<div>
+<p>Example: 123456</p>
+<div class="desc md">Company should be referenced via company id or company unique id or company short name using `|short_name` or `!short_name` format.
+</div>
+</div>
+</div>
+
+</li>
+</ul>
+<h5>Query Parameters</h5>
+<ul class="param-list">
+<li>
+<div class="param-desc">
+<div class="param-name">from</div>
+<div class="data-type">date-only</div>
+</div>
+<div class="param-content">
+<div>
+<div class="desc md">Schedule Date Range filter. (Min date)</div>
+</div>
+</div>
+
+</li>
+<li>
+<div class="param-desc">
+<div class="param-name">to</div>
+<div class="data-type">date-only</div>
+</div>
+<div class="param-content">
+<div>
+<div class="desc md">Schedule Date Range filter. (Max date)</div>
+</div>
+</div>
+
+</li>
+<li>
+<div class="param-desc">
+<div class="param-name">schedule_ids</div>
+<div class="data-type">string</div>
+</div>
+<div class="param-content">
+<div>
+<p>Example: 123,432,5366,22145</p>
+<div class="desc md">Schedule IDs</div>
+</div>
+</div>
+
+</li>
+<li>
+<div class="param-desc">
+<div class="param-name">account_ids</div>
+<div class="data-type">string</div>
+</div>
+<div class="param-content">
+<div>
+<p>Example: 1001,2002,3003</p>
+<div class="desc md">Account IDs to filter schedule employees; when omitted, all employees are included</div>
+</div>
+</div>
+
+</li>
+</ul>
+<h4>Responses</h4>
+<div class="responses">
+<div>
+<label class="response response-success">
+<span class="fa fa-check"></span>
+<input data-full-tab-id="get-resp-code-tab-id-0" data-tab-class="resp-code-tab-get" name="resp-code-tab-get" type="radio"/>
+<span class="status">200 Ok</span>
+</label>
+<div class="response-desc resp-code-tab-get" id="get-resp-code-tab-id-0">
+</div>
+</div>
+</div>
+</article>
+<article class="code">
+<h4>Definition</h4>
+<div class="uri">
+<code>
+<span class="method get">get</span>
+<span class="textUri"><span class="baseUri">{{ getUriPrefix() }}</span><span class="relativeUri">/v2/companies/{cid}/schedules/cost-estimates</span></span>
+</code>
+</div>
+<h4>Response Samples</h4>
+<div class="tab-title-group">
+<label>
+<input checked="checked" data-full-tab-id="resp-tab-id-get-0" data-tab-class="resp-tab-get" name="resp-tab-get" type="radio"/>
+<span class="tab-title">application/json</span>
+</label>
+<label>
+<input data-full-tab-id="resp-tab-id-get-1" data-tab-class="resp-tab-get" name="resp-tab-get" type="radio"/>
+<span class="tab-title">application/xml</span>
+</label>
+</div>
+<div>
+<div class="resp-tab-get" id="resp-tab-id-get-0">
+<div class="example">
+
+<div class="get-example-resp-tab-0 activeTab" id="get-tab-resp-example-0">
+
+<pre class="highlightjs">{
+  "cost_estimations": [
+    {
+      "schedule_id": 1381557688,
+      "estimated_costs": [
+        {
+          "account_id": 924675055,
+          "cost": 128.750000
+        },
+        {
+          "account_id": 1464123156,
+          "cost": 221.333333
+        }
+      ],
+      "estimated_costs_per_day": [
+        {
+          "date": "2025-07-24",
+          "account_id": 924675055,
+          "cost": 64.375000
+        },
+        {
+          "date": "2025-07-25",
+          "account_id": 924675055,
+          "cost": 64.375000
+        },
+        {
+          "date": "2025-07-24",
+          "account_id": 1464123156,
+          "cost": 221.333333
+        }
+      ]
+    },
+    {
+      "schedule_id": 152331230,
+      "estimated_costs": [
+        {
+          "account_id": 834234653,
+          "cost": 312.000000
+        }
+      ],
+      "estimated_costs_per_day": [
+        {
+          "date": "2025-07-22",
+          "account_id": 834234653,
+          "cost": 162.000000
+        },
+        {
+          "date": "2025-07-23",
+          "account_id": 834234653,
+          "cost": 150.000000
+        }
+      ]
+    }
+  ]
+}</pre>
+</div>
+<div class="get-example-resp-tab-0" id="get-tab-resp-schema-0">
+
+<div class="jsonschema" id="schema-0">{
+  "type": "object",
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "properties": {
+    "cost_estimations": {
+      "type": "array",
+      "description": "Collection of schedule cost estimations. When the request supplies account_ids only matching accounts are returned.",
+      "items": {
+        "type": "object",
+        "properties": {
+          "schedule_id": {
+            "type": "integer",
+            "description": "Identifier of the schedule."
+          },
+          "estimated_costs": {
+            "type": "array",
+            "description": "Aggregate cost per account for the schedule, filtered by account_ids when provided.",
+            "items": {
+              "type": "object",
+              "properties": {
+                "account_id": {
+                  "type": "integer",
+                  "description": "Identifier of the employee account."
+                },
+                "cost": {
+                  "type": "number",
+                  "description": "Total estimated cost for the account within the schedule."
+                }
+              }
+            }
+          },
+          "estimated_costs_per_day": {
+            "type": "array",
+            "description": "Daily breakdown of estimated costs per account for the schedule, constrained by account_ids when supplied.",
+            "items": {
+              "type": "object",
+              "properties": {
+                "date": {
+                  "type": "string",
+                  "description": "Date (YYYY-MM-DD) of the cost entry."
+                },
+                "account_id": {
+                  "type": "integer",
+                  "description": "Identifier of the employee account."
+                },
+                "cost": {
+                  "type": "number",
+                  "description": "Estimated cost for the account on the specified date."
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}</div>
+</div>
+</div>
+</div>
+<div class="resp-tab-get" id="resp-tab-id-get-1">
+<div class="example">
+
+<div class="get-example-resp-tab-1 activeTab" id="get-tab-resp-example-1">
+
+<pre class="highlightjs">&lt;?xml version="1.0" encoding="UTF-8"?&gt;
+&lt;cost_estimations_list&gt;
+    &lt;cost_estimations&gt;
+        &lt;single_schedule_cost_estimations&gt;
+            &lt;schedule_id&gt;1381557688&lt;/schedule_id&gt;
+            &lt;estimated_costs&gt;
+                &lt;estimated_cost&gt;
+                    &lt;account_id&gt;924675055&lt;/account_id&gt;
+                    &lt;cost&gt;128.750000&lt;/cost&gt;
+                &lt;/estimated_cost&gt;
+                &lt;estimated_cost&gt;
+                    &lt;account_id&gt;1464123156&lt;/account_id&gt;
+                    &lt;cost&gt;221.333333&lt;/cost&gt;
+                &lt;/estimated_cost&gt;
+            &lt;/estimated_costs&gt;
+            &lt;estimated_costs_per_day&gt;
+                &lt;single_day_estimated_cost&gt;
+                    &lt;date&gt;2025-07-24&lt;/date&gt;
+                    &lt;account_id&gt;924675055&lt;/account_id&gt;
+                    &lt;cost&gt;64.375000&lt;/cost&gt;
+                &lt;/single_day_estimated_cost&gt;
+                &lt;single_day_estimated_cost&gt;
+                    &lt;date&gt;2025-07-25&lt;/date&gt;
+                    &lt;account_id&gt;924675055&lt;/account_id&gt;
+                    &lt;cost&gt;64.375000&lt;/cost&gt;
+                &lt;/single_day_estimated_cost&gt;
+                &lt;single_day_estimated_cost&gt;
+                    &lt;date&gt;2025-07-24&lt;/date&gt;
+                    &lt;account_id&gt;1464123156&lt;/account_id&gt;
+                    &lt;cost&gt;221.333333&lt;/cost&gt;
+                &lt;/single_day_estimated_cost&gt;
+            &lt;/estimated_costs_per_day&gt;
+        &lt;/single_schedule_cost_estimations&gt;
+        &lt;single_schedule_cost_estimations&gt;
+            &lt;schedule_id&gt;152331230&lt;/schedule_id&gt;
+            &lt;estimated_costs&gt;
+                &lt;estimated_cost&gt;
+                    &lt;account_id&gt;834234653&lt;/account_id&gt;
+                    &lt;cost&gt;312.000000&lt;/cost&gt;
+                &lt;/estimated_cost&gt;
+            &lt;/estimated_costs&gt;
+            &lt;estimated_costs_per_day&gt;
+                &lt;single_day_estimated_cost&gt;
+                    &lt;date&gt;2025-07-22&lt;/date&gt;
+                    &lt;account_id&gt;834234653&lt;/account_id&gt;
+                    &lt;cost&gt;162.000000&lt;/cost&gt;
+                &lt;/single_day_estimated_cost&gt;
+                &lt;single_day_estimated_cost&gt;
+                    &lt;date&gt;2025-07-23&lt;/date&gt;
+                    &lt;account_id&gt;834234653&lt;/account_id&gt;
+                    &lt;cost&gt;150.000000&lt;/cost&gt;
+                &lt;/single_day_estimated_cost&gt;
+            &lt;/estimated_costs_per_day&gt;
+        &lt;/single_schedule_cost_estimations&gt;
+    &lt;/cost_estimations&gt;
+&lt;/cost_estimations_list&gt;
+</pre>
+</div>
+<div class="get-example-resp-tab-1" id="get-tab-resp-schema-1">
+
+<div class="jsonschema" id="schema-1">&lt;xs:schema attributeFormDefault="unqualified" elementFormDefault="qualified" xmlns:xs="http://www.w3.org/2001/XMLSchema"&gt;
+    &lt;xs:element name="cost_estimations_list"&gt;
+        &lt;xs:complexType&gt;
+            &lt;xs:sequence&gt;
+                &lt;xs:element name="cost_estimations" minOccurs="0"&gt;
+                    &lt;xs:complexType&gt;
+                        &lt;xs:sequence&gt;
+                            &lt;xs:element name="single_schedule_cost_estimations" minOccurs="0" maxOccurs="unbounded"&gt;
+                                &lt;xs:complexType&gt;
+                                    &lt;xs:sequence&gt;
+                                        &lt;xs:element type="xs:int" name="schedule_id"/&gt;
+                                        &lt;xs:element name="estimated_costs"&gt;
+                                            &lt;xs:annotation&gt;
+                                                &lt;xs:documentation&gt;Aggregate cost per account for the schedule. If account_ids are provided on the request, only matching accounts appear in this collection.&lt;/xs:documentation&gt;
+                                            &lt;/xs:annotation&gt;
+                                            &lt;xs:complexType&gt;
+                                                &lt;xs:sequence&gt;
+                                                    &lt;xs:element name="estimated_cost" minOccurs="0" maxOccurs="unbounded"&gt;
+                                                        &lt;xs:complexType&gt;
+                                                            &lt;xs:sequence&gt;
+                                                                &lt;xs:element type="xs:int" name="account_id"/&gt;
+                                                                &lt;xs:element type="xs:decimal" name="cost"/&gt;
+                                                            &lt;/xs:sequence&gt;
+                                                        &lt;/xs:complexType&gt;
+                                                    &lt;/xs:element&gt;
+                                                &lt;/xs:sequence&gt;
+                                            &lt;/xs:complexType&gt;
+                                        &lt;/xs:element&gt;
+                                        &lt;xs:element name="estimated_costs_per_day"&gt;
+                                            &lt;xs:annotation&gt;
+                                                &lt;xs:documentation&gt;Daily cost breakdown for each account. This list is constrained by the optional account_ids request filter.&lt;/xs:documentation&gt;
+                                            &lt;/xs:annotation&gt;
+                                            &lt;xs:complexType&gt;
+                                                &lt;xs:sequence&gt;
+                                                    &lt;xs:element name="single_day_estimated_cost" minOccurs="0" maxOccurs="unbounded"&gt;
+                                                        &lt;xs:complexType&gt;
+                                                            &lt;xs:sequence&gt;
+                                                                &lt;xs:element type="xs:string" name="date"/&gt;
+                                                                &lt;xs:element type="xs:int" name="account_id"/&gt;
+                                                                &lt;xs:element type="xs:decimal" name="cost"/&gt;
+                                                            &lt;/xs:sequence&gt;
+                                                        &lt;/xs:complexType&gt;
+                                                    &lt;/xs:element&gt;
+                                                &lt;/xs:sequence&gt;
+                                            &lt;/xs:complexType&gt;
+                                        &lt;/xs:element&gt;
+                                    &lt;/xs:sequence&gt;
+                                &lt;/xs:complexType&gt;
+                            &lt;/xs:element&gt;
+                        &lt;/xs:sequence&gt;
+                    &lt;/xs:complexType&gt;
+                &lt;/xs:element&gt;
+            &lt;/xs:sequence&gt;
+        &lt;/xs:complexType&gt;
+    &lt;/xs:element&gt;
+&lt;/xs:schema&gt;</div>
+</div>
+</div>
+</div>
+</div>
+</article>
+</section>
+</div>
+</body></html>

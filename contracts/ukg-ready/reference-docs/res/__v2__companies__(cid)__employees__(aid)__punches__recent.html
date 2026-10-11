@@ -1,0 +1,356 @@
+<!doctype html>
+<html><head><meta charset="utf-8"><title>Recent Punches</title><style>body{font:16px system-ui;max-width:1100px;margin:2rem auto;padding:0 1rem;line-height:1.5}aside{background:#fff3cc;padding:1rem}.jsonschema,pre{white-space:pre-wrap;font:13px monospace;overflow-wrap:anywhere;background:#f4f5f7;padding:1rem}.uri{font-family:monospace}h2,h3{margin-top:2rem}</style></head><body><aside><strong>Modified private reference — 2026-10-09.</strong> Provider-documented illustrative examples are included; authentication token examples are redacted. These are not customer exports or guaranteed production behavior. Candidate sharing is pending. This is not OpenAPI.</aside>
+<div class="group">
+<h2 class="anchored" id="item.anchor">
+<span>Recent Punches</span>
+<a class="fa fa-link link-anchor" data-url="r=__v2__companies__(cid)__employees__(aid)__punches__recent#" data-web-id="__v2__companies__(cid)__employees__(aid)__punches__recent"></a>
+</h2>
+<section class="clearfix">
+<article class="definition">
+<h3 class="anchored" id="get"><span>GET</span>
+<a class="fa fa-link link-anchor" data-url="r=__v2__companies__(cid)__employees__(aid)__punches__recent#get" data-web-id="__v2__companies__(cid)__employees__(aid)__punches__recent"></a>
+</h3>
+<div class="md"><p>Returns list of last N punches.</p></div>
+<div>
+<ul class="annotation-list">
+<li class="annotation">
+<span>v2</span>
+</li>
+</ul>
+</div>
+<h4>Parameters</h4>
+<h5>Path Parameters</h5>
+<ul class="param-list">
+<li>
+<div class="param-desc">
+<div class="param-name">cid</div>
+<div class="data-type">string</div>
+<div class="required">required</div>
+</div>
+<div class="param-content">
+<div>
+<p>Example: 123456</p>
+<div class="desc md">Company should be referenced via company id or company unique id or company short name using `|short_name` or `!short_name` format.
+</div>
+</div>
+</div>
+
+</li>
+<li>
+<div class="param-desc">
+<div class="param-name">aid</div>
+<div class="data-type">string</div>
+<div class="required">required</div>
+</div>
+<div class="param-content">
+<div>
+<p>Example: 1234567</p>
+<div class="desc md">Account should be referenced via account id or account external id using `|external_id` or `!external_id` format.
+</div>
+</div>
+</div>
+
+</li>
+</ul>
+<h5>Query Parameters</h5>
+<ul class="param-list">
+<li>
+<div class="param-desc">
+<div class="param-name">num</div>
+<div class="data-type">integer</div>
+</div>
+<div class="param-content">
+<div>
+<p>Default: 10</p>
+<div class="desc md">Number of punches to return. Number of punches must be more than 0 and less or equal 64.</div>
+</div>
+</div>
+
+</li>
+<li>
+<div class="param-desc">
+<div class="param-name">types</div>
+<div class="data-type">string</div>
+</div>
+<div class="param-content">
+<div>
+<div class="desc md">The comma separated list of calc punch types.</div>
+</div>
+</div>
+
+</li>
+</ul>
+<h5>Header Parameters</h5>
+<ul class="param-list">
+<li>
+<div class="param-desc">
+<div class="param-name">Accept</div>
+<div class="data-type">string</div>
+</div>
+<div class="param-content">
+<div>
+<p>Valid values: application/json, application/xml, text/xml</p>
+<p>Default: application/json</p>
+<p>Example: application/json</p>
+</div>
+</div>
+
+</li>
+</ul>
+<h4>Responses</h4>
+<div class="responses">
+<div>
+<label class="response response-success">
+<span class="fa fa-check"></span>
+<input data-full-tab-id="get-resp-code-tab-id-0" data-tab-class="resp-code-tab-get" name="resp-code-tab-get" type="radio"/>
+<span class="status">200 Ok</span>
+</label>
+<div class="response-desc resp-code-tab-get" id="get-resp-code-tab-id-0">
+</div>
+</div>
+<div>
+<label class="response response-error">
+<span class="fa fa-times"></span>
+<input data-full-tab-id="get-resp-code-tab-id-1" data-tab-class="resp-code-tab-get" name="resp-code-tab-get" type="radio"/>
+<span class="status">401 Unauthorized</span>
+</label>
+<div class="response-desc resp-code-tab-get" id="get-resp-code-tab-id-1">
+<div class="md"><p>Returned in case user is not authorized.</p></div>
+</div>
+</div>
+<div>
+<label class="response response-error">
+<span class="fa fa-times"></span>
+<input data-full-tab-id="get-resp-code-tab-id-2" data-tab-class="resp-code-tab-get" name="resp-code-tab-get" type="radio"/>
+<span class="status">403 Forbidden</span>
+</label>
+<div class="response-desc resp-code-tab-get" id="get-resp-code-tab-id-2">
+<div class="md"><p>Returned in case user has no access to the resource.</p></div>
+</div>
+</div>
+<div>
+<label class="response response-error">
+<span class="fa fa-times"></span>
+<input data-full-tab-id="get-resp-code-tab-id-3" data-tab-class="resp-code-tab-get" name="resp-code-tab-get" type="radio"/>
+<span class="status">503 Service Unavailable</span>
+</label>
+<div class="response-desc resp-code-tab-get" id="get-resp-code-tab-id-3">
+<div class="md"><p>Returned in the event that the call limit is exceeded. The application will be unavailable for subsequent calls for the duration specified by the X-CallLimit-TimeToWait header.</p></div>
+</div>
+</div>
+</div>
+</article>
+<article class="code">
+<h4>Definition</h4>
+<div class="uri">
+<code>
+<span class="method get">get</span>
+<span class="textUri"><span class="baseUri">{{ getUriPrefix() }}</span><span class="relativeUri">/v2/companies/{cid}/employees/{aid}/punches/recent</span></span>
+</code>
+</div>
+<h4>Response Samples</h4>
+<div class="tab-title-group">
+<label>
+<input checked="checked" data-full-tab-id="resp-tab-id-get-0" data-tab-class="resp-tab-get" name="resp-tab-get" type="radio"/>
+<span class="tab-title">application/json</span>
+</label>
+<label>
+<input data-full-tab-id="resp-tab-id-get-1" data-tab-class="resp-tab-get" name="resp-tab-get" type="radio"/>
+<span class="tab-title">application/xml</span>
+</label>
+</div>
+<div>
+<div class="resp-tab-get" id="resp-tab-id-get-0">
+<div class="example">
+
+<div class="get-example-resp-tab-0 activeTab" id="get-tab-resp-example-0">
+
+<pre class="highlightjs">{
+  "punches": [
+    {
+      "timestamp": "2017-01-13T08:53:29.424-05:00",
+      "type": "PUNCH_OUT"
+    },
+    {
+      "timestamp": "2017-01-13T04:28:50.978-05:00",
+      "type": "CHANGE_CCS",
+      "cost_centers": [
+        {
+          "index": 0,
+          "value": {
+            "id": 131328,
+            "display_name": "Test"
+          }
+        }
+      ]
+    },
+    {
+      "timestamp": "2017-01-13T04:24:11.704-05:00",
+      "type": "PUNCH_IN"
+    }
+  ]
+}</pre>
+</div>
+<div class="get-example-resp-tab-0" id="get-tab-resp-schema-0">
+
+<div class="jsonschema" id="schema-0">{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "type": "object",
+  "properties": {
+    "punches": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "timestamp": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "type": {
+            "type": "string",
+            "enum": [
+              "PUNCH_IN",
+              "PUNCH_OUT",
+              "CHANGE_CCS",
+              "CORRECT_CC",
+              "COLLECT_EP",
+              "PUNCH_OUT_FOR_LUNCH",
+              "PUNCH_OUT_FOR_BREAK",
+              "PUNCH_OUT_FINAL",
+              "SET_EXCEPTION_FLAG",
+              "DATE_ROLLOVER",
+              "UNKNOWN"
+            ]
+          },
+          "cost_centers": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "index": {
+                  "type": "integer"
+                },
+                "value": {
+                  "type": "object",
+                  "properties": {
+                    "id": {
+                      "type": "integer"
+                    },
+                    "display_name": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "required": [
+          "timestamp",
+          "type"
+        ]
+      }
+    }
+  },
+  "required": [
+    "punches"
+  ]
+}</div>
+</div>
+</div>
+</div>
+<div class="resp-tab-get" id="resp-tab-id-get-1">
+<div class="example">
+
+<div class="get-example-resp-tab-1 activeTab" id="get-tab-resp-example-1">
+
+<pre class="highlightjs">&lt;?xml version='1.0' encoding='UTF-8'?&gt;
+&lt;punches&gt;
+  &lt;punch&gt;
+    &lt;timestamp&gt;2017-01-13T08:53:29.424-05:00&lt;/timestamp&gt;
+    &lt;type&gt;PUNCH_OUT&lt;/type&gt;
+  &lt;/punch&gt;
+  &lt;punch&gt;
+    &lt;timestamp&gt;2017-01-13T04:28:50.978-05:00&lt;/timestamp&gt;
+    &lt;type&gt;CHANGE_CCS&lt;/type&gt;
+    &lt;cost_centers&gt;
+      &lt;cost_center&gt;
+        &lt;index&gt;0&lt;/index&gt;
+        &lt;value&gt;
+          &lt;id&gt;131328&lt;/id&gt;
+          &lt;display_name&gt;Test&lt;/display_name&gt;
+        &lt;/value&gt;
+      &lt;/cost_center&gt;
+    &lt;/cost_centers&gt;
+  &lt;/punch&gt;
+  &lt;punch&gt;
+    &lt;timestamp&gt;2017-01-13T04:24:11.704-05:00&lt;/timestamp&gt;
+    &lt;type&gt;PUNCH_IN&lt;/type&gt;
+  &lt;/punch&gt;
+&lt;/punches&gt;</pre>
+</div>
+<div class="get-example-resp-tab-1" id="get-tab-resp-schema-1">
+
+<div class="jsonschema" id="schema-1">&lt;xs:schema attributeFormDefault="unqualified" elementFormDefault="qualified"
+    xmlns:xs="http://www.w3.org/2001/XMLSchema"&gt;
+    &lt;xs:element name="punches"&gt;
+        &lt;xs:complexType&gt;
+            &lt;xs:sequence&gt;
+                &lt;xs:element name="punch" maxOccurs="unbounded" minOccurs="0"&gt;
+                    &lt;xs:complexType&gt;
+                        &lt;xs:sequence&gt;
+                            &lt;xs:element type="xs:dateTime" name="timestamp" minOccurs="0"/&gt;
+                            &lt;xs:element name="type"&gt;
+                                &lt;xs:simpleType&gt;
+                                    &lt;xs:restriction base="xs:string"&gt;
+                                        &lt;xs:enumeration value="PUNCH_IN"/&gt;
+                                        &lt;xs:enumeration value="PUNCH_OUT"/&gt;
+                                        &lt;xs:enumeration value="CHANGE_CCS"/&gt;
+                                        &lt;xs:enumeration value="CORRECT_CC"/&gt;
+                                        &lt;xs:enumeration value="COLLECT_EP"/&gt;
+                                        &lt;xs:enumeration value="PUNCH_OUT_FOR_LUNCH"/&gt;
+                                        &lt;xs:enumeration value="PUNCH_OUT_FOR_BREAK"/&gt;
+                                        &lt;xs:enumeration value="PUNCH_OUT_FINAL"/&gt;
+                                        &lt;xs:enumeration value="DATE_ROLLOVER"/&gt;
+                                        &lt;xs:enumeration value="SET_EXCEPTION_FLAG"/&gt;
+                                        &lt;xs:enumeration value="UNKNOWN"/&gt;
+                                    &lt;/xs:restriction&gt;
+                                &lt;/xs:simpleType&gt;
+                            &lt;/xs:element&gt;
+                            &lt;xs:element name="cost_centers" minOccurs="0"&gt;
+                                &lt;xs:complexType&gt;
+                                    &lt;xs:sequence&gt;
+                                        &lt;xs:element name="cost_center"&gt;
+                                            &lt;xs:complexType&gt;
+                                                &lt;xs:sequence&gt;
+                                                    &lt;xs:element type="xs:int" name="index"/&gt;
+                                                    &lt;xs:element name="value"&gt;
+                                                        &lt;xs:complexType&gt;
+                                                            &lt;xs:sequence&gt;
+                                                                &lt;xs:element type="xs:int" name="id"/&gt;
+                                                                &lt;xs:element type="xs:string" name="display_name"/&gt;
+                                                            &lt;/xs:sequence&gt;
+                                                        &lt;/xs:complexType&gt;
+                                                    &lt;/xs:element&gt;
+                                                &lt;/xs:sequence&gt;
+                                            &lt;/xs:complexType&gt;
+                                        &lt;/xs:element&gt;
+                                    &lt;/xs:sequence&gt;
+                                &lt;/xs:complexType&gt;
+                            &lt;/xs:element&gt;
+                        &lt;/xs:sequence&gt;
+                    &lt;/xs:complexType&gt;
+                &lt;/xs:element&gt;
+            &lt;/xs:sequence&gt;
+        &lt;/xs:complexType&gt;
+    &lt;/xs:element&gt;
+&lt;/xs:schema&gt;
+</div>
+</div>
+</div>
+</div>
+</div>
+</article>
+</section>
+</div>
+</body></html>

@@ -1,0 +1,918 @@
+<!doctype html>
+<html><head><meta charset="utf-8"><title>Account Assignments</title><style>body{font:16px system-ui;max-width:1100px;margin:2rem auto;padding:0 1rem;line-height:1.5}aside{background:#fff3cc;padding:1rem}.jsonschema,pre{white-space:pre-wrap;font:13px monospace;overflow-wrap:anywhere;background:#f4f5f7;padding:1rem}.uri{font-family:monospace}h2,h3{margin-top:2rem}</style></head><body><aside><strong>Modified private reference — 2026-10-09.</strong> Provider-documented illustrative examples are included; authentication token examples are redacted. These are not customer exports or guaranteed production behavior. Candidate sharing is pending. This is not OpenAPI.</aside>
+<div class="group">
+<h2 class="anchored" id="item.anchor">
+<span>Account Assignments</span>
+<a class="fa fa-link link-anchor" data-url="r=__v2__companies__(cid)__position__assignments__(account_Id)#" data-web-id="__v2__companies__(cid)__position__assignments__(account_Id)"></a>
+</h2>
+<section class="clearfix">
+<article class="definition">
+<h3 class="anchored" id="get"><span>GET</span>
+<a class="fa fa-link link-anchor" data-url="r=__v2__companies__(cid)__position__assignments__(account_Id)#get" data-web-id="__v2__companies__(cid)__position__assignments__(account_Id)"></a>
+</h3>
+<div class="md"><p>Returns the information of all the Current, Future or Only Past Dated assignments of the Account.
+Although past and future dated assignments will be governed by query parameter.
+</p></div>
+<div>
+<ul class="annotation-list">
+<li class="annotation">
+<span>v2</span>
+</li>
+</ul>
+</div>
+<h4>Parameters</h4>
+<h5>Path Parameters</h5>
+<ul class="param-list">
+<li>
+<div class="param-desc">
+<div class="param-name">cid</div>
+<div class="data-type">string</div>
+<div class="required">required</div>
+</div>
+<div class="param-content">
+<div>
+<p>Example: 123456</p>
+<div class="desc md">Company should be referenced via company id or company unique id or company short name using `|short_name` or `!short_name` format.
+</div>
+</div>
+</div>
+
+</li>
+<li>
+<div class="param-desc">
+<div class="param-name">account_Id</div>
+<div class="data-type">string</div>
+<div class="required">required</div>
+</div>
+<div class="param-content">
+<div>
+<p>Example: 1234567</p>
+<div class="desc md">Unique id of an Account which is used to fetch assignment details of the particular mentioned account id.
+</div>
+</div>
+</div>
+
+</li>
+</ul>
+<h5>Query Parameters</h5>
+<ul class="param-list">
+<li>
+<div class="param-desc">
+<div class="param-name">req_details</div>
+<div class="data-type">string</div>
+</div>
+<div class="param-content">
+<div>
+<p>Example: all</p>
+<div class="desc md">Two possible values for this parameter are :
+&lt;br&gt;1. basic -&gt; Will return basic assignment details like assignment id, assignmnent start date, assignee details etc.
+&lt;br&gt;2. all -&gt; Will fetch all the details for the assignment including basic details, cost center details, direct reporting manager details, assignment attributes details, rate details for the assignment.
+&lt;br&gt;If not provided, the default value of this parameter is basic.
+</div>
+</div>
+</div>
+
+</li>
+<li>
+<div class="param-desc">
+<div class="param-name">include_future_assignments</div>
+<div class="data-type">boolean</div>
+</div>
+<div class="param-content">
+<div>
+<p>Example: true</p>
+<div class="desc md">If set as true, the result set will contain future dated assignments also.
+&lt;br&gt;If not provided, the default value of this flag is false.
+</div>
+</div>
+</div>
+
+</li>
+<li>
+<div class="param-desc">
+<div class="param-name">only_past_assignments</div>
+<div class="data-type">boolean</div>
+</div>
+<div class="param-content">
+<div>
+<p>Example: true</p>
+<div class="desc md">If set as true, the result set will contain only past dated assignments.
+&lt;br&gt;If not provided, the default value of this flag is false.
+</div>
+</div>
+</div>
+
+</li>
+<li>
+<div class="param-desc">
+<div class="param-name">since</div>
+<div class="data-type">datetime</div>
+</div>
+<div class="param-content">
+<div>
+<p>Example: 2017-09-15T20:55:00Z</p>
+<div class="desc md">Used to set reference date to determine the date starting from which we have to pick all the past assignments till today minus 1 day.
+&lt;br&gt;If not provided, the default value of this parameter will be minimum possible date in the system.
+</div>
+</div>
+</div>
+
+</li>
+</ul>
+<h5>Header Parameters</h5>
+<ul class="param-list">
+<li>
+<div class="param-desc">
+<div class="param-name">Accept</div>
+<div class="data-type">string</div>
+</div>
+<div class="param-content">
+<div>
+<p>Valid values: application/json, application/xml, text/xml</p>
+<p>Default: application/json</p>
+<p>Example: application/json</p>
+</div>
+</div>
+
+</li>
+</ul>
+<h4>Responses</h4>
+<div class="responses">
+<div>
+<label class="response response-success">
+<span class="fa fa-check"></span>
+<input data-full-tab-id="get-resp-code-tab-id-0" data-tab-class="resp-code-tab-get" name="resp-code-tab-get" type="radio"/>
+<span class="status">200 Ok</span>
+</label>
+<div class="response-desc resp-code-tab-get" id="get-resp-code-tab-id-0">
+</div>
+</div>
+<div>
+<label class="response response-error">
+<span class="fa fa-times"></span>
+<input data-full-tab-id="get-resp-code-tab-id-1" data-tab-class="resp-code-tab-get" name="resp-code-tab-get" type="radio"/>
+<span class="status">404 Not Found</span>
+</label>
+<div class="response-desc resp-code-tab-get" id="get-resp-code-tab-id-1">
+<div class="md"><p>Returned in case resource does not exist.</p></div>
+</div>
+</div>
+<div>
+<label class="response response-error">
+<span class="fa fa-times"></span>
+<input data-full-tab-id="get-resp-code-tab-id-2" data-tab-class="resp-code-tab-get" name="resp-code-tab-get" type="radio"/>
+<span class="status">401 Unauthorized</span>
+</label>
+<div class="response-desc resp-code-tab-get" id="get-resp-code-tab-id-2">
+<div class="md"><p>Returned in case user is not authorized.</p></div>
+</div>
+</div>
+<div>
+<label class="response response-error">
+<span class="fa fa-times"></span>
+<input data-full-tab-id="get-resp-code-tab-id-3" data-tab-class="resp-code-tab-get" name="resp-code-tab-get" type="radio"/>
+<span class="status">403 Forbidden</span>
+</label>
+<div class="response-desc resp-code-tab-get" id="get-resp-code-tab-id-3">
+<div class="md"><p>Returned in case user has no access to the resource.</p></div>
+</div>
+</div>
+<div>
+<label class="response response-error">
+<span class="fa fa-times"></span>
+<input data-full-tab-id="get-resp-code-tab-id-4" data-tab-class="resp-code-tab-get" name="resp-code-tab-get" type="radio"/>
+<span class="status">503 Service Unavailable</span>
+</label>
+<div class="response-desc resp-code-tab-get" id="get-resp-code-tab-id-4">
+<div class="md"><p>Returned in the event that the call limit is exceeded. The application will be unavailable for subsequent calls for the duration specified by the X-CallLimit-TimeToWait header.</p></div>
+</div>
+</div>
+</div>
+</article>
+<article class="code">
+<h4>Definition</h4>
+<div class="uri">
+<code>
+<span class="method get">get</span>
+<span class="textUri"><span class="baseUri">{{ getUriPrefix() }}</span><span class="relativeUri">/v2/companies/{cid}/position/assignments/{account_Id}</span></span>
+</code>
+</div>
+<h4>Response Samples</h4>
+<div class="tab-title-group">
+<label>
+<input checked="checked" data-full-tab-id="resp-tab-id-get-0" data-tab-class="resp-tab-get" name="resp-tab-get" type="radio"/>
+<span class="tab-title">applcation/json</span>
+</label>
+<label>
+<input data-full-tab-id="resp-tab-id-get-1" data-tab-class="resp-tab-get" name="resp-tab-get" type="radio"/>
+<span class="tab-title">application/xml</span>
+</label>
+</div>
+<div>
+<div class="resp-tab-get" id="resp-tab-id-get-0">
+<div class="example">
+
+<div class="get-example-resp-tab-0 activeTab" id="get-tab-resp-example-0">
+
+<pre class="highlightjs">{
+  "assignments": [
+    {
+      "assignment_id": 4380160,
+      "assignment_number": "00000005",
+      "position_id": 1606788,
+      "position_number": "00000011",
+      "position_name": "MyPos-02",
+      "account_id": 2304386,
+      "account_name": "Pooja Garg",
+      "start_date": "2022-12-01",
+      "end_date": "2023-04-21",
+      "assignee": {
+        "account_id": 2304386,
+        "primary_account_id": 2304386,
+        "display_name": "Pooja Garg",
+        "ein": {
+          "id": 430,
+          "display_name": "Default"
+        },
+        "employee_id": "Pooja",
+        "hire_date": "2022-07-30",
+        "seniority_date": "2034-12-29"
+      },
+      "assigned_fte": 0.5,
+      "annual_base_comp": 1.0,
+      "annual_supp_comp": 15627.0,
+      "total_base_comp": 15628.0,
+      "avg_annual_budgeted_total_comp": 10000.0,
+      "annual_work_hours": 3744000000,
+      "is_primary_assignment": false,
+      "cost_center_list": [
+        {
+          "id": 136828,
+          "name": "Cost Center 1",
+          "tree_index": 0,
+          "value_id": 137326,
+          "value_name": "0001 Enterprise Financial Services",
+          "allow_override": true
+        },
+        {
+          "id": 1475715,
+          "name": "Cost Center 2",
+          "tree_index": 1,
+          "allow_override": true
+        },
+        {
+          "id": 1475716,
+          "name": "Cost Center 3",
+          "tree_index": 2,
+          "allow_override": true
+        },
+        {
+          "id": 1475717,
+          "name": "Cost Center 4",
+          "tree_index": 3,
+          "allow_override": true
+        }
+      ],
+      "read_only": false,
+      "assignment_rate_schedules": [
+        {
+          "rate_table_selected": true,
+          "rate_table_name": "Rate 1: ZZZ Rate Table 1",
+          "rate_table_index": 0,
+          "rate_schedule_id": 587008,
+          "rate_items": [
+            {
+              "rate_id": 546368,
+              "rate": 234.000000,
+              "start_date": "2022-12-01",
+              "end_date": "2022-12-29"
+            }
+          ]
+        }
+      ],
+      "direct_reporting_assignment": {
+        "assignment_id": 4390912,
+        "assignment_number": "00000008",
+        "position_id": 1608900,
+        "position_name": "Position 1",
+        "account_id": 139436,
+        "account_name": "FRANCISCO J",
+        "start_date": "2022-12-22",
+        "assignee": {
+          "account_id": 139436,
+          "primary_account_id": 139436,
+          "display_name": "FRANCISCO J",
+          "ein": {
+            "id": 430,
+            "display_name": "Default"
+          },
+          "employee_id": "1954"
+        }
+      },
+      "assignment_change_reason": {
+          "id": 246016,
+          "name": "New 123",
+          "type": "New Hire"
+      },
+      "attributes": [
+        {
+          "index": 0,
+          "label": "Assignment Attribute 1",
+          "type": "CHAR"
+        },
+        {
+          "index": 1,
+          "label": "Assignment Attribute 2",
+          "value": {
+            "account_id": 193872,
+            "display_name": "TRISHA AL",
+            "ein": {
+              "id": 430,
+              "display_name": "Default"
+            }
+          },
+          "type": "ACCOUNT"
+        }
+      ]
+    }
+  ]
+}</pre>
+</div>
+<div class="get-example-resp-tab-0" id="get-tab-resp-schema-0">
+
+<div class="jsonschema" id="schema-0">{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "type": "object",
+  "properties": {
+    "assignments": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "assignment_id": {
+            "type": "integer"
+          },
+          "assignment_number": {
+            "type": "string"
+          },
+          "position_id": {
+            "type": "integer"
+          },
+          "position_number": {
+            "type": "string"
+          },
+          "position_name": {
+            "type": "string"
+          },
+          "account_id": {
+            "type": "number",
+            "format": "long"
+          },
+          "account_name": {
+            "type": "string"
+          },
+          "start_date": {
+            "type": "string"
+          },
+          "end_date": {
+            "type": "string"
+          },
+          "assignee": {
+            "type": "object",
+            "properties": {
+              "account_id": {
+                "type": "number",
+                "format": "long"
+              },
+              "primary_account_id": {
+                "type": "number",
+                "format": "long"
+              },
+              "display_name": {
+                "type": "string"
+              },
+              "ein": {
+                "type": "object",
+                "properties": {
+                  "id": {
+                    "type": "integer"
+                  },
+                  "display_name": {
+                    "type": "string"
+                  }
+                }
+              },
+              "employee_id": {
+                "type": "string"
+              },
+              "hire_date": {
+                "type": "string"
+              },
+              "seniority_date": {
+                "type": "string"
+              }
+            }
+          },
+          "assigned_fte": {
+            "type": "number"
+          },
+          "annual_base_comp": {
+            "type": "number"
+          },
+          "annual_supp_comp": {
+            "type": "number"
+          },
+          "total_base_comp": {
+            "type": "number"
+          },
+          "avg_annual_budgeted_total_comp": {
+            "type": "number"
+          },
+          "annual_work_hours": {
+            "type": "integer"
+          },
+          "is_primary_assignment": {
+            "type": "boolean"
+          },
+          "cost_center_list": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "id": {
+                  "type": "integer"
+                },
+                "name": {
+                  "type": "string"
+                },
+                "tree_index": {
+                  "type": "integer"
+                },
+                "value_id": {
+                  "type": "integer"
+                },
+                "value_name": {
+                  "type": "string"
+                },
+                "allow_override": {
+                  "type": "boolean"
+                }
+              }
+            }
+          },
+          "read_only": {
+            "type": "boolean"
+          },
+          "assignment_rate_schedules": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "rate_table_selected": {
+                  "type": "boolean"
+                },
+                "rate_table_name": {
+                  "type": "string"
+                },
+                "rate_table_index": {
+                  "type": "integer"
+                },
+                "rate_schedule_id": {
+                  "type": "integer"
+                },
+                "rate_items": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "rate_id": {
+                        "type": "integer"
+                      },
+                      "rate": {
+                        "type": "number"
+                      },
+                      "start_date": {
+                        "type": "string"
+                      },
+                      "end_date": {
+                        "type": "string"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "direct_reporting_assignment": {
+            "type": "object",
+            "properties": {
+              "assignment_id": {
+                "type": "integer"
+              },
+              "assignment_number": {
+                "type": "string"
+              },
+              "position_id": {
+                "type": "integer"
+              },
+              "position_name": {
+                "type": "string"
+              },
+              "account_id": {
+                "type": "number",
+                "format": "long"
+              },
+              "account_name": {
+                "type": "string"
+              },
+              "start_date": {
+                "type": "string"
+              },
+              "assignee": {
+                "type": "object",
+                "properties": {
+                  "account_id": {
+                    "type": "number",
+                    "format": "long"
+                  },
+                  "primary_account_id": {
+                    "type": "number",
+                    "format": "long"
+                  },
+                  "display_name": {
+                    "type": "string"
+                  },
+                  "ein": {
+                    "type": "object",
+                    "properties": {
+                      "id": {
+                        "type": "integer"
+                      },
+                      "display_name": {
+                        "type": "string"
+                      }
+                    }
+                  },
+                  "employee_id": {
+                    "type": "string"
+                  }
+                }
+              }
+            }
+          },
+          "assignment_change_reason": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "number"
+              },
+              "name": {
+                "type": "string"
+              },
+              "type": {
+                "type": "string"
+              }
+            }
+          },
+          "attributes": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "index": {
+                  "type": "integer"
+                },
+                "label": {
+                  "type": "string"
+                },
+                "value": {
+                  "type": [
+                    "object",
+                    "string"
+                  ]
+                },
+                "type": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "required": [
+    "assignments"
+  ]
+}</div>
+</div>
+</div>
+</div>
+<div class="resp-tab-get" id="resp-tab-id-get-1">
+<div class="example">
+
+<div class="get-example-resp-tab-1 activeTab" id="get-tab-resp-example-1">
+
+<pre class="highlightjs">&lt;?xml version='1.0' encoding='UTF-8'?&gt;
+&lt;AssignmentDetailsDTO&gt;
+    &lt;assignments&gt;
+        &lt;assignments&gt;
+            &lt;assignment_id&gt;4380160&lt;/assignment_id&gt;
+            &lt;assignment_number&gt;00000005&lt;/assignment_number&gt;
+            &lt;start_date&gt;2022-12-01&lt;/start_date&gt;
+            &lt;end_date&gt;2023-04-21&lt;/end_date&gt;
+            &lt;assignee&gt;
+                &lt;account_id&gt;2304386&lt;/account_id&gt;
+                &lt;primary_account_id&gt;2304386&lt;/primary_account_id&gt;
+                &lt;display_name&gt;Pooja Garg&lt;/display_name&gt;
+                &lt;ein&gt;
+                    &lt;id&gt;430&lt;/id&gt;
+                    &lt;display_name&gt;Default&lt;/display_name&gt;
+                &lt;/ein&gt;
+                &lt;employee_id&gt;Pooja&lt;/employee_id&gt;
+                &lt;hire_date&gt;2022-07-30&lt;/hire_date&gt;
+                &lt;seniority_date&gt;2034-12-29&lt;/seniority_date&gt;
+            &lt;/assignee&gt;
+            &lt;is_primary_assignment&gt;false&lt;/is_primary_assignment&gt;
+            &lt;cost_center_list&gt;
+                &lt;cost_center_list&gt;
+                    &lt;id&gt;136828&lt;/id&gt;
+                    &lt;name&gt;Cost Center 1&lt;/name&gt;
+                    &lt;tree_index&gt;0&lt;/tree_index&gt;
+                    &lt;value_id&gt;137326&lt;/value_id&gt;
+                    &lt;value_name&gt;0001 Enterprise Financial Services&lt;/value_name&gt;
+                    &lt;allow_override&gt;true&lt;/allow_override&gt;
+                &lt;/cost_center_list&gt;
+                &lt;cost_center_list&gt;
+                    &lt;id&gt;1475715&lt;/id&gt;
+                    &lt;name&gt;Cost Center 2&lt;/name&gt;
+                    &lt;tree_index&gt;1&lt;/tree_index&gt;
+                    &lt;allow_override&gt;true&lt;/allow_override&gt;
+                &lt;/cost_center_list&gt;
+                &lt;cost_center_list&gt;
+                    &lt;id&gt;1475716&lt;/id&gt;
+                    &lt;name&gt;Cost Center 3&lt;/name&gt;
+                    &lt;tree_index&gt;2&lt;/tree_index&gt;
+                    &lt;allow_override&gt;true&lt;/allow_override&gt;
+                &lt;/cost_center_list&gt;
+                &lt;cost_center_list&gt;
+                    &lt;id&gt;1475717&lt;/id&gt;
+                    &lt;name&gt;Cost Center 4&lt;/name&gt;
+                    &lt;tree_index&gt;3&lt;/tree_index&gt;
+                    &lt;allow_override&gt;true&lt;/allow_override&gt;
+                &lt;/cost_center_list&gt;
+            &lt;/cost_center_list&gt;
+            &lt;read_only&gt;false&lt;/read_only&gt;
+            &lt;assignment_rate_schedules&gt;
+                &lt;assignment_rate_schedules&gt;
+                    &lt;rate_table_selected&gt;true&lt;/rate_table_selected&gt;
+                    &lt;rate_table_name&gt;Rate 1: ZZZ Rate Table 1&lt;/rate_table_name&gt;
+                    &lt;rate_table_index&gt;0&lt;/rate_table_index&gt;
+                    &lt;rate_schedule_id&gt;587008&lt;/rate_schedule_id&gt;
+                    &lt;rate_items&gt;
+                        &lt;rate_items&gt;
+                            &lt;rate_id&gt;546368&lt;/rate_id&gt;
+                            &lt;rate&gt;234.000000&lt;/rate&gt;
+                            &lt;start_date&gt;2022-12-01&lt;/start_date&gt;
+                            &lt;end_date&gt;2022-12-29&lt;/end_date&gt;
+                        &lt;/rate_items&gt;
+                    &lt;/rate_items&gt;
+                &lt;/assignment_rate_schedules&gt;
+            &lt;/assignment_rate_schedules&gt;
+            &lt;direct_reporting_assignment&gt;
+                &lt;assignment_id&gt;4390912&lt;/assignment_id&gt;
+                &lt;assignment_number&gt;00000008&lt;/assignment_number&gt;
+                &lt;position_id&gt;1608900&lt;/position_id&gt;
+                &lt;position_name&gt;Position 1&lt;/position_name&gt;
+                &lt;account_id&gt;139436&lt;/account_id&gt;
+                &lt;account_name&gt;FRANCISCO J&lt;/account_name&gt;
+                &lt;start_date&gt;2022-12-22&lt;/start_date&gt;
+                &lt;assignee&gt;
+                    &lt;account_id&gt;139436&lt;/account_id&gt;
+                    &lt;primary_account_id&gt;139436&lt;/primary_account_id&gt;
+                    &lt;display_name&gt;FRANCISCO J&lt;/display_name&gt;
+                    &lt;ein&gt;
+                        &lt;id&gt;430&lt;/id&gt;
+                        &lt;display_name&gt;Default&lt;/display_name&gt;
+                    &lt;/ein&gt;
+                    &lt;employee_id&gt;1954&lt;/employee_id&gt;
+                &lt;/assignee&gt;
+            &lt;/direct_reporting_assignment&gt;
+            &lt;assignment_change_reason&gt;
+                &lt;id&gt;246016&lt;/id&gt;
+                &lt;name&gt;New 123&lt;/name&gt;
+                &lt;type&gt;New Hire&lt;/type&gt;
+            &lt;/assignment_change_reason&gt;
+            &lt;attributes&gt;
+                &lt;attributes&gt;
+                    &lt;index&gt;0&lt;/index&gt;
+                    &lt;label&gt;Assignment Attribute 1&lt;/label&gt;
+                    &lt;type&gt;CHAR&lt;/type&gt;
+                &lt;/attributes&gt;
+                &lt;attributes&gt;
+                    &lt;index&gt;1&lt;/index&gt;
+                    &lt;label&gt;Assignment Attribute 2&lt;/label&gt;
+                    &lt;value&gt;
+                        &lt;account_id&gt;193872&lt;/account_id&gt;
+                        &lt;display_name&gt;TRISHA AL&lt;/display_name&gt;
+                        &lt;ein&gt;
+                            &lt;id&gt;430&lt;/id&gt;
+                            &lt;display_name&gt;Default&lt;/display_name&gt;
+                        &lt;/ein&gt;
+                    &lt;/value&gt;
+                    &lt;type&gt;ACCOUNT&lt;/type&gt;
+                &lt;/attributes&gt;
+            &lt;/attributes&gt;
+        &lt;/assignments&gt;
+    &lt;/assignments&gt;
+&lt;/AssignmentDetailsDTO&gt;</pre>
+</div>
+<div class="get-example-resp-tab-1" id="get-tab-resp-schema-1">
+
+<div class="jsonschema" id="schema-1">&lt;?xml version="1.0" encoding="utf-8"?&gt;
+&lt;xs:schema attributeFormDefault="unqualified" elementFormDefault="qualified" xmlns:xs="http://www.w3.org/2001/XMLSchema"&gt;
+  &lt;xs:element name="AssignmentDetailsDTO"&gt;
+    &lt;xs:complexType&gt;
+      &lt;xs:sequence&gt;
+        &lt;xs:element name="assignments"&gt;
+          &lt;xs:complexType&gt;
+            &lt;xs:sequence&gt;
+              &lt;xs:element maxOccurs="unbounded" name="assignments"&gt;
+                &lt;xs:complexType&gt;
+                  &lt;xs:sequence&gt;
+                    &lt;xs:element name="assignment_id" type="xs:unsignedInt" /&gt;
+                    &lt;xs:element name="assignment_number" type="xs:unsignedByte" /&gt;
+                    &lt;xs:element minOccurs="0" name="position_id" type="xs:unsignedInt" /&gt;
+                    &lt;xs:element minOccurs="0" name="position_number" type="xs:unsignedByte" /&gt;
+                    &lt;xs:element minOccurs="0" name="position_name" type="xs:string" /&gt;
+                    &lt;xs:element minOccurs="0" name="account_id" type="xs:unsignedInt" /&gt;
+                    &lt;xs:element minOccurs="0" name="account_name" type="xs:string" /&gt;
+                    &lt;xs:element name="start_date" type="xs:date" /&gt;
+                    &lt;xs:element minOccurs="0" name="end_date" type="xs:date" /&gt;
+                    &lt;xs:element name="assignee"&gt;
+                      &lt;xs:complexType&gt;
+                        &lt;xs:sequence&gt;
+                          &lt;xs:element name="account_id" type="xs:unsignedInt" /&gt;
+                          &lt;xs:element name="primary_account_id" type="xs:unsignedInt" /&gt;
+                          &lt;xs:element name="display_name" type="xs:string" /&gt;
+                          &lt;xs:element name="ein"&gt;
+                            &lt;xs:complexType&gt;
+                              &lt;xs:sequence&gt;
+                                &lt;xs:element name="id" type="xs:unsignedInt" /&gt;
+                                &lt;xs:element name="display_name" type="xs:string" /&gt;
+                              &lt;/xs:sequence&gt;
+                            &lt;/xs:complexType&gt;
+                          &lt;/xs:element&gt;
+                          &lt;xs:element name="employee_id" type="xs:string" /&gt;
+                          &lt;xs:element name="hire_date" type="xs:date" /&gt;
+                          &lt;xs:element minOccurs="0" name="seniority_date" type="xs:date" /&gt;
+                        &lt;/xs:sequence&gt;
+                      &lt;/xs:complexType&gt;
+                    &lt;/xs:element&gt;
+                    &lt;xs:element minOccurs="0" name="assigned_fte" type="xs:decimal" /&gt;
+                    &lt;xs:element minOccurs="0" name="annual_base_comp" type="xs:decimal" /&gt;
+                    &lt;xs:element minOccurs="0" name="annual_supp_comp" type="xs:decimal" /&gt;
+                    &lt;xs:element minOccurs="0" name="total_base_comp" type="xs:decimal" /&gt;
+                    &lt;xs:element minOccurs="0" name="avg_annual_budgeted_total_comp" type="xs:decimal" /&gt;
+                    &lt;xs:element minOccurs="0" name="annual_work_hours" type="xs:unsignedInt" /&gt;
+                    &lt;xs:element name="is_primary_assignment" type="xs:boolean" /&gt;
+                    &lt;xs:element name="cost_center_list"&gt;
+                      &lt;xs:complexType&gt;
+                        &lt;xs:sequence&gt;
+                          &lt;xs:element maxOccurs="unbounded" name="cost_center_list"&gt;
+                            &lt;xs:complexType&gt;
+                              &lt;xs:sequence&gt;
+                                &lt;xs:element name="id" type="xs:unsignedInt" /&gt;
+                                &lt;xs:element name="name" type="xs:string" /&gt;
+                                &lt;xs:element name="tree_index" type="xs:unsignedByte" /&gt;
+                                &lt;xs:element minOccurs="0" name="value_id" type="xs:unsignedInt" /&gt;
+                                &lt;xs:element minOccurs="0" name="value_name" type="xs:string" /&gt;
+                                &lt;xs:element name="allow_override" type="xs:boolean" /&gt;
+                              &lt;/xs:sequence&gt;
+                            &lt;/xs:complexType&gt;
+                          &lt;/xs:element&gt;
+                        &lt;/xs:sequence&gt;
+                      &lt;/xs:complexType&gt;
+                    &lt;/xs:element&gt;
+                    &lt;xs:element minOccurs="0" name="read_only" type="xs:boolean" /&gt;
+                    &lt;xs:element minOccurs="0" name="assignment_rate_schedules"&gt;
+                      &lt;xs:complexType&gt;
+                        &lt;xs:sequence&gt;
+                          &lt;xs:element name="assignment_rate_schedules"&gt;
+                            &lt;xs:complexType&gt;
+                              &lt;xs:sequence&gt;
+                                &lt;xs:element name="rate_table_selected" type="xs:boolean" /&gt;
+                                &lt;xs:element name="rate_table_name" type="xs:string" /&gt;
+                                &lt;xs:element name="rate_table_index" type="xs:unsignedByte" /&gt;
+                                &lt;xs:element name="rate_schedule_id" type="xs:unsignedInt" /&gt;
+                                &lt;xs:element name="rate_items"&gt;
+                                  &lt;xs:complexType&gt;
+                                    &lt;xs:sequence&gt;
+                                      &lt;xs:element name="rate_items"&gt;
+                                        &lt;xs:complexType&gt;
+                                          &lt;xs:sequence&gt;
+                                            &lt;xs:element name="rate_id" type="xs:unsignedInt" /&gt;
+                                            &lt;xs:element name="rate" type="xs:decimal" /&gt;
+                                            &lt;xs:element name="start_date" type="xs:date" /&gt;
+                                            &lt;xs:element name="end_date" type="xs:date" /&gt;
+                                          &lt;/xs:sequence&gt;
+                                        &lt;/xs:complexType&gt;
+                                      &lt;/xs:element&gt;
+                                    &lt;/xs:sequence&gt;
+                                  &lt;/xs:complexType&gt;
+                                &lt;/xs:element&gt;
+                              &lt;/xs:sequence&gt;
+                            &lt;/xs:complexType&gt;
+                          &lt;/xs:element&gt;
+                        &lt;/xs:sequence&gt;
+                      &lt;/xs:complexType&gt;
+                    &lt;/xs:element&gt;
+                    &lt;xs:element minOccurs="0" name="direct_reporting_assignment"&gt;
+                      &lt;xs:complexType&gt;
+                        &lt;xs:sequence&gt;
+                          &lt;xs:element name="assignment_id" type="xs:unsignedInt" /&gt;
+                          &lt;xs:element name="assignment_number" type="xs:unsignedByte" /&gt;
+                          &lt;xs:element name="position_id" type="xs:unsignedInt" /&gt;
+                          &lt;xs:element name="position_name" type="xs:string" /&gt;
+                          &lt;xs:element name="account_id" type="xs:unsignedInt" /&gt;
+                          &lt;xs:element name="account_name" type="xs:string" /&gt;
+                          &lt;xs:element name="start_date" type="xs:date" /&gt;
+                          &lt;xs:element name="assignee"&gt;
+                            &lt;xs:complexType&gt;
+                              &lt;xs:sequence&gt;
+                                &lt;xs:element name="account_id" type="xs:unsignedInt" /&gt;
+                                &lt;xs:element name="primary_account_id" type="xs:unsignedInt" /&gt;
+                                &lt;xs:element name="display_name" type="xs:string" /&gt;
+                                &lt;xs:element name="ein"&gt;
+                                  &lt;xs:complexType&gt;
+                                    &lt;xs:sequence&gt;
+                                      &lt;xs:element name="id" type="xs:unsignedShort" /&gt;
+                                      &lt;xs:element name="display_name" type="xs:string" /&gt;
+                                    &lt;/xs:sequence&gt;
+                                  &lt;/xs:complexType&gt;
+                                &lt;/xs:element&gt;
+                                &lt;xs:element name="employee_id" type="xs:unsignedShort" /&gt;
+                              &lt;/xs:sequence&gt;
+                            &lt;/xs:complexType&gt;
+                          &lt;/xs:element&gt;
+                        &lt;/xs:sequence&gt;
+                      &lt;/xs:complexType&gt;
+                    &lt;/xs:element&gt;
+                    &lt;xs:element maxOccurs="unbounded" name="assignment_change_reason"&gt;
+                      &lt;xs:complexType&gt;
+                        &lt;xs:sequence&gt;
+                          &lt;xs:element minOccurs="0" name="id" type="xs:unsignedInt" /&gt;
+                          &lt;xs:element minOccurs="0" name="name" type="xs:string" /&gt;
+                          &lt;xs:element minOccurs="0" name="type" type="xs:string" /&gt;
+                        &lt;/xs:sequence&gt;
+                      &lt;/xs:complexType&gt;
+                    &lt;/xs:element&gt;
+                    &lt;xs:element name="attributes"&gt;
+                      &lt;xs:complexType&gt;
+                        &lt;xs:sequence&gt;
+                          &lt;xs:element maxOccurs="unbounded" name="attributes"&gt;
+                            &lt;xs:complexType&gt;
+                              &lt;xs:sequence&gt;
+                                &lt;xs:element name="index" type="xs:unsignedByte" /&gt;
+                                &lt;xs:element name="label" type="xs:string" /&gt;
+                                &lt;xs:element minOccurs="0" name="value"&gt;
+                                  &lt;xs:complexType mixed="true"&gt;
+                                    &lt;xs:sequence minOccurs="0"&gt;
+                                      &lt;xs:element name="account_id" type="xs:unsignedInt" /&gt;
+                                      &lt;xs:element name="display_name" type="xs:string" /&gt;
+                                      &lt;xs:element name="ein"&gt;
+                                        &lt;xs:complexType&gt;
+                                          &lt;xs:sequence&gt;
+                                            &lt;xs:element name="id" type="xs:unsignedShort" /&gt;
+                                            &lt;xs:element name="display_name" type="xs:string" /&gt;
+                                          &lt;/xs:sequence&gt;
+                                        &lt;/xs:complexType&gt;
+                                      &lt;/xs:element&gt;
+                                    &lt;/xs:sequence&gt;
+                                  &lt;/xs:complexType&gt;
+                                &lt;/xs:element&gt;
+                                &lt;xs:element maxOccurs="unbounded" name="type" type="xs:string" /&gt;
+                              &lt;/xs:sequence&gt;
+                            &lt;/xs:complexType&gt;
+                          &lt;/xs:element&gt;
+                        &lt;/xs:sequence&gt;
+                      &lt;/xs:complexType&gt;
+                    &lt;/xs:element&gt;
+                  &lt;/xs:sequence&gt;
+                &lt;/xs:complexType&gt;
+              &lt;/xs:element&gt;
+            &lt;/xs:sequence&gt;
+          &lt;/xs:complexType&gt;
+        &lt;/xs:element&gt;
+      &lt;/xs:sequence&gt;
+    &lt;/xs:complexType&gt;
+  &lt;/xs:element&gt;
+&lt;/xs:schema&gt;</div>
+</div>
+</div>
+</div>
+</div>
+</article>
+</section>
+</div>
+</body></html>

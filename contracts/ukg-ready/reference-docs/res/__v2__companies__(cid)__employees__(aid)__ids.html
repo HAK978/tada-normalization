@@ -1,0 +1,564 @@
+<!doctype html>
+<html><head><meta charset="utf-8"><title>Employee Documents</title><style>body{font:16px system-ui;max-width:1100px;margin:2rem auto;padding:0 1rem;line-height:1.5}aside{background:#fff3cc;padding:1rem}.jsonschema,pre{white-space:pre-wrap;font:13px monospace;overflow-wrap:anywhere;background:#f4f5f7;padding:1rem}.uri{font-family:monospace}h2,h3{margin-top:2rem}</style></head><body><aside><strong>Modified private reference — 2026-10-09.</strong> Provider-documented illustrative examples are included; authentication token examples are redacted. These are not customer exports or guaranteed production behavior. Candidate sharing is pending. This is not OpenAPI.</aside>
+<div class="group">
+<h2 class="anchored" id="item.anchor">
+<span>Employee Documents</span>
+<a class="fa fa-link link-anchor" data-url="r=__v2__companies__(cid)__employees__(aid)__ids#" data-web-id="__v2__companies__(cid)__employees__(aid)__ids"></a>
+</h2>
+<p class="md">Get documents for an employee.</p>
+<section class="clearfix">
+<article class="definition">
+<h3 class="anchored" id="get"><span>GET</span>
+<a class="fa fa-link link-anchor" data-url="r=__v2__companies__(cid)__employees__(aid)__ids#get" data-web-id="__v2__companies__(cid)__employees__(aid)__ids"></a>
+</h3>
+<div class="md"><p>Endpoint for receiving list of uploaded documents for an employee.
+Each object represents a metadata of a single uploaded file.
+Basically there are two types of documents - global documents and attached documents.
+
+- Attached document has a reference to a specific resource in the system. E.g. timesheet documents. When user attaches document to his timesheet, that document maintains relationship with the timesheet.
+- Global document is a document uploaded by a system administrator that do not have any reference, but can be browsed by users through a common place (e.g. Tax Documents, Company Documents).
+
+Each returned document contains a links to its content. Link has a short expiration time.
+Response may contains one of the following links:
+
+- `content_r` - link provides read-only access
+- `content_rw` - link provides read-write access
+- `content_w` - link provides write-only access
+
+Please refer to [this](#File_Upload_Download) section to get information about file content upload process.
+
+Functionality is available for companies with "Integrated Document Storage" marketplace product.
+</p></div>
+<div>
+<ul class="annotation-list">
+<li class="annotation">
+<span>v2</span>
+</li>
+</ul>
+</div>
+<h4>Parameters</h4>
+<h5>Path Parameters</h5>
+<ul class="param-list">
+<li>
+<div class="param-desc">
+<div class="param-name">cid</div>
+<div class="data-type">string</div>
+<div class="required">required</div>
+</div>
+<div class="param-content">
+<div>
+<p>Example: 123456</p>
+<div class="desc md">Company should be referenced via company id or company unique id or company short name using `|short_name` or `!short_name` format.
+</div>
+</div>
+</div>
+
+</li>
+<li>
+<div class="param-desc">
+<div class="param-name">aid</div>
+<div class="data-type">string</div>
+<div class="required">required</div>
+</div>
+<div class="param-content">
+<div>
+<p>Example: 1234567</p>
+<div class="desc md">Account should be referenced via account id or account external id using `|external_id` or `!external_id` format.
+</div>
+</div>
+</div>
+
+</li>
+</ul>
+<h5>Query Parameters</h5>
+<ul class="param-list">
+<li>
+<div class="param-desc">
+<div class="param-name">types</div>
+<div class="data-type">string</div>
+</div>
+<div class="param-content">
+<div>
+<p>Valid values: TIMESHEET_DOCUMENT, TIME_OFF_DOCUMENT_V2, HR_EMPLOYEE_DOCUMENT, HR_APPLICANT_RESUME, BENEFIT_REQUEST_DOCUMENT, ACCOUNT_DIRECT_DEPOSIT, HR_ACTION_REQUEST_DOC_UPLOAD, HR_ACCOUNT_CHECK_LIST, HR_CHECK_LIST_ITEM, CUSTOM_FORM, DISCIPLINE_INCIDENT, LEAVE_OF_ABSENCE_CASE, LEAVE_OF_ABSENCE_REQUEST</p>
+<div class="desc md">Types of uploaded documents. If not specified, all types accessible to an employee. Comma separated string for multiple types.
+</div>
+</div>
+</div>
+
+</li>
+<li>
+<div class="param-desc">
+<div class="param-name">created_from</div>
+<div class="data-type">date-only</div>
+</div>
+<div class="param-content">
+<div>
+<p>Example: 2022-06-18</p>
+<div class="desc md">Start date of searching period on document creation date
+</div>
+</div>
+</div>
+
+</li>
+<li>
+<div class="param-desc">
+<div class="param-name">created_to</div>
+<div class="data-type">date-only</div>
+</div>
+<div class="param-content">
+<div>
+<p>Example: 2022-06-28</p>
+<div class="desc md">End date of searching period on document creation date.
+</div>
+</div>
+</div>
+
+</li>
+<li>
+<div class="param-desc">
+<div class="param-name">sort</div>
+<div class="data-type">string</div>
+</div>
+<div class="param-content">
+<div>
+<p>Example: sort=display_name,-created_at</p>
+<div class="desc md">For sorting documents. Comma separated string of fields below with + (optional) for ascending order
+and - for descending order.&lt;br/&gt;&lt;br/&gt;
+
+- id: document Id&lt;br/&gt;
+- type: type of uploaded document&lt;br/&gt;
+- display_name: display name&lt;br/&gt;
+- document_type: company defined document type&lt;br/&gt;
+- file_name: file name&lt;br/&gt;
+- file_date: last uploaded date&lt;br/&gt;
+- file_size: file size&lt;br/&gt;
+- created_at: document creation date&lt;br/&gt;
+- created_by: last name of document creator&lt;br/&gt;
+</div>
+</div>
+</div>
+
+</li>
+</ul>
+<h5>Header Parameters</h5>
+<ul class="param-list">
+<li>
+<div class="param-desc">
+<div class="param-name">Accept</div>
+<div class="data-type">string</div>
+</div>
+<div class="param-content">
+<div>
+<p>Valid values: application/json, application/xml, text/xml</p>
+<p>Default: application/json</p>
+<p>Example: application/json</p>
+</div>
+</div>
+
+</li>
+</ul>
+<h4>Responses</h4>
+<div class="responses">
+<div>
+<label class="response response-success">
+<span class="fa fa-check"></span>
+<input data-full-tab-id="get-resp-code-tab-id-0" data-tab-class="resp-code-tab-get" name="resp-code-tab-get" type="radio"/>
+<span class="status">200 Ok</span>
+</label>
+<div class="response-desc resp-code-tab-get" id="get-resp-code-tab-id-0">
+</div>
+</div>
+<div>
+<label class="response response-error">
+<span class="fa fa-times"></span>
+<input data-full-tab-id="get-resp-code-tab-id-1" data-tab-class="resp-code-tab-get" name="resp-code-tab-get" type="radio"/>
+<span class="status">400 Bad Request</span>
+</label>
+<div class="response-desc resp-code-tab-get" id="get-resp-code-tab-id-1">
+<div class="md"><p>If date range is not valid or there are no any handlers for specified type.
+</p></div>
+</div>
+</div>
+<div>
+<label class="response response-error">
+<span class="fa fa-times"></span>
+<input data-full-tab-id="get-resp-code-tab-id-2" data-tab-class="resp-code-tab-get" name="resp-code-tab-get" type="radio"/>
+<span class="status">403 Forbidden</span>
+</label>
+<div class="response-desc resp-code-tab-get" id="get-resp-code-tab-id-2">
+<div class="md"><p>If there is any security violation.
+</p></div>
+</div>
+</div>
+<div>
+<label class="response response-error">
+<span class="fa fa-times"></span>
+<input data-full-tab-id="get-resp-code-tab-id-3" data-tab-class="resp-code-tab-get" name="resp-code-tab-get" type="radio"/>
+<span class="status">404 Not Found</span>
+</label>
+<div class="response-desc resp-code-tab-get" id="get-resp-code-tab-id-3">
+<div class="md"><p>If company or employee is not found.
+</p></div>
+</div>
+</div>
+<div>
+<label class="response response-error">
+<span class="fa fa-times"></span>
+<input data-full-tab-id="get-resp-code-tab-id-4" data-tab-class="resp-code-tab-get" name="resp-code-tab-get" type="radio"/>
+<span class="status">401 Unauthorized</span>
+</label>
+<div class="response-desc resp-code-tab-get" id="get-resp-code-tab-id-4">
+<div class="md"><p>Returned in case user is not authorized.</p></div>
+</div>
+</div>
+<div>
+<label class="response response-error">
+<span class="fa fa-times"></span>
+<input data-full-tab-id="get-resp-code-tab-id-5" data-tab-class="resp-code-tab-get" name="resp-code-tab-get" type="radio"/>
+<span class="status">503 Service Unavailable</span>
+</label>
+<div class="response-desc resp-code-tab-get" id="get-resp-code-tab-id-5">
+<div class="md"><p>Returned in the event that the call limit is exceeded. The application will be unavailable for subsequent calls for the duration specified by the X-CallLimit-TimeToWait header.</p></div>
+</div>
+</div>
+</div>
+</article>
+<article class="code">
+<h4>Definition</h4>
+<div class="uri">
+<code>
+<span class="method get">get</span>
+<span class="textUri"><span class="baseUri">{{ getUriPrefix() }}</span><span class="relativeUri">/v2/companies/{cid}/employees/{aid}/ids</span></span>
+</code>
+</div>
+<h4>Response Samples</h4>
+<div class="tab-title-group">
+<label>
+<input checked="checked" data-full-tab-id="resp-tab-id-get-0" data-tab-class="resp-tab-get" name="resp-tab-get" type="radio"/>
+<span class="tab-title">application/json</span>
+</label>
+<label>
+<input data-full-tab-id="resp-tab-id-get-1" data-tab-class="resp-tab-get" name="resp-tab-get" type="radio"/>
+<span class="tab-title">application/xml</span>
+</label>
+</div>
+<div>
+<div class="resp-tab-get" id="resp-tab-id-get-0">
+<div class="example">
+
+<div class="get-example-resp-tab-0 activeTab" id="get-tab-resp-example-0">
+
+<pre class="highlightjs">{
+  "documents": [
+    {
+      "id": 15105,
+      "type": "TIMESHEET_DOCUMENT",
+      "file_name": "example_doc.xlsx",
+      "file_size": 68711,
+      "display_name": "example_doc.xlsx",
+      "file_date": "2017-02-07",
+      "linked_id": "30025026",
+      "attributes": {
+        "employee_viewable": true
+      },
+      "created_by": {
+        "account_id": 2201923,
+        "display_name": "John Smith"
+      },
+      "created_at": "2017-02-12T16:03:00Z",
+      "_links": {
+        "content_r": "http://hostname/ta/fs?ticket=[REDACTED_DOCUMENTATION_TOKEN]",
+        "delete": "http://hostname/ta/rest/v2/companies/453569/ids/15105"
+      }
+    },
+    {
+      "id": 15425,
+      "type": "HR_EMPLOYEE_DOCUMENT",
+      "file_name": "FormI9.pdf",
+      "display_name": "Form I9 (2)",
+      "file_date": "2017-04-19",
+      "file_size": 0,
+      "document_type": {
+        "id": 9665,
+        "display_name": "Employee Forms"
+      },
+      "linked_id": "2206082",
+      "description": "This is another Form I9 document",
+      "created_by": {
+        "account_id": 2206082,
+        "display_name": "Vicky Williams"
+      },
+      "created_at": "2017-04-19T07:06:00.000-04:00",
+      "_links": {
+        "content_rw": "http://hostname/ta/fs?ticket=[REDACTED_DOCUMENTATION_TOKEN]",
+        "delete": "http://hostname/ta/rest/v2/companies/458945/ids/15425"
+      }
+    }
+  ]
+}</pre>
+</div>
+<div class="get-example-resp-tab-0" id="get-tab-resp-schema-0">
+
+<div class="jsonschema" id="schema-0">{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "type": "object",
+  "properties": {
+    "documents": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer"
+          },
+          "type": {
+            "type": "string",
+            "enum": [
+              "TIMESHEET_DOCUMENT",
+              "HR_EMPLOYEE_DOCUMENT",
+              "HR_APPLICANT_RESUME",
+              "BENEFIT_REQUEST_DOCUMENT",
+              "ACCOUNT_DIRECT_DEPOSIT",
+              "HR_ACTION_REQUEST_DOC_UPLOAD",
+              "DISCIPLINE_INCIDENT",
+              "TERMINATION_DETAIL",
+              "TIME_OFF_DOCUMENT_V2",
+              "LEAVE_OF_ABSENCE_CASE",
+              "LEAVE_OF_ABSENCE_REQUEST"
+            ]
+          },
+          "file_name": {
+            "type": "string"
+          },
+          "display_name": {
+            "type": "string"
+          },
+          "file_date": {
+            "type": "string",
+            "description": "Date needs to be in the format yyyy-mm-dd within the 1900-12-31 and 2079-06-05 date range"
+          },
+          "file_size": {
+            "type": "integer",
+            "description": "File size in bytes."
+          },
+          "document_type": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "integer"
+              },
+              "display_name": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "id"
+            ]
+          },
+          "linked_id": {
+            "type": "string",
+            "description": "Reference to an object. Required for all attached documents."
+          },
+          "attributes": {
+            "type": "object",
+            "properties": {
+              "ex_info_3": {
+                "type": "string"
+              },
+              "category": {
+                "type": "string"
+              },
+              "ex_info_1": {
+                "type": "string"
+              },
+              "ex_info_2": {
+                "type": "string"
+              },
+              "directory": {
+                "type": "string"
+              },
+              "employee_viewable": {
+                "type": "boolean"
+              },
+              "change_request_plan_id": {
+                "type": "integer"
+              }
+            }
+          },
+          "created_by": {
+            "type": "object",
+            "properties": {
+              "account_id": {
+                "type": "number",
+                "format": "long"
+              },
+              "display_name": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "account_id",
+              "display_name"
+            ]
+          },
+          "created_at": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "_links": {
+            "type": "object",
+            "properties": {
+              "content_rw": {
+                "type": "string",
+                "description": "Provides read-write access"
+              },
+              "content_r": {
+                "type": "string",
+                "description": "Provides read-only access"
+              },
+              "content_w": {
+                "type": "string",
+                "description": "Provides write-only access"
+              },
+              "delete": {
+                "type": "string",
+                "description": "Presents in case user can delete this document."
+              }
+            }
+          }
+        },
+        "required": [
+          "id",
+          "type",
+          "file_name",
+          "display_name",
+          "created_by",
+          "created_at",
+          "_links"
+        ]
+      }
+    },
+    "_links": {
+      "type": "object",
+      "properties": {
+        "create": {
+          "type": "string"
+        }
+      }
+    }
+  },
+  "required": [
+    "documents"
+  ]
+}</div>
+</div>
+</div>
+</div>
+<div class="resp-tab-get" id="resp-tab-id-get-1">
+<div class="example">
+
+<div class="get-example-resp-tab-1 activeTab" id="get-tab-resp-example-1">
+
+<pre class="highlightjs">&lt;?xml version='1.0' encoding='UTF-8'?&gt;
+&lt;documents&gt;
+    &lt;document&gt;
+        &lt;id&gt;15425&lt;/id&gt;
+        &lt;type&gt;HR_EMPLOYEE_DOCUMENT&lt;/type&gt;
+        &lt;file_name&gt;FormI9.pdf&lt;/file_name&gt;
+        &lt;display_name&gt;Form I9 (2)&lt;/display_name&gt;
+        &lt;file_date&gt;2017-04-19&lt;/file_date&gt;
+        &lt;file_size&gt;0&lt;/file_size&gt;
+        &lt;document_type&gt;
+            &lt;id&gt;9665&lt;/id&gt;
+            &lt;display_name&gt;Employee Forms&lt;/display_name&gt;
+        &lt;/document_type&gt;
+        &lt;linked_id&gt;2206082&lt;/linked_id&gt;
+        &lt;description&gt;This is another Form I9 document&lt;/description&gt;
+        &lt;created_by&gt;
+            &lt;account_id&gt;2206082&lt;/account_id&gt;
+            &lt;display_name&gt;Vicky Williams&lt;/display_name&gt;
+        &lt;/created_by&gt;
+        &lt;created_at&gt;2017-04-19T07:06:00.000-04:00&lt;/created_at&gt;
+        &lt;_links&gt;
+            &lt;content_rw&gt;http://localhost:8080/ta/fs?ticket=[REDACTED_DOCUMENTATION_TOKEN]&lt;/content_rw&gt;
+            &lt;delete&gt;http://localhost:8080/ta/rest/v2/companies/458945/ids/15425&lt;/delete&gt;
+        &lt;/_links&gt;
+    &lt;/document&gt;
+&lt;/documents&gt;
+</pre>
+</div>
+<div class="get-example-resp-tab-1" id="get-tab-resp-schema-1">
+
+<div class="jsonschema" id="schema-1">&lt;xs:schema attributeFormDefault="unqualified" elementFormDefault="qualified"
+           xmlns:xs="http://www.w3.org/2001/XMLSchema"&gt;
+  &lt;xs:element name="documents"&gt;
+    &lt;xs:complexType&gt;
+      &lt;xs:sequence&gt;
+        &lt;xs:element name="document" minOccurs="0" maxOccurs="unbounded"&gt;
+          &lt;xs:complexType&gt;
+            &lt;xs:choice maxOccurs="unbounded" minOccurs="0"&gt;
+              &lt;xs:element type="xs:short" name="id"/&gt;
+              &lt;xs:element type="xs:string" name="type"/&gt;
+              &lt;xs:element type="xs:string" name="file_name"/&gt;
+              &lt;xs:element type="xs:string" name="display_name"/&gt;
+              &lt;xs:element type="xs:date" name="file_date"/&gt;
+              &lt;xs:element type="xs:long" name="file_size"/&gt;
+              &lt;xs:element type="xs:string" name="category" minOccurs="0"/&gt;
+              &lt;xs:element name="document_type" minOccurs="0"&gt;
+                &lt;xs:complexType&gt;
+                  &lt;xs:all&gt;
+                    &lt;xs:element type="xs:short" name="id"/&gt;
+                    &lt;xs:element type="xs:string" name="display_name"/&gt;
+                  &lt;/xs:all&gt;
+                &lt;/xs:complexType&gt;
+              &lt;/xs:element&gt;
+              &lt;xs:element type="xs:string" name="description" minOccurs="0"/&gt;
+              &lt;xs:element type="xs:string" name="linked_id" minOccurs="0"/&gt;
+              &lt;xs:element name="attributes" minOccurs="0"&gt;
+                &lt;xs:complexType&gt;
+                  &lt;xs:all&gt;
+                    &lt;xs:element type="xs:string" name="ex_info_3" minOccurs="0"/&gt;
+                    &lt;xs:element type="xs:string" name="category" minOccurs="0"/&gt;
+                    &lt;xs:element type="xs:string" name="ex_info_1" minOccurs="0"/&gt;
+                    &lt;xs:element type="xs:string" name="ex_info_2" minOccurs="0"/&gt;
+                    &lt;xs:element type="xs:string" name="directory"/&gt;
+                    &lt;xs:element type="xs:string" name="employee_viewable" minOccurs="0"/&gt;
+                    &lt;xs:element type="xs:long"   name="change_request_plan_id" minOccurs="0"/&gt;
+                  &lt;/xs:all&gt;
+                &lt;/xs:complexType&gt;
+              &lt;/xs:element&gt;
+              &lt;xs:element name="_links"&gt;
+                &lt;xs:complexType&gt;
+                  &lt;xs:all&gt;
+                    &lt;xs:element type="xs:string" name="content_rw" minOccurs="0"/&gt;
+                    &lt;xs:element type="xs:string" name="content_r" minOccurs="0"/&gt;
+                    &lt;xs:element type="xs:string" name="content_w" minOccurs="0"/&gt;
+                    &lt;xs:element type="xs:string" name="delete" minOccurs="0"/&gt;
+                  &lt;/xs:all&gt;
+                &lt;/xs:complexType&gt;
+              &lt;/xs:element&gt;
+              &lt;xs:element name="created_at" type="xs:dateTime"/&gt;
+              &lt;xs:element name="created_by" type="accountRef"/&gt;
+            &lt;/xs:choice&gt;
+          &lt;/xs:complexType&gt;
+        &lt;/xs:element&gt;
+      &lt;/xs:sequence&gt;
+    &lt;/xs:complexType&gt;
+  &lt;/xs:element&gt;
+
+  &lt;xs:complexType name="accountRef"&gt;
+    &lt;xs:all&gt;
+      &lt;xs:element name="account_id" type="xs:long"/&gt;
+      &lt;xs:element name="display_name" type="xs:string"/&gt;
+    &lt;/xs:all&gt;
+  &lt;/xs:complexType&gt;
+&lt;/xs:schema&gt;
+</div>
+</div>
+</div>
+</div>
+</div>
+</article>
+</section>
+</div>
+</body></html>

@@ -1,0 +1,1376 @@
+<!doctype html>
+<html><head><meta charset="utf-8"><title>Requests</title><style>body{font:16px system-ui;max-width:1100px;margin:2rem auto;padding:0 1rem;line-height:1.5}aside{background:#fff3cc;padding:1rem}.jsonschema,pre{white-space:pre-wrap;font:13px monospace;overflow-wrap:anywhere;background:#f4f5f7;padding:1rem}.uri{font-family:monospace}h2,h3{margin-top:2rem}</style></head><body><aside><strong>Modified private reference — 2026-10-09.</strong> Provider-documented illustrative examples are included; authentication token examples are redacted. These are not customer exports or guaranteed production behavior. Candidate sharing is pending. This is not OpenAPI.</aside>
+<div class="group">
+<h2 class="anchored" id="item.anchor">
+<span>Requests</span>
+<a class="fa fa-link link-anchor" data-url="r=__v2__companies__(cid)__loa__requests#" data-web-id="__v2__companies__(cid)__loa__requests"></a>
+</h2>
+<section class="clearfix">
+<article class="definition">
+<h3 class="anchored" id="get"><span>GET</span>
+<a class="fa fa-link link-anchor" data-url="r=__v2__companies__(cid)__loa__requests#get" data-web-id="__v2__companies__(cid)__loa__requests"></a>
+</h3>
+<div class="md"><p>Returns leave of absence requests for all subordinates. Each item contains a reference to detailed resource.</p></div>
+<div>
+<ul class="annotation-list">
+<li class="annotation">
+<span>v2</span>
+</li>
+</ul>
+</div>
+<h4>Parameters</h4>
+<h5>Path Parameters</h5>
+<ul class="param-list">
+<li>
+<div class="param-desc">
+<div class="param-name">cid</div>
+<div class="data-type">string</div>
+<div class="required">required</div>
+</div>
+<div class="param-content">
+<div>
+<p>Example: 123456</p>
+<div class="desc md">Company should be referenced via company id or company unique id or company short name using `|short_name` or `!short_name` format.
+</div>
+</div>
+</div>
+
+</li>
+</ul>
+<h5>Query Parameters</h5>
+<ul class="param-list">
+<li>
+<div class="param-desc">
+<div class="param-name">date_from</div>
+<div class="data-type">date-only</div>
+<div class="required">required</div>
+</div>
+<div class="param-content">
+<div>
+<p>Example: 2017-01-01</p>
+<div class="desc md">Lower bound of a date range for requests.</div>
+</div>
+</div>
+
+</li>
+<li>
+<div class="param-desc">
+<div class="param-name">date_to</div>
+<div class="data-type">date-only</div>
+<div class="required">required</div>
+</div>
+<div class="param-content">
+<div>
+<p>Example: 2017-01-31</p>
+<div class="desc md">Upper bound of a date range for requests.</div>
+</div>
+</div>
+
+</li>
+<li>
+<div class="param-desc">
+<div class="param-name">state</div>
+<div class="data-type">string</div>
+</div>
+<div class="param-content">
+<div>
+<p>Valid values: NEW, APPROVED, REJECTED, DELETED</p>
+<p>Example: NEW</p>
+<div class="desc md">State of the request.</div>
+</div>
+</div>
+
+</li>
+</ul>
+<h5>Header Parameters</h5>
+<ul class="param-list">
+<li>
+<div class="param-desc">
+<div class="param-name">Accept</div>
+<div class="data-type">string</div>
+</div>
+<div class="param-content">
+<div>
+<p>Valid values: application/json, application/xml, text/xml</p>
+<p>Default: application/json</p>
+<p>Example: application/json</p>
+</div>
+</div>
+
+</li>
+</ul>
+<h4>Responses</h4>
+<div class="responses">
+<div>
+<label class="response response-success">
+<span class="fa fa-check"></span>
+<input data-full-tab-id="get-resp-code-tab-id-0" data-tab-class="resp-code-tab-get" name="resp-code-tab-get" type="radio"/>
+<span class="status">200 Ok</span>
+</label>
+<div class="response-desc resp-code-tab-get" id="get-resp-code-tab-id-0">
+</div>
+</div>
+<div>
+<label class="response response-error">
+<span class="fa fa-times"></span>
+<input data-full-tab-id="get-resp-code-tab-id-1" data-tab-class="resp-code-tab-get" name="resp-code-tab-get" type="radio"/>
+<span class="status">401 Unauthorized</span>
+</label>
+<div class="response-desc resp-code-tab-get" id="get-resp-code-tab-id-1">
+<div class="md"><p>Returned in case user is not authorized.</p></div>
+</div>
+</div>
+<div>
+<label class="response response-error">
+<span class="fa fa-times"></span>
+<input data-full-tab-id="get-resp-code-tab-id-2" data-tab-class="resp-code-tab-get" name="resp-code-tab-get" type="radio"/>
+<span class="status">403 Forbidden</span>
+</label>
+<div class="response-desc resp-code-tab-get" id="get-resp-code-tab-id-2">
+<div class="md"><p>Returned in case user has no access to the resource.</p></div>
+</div>
+</div>
+<div>
+<label class="response response-error">
+<span class="fa fa-times"></span>
+<input data-full-tab-id="get-resp-code-tab-id-3" data-tab-class="resp-code-tab-get" name="resp-code-tab-get" type="radio"/>
+<span class="status">503 Service Unavailable</span>
+</label>
+<div class="response-desc resp-code-tab-get" id="get-resp-code-tab-id-3">
+<div class="md"><p>Returned in the event that the call limit is exceeded. The application will be unavailable for subsequent calls for the duration specified by the X-CallLimit-TimeToWait header.</p></div>
+</div>
+</div>
+</div>
+</article>
+<article class="code">
+<h4>Definition</h4>
+<div class="uri">
+<code>
+<span class="method get">get</span>
+<span class="textUri"><span class="baseUri">{{ getUriPrefix() }}</span><span class="relativeUri">/v2/companies/{cid}/loa/requests</span></span>
+</code>
+</div>
+<h4>Response Samples</h4>
+<div class="tab-title-group">
+<label>
+<input checked="checked" data-full-tab-id="resp-tab-id-get-0" data-tab-class="resp-tab-get" name="resp-tab-get" type="radio"/>
+<span class="tab-title">application/json</span>
+</label>
+<label>
+<input data-full-tab-id="resp-tab-id-get-1" data-tab-class="resp-tab-get" name="resp-tab-get" type="radio"/>
+<span class="tab-title">application/xml</span>
+</label>
+</div>
+<div>
+<div class="resp-tab-get" id="resp-tab-id-get-0">
+<div class="example">
+
+<div class="get-example-resp-tab-0 activeTab" id="get-tab-resp-example-0">
+
+<pre class="highlightjs">{
+  "loa_requests": [
+    {
+      "employee": {
+        "account_id": 2201859
+      },
+      "reason": {
+        "id": 66304,
+        "name": "Personal Reason"
+      },
+      "start_date": "2016-12-08",
+      "est_end_date": "2016-12-09",
+      "leave_time": {
+        "type": "CONTINUOUS"
+      },
+      "id": 16640,
+      "state": "NEW",
+      "created_at": "2016-12-08T15:08:00.000Z",
+      "notes_count": 1,
+      "_attachments_count": 1,
+      "_links": {
+        "self": "https://secure2.saashr.com/ta/rest/v2/companies/453121/loa/requests/16640",
+        "notes": "https://secure2.saashr.com/ta/rest/v2/companies/453121/loa/requests/16640/notes",
+        "delete": "https://secure2.saashr.com/ta/rest/v2/companies/453121/loa/requests/16640"
+      }
+    },
+    {
+      "employee": {
+        "account_id": 2201859
+      },
+      "reason": {
+        "id": 66048,
+        "name": "Undefined"
+      },
+      "start_date": "2016-12-08",
+      "est_end_date": "2016-12-09",
+      "leave_time": {
+        "type": "INTERMITTENT"
+      },
+      "id": 33024,
+      "state": "APPROVED",
+      "approved_by": {
+        "account_id": 2201923,
+        "display_name": "John Smith"
+      },
+      "approved_at": "2016-12-09T00:00:00.000Z",
+      "created_at": "2016-12-08T20:10:00.000Z",
+      "notes_count": 1,
+      "_links": {
+        "self": "https://secure2.saashr.com/ta/rest/v2/companies/453121/loa/requests/33024",
+        "notes": "https://secure2.saashr.com/ta/rest/v2/companies/453121/loa/requests/33024/notes",
+        "delete": "https://secure2.saashr.com/ta/rest/v2/companies/453121/loa/requests/33024"
+      }
+    }
+  ]
+}</pre>
+</div>
+<div class="get-example-resp-tab-0" id="get-tab-resp-schema-0">
+
+<div class="jsonschema" id="schema-0">{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "type": "object",
+  "properties": {
+    "loa_requests": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer"
+          },
+          "state": {
+            "type": "string",
+            "enum": [
+              "NEW",
+              "APPROVED",
+              "REJECTED",
+              "DELETED"
+            ]
+          },
+          "employee": {
+            "type": "object",
+            "properties": {
+              "account_id": {
+                "type": "number",
+                "format": "long"
+              }
+            },
+            "required": [
+              "account_id"
+            ]
+          },
+          "reason": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "integer"
+              }
+            },
+            "required": [
+              "id"
+            ]
+          },
+          "start_date": {
+            "type": "string",
+            "description": "Date needs to be in the format yyyy-mm-dd within the 1900-12-31 and 2079-06-05 date range"
+          },
+          "est_end_date": {
+            "type": "string",
+            "description": "Date needs to be in the format yyyy-mm-dd within the 1900-12-31 and 2079-06-05 date range"
+          },
+          "leave_time": {
+            "type": "object",
+            "properties": {
+              "type": {
+                "type": "string",
+                "enum": [
+                  "CONTINUOUS",
+                  "INTERMITTENT",
+                  "INTERMITTENT_WEEKDAYS"
+                ]
+              }
+            },
+            "required": [
+              "type"
+            ]
+          },
+          "comment": {
+            "type": "string"
+          },
+          "approved_by": {
+            "type": "object",
+            "properties": {
+              "account_id": {
+                "type": "number",
+                "format": "long"
+              },
+              "display_name": {
+                "type": "string"
+              }
+            },
+            "additionalProperties": false,
+            "required": [
+              "account_id",
+              "display_name"
+            ]
+          },
+          "approved_at": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "rejected_by": {
+            "type": "object",
+            "properties": {
+              "account_id": {
+                "type": "number",
+                "format": "long"
+              },
+              "display_name": {
+                "type": "string"
+              }
+            },
+            "additionalProperties": false,
+            "required": [
+              "account_id",
+              "display_name"
+            ]
+          },
+          "rejected_at": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "created_at": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "notes_count": {
+            "type": "integer"
+          },
+          "_attachments_count": {
+            "type": "integer"
+          },
+          "_links": {
+            "type": "object",
+            "properties": {
+              "self": {
+                "type": "string"
+              },
+              "notes": {
+                "type": "string"
+              },
+              "delete": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "self",
+              "notes"
+            ]
+          }
+        },
+        "additionalProperties": false,
+        "required": [
+          "id",
+          "state",
+          "employee",
+          "reason",
+          "start_date",
+          "est_end_date",
+          "leave_time",
+          "created_at",
+          "_links"
+        ]
+      }
+    }
+  },
+  "additionalProperties": false,
+  "required": [
+    "loa_requests"
+  ]
+}</div>
+</div>
+</div>
+</div>
+<div class="resp-tab-get" id="resp-tab-id-get-1">
+<div class="example">
+
+<div class="get-example-resp-tab-1 activeTab" id="get-tab-resp-example-1">
+
+<pre class="highlightjs">&lt;?xml version='1.0' encoding='UTF-8'?&gt;
+&lt;loa_requests&gt;
+  &lt;loa_request&gt;
+    &lt;id&gt;16640&lt;/id&gt;
+    &lt;employee&gt;
+      &lt;account_id&gt;2201859&lt;/account_id&gt;
+    &lt;/employee&gt;
+    &lt;reason&gt;
+      &lt;id&gt;66304&lt;/id&gt;
+      &lt;name&gt;Personal Reason&lt;/name&gt;
+    &lt;/reason&gt;
+    &lt;start_date&gt;2016-12-08&lt;/start_date&gt;
+    &lt;est_end_date&gt;2016-12-09&lt;/est_end_date&gt;
+    &lt;leave_time&gt;
+      &lt;type&gt;CONTINUOUS&lt;/type&gt;
+    &lt;/leave_time&gt;
+    &lt;state&gt;NEW&lt;/state&gt;
+    &lt;created_at&gt;2016-12-08T15:08:00.000Z&lt;/created_at&gt;
+    &lt;notes_count&gt;1&lt;/notes_count&gt;
+    &lt;_attachments_count&gt;3&lt;/_attachments_count&gt;
+    &lt;_links&gt;
+      &lt;self&gt;https://secure2.saashr.com/ta/rest/v2/companies/453121/loa/requests/16640&lt;/self&gt;
+      &lt;notes&gt;https://secure2.saashr.com/ta/rest/v2/companies/453121/loa/requests/16640/notes&lt;/notes&gt;
+      &lt;delete&gt;https://secure2.saashr.com/ta/rest/v2/companies/453121/loa/requests/16640&lt;/delete&gt;
+    &lt;/_links&gt;
+  &lt;/loa_request&gt;
+  &lt;loa_request&gt;
+    &lt;id&gt;33024&lt;/id&gt;
+    &lt;employee&gt;
+      &lt;account_id&gt;2201859&lt;/account_id&gt;
+    &lt;/employee&gt;
+    &lt;reason&gt;
+      &lt;id&gt;66048&lt;/id&gt;
+      &lt;name&gt;Undefined&lt;/name&gt;
+    &lt;/reason&gt;
+    &lt;start_date&gt;2016-12-08&lt;/start_date&gt;
+    &lt;est_end_date&gt;2016-12-09&lt;/est_end_date&gt;
+    &lt;leave_time&gt;
+      &lt;type&gt;INTERMITTENT&lt;/type&gt;
+    &lt;/leave_time&gt;
+    &lt;state&gt;APPROVED&lt;/state&gt;
+    &lt;approved_by&gt;
+      &lt;account_id&gt;2201923&lt;/account_id&gt;
+      &lt;display_name&gt;John Smith&lt;/display_name&gt;
+    &lt;/approved_by&gt;
+    &lt;approved_at&gt;2016-12-09T00:00:00.000Z&lt;/approved_at&gt;
+    &lt;created_at&gt;2016-12-08T20:10:00.000Z&lt;/created_at&gt;
+    &lt;notes_count&gt;1&lt;/notes_count&gt;
+    &lt;_attachments_count&gt;3&lt;/_attachments_count&gt;
+    &lt;_links&gt;
+      &lt;self&gt;https://secure2.saashr.com/ta/rest/v2/companies/453121/loa/requests/33024&lt;/self&gt;
+      &lt;notes&gt;https://secure2.saashr.com/ta/rest/v2/companies/453121/loa/requests/33024/notes&lt;/notes&gt;
+      &lt;delete&gt;https://secure2.saashr.com/ta/rest/v2/companies/453121/loa/requests/33024&lt;/delete&gt;
+    &lt;/_links&gt;
+  &lt;/loa_request&gt;
+&lt;/loa_requests&gt;</pre>
+</div>
+<div class="get-example-resp-tab-1" id="get-tab-resp-schema-1">
+
+<div class="jsonschema" id="schema-1">&lt;?xml version='1.0' encoding='UTF-8'?&gt;
+&lt;xs:schema attributeFormDefault="unqualified" elementFormDefault="qualified"
+           xmlns:xs="http://www.w3.org/2001/XMLSchema"&gt;
+
+  &lt;xs:element name="loa_requests"&gt;
+    &lt;xs:complexType&gt;
+      &lt;xs:sequence&gt;
+        &lt;xs:element name="loa_request" type="loa_request" minOccurs="0" maxOccurs="unbounded"/&gt;
+      &lt;/xs:sequence&gt;
+    &lt;/xs:complexType&gt;
+  &lt;/xs:element&gt;
+
+  &lt;xs:complexType name="loa_request"&gt;
+    &lt;xs:all&gt;
+      &lt;xs:element name="id" type="xs:long"/&gt;
+      &lt;xs:element name="employee" type="employee"/&gt;
+      &lt;xs:element name="reason" type="idAndName"/&gt;
+      &lt;xs:element name="start_date" type="limitedDate"/&gt;
+      &lt;xs:element name="est_end_date" type="limitedDate"/&gt;
+      &lt;xs:element name="leave_time" type="leaveTimeType"/&gt;
+      &lt;xs:element name="state" type="loaRequestState"/&gt;
+      &lt;xs:element name="approved_by" type="accountRef" minOccurs="0"/&gt;
+      &lt;xs:element name="approved_at" type="xs:dateTime" minOccurs="0"/&gt;
+      &lt;xs:element name="rejected_by" type="accountRef" minOccurs="0"/&gt;
+      &lt;xs:element name="rejected_at" type="xs:dateTime" minOccurs="0"/&gt;
+      &lt;xs:element name="created_at" type="xs:dateTime"/&gt;
+      &lt;xs:element name="comment" type="xs:string" minOccurs="0"/&gt;
+      &lt;xs:element name="notes_count" type="xs:integer" minOccurs="0"/&gt;
+      &lt;xs:element name="_attachments_count" type="xs:integer" minOccurs="0"/&gt;
+      &lt;xs:element name="_links" type="loaRequestLinks"/&gt;
+    &lt;/xs:all&gt;
+  &lt;/xs:complexType&gt;
+
+  &lt;xs:complexType name="employee"&gt;
+    &lt;xs:choice&gt;
+      &lt;xs:element type="xs:long" name="account_id"/&gt;
+      &lt;xs:element type="xs:string" name="username"/&gt;
+      &lt;xs:element type="xs:string" name="external_id"/&gt;
+    &lt;/xs:choice&gt;
+  &lt;/xs:complexType&gt;
+
+  &lt;xs:complexType name="accountRef"&gt;
+    &lt;xs:all&gt;
+      &lt;xs:element name="account_id" type="xs:long"/&gt;
+      &lt;xs:element name="display_name" type="xs:string"/&gt;
+    &lt;/xs:all&gt;
+  &lt;/xs:complexType&gt;
+
+  &lt;xs:complexType name="idAndName"&gt;
+    &lt;xs:all&gt;
+      &lt;xs:element name="id" type="xs:long"/&gt;
+      &lt;xs:element name="name" type="xs:string"/&gt;
+    &lt;/xs:all&gt;
+  &lt;/xs:complexType&gt;
+
+  &lt;xs:simpleType name="limitedDate"&gt;
+    &lt;xs:restriction base="xs:date"&gt;
+      &lt;xs:minInclusive value="1900-12-31"/&gt;
+      &lt;xs:maxInclusive value="2079-06-05"/&gt;
+    &lt;/xs:restriction&gt;
+  &lt;/xs:simpleType&gt;
+
+  &lt;xs:complexType name="leaveTimeType"&gt;
+    &lt;xs:all&gt;
+      &lt;xs:element name="type"&gt;
+        &lt;xs:simpleType&gt;
+          &lt;xs:restriction base="xs:string"&gt;
+            &lt;xs:enumeration value="CONTINUOUS"/&gt;
+            &lt;xs:enumeration value="INTERMITTENT"/&gt;
+            &lt;xs:enumeration value="INTERMITTENT_WEEKDAYS"/&gt;
+          &lt;/xs:restriction&gt;
+        &lt;/xs:simpleType&gt;
+      &lt;/xs:element&gt;
+    &lt;/xs:all&gt;
+  &lt;/xs:complexType&gt;
+
+  &lt;xs:simpleType name="loaRequestState"&gt;
+    &lt;xs:restriction base="xs:string"&gt;
+      &lt;xs:enumeration value="NEW"/&gt;
+      &lt;xs:enumeration value="APPROVED"/&gt;
+      &lt;xs:enumeration value="REJECTED"/&gt;
+      &lt;xs:enumeration value="DELETED"/&gt;
+    &lt;/xs:restriction&gt;
+  &lt;/xs:simpleType&gt;
+
+  &lt;xs:complexType name="loaRequestLinks"&gt;
+    &lt;xs:all&gt;
+      &lt;xs:element name="self" type="xs:string"/&gt;
+      &lt;xs:element name="notes" type="xs:string"/&gt;
+      &lt;xs:element name="delete" type="xs:string" minOccurs="0"/&gt;
+    &lt;/xs:all&gt;
+  &lt;/xs:complexType&gt;
+
+&lt;/xs:schema&gt;</div>
+</div>
+</div>
+</div>
+</div>
+</article>
+</section>
+<section class="clearfix">
+<article class="definition">
+<h3 class="anchored" id="post"><span>POST</span>
+<a class="fa fa-link link-anchor" data-url="r=__v2__companies__(cid)__loa__requests#post" data-web-id="__v2__companies__(cid)__loa__requests"></a>
+</h3>
+<div class="md"><p>Submit new leave of absence request.</p></div>
+<div>
+<ul class="annotation-list">
+<li class="annotation">
+<span>v2</span>
+</li>
+</ul>
+</div>
+<h4>Parameters</h4>
+<h5>Path Parameters</h5>
+<ul class="param-list">
+<li>
+<div class="param-desc">
+<div class="param-name">cid</div>
+<div class="data-type">string</div>
+<div class="required">required</div>
+</div>
+<div class="param-content">
+<div>
+<p>Example: 123456</p>
+<div class="desc md">Company should be referenced via company id or company unique id or company short name using `|short_name` or `!short_name` format.
+</div>
+</div>
+</div>
+
+</li>
+</ul>
+<h5>Query Parameters</h5>
+<ul class="param-list">
+<li>
+<div class="param-desc">
+<div class="param-name">ignore_warnings</div>
+<div class="data-type">boolean</div>
+</div>
+<div class="param-content">
+<div>
+<div class="desc md">Specifies whether warning messages should be ignored or not.</div>
+</div>
+</div>
+
+</li>
+</ul>
+<h5>Header Parameters</h5>
+<ul class="param-list">
+<li>
+<div class="param-desc">
+<div class="param-name">Accept</div>
+<div class="data-type">string</div>
+</div>
+<div class="param-content">
+<div>
+<p>Valid values: application/json, application/xml, text/xml</p>
+<p>Default: application/json</p>
+<p>Example: application/json</p>
+</div>
+</div>
+
+</li>
+<li>
+<div class="param-desc">
+<div class="param-name">Content-Type</div>
+<div class="data-type">string</div>
+<div class="required">required</div>
+</div>
+<div class="param-content">
+<div>
+<p>Valid values: application/xml, text/xml, application/json</p>
+<p>Example: application/json</p>
+</div>
+</div>
+
+</li>
+<li>
+<div class="param-desc">
+<div class="param-name">Content-Length</div>
+<div class="data-type">integer</div>
+<div class="required">required</div>
+</div>
+<div class="param-content">
+<div>
+</div>
+</div>
+
+</li>
+</ul>
+<h4>Responses</h4>
+<div class="responses">
+<div>
+<label class="response response-success">
+<span class="fa fa-check"></span>
+<input data-full-tab-id="post-resp-code-tab-id-0" data-tab-class="resp-code-tab-post" name="resp-code-tab-post" type="radio"/>
+<span class="status">201 Created</span>
+</label>
+<div class="response-desc resp-code-tab-post" id="post-resp-code-tab-id-0">
+<div class="md"><p>Request has been created successfully.</p></div>
+<ul class="param-list">
+<li>
+<div class="param-desc">
+<div class="param-name">Location</div>
+<div class="data-type">string</div>
+<div class="required">required</div>
+</div>
+<div class="param-content">
+<div>
+<div class="desc md">Location of the newly created leave request.</div>
+</div>
+</div>
+
+</li>
+</ul>
+</div>
+</div>
+<div>
+<label class="response response-error">
+<span class="fa fa-times"></span>
+<input data-full-tab-id="post-resp-code-tab-id-1" data-tab-class="resp-code-tab-post" name="resp-code-tab-post" type="radio"/>
+<span class="status">401 Unauthorized</span>
+</label>
+<div class="response-desc resp-code-tab-post" id="post-resp-code-tab-id-1">
+<div class="md"><p>Returned in case user is not authorized.</p></div>
+</div>
+</div>
+<div>
+<label class="response response-error">
+<span class="fa fa-times"></span>
+<input data-full-tab-id="post-resp-code-tab-id-2" data-tab-class="resp-code-tab-post" name="resp-code-tab-post" type="radio"/>
+<span class="status">403 Forbidden</span>
+</label>
+<div class="response-desc resp-code-tab-post" id="post-resp-code-tab-id-2">
+<div class="md"><p>Returned in case user has no access to the resource.</p></div>
+</div>
+</div>
+<div>
+<label class="response response-error">
+<span class="fa fa-times"></span>
+<input data-full-tab-id="post-resp-code-tab-id-3" data-tab-class="resp-code-tab-post" name="resp-code-tab-post" type="radio"/>
+<span class="status">503 Service Unavailable</span>
+</label>
+<div class="response-desc resp-code-tab-post" id="post-resp-code-tab-id-3">
+<div class="md"><p>Returned in the event that the call limit is exceeded. The application will be unavailable for subsequent calls for the duration specified by the X-CallLimit-TimeToWait header.</p></div>
+</div>
+</div>
+</div>
+</article>
+<article class="code">
+<h4>Definition</h4>
+<div class="uri">
+<code>
+<span class="method post">post</span>
+<span class="textUri"><span class="baseUri">{{ getUriPrefix() }}</span><span class="relativeUri">/v2/companies/{cid}/loa/requests</span></span>
+</code>
+</div>
+<h4>Request Samples</h4>
+<div class="tab-title-group">
+<label>
+<input checked="checked" data-full-tab-id="req-tab-id-post-0" data-tab-class="req-tab-post" name="req-tab-post" type="radio"/>
+<span class="tab-title">application/json</span>
+</label>
+<label>
+<input data-full-tab-id="req-tab-id-post-1" data-tab-class="req-tab-post" name="req-tab-post" type="radio"/>
+<span class="tab-title">application/xml</span>
+</label>
+</div>
+<div>
+<div class="req-tab-post" id="req-tab-id-post-0">
+<div class="example">
+
+<div class="post-example-tab-0 activeTab" id="post-tab-example-0">
+
+<pre class="highlightjs">{
+  "employee": {
+    "account_id": 2194376
+  },
+  "reason": {
+    "id": 16640
+  },
+  "start_date": "2014-06-01",
+  "est_end_date": "2014-06-13",
+  "leave_time": {
+    "type": "INTERMITTENT",
+    "total_time": 28800000,
+    "frequency": 5,
+    "frequency_interval": 7,
+    "frequency_interval_type": "DAY",
+    "intermittent_type": "BULK"
+  },
+  "custom_fields": [
+    {
+      "index": 0,
+      "value": "MRP12354"
+    }
+  ],
+  "comment": "My comment."
+}</pre>
+</div>
+<div class="post-example-tab-0" id="post-tab-schema-0">
+
+<div class="jsonschema" id="schema-2">{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "type": "object",
+  "properties": {
+    "id": {
+      "type": "integer"
+    },
+    "state": {
+      "type": "string",
+      "enum": [
+        "NEW",
+        "APPROVED",
+        "REJECTED",
+        "DELETED"
+      ]
+    },
+    "employee": {
+      "type": "object",
+      "properties": {
+        "account_id": {
+          "type": "number",
+          "format": "long"
+        }
+      },
+      "required": [
+        "account_id"
+      ]
+    },
+    "reason": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer"
+        }
+      },
+      "required": [
+        "id"
+      ]
+    },
+    "start_date": {
+      "type": "string",
+      "pattern": "^(19[0-9]{2}|20[0-6][0-9]|2070)-(0[1-9]|1[0-2])-(0[1-9]|[1-2][0-9]|3[0-1])$",
+      "description": "Date needs to be in the format yyyy-mm-dd within the 1900-12-31 and 2079-06-05 date range"
+    },
+    "est_end_date": {
+      "type": "string",
+      "pattern": "^(19[0-9]{2}|20[0-6][0-9]|2070)-(0[1-9]|1[0-2])-(0[1-9]|[1-2][0-9]|3[0-1])$",
+      "description": "Date needs to be in the format yyyy-mm-dd within the 1900-12-31 and 2079-06-05 date range"
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "NEW",
+        "APPROVED",
+        "REJECTED",
+        "DELETED"
+      ]
+    },
+    "leave_time": {
+      "type": "object",
+      "properties": {
+        "type": {
+          "type": "string",
+          "enum": [
+            "CONTINUOUS",
+            "INTERMITTENT",
+            "INTERMITTENT_WEEKDAYS"
+          ]
+        },
+        "frequency_interval_type": {
+          "type": "string",
+          "enum": [
+            "DAY",
+            "WEEK"
+          ]
+        },
+        "total_time_type": {
+          "type": "string",
+          "enum": [
+            "CUSTOM",
+            "STANDARD_WORK_DAY",
+            "SCHEDULED",
+            "STANDARD_TOTAL_HOURS",
+            "DYNAMIC_DURATION"
+          ]
+        },
+        "schedule_type": {
+          "type": "string",
+          "enum": [
+            "MONDAY_FRIDAY",
+            "MONDAY_SUNDAY"
+          ]
+        },
+        "total_time": {
+          "type": "integer"
+        },
+        "dynamic_duration": {
+          "type": "string",
+          "enum": [
+            "UNKNOWN",
+            "FULL_DAY",
+            "FIRST_HALF_OF_DAY",
+            "SECOND_HALF_OF_DAY",
+            "HALF_DAY"
+          ]
+        },
+        "intermittent_type": {
+          "type": "string",
+          "enum": [
+            "BULK",
+            "DYNAMIC_DURATION"
+          ]
+        },
+        "frequency": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 255
+        },
+        "frequency_interval": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 255
+        },
+        "weeks_in_cycle": {
+          "type": "integer"
+        },
+        "use_separate_settings": {
+          "type": "boolean"
+        },
+        "use_hours_for_weekdays": {
+          "type": "boolean"
+        },
+        "weekdays": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "week_num": {
+                "type": "integer"
+              },
+              "total_time": {
+                "type": "integer"
+              },
+              "weekday": {
+                "type": "string",
+                "enum": [
+                  "MONDAY",
+                  "TUESDAY",
+                  "WEDNESDAY",
+                  "THURSDAY",
+                  "FRIDAY",
+                  "SATURDAY",
+                  "SUNDAY"
+                ]
+              },
+              "from": {
+                "type": "string",
+                "pattern": "([0-1][0-9]|2[0-3]):([0-5][0-9])"
+              },
+              "to": {
+                "type": "string",
+                "pattern": "([0-1][0-9]|2[0-3]):([0-5][0-9])"
+              },
+              "dynamic_duration": {
+                "type": "string",
+                "enum": [
+                  "UNKNOWN",
+                  "FULL_DAY",
+                  "FIRST_HALF_OF_DAY",
+                  "SECOND_HALF_OF_DAY",
+                  "HALF_DAY"
+                ]
+              },
+              "type": {
+                "type": "string",
+                "enum": [
+                  "EMPTY",
+                  "BULK",
+                  "SCHEDULED",
+                  "START_END",
+                  "STANDARD_WORK_DAY",
+                  "DYNAMIC_DURATION"
+                ]
+              }
+            },
+            "required": [
+              "week_num",
+              "type",
+              "weekday"
+            ],
+            "additionalProperties": false
+          }
+        }
+      },
+      "oneOf": [
+        {
+          "required": [
+            "type",
+            "total_time_type"
+          ]
+        },
+        {
+          "required": [
+            "type",
+            "frequency",
+            "frequency_interval",
+            "frequency_interval_type"
+          ]
+        },
+        {
+          "required": [
+            "type",
+            "weeks_in_cycle",
+            "weekdays"
+          ]
+        }
+      ],
+      "additionalProperties": false
+    },
+    "custom_fields": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "index": {
+            "type": "integer"
+          },
+          "value": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "index",
+          "value"
+        ]
+      }
+    },
+    "comment": {
+      "type": "string"
+    },
+    "approved_by": {
+      "type": "object",
+      "properties": {
+        "account_id": {
+          "type": "number",
+          "format": "long"
+        },
+        "display_name": {
+          "type": "string"
+        }
+      },
+      "additionalProperties": false,
+      "required": [
+        "account_id",
+        "display_name"
+      ]
+    },
+    "approved_at": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "rejected_by": {
+      "type": "object",
+      "properties": {
+        "account_id": {
+          "type": "number",
+          "format": "long"
+        },
+        "display_name": {
+          "type": "string"
+        }
+      },
+      "additionalProperties": false,
+      "required": [
+        "account_id",
+        "display_name"
+      ]
+    },
+    "rejected_at": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "created_at": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "notes_count": {
+      "type": "integer"
+    },
+    "_attachments_count": {
+      "type": "integer"
+    },
+    "_links": {
+      "type": "object",
+      "properties": {
+        "self": {
+          "type": "string"
+        },
+        "notes": {
+          "type": "string"
+        },
+        "delete": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "self",
+        "notes"
+      ]
+    }
+  },
+  "additionalProperties": false,
+  "required": [
+    "employee",
+    "reason",
+    "start_date",
+    "est_end_date"
+  ]
+}</div>
+</div>
+</div>
+</div>
+<div class="req-tab-post" id="req-tab-id-post-1">
+<div class="example">
+
+<div class="post-example-tab-1 activeTab" id="post-tab-example-1">
+
+<pre class="highlightjs">&lt;?xml version='1.0' encoding='UTF-8'?&gt;
+&lt;loa_request&gt;
+  &lt;employee&gt;
+    &lt;account_id&gt;2194376&lt;/account_id&gt;
+  &lt;/employee&gt;
+  &lt;reason&gt;
+    &lt;id&gt;16640&lt;/id&gt;
+  &lt;/reason&gt;
+  &lt;start_date&gt;2014-06-01&lt;/start_date&gt;
+  &lt;est_end_date&gt;2014-06-13&lt;/est_end_date&gt;
+  &lt;leave_time&gt;
+    &lt;type&gt;INTERMITTENT&lt;/type&gt;
+    &lt;total_time&gt;28800000&lt;/total_time&gt;
+    &lt;frequency&gt;5&lt;/frequency&gt;
+    &lt;frequency_interval&gt;7&lt;/frequency_interval&gt;
+    &lt;frequency_interval_type&gt;DAY&lt;/frequency_interval_type&gt;
+    &lt;intermittent_type&gt;BULK&lt;/intermittent_type&gt;
+  &lt;/leave_time&gt;
+  &lt;custom_fields&gt;
+    &lt;custom_field&gt;
+      &lt;index&gt;0&lt;/index&gt;
+      &lt;value&gt;MRP12354&lt;/value&gt;
+    &lt;/custom_field&gt;
+  &lt;/custom_fields&gt;
+  &lt;comment&gt;My comment.&lt;/comment&gt;
+&lt;/loa_request&gt;</pre>
+</div>
+<div class="post-example-tab-1" id="post-tab-schema-1">
+
+<div class="jsonschema" id="schema-3">&lt;?xml version="1.0" encoding="UTF-8"?&gt;
+&lt;xs:schema attributeFormDefault="unqualified" elementFormDefault="qualified"
+           xmlns:xs="http://www.w3.org/2001/XMLSchema"&gt;
+
+  &lt;xs:element name="loa_request"&gt;
+    &lt;xs:complexType&gt;
+      &lt;xs:all&gt;
+        &lt;xs:element name="id" type="xs:long" minOccurs="0"/&gt;
+        &lt;xs:element name="employee" type="employee"/&gt;
+        &lt;xs:element name="reason" type="idAndName"/&gt;
+        &lt;xs:element name="start_date" type="limitedDate"/&gt;
+        &lt;xs:element name="est_end_date" type="limitedDate"/&gt;
+        &lt;xs:element name="custom_fields" type="customFields"/&gt;
+        &lt;xs:element name="leave_time" type="leaveTimeType"/&gt;
+        &lt;xs:element name="state" type="loaRequestState" minOccurs="0"/&gt;
+        &lt;xs:element name="approved_by" type="accountRef" minOccurs="0"/&gt;
+        &lt;xs:element name="approved_at" type="xs:dateTime" minOccurs="0"/&gt;
+        &lt;xs:element name="rejected_by" type="accountRef" minOccurs="0"/&gt;
+        &lt;xs:element name="rejected_at" type="xs:dateTime" minOccurs="0"/&gt;
+        &lt;xs:element name="created_at" type="xs:dateTime" minOccurs="0"/&gt;
+        &lt;xs:element name="comment" type="xs:string" minOccurs="0"/&gt;
+        &lt;xs:element name="notes_count" type="xs:integer" minOccurs="0"/&gt;
+        &lt;xs:element name="_attachments_count" type="xs:integer" minOccurs="0"/&gt;
+        &lt;xs:element name="_links" type="loaRequestLinks" minOccurs="0"/&gt;
+      &lt;/xs:all&gt;
+    &lt;/xs:complexType&gt;
+  &lt;/xs:element&gt;
+
+  &lt;xs:complexType name="employee"&gt;
+    &lt;xs:choice&gt;
+      &lt;xs:element name="account_id" type="xs:long"/&gt;
+      &lt;xs:element name="username" type="xs:string"/&gt;
+      &lt;xs:element name="external_id" type="xs:string"/&gt;
+    &lt;/xs:choice&gt;
+  &lt;/xs:complexType&gt;
+
+  &lt;xs:complexType name="accountRef"&gt;
+    &lt;xs:all&gt;
+      &lt;xs:element name="account_id" type="xs:long"/&gt;
+      &lt;xs:element name="display_name" type="xs:string"/&gt;
+    &lt;/xs:all&gt;
+  &lt;/xs:complexType&gt;
+
+  &lt;xs:complexType name="idAndName"&gt;
+    &lt;xs:all&gt;
+      &lt;xs:element name="id" type="xs:long" minOccurs="0"/&gt;
+      &lt;xs:element name="name" type="xs:string" minOccurs="0"/&gt;
+    &lt;/xs:all&gt;
+  &lt;/xs:complexType&gt;
+
+  &lt;xs:simpleType name="limitedDate"&gt;
+    &lt;xs:restriction base="xs:date"&gt;
+      &lt;xs:minInclusive value="1900-12-31"/&gt;
+      &lt;xs:maxInclusive value="2079-06-05"/&gt;
+    &lt;/xs:restriction&gt;
+  &lt;/xs:simpleType&gt;
+
+  &lt;xs:simpleType name="weekDayType"&gt;
+    &lt;xs:restriction base="xs:string"&gt;
+      &lt;xs:enumeration value="MONDAY"/&gt;
+      &lt;xs:enumeration value="TUESDAY"/&gt;
+      &lt;xs:enumeration value="WEDNESDAY"/&gt;
+      &lt;xs:enumeration value="THURSDAY"/&gt;
+      &lt;xs:enumeration value="FRIDAY"/&gt;
+      &lt;xs:enumeration value="SATURDAY"/&gt;
+      &lt;xs:enumeration value="SUNDAY"/&gt;
+    &lt;/xs:restriction&gt;
+  &lt;/xs:simpleType&gt;
+
+  &lt;xs:complexType name="weekdayType"&gt;
+    &lt;xs:all&gt;
+      &lt;xs:element name="week_num" type="xs:integer"/&gt;
+      &lt;xs:element name="weekday" type="weekDayType"/&gt;
+      &lt;xs:element name="total_time" type="xs:long" minOccurs="0"/&gt;
+      &lt;xs:element name="from" type="timeOfDay" minOccurs="0"/&gt;
+      &lt;xs:element name="to" type="timeOfDay" minOccurs="0"/&gt;
+      &lt;xs:element name="dynamicDuration" minOccurs="0"&gt;
+        &lt;xs:simpleType &gt;
+          &lt;xs:restriction base="xs:string"&gt;
+            &lt;xs:enumeration value="UNKNOWN"/&gt;
+            &lt;xs:enumeration value="FULL_DAY"/&gt;
+            &lt;xs:enumeration value="FIRST_HALF_OF_DAY"/&gt;
+            &lt;xs:enumeration value="SECOND_HALF_OF_DAY"/&gt;
+            &lt;xs:enumeration value="HALF_DAY"/&gt;
+          &lt;/xs:restriction&gt;
+        &lt;/xs:simpleType&gt;
+      &lt;/xs:element&gt;
+      &lt;xs:element name="type" minOccurs="0"&gt;
+        &lt;xs:simpleType&gt;
+          &lt;xs:restriction base="xs:string"&gt;
+            &lt;xs:enumeration value="EMPTY"/&gt;
+            &lt;xs:enumeration value="BULK"/&gt;
+            &lt;xs:enumeration value="STANDARD_WORK_DAY"/&gt;
+            &lt;xs:enumeration value="SCHEDULED"/&gt;
+            &lt;xs:enumeration value="START_END"/&gt;
+            &lt;xs:enumeration value="DYNAMIC_DURATION"/&gt;
+          &lt;/xs:restriction&gt;
+        &lt;/xs:simpleType&gt;
+      &lt;/xs:element&gt;
+    &lt;/xs:all&gt;
+  &lt;/xs:complexType&gt;
+
+  &lt;xs:complexType name="customField"&gt;
+    &lt;xs:all&gt;
+      &lt;xs:element name="index"&gt;
+        &lt;xs:simpleType&gt;
+          &lt;xs:restriction base="xs:integer"&gt;
+            &lt;xs:minInclusive value="0"/&gt;
+            &lt;xs:maxInclusive value="19"/&gt;
+          &lt;/xs:restriction&gt;
+        &lt;/xs:simpleType&gt;
+      &lt;/xs:element&gt;
+      &lt;xs:element name="value"&gt;
+        &lt;xs:simpleType&gt;
+          &lt;xs:restriction base="xs:string"&gt;
+            &lt;xs:minLength value="1"/&gt;
+            &lt;xs:maxLength value="255"/&gt;
+          &lt;/xs:restriction&gt;
+        &lt;/xs:simpleType&gt;
+      &lt;/xs:element&gt;
+    &lt;/xs:all&gt;
+  &lt;/xs:complexType&gt;
+
+  &lt;xs:complexType name="customFields"&gt;
+    &lt;xs:sequence&gt;
+      &lt;xs:element maxOccurs="unbounded" name="custom_field" type="customField"/&gt;
+    &lt;/xs:sequence&gt;
+  &lt;/xs:complexType&gt;
+
+  &lt;xs:simpleType name="timeOfDay"&gt;
+    &lt;xs:restriction base="xs:string"&gt;
+      &lt;xs:pattern value="([0-1][0-9]|2[0-3]):([0-5][0-9])( prev.| next)?"/&gt;
+    &lt;/xs:restriction&gt;
+  &lt;/xs:simpleType&gt;
+
+  &lt;xs:complexType name="leaveTimeType"&gt;
+    &lt;xs:all&gt;
+      &lt;xs:element name="type"&gt;
+        &lt;xs:simpleType&gt;
+          &lt;xs:restriction base="xs:string"&gt;
+            &lt;xs:enumeration value="CONTINUOUS"/&gt;
+            &lt;xs:enumeration value="INTERMITTENT"/&gt;
+            &lt;xs:enumeration value="INTERMITTENT_WEEKDAYS"/&gt;
+          &lt;/xs:restriction&gt;
+        &lt;/xs:simpleType&gt;
+      &lt;/xs:element&gt;
+      &lt;xs:element name="total_time" type="xs:long" minOccurs="0"/&gt;
+      &lt;xs:element name="dynamicDuration" minOccurs="0"&gt;
+        &lt;xs:simpleType &gt;
+          &lt;xs:restriction base="xs:string"&gt;
+            &lt;xs:enumeration value="UNKNOWN"/&gt;
+            &lt;xs:enumeration value="FULL_DAY"/&gt;
+            &lt;xs:enumeration value="FIRST_HALF_OF_DAY"/&gt;
+            &lt;xs:enumeration value="SECOND_HALF_OF_DAY"/&gt;
+            &lt;xs:enumeration value="HALF_DAY"/&gt;
+          &lt;/xs:restriction&gt;
+        &lt;/xs:simpleType&gt;
+      &lt;/xs:element&gt;
+      &lt;xs:element name="intermittent_type" type="xs:string" minOccurs="0"/&gt;
+      &lt;xs:element name="frequency" minOccurs="0"&gt;
+        &lt;xs:simpleType&gt;
+          &lt;xs:restriction base="xs:integer"&gt;
+            &lt;xs:minInclusive value="0"/&gt;
+            &lt;xs:maxInclusive value="255"/&gt;
+          &lt;/xs:restriction&gt;
+        &lt;/xs:simpleType&gt;
+      &lt;/xs:element&gt;
+      &lt;xs:element name="frequency_interval" minOccurs="0"&gt;
+        &lt;xs:simpleType&gt;
+          &lt;xs:restriction base="xs:integer"&gt;
+            &lt;xs:minInclusive value="1"/&gt;
+            &lt;xs:maxInclusive value="255"/&gt;
+          &lt;/xs:restriction&gt;
+        &lt;/xs:simpleType&gt;
+      &lt;/xs:element&gt;
+      &lt;xs:element name="use_separate_settings" type="xs:boolean" minOccurs="0"/&gt;
+      &lt;xs:element name="weeks_in_cycle" type="xs:integer" minOccurs="0"/&gt;
+      &lt;xs:element name="frequency_interval_type" minOccurs="0"&gt;
+        &lt;xs:simpleType&gt;
+          &lt;xs:restriction base="xs:string"&gt;
+            &lt;xs:enumeration value="DAY"/&gt;
+            &lt;xs:enumeration value="WEEK"/&gt;
+          &lt;/xs:restriction&gt;
+        &lt;/xs:simpleType&gt;
+      &lt;/xs:element&gt;
+      &lt;xs:element name="total_time_type" minOccurs="0"&gt;
+        &lt;xs:simpleType&gt;
+          &lt;xs:restriction base="xs:string"&gt;
+            &lt;xs:enumeration value="CUSTOM"/&gt;
+            &lt;xs:enumeration value="STANDARD_WORK_DAY"/&gt;
+            &lt;xs:enumeration value="SCHEDULED"/&gt;
+            &lt;xs:enumeration value="STANDARD_TOTAL_HOURS"/&gt;
+            &lt;xs:enumeration value="DYNAMIC_DURATION"/&gt;
+          &lt;/xs:restriction&gt;
+        &lt;/xs:simpleType&gt;
+      &lt;/xs:element&gt;
+      &lt;xs:element name="schedule_type" minOccurs="0"&gt;
+        &lt;xs:simpleType&gt;
+          &lt;xs:restriction base="xs:string"&gt;
+            &lt;xs:enumeration value="MONDAY_FRIDAY"/&gt;
+            &lt;xs:enumeration value="MONDAY_SUNDAY"/&gt;
+          &lt;/xs:restriction&gt;
+        &lt;/xs:simpleType&gt;
+      &lt;/xs:element&gt;
+      &lt;xs:element name="weekdays" minOccurs="0"&gt;
+        &lt;xs:complexType&gt;
+          &lt;xs:sequence&gt;
+            &lt;xs:element name="weekday" type="weekdayType" maxOccurs="unbounded"/&gt;
+          &lt;/xs:sequence&gt;
+        &lt;/xs:complexType&gt;
+      &lt;/xs:element&gt;
+    &lt;/xs:all&gt;
+  &lt;/xs:complexType&gt;
+  &lt;xs:complexType name="categoriesListType"&gt;
+    &lt;xs:sequence&gt;
+      &lt;xs:element name="category" maxOccurs="unbounded" minOccurs="0"&gt;
+        &lt;xs:complexType&gt;
+          &lt;xs:choice&gt;
+            &lt;xs:element name="id" type="xs:long"/&gt;
+            &lt;xs:element name="external_id"&gt;
+              &lt;xs:simpleType&gt;
+                &lt;xs:restriction base="xs:string"&gt;
+                  &lt;xs:minLength value="1"/&gt;
+                  &lt;xs:maxLength value="50"/&gt;
+                &lt;/xs:restriction&gt;
+              &lt;/xs:simpleType&gt;
+            &lt;/xs:element&gt;
+            &lt;xs:element name="dynamic_duration" type="xs:integer"/&gt;
+          &lt;/xs:choice&gt;
+        &lt;/xs:complexType&gt;
+      &lt;/xs:element&gt;
+    &lt;/xs:sequence&gt;
+  &lt;/xs:complexType&gt;
+
+  &lt;xs:simpleType name="loaRequestState"&gt;
+    &lt;xs:restriction base="xs:string"&gt;
+      &lt;xs:enumeration value="NEW"/&gt;
+      &lt;xs:enumeration value="APPROVED"/&gt;
+      &lt;xs:enumeration value="REJECTED"/&gt;
+      &lt;xs:enumeration value="DELETED"/&gt;
+    &lt;/xs:restriction&gt;
+  &lt;/xs:simpleType&gt;
+
+  &lt;xs:complexType name="loaRequestLinks"&gt;
+    &lt;xs:all&gt;
+      &lt;xs:element name="self" type="xs:string"/&gt;
+      &lt;xs:element name="notes" type="xs:string"/&gt;
+      &lt;xs:element name="delete" type="xs:string" minOccurs="0"/&gt;
+    &lt;/xs:all&gt;
+  &lt;/xs:complexType&gt;
+
+&lt;/xs:schema&gt;
+</div>
+</div>
+</div>
+</div>
+</div>
+</article>
+</section>
+</div>
+</body></html>

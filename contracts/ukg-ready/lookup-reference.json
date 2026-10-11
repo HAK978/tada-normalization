@@ -1,0 +1,736 @@
+{
+  "provider": "ukg-ready",
+  "reference_version": "cached-v2-private-reference-1",
+  "lookup_status": "verified",
+  "notice": "PARTIAL DOCUMENTED ENUM REFERENCE extracted from cached JSON schemas, not a Swagger/OpenAPI contract or canonical mapping. Private upload authorized by the organizer; provider redistribution permission and candidate sharing remain unverified.",
+  "openapi": {
+    "status": "not_available",
+    "relative_path": null,
+    "version": null,
+    "source": "TadaAI/full-stack:references/saashr-rest-public/",
+    "sha256": null
+  },
+  "distribution": {
+    "status": "user_approved_private_upload",
+    "evidence_reference": "../../docs/REFERENCE_AUDIT.md#private-upload-authorization",
+    "basis": "Organizer explicitly instructed: \"Yeah push those as well\" on 2026-10-09, after the permission gaps were disclosed. This authorizes this private upload; no provider redistribution license is represented.",
+    "provider_redistribution_permission_verified": false,
+    "candidate_sharing_approved": false,
+    "reviewed_at": "2026-10-09"
+  },
+  "lookups": [
+    {
+      "domain": "__v2__companies__(cid)__employees__(aid).html:/properties/phones/properties/preferred_phone",
+      "source_field_pointers": [
+        "reference-schemas.json#/schemas/106/schema/properties/phones/properties/preferred_phone"
+      ],
+      "source_description": null,
+      "source_html_reference": "reference-docs/res/__v2__companies__(cid)__employees__(aid).html#schema-0",
+      "completeness": "Exact enum array for this cached schema field; intentionally partial across the API.",
+      "entries": [
+        {
+          "code": "HOME",
+          "meaning": null,
+          "meaning_status": "No per-code meaning supplied by this enum array; raw string label preserved.",
+          "evidence_reference": "reference-schemas.json#/schemas/106/schema/properties/phones/properties/preferred_phone/enum/0"
+        },
+        {
+          "code": "CELL",
+          "meaning": null,
+          "meaning_status": "No per-code meaning supplied by this enum array; raw string label preserved.",
+          "evidence_reference": "reference-schemas.json#/schemas/106/schema/properties/phones/properties/preferred_phone/enum/1"
+        },
+        {
+          "code": "WORK",
+          "meaning": null,
+          "meaning_status": "No per-code meaning supplied by this enum array; raw string label preserved.",
+          "evidence_reference": "reference-schemas.json#/schemas/106/schema/properties/phones/properties/preferred_phone/enum/2"
+        },
+        {
+          "code": "NONE",
+          "meaning": null,
+          "meaning_status": "No per-code meaning supplied by this enum array; raw string label preserved.",
+          "evidence_reference": "reference-schemas.json#/schemas/106/schema/properties/phones/properties/preferred_phone/enum/3"
+        }
+      ]
+    },
+    {
+      "domain": "__v2__companies__(cid)__employees__(aid).html:/properties/cost_centers_info/properties/limits/items/properties/values/items/properties/type",
+      "source_field_pointers": [
+        "reference-schemas.json#/schemas/106/schema/properties/cost_centers_info/properties/limits/items/properties/values/items/properties/type"
+      ],
+      "source_description": null,
+      "source_html_reference": "reference-docs/res/__v2__companies__(cid)__employees__(aid).html#schema-0",
+      "completeness": "Exact enum array for this cached schema field; intentionally partial across the API.",
+      "entries": [
+        {
+          "code": "ROOT",
+          "meaning": null,
+          "meaning_status": "No per-code meaning supplied by this enum array; raw string label preserved.",
+          "evidence_reference": "reference-schemas.json#/schemas/106/schema/properties/cost_centers_info/properties/limits/items/properties/values/items/properties/type/enum/0"
+        },
+        {
+          "code": "LIST",
+          "meaning": null,
+          "meaning_status": "No per-code meaning supplied by this enum array; raw string label preserved.",
+          "evidence_reference": "reference-schemas.json#/schemas/106/schema/properties/cost_centers_info/properties/limits/items/properties/values/items/properties/type/enum/1"
+        }
+      ]
+    },
+    {
+      "domain": "__v2__companies__(cid)__employees__(aid).html:/properties/hardware_settings/properties/in_touch/properties/security_level",
+      "source_field_pointers": [
+        "reference-schemas.json#/schemas/106/schema/properties/hardware_settings/properties/in_touch/properties/security_level"
+      ],
+      "source_description": null,
+      "source_html_reference": "reference-docs/res/__v2__companies__(cid)__employees__(aid).html#schema-0",
+      "completeness": "Exact enum array for this cached schema field; intentionally partial across the API.",
+      "entries": [
+        {
+          "code": "EMPLOYEE",
+          "meaning": null,
+          "meaning_status": "No per-code meaning supplied by this enum array; raw string label preserved.",
+          "evidence_reference": "reference-schemas.json#/schemas/106/schema/properties/hardware_settings/properties/in_touch/properties/security_level/enum/0"
+        },
+        {
+          "code": "MANAGER",
+          "meaning": null,
+          "meaning_status": "No per-code meaning supplied by this enum array; raw string label preserved.",
+          "evidence_reference": "reference-schemas.json#/schemas/106/schema/properties/hardware_settings/properties/in_touch/properties/security_level/enum/1"
+        }
+      ]
+    },
+    {
+      "domain": "__v2__companies__(cid)__employees__(aid).html:/properties/national_id_numbers/items/properties/type",
+      "source_field_pointers": [
+        "reference-schemas.json#/schemas/106/schema/properties/national_id_numbers/items/properties/type"
+      ],
+      "source_description": null,
+      "source_html_reference": "reference-docs/res/__v2__companies__(cid)__employees__(aid).html#schema-0",
+      "completeness": "Exact enum array for this cached schema field; intentionally partial across the API.",
+      "entries": [
+        {
+          "code": "SSN",
+          "meaning": null,
+          "meaning_status": "No per-code meaning supplied by this enum array; raw string label preserved.",
+          "evidence_reference": "reference-schemas.json#/schemas/106/schema/properties/national_id_numbers/items/properties/type/enum/0"
+        },
+        {
+          "code": "BSN",
+          "meaning": null,
+          "meaning_status": "No per-code meaning supplied by this enum array; raw string label preserved.",
+          "evidence_reference": "reference-schemas.json#/schemas/106/schema/properties/national_id_numbers/items/properties/type/enum/1"
+        },
+        {
+          "code": "SIN",
+          "meaning": null,
+          "meaning_status": "No per-code meaning supplied by this enum array; raw string label preserved.",
+          "evidence_reference": "reference-schemas.json#/schemas/106/schema/properties/national_id_numbers/items/properties/type/enum/2"
+        },
+        {
+          "code": "NIN",
+          "meaning": null,
+          "meaning_status": "No per-code meaning supplied by this enum array; raw string label preserved.",
+          "evidence_reference": "reference-schemas.json#/schemas/106/schema/properties/national_id_numbers/items/properties/type/enum/3"
+        },
+        {
+          "code": "TFN",
+          "meaning": null,
+          "meaning_status": "No per-code meaning supplied by this enum array; raw string label preserved.",
+          "evidence_reference": "reference-schemas.json#/schemas/106/schema/properties/national_id_numbers/items/properties/type/enum/4"
+        },
+        {
+          "code": "NSS",
+          "meaning": null,
+          "meaning_status": "No per-code meaning supplied by this enum array; raw string label preserved.",
+          "evidence_reference": "reference-schemas.json#/schemas/106/schema/properties/national_id_numbers/items/properties/type/enum/5"
+        },
+        {
+          "code": "OTHER_1",
+          "meaning": null,
+          "meaning_status": "No per-code meaning supplied by this enum array; raw string label preserved.",
+          "evidence_reference": "reference-schemas.json#/schemas/106/schema/properties/national_id_numbers/items/properties/type/enum/6"
+        },
+        {
+          "code": "OTHER_2",
+          "meaning": null,
+          "meaning_status": "No per-code meaning supplied by this enum array; raw string label preserved.",
+          "evidence_reference": "reference-schemas.json#/schemas/106/schema/properties/national_id_numbers/items/properties/type/enum/7"
+        },
+        {
+          "code": "OTHER_3",
+          "meaning": null,
+          "meaning_status": "No per-code meaning supplied by this enum array; raw string label preserved.",
+          "evidence_reference": "reference-schemas.json#/schemas/106/schema/properties/national_id_numbers/items/properties/type/enum/8"
+        },
+        {
+          "code": "OTHER_4",
+          "meaning": null,
+          "meaning_status": "No per-code meaning supplied by this enum array; raw string label preserved.",
+          "evidence_reference": "reference-schemas.json#/schemas/106/schema/properties/national_id_numbers/items/properties/type/enum/9"
+        },
+        {
+          "code": "OTHER_5",
+          "meaning": null,
+          "meaning_status": "No per-code meaning supplied by this enum array; raw string label preserved.",
+          "evidence_reference": "reference-schemas.json#/schemas/106/schema/properties/national_id_numbers/items/properties/type/enum/10"
+        },
+        {
+          "code": "OTHER_6",
+          "meaning": null,
+          "meaning_status": "No per-code meaning supplied by this enum array; raw string label preserved.",
+          "evidence_reference": "reference-schemas.json#/schemas/106/schema/properties/national_id_numbers/items/properties/type/enum/11"
+        },
+        {
+          "code": "OTHER_7",
+          "meaning": null,
+          "meaning_status": "No per-code meaning supplied by this enum array; raw string label preserved.",
+          "evidence_reference": "reference-schemas.json#/schemas/106/schema/properties/national_id_numbers/items/properties/type/enum/12"
+        },
+        {
+          "code": "OTHER_8",
+          "meaning": null,
+          "meaning_status": "No per-code meaning supplied by this enum array; raw string label preserved.",
+          "evidence_reference": "reference-schemas.json#/schemas/106/schema/properties/national_id_numbers/items/properties/type/enum/13"
+        },
+        {
+          "code": "OTHER_9",
+          "meaning": null,
+          "meaning_status": "No per-code meaning supplied by this enum array; raw string label preserved.",
+          "evidence_reference": "reference-schemas.json#/schemas/106/schema/properties/national_id_numbers/items/properties/type/enum/14"
+        },
+        {
+          "code": "OTHER_10",
+          "meaning": null,
+          "meaning_status": "No per-code meaning supplied by this enum array; raw string label preserved.",
+          "evidence_reference": "reference-schemas.json#/schemas/106/schema/properties/national_id_numbers/items/properties/type/enum/15"
+        },
+        {
+          "code": "NO_ID_NEEDED",
+          "meaning": null,
+          "meaning_status": "No per-code meaning supplied by this enum array; raw string label preserved.",
+          "evidence_reference": "reference-schemas.json#/schemas/106/schema/properties/national_id_numbers/items/properties/type/enum/16"
+        }
+      ]
+    },
+    {
+      "domain": "__v2__companies__(cid)__employees__(aid)__pay-info.html:/properties/medical_eligibility",
+      "source_field_pointers": [
+        "reference-schemas.json#/schemas/159/schema/properties/medical_eligibility"
+      ],
+      "source_description": null,
+      "source_html_reference": "reference-docs/res/__v2__companies__(cid)__employees__(aid)__pay-info.html#schema-0",
+      "completeness": "Exact enum array for this cached schema field; intentionally partial across the API.",
+      "entries": [
+        {
+          "code": "ELIGIBLE",
+          "meaning": null,
+          "meaning_status": "No per-code meaning supplied by this enum array; raw string label preserved.",
+          "evidence_reference": "reference-schemas.json#/schemas/159/schema/properties/medical_eligibility/enum/0"
+        },
+        {
+          "code": "NOT_ELIGIBLE",
+          "meaning": null,
+          "meaning_status": "No per-code meaning supplied by this enum array; raw string label preserved.",
+          "evidence_reference": "reference-schemas.json#/schemas/159/schema/properties/medical_eligibility/enum/1"
+        }
+      ]
+    },
+    {
+      "domain": "__v2__companies__(cid)__employees__(aid)__pay-info.html:/properties/dental_eligibility",
+      "source_field_pointers": [
+        "reference-schemas.json#/schemas/159/schema/properties/dental_eligibility"
+      ],
+      "source_description": null,
+      "source_html_reference": "reference-docs/res/__v2__companies__(cid)__employees__(aid)__pay-info.html#schema-0",
+      "completeness": "Exact enum array for this cached schema field; intentionally partial across the API.",
+      "entries": [
+        {
+          "code": "NOT_ELIGIBLE",
+          "meaning": null,
+          "meaning_status": "No per-code meaning supplied by this enum array; raw string label preserved.",
+          "evidence_reference": "reference-schemas.json#/schemas/159/schema/properties/dental_eligibility/enum/0"
+        },
+        {
+          "code": "PAYEE",
+          "meaning": null,
+          "meaning_status": "No per-code meaning supplied by this enum array; raw string label preserved.",
+          "evidence_reference": "reference-schemas.json#/schemas/159/schema/properties/dental_eligibility/enum/1"
+        },
+        {
+          "code": "PAYEE_SPOUSE_CHILD",
+          "meaning": null,
+          "meaning_status": "No per-code meaning supplied by this enum array; raw string label preserved.",
+          "evidence_reference": "reference-schemas.json#/schemas/159/schema/properties/dental_eligibility/enum/2"
+        },
+        {
+          "code": "PAYEE_SPOUSE",
+          "meaning": null,
+          "meaning_status": "No per-code meaning supplied by this enum array; raw string label preserved.",
+          "evidence_reference": "reference-schemas.json#/schemas/159/schema/properties/dental_eligibility/enum/3"
+        },
+        {
+          "code": "PAYEE_CHILD",
+          "meaning": null,
+          "meaning_status": "No per-code meaning supplied by this enum array; raw string label preserved.",
+          "evidence_reference": "reference-schemas.json#/schemas/159/schema/properties/dental_eligibility/enum/4"
+        }
+      ]
+    },
+    {
+      "domain": "__v2__companies__(cid)__employees__(aid)__pay-info.html:/properties/dependent_benefits_eligibility",
+      "source_field_pointers": [
+        "reference-schemas.json#/schemas/159/schema/properties/dependent_benefits_eligibility"
+      ],
+      "source_description": null,
+      "source_html_reference": "reference-docs/res/__v2__companies__(cid)__employees__(aid)__pay-info.html#schema-0",
+      "completeness": "Exact enum array for this cached schema field; intentionally partial across the API.",
+      "entries": [
+        {
+          "code": "ELIGIBLE",
+          "meaning": null,
+          "meaning_status": "No per-code meaning supplied by this enum array; raw string label preserved.",
+          "evidence_reference": "reference-schemas.json#/schemas/159/schema/properties/dependent_benefits_eligibility/enum/0"
+        },
+        {
+          "code": "NOT_ELIGIBLE",
+          "meaning": null,
+          "meaning_status": "No per-code meaning supplied by this enum array; raw string label preserved.",
+          "evidence_reference": "reference-schemas.json#/schemas/159/schema/properties/dependent_benefits_eligibility/enum/1"
+        }
+      ]
+    },
+    {
+      "domain": "__v2__companies__(cid)__employees__(aid)__pay-info.html:/properties/benefit_auto_enrollment_eligibility",
+      "source_field_pointers": [
+        "reference-schemas.json#/schemas/159/schema/properties/benefit_auto_enrollment_eligibility"
+      ],
+      "source_description": null,
+      "source_html_reference": "reference-docs/res/__v2__companies__(cid)__employees__(aid)__pay-info.html#schema-0",
+      "completeness": "Exact enum array for this cached schema field; intentionally partial across the API.",
+      "entries": [
+        {
+          "code": "ELIGIBLE",
+          "meaning": null,
+          "meaning_status": "No per-code meaning supplied by this enum array; raw string label preserved.",
+          "evidence_reference": "reference-schemas.json#/schemas/159/schema/properties/benefit_auto_enrollment_eligibility/enum/0"
+        },
+        {
+          "code": "NOT_ELIGIBLE",
+          "meaning": null,
+          "meaning_status": "No per-code meaning supplied by this enum array; raw string label preserved.",
+          "evidence_reference": "reference-schemas.json#/schemas/159/schema/properties/benefit_auto_enrollment_eligibility/enum/1"
+        }
+      ]
+    },
+    {
+      "domain": "__v2__companies__(cid)__employees__(aid)__pay-info.html:/properties/eeo_classification",
+      "source_field_pointers": [
+        "reference-schemas.json#/schemas/159/schema/properties/eeo_classification"
+      ],
+      "source_description": null,
+      "source_html_reference": "reference-docs/res/__v2__companies__(cid)__employees__(aid)__pay-info.html#schema-0",
+      "completeness": "Exact enum array for this cached schema field; intentionally partial across the API.",
+      "entries": [
+        {
+          "code": "EXECUTIVE_OR_SENIOR_LEVEL_OFFICIALS_AND_MANAGERS",
+          "meaning": null,
+          "meaning_status": "No per-code meaning supplied by this enum array; raw string label preserved.",
+          "evidence_reference": "reference-schemas.json#/schemas/159/schema/properties/eeo_classification/enum/0"
+        },
+        {
+          "code": "FIRST_OR_MID_LEVEL_OFFICIALS_AND_MANAGERS",
+          "meaning": null,
+          "meaning_status": "No per-code meaning supplied by this enum array; raw string label preserved.",
+          "evidence_reference": "reference-schemas.json#/schemas/159/schema/properties/eeo_classification/enum/1"
+        },
+        {
+          "code": "PROFESSIONALS",
+          "meaning": null,
+          "meaning_status": "No per-code meaning supplied by this enum array; raw string label preserved.",
+          "evidence_reference": "reference-schemas.json#/schemas/159/schema/properties/eeo_classification/enum/2"
+        },
+        {
+          "code": "TECHNICIANS",
+          "meaning": null,
+          "meaning_status": "No per-code meaning supplied by this enum array; raw string label preserved.",
+          "evidence_reference": "reference-schemas.json#/schemas/159/schema/properties/eeo_classification/enum/3"
+        },
+        {
+          "code": "SALES_WORKERS",
+          "meaning": null,
+          "meaning_status": "No per-code meaning supplied by this enum array; raw string label preserved.",
+          "evidence_reference": "reference-schemas.json#/schemas/159/schema/properties/eeo_classification/enum/4"
+        },
+        {
+          "code": "ADMINISTRATIVE_SUPPORT_WORKERS",
+          "meaning": null,
+          "meaning_status": "No per-code meaning supplied by this enum array; raw string label preserved.",
+          "evidence_reference": "reference-schemas.json#/schemas/159/schema/properties/eeo_classification/enum/5"
+        },
+        {
+          "code": "CRAFT_WORKERS",
+          "meaning": null,
+          "meaning_status": "No per-code meaning supplied by this enum array; raw string label preserved.",
+          "evidence_reference": "reference-schemas.json#/schemas/159/schema/properties/eeo_classification/enum/6"
+        },
+        {
+          "code": "OPERATIVES",
+          "meaning": null,
+          "meaning_status": "No per-code meaning supplied by this enum array; raw string label preserved.",
+          "evidence_reference": "reference-schemas.json#/schemas/159/schema/properties/eeo_classification/enum/7"
+        },
+        {
+          "code": "LABORERS_AND_HELPERS",
+          "meaning": null,
+          "meaning_status": "No per-code meaning supplied by this enum array; raw string label preserved.",
+          "evidence_reference": "reference-schemas.json#/schemas/159/schema/properties/eeo_classification/enum/8"
+        },
+        {
+          "code": "SERVICE_WORKERS",
+          "meaning": null,
+          "meaning_status": "No per-code meaning supplied by this enum array; raw string label preserved.",
+          "evidence_reference": "reference-schemas.json#/schemas/159/schema/properties/eeo_classification/enum/9"
+        }
+      ]
+    },
+    {
+      "domain": "__v2__companies__(cid)__employees__(aid)__pay-info.html:/properties/eeo4_classification",
+      "source_field_pointers": [
+        "reference-schemas.json#/schemas/159/schema/properties/eeo4_classification"
+      ],
+      "source_description": null,
+      "source_html_reference": "reference-docs/res/__v2__companies__(cid)__employees__(aid)__pay-info.html#schema-0",
+      "completeness": "Exact enum array for this cached schema field; intentionally partial across the API.",
+      "entries": [
+        {
+          "code": "OFFICIALS",
+          "meaning": null,
+          "meaning_status": "No per-code meaning supplied by this enum array; raw string label preserved.",
+          "evidence_reference": "reference-schemas.json#/schemas/159/schema/properties/eeo4_classification/enum/0"
+        },
+        {
+          "code": "PROFESSIONALS",
+          "meaning": null,
+          "meaning_status": "No per-code meaning supplied by this enum array; raw string label preserved.",
+          "evidence_reference": "reference-schemas.json#/schemas/159/schema/properties/eeo4_classification/enum/1"
+        },
+        {
+          "code": "TECHNICIANS",
+          "meaning": null,
+          "meaning_status": "No per-code meaning supplied by this enum array; raw string label preserved.",
+          "evidence_reference": "reference-schemas.json#/schemas/159/schema/properties/eeo4_classification/enum/2"
+        },
+        {
+          "code": "PROTECTIVE_SERVICE",
+          "meaning": null,
+          "meaning_status": "No per-code meaning supplied by this enum array; raw string label preserved.",
+          "evidence_reference": "reference-schemas.json#/schemas/159/schema/properties/eeo4_classification/enum/3"
+        },
+        {
+          "code": "PARAPROFESSIONALS",
+          "meaning": null,
+          "meaning_status": "No per-code meaning supplied by this enum array; raw string label preserved.",
+          "evidence_reference": "reference-schemas.json#/schemas/159/schema/properties/eeo4_classification/enum/4"
+        },
+        {
+          "code": "ADMINISTRATIVE_SUPPORT",
+          "meaning": null,
+          "meaning_status": "No per-code meaning supplied by this enum array; raw string label preserved.",
+          "evidence_reference": "reference-schemas.json#/schemas/159/schema/properties/eeo4_classification/enum/5"
+        },
+        {
+          "code": "SKILLED_CRAFT",
+          "meaning": null,
+          "meaning_status": "No per-code meaning supplied by this enum array; raw string label preserved.",
+          "evidence_reference": "reference-schemas.json#/schemas/159/schema/properties/eeo4_classification/enum/6"
+        },
+        {
+          "code": "SERVICE_MAINTENANCE",
+          "meaning": null,
+          "meaning_status": "No per-code meaning supplied by this enum array; raw string label preserved.",
+          "evidence_reference": "reference-schemas.json#/schemas/159/schema/properties/eeo4_classification/enum/7"
+        }
+      ]
+    },
+    {
+      "domain": "__v2__companies__(cid)__employees__(aid)__pay-info.html:/properties/eeo4_function",
+      "source_field_pointers": [
+        "reference-schemas.json#/schemas/159/schema/properties/eeo4_function"
+      ],
+      "source_description": null,
+      "source_html_reference": "reference-docs/res/__v2__companies__(cid)__employees__(aid)__pay-info.html#schema-0",
+      "completeness": "Exact enum array for this cached schema field; intentionally partial across the API.",
+      "entries": [
+        {
+          "code": "FINANCIAL_ADMINISTRATION",
+          "meaning": null,
+          "meaning_status": "No per-code meaning supplied by this enum array; raw string label preserved.",
+          "evidence_reference": "reference-schemas.json#/schemas/159/schema/properties/eeo4_function/enum/0"
+        },
+        {
+          "code": "STREETS_HIGHWAYS",
+          "meaning": null,
+          "meaning_status": "No per-code meaning supplied by this enum array; raw string label preserved.",
+          "evidence_reference": "reference-schemas.json#/schemas/159/schema/properties/eeo4_function/enum/1"
+        },
+        {
+          "code": "PUBLIC_WELFARE",
+          "meaning": null,
+          "meaning_status": "No per-code meaning supplied by this enum array; raw string label preserved.",
+          "evidence_reference": "reference-schemas.json#/schemas/159/schema/properties/eeo4_function/enum/2"
+        },
+        {
+          "code": "POLICE_PROTECTION",
+          "meaning": null,
+          "meaning_status": "No per-code meaning supplied by this enum array; raw string label preserved.",
+          "evidence_reference": "reference-schemas.json#/schemas/159/schema/properties/eeo4_function/enum/3"
+        },
+        {
+          "code": "FIRE_PROTECTION",
+          "meaning": null,
+          "meaning_status": "No per-code meaning supplied by this enum array; raw string label preserved.",
+          "evidence_reference": "reference-schemas.json#/schemas/159/schema/properties/eeo4_function/enum/4"
+        },
+        {
+          "code": "NATURAL_RESOURCES",
+          "meaning": null,
+          "meaning_status": "No per-code meaning supplied by this enum array; raw string label preserved.",
+          "evidence_reference": "reference-schemas.json#/schemas/159/schema/properties/eeo4_function/enum/5"
+        },
+        {
+          "code": "HOSPITALS",
+          "meaning": null,
+          "meaning_status": "No per-code meaning supplied by this enum array; raw string label preserved.",
+          "evidence_reference": "reference-schemas.json#/schemas/159/schema/properties/eeo4_function/enum/6"
+        },
+        {
+          "code": "HEALTH",
+          "meaning": null,
+          "meaning_status": "No per-code meaning supplied by this enum array; raw string label preserved.",
+          "evidence_reference": "reference-schemas.json#/schemas/159/schema/properties/eeo4_function/enum/7"
+        },
+        {
+          "code": "HOUSING",
+          "meaning": null,
+          "meaning_status": "No per-code meaning supplied by this enum array; raw string label preserved.",
+          "evidence_reference": "reference-schemas.json#/schemas/159/schema/properties/eeo4_function/enum/8"
+        },
+        {
+          "code": "COMMUNITY_DEVELOPMENT",
+          "meaning": null,
+          "meaning_status": "No per-code meaning supplied by this enum array; raw string label preserved.",
+          "evidence_reference": "reference-schemas.json#/schemas/159/schema/properties/eeo4_function/enum/9"
+        },
+        {
+          "code": "CORRECTIONS",
+          "meaning": null,
+          "meaning_status": "No per-code meaning supplied by this enum array; raw string label preserved.",
+          "evidence_reference": "reference-schemas.json#/schemas/159/schema/properties/eeo4_function/enum/10"
+        },
+        {
+          "code": "UTILITY_TRANSPORTATION",
+          "meaning": null,
+          "meaning_status": "No per-code meaning supplied by this enum array; raw string label preserved.",
+          "evidence_reference": "reference-schemas.json#/schemas/159/schema/properties/eeo4_function/enum/11"
+        },
+        {
+          "code": "SANITATION_SEWAGE",
+          "meaning": null,
+          "meaning_status": "No per-code meaning supplied by this enum array; raw string label preserved.",
+          "evidence_reference": "reference-schemas.json#/schemas/159/schema/properties/eeo4_function/enum/12"
+        },
+        {
+          "code": "EMPLOYMENT_SECURITY",
+          "meaning": null,
+          "meaning_status": "No per-code meaning supplied by this enum array; raw string label preserved.",
+          "evidence_reference": "reference-schemas.json#/schemas/159/schema/properties/eeo4_function/enum/13"
+        },
+        {
+          "code": "OTHER",
+          "meaning": null,
+          "meaning_status": "No per-code meaning supplied by this enum array; raw string label preserved.",
+          "evidence_reference": "reference-schemas.json#/schemas/159/schema/properties/eeo4_function/enum/14"
+        }
+      ]
+    },
+    {
+      "domain": "__v2__companies__(cid)__employees__(aid)__pay-info.html:/properties/payroll_classification",
+      "source_field_pointers": [
+        "reference-schemas.json#/schemas/159/schema/properties/payroll_classification"
+      ],
+      "source_description": null,
+      "source_html_reference": "reference-docs/res/__v2__companies__(cid)__employees__(aid)__pay-info.html#schema-0",
+      "completeness": "Exact enum array for this cached schema field; intentionally partial across the API.",
+      "entries": [
+        {
+          "code": "REGULAR",
+          "meaning": null,
+          "meaning_status": "No per-code meaning supplied by this enum array; raw string label preserved.",
+          "evidence_reference": "reference-schemas.json#/schemas/159/schema/properties/payroll_classification/enum/0"
+        },
+        {
+          "code": "HOUSEHOLD",
+          "meaning": null,
+          "meaning_status": "No per-code meaning supplied by this enum array; raw string label preserved.",
+          "evidence_reference": "reference-schemas.json#/schemas/159/schema/properties/payroll_classification/enum/1"
+        },
+        {
+          "code": "FORM_943",
+          "meaning": null,
+          "meaning_status": "No per-code meaning supplied by this enum array; raw string label preserved.",
+          "evidence_reference": "reference-schemas.json#/schemas/159/schema/properties/payroll_classification/enum/2"
+        }
+      ]
+    },
+    {
+      "domain": "__v2__companies__(cid)__payrolls__(id).html:/properties/status",
+      "source_field_pointers": [
+        "reference-schemas.json#/schemas/360/schema/properties/status"
+      ],
+      "source_description": null,
+      "source_html_reference": "reference-docs/res/__v2__companies__(cid)__payrolls__(id).html#schema-0",
+      "completeness": "Exact enum array for this cached schema field; intentionally partial across the API.",
+      "entries": [
+        {
+          "code": "NEW",
+          "meaning": null,
+          "meaning_status": "No per-code meaning supplied by this enum array; raw string label preserved.",
+          "evidence_reference": "reference-schemas.json#/schemas/360/schema/properties/status/enum/0"
+        },
+        {
+          "code": "OPEN",
+          "meaning": null,
+          "meaning_status": "No per-code meaning supplied by this enum array; raw string label preserved.",
+          "evidence_reference": "reference-schemas.json#/schemas/360/schema/properties/status/enum/1"
+        },
+        {
+          "code": "OPEN_FAILED",
+          "meaning": null,
+          "meaning_status": "No per-code meaning supplied by this enum array; raw string label preserved.",
+          "evidence_reference": "reference-schemas.json#/schemas/360/schema/properties/status/enum/2"
+        },
+        {
+          "code": "CLOSE_FAILED",
+          "meaning": null,
+          "meaning_status": "No per-code meaning supplied by this enum array; raw string label preserved.",
+          "evidence_reference": "reference-schemas.json#/schemas/360/schema/properties/status/enum/3"
+        },
+        {
+          "code": "CLOSED",
+          "meaning": null,
+          "meaning_status": "No per-code meaning supplied by this enum array; raw string label preserved.",
+          "evidence_reference": "reference-schemas.json#/schemas/360/schema/properties/status/enum/4"
+        },
+        {
+          "code": "SUBMITTED",
+          "meaning": null,
+          "meaning_status": "No per-code meaning supplied by this enum array; raw string label preserved.",
+          "evidence_reference": "reference-schemas.json#/schemas/360/schema/properties/status/enum/5"
+        },
+        {
+          "code": "ROLLBACK_FAILED",
+          "meaning": null,
+          "meaning_status": "No per-code meaning supplied by this enum array; raw string label preserved.",
+          "evidence_reference": "reference-schemas.json#/schemas/360/schema/properties/status/enum/6"
+        },
+        {
+          "code": "FINALIZE_FAILED",
+          "meaning": null,
+          "meaning_status": "No per-code meaning supplied by this enum array; raw string label preserved.",
+          "evidence_reference": "reference-schemas.json#/schemas/360/schema/properties/status/enum/7"
+        },
+        {
+          "code": "FINALIZED",
+          "meaning": null,
+          "meaning_status": "No per-code meaning supplied by this enum array; raw string label preserved.",
+          "evidence_reference": "reference-schemas.json#/schemas/360/schema/properties/status/enum/8"
+        }
+      ]
+    },
+    {
+      "domain": "__v2__companies__(cid)__payrolls__(id)__pay-statements__(id).html:/properties/status",
+      "source_field_pointers": [
+        "reference-schemas.json#/schemas/364/schema/properties/status"
+      ],
+      "source_description": null,
+      "source_html_reference": "reference-docs/res/__v2__companies__(cid)__payrolls__(id)__pay-statements__(id).html#schema-0",
+      "completeness": "Exact enum array for this cached schema field; intentionally partial across the API.",
+      "entries": [
+        {
+          "code": "INVALID",
+          "meaning": null,
+          "meaning_status": "No per-code meaning supplied by this enum array; raw string label preserved.",
+          "evidence_reference": "reference-schemas.json#/schemas/364/schema/properties/status/enum/0"
+        },
+        {
+          "code": "NEW",
+          "meaning": null,
+          "meaning_status": "No per-code meaning supplied by this enum array; raw string label preserved.",
+          "evidence_reference": "reference-schemas.json#/schemas/364/schema/properties/status/enum/1"
+        },
+        {
+          "code": "OPEN",
+          "meaning": null,
+          "meaning_status": "No per-code meaning supplied by this enum array; raw string label preserved.",
+          "evidence_reference": "reference-schemas.json#/schemas/364/schema/properties/status/enum/2"
+        },
+        {
+          "code": "CLOSED",
+          "meaning": null,
+          "meaning_status": "No per-code meaning supplied by this enum array; raw string label preserved.",
+          "evidence_reference": "reference-schemas.json#/schemas/364/schema/properties/status/enum/3"
+        },
+        {
+          "code": "FINALIZED",
+          "meaning": null,
+          "meaning_status": "No per-code meaning supplied by this enum array; raw string label preserved.",
+          "evidence_reference": "reference-schemas.json#/schemas/364/schema/properties/status/enum/4"
+        }
+      ]
+    },
+    {
+      "domain": "__v2__companies__(cid)__time-entries.html:/properties/time_entry_sets/items/properties/time_entries/items/properties/type",
+      "source_field_pointers": [
+        "reference-schemas.json#/schemas/461/schema/properties/time_entry_sets/items/properties/time_entries/items/properties/type"
+      ],
+      "source_description": null,
+      "source_html_reference": "reference-docs/res/__v2__companies__(cid)__time-entries.html#schema-0",
+      "completeness": "Exact enum array for this cached schema field; intentionally partial across the API.",
+      "entries": [
+        {
+          "code": "TIME",
+          "meaning": null,
+          "meaning_status": "No per-code meaning supplied by this enum array; raw string label preserved.",
+          "evidence_reference": "reference-schemas.json#/schemas/461/schema/properties/time_entry_sets/items/properties/time_entries/items/properties/type/enum/0"
+        },
+        {
+          "code": "EXTRA_PAY",
+          "meaning": null,
+          "meaning_status": "No per-code meaning supplied by this enum array; raw string label preserved.",
+          "evidence_reference": "reference-schemas.json#/schemas/461/schema/properties/time_entry_sets/items/properties/time_entries/items/properties/type/enum/1"
+        }
+      ]
+    }
+  ],
+  "known_gaps": [
+    "No standalone official Swagger/OpenAPI artifact was found.",
+    "Provider redistribution permission and candidate sharing remain unverified.",
+    "This reference is partial; tenant-specific earning/deduction and other configurable lookup responses are absent.",
+    "Per-code meanings are not inferred from enum labels.",
+    "Exact current live API version is unverified."
+  ],
+  "discovery": {
+    "artifact_kind": "381 HTML reference pages with embedded schemas; no standalone Swagger/OpenAPI artifact located",
+    "source_sha256": "3bff9aa28d6fbcf63a55ba88216178e5fcd88c5f313146e63827daf3e6b56559",
+    "reviewed_on": "2026-10-09",
+    "contents_copied": true,
+    "checksum_kind": "HTML tree index; see docs/REFERENCE_AUDIT.md for algorithm"
+  },
+  "reference_artifact": {
+    "relative_path": "reference-schemas.json",
+    "sha256": "32ec1d1e30731f94205acd07a8f09696586dc41525498947bbefaef64c15a622",
+    "kind": "JSON Schema blocks extracted from cached UKG Ready HTML reference pages; NOT Swagger/OpenAPI",
+    "html_directory": "reference-docs/"
+  }
+}

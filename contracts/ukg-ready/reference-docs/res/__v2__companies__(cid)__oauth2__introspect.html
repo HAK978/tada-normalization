@@ -1,0 +1,209 @@
+<!doctype html>
+<html><head><meta charset="utf-8"><title>Introspect</title><style>body{font:16px system-ui;max-width:1100px;margin:2rem auto;padding:0 1rem;line-height:1.5}aside{background:#fff3cc;padding:1rem}.jsonschema,pre{white-space:pre-wrap;font:13px monospace;overflow-wrap:anywhere;background:#f4f5f7;padding:1rem}.uri{font-family:monospace}h2,h3{margin-top:2rem}</style></head><body><aside><strong>Modified private reference — 2026-10-09.</strong> Provider-documented illustrative examples are included; authentication token examples are redacted. These are not customer exports or guaranteed production behavior. Candidate sharing is pending. This is not OpenAPI.</aside>
+<div class="group">
+<h2 class="anchored" id="item.anchor">
+<span>Introspect</span>
+<a class="fa fa-link link-anchor" data-url="r=__v2__companies__(cid)__oauth2__introspect#" data-web-id="__v2__companies__(cid)__oauth2__introspect"></a>
+</h2>
+<p class="md">The Token Introspection API allows resource servers to query an authorization server to determine the state and metadata of an OAuth token.
+</p>
+<section class="clearfix">
+<article class="definition">
+<h3 class="anchored" id="post"><span>POST</span>
+<a class="fa fa-link link-anchor" data-url="r=__v2__companies__(cid)__oauth2__introspect#post" data-web-id="__v2__companies__(cid)__oauth2__introspect"></a>
+</h3>
+<div class="md"><p>The OAuth Token Introspection API allows resource servers to verify the status and details of an OAuth token by querying the authorization server.
+</p></div>
+<h4>Parameters</h4>
+<h5>Path Parameters</h5>
+<ul class="param-list">
+<li>
+<div class="param-desc">
+<div class="param-name">cid</div>
+<div class="data-type">string</div>
+<div class="required">required</div>
+</div>
+<div class="param-content">
+<div>
+<p>Example: 123456</p>
+<div class="desc md">Company should be referenced via company id or company unique id or company short name using `|short_name` or `!short_name` format.
+</div>
+</div>
+</div>
+
+</li>
+</ul>
+<h5>Header Parameters</h5>
+<ul class="param-list">
+<li>
+<div class="param-desc">
+<div class="param-name">Content-Type</div>
+<div class="data-type">string</div>
+<div class="required">required</div>
+</div>
+<div class="param-content">
+<div>
+<p>Example: application/x-www-form-urlencoded</p>
+</div>
+</div>
+
+</li>
+<li>
+<div class="param-desc">
+<div class="param-name">Authorization</div>
+<div class="data-type">string</div>
+<div class="required">required</div>
+</div>
+<div class="param-content">
+<div>
+<p>Example: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...</p>
+<div class="desc md">The access token obtained from the OAuth authorization process. The token must be included in the Authorization header as a Bearer token.
+</div>
+</div>
+</div>
+
+</li>
+</ul>
+<h4>Responses</h4>
+<div class="responses">
+<div>
+<label class="response response-success">
+<span class="fa fa-check"></span>
+<input data-full-tab-id="post-resp-code-tab-id-0" data-tab-class="resp-code-tab-post" name="resp-code-tab-post" type="radio"/>
+<span class="status">200 Ok</span>
+</label>
+<div class="response-desc resp-code-tab-post" id="post-resp-code-tab-id-0">
+<div class="md"><p>The request is valid, and the token is introspected successfully. The response includes the status and metadata of the token.
+</p></div>
+</div>
+</div>
+<div>
+<label class="response response-error">
+<span class="fa fa-times"></span>
+<input data-full-tab-id="post-resp-code-tab-id-1" data-tab-class="resp-code-tab-post" name="resp-code-tab-post" type="radio"/>
+<span class="status">400 Bad Request</span>
+</label>
+<div class="response-desc resp-code-tab-post" id="post-resp-code-tab-id-1">
+<div class="md"><p>The request is invalid, and the token is not introspected. The response includes an error message.
+</p></div>
+</div>
+</div>
+<div>
+<label class="response response-error">
+<span class="fa fa-times"></span>
+<input data-full-tab-id="post-resp-code-tab-id-2" data-tab-class="resp-code-tab-post" name="resp-code-tab-post" type="radio"/>
+<span class="status">401 Unauthorized</span>
+</label>
+<div class="response-desc resp-code-tab-post" id="post-resp-code-tab-id-2">
+<div class="md"><p>The request is valid, but the token is not introspected because the bearer access token is invalid or expired.
+</p></div>
+</div>
+</div>
+<div>
+<label class="response response-error">
+<span class="fa fa-times"></span>
+<input data-full-tab-id="post-resp-code-tab-id-3" data-tab-class="resp-code-tab-post" name="resp-code-tab-post" type="radio"/>
+<span class="status">403 Forbidden</span>
+</label>
+<div class="response-desc resp-code-tab-post" id="post-resp-code-tab-id-3">
+<div class="md"><p>The request is valid, but the token is not introspected because the client does not have the necessary permissions to access the resource.
+</p></div>
+</div>
+</div>
+<div>
+<label class="response response-error">
+<span class="fa fa-times"></span>
+<input data-full-tab-id="post-resp-code-tab-id-4" data-tab-class="resp-code-tab-post" name="resp-code-tab-post" type="radio"/>
+<span class="status">500 Internal Server Error</span>
+</label>
+<div class="response-desc resp-code-tab-post" id="post-resp-code-tab-id-4">
+<div class="md"><p>The request is valid, but the token is not introspected because of an internal server error.
+</p></div>
+</div>
+</div>
+</div>
+</article>
+<article class="code">
+<h4>Definition</h4>
+<div class="uri">
+<code>
+<span class="method post">post</span>
+<span class="textUri"><span class="baseUri">{{ getUriPrefix() }}</span><span class="relativeUri">/v2/companies/{cid}/oauth2/introspect</span></span>
+</code>
+</div>
+<h4>Request Samples</h4>
+<div class="tab-title-group">
+<label>
+<input checked="checked" data-full-tab-id="req-tab-id-post-0" data-tab-class="req-tab-post" name="req-tab-post" type="radio"/>
+<span class="tab-title">application/x-www-form-urlencoded</span>
+</label>
+</div>
+<div>
+<div class="req-tab-post" id="req-tab-id-post-0">
+<div class="example">
+
+<div class="post-example-tab-0 activeTab" id="post-tab-example-0">
+
+<pre class="highlightjs">token_type_hint=access_token&amp;token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...</pre>
+</div>
+<div class="post-example-tab-0" id="post-tab-schema-0">
+
+<div class="jsonschema" id="schema-0">{
+  "type": "object",
+  "properties": {
+    "token_type_hint": {
+      "type": "string"
+    },
+    "token": {
+      "type": "string"
+    }
+  },
+  "required": [
+    "token_type_hint",
+    "token"
+  ],
+  "definitions": {},
+  "$schema": "http://json-schema.org/draft-04/schema#"
+}</div>
+</div>
+</div>
+</div>
+</div>
+<h4>Response Samples</h4>
+<div class="tab-title-group">
+<label>
+<input checked="checked" data-full-tab-id="resp-tab-id-post-0" data-tab-class="resp-tab-post" name="resp-tab-post" type="radio"/>
+<span class="tab-title">application/json</span>
+</label>
+</div>
+<div>
+<div class="resp-tab-post" id="resp-tab-id-post-0">
+<div class="example">
+
+<div class="post-example-resp-tab-0 activeTab" id="post-tab-resp-example-0">
+
+<pre class="highlightjs">{
+     "sub": "12345",
+     "aud": [
+         "aud.example.com"
+     ],
+     "iss": "iss.example.com",
+     "active": true,
+     "exp": 1234567890,
+     "iat": 1234567890,
+     "aid": "12345",
+     "cid": "12345"
+ }
+</pre>
+</div>
+<div class="post-example-resp-tab-0" id="post-tab-resp-schema-0">
+
+<div class="jsonschema" id="schema-1">any</div>
+</div>
+</div>
+</div>
+</div>
+</article>
+</section>
+</div>
+</body></html>

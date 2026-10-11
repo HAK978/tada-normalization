@@ -1,0 +1,4210 @@
+<!doctype html>
+<html><head><meta charset="utf-8"><title>Cost Center Job</title><style>body{font:16px system-ui;max-width:1100px;margin:2rem auto;padding:0 1rem;line-height:1.5}aside{background:#fff3cc;padding:1rem}.jsonschema,pre{white-space:pre-wrap;font:13px monospace;overflow-wrap:anywhere;background:#f4f5f7;padding:1rem}.uri{font-family:monospace}h2,h3{margin-top:2rem}</style></head><body><aside><strong>Modified private reference — 2026-10-09.</strong> Provider-documented illustrative examples are included; authentication token examples are redacted. These are not customer exports or guaranteed production behavior. Candidate sharing is pending. This is not OpenAPI.</aside>
+<div class="group">
+<h2 class="anchored" id="item.anchor">
+<span>Cost Center Job</span>
+<a class="fa fa-link link-anchor" data-url="r=__v2__companies__(cid)__config__cost-center-jobs__(id)#" data-web-id="__v2__companies__(cid)__config__cost-center-jobs__(id)"></a>
+</h2>
+<section class="clearfix">
+<article class="definition">
+<h3 class="anchored" id="get"><span>GET</span>
+<a class="fa fa-link link-anchor" data-url="r=__v2__companies__(cid)__config__cost-center-jobs__(id)#get" data-web-id="__v2__companies__(cid)__config__cost-center-jobs__(id)"></a>
+</h3>
+<div class="md"><p>Retrieves a specific Cost Center Job within the company.
+Requires permission to view a Cost Center Job.
+
+Requires at least one of the following subsystems:
+  - HR
+  - HR (Small Business Edition)
+</p></div>
+<h4>Parameters</h4>
+<h5>Path Parameters</h5>
+<ul class="param-list">
+<li>
+<div class="param-desc">
+<div class="param-name">cid</div>
+<div class="data-type">string</div>
+<div class="required">required</div>
+</div>
+<div class="param-content">
+<div>
+<p>Example: 123456</p>
+<div class="desc md">Company should be referenced via company id or company unique id or company short name using `|short_name` or `!short_name` format.
+</div>
+</div>
+</div>
+
+</li>
+<li>
+<div class="param-desc">
+<div class="param-name">id</div>
+<div class="data-type">integer</div>
+<div class="required">required</div>
+</div>
+<div class="param-content">
+<div>
+<div class="desc md">The id of cost center job.</div>
+</div>
+</div>
+
+</li>
+</ul>
+<h5>Header Parameters</h5>
+<ul class="param-list">
+<li>
+<div class="param-desc">
+<div class="param-name">Accept</div>
+<div class="data-type">string</div>
+</div>
+<div class="param-content">
+<div>
+<p>Valid values: application/json, application/xml, text/xml</p>
+<p>Default: application/json</p>
+<p>Example: application/json</p>
+</div>
+</div>
+
+</li>
+</ul>
+<h4>Responses</h4>
+<div class="responses">
+<div>
+<label class="response response-success">
+<span class="fa fa-check"></span>
+<input data-full-tab-id="get-resp-code-tab-id-0" data-tab-class="resp-code-tab-get" name="resp-code-tab-get" type="radio"/>
+<span class="status">200 Ok</span>
+</label>
+<div class="response-desc resp-code-tab-get" id="get-resp-code-tab-id-0">
+</div>
+</div>
+<div>
+<label class="response response-error">
+<span class="fa fa-times"></span>
+<input data-full-tab-id="get-resp-code-tab-id-1" data-tab-class="resp-code-tab-get" name="resp-code-tab-get" type="radio"/>
+<span class="status">401 Unauthorized</span>
+</label>
+<div class="response-desc resp-code-tab-get" id="get-resp-code-tab-id-1">
+<div class="md"><p>Returned in case user is not authorized.</p></div>
+</div>
+</div>
+<div>
+<label class="response response-error">
+<span class="fa fa-times"></span>
+<input data-full-tab-id="get-resp-code-tab-id-2" data-tab-class="resp-code-tab-get" name="resp-code-tab-get" type="radio"/>
+<span class="status">403 Forbidden</span>
+</label>
+<div class="response-desc resp-code-tab-get" id="get-resp-code-tab-id-2">
+<div class="md"><p>Returned in case user has no access to the resource.</p></div>
+</div>
+</div>
+<div>
+<label class="response response-error">
+<span class="fa fa-times"></span>
+<input data-full-tab-id="get-resp-code-tab-id-3" data-tab-class="resp-code-tab-get" name="resp-code-tab-get" type="radio"/>
+<span class="status">404 Not Found</span>
+</label>
+<div class="response-desc resp-code-tab-get" id="get-resp-code-tab-id-3">
+<div class="md"><p>Returned in case resource does not exist.</p></div>
+</div>
+</div>
+<div>
+<label class="response response-error">
+<span class="fa fa-times"></span>
+<input data-full-tab-id="get-resp-code-tab-id-4" data-tab-class="resp-code-tab-get" name="resp-code-tab-get" type="radio"/>
+<span class="status">503 Service Unavailable</span>
+</label>
+<div class="response-desc resp-code-tab-get" id="get-resp-code-tab-id-4">
+<div class="md"><p>Returned in the event that the call limit is exceeded. The application will be unavailable for subsequent calls for the duration specified by the X-CallLimit-TimeToWait header.</p></div>
+</div>
+</div>
+</div>
+</article>
+<article class="code">
+<h4>Definition</h4>
+<div class="uri">
+<code>
+<span class="method get">get</span>
+<span class="textUri"><span class="baseUri">{{ getUriPrefix() }}</span><span class="relativeUri">/v2/companies/{cid}/config/cost-center-jobs/{id}</span></span>
+</code>
+</div>
+<h4>Response Samples</h4>
+<div class="tab-title-group">
+<label>
+<input checked="checked" data-full-tab-id="resp-tab-id-get-0" data-tab-class="resp-tab-get" name="resp-tab-get" type="radio"/>
+<span class="tab-title">application/json</span>
+</label>
+<label>
+<input data-full-tab-id="resp-tab-id-get-1" data-tab-class="resp-tab-get" name="resp-tab-get" type="radio"/>
+<span class="tab-title">application/xml</span>
+</label>
+</div>
+<div>
+<div class="resp-tab-get" id="resp-tab-id-get-0">
+<div class="example">
+
+<div class="get-example-resp-tab-0 activeTab" id="get-tab-resp-example-0">
+
+<pre class="highlightjs">{
+    "id": 2355,
+    "job_category": "Job Category 1",
+    "name": "Software Engineer I",
+    "abbreviation": "SE1",
+    "description": "This job is for Software Engineer I",
+    "job_description": "Candidate should be Well-versed in JAVA and data structures.",
+    "external_id": "2376A",
+    "payroll_code": "PRC-SE1",
+    "visible": true,
+    "applicant_tracking_display": true,
+    "applicant_tracking_display_only": false,
+    "standard_work_day": {
+        "value": 234234789,
+        "employee_override": false
+    },
+    "employee_type": {
+        "id": 129795,
+        "employee_override": false
+    },
+    "eeo_classification": {
+        "value": "PROFESSIONALS",
+        "employee_override": true
+    },
+    "union": {
+        "id": 6578,
+        "employee_override": false
+    },
+    "pay_grade": {
+        "id": 9647,
+        "employee_override": true
+    },
+    "pay_type": {
+        "id": 3490,
+        "employee_override": true
+    },
+    "first_screen": {
+        "id": "SCREEN:101",
+        "employee_override": true
+    },
+    "worker_type": {
+        "id": 3470,
+        "employee_override": true
+    },
+    "linked_company_eins": [
+        {
+            "id": 380420352,
+            "company_ein":{
+              "id": 914497,
+              "ein_name": "EIN 1",
+              "active": true
+            },
+            "created_date": "2018-02-05 11:21:00",
+            "gl_codes": [
+                {
+                    "index": 0,
+                    "value": "GLD4"
+                }
+            ]
+        },
+        {
+            "id": 380420096,
+            "company_ein":{
+              "id": 916033,
+              "ein_name": "EIN 2",
+              "active": false
+            },
+            "created_date": "2018-02-05 11:21:00",
+            "gl_codes": [
+                {
+                    "index": 0,
+                    "value": "GLD1"
+                }
+            ]
+        }
+    ],
+    "worker_comp_code_types": [
+        {
+            "state": "NCCI",
+            "comp_code": 145785
+        },
+        {
+            "state": "NY",
+            "comp_code": 155795
+        }
+    ],
+    "salary_surveys": [
+        {
+            "id": 65,
+            "name": "Salary Survey 1",
+            "survey_date": "2017-09-28",
+            "min": 2.88,
+            "mid": 12.98,
+            "max": 32.04,
+            "market": 23.94,
+            "compa_ratio": 90.12
+        },
+        {
+            "id": 129,
+            "name": "Salary Survey 2",
+            "survey_date": "2016-10-06",
+            "min": 28.80,
+            "mid": 40.98,
+            "max": 60.04,
+            "market": 33.94,
+            "compa_ratio": 23.49
+        }
+    ],
+    "competency_groups": [
+        {
+            "id": 1234,
+            "group_name": "GRP 1",
+            "weight_evenly": false,
+            "competencies": [
+                {
+                    "id": 2348,
+                    "weight": 42.25,
+                    "sequence": 1,
+                    "code": "Code 1",
+                    "description": "Competency description."
+                }
+            ]
+        }
+    ],
+    "notes": [
+        {
+            "id": 9842240,
+            "created_by": {
+                "account_id": 2196164,
+                "display_name": "Nicky James"
+            },
+            "text": "Cost Center Job Note 1",
+            "created_at": "2018-02-02"
+        }
+    ],
+    "defaults": {
+        "aca": {
+            "employee_override": true,
+            "profiles": [
+                {
+                    "id": 292515,
+                    "effective_from": "2018-02-05"
+                },
+                {
+                    "id": 292516,
+                    "effective_from": "1900-12-31"
+                }
+            ]
+        },
+        "access": {
+            "employee_override": false,
+            "profiles": [
+                {
+                    "id": 285315,
+                    "effective_from": "2018-02-05"
+                }
+            ]
+        }
+    },
+    "cost_center_skills": [
+        {
+            "main_skill": {
+                "id": 256,
+                "name": "C"
+            },
+            "alternative_skills": [
+                {
+                    "id": 512,
+                    "name": "C++"
+                },
+                {
+                    "id": 768,
+                    "name": "Java"
+                }
+            ]
+        }
+    ],
+    "job_strain": {
+        "id": 33536,
+        "reference_type": "LIST",
+        "name": "Job Strain List 1"
+    }
+}</pre>
+</div>
+<div class="get-example-resp-tab-0" id="get-tab-resp-schema-0">
+
+<div class="jsonschema" id="schema-0">{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "type": "object",
+  "properties": {
+    "id": {
+      "type": "integer"
+    },
+    "job_category": {
+      "type": "string"
+    },
+    "name": {
+      "type": "string"
+    },
+    "abbreviation": {
+      "type": "string"
+    },
+    "description": {
+      "type": "string"
+    },
+    "job_description": {
+      "type": "string"
+    },
+    "external_id": {
+      "type": "string"
+    },
+    "payroll_code": {
+      "type": "string"
+    },
+    "visible": {
+      "type": "boolean"
+    },
+    "applicant_tracking_display": {
+      "type": "boolean"
+    },
+    "applicant_tracking_display_only": {
+      "type": "boolean"
+    },
+    "standard_work_day": {
+      "type": "object",
+      "properties": {
+        "value": {
+          "type": "integer"
+        },
+        "employee_override": {
+          "type": "boolean"
+        }
+      },
+      "additionalProperties": false
+    },
+    "employee_type": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer"
+        },
+        "employee_override": {
+          "type": "boolean"
+        }
+      },
+      "additionalProperties": false,
+      "required": [
+        "id"
+      ]
+    },
+    "eeo_classification": {
+      "type": "object",
+      "properties": {
+        "value": {
+          "type": "string",
+          "enum": [
+            "EXECUTIVE_OR_SENIOR_LEVEL_OFFICIALS_AND_MANAGERS",
+            "FIRST_OR_MID_LEVEL_OFFICIALS_AND_MANAGERS",
+            "PROFESSIONALS",
+            "TECHNICIANS",
+            "SALES_WORKERS",
+            "ADMINISTRATIVE_SUPPORT_WORKERS",
+            "CRAFT_WORKERS",
+            "OPERATIVES",
+            "LABORERS_AND_HELPERS",
+            "SERVICE_WORKERS"
+          ]
+        },
+        "employee_override": {
+          "type": "boolean"
+        }
+      },
+      "additionalProperties": false,
+      "required": [
+        "value"
+      ]
+    },
+    "union": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer"
+        },
+        "employee_override": {
+          "type": "boolean"
+        }
+      },
+      "additionalProperties": false,
+      "required": [
+        "id"
+      ]
+    },
+    "pay_grade": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer"
+        },
+        "employee_override": {
+          "type": "boolean"
+        }
+      },
+      "additionalProperties": false,
+      "required": [
+        "id"
+      ]
+    },
+    "pay_type": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer"
+        },
+        "employee_override": {
+          "type": "boolean"
+        }
+      },
+      "additionalProperties": false,
+      "required": [
+        "id"
+      ]
+    },
+    "first_screen": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string"
+        },
+        "employee_override": {
+          "type": "boolean"
+        }
+      },
+      "additionalProperties": false,
+      "required": [
+        "id"
+      ]
+    },
+    "worker_type": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer"
+        },
+        "employee_override": {
+          "type": "boolean"
+        }
+      },
+      "additionalProperties": false,
+      "required": [
+        "id"
+      ]
+    },
+    "linked_company_eins": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer"
+          },
+          "company_ein": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "integer"
+              },
+              "ein_name": {
+                "type": "string"
+              },
+              "active": {
+                "type": "boolean"
+              }
+            },
+            "additionalProperties": false,
+            "required": [
+              "id"
+            ]
+          },
+          "created_date": {
+            "type": "string"
+          },
+          "gl_codes": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "index": {
+                  "type": "integer"
+                },
+                "value": {
+                  "type": "string"
+                }
+              }
+            },
+            "additionalProperties": false
+          }
+        },
+        "additionalProperties": false,
+        "required": [
+          "id"
+        ]
+      }
+    },
+    "worker_comp_code_types": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "state": {
+            "type": "string"
+          },
+          "comp_code": {
+            "type": "integer"
+          }
+        },
+        "additionalProperties": false,
+        "required": [
+          "state"
+        ]
+      }
+    },
+    "salary_surveys": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer"
+          },
+          "name": {
+            "type": "string"
+          },
+          "survey_date": {
+            "type": "string"
+          },
+          "min": {
+            "type": "number"
+          },
+          "mid": {
+            "type": "number"
+          },
+          "max": {
+            "type": "number"
+          },
+          "market": {
+            "type": "number"
+          },
+          "compa_ratio": {
+            "type": "number"
+          }
+        },
+        "additionalProperties": false,
+        "required": [
+          "min",
+          "max"
+        ]
+      }
+    },
+    "competency_groups": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer"
+          },
+          "group_name": {
+            "type": "string"
+          },
+          "weight_evenly": {
+            "type": "boolean"
+          },
+          "competencies": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "id": {
+                  "type": "integer"
+                },
+                "weight": {
+                  "type": "number"
+                },
+                "sequence": {
+                  "type": "integer"
+                },
+                "code": {
+                  "type": "string"
+                },
+                "description": {
+                  "type": "string"
+                }
+              },
+              "additionalProperties": false,
+              "required": [
+                "id"
+              ]
+            }
+          }
+        },
+        "additionalProperties": false,
+        "required": [
+          "weight_evenly"
+        ]
+      }
+    },
+    "notes": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer"
+          },
+          "created_by": {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+              "account_id": {
+                "type": "number",
+                "format": "long"
+              },
+              "display_name": {
+                "type": "string"
+              }
+            }
+          },
+          "text": {
+            "type": "string"
+          },
+          "created_at": {
+            "type": "string"
+          }
+        },
+        "additionalProperties": false
+      }
+    },
+    "defaults": {
+      "type": "object",
+      "properties": {
+        "aca": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "employee_override": {
+              "type": "boolean"
+            },
+            "profiles": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "additionalProperties": false,
+                "properties": {
+                  "id": {
+                    "type": "integer"
+                  },
+                  "effective_from": {
+                    "type": "string"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "access": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "employee_override": {
+              "type": "boolean"
+            },
+            "profiles": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "additionalProperties": false,
+                "properties": {
+                  "id": {
+                    "type": "integer"
+                  },
+                  "effective_from": {
+                    "type": "string"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "accruals": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "employee_override": {
+              "type": "boolean"
+            },
+            "profiles": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "additionalProperties": false,
+                "properties": {
+                  "id": {
+                    "type": "integer"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "accruals_2": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "employee_override": {
+              "type": "boolean"
+            },
+            "profiles": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "additionalProperties": false,
+                "properties": {
+                  "id": {
+                    "type": "integer"
+                  },
+                  "effective_from": {
+                    "type": "string"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "attestation": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "employee_override": {
+              "type": "boolean"
+            },
+            "profiles": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "additionalProperties": false,
+                "properties": {
+                  "id": {
+                    "type": "integer"
+                  },
+                  "effective_from": {
+                    "type": "string"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "benefit": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "employee_override": {
+              "type": "boolean"
+            },
+            "profiles": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "additionalProperties": false,
+                "properties": {
+                  "id": {
+                    "type": "integer"
+                  },
+                  "effective_from": {
+                    "type": "string"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "bradford_factor": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "employee_override": {
+              "type": "boolean"
+            },
+            "profiles": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "additionalProperties": false,
+                "properties": {
+                  "id": {
+                    "type": "integer"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "competency": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "employee_override": {
+              "type": "boolean"
+            },
+            "profiles": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "additionalProperties": false,
+                "properties": {
+                  "id": {
+                    "type": "integer"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "demographic": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "employee_override": {
+              "type": "boolean"
+            },
+            "profiles": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "additionalProperties": false,
+                "properties": {
+                  "id": {
+                    "type": "integer"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "holiday": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "employee_override": {
+              "type": "boolean"
+            },
+            "profiles": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "additionalProperties": false,
+                "properties": {
+                  "id": {
+                    "type": "integer"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "labor_distribution": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "employee_override": {
+              "type": "boolean"
+            },
+            "profiles": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "additionalProperties": false,
+                "properties": {
+                  "id": {
+                    "type": "integer"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "leave_of_absence": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "employee_override": {
+              "type": "boolean"
+            },
+            "profiles": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "additionalProperties": false,
+                "properties": {
+                  "id": {
+                    "type": "integer"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "new_dashboard_layout": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "employee_override": {
+              "type": "boolean"
+            },
+            "profiles": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "additionalProperties": false,
+                "properties": {
+                  "id": {
+                    "type": "integer"
+                  },
+                  "effective_from": {
+                    "type": "string"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "offline_restrictions": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "employee_override": {
+              "type": "boolean"
+            },
+            "profiles": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "additionalProperties": false,
+                "properties": {
+                  "id": {
+                    "type": "integer"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "pay_calculations": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "employee_override": {
+              "type": "boolean"
+            },
+            "profiles": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "additionalProperties": false,
+                "properties": {
+                  "id": {
+                    "type": "integer"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "pay_calculations_2": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "employee_override": {
+              "type": "boolean"
+            },
+            "profiles": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "additionalProperties": false,
+                "properties": {
+                  "id": {
+                    "type": "integer"
+                  },
+                  "effective_from": {
+                    "type": "string"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "pay_period": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "employee_override": {
+              "type": "boolean"
+            },
+            "profiles": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "additionalProperties": false,
+                "properties": {
+                  "id": {
+                    "type": "integer"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "pay_prep": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "employee_override": {
+              "type": "boolean"
+            },
+            "profiles": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "additionalProperties": false,
+                "properties": {
+                  "id": {
+                    "type": "integer"
+                  },
+                  "effective_from": {
+                    "type": "string"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "performance_review": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "employee_override": {
+              "type": "boolean"
+            },
+            "profiles": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "additionalProperties": false,
+                "properties": {
+                  "id": {
+                    "type": "integer"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "points": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "employee_override": {
+              "type": "boolean"
+            },
+            "profiles": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "additionalProperties": false,
+                "properties": {
+                  "id": {
+                    "type": "integer"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "pst_population": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "employee_override": {
+              "type": "boolean"
+            },
+            "profiles": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "additionalProperties": false,
+                "properties": {
+                  "id": {
+                    "type": "integer"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "retirement_plan": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "employee_override": {
+              "type": "boolean"
+            },
+            "profiles": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "additionalProperties": false,
+                "properties": {
+                  "id": {
+                    "type": "integer"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "scheduler": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "employee_override": {
+              "type": "boolean"
+            },
+            "profiles": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "additionalProperties": false,
+                "properties": {
+                  "id": {
+                    "type": "integer"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "scorecard": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "employee_override": {
+              "type": "boolean"
+            },
+            "profiles": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "additionalProperties": false,
+                "properties": {
+                  "id": {
+                    "type": "integer"
+                  },
+                  "effective_from": {
+                    "type": "string"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "security": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "employee_override": {
+              "type": "boolean"
+            },
+            "profiles": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "additionalProperties": false,
+                "properties": {
+                  "id": {
+                    "type": "integer"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "succession": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "employee_override": {
+              "type": "boolean"
+            },
+            "profiles": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "additionalProperties": false,
+                "properties": {
+                  "id": {
+                    "type": "integer"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "timesheet": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "employee_override": {
+              "type": "boolean"
+            },
+            "profiles": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "additionalProperties": false,
+                "properties": {
+                  "id": {
+                    "type": "integer"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "timeoff": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "employee_override": {
+              "type": "boolean"
+            },
+            "profiles": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "additionalProperties": false,
+                "properties": {
+                  "id": {
+                    "type": "integer"
+                  },
+                  "effective_from": {
+                    "type": "string"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "ts_auto_population": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "employee_override": {
+              "type": "boolean"
+            },
+            "profiles": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "additionalProperties": false,
+                "properties": {
+                  "id": {
+                    "type": "integer"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "training": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "employee_override": {
+              "type": "boolean"
+            },
+            "profiles": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "additionalProperties": false,
+                "properties": {
+                  "id": {
+                    "type": "integer"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "workday_breakdown": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "employee_override": {
+              "type": "boolean"
+            },
+            "profiles": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "additionalProperties": false,
+                "properties": {
+                  "id": {
+                    "type": "integer"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "work_schedule": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "employee_override": {
+              "type": "boolean"
+            },
+            "profiles": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "additionalProperties": false,
+                "properties": {
+                  "id": {
+                    "type": "integer"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "working_time_regulation": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "employee_override": {
+              "type": "boolean"
+            },
+            "profiles": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "additionalProperties": false,
+                "properties": {
+                  "id": {
+                    "type": "integer"
+                  },
+                  "effective_from": {
+                    "type": "string"
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "additionalProperties": false
+    },
+    "cost_center_skills": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "main_skill": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "integer"
+              },
+              "name": {
+                "type": "string"
+              }
+            },
+            "additionalProperties": false,
+            "required": [
+              "id"
+            ]
+          },
+          "alternative_skills": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "id": {
+                  "type": "integer"
+                },
+                "name": {
+                  "type": "string"
+                }
+              },
+              "additionalProperties": false,
+              "required": [
+                "id"
+              ]
+            }
+          }
+        },
+        "additionalProperties": false
+      }
+    },
+    "job_strain": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer"
+        },
+        "reference_type": {
+          "type": "string",
+          "enum": [
+            "SINGLE",
+            "LIST"
+          ]
+        },
+        "name": {
+          "type": "string"
+        }
+      },
+      "additionalProperties": false,
+      "required": [
+        "reference_type"
+      ]
+    }
+  },
+  "additionalProperties": false,
+  "required": [
+    "id",
+    "name"
+  ]
+}</div>
+</div>
+</div>
+</div>
+<div class="resp-tab-get" id="resp-tab-id-get-1">
+<div class="example">
+
+<div class="get-example-resp-tab-1 activeTab" id="get-tab-resp-example-1">
+
+<pre class="highlightjs">&lt;?xml version="1.0" encoding="UTF-8"?&gt;
+&lt;cost_center_job&gt;
+   &lt;id&gt;2355&lt;/id&gt;
+   &lt;abbreviation&gt;SE1&lt;/abbreviation&gt;
+   &lt;applicant_tracking_display&gt;true&lt;/applicant_tracking_display&gt;
+   &lt;applicant_tracking_display_only&gt;false&lt;/applicant_tracking_display_only&gt;
+   &lt;job_strain&gt;
+      &lt;id&gt;33536&lt;/id&gt;
+      &lt;reference_type&gt;LIST&lt;/reference_type&gt;
+      &lt;name&gt;Job Strain List 1&lt;/name&gt;
+   &lt;/job_strain&gt;
+   &lt;cost_center_skills&gt;
+      &lt;cost_center_skill&gt;
+         &lt;main_skill&gt;
+            &lt;id&gt;256&lt;/id&gt;
+            &lt;name&gt;C&lt;/name&gt;
+         &lt;/main_skill&gt;
+         &lt;alternative_skills&gt;
+            &lt;alternative_skill&gt;
+               &lt;id&gt;512&lt;/id&gt;
+               &lt;name&gt;C++&lt;/name&gt;
+            &lt;/alternative_skill&gt;
+            &lt;alternative_skill&gt;
+               &lt;id&gt;768&lt;/id&gt;
+               &lt;name&gt;Java&lt;/name&gt;
+            &lt;/alternative_skill&gt;
+         &lt;/alternative_skills&gt;
+      &lt;/cost_center_skill&gt;
+   &lt;/cost_center_skills&gt;
+   &lt;defaults&gt;
+      &lt;aca&gt;
+         &lt;employee_override&gt;true&lt;/employee_override&gt;
+         &lt;profiles&gt;
+            &lt;profile&gt;
+               &lt;effective_from&gt;2018-02-05&lt;/effective_from&gt;
+               &lt;id&gt;292515&lt;/id&gt;
+            &lt;/profile&gt;
+            &lt;profile&gt;
+               &lt;effective_from&gt;1900-12-31&lt;/effective_from&gt;
+               &lt;id&gt;292516&lt;/id&gt;
+            &lt;/profile&gt;
+         &lt;/profiles&gt;
+      &lt;/aca&gt;
+      &lt;access&gt;
+         &lt;employee_override&gt;false&lt;/employee_override&gt;
+         &lt;profiles&gt;
+            &lt;profile&gt;
+               &lt;effective_from&gt;2018-02-05&lt;/effective_from&gt;
+               &lt;id&gt;285315&lt;/id&gt;
+            &lt;/profile&gt;
+         &lt;/profiles&gt;
+      &lt;/access&gt;
+   &lt;/defaults&gt;
+   &lt;description&gt;This job is for Software Engineer I&lt;/description&gt;
+   &lt;eeo_classification&gt;
+      &lt;value&gt;PROFESSIONALS&lt;/value&gt;
+      &lt;employee_override&gt;true&lt;/employee_override&gt;
+   &lt;/eeo_classification&gt;
+   &lt;employee_type&gt;
+      &lt;employee_override&gt;false&lt;/employee_override&gt;
+      &lt;id&gt;129795&lt;/id&gt;
+   &lt;/employee_type&gt;
+   &lt;external_id&gt;2376A&lt;/external_id&gt;
+   &lt;first_screen&gt;
+      &lt;employee_override&gt;true&lt;/employee_override&gt;
+      &lt;id&gt;SCREEN:101&lt;/id&gt;
+   &lt;/first_screen&gt;
+   &lt;job_category&gt;Job Category 1&lt;/job_category&gt;
+   &lt;job_description&gt;Candidate should be Well-versed in JAVA and data structures.&lt;/job_description&gt;
+   &lt;linked_company_eins&gt;
+      &lt;linked_company_ein&gt;
+         &lt;id&gt;380420352&lt;/id&gt;
+         &lt;company_ein&gt;
+            &lt;id&gt;914497&lt;/id&gt;
+            &lt;ein_name&gt;EIN 1&lt;/ein_name&gt;
+            &lt;active&gt;true&lt;/active&gt;
+         &lt;/company_ein&gt;
+         &lt;created_date&gt;2018-02-05 11:21:00&lt;/created_date&gt;
+         &lt;gl_codes&gt;
+            &lt;gl_code&gt;
+               &lt;index&gt;0&lt;/index&gt;
+               &lt;value&gt;GLD4&lt;/value&gt;
+            &lt;/gl_code&gt;
+         &lt;/gl_codes&gt;
+      &lt;/linked_company_ein&gt;
+      &lt;linked_company_ein&gt;
+         &lt;id&gt;380420096&lt;/id&gt;
+         &lt;company_ein&gt;
+            &lt;id&gt;916033&lt;/id&gt;
+            &lt;ein_name&gt;EIN 2&lt;/ein_name&gt;
+            &lt;active&gt;false&lt;/active&gt;
+         &lt;/company_ein&gt;
+         &lt;created_date&gt;2018-02-05 11:21:00&lt;/created_date&gt;
+         &lt;gl_codes&gt;
+            &lt;gl_code&gt;
+               &lt;index&gt;0&lt;/index&gt;
+               &lt;value&gt;GLD1&lt;/value&gt;
+            &lt;/gl_code&gt;
+         &lt;/gl_codes&gt;
+      &lt;/linked_company_ein&gt;
+   &lt;/linked_company_eins&gt;
+   &lt;name&gt;Software Engineer I&lt;/name&gt;
+   &lt;notes&gt;
+      &lt;note&gt;
+         &lt;added_on&gt;2018-02-02&lt;/added_on&gt;
+         &lt;created_by&gt;
+            &lt;account_id&gt;2196164&lt;/account_id&gt;
+            &lt;display_name&gt;Nicky James&lt;/display_name&gt;
+         &lt;/created_by&gt;
+         &lt;id&gt;9842240&lt;/id&gt;
+         &lt;text&gt;Cost Center Job Note 1&lt;/text&gt;
+      &lt;/note&gt;
+   &lt;/notes&gt;
+   &lt;pay_grade&gt;
+      &lt;employee_override&gt;true&lt;/employee_override&gt;
+      &lt;id&gt;9647&lt;/id&gt;
+   &lt;/pay_grade&gt;
+   &lt;pay_type&gt;
+      &lt;employee_override&gt;true&lt;/employee_override&gt;
+      &lt;id&gt;3490&lt;/id&gt;
+   &lt;/pay_type&gt;
+   &lt;payroll_code&gt;PRC-SE1&lt;/payroll_code&gt;
+   &lt;salary_surveys&gt;
+      &lt;salary_survey&gt;
+         &lt;compa_ratio&gt;90.12&lt;/compa_ratio&gt;
+         &lt;survey_date&gt;2017-09-28&lt;/survey_date&gt;
+         &lt;id&gt;65&lt;/id&gt;
+         &lt;market&gt;23.94&lt;/market&gt;
+         &lt;max&gt;32.04&lt;/max&gt;
+         &lt;mid&gt;12.98&lt;/mid&gt;
+         &lt;min&gt;2.88&lt;/min&gt;
+         &lt;name&gt;Salary Survey 1&lt;/name&gt;
+      &lt;/salary_survey&gt;
+      &lt;salary_survey&gt;
+         &lt;comp_salary&gt;23.49&lt;/comp_salary&gt;
+         &lt;survey_date&gt;2016-10-06&lt;/survey_date&gt;
+         &lt;id&gt;129&lt;/id&gt;
+         &lt;market&gt;33.94&lt;/market&gt;
+         &lt;max&gt;60.04&lt;/max&gt;
+         &lt;mid&gt;40.98&lt;/mid&gt;
+         &lt;min&gt;28.8&lt;/min&gt;
+         &lt;name&gt;Salary Survey 2&lt;/name&gt;
+      &lt;/salary_survey&gt;
+   &lt;/salary_surveys&gt;
+   &lt;competency_groups&gt;
+      &lt;competency_group&gt;
+         &lt;id&gt;1234&lt;/id&gt;
+         &lt;group_name&gt;GRP 1&lt;/group_name&gt;
+         &lt;weight_evenly&gt;false&lt;/weight_evenly&gt;
+         &lt;competencies&gt;
+            &lt;competency&gt;
+               &lt;id&gt;2348&lt;/id&gt;
+               &lt;code&gt;Code 1&lt;/code&gt;
+               &lt;description&gt;Competency description.&lt;/description&gt;
+               &lt;sequence&gt;1&lt;/sequence&gt;
+               &lt;weight&gt;42.25&lt;/weight&gt;
+            &lt;/competency&gt;
+         &lt;/competencies&gt;
+      &lt;/competency_group&gt;
+   &lt;/competency_groups&gt;
+   &lt;standard_work_day&gt;
+      &lt;employee_override&gt;false&lt;/employee_override&gt;
+      &lt;value&gt;234234789&lt;/value&gt;
+   &lt;/standard_work_day&gt;
+   &lt;union&gt;
+      &lt;employee_override&gt;false&lt;/employee_override&gt;
+      &lt;id&gt;6578&lt;/id&gt;
+   &lt;/union&gt;
+   &lt;visible&gt;true&lt;/visible&gt;
+   &lt;worker_comp_code_types&gt;
+      &lt;worker_comp_code_type&gt;
+         &lt;comp_code&gt;145785&lt;/comp_code&gt;
+         &lt;state&gt;NCCI&lt;/state&gt;
+      &lt;/worker_comp_code_type&gt;
+      &lt;worker_comp_code_type&gt;
+         &lt;comp_code&gt;155795&lt;/comp_code&gt;
+         &lt;state&gt;NY&lt;/state&gt;
+      &lt;/worker_comp_code_type&gt;
+   &lt;/worker_comp_code_types&gt;
+   &lt;worker_type&gt;
+      &lt;employee_override&gt;true&lt;/employee_override&gt;
+      &lt;id&gt;3470&lt;/id&gt;
+   &lt;/worker_type&gt;
+&lt;/cost_center_job&gt;</pre>
+</div>
+<div class="get-example-resp-tab-1" id="get-tab-resp-schema-1">
+
+<div class="jsonschema" id="schema-1">&lt;xs:schema attributeFormDefault="unqualified" elementFormDefault="qualified" xmlns:xs="http://www.w3.org/2001/XMLSchema"&gt;
+  &lt;xs:element name="cost_center_job"&gt;
+    &lt;xs:complexType&gt;
+      &lt;xs:all&gt;
+        &lt;xs:element type="xs:string" name="abbreviation" minOccurs="0"/&gt;
+        &lt;xs:element type="xs:string" name="applicant_tracking_display"/&gt;
+        &lt;xs:element type="xs:string" name="applicant_tracking_display_only"/&gt;
+        &lt;xs:element name="job_strain"&gt;
+          &lt;xs:complexType&gt;
+            &lt;xs:sequence&gt;
+              &lt;xs:element type="xs:long" name="id"/&gt;
+              &lt;xs:element name="reference_type"&gt;
+                &lt;xs:simpleType&gt;
+                  &lt;xs:restriction base="xs:string"&gt;
+                    &lt;xs:enumeration value="SINGLE"/&gt;
+                    &lt;xs:enumeration value="LIST"/&gt;
+                  &lt;/xs:restriction&gt;
+                &lt;/xs:simpleType&gt;
+              &lt;/xs:element&gt;
+              &lt;xs:element type="xs:string" name="name"/&gt;
+            &lt;/xs:sequence&gt;
+          &lt;/xs:complexType&gt;
+        &lt;/xs:element&gt;
+        &lt;xs:element name="cost_center_skills"&gt;
+          &lt;xs:complexType&gt;
+            &lt;xs:sequence&gt;
+              &lt;xs:element name="cost_center_skill" minOccurs="0"&gt;
+                &lt;xs:complexType&gt;
+                  &lt;xs:sequence&gt;
+                    &lt;xs:element name="main_skill"&gt;
+                      &lt;xs:complexType&gt;
+                        &lt;xs:sequence&gt;
+                          &lt;xs:element type="xs:long" name="id"/&gt;
+                          &lt;xs:element type="xs:string" name="name"/&gt;
+                        &lt;/xs:sequence&gt;
+                      &lt;/xs:complexType&gt;
+                    &lt;/xs:element&gt;
+                    &lt;xs:element name="alternative_skills"&gt;
+                      &lt;xs:complexType&gt;
+                        &lt;xs:sequence&gt;
+                          &lt;xs:element name="alternative_skill" maxOccurs="unbounded" minOccurs="0"&gt;
+                            &lt;xs:complexType&gt;
+                              &lt;xs:sequence&gt;
+                                &lt;xs:element type="xs:long" name="id"/&gt;
+                                &lt;xs:element type="xs:string" name="name"/&gt;
+                              &lt;/xs:sequence&gt;
+                            &lt;/xs:complexType&gt;
+                          &lt;/xs:element&gt;
+                        &lt;/xs:sequence&gt;
+                      &lt;/xs:complexType&gt;
+                    &lt;/xs:element&gt;
+                  &lt;/xs:sequence&gt;
+                &lt;/xs:complexType&gt;
+              &lt;/xs:element&gt;
+            &lt;/xs:sequence&gt;
+          &lt;/xs:complexType&gt;
+        &lt;/xs:element&gt;
+        &lt;xs:element name="defaults"&gt;
+          &lt;xs:complexType&gt;
+            &lt;xs:sequence&gt;
+              &lt;xs:element name="aca" type="effective_profile" minOccurs="0"/&gt;
+              &lt;xs:element name="access" type="effective_profile" minOccurs="0"/&gt;
+              &lt;xs:element name="accruals" type="plain_profile" minOccurs="0"/&gt;
+              &lt;xs:element name="accruals_2" type="effective_profile" minOccurs="0"/&gt;
+              &lt;xs:element name="attestation" type="effective_profile" minOccurs="0"/&gt;
+              &lt;xs:element name="benefit" type="effective_profile" minOccurs="0"/&gt;
+              &lt;xs:element name="bradford_factor" type="plain_profile" minOccurs="0"/&gt;
+              &lt;xs:element name="competency" type="plain_profile" minOccurs="0"/&gt;
+              &lt;xs:element name="demographic" type="plain_profile" minOccurs="0"/&gt;
+              &lt;xs:element name="holiday" type="plain_profile" minOccurs="0"/&gt;
+              &lt;xs:element name="labor_distribution" type="plain_profile" minOccurs="0"/&gt;
+              &lt;xs:element name="leave_of_absence" type="plain_profile" minOccurs="0"/&gt;
+              &lt;xs:element name="new_dashboard_layout" type="effective_profile" minOccurs="0"/&gt;
+              &lt;xs:element name="offline_restrictions" type="plain_profile" minOccurs="0"/&gt;
+              &lt;xs:element name="pay_calculations" type="plain_profile" minOccurs="0"/&gt;
+              &lt;xs:element name="pay_calculations_2" type="effective_profile" minOccurs="0"/&gt;
+              &lt;xs:element name="pay_period" type="plain_profile" minOccurs="0"/&gt;
+              &lt;xs:element name="pay_prep" type="effective_profile" minOccurs="0"/&gt;
+              &lt;xs:element name="performance_review" type="plain_profile" minOccurs="0"/&gt;
+              &lt;xs:element name="points" type="plain_profile" minOccurs="0"/&gt;
+              &lt;xs:element name="pst_population" type="plain_profile" minOccurs="0"/&gt;
+              &lt;xs:element name="retirement_plan" type="plain_profile" minOccurs="0"/&gt;
+              &lt;xs:element name="scheduler" type="plain_profile" minOccurs="0"/&gt;
+              &lt;xs:element name="scorecard" type="effective_profile" minOccurs="0"/&gt;
+              &lt;xs:element name="security" type="plain_profile" minOccurs="0"/&gt;
+              &lt;xs:element name="succession" type="plain_profile" minOccurs="0"/&gt;
+              &lt;xs:element name="timesheet" type="plain_profile" minOccurs="0"/&gt;
+              &lt;xs:element name="timeoff" type="effective_profile" minOccurs="0"/&gt;
+              &lt;xs:element name="ts_auto_population" type="plain_profile" minOccurs="0"/&gt;
+              &lt;xs:element name="training" type="plain_profile" minOccurs="0"/&gt;
+              &lt;xs:element name="workday_breakdown" type="plain_profile" minOccurs="0"/&gt;
+              &lt;xs:element name="work_schedule" type="plain_profile" minOccurs="0"/&gt;
+              &lt;xs:element name="working_time_regulation" type="effective_profile" minOccurs="0"/&gt;
+            &lt;/xs:sequence&gt;
+          &lt;/xs:complexType&gt;
+        &lt;/xs:element&gt;
+        &lt;xs:element type="xs:string" name="description" minOccurs="0"/&gt;
+        &lt;xs:element name="eeo_classification"&gt;
+          &lt;xs:complexType&gt;
+            &lt;xs:all&gt;
+              &lt;xs:element type="xs:boolean" name="employee_override"/&gt;
+              &lt;xs:element name="value"&gt;
+                &lt;xs:simpleType&gt;
+                  &lt;xs:restriction base="xs:string"&gt;
+                    &lt;xs:enumeration value="EXECUTIVE_OR_SENIOR_LEVEL_OFFICIALS_AND_MANAGERS"/&gt;
+                    &lt;xs:enumeration value="FIRST_OR_MID_LEVEL_OFFICIALS_AND_MANAGERS"/&gt;
+                    &lt;xs:enumeration value="PROFESSIONALS"/&gt;
+                    &lt;xs:enumeration value="TECHNICIANS"/&gt;
+                    &lt;xs:enumeration value="SALES_WORKERS"/&gt;
+                    &lt;xs:enumeration value="ADMINISTRATIVE_SUPPORT_WORKERS"/&gt;
+                    &lt;xs:enumeration value="CRAFT_WORKERS"/&gt;
+                    &lt;xs:enumeration value="OPERATIVES"/&gt;
+                    &lt;xs:enumeration value="LABORERS_AND_HELPERS"/&gt;
+                    &lt;xs:enumeration value="SERVICE_WORKERS"/&gt;
+                  &lt;/xs:restriction&gt;
+                &lt;/xs:simpleType&gt;
+              &lt;/xs:element&gt;
+            &lt;/xs:all&gt;
+          &lt;/xs:complexType&gt;
+        &lt;/xs:element&gt;
+        &lt;xs:element name="employee_type"&gt;
+          &lt;xs:complexType&gt;
+            &lt;xs:sequence&gt;
+              &lt;xs:element type="xs:boolean" name="employee_override"/&gt;
+              &lt;xs:element type="xs:long" name="id"/&gt;
+            &lt;/xs:sequence&gt;
+          &lt;/xs:complexType&gt;
+        &lt;/xs:element&gt;
+        &lt;xs:element type="xs:string" name="external_id"/&gt;
+        &lt;xs:element name="first_screen"&gt;
+          &lt;xs:complexType&gt;
+            &lt;xs:sequence&gt;
+              &lt;xs:element type="xs:boolean" name="employee_override"/&gt;
+              &lt;xs:element type="xs:string" name="id"/&gt;
+            &lt;/xs:sequence&gt;
+          &lt;/xs:complexType&gt;
+        &lt;/xs:element&gt;
+        &lt;xs:element type="xs:long" name="id"/&gt;
+        &lt;xs:element type="xs:string" name="job_category" minOccurs="0"/&gt;
+        &lt;xs:element type="xs:string" name="job_description" minOccurs="0"/&gt;
+        &lt;xs:element name="linked_company_eins"&gt;
+          &lt;xs:complexType&gt;
+            &lt;xs:sequence&gt;
+              &lt;xs:element name="linked_company_ein" maxOccurs="unbounded" minOccurs="0"&gt;
+                &lt;xs:complexType&gt;
+                  &lt;xs:all&gt;
+                    &lt;xs:element name="company_ein"&gt;
+                       &lt;xs:complexType&gt;
+                          &lt;xs:sequence&gt;
+                             &lt;xs:element type="xs:long" name="id"/&gt;
+                             &lt;xs:element type="xs:string" name="ein_name"/&gt;
+                             &lt;xs:element type="xs:boolean" name="active"/&gt;
+                          &lt;/xs:sequence&gt;
+                       &lt;/xs:complexType&gt;
+                    &lt;/xs:element&gt;
+                    &lt;xs:element type="xs:string" name="created_date"/&gt;
+                    &lt;xs:element name="gl_codes"&gt;
+                      &lt;xs:complexType&gt;
+                        &lt;xs:sequence&gt;
+                          &lt;xs:element name="gl_code" minOccurs="0"&gt;
+                            &lt;xs:complexType&gt;
+                              &lt;xs:sequence&gt;
+                                &lt;xs:element type="xs:byte" name="index"/&gt;
+                                &lt;xs:element type="xs:string" name="value"/&gt;
+                              &lt;/xs:sequence&gt;
+                            &lt;/xs:complexType&gt;
+                          &lt;/xs:element&gt;
+                        &lt;/xs:sequence&gt;
+                      &lt;/xs:complexType&gt;
+                    &lt;/xs:element&gt;
+                    &lt;xs:element type="xs:long" name="id"/&gt;
+                  &lt;/xs:all&gt;
+                &lt;/xs:complexType&gt;
+              &lt;/xs:element&gt;
+            &lt;/xs:sequence&gt;
+          &lt;/xs:complexType&gt;
+        &lt;/xs:element&gt;
+        &lt;xs:element type="xs:string" name="name"/&gt;
+        &lt;xs:element name="notes"&gt;
+          &lt;xs:complexType&gt;
+            &lt;xs:sequence&gt;
+              &lt;xs:element name="note" minOccurs="0"&gt;
+                &lt;xs:complexType&gt;
+                  &lt;xs:sequence&gt;
+                    &lt;xs:element type="xs:date" name="added_on"/&gt;
+                    &lt;xs:element name="created_by"&gt;
+                      &lt;xs:complexType&gt;
+                        &lt;xs:sequence&gt;
+                          &lt;xs:element type="xs:long" name="account_id"/&gt;
+                          &lt;xs:element type="xs:string" name="display_name"/&gt;
+                        &lt;/xs:sequence&gt;
+                      &lt;/xs:complexType&gt;
+                    &lt;/xs:element&gt;
+                    &lt;xs:element type="xs:long" name="id"/&gt;
+                    &lt;xs:element type="xs:string" name="text"/&gt;
+                  &lt;/xs:sequence&gt;
+                &lt;/xs:complexType&gt;
+              &lt;/xs:element&gt;
+            &lt;/xs:sequence&gt;
+          &lt;/xs:complexType&gt;
+        &lt;/xs:element&gt;
+        &lt;xs:element name="pay_grade"&gt;
+          &lt;xs:complexType&gt;
+            &lt;xs:sequence&gt;
+              &lt;xs:element type="xs:boolean" name="employee_override"/&gt;
+              &lt;xs:element type="xs:long" name="id"/&gt;
+            &lt;/xs:sequence&gt;
+          &lt;/xs:complexType&gt;
+        &lt;/xs:element&gt;
+        &lt;xs:element name="pay_type"&gt;
+          &lt;xs:complexType&gt;
+            &lt;xs:sequence&gt;
+              &lt;xs:element type="xs:boolean" name="employee_override"/&gt;
+              &lt;xs:element type="xs:long" name="id"/&gt;
+            &lt;/xs:sequence&gt;
+          &lt;/xs:complexType&gt;
+        &lt;/xs:element&gt;
+        &lt;xs:element type="xs:string" name="payroll_code"/&gt;
+        &lt;xs:element name="salary_surveys"&gt;
+          &lt;xs:complexType&gt;
+            &lt;xs:sequence&gt;
+              &lt;xs:element name="salary_survey" maxOccurs="unbounded" minOccurs="0"&gt;
+                &lt;xs:complexType&gt;
+                  &lt;xs:sequence&gt;
+                    &lt;xs:element type="xs:float" name="compa_ratio" minOccurs="0"/&gt;
+                    &lt;xs:element type="xs:float" name="comp_salary" minOccurs="0"/&gt;
+                    &lt;xs:element type="xs:date" name="survey_date"/&gt;
+                    &lt;xs:element type="xs:long" name="id"/&gt;
+                    &lt;xs:element type="xs:float" name="market"/&gt;
+                    &lt;xs:element type="xs:float" name="max"/&gt;
+                    &lt;xs:element type="xs:float" name="mid"/&gt;
+                    &lt;xs:element type="xs:float" name="min"/&gt;
+                    &lt;xs:element type="xs:string" name="name"/&gt;
+                  &lt;/xs:sequence&gt;
+                &lt;/xs:complexType&gt;
+              &lt;/xs:element&gt;
+            &lt;/xs:sequence&gt;
+          &lt;/xs:complexType&gt;
+        &lt;/xs:element&gt;
+        &lt;xs:element name="competency_groups"&gt;
+          &lt;xs:complexType&gt;
+            &lt;xs:sequence&gt;
+              &lt;xs:element name="competency_group" maxOccurs="unbounded" minOccurs="0"&gt;
+                &lt;xs:complexType&gt;
+                  &lt;xs:sequence&gt;
+                    &lt;xs:element type="xs:short" name="id"/&gt;
+                    &lt;xs:element type="xs:string" name="group_name"/&gt;
+                    &lt;xs:element type="xs:string" name="weight_evenly" minOccurs="0"/&gt;
+                    &lt;xs:element name="competencies"&gt;
+                      &lt;xs:complexType&gt;
+                        &lt;xs:sequence&gt;
+                          &lt;xs:element name="competency" maxOccurs="unbounded" minOccurs="0"&gt;
+                            &lt;xs:complexType&gt;
+                              &lt;xs:sequence&gt;
+                                &lt;xs:element type="xs:short" name="id"/&gt;
+                                &lt;xs:element type="xs:string" name="code" minOccurs="0"/&gt;
+                                &lt;xs:element type="xs:string" name="description" minOccurs="0"/&gt;
+                                &lt;xs:element type="xs:byte" name="sequence" minOccurs="0"/&gt;
+                                &lt;xs:element type="xs:float" name="weight" minOccurs="0"/&gt;
+                              &lt;/xs:sequence&gt;
+                            &lt;/xs:complexType&gt;
+                          &lt;/xs:element&gt;
+                        &lt;/xs:sequence&gt;
+                      &lt;/xs:complexType&gt;
+                    &lt;/xs:element&gt;
+                  &lt;/xs:sequence&gt;
+                &lt;/xs:complexType&gt;
+              &lt;/xs:element&gt;
+            &lt;/xs:sequence&gt;
+          &lt;/xs:complexType&gt;
+        &lt;/xs:element&gt;
+        &lt;xs:element name="standard_work_day"&gt;
+          &lt;xs:complexType&gt;
+            &lt;xs:all&gt;
+              &lt;xs:element type="xs:boolean" name="employee_override"/&gt;
+              &lt;xs:element type="xs:long" name="value"/&gt;
+            &lt;/xs:all&gt;
+          &lt;/xs:complexType&gt;
+        &lt;/xs:element&gt;
+        &lt;xs:element name="union"&gt;
+          &lt;xs:complexType&gt;
+            &lt;xs:sequence&gt;
+              &lt;xs:element type="xs:boolean" name="employee_override"/&gt;
+              &lt;xs:element type="xs:long" name="id"/&gt;
+            &lt;/xs:sequence&gt;
+          &lt;/xs:complexType&gt;
+        &lt;/xs:element&gt;
+        &lt;xs:element type="xs:string" name="visible"/&gt;
+        &lt;xs:element name="worker_comp_code_types"&gt;
+          &lt;xs:complexType&gt;
+            &lt;xs:sequence&gt;
+              &lt;xs:element name="worker_comp_code_type" maxOccurs="unbounded" minOccurs="0"&gt;
+                &lt;xs:complexType&gt;
+                  &lt;xs:sequence&gt;
+                    &lt;xs:element type="xs:int" name="comp_code"/&gt;
+                    &lt;xs:element type="xs:string" name="state"/&gt;
+                  &lt;/xs:sequence&gt;
+                &lt;/xs:complexType&gt;
+              &lt;/xs:element&gt;
+            &lt;/xs:sequence&gt;
+          &lt;/xs:complexType&gt;
+        &lt;/xs:element&gt;
+        &lt;xs:element name="worker_type"&gt;
+          &lt;xs:complexType&gt;
+            &lt;xs:sequence&gt;
+              &lt;xs:element type="xs:boolean" name="employee_override"/&gt;
+              &lt;xs:element type="xs:long" name="id"/&gt;
+            &lt;/xs:sequence&gt;
+          &lt;/xs:complexType&gt;
+        &lt;/xs:element&gt;
+      &lt;/xs:all&gt;
+    &lt;/xs:complexType&gt;
+  &lt;/xs:element&gt;
+
+  &lt;xs:complexType name="effective_profile"&gt;
+    &lt;xs:sequence&gt;
+      &lt;xs:element type="xs:boolean" name="employee_override"/&gt;
+      &lt;xs:element name="profiles"&gt;
+        &lt;xs:complexType&gt;
+          &lt;xs:sequence&gt;
+            &lt;xs:element name="profile" maxOccurs="unbounded" minOccurs="0"&gt;
+              &lt;xs:complexType&gt;
+                &lt;xs:all&gt;
+                  &lt;xs:element type="xs:date" name="effective_from"/&gt;
+                  &lt;xs:element type="xs:long" name="id"/&gt;
+                &lt;/xs:all&gt;
+              &lt;/xs:complexType&gt;
+            &lt;/xs:element&gt;
+          &lt;/xs:sequence&gt;
+        &lt;/xs:complexType&gt;
+      &lt;/xs:element&gt;
+    &lt;/xs:sequence&gt;
+  &lt;/xs:complexType&gt;
+
+  &lt;xs:complexType name="plain_profile"&gt;
+    &lt;xs:sequence&gt;
+      &lt;xs:element type="xs:boolean" name="employee_override"/&gt;
+      &lt;xs:element name="profiles"&gt;
+        &lt;xs:complexType&gt;
+          &lt;xs:sequence&gt;
+            &lt;xs:element name="profile" maxOccurs="unbounded" minOccurs="0"&gt;
+              &lt;xs:complexType&gt;
+                &lt;xs:sequence&gt;
+                  &lt;xs:element type="xs:long" name="id"/&gt;
+                &lt;/xs:sequence&gt;
+              &lt;/xs:complexType&gt;
+            &lt;/xs:element&gt;
+          &lt;/xs:sequence&gt;
+        &lt;/xs:complexType&gt;
+      &lt;/xs:element&gt;
+    &lt;/xs:sequence&gt;
+  &lt;/xs:complexType&gt;
+&lt;/xs:schema&gt;</div>
+</div>
+</div>
+</div>
+</div>
+</article>
+</section>
+<section class="clearfix">
+<article class="definition">
+<h3 class="anchored" id="put"><span>PUT</span>
+<a class="fa fa-link link-anchor" data-url="r=__v2__companies__(cid)__config__cost-center-jobs__(id)#put" data-web-id="__v2__companies__(cid)__config__cost-center-jobs__(id)"></a>
+</h3>
+<div class="md"><p>Updates a specific Cost Center Job within the company.
+Requires permission to edit a Cost Center Job.
+
+Requires at least one of the following subsystems:
+  - HR
+  - HR (Small Business Edition)
+</p></div>
+<h4>Parameters</h4>
+<h5>Path Parameters</h5>
+<ul class="param-list">
+<li>
+<div class="param-desc">
+<div class="param-name">cid</div>
+<div class="data-type">string</div>
+<div class="required">required</div>
+</div>
+<div class="param-content">
+<div>
+<p>Example: 123456</p>
+<div class="desc md">Company should be referenced via company id or company unique id or company short name using `|short_name` or `!short_name` format.
+</div>
+</div>
+</div>
+
+</li>
+<li>
+<div class="param-desc">
+<div class="param-name">id</div>
+<div class="data-type">integer</div>
+<div class="required">required</div>
+</div>
+<div class="param-content">
+<div>
+<div class="desc md">The id of cost center job.</div>
+</div>
+</div>
+
+</li>
+</ul>
+<h5>Header Parameters</h5>
+<ul class="param-list">
+<li>
+<div class="param-desc">
+<div class="param-name">Accept</div>
+<div class="data-type">string</div>
+</div>
+<div class="param-content">
+<div>
+<p>Valid values: application/json, application/xml, text/xml</p>
+<p>Default: application/json</p>
+<p>Example: application/json</p>
+</div>
+</div>
+
+</li>
+<li>
+<div class="param-desc">
+<div class="param-name">Content-Type</div>
+<div class="data-type">string</div>
+<div class="required">required</div>
+</div>
+<div class="param-content">
+<div>
+<p>Valid values: application/xml, text/xml, application/json</p>
+<p>Example: application/json</p>
+</div>
+</div>
+
+</li>
+<li>
+<div class="param-desc">
+<div class="param-name">Content-Length</div>
+<div class="data-type">integer</div>
+<div class="required">required</div>
+</div>
+<div class="param-content">
+<div>
+</div>
+</div>
+
+</li>
+</ul>
+<h4>Responses</h4>
+<div class="responses">
+<div>
+<label class="response response-success">
+<span class="fa fa-check"></span>
+<input data-full-tab-id="put-resp-code-tab-id-0" data-tab-class="resp-code-tab-put" name="resp-code-tab-put" type="radio"/>
+<span class="status">204 No Content</span>
+</label>
+<div class="response-desc resp-code-tab-put" id="put-resp-code-tab-id-0">
+<div class="md"><p>Cost Center Job was successfully updated.</p></div>
+</div>
+</div>
+<div>
+<label class="response response-error">
+<span class="fa fa-times"></span>
+<input data-full-tab-id="put-resp-code-tab-id-1" data-tab-class="resp-code-tab-put" name="resp-code-tab-put" type="radio"/>
+<span class="status">401 Unauthorized</span>
+</label>
+<div class="response-desc resp-code-tab-put" id="put-resp-code-tab-id-1">
+<div class="md"><p>Returned in case user is not authorized.</p></div>
+</div>
+</div>
+<div>
+<label class="response response-error">
+<span class="fa fa-times"></span>
+<input data-full-tab-id="put-resp-code-tab-id-2" data-tab-class="resp-code-tab-put" name="resp-code-tab-put" type="radio"/>
+<span class="status">403 Forbidden</span>
+</label>
+<div class="response-desc resp-code-tab-put" id="put-resp-code-tab-id-2">
+<div class="md"><p>Returned in case user has no access to the resource.</p></div>
+</div>
+</div>
+<div>
+<label class="response response-error">
+<span class="fa fa-times"></span>
+<input data-full-tab-id="put-resp-code-tab-id-3" data-tab-class="resp-code-tab-put" name="resp-code-tab-put" type="radio"/>
+<span class="status">404 Not Found</span>
+</label>
+<div class="response-desc resp-code-tab-put" id="put-resp-code-tab-id-3">
+<div class="md"><p>Returned in case resource does not exist.</p></div>
+</div>
+</div>
+<div>
+<label class="response response-error">
+<span class="fa fa-times"></span>
+<input data-full-tab-id="put-resp-code-tab-id-4" data-tab-class="resp-code-tab-put" name="resp-code-tab-put" type="radio"/>
+<span class="status">503 Service Unavailable</span>
+</label>
+<div class="response-desc resp-code-tab-put" id="put-resp-code-tab-id-4">
+<div class="md"><p>Returned in the event that the call limit is exceeded. The application will be unavailable for subsequent calls for the duration specified by the X-CallLimit-TimeToWait header.</p></div>
+</div>
+</div>
+</div>
+</article>
+<article class="code">
+<h4>Definition</h4>
+<div class="uri">
+<code>
+<span class="method put">put</span>
+<span class="textUri"><span class="baseUri">{{ getUriPrefix() }}</span><span class="relativeUri">/v2/companies/{cid}/config/cost-center-jobs/{id}</span></span>
+</code>
+</div>
+<h4>Request Samples</h4>
+<div class="tab-title-group">
+<label>
+<input checked="checked" data-full-tab-id="req-tab-id-put-0" data-tab-class="req-tab-put" name="req-tab-put" type="radio"/>
+<span class="tab-title">application/json</span>
+</label>
+<label>
+<input data-full-tab-id="req-tab-id-put-1" data-tab-class="req-tab-put" name="req-tab-put" type="radio"/>
+<span class="tab-title">application/xml</span>
+</label>
+</div>
+<div>
+<div class="req-tab-put" id="req-tab-id-put-0">
+<div class="example">
+
+<div class="put-example-tab-0 activeTab" id="put-tab-example-0">
+
+<pre class="highlightjs">{
+    "id": 2355,
+    "job_category": "Job Category 1",
+    "name": "Software Engineer I",
+    "abbreviation": "SE1",
+    "description": "This job is for Software Engineer I",
+    "job_description": "Candidate should be Well-versed in JAVA and data structures.",
+    "external_id": "2376A",
+    "payroll_code": "PRC-SE1",
+    "visible": true,
+    "applicant_tracking_display": true,
+    "applicant_tracking_display_only": false,
+    "standard_work_day": {
+        "value": 234234789,
+        "employee_override": false
+    },
+    "employee_type": {
+        "id": 129795,
+        "employee_override": false
+    },
+    "eeo_classification": {
+        "value": "PROFESSIONALS",
+        "employee_override": true
+    },
+    "union": {
+        "id": 6578,
+        "employee_override": false
+    },
+    "pay_grade": {
+        "id": 9647,
+        "employee_override": true
+    },
+    "pay_type": {
+        "id": 3490,
+        "employee_override": true
+    },
+    "first_screen": {
+        "id": "SCREEN:101",
+        "employee_override": true
+    },
+    "worker_type": {
+        "id": 3470,
+        "employee_override": true
+    },
+    "linked_company_eins": [
+        {
+            "id": 380420352,
+            "company_ein":{
+              "id": 914497,
+              "ein_name": "EIN 1",
+              "active": true
+            },
+            "created_date": "2018-02-05 11:21:00",
+            "gl_codes": [
+                {
+                    "index": 0,
+                    "value": "GLD4"
+                }
+            ]
+        },
+        {
+            "id": 380420096,
+            "company_ein":{
+              "id": 916033,
+              "ein_name": "EIN 2",
+              "active": false
+            },
+            "created_date": "2018-02-05 11:21:00",
+            "gl_codes": [
+                {
+                    "index": 0,
+                    "value": "GLD1"
+                }
+            ]
+        }
+    ],
+    "worker_comp_code_types": [
+        {
+            "state": "NCCI",
+            "comp_code": 145785
+        },
+        {
+            "state": "NY",
+            "comp_code": 155795
+        }
+    ],
+    "salary_surveys": [
+        {
+            "id": 65,
+            "name": "Salary Survey 1",
+            "survey_date": "2017-09-28",
+            "min": 2.88,
+            "mid": 12.98,
+            "max": 32.04,
+            "market": 23.94,
+            "compa_ratio": 90.12
+        },
+        {
+            "id": 129,
+            "name": "Salary Survey 2",
+            "survey_date": "2016-10-06",
+            "min": 28.80,
+            "mid": 40.98,
+            "max": 60.04,
+            "market": 33.94,
+            "compa_ratio": 23.49
+        }
+    ],
+    "competency_groups": [
+        {
+            "id": 1234,
+            "group_name": "GRP 1",
+            "weight_evenly": false,
+            "competencies": [
+                {
+                    "id": 2348,
+                    "weight": 42.25,
+                    "sequence": 1,
+                    "code": "Code 1",
+                    "description": "Competency description."
+                }
+            ]
+        }
+    ],
+    "notes": [
+        {
+            "id": 9842240,
+            "created_by": {
+                "account_id": 2196164,
+                "display_name": "Nicky James"
+            },
+            "text": "Cost Center Job Note 1",
+            "created_at": "2018-02-02"
+        }
+    ],
+    "defaults": {
+        "aca": {
+            "employee_override": true,
+            "profiles": [
+                {
+                    "id": 292515,
+                    "effective_from": "2018-02-05"
+                },
+                {
+                    "id": 292516,
+                    "effective_from": "1900-12-31"
+                }
+            ]
+        },
+        "access": {
+            "employee_override": false,
+            "profiles": [
+                {
+                    "id": 285315,
+                    "effective_from": "2018-02-05"
+                }
+            ]
+        }
+    },
+    "cost_center_skills": [
+        {
+            "main_skill": {
+                "id": 256,
+                "name": "C"
+            },
+            "alternative_skills": [
+                {
+                    "id": 512,
+                    "name": "C++"
+                },
+                {
+                    "id": 768,
+                    "name": "Java"
+                }
+            ]
+        }
+    ],
+    "job_strain": {
+        "id": 33536,
+        "reference_type": "LIST",
+        "name": "Job Strain List 1"
+    }
+}</pre>
+</div>
+<div class="put-example-tab-0" id="put-tab-schema-0">
+
+<div class="jsonschema" id="schema-2">{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "type": "object",
+  "properties": {
+    "id": {
+      "type": "integer"
+    },
+    "job_category": {
+      "type": "string"
+    },
+    "name": {
+      "type": "string"
+    },
+    "abbreviation": {
+      "type": "string"
+    },
+    "description": {
+      "type": "string"
+    },
+    "job_description": {
+      "type": "string"
+    },
+    "external_id": {
+      "type": "string"
+    },
+    "payroll_code": {
+      "type": "string"
+    },
+    "visible": {
+      "type": "boolean"
+    },
+    "applicant_tracking_display": {
+      "type": "boolean"
+    },
+    "applicant_tracking_display_only": {
+      "type": "boolean"
+    },
+    "standard_work_day": {
+      "type": "object",
+      "properties": {
+        "value": {
+          "type": "integer"
+        },
+        "employee_override": {
+          "type": "boolean"
+        }
+      },
+      "additionalProperties": false
+    },
+    "employee_type": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer"
+        },
+        "employee_override": {
+          "type": "boolean"
+        }
+      },
+      "additionalProperties": false,
+      "required": [
+        "id"
+      ]
+    },
+    "eeo_classification": {
+      "type": "object",
+      "properties": {
+        "value": {
+          "type": "string",
+          "enum": [
+            "EXECUTIVE_OR_SENIOR_LEVEL_OFFICIALS_AND_MANAGERS",
+            "FIRST_OR_MID_LEVEL_OFFICIALS_AND_MANAGERS",
+            "PROFESSIONALS",
+            "TECHNICIANS",
+            "SALES_WORKERS",
+            "ADMINISTRATIVE_SUPPORT_WORKERS",
+            "CRAFT_WORKERS",
+            "OPERATIVES",
+            "LABORERS_AND_HELPERS",
+            "SERVICE_WORKERS"
+          ]
+        },
+        "employee_override": {
+          "type": "boolean"
+        }
+      },
+      "additionalProperties": false,
+      "required": [
+        "value"
+      ]
+    },
+    "union": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer"
+        },
+        "employee_override": {
+          "type": "boolean"
+        }
+      },
+      "additionalProperties": false,
+      "required": [
+        "id"
+      ]
+    },
+    "pay_grade": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer"
+        },
+        "employee_override": {
+          "type": "boolean"
+        }
+      },
+      "additionalProperties": false,
+      "required": [
+        "id"
+      ]
+    },
+    "pay_type": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer"
+        },
+        "employee_override": {
+          "type": "boolean"
+        }
+      },
+      "additionalProperties": false,
+      "required": [
+        "id"
+      ]
+    },
+    "first_screen": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string"
+        },
+        "employee_override": {
+          "type": "boolean"
+        }
+      },
+      "additionalProperties": false,
+      "required": [
+        "id"
+      ]
+    },
+    "worker_type": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer"
+        },
+        "employee_override": {
+          "type": "boolean"
+        }
+      },
+      "additionalProperties": false,
+      "required": [
+        "id"
+      ]
+    },
+    "linked_company_eins": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer"
+          },
+          "company_ein": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "integer"
+              },
+              "ein_name": {
+                "type": "string"
+              },
+              "active": {
+                "type": "boolean"
+              }
+            },
+            "additionalProperties": false,
+            "required": [
+              "id"
+            ]
+          },
+          "created_date": {
+            "type": "string"
+          },
+          "gl_codes": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "index": {
+                  "type": "integer"
+                },
+                "value": {
+                  "type": "string"
+                }
+              }
+            },
+            "additionalProperties": false
+          }
+        },
+        "additionalProperties": false,
+        "required": [
+          "id"
+        ]
+      }
+    },
+    "worker_comp_code_types": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "state": {
+            "type": "string"
+          },
+          "comp_code": {
+            "type": "integer"
+          }
+        },
+        "additionalProperties": false,
+        "required": [
+          "state"
+        ]
+      }
+    },
+    "salary_surveys": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer"
+          },
+          "name": {
+            "type": "string"
+          },
+          "survey_date": {
+            "type": "string"
+          },
+          "min": {
+            "type": "number"
+          },
+          "mid": {
+            "type": "number"
+          },
+          "max": {
+            "type": "number"
+          },
+          "market": {
+            "type": "number"
+          },
+          "compa_ratio": {
+            "type": "number"
+          }
+        },
+        "additionalProperties": false,
+        "required": [
+          "min",
+          "max"
+        ]
+      }
+    },
+    "competency_groups": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer"
+          },
+          "group_name": {
+            "type": "string"
+          },
+          "weight_evenly": {
+            "type": "boolean"
+          },
+          "competencies": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "id": {
+                  "type": "integer"
+                },
+                "weight": {
+                  "type": "number"
+                },
+                "sequence": {
+                  "type": "integer"
+                },
+                "code": {
+                  "type": "string"
+                },
+                "description": {
+                  "type": "string"
+                }
+              },
+              "additionalProperties": false,
+              "required": [
+                "id"
+              ]
+            }
+          }
+        },
+        "additionalProperties": false,
+        "required": [
+          "weight_evenly"
+        ]
+      }
+    },
+    "notes": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer"
+          },
+          "created_by": {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+              "account_id": {
+                "type": "number",
+                "format": "long"
+              },
+              "display_name": {
+                "type": "string"
+              }
+            }
+          },
+          "text": {
+            "type": "string"
+          },
+          "created_at": {
+            "type": "string"
+          }
+        },
+        "additionalProperties": false
+      }
+    },
+    "defaults": {
+      "type": "object",
+      "properties": {
+        "aca": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "employee_override": {
+              "type": "boolean"
+            },
+            "profiles": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "additionalProperties": false,
+                "properties": {
+                  "id": {
+                    "type": "integer"
+                  },
+                  "effective_from": {
+                    "type": "string"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "access": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "employee_override": {
+              "type": "boolean"
+            },
+            "profiles": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "additionalProperties": false,
+                "properties": {
+                  "id": {
+                    "type": "integer"
+                  },
+                  "effective_from": {
+                    "type": "string"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "accruals": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "employee_override": {
+              "type": "boolean"
+            },
+            "profiles": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "additionalProperties": false,
+                "properties": {
+                  "id": {
+                    "type": "integer"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "accruals_2": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "employee_override": {
+              "type": "boolean"
+            },
+            "profiles": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "additionalProperties": false,
+                "properties": {
+                  "id": {
+                    "type": "integer"
+                  },
+                  "effective_from": {
+                    "type": "string"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "attestation": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "employee_override": {
+              "type": "boolean"
+            },
+            "profiles": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "additionalProperties": false,
+                "properties": {
+                  "id": {
+                    "type": "integer"
+                  },
+                  "effective_from": {
+                    "type": "string"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "benefit": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "employee_override": {
+              "type": "boolean"
+            },
+            "profiles": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "additionalProperties": false,
+                "properties": {
+                  "id": {
+                    "type": "integer"
+                  },
+                  "effective_from": {
+                    "type": "string"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "bradford_factor": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "employee_override": {
+              "type": "boolean"
+            },
+            "profiles": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "additionalProperties": false,
+                "properties": {
+                  "id": {
+                    "type": "integer"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "competency": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "employee_override": {
+              "type": "boolean"
+            },
+            "profiles": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "additionalProperties": false,
+                "properties": {
+                  "id": {
+                    "type": "integer"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "demographic": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "employee_override": {
+              "type": "boolean"
+            },
+            "profiles": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "additionalProperties": false,
+                "properties": {
+                  "id": {
+                    "type": "integer"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "holiday": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "employee_override": {
+              "type": "boolean"
+            },
+            "profiles": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "additionalProperties": false,
+                "properties": {
+                  "id": {
+                    "type": "integer"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "labor_distribution": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "employee_override": {
+              "type": "boolean"
+            },
+            "profiles": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "additionalProperties": false,
+                "properties": {
+                  "id": {
+                    "type": "integer"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "leave_of_absence": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "employee_override": {
+              "type": "boolean"
+            },
+            "profiles": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "additionalProperties": false,
+                "properties": {
+                  "id": {
+                    "type": "integer"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "new_dashboard_layout": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "employee_override": {
+              "type": "boolean"
+            },
+            "profiles": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "additionalProperties": false,
+                "properties": {
+                  "id": {
+                    "type": "integer"
+                  },
+                  "effective_from": {
+                    "type": "string"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "offline_restrictions": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "employee_override": {
+              "type": "boolean"
+            },
+            "profiles": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "additionalProperties": false,
+                "properties": {
+                  "id": {
+                    "type": "integer"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "pay_calculations": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "employee_override": {
+              "type": "boolean"
+            },
+            "profiles": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "additionalProperties": false,
+                "properties": {
+                  "id": {
+                    "type": "integer"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "pay_calculations_2": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "employee_override": {
+              "type": "boolean"
+            },
+            "profiles": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "additionalProperties": false,
+                "properties": {
+                  "id": {
+                    "type": "integer"
+                  },
+                  "effective_from": {
+                    "type": "string"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "pay_period": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "employee_override": {
+              "type": "boolean"
+            },
+            "profiles": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "additionalProperties": false,
+                "properties": {
+                  "id": {
+                    "type": "integer"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "pay_prep": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "employee_override": {
+              "type": "boolean"
+            },
+            "profiles": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "additionalProperties": false,
+                "properties": {
+                  "id": {
+                    "type": "integer"
+                  },
+                  "effective_from": {
+                    "type": "string"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "performance_review": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "employee_override": {
+              "type": "boolean"
+            },
+            "profiles": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "additionalProperties": false,
+                "properties": {
+                  "id": {
+                    "type": "integer"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "points": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "employee_override": {
+              "type": "boolean"
+            },
+            "profiles": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "additionalProperties": false,
+                "properties": {
+                  "id": {
+                    "type": "integer"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "pst_population": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "employee_override": {
+              "type": "boolean"
+            },
+            "profiles": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "additionalProperties": false,
+                "properties": {
+                  "id": {
+                    "type": "integer"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "retirement_plan": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "employee_override": {
+              "type": "boolean"
+            },
+            "profiles": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "additionalProperties": false,
+                "properties": {
+                  "id": {
+                    "type": "integer"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "scheduler": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "employee_override": {
+              "type": "boolean"
+            },
+            "profiles": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "additionalProperties": false,
+                "properties": {
+                  "id": {
+                    "type": "integer"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "scorecard": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "employee_override": {
+              "type": "boolean"
+            },
+            "profiles": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "additionalProperties": false,
+                "properties": {
+                  "id": {
+                    "type": "integer"
+                  },
+                  "effective_from": {
+                    "type": "string"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "security": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "employee_override": {
+              "type": "boolean"
+            },
+            "profiles": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "additionalProperties": false,
+                "properties": {
+                  "id": {
+                    "type": "integer"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "succession": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "employee_override": {
+              "type": "boolean"
+            },
+            "profiles": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "additionalProperties": false,
+                "properties": {
+                  "id": {
+                    "type": "integer"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "timesheet": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "employee_override": {
+              "type": "boolean"
+            },
+            "profiles": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "additionalProperties": false,
+                "properties": {
+                  "id": {
+                    "type": "integer"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "timeoff": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "employee_override": {
+              "type": "boolean"
+            },
+            "profiles": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "additionalProperties": false,
+                "properties": {
+                  "id": {
+                    "type": "integer"
+                  },
+                  "effective_from": {
+                    "type": "string"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "ts_auto_population": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "employee_override": {
+              "type": "boolean"
+            },
+            "profiles": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "additionalProperties": false,
+                "properties": {
+                  "id": {
+                    "type": "integer"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "training": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "employee_override": {
+              "type": "boolean"
+            },
+            "profiles": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "additionalProperties": false,
+                "properties": {
+                  "id": {
+                    "type": "integer"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "workday_breakdown": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "employee_override": {
+              "type": "boolean"
+            },
+            "profiles": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "additionalProperties": false,
+                "properties": {
+                  "id": {
+                    "type": "integer"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "work_schedule": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "employee_override": {
+              "type": "boolean"
+            },
+            "profiles": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "additionalProperties": false,
+                "properties": {
+                  "id": {
+                    "type": "integer"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "working_time_regulation": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "employee_override": {
+              "type": "boolean"
+            },
+            "profiles": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "additionalProperties": false,
+                "properties": {
+                  "id": {
+                    "type": "integer"
+                  },
+                  "effective_from": {
+                    "type": "string"
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "additionalProperties": false
+    },
+    "cost_center_skills": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "main_skill": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "integer"
+              },
+              "name": {
+                "type": "string"
+              }
+            },
+            "additionalProperties": false,
+            "required": [
+              "id"
+            ]
+          },
+          "alternative_skills": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "id": {
+                  "type": "integer"
+                },
+                "name": {
+                  "type": "string"
+                }
+              },
+              "additionalProperties": false,
+              "required": [
+                "id"
+              ]
+            }
+          }
+        },
+        "additionalProperties": false
+      }
+    },
+    "job_strain": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer"
+        },
+        "reference_type": {
+          "type": "string",
+          "enum": [
+            "SINGLE",
+            "LIST"
+          ]
+        },
+        "name": {
+          "type": "string"
+        }
+      },
+      "additionalProperties": false,
+      "required": [
+        "reference_type"
+      ]
+    }
+  },
+  "additionalProperties": false,
+  "required": [
+    "id",
+    "name"
+  ]
+}</div>
+</div>
+</div>
+</div>
+<div class="req-tab-put" id="req-tab-id-put-1">
+<div class="example">
+
+<div class="put-example-tab-1 activeTab" id="put-tab-example-1">
+
+<pre class="highlightjs">&lt;?xml version="1.0" encoding="UTF-8"?&gt;
+&lt;cost_center_job&gt;
+   &lt;id&gt;2355&lt;/id&gt;
+   &lt;abbreviation&gt;SE1&lt;/abbreviation&gt;
+   &lt;applicant_tracking_display&gt;true&lt;/applicant_tracking_display&gt;
+   &lt;applicant_tracking_display_only&gt;false&lt;/applicant_tracking_display_only&gt;
+   &lt;job_strain&gt;
+      &lt;id&gt;33536&lt;/id&gt;
+      &lt;reference_type&gt;LIST&lt;/reference_type&gt;
+      &lt;name&gt;Job Strain List 1&lt;/name&gt;
+   &lt;/job_strain&gt;
+   &lt;cost_center_skills&gt;
+      &lt;cost_center_skill&gt;
+         &lt;main_skill&gt;
+            &lt;id&gt;256&lt;/id&gt;
+            &lt;name&gt;C&lt;/name&gt;
+         &lt;/main_skill&gt;
+         &lt;alternative_skills&gt;
+            &lt;alternative_skill&gt;
+               &lt;id&gt;512&lt;/id&gt;
+               &lt;name&gt;C++&lt;/name&gt;
+            &lt;/alternative_skill&gt;
+            &lt;alternative_skill&gt;
+               &lt;id&gt;768&lt;/id&gt;
+               &lt;name&gt;Java&lt;/name&gt;
+            &lt;/alternative_skill&gt;
+         &lt;/alternative_skills&gt;
+      &lt;/cost_center_skill&gt;
+   &lt;/cost_center_skills&gt;
+   &lt;defaults&gt;
+      &lt;aca&gt;
+         &lt;employee_override&gt;true&lt;/employee_override&gt;
+         &lt;profiles&gt;
+            &lt;profile&gt;
+               &lt;effective_from&gt;2018-02-05&lt;/effective_from&gt;
+               &lt;id&gt;292515&lt;/id&gt;
+            &lt;/profile&gt;
+            &lt;profile&gt;
+               &lt;effective_from&gt;1900-12-31&lt;/effective_from&gt;
+               &lt;id&gt;292516&lt;/id&gt;
+            &lt;/profile&gt;
+         &lt;/profiles&gt;
+      &lt;/aca&gt;
+      &lt;access&gt;
+         &lt;employee_override&gt;false&lt;/employee_override&gt;
+         &lt;profiles&gt;
+            &lt;profile&gt;
+               &lt;effective_from&gt;2018-02-05&lt;/effective_from&gt;
+               &lt;id&gt;285315&lt;/id&gt;
+            &lt;/profile&gt;
+         &lt;/profiles&gt;
+      &lt;/access&gt;
+   &lt;/defaults&gt;
+   &lt;description&gt;This job is for Software Engineer I&lt;/description&gt;
+   &lt;eeo_classification&gt;
+      &lt;value&gt;PROFESSIONALS&lt;/value&gt;
+      &lt;employee_override&gt;true&lt;/employee_override&gt;
+   &lt;/eeo_classification&gt;
+   &lt;employee_type&gt;
+      &lt;employee_override&gt;false&lt;/employee_override&gt;
+      &lt;id&gt;129795&lt;/id&gt;
+   &lt;/employee_type&gt;
+   &lt;external_id&gt;2376A&lt;/external_id&gt;
+   &lt;first_screen&gt;
+      &lt;employee_override&gt;true&lt;/employee_override&gt;
+      &lt;id&gt;SCREEN:101&lt;/id&gt;
+   &lt;/first_screen&gt;
+   &lt;job_category&gt;Job Category 1&lt;/job_category&gt;
+   &lt;job_description&gt;Candidate should be Well-versed in JAVA and data structures.&lt;/job_description&gt;
+   &lt;linked_company_eins&gt;
+      &lt;linked_company_ein&gt;
+         &lt;id&gt;380420352&lt;/id&gt;
+         &lt;company_ein&gt;
+            &lt;id&gt;914497&lt;/id&gt;
+            &lt;ein_name&gt;EIN 1&lt;/ein_name&gt;
+            &lt;active&gt;true&lt;/active&gt;
+         &lt;/company_ein&gt;
+         &lt;created_date&gt;2018-02-05 11:21:00&lt;/created_date&gt;
+         &lt;gl_codes&gt;
+            &lt;gl_code&gt;
+               &lt;index&gt;0&lt;/index&gt;
+               &lt;value&gt;GLD4&lt;/value&gt;
+            &lt;/gl_code&gt;
+         &lt;/gl_codes&gt;
+      &lt;/linked_company_ein&gt;
+      &lt;linked_company_ein&gt;
+         &lt;id&gt;380420096&lt;/id&gt;
+         &lt;company_ein&gt;
+            &lt;id&gt;916033&lt;/id&gt;
+            &lt;ein_name&gt;EIN 2&lt;/ein_name&gt;
+            &lt;active&gt;false&lt;/active&gt;
+         &lt;/company_ein&gt;
+         &lt;created_date&gt;2018-02-05 11:21:00&lt;/created_date&gt;
+         &lt;gl_codes&gt;
+            &lt;gl_code&gt;
+               &lt;index&gt;0&lt;/index&gt;
+               &lt;value&gt;GLD1&lt;/value&gt;
+            &lt;/gl_code&gt;
+         &lt;/gl_codes&gt;
+      &lt;/linked_company_ein&gt;
+   &lt;/linked_company_eins&gt;
+   &lt;name&gt;Software Engineer I&lt;/name&gt;
+   &lt;notes&gt;
+      &lt;note&gt;
+         &lt;added_on&gt;2018-02-02&lt;/added_on&gt;
+         &lt;created_by&gt;
+            &lt;account_id&gt;2196164&lt;/account_id&gt;
+            &lt;display_name&gt;Nicky James&lt;/display_name&gt;
+         &lt;/created_by&gt;
+         &lt;id&gt;9842240&lt;/id&gt;
+         &lt;text&gt;Cost Center Job Note 1&lt;/text&gt;
+      &lt;/note&gt;
+   &lt;/notes&gt;
+   &lt;pay_grade&gt;
+      &lt;employee_override&gt;true&lt;/employee_override&gt;
+      &lt;id&gt;9647&lt;/id&gt;
+   &lt;/pay_grade&gt;
+   &lt;pay_type&gt;
+      &lt;employee_override&gt;true&lt;/employee_override&gt;
+      &lt;id&gt;3490&lt;/id&gt;
+   &lt;/pay_type&gt;
+   &lt;payroll_code&gt;PRC-SE1&lt;/payroll_code&gt;
+   &lt;salary_surveys&gt;
+      &lt;salary_survey&gt;
+         &lt;compa_ratio&gt;90.12&lt;/compa_ratio&gt;
+         &lt;survey_date&gt;2017-09-28&lt;/survey_date&gt;
+         &lt;id&gt;65&lt;/id&gt;
+         &lt;market&gt;23.94&lt;/market&gt;
+         &lt;max&gt;32.04&lt;/max&gt;
+         &lt;mid&gt;12.98&lt;/mid&gt;
+         &lt;min&gt;2.88&lt;/min&gt;
+         &lt;name&gt;Salary Survey 1&lt;/name&gt;
+      &lt;/salary_survey&gt;
+      &lt;salary_survey&gt;
+         &lt;comp_salary&gt;23.49&lt;/comp_salary&gt;
+         &lt;survey_date&gt;2016-10-06&lt;/survey_date&gt;
+         &lt;id&gt;129&lt;/id&gt;
+         &lt;market&gt;33.94&lt;/market&gt;
+         &lt;max&gt;60.04&lt;/max&gt;
+         &lt;mid&gt;40.98&lt;/mid&gt;
+         &lt;min&gt;28.8&lt;/min&gt;
+         &lt;name&gt;Salary Survey 2&lt;/name&gt;
+      &lt;/salary_survey&gt;
+   &lt;/salary_surveys&gt;
+   &lt;competency_groups&gt;
+      &lt;competency_group&gt;
+         &lt;id&gt;1234&lt;/id&gt;
+         &lt;group_name&gt;GRP 1&lt;/group_name&gt;
+         &lt;weight_evenly&gt;false&lt;/weight_evenly&gt;
+         &lt;competencies&gt;
+            &lt;competency&gt;
+               &lt;id&gt;2348&lt;/id&gt;
+               &lt;code&gt;Code 1&lt;/code&gt;
+               &lt;description&gt;Competency description.&lt;/description&gt;
+               &lt;sequence&gt;1&lt;/sequence&gt;
+               &lt;weight&gt;42.25&lt;/weight&gt;
+            &lt;/competency&gt;
+         &lt;/competencies&gt;
+      &lt;/competency_group&gt;
+   &lt;/competency_groups&gt;
+   &lt;standard_work_day&gt;
+      &lt;employee_override&gt;false&lt;/employee_override&gt;
+      &lt;value&gt;234234789&lt;/value&gt;
+   &lt;/standard_work_day&gt;
+   &lt;union&gt;
+      &lt;employee_override&gt;false&lt;/employee_override&gt;
+      &lt;id&gt;6578&lt;/id&gt;
+   &lt;/union&gt;
+   &lt;visible&gt;true&lt;/visible&gt;
+   &lt;worker_comp_code_types&gt;
+      &lt;worker_comp_code_type&gt;
+         &lt;comp_code&gt;145785&lt;/comp_code&gt;
+         &lt;state&gt;NCCI&lt;/state&gt;
+      &lt;/worker_comp_code_type&gt;
+      &lt;worker_comp_code_type&gt;
+         &lt;comp_code&gt;155795&lt;/comp_code&gt;
+         &lt;state&gt;NY&lt;/state&gt;
+      &lt;/worker_comp_code_type&gt;
+   &lt;/worker_comp_code_types&gt;
+   &lt;worker_type&gt;
+      &lt;employee_override&gt;true&lt;/employee_override&gt;
+      &lt;id&gt;3470&lt;/id&gt;
+   &lt;/worker_type&gt;
+&lt;/cost_center_job&gt;</pre>
+</div>
+<div class="put-example-tab-1" id="put-tab-schema-1">
+
+<div class="jsonschema" id="schema-3">&lt;xs:schema attributeFormDefault="unqualified" elementFormDefault="qualified" xmlns:xs="http://www.w3.org/2001/XMLSchema"&gt;
+  &lt;xs:element name="cost_center_job"&gt;
+    &lt;xs:complexType&gt;
+      &lt;xs:all&gt;
+        &lt;xs:element type="xs:string" name="abbreviation" minOccurs="0"/&gt;
+        &lt;xs:element type="xs:string" name="applicant_tracking_display"/&gt;
+        &lt;xs:element type="xs:string" name="applicant_tracking_display_only"/&gt;
+        &lt;xs:element name="job_strain"&gt;
+          &lt;xs:complexType&gt;
+            &lt;xs:sequence&gt;
+              &lt;xs:element type="xs:long" name="id"/&gt;
+              &lt;xs:element name="reference_type"&gt;
+                &lt;xs:simpleType&gt;
+                  &lt;xs:restriction base="xs:string"&gt;
+                    &lt;xs:enumeration value="SINGLE"/&gt;
+                    &lt;xs:enumeration value="LIST"/&gt;
+                  &lt;/xs:restriction&gt;
+                &lt;/xs:simpleType&gt;
+              &lt;/xs:element&gt;
+              &lt;xs:element type="xs:string" name="name"/&gt;
+            &lt;/xs:sequence&gt;
+          &lt;/xs:complexType&gt;
+        &lt;/xs:element&gt;
+        &lt;xs:element name="cost_center_skills"&gt;
+          &lt;xs:complexType&gt;
+            &lt;xs:sequence&gt;
+              &lt;xs:element name="cost_center_skill" minOccurs="0"&gt;
+                &lt;xs:complexType&gt;
+                  &lt;xs:sequence&gt;
+                    &lt;xs:element name="main_skill"&gt;
+                      &lt;xs:complexType&gt;
+                        &lt;xs:sequence&gt;
+                          &lt;xs:element type="xs:long" name="id"/&gt;
+                          &lt;xs:element type="xs:string" name="name"/&gt;
+                        &lt;/xs:sequence&gt;
+                      &lt;/xs:complexType&gt;
+                    &lt;/xs:element&gt;
+                    &lt;xs:element name="alternative_skills"&gt;
+                      &lt;xs:complexType&gt;
+                        &lt;xs:sequence&gt;
+                          &lt;xs:element name="alternative_skill" maxOccurs="unbounded" minOccurs="0"&gt;
+                            &lt;xs:complexType&gt;
+                              &lt;xs:sequence&gt;
+                                &lt;xs:element type="xs:long" name="id"/&gt;
+                                &lt;xs:element type="xs:string" name="name"/&gt;
+                              &lt;/xs:sequence&gt;
+                            &lt;/xs:complexType&gt;
+                          &lt;/xs:element&gt;
+                        &lt;/xs:sequence&gt;
+                      &lt;/xs:complexType&gt;
+                    &lt;/xs:element&gt;
+                  &lt;/xs:sequence&gt;
+                &lt;/xs:complexType&gt;
+              &lt;/xs:element&gt;
+            &lt;/xs:sequence&gt;
+          &lt;/xs:complexType&gt;
+        &lt;/xs:element&gt;
+        &lt;xs:element name="defaults"&gt;
+          &lt;xs:complexType&gt;
+            &lt;xs:sequence&gt;
+              &lt;xs:element name="aca" type="effective_profile" minOccurs="0"/&gt;
+              &lt;xs:element name="access" type="effective_profile" minOccurs="0"/&gt;
+              &lt;xs:element name="accruals" type="plain_profile" minOccurs="0"/&gt;
+              &lt;xs:element name="accruals_2" type="effective_profile" minOccurs="0"/&gt;
+              &lt;xs:element name="attestation" type="effective_profile" minOccurs="0"/&gt;
+              &lt;xs:element name="benefit" type="effective_profile" minOccurs="0"/&gt;
+              &lt;xs:element name="bradford_factor" type="plain_profile" minOccurs="0"/&gt;
+              &lt;xs:element name="competency" type="plain_profile" minOccurs="0"/&gt;
+              &lt;xs:element name="demographic" type="plain_profile" minOccurs="0"/&gt;
+              &lt;xs:element name="holiday" type="plain_profile" minOccurs="0"/&gt;
+              &lt;xs:element name="labor_distribution" type="plain_profile" minOccurs="0"/&gt;
+              &lt;xs:element name="leave_of_absence" type="plain_profile" minOccurs="0"/&gt;
+              &lt;xs:element name="new_dashboard_layout" type="effective_profile" minOccurs="0"/&gt;
+              &lt;xs:element name="offline_restrictions" type="plain_profile" minOccurs="0"/&gt;
+              &lt;xs:element name="pay_calculations" type="plain_profile" minOccurs="0"/&gt;
+              &lt;xs:element name="pay_calculations_2" type="effective_profile" minOccurs="0"/&gt;
+              &lt;xs:element name="pay_period" type="plain_profile" minOccurs="0"/&gt;
+              &lt;xs:element name="pay_prep" type="effective_profile" minOccurs="0"/&gt;
+              &lt;xs:element name="performance_review" type="plain_profile" minOccurs="0"/&gt;
+              &lt;xs:element name="points" type="plain_profile" minOccurs="0"/&gt;
+              &lt;xs:element name="pst_population" type="plain_profile" minOccurs="0"/&gt;
+              &lt;xs:element name="retirement_plan" type="plain_profile" minOccurs="0"/&gt;
+              &lt;xs:element name="scheduler" type="plain_profile" minOccurs="0"/&gt;
+              &lt;xs:element name="scorecard" type="effective_profile" minOccurs="0"/&gt;
+              &lt;xs:element name="security" type="plain_profile" minOccurs="0"/&gt;
+              &lt;xs:element name="succession" type="plain_profile" minOccurs="0"/&gt;
+              &lt;xs:element name="timesheet" type="plain_profile" minOccurs="0"/&gt;
+              &lt;xs:element name="timeoff" type="effective_profile" minOccurs="0"/&gt;
+              &lt;xs:element name="ts_auto_population" type="plain_profile" minOccurs="0"/&gt;
+              &lt;xs:element name="training" type="plain_profile" minOccurs="0"/&gt;
+              &lt;xs:element name="workday_breakdown" type="plain_profile" minOccurs="0"/&gt;
+              &lt;xs:element name="work_schedule" type="plain_profile" minOccurs="0"/&gt;
+              &lt;xs:element name="working_time_regulation" type="effective_profile" minOccurs="0"/&gt;
+            &lt;/xs:sequence&gt;
+          &lt;/xs:complexType&gt;
+        &lt;/xs:element&gt;
+        &lt;xs:element type="xs:string" name="description" minOccurs="0"/&gt;
+        &lt;xs:element name="eeo_classification"&gt;
+          &lt;xs:complexType&gt;
+            &lt;xs:all&gt;
+              &lt;xs:element type="xs:boolean" name="employee_override"/&gt;
+              &lt;xs:element name="value"&gt;
+                &lt;xs:simpleType&gt;
+                  &lt;xs:restriction base="xs:string"&gt;
+                    &lt;xs:enumeration value="EXECUTIVE_OR_SENIOR_LEVEL_OFFICIALS_AND_MANAGERS"/&gt;
+                    &lt;xs:enumeration value="FIRST_OR_MID_LEVEL_OFFICIALS_AND_MANAGERS"/&gt;
+                    &lt;xs:enumeration value="PROFESSIONALS"/&gt;
+                    &lt;xs:enumeration value="TECHNICIANS"/&gt;
+                    &lt;xs:enumeration value="SALES_WORKERS"/&gt;
+                    &lt;xs:enumeration value="ADMINISTRATIVE_SUPPORT_WORKERS"/&gt;
+                    &lt;xs:enumeration value="CRAFT_WORKERS"/&gt;
+                    &lt;xs:enumeration value="OPERATIVES"/&gt;
+                    &lt;xs:enumeration value="LABORERS_AND_HELPERS"/&gt;
+                    &lt;xs:enumeration value="SERVICE_WORKERS"/&gt;
+                  &lt;/xs:restriction&gt;
+                &lt;/xs:simpleType&gt;
+              &lt;/xs:element&gt;
+            &lt;/xs:all&gt;
+          &lt;/xs:complexType&gt;
+        &lt;/xs:element&gt;
+        &lt;xs:element name="employee_type"&gt;
+          &lt;xs:complexType&gt;
+            &lt;xs:sequence&gt;
+              &lt;xs:element type="xs:boolean" name="employee_override"/&gt;
+              &lt;xs:element type="xs:long" name="id"/&gt;
+            &lt;/xs:sequence&gt;
+          &lt;/xs:complexType&gt;
+        &lt;/xs:element&gt;
+        &lt;xs:element type="xs:string" name="external_id"/&gt;
+        &lt;xs:element name="first_screen"&gt;
+          &lt;xs:complexType&gt;
+            &lt;xs:sequence&gt;
+              &lt;xs:element type="xs:boolean" name="employee_override"/&gt;
+              &lt;xs:element type="xs:string" name="id"/&gt;
+            &lt;/xs:sequence&gt;
+          &lt;/xs:complexType&gt;
+        &lt;/xs:element&gt;
+        &lt;xs:element type="xs:long" name="id"/&gt;
+        &lt;xs:element type="xs:string" name="job_category" minOccurs="0"/&gt;
+        &lt;xs:element type="xs:string" name="job_description" minOccurs="0"/&gt;
+        &lt;xs:element name="linked_company_eins"&gt;
+          &lt;xs:complexType&gt;
+            &lt;xs:sequence&gt;
+              &lt;xs:element name="linked_company_ein" maxOccurs="unbounded" minOccurs="0"&gt;
+                &lt;xs:complexType&gt;
+                  &lt;xs:all&gt;
+                    &lt;xs:element name="company_ein"&gt;
+                       &lt;xs:complexType&gt;
+                          &lt;xs:sequence&gt;
+                             &lt;xs:element type="xs:long" name="id"/&gt;
+                             &lt;xs:element type="xs:string" name="ein_name"/&gt;
+                             &lt;xs:element type="xs:boolean" name="active"/&gt;
+                          &lt;/xs:sequence&gt;
+                       &lt;/xs:complexType&gt;
+                    &lt;/xs:element&gt;
+                    &lt;xs:element type="xs:string" name="created_date"/&gt;
+                    &lt;xs:element name="gl_codes"&gt;
+                      &lt;xs:complexType&gt;
+                        &lt;xs:sequence&gt;
+                          &lt;xs:element name="gl_code" minOccurs="0"&gt;
+                            &lt;xs:complexType&gt;
+                              &lt;xs:sequence&gt;
+                                &lt;xs:element type="xs:byte" name="index"/&gt;
+                                &lt;xs:element type="xs:string" name="value"/&gt;
+                              &lt;/xs:sequence&gt;
+                            &lt;/xs:complexType&gt;
+                          &lt;/xs:element&gt;
+                        &lt;/xs:sequence&gt;
+                      &lt;/xs:complexType&gt;
+                    &lt;/xs:element&gt;
+                    &lt;xs:element type="xs:long" name="id"/&gt;
+                  &lt;/xs:all&gt;
+                &lt;/xs:complexType&gt;
+              &lt;/xs:element&gt;
+            &lt;/xs:sequence&gt;
+          &lt;/xs:complexType&gt;
+        &lt;/xs:element&gt;
+        &lt;xs:element type="xs:string" name="name"/&gt;
+        &lt;xs:element name="notes"&gt;
+          &lt;xs:complexType&gt;
+            &lt;xs:sequence&gt;
+              &lt;xs:element name="note" minOccurs="0"&gt;
+                &lt;xs:complexType&gt;
+                  &lt;xs:sequence&gt;
+                    &lt;xs:element type="xs:date" name="added_on"/&gt;
+                    &lt;xs:element name="created_by"&gt;
+                      &lt;xs:complexType&gt;
+                        &lt;xs:sequence&gt;
+                          &lt;xs:element type="xs:long" name="account_id"/&gt;
+                          &lt;xs:element type="xs:string" name="display_name"/&gt;
+                        &lt;/xs:sequence&gt;
+                      &lt;/xs:complexType&gt;
+                    &lt;/xs:element&gt;
+                    &lt;xs:element type="xs:long" name="id"/&gt;
+                    &lt;xs:element type="xs:string" name="text"/&gt;
+                  &lt;/xs:sequence&gt;
+                &lt;/xs:complexType&gt;
+              &lt;/xs:element&gt;
+            &lt;/xs:sequence&gt;
+          &lt;/xs:complexType&gt;
+        &lt;/xs:element&gt;
+        &lt;xs:element name="pay_grade"&gt;
+          &lt;xs:complexType&gt;
+            &lt;xs:sequence&gt;
+              &lt;xs:element type="xs:boolean" name="employee_override"/&gt;
+              &lt;xs:element type="xs:long" name="id"/&gt;
+            &lt;/xs:sequence&gt;
+          &lt;/xs:complexType&gt;
+        &lt;/xs:element&gt;
+        &lt;xs:element name="pay_type"&gt;
+          &lt;xs:complexType&gt;
+            &lt;xs:sequence&gt;
+              &lt;xs:element type="xs:boolean" name="employee_override"/&gt;
+              &lt;xs:element type="xs:long" name="id"/&gt;
+            &lt;/xs:sequence&gt;
+          &lt;/xs:complexType&gt;
+        &lt;/xs:element&gt;
+        &lt;xs:element type="xs:string" name="payroll_code"/&gt;
+        &lt;xs:element name="salary_surveys"&gt;
+          &lt;xs:complexType&gt;
+            &lt;xs:sequence&gt;
+              &lt;xs:element name="salary_survey" maxOccurs="unbounded" minOccurs="0"&gt;
+                &lt;xs:complexType&gt;
+                  &lt;xs:sequence&gt;
+                    &lt;xs:element type="xs:float" name="compa_ratio" minOccurs="0"/&gt;
+                    &lt;xs:element type="xs:float" name="comp_salary" minOccurs="0"/&gt;
+                    &lt;xs:element type="xs:date" name="survey_date"/&gt;
+                    &lt;xs:element type="xs:long" name="id"/&gt;
+                    &lt;xs:element type="xs:float" name="market"/&gt;
+                    &lt;xs:element type="xs:float" name="max"/&gt;
+                    &lt;xs:element type="xs:float" name="mid"/&gt;
+                    &lt;xs:element type="xs:float" name="min"/&gt;
+                    &lt;xs:element type="xs:string" name="name"/&gt;
+                  &lt;/xs:sequence&gt;
+                &lt;/xs:complexType&gt;
+              &lt;/xs:element&gt;
+            &lt;/xs:sequence&gt;
+          &lt;/xs:complexType&gt;
+        &lt;/xs:element&gt;
+        &lt;xs:element name="competency_groups"&gt;
+          &lt;xs:complexType&gt;
+            &lt;xs:sequence&gt;
+              &lt;xs:element name="competency_group" maxOccurs="unbounded" minOccurs="0"&gt;
+                &lt;xs:complexType&gt;
+                  &lt;xs:sequence&gt;
+                    &lt;xs:element type="xs:short" name="id"/&gt;
+                    &lt;xs:element type="xs:string" name="group_name"/&gt;
+                    &lt;xs:element type="xs:string" name="weight_evenly" minOccurs="0"/&gt;
+                    &lt;xs:element name="competencies"&gt;
+                      &lt;xs:complexType&gt;
+                        &lt;xs:sequence&gt;
+                          &lt;xs:element name="competency" maxOccurs="unbounded" minOccurs="0"&gt;
+                            &lt;xs:complexType&gt;
+                              &lt;xs:sequence&gt;
+                                &lt;xs:element type="xs:short" name="id"/&gt;
+                                &lt;xs:element type="xs:string" name="code" minOccurs="0"/&gt;
+                                &lt;xs:element type="xs:string" name="description" minOccurs="0"/&gt;
+                                &lt;xs:element type="xs:byte" name="sequence" minOccurs="0"/&gt;
+                                &lt;xs:element type="xs:float" name="weight" minOccurs="0"/&gt;
+                              &lt;/xs:sequence&gt;
+                            &lt;/xs:complexType&gt;
+                          &lt;/xs:element&gt;
+                        &lt;/xs:sequence&gt;
+                      &lt;/xs:complexType&gt;
+                    &lt;/xs:element&gt;
+                  &lt;/xs:sequence&gt;
+                &lt;/xs:complexType&gt;
+              &lt;/xs:element&gt;
+            &lt;/xs:sequence&gt;
+          &lt;/xs:complexType&gt;
+        &lt;/xs:element&gt;
+        &lt;xs:element name="standard_work_day"&gt;
+          &lt;xs:complexType&gt;
+            &lt;xs:all&gt;
+              &lt;xs:element type="xs:boolean" name="employee_override"/&gt;
+              &lt;xs:element type="xs:long" name="value"/&gt;
+            &lt;/xs:all&gt;
+          &lt;/xs:complexType&gt;
+        &lt;/xs:element&gt;
+        &lt;xs:element name="union"&gt;
+          &lt;xs:complexType&gt;
+            &lt;xs:sequence&gt;
+              &lt;xs:element type="xs:boolean" name="employee_override"/&gt;
+              &lt;xs:element type="xs:long" name="id"/&gt;
+            &lt;/xs:sequence&gt;
+          &lt;/xs:complexType&gt;
+        &lt;/xs:element&gt;
+        &lt;xs:element type="xs:string" name="visible"/&gt;
+        &lt;xs:element name="worker_comp_code_types"&gt;
+          &lt;xs:complexType&gt;
+            &lt;xs:sequence&gt;
+              &lt;xs:element name="worker_comp_code_type" maxOccurs="unbounded" minOccurs="0"&gt;
+                &lt;xs:complexType&gt;
+                  &lt;xs:sequence&gt;
+                    &lt;xs:element type="xs:int" name="comp_code"/&gt;
+                    &lt;xs:element type="xs:string" name="state"/&gt;
+                  &lt;/xs:sequence&gt;
+                &lt;/xs:complexType&gt;
+              &lt;/xs:element&gt;
+            &lt;/xs:sequence&gt;
+          &lt;/xs:complexType&gt;
+        &lt;/xs:element&gt;
+        &lt;xs:element name="worker_type"&gt;
+          &lt;xs:complexType&gt;
+            &lt;xs:sequence&gt;
+              &lt;xs:element type="xs:boolean" name="employee_override"/&gt;
+              &lt;xs:element type="xs:long" name="id"/&gt;
+            &lt;/xs:sequence&gt;
+          &lt;/xs:complexType&gt;
+        &lt;/xs:element&gt;
+      &lt;/xs:all&gt;
+    &lt;/xs:complexType&gt;
+  &lt;/xs:element&gt;
+
+  &lt;xs:complexType name="effective_profile"&gt;
+    &lt;xs:sequence&gt;
+      &lt;xs:element type="xs:boolean" name="employee_override"/&gt;
+      &lt;xs:element name="profiles"&gt;
+        &lt;xs:complexType&gt;
+          &lt;xs:sequence&gt;
+            &lt;xs:element name="profile" maxOccurs="unbounded" minOccurs="0"&gt;
+              &lt;xs:complexType&gt;
+                &lt;xs:all&gt;
+                  &lt;xs:element type="xs:date" name="effective_from"/&gt;
+                  &lt;xs:element type="xs:long" name="id"/&gt;
+                &lt;/xs:all&gt;
+              &lt;/xs:complexType&gt;
+            &lt;/xs:element&gt;
+          &lt;/xs:sequence&gt;
+        &lt;/xs:complexType&gt;
+      &lt;/xs:element&gt;
+    &lt;/xs:sequence&gt;
+  &lt;/xs:complexType&gt;
+
+  &lt;xs:complexType name="plain_profile"&gt;
+    &lt;xs:sequence&gt;
+      &lt;xs:element type="xs:boolean" name="employee_override"/&gt;
+      &lt;xs:element name="profiles"&gt;
+        &lt;xs:complexType&gt;
+          &lt;xs:sequence&gt;
+            &lt;xs:element name="profile" maxOccurs="unbounded" minOccurs="0"&gt;
+              &lt;xs:complexType&gt;
+                &lt;xs:sequence&gt;
+                  &lt;xs:element type="xs:long" name="id"/&gt;
+                &lt;/xs:sequence&gt;
+              &lt;/xs:complexType&gt;
+            &lt;/xs:element&gt;
+          &lt;/xs:sequence&gt;
+        &lt;/xs:complexType&gt;
+      &lt;/xs:element&gt;
+    &lt;/xs:sequence&gt;
+  &lt;/xs:complexType&gt;
+&lt;/xs:schema&gt;</div>
+</div>
+</div>
+</div>
+</div>
+</article>
+</section>
+<section class="clearfix">
+<article class="definition">
+<h3 class="anchored" id="delete"><span>DELETE</span>
+<a class="fa fa-link link-anchor" data-url="r=__v2__companies__(cid)__config__cost-center-jobs__(id)#delete" data-web-id="__v2__companies__(cid)__config__cost-center-jobs__(id)"></a>
+</h3>
+<div class="md"><p>Deletes a specific Cost Center Job within the company.
+Requires permission to delete a Cost Center Job.
+
+Requires at least one of the following subsystems:
+  - HR
+  - HR (Small Business Edition)
+</p></div>
+<h4>Parameters</h4>
+<h5>Path Parameters</h5>
+<ul class="param-list">
+<li>
+<div class="param-desc">
+<div class="param-name">cid</div>
+<div class="data-type">string</div>
+<div class="required">required</div>
+</div>
+<div class="param-content">
+<div>
+<p>Example: 123456</p>
+<div class="desc md">Company should be referenced via company id or company unique id or company short name using `|short_name` or `!short_name` format.
+</div>
+</div>
+</div>
+
+</li>
+<li>
+<div class="param-desc">
+<div class="param-name">id</div>
+<div class="data-type">integer</div>
+<div class="required">required</div>
+</div>
+<div class="param-content">
+<div>
+<div class="desc md">The id of cost center job.</div>
+</div>
+</div>
+
+</li>
+</ul>
+<h4>Responses</h4>
+<div class="responses">
+<div>
+<label class="response response-success">
+<span class="fa fa-check"></span>
+<input data-full-tab-id="delete-resp-code-tab-id-0" data-tab-class="resp-code-tab-delete" name="resp-code-tab-delete" type="radio"/>
+<span class="status">204 No Content</span>
+</label>
+<div class="response-desc resp-code-tab-delete" id="delete-resp-code-tab-id-0">
+<div class="md"><p>Cost Center Job was successfully deleted.</p></div>
+</div>
+</div>
+<div>
+<label class="response response-error">
+<span class="fa fa-times"></span>
+<input data-full-tab-id="delete-resp-code-tab-id-1" data-tab-class="resp-code-tab-delete" name="resp-code-tab-delete" type="radio"/>
+<span class="status">401 Unauthorized</span>
+</label>
+<div class="response-desc resp-code-tab-delete" id="delete-resp-code-tab-id-1">
+<div class="md"><p>Returned in case user is not authorized.</p></div>
+</div>
+</div>
+<div>
+<label class="response response-error">
+<span class="fa fa-times"></span>
+<input data-full-tab-id="delete-resp-code-tab-id-2" data-tab-class="resp-code-tab-delete" name="resp-code-tab-delete" type="radio"/>
+<span class="status">403 Forbidden</span>
+</label>
+<div class="response-desc resp-code-tab-delete" id="delete-resp-code-tab-id-2">
+<div class="md"><p>Returned in case user has no access to the resource.</p></div>
+</div>
+</div>
+<div>
+<label class="response response-error">
+<span class="fa fa-times"></span>
+<input data-full-tab-id="delete-resp-code-tab-id-3" data-tab-class="resp-code-tab-delete" name="resp-code-tab-delete" type="radio"/>
+<span class="status">404 Not Found</span>
+</label>
+<div class="response-desc resp-code-tab-delete" id="delete-resp-code-tab-id-3">
+<div class="md"><p>Returned in case resource does not exist.</p></div>
+</div>
+</div>
+<div>
+<label class="response response-error">
+<span class="fa fa-times"></span>
+<input data-full-tab-id="delete-resp-code-tab-id-4" data-tab-class="resp-code-tab-delete" name="resp-code-tab-delete" type="radio"/>
+<span class="status">503 Service Unavailable</span>
+</label>
+<div class="response-desc resp-code-tab-delete" id="delete-resp-code-tab-id-4">
+<div class="md"><p>Returned in the event that the call limit is exceeded. The application will be unavailable for subsequent calls for the duration specified by the X-CallLimit-TimeToWait header.</p></div>
+</div>
+</div>
+</div>
+</article>
+<article class="code">
+<h4>Definition</h4>
+<div class="uri">
+<code>
+<span class="method delete">delete</span>
+<span class="textUri"><span class="baseUri">{{ getUriPrefix() }}</span><span class="relativeUri">/v2/companies/{cid}/config/cost-center-jobs/{id}</span></span>
+</code>
+</div>
+</article>
+</section>
+</div>
+</body></html>

@@ -1,0 +1,506 @@
+<!doctype html>
+<html><head><meta charset="utf-8"><title>Changed employees</title><style>body{font:16px system-ui;max-width:1100px;margin:2rem auto;padding:0 1rem;line-height:1.5}aside{background:#fff3cc;padding:1rem}.jsonschema,pre{white-space:pre-wrap;font:13px monospace;overflow-wrap:anywhere;background:#f4f5f7;padding:1rem}.uri{font-family:monospace}h2,h3{margin-top:2rem}</style></head><body><aside><strong>Modified private reference — 2026-10-09.</strong> Provider-documented illustrative examples are included; authentication token examples are redacted. These are not customer exports or guaranteed production behavior. Candidate sharing is pending. This is not OpenAPI.</aside>
+<div class="group">
+<h2 class="anchored" id="item.anchor">
+<span>Changed employees</span>
+<a class="fa fa-link link-anchor" data-url="r=__v2__companies__(cid)__employees__changed#" data-web-id="__v2__companies__(cid)__employees__changed"></a>
+</h2>
+<section class="clearfix">
+<article class="definition">
+<h3 class="anchored" id="get"><span>GET</span>
+<a class="fa fa-link link-anchor" data-url="r=__v2__companies__(cid)__employees__changed#get" data-web-id="__v2__companies__(cid)__employees__changed"></a>
+</h3>
+<div class="md"><p>Retrieves basic information about employee records that have been updated in a given time frame. The operation also includes links to information related to the employee that has changed within the same time frame. A single call to this operation includes changes to core employee fields (e.g., 'Firstname') as well as related resources (e.g., 'Pay Information').
+
+The Employee operations use a separate security profile item to control access rights, located in the company security profile at:
+  1. `Modules -&gt; REST API Resources -&gt; Employees -&gt; Changed View`.
+
+&lt;b&gt;Only the 'REST API RESOURCES' security profile item is considered by this REST API Resource.&lt;/b&gt;
+</p></div>
+<div>
+<ul class="annotation-list">
+<li class="annotation">
+<span>v2</span>
+</li>
+</ul>
+</div>
+<h4>Parameters</h4>
+<h5>Path Parameters</h5>
+<ul class="param-list">
+<li>
+<div class="param-desc">
+<div class="param-name">cid</div>
+<div class="data-type">string</div>
+<div class="required">required</div>
+</div>
+<div class="param-content">
+<div>
+<p>Example: 123456</p>
+<div class="desc md">Company should be referenced via company id or company unique id or company short name using `|short_name` or `!short_name` format.
+</div>
+</div>
+</div>
+
+</li>
+</ul>
+<h5>Query Parameters</h5>
+<ul class="param-list">
+<li>
+<div class="param-desc">
+<div class="param-name">since</div>
+<div class="data-type">datetime</div>
+</div>
+<div class="param-content">
+<div>
+<p>Example: 2017-09-15T20:55:00Z</p>
+<div class="desc md">Used to set reference date to determine changes, the value cannot be more than 31 days in the past.
+&lt;br&gt;Date should be expressed according to ISO 8601.
+&lt;br&gt;If the timezone is not provided or cannot be parsed the system will default to the timezone of the company. Default value is today minus 5 days.
+</div>
+</div>
+</div>
+
+</li>
+<li>
+<div class="param-desc">
+<div class="param-name">terminatedEmployees</div>
+<div class="data-type">boolean</div>
+</div>
+<div class="param-content">
+<div>
+<p>Example: false</p>
+<div class="desc md">Used to set flag to filter out changed employee records which are already terminated with respect to reference date(Since). Default Value is true.
+</div>
+</div>
+</div>
+
+</li>
+</ul>
+<h5>Header Parameters</h5>
+<ul class="param-list">
+<li>
+<div class="param-desc">
+<div class="param-name">Accept</div>
+<div class="data-type">string</div>
+</div>
+<div class="param-content">
+<div>
+<p>Valid values: application/json, application/xml, text/xml</p>
+<p>Default: application/json</p>
+<p>Example: application/json</p>
+</div>
+</div>
+
+</li>
+</ul>
+<h4>Responses</h4>
+<div class="responses">
+<div>
+<label class="response response-success">
+<span class="fa fa-check"></span>
+<input data-full-tab-id="get-resp-code-tab-id-0" data-tab-class="resp-code-tab-get" name="resp-code-tab-get" type="radio"/>
+<span class="status">200 Ok</span>
+</label>
+<div class="response-desc resp-code-tab-get" id="get-resp-code-tab-id-0">
+</div>
+</div>
+<div>
+<label class="response response-error">
+<span class="fa fa-times"></span>
+<input data-full-tab-id="get-resp-code-tab-id-1" data-tab-class="resp-code-tab-get" name="resp-code-tab-get" type="radio"/>
+<span class="status">404 Not Found</span>
+</label>
+<div class="response-desc resp-code-tab-get" id="get-resp-code-tab-id-1">
+<div class="md"><p>Returned in case resource does not exist.</p></div>
+</div>
+</div>
+<div>
+<label class="response response-error">
+<span class="fa fa-times"></span>
+<input data-full-tab-id="get-resp-code-tab-id-2" data-tab-class="resp-code-tab-get" name="resp-code-tab-get" type="radio"/>
+<span class="status">401 Unauthorized</span>
+</label>
+<div class="response-desc resp-code-tab-get" id="get-resp-code-tab-id-2">
+<div class="md"><p>Returned in case user is not authorized.</p></div>
+</div>
+</div>
+<div>
+<label class="response response-error">
+<span class="fa fa-times"></span>
+<input data-full-tab-id="get-resp-code-tab-id-3" data-tab-class="resp-code-tab-get" name="resp-code-tab-get" type="radio"/>
+<span class="status">403 Forbidden</span>
+</label>
+<div class="response-desc resp-code-tab-get" id="get-resp-code-tab-id-3">
+<div class="md"><p>Returned in case user has no access to the resource.</p></div>
+</div>
+</div>
+<div>
+<label class="response response-error">
+<span class="fa fa-times"></span>
+<input data-full-tab-id="get-resp-code-tab-id-4" data-tab-class="resp-code-tab-get" name="resp-code-tab-get" type="radio"/>
+<span class="status">503 Service Unavailable</span>
+</label>
+<div class="response-desc resp-code-tab-get" id="get-resp-code-tab-id-4">
+<div class="md"><p>Returned in the event that the call limit is exceeded. The application will be unavailable for subsequent calls for the duration specified by the X-CallLimit-TimeToWait header.</p></div>
+</div>
+</div>
+</div>
+</article>
+<article class="code">
+<h4>Definition</h4>
+<div class="uri">
+<code>
+<span class="method get">get</span>
+<span class="textUri"><span class="baseUri">{{ getUriPrefix() }}</span><span class="relativeUri">/v2/companies/{cid}/employees/changed</span></span>
+</code>
+</div>
+<h4>Response Samples</h4>
+<div class="tab-title-group">
+<label>
+<input checked="checked" data-full-tab-id="resp-tab-id-get-0" data-tab-class="resp-tab-get" name="resp-tab-get" type="radio"/>
+<span class="tab-title">application/json</span>
+</label>
+<label>
+<input data-full-tab-id="resp-tab-id-get-1" data-tab-class="resp-tab-get" name="resp-tab-get" type="radio"/>
+<span class="tab-title">application/xml</span>
+</label>
+</div>
+<div>
+<div class="resp-tab-get" id="resp-tab-id-get-0">
+<div class="example">
+
+<div class="get-example-resp-tab-0 activeTab" id="get-tab-resp-example-0">
+
+<pre class="highlightjs">{
+    "entries": [
+        {
+            "id": 2201484,
+            "object": {
+                "id": 2201484,
+                "employee_id": "0008",
+                "external_id": "0008",
+                "username": "employee1",
+                "first_name": "employee1",
+                "last_name": "employee1",
+                "_links": {
+                    "self": "https://example.com/ta/rest/v2/companies/453313/employees/2201484",
+                    "demographics": "https://example.com/ta/rest/v2/companies/453313/employees/2201484/demographics",
+                    "pay_info": "https://example.com/ta/rest/v2/companies/453313/employees/2201484/pay-info",
+                    "profiles": "https://example.com/ta/rest/v2/companies/453313/employees/2201484/profiles",
+                    "hcm-profiles": "https://example.com/ta/rest/v2/companies/453313/employees/2201484/hcm-profiles",
+                    "hcm-fields": "https://example.com/ta/rest/v2/companies/453313/employees/2201484/hcm-fields",
+                    "badges": "https://example.com/ta/rest/v2/companies/453313/employees/2201484/badges",
+                    "base_compensation": "https://example.com/ta/rest/v2/companies/453313/employees/2201484/compensation/history",
+                    "additional_compensation": "https://example.com/ta/rest/v2/companies/453313/employees/2201484/compensation/additional",
+                    "total_compensation": "https://example.com/ta/rest/v2/companies/453313/employees/2201484/compensation/total",
+                    "hr-custom-fields": "https://example.com/ta/rest/v2/companies/453313/employees/2201484/hr-custom-fields",
+                    "skills": "https://example.com/ta/rest/v2/companies/453313/employees/2201484/skills",
+          "credentials": "https://example.com/ta/rest/v2/companies/453313/employees/2201484/credentials",
+          "trainingCourseHistory": "https://example.com/ta/rest/v2/companies/453313/employees/2201484/training/certifications"
+        }
+            },
+            "status": "MODIFIED"
+        },
+        {
+            "id": 2201486,
+            "status": "DELETED"
+        },
+        {
+            "id": 2216133,
+            "object": {
+                "id": 2216133,
+                "employee_id": "employeeId",
+                "username": "employeeForSingleGet2",
+                "first_name": "employee",
+                "last_name": "ForSingleGet2",
+                "_links": {
+                    "self": "https://example.com/ta/rest/v2/companies/453313/employees/2216133",
+                    "demographics": "https://example.com/ta/rest/v2/companies/453313/employees/2216133/demographics",
+                    "pay_info": "https://example.com/ta/rest/v2/companies/453313/employees/2216133/pay-info",
+                    "profiles": "https://example.com/ta/rest/v2/companies/453313/employees/2216133/profiles",
+                    "hcm-profiles": "https://example.com/ta/rest/v2/companies/453313/employees/2216133/hcm-profiles",
+                    "hcm-fields": "https://example.com/ta/rest/v2/companies/453313/employees/2216133/hcm-fields",
+                    "badges": "https://example.com/ta/rest/v2/companies/453313/employees/2216133/badges",
+                    "base_compensation": "https://example.com/ta/rest/v2/companies/453313/employees/2216133/compensation/history",
+                    "additional_compensation": "https://example.com/ta/rest/v2/companies/453313/employees/2216133/compensation/additional",
+                    "total_compensation": "https://example.com/ta/rest/v2/companies/453313/employees/2216133/compensation/total",
+                    "hr-custom-fields": "https://example.com/ta/rest/v2/companies/453313/employees/2216133/hr-custom-fields",
+                    "skills": "https://example.com/ta/rest/v2/companies/453313/employees/2216133/skills",
+          "credentials": "https://example.com/ta/rest/v2/companies/453313/employees/2201484/credentials",
+          "trainingCourseHistory": "https://example.com/ta/rest/v2/companies/453313/employees/2201484/training/certifications"
+                }
+            },
+            "status": "CREATED"
+        }
+    ]
+}</pre>
+</div>
+<div class="get-example-resp-tab-0" id="get-tab-resp-schema-0">
+
+<div class="jsonschema" id="schema-0">{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "type": "object",
+  "properties": {
+    "entries": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer"
+          },
+          "status": {
+            "enum": [
+              "CREATED",
+              "MODIFIED",
+              "DELETED"
+            ]
+          },
+          "object": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "number",
+                "format": "long"
+              },
+              "primary_account_id": {
+                "type": "number",
+                "format": "long"
+              },
+              "username": {
+                "type": "string"
+              },
+              "employee_id": {
+                "type": "string",
+                "maxLength": 20
+              },
+              "external_id": {
+                "type": "string"
+              },
+              "first_name": {
+                "type": "string"
+              },
+              "last_name": {
+                "type": "string"
+              },
+              "_links": {
+                "type": "object",
+                "properties": {
+                  "self": {
+                    "type": "string"
+                  },
+                  "demographics": {
+                    "type": "string"
+                  },
+                  "pay_info": {
+                    "type": "string"
+                  },
+                  "badges": {
+                    "type": "string"
+                  },
+                  "profiles": {
+                    "type": "string"
+                  },
+                  "base_compensation": {
+                    "type": "string"
+                  },
+                  "additional_compensation": {
+                    "type": "string"
+                  },
+                  "total_compensation": {
+                    "type": "string"
+                  },
+                  "hcm-profiles": {
+                    "type": "string"
+                  },
+                  "hcm-fields": {
+                    "type": "string"
+                  },
+                  "hr-custom-fields": {
+                    "type": "string"
+                  },
+                  "skills": {
+                    "type": "string"
+                  },
+                  "credentials": {
+                    "type": "string"
+                  },
+                  "trainingCourseHistory": {
+                    "type": "string"
+                  }
+                },
+                "additionalProperties": false
+              }
+            },
+            "additionalProperties": false,
+            "required": [
+              "id",
+              "username",
+              "first_name",
+              "last_name",
+              "_links"
+            ]
+          }
+        },
+        "additionalProperties": false,
+        "required": [
+          "id",
+          "status"
+        ]
+      },
+      "additionalProperties": false
+    }
+  },
+  "required": [
+    "entries"
+  ]
+}</div>
+</div>
+</div>
+</div>
+<div class="resp-tab-get" id="resp-tab-id-get-1">
+<div class="example">
+
+<div class="get-example-resp-tab-1 activeTab" id="get-tab-resp-example-1">
+
+<pre class="highlightjs">&lt;?xml version='1.0' encoding='UTF-8'?&gt;
+&lt;changed_entries&gt;
+  &lt;entries&gt;
+    &lt;entry&gt;
+      &lt;id&gt;2201485&lt;/id&gt;
+      &lt;status&gt;DELETED&lt;/status&gt;
+    &lt;/entry&gt;
+    &lt;entry&gt;
+      &lt;id&gt;2201483&lt;/id&gt;
+      &lt;object&gt;
+        &lt;id&gt;2201483&lt;/id&gt;
+        &lt;primary_account_id&gt;2201483&lt;/primary_account_id&gt;
+        &lt;employee_id&gt;0007&lt;/employee_id&gt;
+        &lt;external_id&gt;0007&lt;/external_id&gt;
+        &lt;username&gt;employee0&lt;/username&gt;
+        &lt;first_name&gt;employee0&lt;/first_name&gt;
+        &lt;last_name&gt;employee0&lt;/last_name&gt;
+        &lt;_links&gt;
+          &lt;self&gt;https://example.com/ta/rest/v2/companies/453313/employees/2201483&lt;/self&gt;
+          &lt;demographics&gt;https://example.com/ta/rest/v2/companies/453313/employees/2201483/demographics&lt;/demographics&gt;
+          &lt;pay_info&gt;https://example.com/ta/rest/v2/companies/453313/employees/2201483/pay-info&lt;/pay_info&gt;
+          &lt;profiles&gt;https://example.com/ta/rest/v2/companies/453313/employees/2201483/profiles&lt;/profiles&gt;
+          &lt;hcm-profiles&gt;https://example.com/ta/rest/v2/companies/453313/employees/2201483/hcm-profiles&lt;/hcm-profiles&gt;
+          &lt;hcm-fields&gt;https://example.com/ta/rest/v2/companies/453313/employees/2201483/hcm-profiles&lt;/hcm-fields&gt;
+          &lt;badges&gt;https://example.com/ta/rest/v2/companies/453313/employees/2201483/badges&lt;/badges&gt;
+          &lt;base_compensation&gt;https://example.com/ta/rest/v2/companies/453313/employees/2201483/compensation/history&lt;/base_compensation&gt;
+          &lt;additional_compensation&gt;https://example.com/ta/rest/v2/companies/453313/employees/2201483/compensation/additional&lt;/additional_compensation&gt;
+          &lt;total_compensation&gt;https://example.com/ta/rest/v2/companies/453313/employees/2201483/compensation/total&lt;/total_compensation&gt;
+          &lt;hr-custom-fields&gt;https://example.com/ta/rest/v2/companies/453313/employees/2201483/hr-custom-fields&lt;/hr-custom-fields&gt;
+          &lt;skills&gt;https://example.com/ta/rest/v2/companies/453313/employees/2201483/skills&lt;/skills&gt;
+          &lt;credentials&gt;https://example.com/ta/rest/v2/companies/453313/employees/2201483/credentials&lt;/credentials&gt;
+          &lt;trainingCourseHistory&gt;https://example.com/ta/rest/v2/companies/453313/employees/2201483/training/certifications&lt;/trainingCourseHistory&gt;
+
+        &lt;/_links&gt;
+      &lt;/object&gt;
+      &lt;status&gt;MODIFIED&lt;/status&gt;
+    &lt;/entry&gt;
+    &lt;entry&gt;
+      &lt;id&gt;2216133&lt;/id&gt;
+      &lt;object&gt;
+        &lt;id&gt;2216133&lt;/id&gt;
+        &lt;primary_account_id&gt;2216133&lt;/primary_account_id&gt;
+        &lt;employee_id&gt;employeeForSingleGetId2&lt;/employee_id&gt;
+        &lt;username&gt;employeeForSingleGet2&lt;/username&gt;
+        &lt;first_name&gt;employee&lt;/first_name&gt;
+        &lt;last_name&gt;ForSingleGet2&lt;/last_name&gt;
+        &lt;_links&gt;
+          &lt;self&gt;https://example.com/ta/rest/v2/companies/453313/employees/2216133&lt;/self&gt;
+          &lt;demographics&gt;https://example.com/ta/rest/v2/companies/453313/employees/2216133/demographics&lt;/demographics&gt;
+          &lt;pay_info&gt;https://example.com/ta/rest/v2/companies/453313/employees/2216133/pay-info&lt;/pay_info&gt;
+          &lt;profiles&gt;https://example.com/ta/rest/v2/companies/453313/employees/2216133/profiles&lt;/profiles&gt;
+          &lt;badges&gt;https://example.com/ta/rest/v2/companies/453313/employees/2216133/badges&lt;/badges&gt;
+          &lt;base_compensation&gt;https://example.com/ta/rest/v2/companies/453313/employees/2216133/compensation/history&lt;/base_compensation&gt;
+          &lt;additional_compensation&gt;https://example.com/ta/rest/v2/companies/453313/employees/2216133/compensation/additional&lt;/additional_compensation&gt;
+          &lt;total_compensation&gt;https://example.com/ta/rest/v2/companies/453313/employees/2216133/compensation/total&lt;/total_compensation&gt;
+          &lt;hr-custom-fields&gt;https://example.com/ta/rest/v2/companies/453313/employees/2216133/hr-custom-fields&lt;/hr-custom-fields&gt;
+          &lt;skills&gt;https://example.com/ta/rest/v2/companies/453313/employees/2216133/skills&lt;/skills&gt;
+          &lt;credentials&gt;https://example.com/ta/rest/v2/companies/453313/employees/2201483/credentials&lt;/credentials&gt;
+          &lt;trainingCourseHistory&gt;https://example.com/ta/rest/v2/companies/453313/employees/2201483/training/certifications&lt;/trainingCourseHistory&gt;
+        &lt;/_links&gt;
+      &lt;/object&gt;
+      &lt;status&gt;CREATED&lt;/status&gt;
+    &lt;/entry&gt;
+  &lt;/entries&gt;
+&lt;/changed_entries&gt;</pre>
+</div>
+<div class="get-example-resp-tab-1" id="get-tab-resp-schema-1">
+
+<div class="jsonschema" id="schema-1">&lt;xs:schema attributeFormDefault="unqualified" elementFormDefault="qualified"
+           xmlns:xs="http://www.w3.org/2001/XMLSchema"&gt;
+
+    &lt;xs:element name="changed_entries"&gt;
+        &lt;xs:complexType&gt;
+            &lt;xs:all&gt;
+                &lt;xs:element type="entries" name="entries"/&gt;
+            &lt;/xs:all&gt;
+        &lt;/xs:complexType&gt;
+    &lt;/xs:element&gt;
+
+    &lt;xs:complexType name="entries"&gt;
+        &lt;xs:sequence&gt;
+            &lt;xs:element type="entry" name="entry" minOccurs="0" maxOccurs="unbounded"/&gt;
+        &lt;/xs:sequence&gt;
+    &lt;/xs:complexType&gt;
+
+    &lt;xs:complexType name="entry"&gt;
+        &lt;xs:all&gt;
+            &lt;xs:element type="xs:long" name="id" minOccurs="1"/&gt;
+            &lt;xs:element type="status" name="status" minOccurs="1"/&gt;
+            &lt;xs:element type="employee" name="object" minOccurs="0"/&gt;
+        &lt;/xs:all&gt;
+    &lt;/xs:complexType&gt;
+
+    &lt;xs:simpleType name="status"&gt;
+        &lt;xs:restriction base="xs:string"&gt;
+            &lt;xs:enumeration value="CREATED"/&gt;
+            &lt;xs:enumeration value="MODIFIED"/&gt;
+            &lt;xs:enumeration value="DELETED"/&gt;
+        &lt;/xs:restriction&gt;
+    &lt;/xs:simpleType&gt;
+
+    &lt;xs:complexType name="employee"&gt;
+        &lt;xs:all&gt;
+            &lt;xs:element type="xs:long" name="id"/&gt;
+            &lt;xs:element type="xs:long" name="primary_account_id"/&gt;
+            &lt;xs:element type="xs:string" name="username"/&gt;
+            &lt;xs:element type="xs:string" name="first_name"/&gt;
+            &lt;xs:element type="xs:string" name="last_name"/&gt;
+            &lt;xs:element type="xs:string" name="external_id" minOccurs="0"/&gt;
+            &lt;xs:element type="xs:string" name="employee_id" minOccurs="0"/&gt;
+            &lt;xs:element type="resource_links" name="_links"/&gt;
+        &lt;/xs:all&gt;
+    &lt;/xs:complexType&gt;
+
+    &lt;xs:complexType name="resource_links"&gt;
+        &lt;xs:all&gt;
+            &lt;xs:element type="xs:string" name="self" minOccurs="0" maxOccurs="1"/&gt;
+            &lt;xs:element type="xs:string" name="demographics" minOccurs="0" maxOccurs="1"/&gt;
+            &lt;xs:element type="xs:string" name="pay_info" minOccurs="0" maxOccurs="1"/&gt;
+            &lt;xs:element type="xs:string" name="badges" minOccurs="0" maxOccurs="1"/&gt;
+            &lt;xs:element type="xs:string" name="profiles" minOccurs="0" maxOccurs="1"/&gt;
+            &lt;xs:element type="xs:string" name="base_compensation" minOccurs="0" maxOccurs="1"/&gt;
+            &lt;xs:element type="xs:string" name="additional_compensation" minOccurs="0" maxOccurs="1"/&gt;
+            &lt;xs:element type="xs:string" name="total_compensation" minOccurs="0" maxOccurs="1"/&gt;
+            &lt;xs:element type="xs:string" name="hcm-profiles" minOccurs="0" maxOccurs="1"/&gt;
+            &lt;xs:element type="xs:string" name="hcm-fields" minOccurs="0" maxOccurs="1"/&gt;
+            &lt;xs:element type="xs:string" name="hr-custom-fields" minOccurs="0" maxOccurs="1"/&gt;
+            &lt;xs:element type="xs:string" name="skills" minOccurs="0" maxOccurs="1"/&gt;
+            &lt;xs:element type="xs:string" name="credentials" minOccurs="0" maxOccurs="1"/&gt;
+            &lt;xs:element type="xs:string" name="trainingCourseHistory" minOccurs="0" maxOccurs="1"/&gt;
+        &lt;/xs:all&gt;
+    &lt;/xs:complexType&gt;
+&lt;/xs:schema&gt;</div>
+</div>
+</div>
+</div>
+</div>
+</article>
+</section>
+</div>
+</body></html>

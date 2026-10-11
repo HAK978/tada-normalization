@@ -1,0 +1,1019 @@
+<!doctype html>
+<html><head><meta charset="utf-8"><title>History</title><style>body{font:16px system-ui;max-width:1100px;margin:2rem auto;padding:0 1rem;line-height:1.5}aside{background:#fff3cc;padding:1rem}.jsonschema,pre{white-space:pre-wrap;font:13px monospace;overflow-wrap:anywhere;background:#f4f5f7;padding:1rem}.uri{font-family:monospace}h2,h3{margin-top:2rem}</style></head><body><aside><strong>Modified private reference — 2026-10-09.</strong> Provider-documented illustrative examples are included; authentication token examples are redacted. These are not customer exports or guaranteed production behavior. Candidate sharing is pending. This is not OpenAPI.</aside>
+<div class="group">
+<h2 class="anchored" id="item.anchor">
+<span>History</span>
+<a class="fa fa-link link-anchor" data-url="r=__v2__companies__(cid)__compensation__history__(id)#" data-web-id="__v2__companies__(cid)__compensation__history__(id)"></a>
+</h2>
+<section class="clearfix">
+<article class="definition">
+<h3 class="anchored" id="get"><span>GET</span>
+<a class="fa fa-link link-anchor" data-url="r=__v2__companies__(cid)__compensation__history__(id)#get" data-web-id="__v2__companies__(cid)__compensation__history__(id)"></a>
+</h3>
+<div class="md"><p>Retrieves detailed information about an Employee Base Compensation entry.</p></div>
+<div>
+<ul class="annotation-list">
+<li class="annotation">
+<span>v2</span>
+</li>
+</ul>
+</div>
+<h4>Parameters</h4>
+<h5>Path Parameters</h5>
+<ul class="param-list">
+<li>
+<div class="param-desc">
+<div class="param-name">cid</div>
+<div class="data-type">string</div>
+<div class="required">required</div>
+</div>
+<div class="param-content">
+<div>
+<p>Example: 123456</p>
+<div class="desc md">Company should be referenced via company id or company unique id or company short name using `|short_name` or `!short_name` format.
+</div>
+</div>
+</div>
+
+</li>
+<li>
+<div class="param-desc">
+<div class="param-name">id</div>
+<div class="data-type">string</div>
+<div class="required">required</div>
+</div>
+<div class="param-content">
+<div>
+<div class="desc md">Employee Base Compensation id. Id is based on object composite key (account_id and effective_from) and has following format xxxxxxxxyyyyyyy where xxxxxxxxx - represents date from and yyyyyyy - account_id</div>
+</div>
+</div>
+
+</li>
+</ul>
+<h5>Header Parameters</h5>
+<ul class="param-list">
+<li>
+<div class="param-desc">
+<div class="param-name">Accept</div>
+<div class="data-type">string</div>
+</div>
+<div class="param-content">
+<div>
+<p>Valid values: application/json, application/xml, text/xml</p>
+<p>Default: application/json</p>
+<p>Example: application/json</p>
+</div>
+</div>
+
+</li>
+</ul>
+<h4>Responses</h4>
+<div class="responses">
+<div>
+<label class="response response-success">
+<span class="fa fa-check"></span>
+<input data-full-tab-id="get-resp-code-tab-id-0" data-tab-class="resp-code-tab-get" name="resp-code-tab-get" type="radio"/>
+<span class="status">200 Ok</span>
+</label>
+<div class="response-desc resp-code-tab-get" id="get-resp-code-tab-id-0">
+</div>
+</div>
+<div>
+<label class="response response-error">
+<span class="fa fa-times"></span>
+<input data-full-tab-id="get-resp-code-tab-id-1" data-tab-class="resp-code-tab-get" name="resp-code-tab-get" type="radio"/>
+<span class="status">401 Unauthorized</span>
+</label>
+<div class="response-desc resp-code-tab-get" id="get-resp-code-tab-id-1">
+<div class="md"><p>Returned in case user is not authorized.</p></div>
+</div>
+</div>
+<div>
+<label class="response response-error">
+<span class="fa fa-times"></span>
+<input data-full-tab-id="get-resp-code-tab-id-2" data-tab-class="resp-code-tab-get" name="resp-code-tab-get" type="radio"/>
+<span class="status">403 Forbidden</span>
+</label>
+<div class="response-desc resp-code-tab-get" id="get-resp-code-tab-id-2">
+<div class="md"><p>Returned in case user has no access to the resource.</p></div>
+</div>
+</div>
+<div>
+<label class="response response-error">
+<span class="fa fa-times"></span>
+<input data-full-tab-id="get-resp-code-tab-id-3" data-tab-class="resp-code-tab-get" name="resp-code-tab-get" type="radio"/>
+<span class="status">404 Not Found</span>
+</label>
+<div class="response-desc resp-code-tab-get" id="get-resp-code-tab-id-3">
+<div class="md"><p>Returned in case resource does not exist.</p></div>
+</div>
+</div>
+<div>
+<label class="response response-error">
+<span class="fa fa-times"></span>
+<input data-full-tab-id="get-resp-code-tab-id-4" data-tab-class="resp-code-tab-get" name="resp-code-tab-get" type="radio"/>
+<span class="status">503 Service Unavailable</span>
+</label>
+<div class="response-desc resp-code-tab-get" id="get-resp-code-tab-id-4">
+<div class="md"><p>Returned in the event that the call limit is exceeded. The application will be unavailable for subsequent calls for the duration specified by the X-CallLimit-TimeToWait header.</p></div>
+</div>
+</div>
+</div>
+</article>
+<article class="code">
+<h4>Definition</h4>
+<div class="uri">
+<code>
+<span class="method get">get</span>
+<span class="textUri"><span class="baseUri">{{ getUriPrefix() }}</span><span class="relativeUri">/v2/companies/{cid}/compensation/history/{id}</span></span>
+</code>
+</div>
+<h4>Response Samples</h4>
+<div class="tab-title-group">
+<label>
+<input checked="checked" data-full-tab-id="resp-tab-id-get-0" data-tab-class="resp-tab-get" name="resp-tab-get" type="radio"/>
+<span class="tab-title">application/json</span>
+</label>
+<label>
+<input data-full-tab-id="resp-tab-id-get-1" data-tab-class="resp-tab-get" name="resp-tab-get" type="radio"/>
+<span class="tab-title">application/xml</span>
+</label>
+</div>
+<div>
+<div class="resp-tab-get" id="resp-tab-id-get-0">
+<div class="example">
+
+<div class="get-example-resp-tab-0 activeTab" id="get-tab-resp-example-0">
+
+<pre class="highlightjs">{
+  "id": 201511113218689,
+  "employee": {
+    "account_id": 3218689
+  },
+  "effective_from": "2015-11-13",
+  "amount": 1000000.0,
+  "hourly_pay": 60.00125,
+  "currency":"USD",
+  "amount_period": "YEAR",
+  "time": 28800000,
+  "time_period": "YEAR",
+  "num_pp_in_year": 52,
+  "auto_pay": {
+    "type": "AMOUNT_HOURS",
+     "earning": {
+      "name": "1099 Earnings",
+      "code": "1099 Earnings"
+    }
+  }
+}</pre>
+</div>
+<div class="get-example-resp-tab-0" id="get-tab-resp-schema-0">
+
+<div class="jsonschema" id="schema-0">{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "type": "object",
+  "properties": {
+    "id": {
+      "type": "integer",
+      "description": "Is used when retrieving object."
+    },
+    "employee": {
+      "type": "object",
+      "properties": {
+        "account_id": {
+          "type": "number",
+          "format": "long"
+        }
+      },
+      "required": [
+        "account_id"
+      ]
+    },
+    "effective_from": {
+      "type": "string",
+      "pattern": "^(19[0-9]{2}|20[0-6][0-9]|2070)-(0[1-9]|1[0-2])-(0[1-9]|[1-2][0-9]|3[0-1])$",
+      "description": "Date needs to be in the format yyyy-mm-dd within the range 1900-12-31 - 2079-06-05"
+    },
+    "amount": {
+      "type": "number",
+      "minimum": 0
+    },
+    "hourly_pay": {
+      "type": "number",
+      "minimum": 0
+    },
+    "currency": {
+      "type": "string"
+    },
+    "amount_period": {
+      "type": "string",
+      "enum": [
+        "YEAR",
+        "MONTH",
+        "WEEK",
+        "HOUR",
+        "PAY_PERIOD"
+      ]
+    },
+    "time": {
+      "type": "integer",
+      "minimum": 0,
+      "description": "Time is represented in milliseconds."
+    },
+    "time_period": {
+      "type": "string",
+      "enum": [
+        "YEAR",
+        "MONTH",
+        "WEEK",
+        "PAY_PERIOD"
+      ]
+    },
+    "num_pp_in_year": {
+      "type": "integer",
+      "minimum": 1
+    },
+    "auto_pay": {
+      "type": "object",
+      "properties": {
+        "earning": {
+          "type": "object",
+          "properties": {
+            "name": {
+              "type": "string"
+            },
+            "code": {
+              "type": "string"
+            },
+            "external_id": {
+              "type": "string"
+            }
+          },
+          "anyOf": [
+            {
+              "required": [
+                "name"
+              ]
+            },
+            {
+              "required": [
+                "external_id"
+              ]
+            },
+            {
+              "required": [
+                "code"
+              ]
+            }
+          ],
+          "additionalProperties": false
+        },
+        "type": {
+          "type": "string",
+          "enum": [
+            "AMOUNT",
+            "HOURS",
+            "AMOUNT_HOURS"
+          ]
+        }
+      },
+      "required": [
+        "earning",
+        "type"
+      ]
+    }
+  },
+  "additionalProperties": false,
+  "required": [
+    "employee",
+    "effective_from",
+    "amount",
+    "amount_period",
+    "time",
+    "time_period",
+    "num_pp_in_year",
+    "currency"
+  ]
+}</div>
+</div>
+</div>
+</div>
+<div class="resp-tab-get" id="resp-tab-id-get-1">
+<div class="example">
+
+<div class="get-example-resp-tab-1 activeTab" id="get-tab-resp-example-1">
+
+<pre class="highlightjs">&lt;compensation&gt;
+  &lt;id&gt;201511132218689&lt;/id&gt;
+  &lt;employee&gt;
+    &lt;account_id&gt;2218689&lt;/account_id&gt;
+  &lt;/employee&gt;
+  &lt;effective_from&gt;2015-11-13&lt;/effective_from&gt;
+  &lt;amount&gt;1000000&lt;/amount&gt;
+  &lt;hourly_pay&gt;60.00125&lt;/hourly_pay&gt;
+  &lt;currency&gt;USD&lt;/currency&gt;
+  &lt;amount_period&gt;YEAR&lt;/amount_period&gt;
+  &lt;time&gt;28800000&lt;/time&gt;
+  &lt;time_period&gt;YEAR&lt;/time_period&gt;
+  &lt;num_pp_in_year&gt;52&lt;/num_pp_in_year&gt;
+  &lt;auto_pay&gt;
+    &lt;earning&gt;
+      &lt;code&gt;1099 Earnings&lt;/code&gt;
+    &lt;/earning&gt;
+    &lt;type&gt;AMOUNT_HOURS&lt;/type&gt;
+  &lt;/auto_pay&gt;
+&lt;/compensation&gt;
+</pre>
+</div>
+<div class="get-example-resp-tab-1" id="get-tab-resp-schema-1">
+
+<div class="jsonschema" id="schema-1">&lt;xs:schema attributeFormDefault="unqualified" elementFormDefault="qualified"
+           xmlns:xs="http://www.w3.org/2001/XMLSchema"&gt;
+  &lt;xs:element name="compensation"&gt;
+    &lt;xs:complexType&gt;
+      &lt;xs:all&gt;
+        &lt;xs:element type="xs:long" name="id" minOccurs="0" maxOccurs="1"/&gt;
+        &lt;xs:element name="employee" type="employee" minOccurs="1" maxOccurs="1"/&gt;
+        &lt;xs:element type="limitedDate" name="effective_from" minOccurs="1" maxOccurs="1"/&gt;
+        &lt;xs:element name="amount" minOccurs="1" maxOccurs="1"&gt;
+          &lt;xs:simpleType&gt;
+            &lt;xs:union&gt;
+              &lt;xs:simpleType&gt;
+                &lt;xs:restriction base="xs:decimal"&gt;
+                  &lt;xs:minInclusive value="0"/&gt;
+                &lt;/xs:restriction&gt;
+              &lt;/xs:simpleType&gt;
+              &lt;xs:simpleType&gt;
+                &lt;xs:restriction base='xs:string'&gt;
+                  &lt;xs:length value="0"/&gt;
+                &lt;/xs:restriction&gt;
+              &lt;/xs:simpleType&gt;
+            &lt;/xs:union&gt;
+          &lt;/xs:simpleType&gt;
+        &lt;/xs:element&gt;
+         &lt;xs:element name="hourly_pay" minOccurs="1" maxOccurs="1"&gt;
+          &lt;xs:simpleType&gt;
+            &lt;xs:union&gt;
+              &lt;xs:simpleType&gt;
+                &lt;xs:restriction base="xs:decimal"&gt;
+                  &lt;xs:minInclusive value="0"/&gt;
+                &lt;/xs:restriction&gt;
+              &lt;/xs:simpleType&gt;
+              &lt;xs:simpleType&gt;
+                &lt;xs:restriction base='xs:string'&gt;
+                  &lt;xs:length value="0"/&gt;
+                &lt;/xs:restriction&gt;
+              &lt;/xs:simpleType&gt;
+            &lt;/xs:union&gt;
+          &lt;/xs:simpleType&gt;
+        &lt;/xs:element&gt;
+                &lt;xs:element type="xs:string" name="currency" minOccurs="1" maxOccurs="1"/&gt;
+                &lt;xs:element name="amount_period" minOccurs="1" maxOccurs="1"&gt;
+          &lt;xs:simpleType&gt;
+            &lt;xs:restriction base="xs:string"&gt;
+              &lt;xs:enumeration value="YEAR"/&gt;
+              &lt;xs:enumeration value="MONTH"/&gt;
+              &lt;xs:enumeration value="WEEK"/&gt;
+              &lt;xs:enumeration value="HOUR"/&gt;
+              &lt;xs:enumeration value="PAY_PERIOD"/&gt;
+            &lt;/xs:restriction&gt;
+          &lt;/xs:simpleType&gt;
+        &lt;/xs:element&gt;
+        &lt;xs:element name="time" minOccurs="1" maxOccurs="1"&gt;
+          &lt;xs:annotation&gt;
+            &lt;xs:documentation&gt;Time is represented in milliseconds.&lt;/xs:documentation&gt;
+          &lt;/xs:annotation&gt;
+          &lt;xs:simpleType&gt;
+            &lt;xs:restriction base="xs:long"&gt;
+              &lt;xs:minInclusive value="0"/&gt;
+            &lt;/xs:restriction&gt;
+          &lt;/xs:simpleType&gt;
+        &lt;/xs:element&gt;
+        &lt;xs:element name="time_period" minOccurs="1" maxOccurs="1"&gt;
+          &lt;xs:simpleType&gt;
+            &lt;xs:restriction base="xs:string"&gt;
+              &lt;xs:enumeration value="YEAR"/&gt;
+              &lt;xs:enumeration value="MONTH"/&gt;
+              &lt;xs:enumeration value="WEEK"/&gt;
+              &lt;xs:enumeration value="PAY_PERIOD"/&gt;
+            &lt;/xs:restriction&gt;
+          &lt;/xs:simpleType&gt;
+        &lt;/xs:element&gt;
+        &lt;xs:element name="num_pp_in_year" minOccurs="1" maxOccurs="1"&gt;
+          &lt;xs:simpleType&gt;
+            &lt;xs:restriction base="xs:integer"&gt;
+              &lt;xs:minInclusive value="0"/&gt;
+            &lt;/xs:restriction&gt;
+          &lt;/xs:simpleType&gt;
+        &lt;/xs:element&gt;
+        &lt;xs:element type="autoPay" name="auto_pay" minOccurs='0'/&gt;
+      &lt;/xs:all&gt;
+    &lt;/xs:complexType&gt;
+  &lt;/xs:element&gt;
+  &lt;xs:complexType name="employee"&gt;
+    &lt;xs:all&gt;
+      &lt;xs:element type="xs:integer" name="account_id" minOccurs="1" maxOccurs="1"/&gt;
+    &lt;/xs:all&gt;
+  &lt;/xs:complexType&gt;
+  &lt;xs:complexType name="autoPay"&gt;
+    &lt;xs:sequence&gt;
+    &lt;xs:element type="earning" name="earning" minOccurs="1" maxOccurs="1"/&gt;
+    &lt;xs:element name="type" minOccurs="1" maxOccurs="1"&gt;
+      &lt;xs:simpleType&gt;
+        &lt;xs:restriction base="xs:string"&gt;
+          &lt;xs:enumeration value="AMOUNT"/&gt;
+          &lt;xs:enumeration value="HOURS"/&gt;
+          &lt;xs:enumeration value="AMOUNT_HOURS"/&gt;
+        &lt;/xs:restriction&gt;
+      &lt;/xs:simpleType&gt;
+    &lt;/xs:element&gt;
+    &lt;/xs:sequence&gt;
+  &lt;/xs:complexType&gt;
+  &lt;xs:simpleType name="limitedDate"&gt;
+    &lt;xs:restriction base="xs:date"&gt;
+      &lt;xs:minInclusive value="1900-12-31"/&gt;
+      &lt;xs:maxInclusive value="2079-06-05"/&gt;
+    &lt;/xs:restriction&gt;
+  &lt;/xs:simpleType&gt;
+  &lt;xs:complexType name="earning"&gt;
+    &lt;xs:choice&gt;
+      &lt;xs:element type="xs:string" name="name"/&gt;
+      &lt;xs:element type="xs:string" name="code"/&gt;
+      &lt;xs:element type="xs:string" name="external_id"/&gt;
+    &lt;/xs:choice&gt;
+  &lt;/xs:complexType&gt;
+&lt;/xs:schema&gt;
+</div>
+</div>
+</div>
+</div>
+</div>
+</article>
+</section>
+<section class="clearfix">
+<article class="definition">
+<h3 class="anchored" id="put"><span>PUT</span>
+<a class="fa fa-link link-anchor" data-url="r=__v2__companies__(cid)__compensation__history__(id)#put" data-web-id="__v2__companies__(cid)__compensation__history__(id)"></a>
+</h3>
+<div class="md"><p>Updates an Employee Base Compensation entry.
+The `auto_pay` field is processed only for companies with the Payroll subsystem.
+</p></div>
+<div>
+<ul class="annotation-list">
+<li class="annotation">
+<span>v2</span>
+</li>
+</ul>
+</div>
+<h4>Parameters</h4>
+<h5>Path Parameters</h5>
+<ul class="param-list">
+<li>
+<div class="param-desc">
+<div class="param-name">cid</div>
+<div class="data-type">string</div>
+<div class="required">required</div>
+</div>
+<div class="param-content">
+<div>
+<p>Example: 123456</p>
+<div class="desc md">Company should be referenced via company id or company unique id or company short name using `|short_name` or `!short_name` format.
+</div>
+</div>
+</div>
+
+</li>
+<li>
+<div class="param-desc">
+<div class="param-name">id</div>
+<div class="data-type">string</div>
+<div class="required">required</div>
+</div>
+<div class="param-content">
+<div>
+<div class="desc md">Employee Base Compensation id. Id is based on object composite key (account_id and effective_from) and has following format xxxxxxxxyyyyyyy where xxxxxxxxx - represents date from and yyyyyyy - account_id</div>
+</div>
+</div>
+
+</li>
+</ul>
+<h5>Header Parameters</h5>
+<ul class="param-list">
+<li>
+<div class="param-desc">
+<div class="param-name">Accept</div>
+<div class="data-type">string</div>
+</div>
+<div class="param-content">
+<div>
+<p>Valid values: application/json, application/xml, text/xml</p>
+<p>Default: application/json</p>
+<p>Example: application/json</p>
+</div>
+</div>
+
+</li>
+<li>
+<div class="param-desc">
+<div class="param-name">Content-Type</div>
+<div class="data-type">string</div>
+<div class="required">required</div>
+</div>
+<div class="param-content">
+<div>
+<p>Valid values: application/xml, text/xml, application/json</p>
+<p>Example: application/json</p>
+</div>
+</div>
+
+</li>
+<li>
+<div class="param-desc">
+<div class="param-name">Content-Length</div>
+<div class="data-type">integer</div>
+<div class="required">required</div>
+</div>
+<div class="param-content">
+<div>
+</div>
+</div>
+
+</li>
+</ul>
+<h4>Responses</h4>
+<div class="responses">
+<div>
+<label class="response response-success">
+<span class="fa fa-check"></span>
+<input data-full-tab-id="put-resp-code-tab-id-0" data-tab-class="resp-code-tab-put" name="resp-code-tab-put" type="radio"/>
+<span class="status">204 No Content</span>
+</label>
+<div class="response-desc resp-code-tab-put" id="put-resp-code-tab-id-0">
+<div class="md"><p>Employee Base Compensation successfully updated.</p></div>
+</div>
+</div>
+<div>
+<label class="response response-error">
+<span class="fa fa-times"></span>
+<input data-full-tab-id="put-resp-code-tab-id-1" data-tab-class="resp-code-tab-put" name="resp-code-tab-put" type="radio"/>
+<span class="status">401 Unauthorized</span>
+</label>
+<div class="response-desc resp-code-tab-put" id="put-resp-code-tab-id-1">
+<div class="md"><p>Returned in case user is not authorized.</p></div>
+</div>
+</div>
+<div>
+<label class="response response-error">
+<span class="fa fa-times"></span>
+<input data-full-tab-id="put-resp-code-tab-id-2" data-tab-class="resp-code-tab-put" name="resp-code-tab-put" type="radio"/>
+<span class="status">403 Forbidden</span>
+</label>
+<div class="response-desc resp-code-tab-put" id="put-resp-code-tab-id-2">
+<div class="md"><p>Returned in case user has no access to the resource.</p></div>
+</div>
+</div>
+<div>
+<label class="response response-error">
+<span class="fa fa-times"></span>
+<input data-full-tab-id="put-resp-code-tab-id-3" data-tab-class="resp-code-tab-put" name="resp-code-tab-put" type="radio"/>
+<span class="status">404 Not Found</span>
+</label>
+<div class="response-desc resp-code-tab-put" id="put-resp-code-tab-id-3">
+<div class="md"><p>Returned in case resource does not exist.</p></div>
+</div>
+</div>
+<div>
+<label class="response response-error">
+<span class="fa fa-times"></span>
+<input data-full-tab-id="put-resp-code-tab-id-4" data-tab-class="resp-code-tab-put" name="resp-code-tab-put" type="radio"/>
+<span class="status">503 Service Unavailable</span>
+</label>
+<div class="response-desc resp-code-tab-put" id="put-resp-code-tab-id-4">
+<div class="md"><p>Returned in the event that the call limit is exceeded. The application will be unavailable for subsequent calls for the duration specified by the X-CallLimit-TimeToWait header.</p></div>
+</div>
+</div>
+</div>
+</article>
+<article class="code">
+<h4>Definition</h4>
+<div class="uri">
+<code>
+<span class="method put">put</span>
+<span class="textUri"><span class="baseUri">{{ getUriPrefix() }}</span><span class="relativeUri">/v2/companies/{cid}/compensation/history/{id}</span></span>
+</code>
+</div>
+<h4>Request Samples</h4>
+<div class="tab-title-group">
+<label>
+<input checked="checked" data-full-tab-id="req-tab-id-put-0" data-tab-class="req-tab-put" name="req-tab-put" type="radio"/>
+<span class="tab-title">application/json</span>
+</label>
+<label>
+<input data-full-tab-id="req-tab-id-put-1" data-tab-class="req-tab-put" name="req-tab-put" type="radio"/>
+<span class="tab-title">application/xml</span>
+</label>
+</div>
+<div>
+<div class="req-tab-put" id="req-tab-id-put-0">
+<div class="example">
+
+<div class="put-example-tab-0 activeTab" id="put-tab-example-0">
+
+<pre class="highlightjs">{
+  "id": 201511113218689,
+  "employee": {
+    "account_id": 3218689
+  },
+  "effective_from": "2015-11-13",
+  "amount": 1000000.0,
+  "currency": "USD",
+  "amount_period": "YEAR",
+  "time": 28800000,
+  "time_period": "YEAR",
+  "num_pp_in_year": 52,
+  "auto_pay": {
+    "type": "AMOUNT_HOURS",
+     "earning": {
+      "name": "1099 Earnings",
+      "code": "1099 Earnings"
+    }
+  }
+}</pre>
+</div>
+<div class="put-example-tab-0" id="put-tab-schema-0">
+
+<div class="jsonschema" id="schema-2">{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "type": "object",
+  "properties": {
+    "id": {
+      "type": "integer",
+      "description": "Is used when retrieving object."
+    },
+    "employee": {
+      "type": "object",
+      "properties": {
+        "account_id": {
+          "type": "number",
+          "format": "long"
+        }
+      },
+      "required": [
+        "account_id"
+      ]
+    },
+    "effective_from": {
+      "type": "string",
+      "pattern": "^(19[0-9]{2}|20[0-6][0-9]|2070)-(0[1-9]|1[0-2])-(0[1-9]|[1-2][0-9]|3[0-1])$",
+      "description": "Date needs to be in the format yyyy-mm-dd within the range 1900-12-31 - 2079-06-05"
+    },
+    "amount": {
+      "type": "number",
+      "minimum": 0
+    },
+    "currency": {
+      "type": "string",
+      "description": "Ignored on PUT request if Multi-Currency functionality is disabled."
+    },
+    "amount_period": {
+      "type": "string",
+      "enum": [
+        "YEAR",
+        "MONTH",
+        "WEEK",
+        "HOUR",
+        "PAY_PERIOD"
+      ]
+    },
+    "time": {
+      "type": "integer",
+      "minimum": 0,
+      "description": "Time is represented in milliseconds."
+    },
+    "time_period": {
+      "type": "string",
+      "enum": [
+        "YEAR",
+        "MONTH",
+        "WEEK",
+        "PAY_PERIOD"
+      ]
+    },
+    "num_pp_in_year": {
+      "type": "integer",
+      "minimum": 1
+    },
+    "auto_pay": {
+      "type": "object",
+      "properties": {
+        "earning": {
+          "type": "object",
+          "properties": {
+            "name": {
+              "type": "string"
+            },
+            "code": {
+              "type": "string"
+            },
+            "external_id": {
+              "type": "string"
+            }
+          },
+          "anyOf": [
+            {
+              "required": [
+                "name"
+              ]
+            },
+            {
+              "required": [
+                "external_id"
+              ]
+            },
+            {
+              "required": [
+                "code"
+              ]
+            }
+          ],
+          "additionalProperties": false
+        },
+        "type": {
+          "type": "string",
+          "enum": [
+            "AMOUNT",
+            "HOURS",
+            "AMOUNT_HOURS"
+          ]
+        }
+      },
+      "required": [
+        "earning",
+        "type"
+      ]
+    }
+  },
+  "additionalProperties": false,
+  "required": [
+    "employee",
+    "effective_from",
+    "amount",
+    "amount_period",
+    "time",
+    "time_period",
+    "num_pp_in_year"
+  ]
+}</div>
+</div>
+</div>
+</div>
+<div class="req-tab-put" id="req-tab-id-put-1">
+<div class="example">
+
+<div class="put-example-tab-1 activeTab" id="put-tab-example-1">
+
+<pre class="highlightjs">&lt;compensation&gt;
+  &lt;id&gt;201511132218689&lt;/id&gt;
+  &lt;employee&gt;
+    &lt;account_id&gt;2218689&lt;/account_id&gt;
+  &lt;/employee&gt;
+  &lt;effective_from&gt;2015-11-13&lt;/effective_from&gt;
+  &lt;amount&gt;1000000&lt;/amount&gt;
+  &lt;currency&gt;USD&lt;/currency&gt;
+  &lt;amount_period&gt;YEAR&lt;/amount_period&gt;
+  &lt;time&gt;28800000&lt;/time&gt;
+  &lt;time_period&gt;YEAR&lt;/time_period&gt;
+  &lt;num_pp_in_year&gt;52&lt;/num_pp_in_year&gt;
+  &lt;auto_pay&gt;
+    &lt;earning&gt;
+      &lt;code&gt;1099 Earnings&lt;/code&gt;
+    &lt;/earning&gt;
+    &lt;type&gt;AMOUNT_HOURS&lt;/type&gt;
+  &lt;/auto_pay&gt;
+&lt;/compensation&gt;
+</pre>
+</div>
+<div class="put-example-tab-1" id="put-tab-schema-1">
+
+<div class="jsonschema" id="schema-3">&lt;xs:schema attributeFormDefault="unqualified" elementFormDefault="qualified"
+           xmlns:xs="http://www.w3.org/2001/XMLSchema"&gt;
+  &lt;xs:element name="compensation"&gt;
+    &lt;xs:complexType&gt;
+      &lt;xs:all&gt;
+        &lt;xs:element type="xs:long" name="id" minOccurs="0" maxOccurs="1"/&gt;
+        &lt;xs:element name="employee" type="employee" minOccurs="1" maxOccurs="1"/&gt;
+        &lt;xs:element type="limitedDate" name="effective_from" minOccurs="1" maxOccurs="1"/&gt;
+        &lt;xs:element name="amount" minOccurs="1" maxOccurs="1"&gt;
+          &lt;xs:simpleType&gt;
+            &lt;xs:union&gt;
+              &lt;xs:simpleType&gt;
+                &lt;xs:restriction base="xs:decimal"&gt;
+                  &lt;xs:minInclusive value="0"/&gt;
+                &lt;/xs:restriction&gt;
+              &lt;/xs:simpleType&gt;
+              &lt;xs:simpleType&gt;
+                &lt;xs:restriction base='xs:string'&gt;
+                  &lt;xs:length value="0"/&gt;
+                &lt;/xs:restriction&gt;
+              &lt;/xs:simpleType&gt;
+            &lt;/xs:union&gt;
+          &lt;/xs:simpleType&gt;
+        &lt;/xs:element&gt;
+                &lt;xs:element type="xs:string" name="currency" minOccurs="0" maxOccurs="1"&gt;
+                    &lt;xs:annotation&gt;
+                        &lt;xs:documentation&gt;Ignored on PUT request if Multi-Currency functionality is disabled.&lt;/xs:documentation&gt;
+                    &lt;/xs:annotation&gt;
+                &lt;/xs:element&gt;
+                &lt;xs:element name="amount_period" minOccurs="1" maxOccurs="1"&gt;
+          &lt;xs:simpleType&gt;
+            &lt;xs:restriction base="xs:string"&gt;
+              &lt;xs:enumeration value="YEAR"/&gt;
+              &lt;xs:enumeration value="MONTH"/&gt;
+              &lt;xs:enumeration value="WEEK"/&gt;
+              &lt;xs:enumeration value="HOUR"/&gt;
+              &lt;xs:enumeration value="PAY_PERIOD"/&gt;
+            &lt;/xs:restriction&gt;
+          &lt;/xs:simpleType&gt;
+        &lt;/xs:element&gt;
+        &lt;xs:element name="time" minOccurs="1" maxOccurs="1"&gt;
+          &lt;xs:annotation&gt;
+            &lt;xs:documentation&gt;Time is represented in milliseconds.&lt;/xs:documentation&gt;
+          &lt;/xs:annotation&gt;
+          &lt;xs:simpleType&gt;
+            &lt;xs:restriction base="xs:long"&gt;
+              &lt;xs:minInclusive value="0"/&gt;
+            &lt;/xs:restriction&gt;
+          &lt;/xs:simpleType&gt;
+        &lt;/xs:element&gt;
+        &lt;xs:element name="time_period" minOccurs="1" maxOccurs="1"&gt;
+          &lt;xs:simpleType&gt;
+            &lt;xs:restriction base="xs:string"&gt;
+              &lt;xs:enumeration value="YEAR"/&gt;
+              &lt;xs:enumeration value="MONTH"/&gt;
+              &lt;xs:enumeration value="WEEK"/&gt;
+              &lt;xs:enumeration value="PAY_PERIOD"/&gt;
+            &lt;/xs:restriction&gt;
+          &lt;/xs:simpleType&gt;
+        &lt;/xs:element&gt;
+        &lt;xs:element name="num_pp_in_year" minOccurs="1" maxOccurs="1"&gt;
+          &lt;xs:simpleType&gt;
+            &lt;xs:restriction base="xs:integer"&gt;
+              &lt;xs:minInclusive value="0"/&gt;
+            &lt;/xs:restriction&gt;
+          &lt;/xs:simpleType&gt;
+        &lt;/xs:element&gt;
+        &lt;xs:element type="autoPay" name="auto_pay" minOccurs='0'/&gt;
+      &lt;/xs:all&gt;
+    &lt;/xs:complexType&gt;
+  &lt;/xs:element&gt;
+  &lt;xs:complexType name="employee"&gt;
+    &lt;xs:all&gt;
+      &lt;xs:element type="xs:integer" name="account_id" minOccurs="1" maxOccurs="1"/&gt;
+    &lt;/xs:all&gt;
+  &lt;/xs:complexType&gt;
+  &lt;xs:complexType name="autoPay"&gt;
+    &lt;xs:sequence&gt;
+    &lt;xs:element type="earning" name="earning" minOccurs="1" maxOccurs="1"/&gt;
+    &lt;xs:element name="type" minOccurs="1" maxOccurs="1"&gt;
+      &lt;xs:simpleType&gt;
+        &lt;xs:restriction base="xs:string"&gt;
+          &lt;xs:enumeration value="AMOUNT"/&gt;
+          &lt;xs:enumeration value="HOURS"/&gt;
+          &lt;xs:enumeration value="AMOUNT_HOURS"/&gt;
+        &lt;/xs:restriction&gt;
+      &lt;/xs:simpleType&gt;
+    &lt;/xs:element&gt;
+    &lt;/xs:sequence&gt;
+  &lt;/xs:complexType&gt;
+  &lt;xs:simpleType name="limitedDate"&gt;
+    &lt;xs:restriction base="xs:date"&gt;
+      &lt;xs:minInclusive value="1900-12-31"/&gt;
+      &lt;xs:maxInclusive value="2079-06-05"/&gt;
+    &lt;/xs:restriction&gt;
+  &lt;/xs:simpleType&gt;
+  &lt;xs:complexType name="earning"&gt;
+    &lt;xs:choice&gt;
+      &lt;xs:element type="xs:string" name="name"/&gt;
+      &lt;xs:element type="xs:string" name="code"/&gt;
+      &lt;xs:element type="xs:string" name="external_id"/&gt;
+    &lt;/xs:choice&gt;
+  &lt;/xs:complexType&gt;
+&lt;/xs:schema&gt;
+</div>
+</div>
+</div>
+</div>
+</div>
+</article>
+</section>
+<section class="clearfix">
+<article class="definition">
+<h3 class="anchored" id="delete"><span>DELETE</span>
+<a class="fa fa-link link-anchor" data-url="r=__v2__companies__(cid)__compensation__history__(id)#delete" data-web-id="__v2__companies__(cid)__compensation__history__(id)"></a>
+</h3>
+<div class="md"><p>Deletes a specific Employee Base Compensation entry.</p></div>
+<div>
+<ul class="annotation-list">
+<li class="annotation">
+<span>v2</span>
+</li>
+</ul>
+</div>
+<h4>Parameters</h4>
+<h5>Path Parameters</h5>
+<ul class="param-list">
+<li>
+<div class="param-desc">
+<div class="param-name">cid</div>
+<div class="data-type">string</div>
+<div class="required">required</div>
+</div>
+<div class="param-content">
+<div>
+<p>Example: 123456</p>
+<div class="desc md">Company should be referenced via company id or company unique id or company short name using `|short_name` or `!short_name` format.
+</div>
+</div>
+</div>
+
+</li>
+<li>
+<div class="param-desc">
+<div class="param-name">id</div>
+<div class="data-type">string</div>
+<div class="required">required</div>
+</div>
+<div class="param-content">
+<div>
+<div class="desc md">Employee Base Compensation id. Id is based on object composite key (account_id and effective_from) and has following format xxxxxxxxyyyyyyy where xxxxxxxxx - represents date from and yyyyyyy - account_id</div>
+</div>
+</div>
+
+</li>
+</ul>
+<h4>Responses</h4>
+<div class="responses">
+<div>
+<label class="response response-success">
+<span class="fa fa-check"></span>
+<input data-full-tab-id="delete-resp-code-tab-id-0" data-tab-class="resp-code-tab-delete" name="resp-code-tab-delete" type="radio"/>
+<span class="status">204 No Content</span>
+</label>
+<div class="response-desc resp-code-tab-delete" id="delete-resp-code-tab-id-0">
+<div class="md"><p>Employee Base Compensation has been deleted.</p></div>
+</div>
+</div>
+<div>
+<label class="response response-error">
+<span class="fa fa-times"></span>
+<input data-full-tab-id="delete-resp-code-tab-id-1" data-tab-class="resp-code-tab-delete" name="resp-code-tab-delete" type="radio"/>
+<span class="status">401 Unauthorized</span>
+</label>
+<div class="response-desc resp-code-tab-delete" id="delete-resp-code-tab-id-1">
+<div class="md"><p>Returned in case user is not authorized.</p></div>
+</div>
+</div>
+<div>
+<label class="response response-error">
+<span class="fa fa-times"></span>
+<input data-full-tab-id="delete-resp-code-tab-id-2" data-tab-class="resp-code-tab-delete" name="resp-code-tab-delete" type="radio"/>
+<span class="status">403 Forbidden</span>
+</label>
+<div class="response-desc resp-code-tab-delete" id="delete-resp-code-tab-id-2">
+<div class="md"><p>Returned in case user has no access to the resource.</p></div>
+</div>
+</div>
+<div>
+<label class="response response-error">
+<span class="fa fa-times"></span>
+<input data-full-tab-id="delete-resp-code-tab-id-3" data-tab-class="resp-code-tab-delete" name="resp-code-tab-delete" type="radio"/>
+<span class="status">404 Not Found</span>
+</label>
+<div class="response-desc resp-code-tab-delete" id="delete-resp-code-tab-id-3">
+<div class="md"><p>Returned in case resource does not exist.</p></div>
+</div>
+</div>
+<div>
+<label class="response response-error">
+<span class="fa fa-times"></span>
+<input data-full-tab-id="delete-resp-code-tab-id-4" data-tab-class="resp-code-tab-delete" name="resp-code-tab-delete" type="radio"/>
+<span class="status">503 Service Unavailable</span>
+</label>
+<div class="response-desc resp-code-tab-delete" id="delete-resp-code-tab-id-4">
+<div class="md"><p>Returned in the event that the call limit is exceeded. The application will be unavailable for subsequent calls for the duration specified by the X-CallLimit-TimeToWait header.</p></div>
+</div>
+</div>
+</div>
+</article>
+<article class="code">
+<h4>Definition</h4>
+<div class="uri">
+<code>
+<span class="method delete">delete</span>
+<span class="textUri"><span class="baseUri">{{ getUriPrefix() }}</span><span class="relativeUri">/v2/companies/{cid}/compensation/history/{id}</span></span>
+</code>
+</div>
+</article>
+</section>
+</div>
+</body></html>

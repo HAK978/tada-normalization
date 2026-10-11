@@ -1,0 +1,65 @@
+<!doctype html>
+<html><head><meta charset="utf-8"><title>Deprecation and Versioning</title><style>body{font:16px system-ui;max-width:1100px;margin:2rem auto;padding:0 1rem;line-height:1.5}aside{background:#fff3cc;padding:1rem}.jsonschema,pre{white-space:pre-wrap;font:13px monospace;overflow-wrap:anywhere;background:#f4f5f7;padding:1rem}.uri{font-family:monospace}h2,h3{margin-top:2rem}</style></head><body><aside><strong>Modified private reference — 2026-10-09.</strong> Provider-documented illustrative examples are included; authentication token examples are redacted. These are not customer exports or guaranteed production behavior. Candidate sharing is pending. This is not OpenAPI.</aside>
+<div class="group">
+<h2 class="docTitle">Deprecation and Versioning</h2>
+<section class="clearfix">
+<article class="documentation md">
+<pre>There can be multiple versions of the APIs available at any given time in order to accommodate changes without effecting functionality for existing users.
+A version of an API will be created when a required change results in loss of functionality (a "Breaking Change") such as
+
+- Addition of a required field to an object schema
+- Removal of a querystring parameter
+- Structural change to the design of the APIs
+
+When a new version is introduced the existing resources will only be migrated as a change to that resource is required.
+Therefore it is possible that a user must use multiple versions of the API in order to accomplish an integration.
+
+When a breaking change is made to any endpoint within a resource such as time-entry, cost-centers, the complete resource is versioned.
+For example, the removal of the "filter" parameter from the DELETE endpoint of the "timeoff" (v1/company/timeoff) resource would result in the versioning of the entire resource (GET,PUT,POST,DELETE endpoints) regardless of the fact that only one endpoint was affected by the change.
+
+When a resource is versioned the following process is applied
+
+- Existing resource is deprecated
+    * Deprecated header is returned on all requests (Deprecated: expirationDate=yyyy-mm-dd;docLink=link)
+    * Depreciation is noted in the release notes
+    * Version History: This topic includes information regarding new versions of the API.
+        * Version 2 resources and operations: This is a child topic of Version History where you can find a list of v2 operations and the v1 operation they replace. It also specifies in which release each v2 operation was added.
+- Additional notification of the upcoming removal of the deprecated API in the release notes of the release prior to the removal
+- Removal of the API
+
+When an API is deprecated, there is a grace period before the API deprecation starts being enforced. Once API deprecation is enforced, new customers will be blocked from using the deprecated API. Existing customers may continue to use the deprecated API until its removal. For APIs deprecated before October 6, 2025, the enforcement will happen starting January 29, 2026.
+
+The standard time between depreciation and removal of an API is 12 months, however this can be accelerated under special circumstances.
+There will be a minimum of three releases between the Depreciation and removal of a versioned resource to allow sufficient time to migrate to the newer version.
+
+This Frequently Asked Questions (FAQ) topic defines “deprecation” and explains where to find information related to deprecated operations.
+
+## Questions
+* What does it mean if an API operation has been deprecated?
+* What is the reason for deprecating an API operation?
+* Why should I use the new version of an API operation if the existing version still works?
+* Do I have to update my code to use the new version of the API operation?
+* Where can I find information that an API operation has been deprecated?
+
+### What does it mean if an API operation has been deprecated?
+“Deprecation” means that the API operation has been replaced by a newer, better version. Deprecated operations continue to be supported as per the deprecation policy. On the Developer Hub, API consumers are informed that a new version of the operation exists and where to find the new version.
+
+### What is the reason for deprecating an API operation?
+API operations are deprecated when a change is made to an existing operation, but backwards compatibility cannot be maintained. These "breaking changes" are typically driven by performance, security, or new functionality changes that require the request or response payloads to be updated in a way that is not backwards compatible with the prior version.
+
+### Why should I use the new version of an API operation if the existing version still works?
+We recommend you update your implementations to utilize the latest version of an operation as it provides better security, performance, and functionality. Additionally, deprecated versions are only maintained for a period of time as defined by the deprecation policy.
+
+### Do I have to update my code to use the new version of the API operation?
+Yes, deprecated versions are subject to removal as per the policy.
+
+### Where can I find information that an API operation has been deprecated?
+Deprecated API operations are announced in the Developer Hub Version History, in the Release Notes, and as deprecation headers on any request to a deprecated API. While the Release Notes provides summary information, the Developer Hub provides deprecation information as follows:
+
+* Important notes: This topic has a section for each release with summary information related to deprecated API operations
+* Version History: This topic includes information regarding new versions of the API.
+* Version 2 resources and operations: This is a child topic of Version History where you can find a list of v2 operations and the v1 operation they replace. It also specifies in which release each v2 operation was added.</pre>
+</article>
+</section>
+</div>
+</body></html>

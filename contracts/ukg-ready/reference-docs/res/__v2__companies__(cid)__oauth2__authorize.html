@@ -1,0 +1,154 @@
+<!doctype html>
+<html><head><meta charset="utf-8"><title>Authorize</title><style>body{font:16px system-ui;max-width:1100px;margin:2rem auto;padding:0 1rem;line-height:1.5}aside{background:#fff3cc;padding:1rem}.jsonschema,pre{white-space:pre-wrap;font:13px monospace;overflow-wrap:anywhere;background:#f4f5f7;padding:1rem}.uri{font-family:monospace}h2,h3{margin-top:2rem}</style></head><body><aside><strong>Modified private reference — 2026-10-09.</strong> Provider-documented illustrative examples are included; authentication token examples are redacted. These are not customer exports or guaranteed production behavior. Candidate sharing is pending. This is not OpenAPI.</aside>
+<div class="group">
+<h2 class="anchored" id="item.anchor">
+<span>Authorize</span>
+<a class="fa fa-link link-anchor" data-url="r=__v2__companies__(cid)__oauth2__authorize#" data-web-id="__v2__companies__(cid)__oauth2__authorize"></a>
+</h2>
+<p class="md">&lt;br&gt;These APIs are intended for authorizing requests to the application apis using OAuth 2.0 Authentication Code Flow with PKCE or Client Credential Flow. ClientId and Secrets must be configured within the applications Company Setup screen prior to use. These APIs cannot be used to authenticate login to the user interface.
+&lt;br&gt;For authentication of user login using a 3rd party Authentication Server see &lt;a href="/ta/docs/rest/public/?r=__v2__companies__(cid)__session__oauth__auth#get"&gt;link&lt;/a&gt;.
+</p>
+<section class="clearfix">
+<article class="definition">
+<h3 class="anchored" id="get"><span>GET</span>
+<a class="fa fa-link link-anchor" data-url="r=__v2__companies__(cid)__oauth2__authorize#get" data-web-id="__v2__companies__(cid)__oauth2__authorize"></a>
+</h3>
+<div class="md"><p>The authorization endpoint is used to interact with the resource owner and obtain an authorization grant.
+Implements The OAuth 2.0 Authorization Framework Authorization Endpoint &lt;a href="https://www.rfc-editor.org/rfc/rfc6749#section-3.1" target="_blank"&gt; rfc6749 section-3.1 &lt;i class="fa fa-external-link" aria-hidden="true"&gt;&lt;/i&gt;&lt;/a&gt; .
+
+Is used by the authorization code grant type to fulfill Authorization Request &lt;a href="https://www.rfc-editor.org/rfc/rfc6749#section-3.1" target="_blank"&gt;rfc6749 section-4.1.1 &lt;i class="fa fa-external-link" aria-hidden="true"&gt;&lt;/i&gt;&lt;/a&gt;.
+
+This implementation of the OAuth Authorization code flow requires the use of &lt;a href="https://www.rfc-editor.org/rfc/rfc7636" target="_blank"&gt;Proof Key for Code Exchange (PKCE) &lt;i class="fa fa-external-link" aria-hidden="true"&gt;&lt;/i&gt;&lt;/a&gt;. As such certain parameters which are optional in the basic specification for Authorization code flow are mandatory and must be provided by the calling client.
+The additional required parameters are shown as such in list of parameters below.
+</p></div>
+<h4>Parameters</h4>
+<h5>Path Parameters</h5>
+<ul class="param-list">
+<li>
+<div class="param-desc">
+<div class="param-name">cid</div>
+<div class="data-type">string</div>
+<div class="required">required</div>
+</div>
+<div class="param-content">
+<div>
+<p>Example: 123456</p>
+<div class="desc md">Company should be referenced via company id or company unique id or company short name using `|short_name` or `!short_name` format.
+</div>
+</div>
+</div>
+
+</li>
+</ul>
+<h5>Query Parameters</h5>
+<ul class="param-list">
+<li>
+<div class="param-desc">
+<div class="param-name">response_type</div>
+<div class="data-type">string</div>
+<div class="required">required</div>
+</div>
+<div class="param-content">
+<div>
+<p>Example: code</p>
+<div class="desc md">Value MUST be set to "code". See response_type description &lt;a href="https://www.rfc-editor.org/rfc/rfc6749#section-4.1.1" target="_blank"&gt;rfc6749 section-4.1.1 &lt;i class="fa fa-external-link" aria-hidden="true"&gt;&lt;/i&gt;&lt;/a&gt;</div>
+</div>
+</div>
+
+</li>
+<li>
+<div class="param-desc">
+<div class="param-name">client_id</div>
+<div class="data-type">string</div>
+<div class="required">required</div>
+</div>
+<div class="param-content">
+<div>
+<p>Example: 1eca38b7-0b27-49e2-a7da-b5f44123c38e</p>
+<div class="desc md">Valid interactive oauth application id. See client_id description &lt;a href="https://www.rfc-editor.org/rfc/rfc6749#section-4.1.1" target="_blank"&gt;rfc6749 section-4.1.1 &lt;i class="fa fa-external-link" aria-hidden="true"&gt;&lt;/i&gt;&lt;/a&gt;</div>
+</div>
+</div>
+
+</li>
+<li>
+<div class="param-desc">
+<div class="param-name">redirect_uri</div>
+<div class="data-type">string</div>
+<div class="required">required</div>
+</div>
+<div class="param-content">
+<div>
+<p>Example: https://www.public-client-app.com/oauth2/callback</p>
+<div class="desc md">The uri the authorization server directs the resource owner's user-agent after completing its interaction with the resource owner. See redirect_uri description &lt;a href="https://www.rfc-editor.org/rfc/rfc6749#section-4.1.1" target="_blank"&gt;rfc6749 section-4.1.1 &lt;i class="fa fa-external-link" aria-hidden="true"&gt;&lt;/i&gt;&lt;/a&gt;</div>
+</div>
+</div>
+
+</li>
+<li>
+<div class="param-desc">
+<div class="param-name">code_challenge</div>
+<div class="data-type">string</div>
+<div class="required">required</div>
+</div>
+<div class="param-content">
+<div>
+<p>Example: P3nj-_3SAHMtSss75ulTzhLMQtMcOGQpm0e0KfJDW8Q&amp;</p>
+<div class="desc md">A challenge derived from the code verifier that is sent in the authorization request, to be verified against later. See &lt;a href="https://www.rfc-editor.org/rfc/rfc7636" target="_blank"&gt;rfc7636 &lt;i class="fa fa-external-link" aria-hidden="true"&gt;&lt;/i&gt;&lt;/a&gt; for details.</div>
+</div>
+</div>
+
+</li>
+<li>
+<div class="param-desc">
+<div class="param-name">code_challenge_method</div>
+<div class="data-type">string</div>
+<div class="required">required</div>
+</div>
+<div class="param-content">
+<div>
+<p>Example: S256</p>
+<div class="desc md">Value MUST be set to "S256". A method that was used to derive code challenge. See &lt;a href="https://www.rfc-editor.org/rfc/rfc7636" target="_blank"&gt; rfc7636 &lt;i class="fa fa-external-link" aria-hidden="true"&gt;&lt;/i&gt;&lt;/a&gt; for details.</div>
+</div>
+</div>
+
+</li>
+<li>
+<div class="param-desc">
+<div class="param-name">state</div>
+<div class="data-type">string</div>
+</div>
+<div class="param-content">
+<div>
+<p>Example: https://www.public-client-app.com/oauth2/callback</p>
+<div class="desc md">An opaque value used by the client to maintain state between the request and callback. The authorization server includes this value when redirecting the user-agent back to the client.  The parameter SHOULD be used for preventing cross-site request forgery. See state description &lt;a href="https://www.rfc-editor.org/rfc/rfc6749#section-4.1.1" target="_blank"&gt;rfc6749# section-4.1.1 &lt;i class="fa fa-external-link" aria-hidden="true"&gt;&lt;/i&gt;&lt;/a&gt;</div>
+</div>
+</div>
+
+</li>
+</ul>
+<h4>Responses</h4>
+<div class="responses">
+<div>
+<label class="response response-redirect">
+<span class="fa fa-exchange"></span>
+<input data-full-tab-id="get-resp-code-tab-id-0" data-tab-class="resp-code-tab-get" name="resp-code-tab-get" type="radio"/>
+<span class="status">302 Found</span>
+</label>
+<div class="response-desc resp-code-tab-get" id="get-resp-code-tab-id-0">
+<div class="md"><p>The request is valid and the user redirected to Authentication. The Location response header indicates the Authentication URL to redirect a page to.</p></div>
+</div>
+</div>
+</div>
+</article>
+<article class="code">
+<h4>Definition</h4>
+<div class="uri">
+<code>
+<span class="method get">get</span>
+<span class="textUri"><span class="baseUri">{{ getUriPrefix() }}</span><span class="relativeUri">/v2/companies/{cid}/oauth2/authorize</span></span>
+</code>
+</div>
+</article>
+</section>
+</div>
+</body></html>

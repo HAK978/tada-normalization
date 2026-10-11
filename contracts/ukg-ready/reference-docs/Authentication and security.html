@@ -1,0 +1,159 @@
+<!doctype html>
+<html><head><meta charset="utf-8"><title>Authentication and security</title><style>body{font:16px system-ui;max-width:1100px;margin:2rem auto;padding:0 1rem;line-height:1.5}aside{background:#fff3cc;padding:1rem}.jsonschema,pre{white-space:pre-wrap;font:13px monospace;overflow-wrap:anywhere;background:#f4f5f7;padding:1rem}.uri{font-family:monospace}h2,h3{margin-top:2rem}</style></head><body><aside><strong>Modified private reference — 2026-10-09.</strong> Provider-documented illustrative examples are included; authentication token examples are redacted. These are not customer exports or guaranteed production behavior. Candidate sharing is pending. This is not OpenAPI.</aside>
+<div class="group">
+<h2 class="docTitle">Authentication and security</h2>
+<section class="clearfix">
+<article class="documentation md">
+<pre>
+The API's authentication is built on the OAuth 2.0 standard. Each API request must include an HTTP Authorization header containing an OAuth 2.0 access token.
+
+----
+Requests against the API must be authenticated and made over HTTPS. If these requirements are not met, the request fails.
+
+Successful token requests generate an access token and a refresh token. The access token is usable from the moment it is generated until the number of seconds defined by `expires_in` elapses. The refresh token can be used to generate new access tokens until the session expires. Refresh tokens expire after 7 days.
+
+# Prerequisites
+
+The following are required to generate tokens:
+
+**Headers**
+
+*   `Content-Type : application/x-www-form-urlencoded`
+
+# Log in and generate tokens
+
+To log in to the system and obtain an access token and a refresh token, POST a call to the authentication URL:
+
+`https://&lt;&lt;hostName&gt;&gt;/ta/rest/v2/companies/COMPANY_ID/oauth2/token`
+
+Include the following in the request body, where `&lt;&lt;client ID&gt;&gt;` and `&lt;&lt;client password&gt;&gt;` are the values from a valid Oauth application defined within the system.:
+
+_**Note:** For details on creating an Oauth Application. Refer to the &lt;a onclick="loadResourcePartial(event, 'Client id and secret.html', 'Client ID and client secret')"&gt;Client ID and client secret&lt;/a&gt; topic for more information._
+
+*   `client_id : &lt;&lt;client ID&gt;&gt;`
+*   `client_secret : &lt;&lt;client password&gt;&gt;`
+*   `grant_type : client_credentials`
+
+Include the following HTTP headers:
+
+*   `Content-Type : application/x-www-form-urlencoded`
+
+A successful call returns:
+
+*   `access_token`: A string representing the access token.
+*   `refresh_token`: A string used to obtain a new access token when the current access token becomes invalid or expires. Refresh tokens are optional, are issued at the discretion of the server, and expire after 7 days.
+*   `scope`: The server uses this response parameter to inform the client of the scope of the issued `access_token`.
+*   `token_type`: Defines the type of token profile issued by the server, such as `Bearer` or `mac`. This enables the client to successfully utilize the `access token`.
+*   `expires_in`: Lifetime in seconds of the `access_token`.
+
+Even though your tokens are time-limited, they are very powerful. Do not share your `access_token` or `refresh_token`. Protect them as you would a username and password combination.
+
+## Refresh a token
+
+To use a refresh token to generate a new access token, POST a call to the following authentication URL:
+
+`https://&lt;&lt;hostName&gt;&gt;/ta/rest/v2/companies/COMPANY_ID/oauth2/token`
+
+Include the following HTTP headers:
+
+*   `Content-Type : application/x-www-form-urlencoded`
+
+Include the following in the request body:
+
+*   `refresh_token : &lt;&lt;refresh_token&gt;&gt;`
+*   `client_id : &lt;&lt;client ID&gt;&gt;`
+*   `grant_type : refresh_token`
+
+A successful call returns:
+
+*   `access_token`: A string representing the access token.
+*   `token_type`: Defines the type of token profile issued by the server, such as `Bearer` or `mac`. This enables the client to successfully utilize the `access token`.
+*   `expires_in`: Lifetime in seconds of the `access_token`.
+
+# Code examples
+
+The following code examples demonstrate generating and refreshing a token using cURL and Java OkHttp.
+
+## Generate tokens
+
+The following code examples demonstrate calls that request an access token and refresh token.
+
+**cURL**
+
+```shell
+curl -X POST \
+  https://&lt;&lt;hostName&gt;&gt;/ta/rest/v2/companies/COMPANY_ID/oauth2/token \
+  -H 'content-type: application/x-www-form-urlencoded' \
+  -d 'client_id=CLIENT ID&amp;client_secret=CLIENT PASSWORD&amp;grant_type=client_credential'
+```
+**Java OkHttp**
+
+```java
+OkHttpClient client = new OkHttpClient();
+
+MediaType mediaType = MediaType.parse("application/x-www-form-urlencoded");
+RequestBody body = RequestBody.create(mediaType, "client_id=CLIENT ID&amp;client_secret=CLIENT PASSWORD&amp;grant_type=client_credential");
+Request request = new Request.Builder()
+  .url("https://&lt;&lt;hostName&gt;&gt;/ta/rest/v2/companies/COMPANY_ID/oauth2/token")
+  .post(body)
+  .addHeader("content-type", "application/x-www-form-urlencoded")
+  .build();
+
+Response response = client.newCall(request).execute();
+```
+
+This call returns a response body similar to the following example:
+
+```json
+{
+    "access_token": "[REDACTED_DOCUMENTATION_TOKEN]",
+    "refresh_token": "[REDACTED_DOCUMENTATION_TOKEN]",
+    "token_type": "Bearer",
+    "expires_in": 1799
+}
+```
+You must parse the response to fetch the value of `access_token` for your API calls.
+
+## Refresh a token
+
+The following code examples demonstrate refreshing an access token using a refresh token.
+
+**cURL**
+
+```shell
+curl -X POST \
+  https://&lt;&lt;hostName&gt;&gt;/ta/rest/v2/companies/COMPANY_ID/oauth2/token \
+  -H 'content-type: application/x-www-form-urlencoded' \
+  -d 'refresh_token=REFRESH_TOKEN&amp;client_id=CLIENT ID&amp;grant_type=refresh_token&amp;auth_chain=OAuthLdapService'
+```
+
+**Java OkHttp**
+
+```java
+OkHttpClient client = new OkHttpClient();
+
+MediaType mediaType = MediaType.parse("application/x-www-form-urlencoded");
+RequestBody body = RequestBody.create(mediaType, "refresh_token=REFRESH_TOKEN&amp;client_id=CLIENT ID&amp;grant_type=refresh_token");
+Request request = new Request.Builder()
+  .url("https://&lt;&lt;hostName&gt;&gt;/ta/rest/v2/companies/COMPANY_ID/oauth2/token")
+  .post(body)
+  .addHeader("content-type", "application/x-www-form-urlencoded")
+  .build();
+
+Response response = client.newCall(request).execute();
+```
+
+This call returns a response body similar to the following example:
+
+```json
+{
+  "access_token": "[REDACTED_DOCUMENTATION_TOKEN]",
+  "token_type": "Bearer",
+  "expires_in": 3600,
+  "refresh_token": "[REDACTED_DOCUMENTATION_TOKEN]"
+}
+```</pre>
+</article>
+</section>
+</div>
+</body></html>

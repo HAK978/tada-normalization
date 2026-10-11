@@ -1,0 +1,283 @@
+<!doctype html>
+<html><head><meta charset="utf-8"><title>Workers Comp Codes</title><style>body{font:16px system-ui;max-width:1100px;margin:2rem auto;padding:0 1rem;line-height:1.5}aside{background:#fff3cc;padding:1rem}.jsonschema,pre{white-space:pre-wrap;font:13px monospace;overflow-wrap:anywhere;background:#f4f5f7;padding:1rem}.uri{font-family:monospace}h2,h3{margin-top:2rem}</style></head><body><aside><strong>Modified private reference — 2026-10-09.</strong> Provider-documented illustrative examples are included; authentication token examples are redacted. These are not customer exports or guaranteed production behavior. Candidate sharing is pending. This is not OpenAPI.</aside>
+<div class="group">
+<h2 class="anchored" id="item.anchor">
+<span>Workers Comp Codes</span>
+<a class="fa fa-link link-anchor" data-url="r=__v2__companies__(cid)__lookup__workers-comp-codes#" data-web-id="__v2__companies__(cid)__lookup__workers-comp-codes"></a>
+</h2>
+<section class="clearfix">
+<article class="definition">
+<h3 class="anchored" id="get"><span>GET</span>
+<a class="fa fa-link link-anchor" data-url="r=__v2__companies__(cid)__lookup__workers-comp-codes#get" data-web-id="__v2__companies__(cid)__lookup__workers-comp-codes"></a>
+</h3>
+<div class="md"><p>Endpoint to fetch list of active workers comp codes.
+</p></div>
+<div>
+<ul class="annotation-list">
+<li class="annotation">
+<span>v2</span>
+</li>
+</ul>
+</div>
+<h4>Parameters</h4>
+<h5>Path Parameters</h5>
+<ul class="param-list">
+<li>
+<div class="param-desc">
+<div class="param-name">cid</div>
+<div class="data-type">string</div>
+<div class="required">required</div>
+</div>
+<div class="param-content">
+<div>
+<p>Example: 123456</p>
+<div class="desc md">Company should be referenced via company id or company unique id or company short name using `|short_name` or `!short_name` format.
+</div>
+</div>
+</div>
+
+</li>
+</ul>
+<h5>Header Parameters</h5>
+<ul class="param-list">
+<li>
+<div class="param-desc">
+<div class="param-name">Accept</div>
+<div class="data-type">string</div>
+</div>
+<div class="param-content">
+<div>
+<p>Valid values: application/json, application/xml, text/xml</p>
+<p>Default: application/json</p>
+<p>Example: application/json</p>
+</div>
+</div>
+
+</li>
+</ul>
+<h4>Responses</h4>
+<div class="responses">
+<div>
+<label class="response response-success">
+<span class="fa fa-check"></span>
+<input data-full-tab-id="get-resp-code-tab-id-0" data-tab-class="resp-code-tab-get" name="resp-code-tab-get" type="radio"/>
+<span class="status">200 Ok</span>
+</label>
+<div class="response-desc resp-code-tab-get" id="get-resp-code-tab-id-0">
+</div>
+</div>
+<div>
+<label class="response response-error">
+<span class="fa fa-times"></span>
+<input data-full-tab-id="get-resp-code-tab-id-1" data-tab-class="resp-code-tab-get" name="resp-code-tab-get" type="radio"/>
+<span class="status">401 Unauthorized</span>
+</label>
+<div class="response-desc resp-code-tab-get" id="get-resp-code-tab-id-1">
+<div class="md"><p>Returned in case user is not authorized.</p></div>
+</div>
+</div>
+<div>
+<label class="response response-error">
+<span class="fa fa-times"></span>
+<input data-full-tab-id="get-resp-code-tab-id-2" data-tab-class="resp-code-tab-get" name="resp-code-tab-get" type="radio"/>
+<span class="status">403 Forbidden</span>
+</label>
+<div class="response-desc resp-code-tab-get" id="get-resp-code-tab-id-2">
+<div class="md"><p>Returned in case user has no access to the resource.</p></div>
+</div>
+</div>
+<div>
+<label class="response response-error">
+<span class="fa fa-times"></span>
+<input data-full-tab-id="get-resp-code-tab-id-3" data-tab-class="resp-code-tab-get" name="resp-code-tab-get" type="radio"/>
+<span class="status">503 Service Unavailable</span>
+</label>
+<div class="response-desc resp-code-tab-get" id="get-resp-code-tab-id-3">
+<div class="md"><p>Returned in the event that the call limit is exceeded. The application will be unavailable for subsequent calls for the duration specified by the X-CallLimit-TimeToWait header.</p></div>
+</div>
+</div>
+</div>
+</article>
+<article class="code">
+<h4>Definition</h4>
+<div class="uri">
+<code>
+<span class="method get">get</span>
+<span class="textUri"><span class="baseUri">{{ getUriPrefix() }}</span><span class="relativeUri">/v2/companies/{cid}/lookup/workers-comp-codes</span></span>
+</code>
+</div>
+<h4>Response Samples</h4>
+<div class="tab-title-group">
+<label>
+<input checked="checked" data-full-tab-id="resp-tab-id-get-0" data-tab-class="resp-tab-get" name="resp-tab-get" type="radio"/>
+<span class="tab-title">application/json</span>
+</label>
+<label>
+<input data-full-tab-id="resp-tab-id-get-1" data-tab-class="resp-tab-get" name="resp-tab-get" type="radio"/>
+<span class="tab-title">application/xml</span>
+</label>
+<label>
+<input data-full-tab-id="resp-tab-id-get-2" data-tab-class="resp-tab-get" name="resp-tab-get" type="radio"/>
+<span class="tab-title">text/xml</span>
+</label>
+</div>
+<div>
+<div class="resp-tab-get" id="resp-tab-id-get-0">
+<div class="example">
+
+<div class="get-example-resp-tab-0 activeTab" id="get-tab-resp-example-0">
+
+<pre class="highlightjs">{
+  "items": [
+    {
+      "name": "Accounting Supervisor",
+      "external_id": "1a2b3c",
+      "code": "8810",
+      "id": 1761921600,
+      "state": "AL",
+      "description": "Test AL Code",
+      "country": "USA"
+    }
+  ]
+}</pre>
+</div>
+<div class="get-example-resp-tab-0" id="get-tab-resp-schema-0">
+
+<div class="jsonschema" id="schema-0">{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "id": "http://example.com/example.json",
+  "properties": {
+    "items": {
+      "items": {
+        "properties": {
+          "name": {
+            "type": "string"
+          },
+          "external_id": {
+            "type": "string"
+          },
+          "code": {
+            "type": "string"
+          },
+          "id": {
+            "type": "number"
+          },
+          "state": {
+            "type": "string"
+          },
+          "description": {
+            "type": "string"
+          },
+          "country": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "external_id"
+        ],
+        "type": "object"
+      },
+      "type": "array"
+    }
+  },
+  "required": [
+    "items"
+  ],
+  "type": "object"
+}</div>
+</div>
+</div>
+</div>
+<div class="resp-tab-get" id="resp-tab-id-get-1">
+<div class="example">
+
+<div class="get-example-resp-tab-1 activeTab" id="get-tab-resp-example-1">
+
+<pre class="highlightjs">&lt;?xml version='1.0' encoding='UTF-8'?&gt;
+&lt;items&gt;
+    &lt;item&gt;
+        &lt;name&gt;DOW:AL&lt;/name&gt;
+        &lt;external_id&gt;258&lt;/external_id&gt;
+        &lt;code&gt;DOW&lt;/code&gt;
+        &lt;id&gt;1761921600&lt;/id&gt;
+        &lt;state&gt;AL&lt;/state&gt;
+        &lt;description&gt;Test AL Code&lt;/description&gt;
+        &lt;country&gt;USA&lt;/country&gt;
+    &lt;/item&gt;
+&lt;/items&gt;</pre>
+</div>
+<div class="get-example-resp-tab-1" id="get-tab-resp-schema-1">
+
+<div class="jsonschema" id="schema-1">&lt;xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" attributeFormDefault="unqualified" elementFormDefault="qualified"&gt;
+  &lt;xs:element name="items"&gt;
+    &lt;xs:complexType&gt;
+      &lt;xs:sequence&gt;
+        &lt;xs:element name="item"&gt;
+          &lt;xs:complexType&gt;
+            &lt;xs:sequence&gt;
+              &lt;xs:element type="xs:string" name="name"/&gt;
+              &lt;xs:element type="xs:string" name="external_id"/&gt;
+              &lt;xs:element type="xs:string" name="code"/&gt;
+              &lt;xs:element type="xs:string" name="id"/&gt;
+              &lt;xs:element type="xs:string" name="state"/&gt;
+              &lt;xs:element type="xs:string" name="description"/&gt;
+              &lt;xs:element type="xs:string" name="country"/&gt;
+            &lt;/xs:sequence&gt;
+          &lt;/xs:complexType&gt;
+        &lt;/xs:element&gt;
+      &lt;/xs:sequence&gt;
+    &lt;/xs:complexType&gt;
+  &lt;/xs:element&gt;
+&lt;/xs:schema&gt;</div>
+</div>
+</div>
+</div>
+<div class="resp-tab-get" id="resp-tab-id-get-2">
+<div class="example">
+
+<div class="get-example-resp-tab-2 activeTab" id="get-tab-resp-example-2">
+
+<pre class="highlightjs">&lt;?xml version='1.0' encoding='UTF-8'?&gt;
+&lt;items&gt;
+    &lt;item&gt;
+        &lt;name&gt;DOW:AL&lt;/name&gt;
+        &lt;external_id&gt;258&lt;/external_id&gt;
+        &lt;code&gt;DOW&lt;/code&gt;
+        &lt;id&gt;1761921600&lt;/id&gt;
+        &lt;state&gt;AL&lt;/state&gt;
+        &lt;description&gt;Test AL Code&lt;/description&gt;
+        &lt;country&gt;USA&lt;/country&gt;
+    &lt;/item&gt;
+&lt;/items&gt;</pre>
+</div>
+<div class="get-example-resp-tab-2" id="get-tab-resp-schema-2">
+
+<div class="jsonschema" id="schema-2">&lt;xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" attributeFormDefault="unqualified" elementFormDefault="qualified"&gt;
+  &lt;xs:element name="items"&gt;
+    &lt;xs:complexType&gt;
+      &lt;xs:sequence&gt;
+        &lt;xs:element name="item"&gt;
+          &lt;xs:complexType&gt;
+            &lt;xs:sequence&gt;
+              &lt;xs:element type="xs:string" name="name"/&gt;
+              &lt;xs:element type="xs:string" name="external_id"/&gt;
+              &lt;xs:element type="xs:string" name="code"/&gt;
+              &lt;xs:element type="xs:string" name="id"/&gt;
+              &lt;xs:element type="xs:string" name="state"/&gt;
+              &lt;xs:element type="xs:string" name="description"/&gt;
+              &lt;xs:element type="xs:string" name="country"/&gt;
+            &lt;/xs:sequence&gt;
+          &lt;/xs:complexType&gt;
+        &lt;/xs:element&gt;
+      &lt;/xs:sequence&gt;
+    &lt;/xs:complexType&gt;
+  &lt;/xs:element&gt;
+&lt;/xs:schema&gt;</div>
+</div>
+</div>
+</div>
+</div>
+</article>
+</section>
+</div>
+</body></html>

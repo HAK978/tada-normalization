@@ -1,0 +1,925 @@
+<!doctype html>
+<html><head><meta charset="utf-8"><title>Payrolls</title><style>body{font:16px system-ui;max-width:1100px;margin:2rem auto;padding:0 1rem;line-height:1.5}aside{background:#fff3cc;padding:1rem}.jsonschema,pre{white-space:pre-wrap;font:13px monospace;overflow-wrap:anywhere;background:#f4f5f7;padding:1rem}.uri{font-family:monospace}h2,h3{margin-top:2rem}</style></head><body><aside><strong>Modified private reference — 2026-10-09.</strong> Provider-documented illustrative examples are included; authentication token examples are redacted. These are not customer exports or guaranteed production behavior. Candidate sharing is pending. This is not OpenAPI.</aside>
+<div class="group">
+<h2 class="anchored" id="item.anchor">
+<span>Payrolls</span>
+<a class="fa fa-link link-anchor" data-url="r=__v2__companies__(cid)__payrolls#" data-web-id="__v2__companies__(cid)__payrolls"></a>
+</h2>
+<section class="clearfix">
+<article class="definition">
+<h3 class="anchored" id="get"><span>GET</span>
+<a class="fa fa-link link-anchor" data-url="r=__v2__companies__(cid)__payrolls#get" data-web-id="__v2__companies__(cid)__payrolls"></a>
+</h3>
+<div class="md"><p>Endpoint to fetch list of company payrolls normally accessed to process payroll.
+Date range should be less then year.
+</p></div>
+<div>
+<ul class="annotation-list">
+<li class="annotation">
+<span>v2</span>
+</li>
+</ul>
+</div>
+<h4>Parameters</h4>
+<h5>Path Parameters</h5>
+<ul class="param-list">
+<li>
+<div class="param-desc">
+<div class="param-name">cid</div>
+<div class="data-type">string</div>
+<div class="required">required</div>
+</div>
+<div class="param-content">
+<div>
+<p>Example: 123456</p>
+<div class="desc md">Company should be referenced via company id or company unique id or company short name using `|short_name` or `!short_name` format.
+</div>
+</div>
+</div>
+
+</li>
+</ul>
+<h5>Query Parameters</h5>
+<ul class="param-list">
+<li>
+<div class="param-desc">
+<div class="param-name">pay_date</div>
+<div class="data-type">string</div>
+</div>
+<div class="param-content">
+<div>
+<p>Example: 2016-03-14</p>
+<div class="desc md">Used for getting payrolls with specified pay date. The value is the absolute pay date of the payroll.
+When no value is specified, a date range spanning the current date and one year in the past is used.
+The default value of this parameter is conditional on the value of the start_date and end_date parameters.
+If either is provided on the request, then no default value is used for pay_date and the field will not be used when fetching available payrolls.
+</div>
+</div>
+</div>
+
+</li>
+<li>
+<div class="param-desc">
+<div class="param-name">pay_date_from</div>
+<div class="data-type">string</div>
+</div>
+<div class="param-content">
+<div>
+<p>Example: 2016-03-14</p>
+<div class="desc md">Used for getting payrolls with pay date after specified date. This parameter may not be used with pay_date one.
+</div>
+</div>
+</div>
+
+</li>
+<li>
+<div class="param-desc">
+<div class="param-name">pay_date_to</div>
+<div class="data-type">string</div>
+</div>
+<div class="param-content">
+<div>
+<p>Example: 2016-03-14</p>
+<div class="desc md">Used for getting list of payrolls to date upper bounded.
+</div>
+</div>
+</div>
+
+</li>
+<li>
+<div class="param-desc">
+<div class="param-name">start_date</div>
+<div class="data-type">date-only</div>
+</div>
+<div class="param-content">
+<div>
+<p>Example: 2016-03-14</p>
+<div class="desc md">Used for getting payrolls with a specific payroll pay period start date. The value is the absolute value of the start date of the payroll.
+</div>
+</div>
+</div>
+
+</li>
+<li>
+<div class="param-desc">
+<div class="param-name">end_date</div>
+<div class="data-type">date-only</div>
+</div>
+<div class="param-content">
+<div>
+<p>Example: 2016-10-31</p>
+<div class="desc md">Used for getting payrolls with a specific payroll pay period end date. The value is the absolute value of the start date of the payroll.
+</div>
+</div>
+</div>
+
+</li>
+<li>
+<div class="param-desc">
+<div class="param-name">status</div>
+<div class="data-type">string</div>
+</div>
+<div class="param-content">
+<div>
+<p>Example: OPEN</p>
+<div class="desc md">Used for getting payrolls according to specified status(NEW, OPEN, CLOSED, SUBMITTED, FINALIZED, OPEN_FAILED, CLOSE_FAILED, ROLLBACK_FAILED, FINALIZE_FAILED).
+</div>
+</div>
+</div>
+
+</li>
+<li>
+<div class="param-desc">
+<div class="param-name">type</div>
+<div class="data-type">string</div>
+</div>
+<div class="param-content">
+<div>
+<p>Example: 123456,15487</p>
+<div class="desc md">Used for getting payrolls of specified type.
+</div>
+</div>
+</div>
+
+</li>
+<li>
+<div class="param-desc">
+<div class="param-name">ein_id</div>
+<div class="data-type">integer</div>
+</div>
+<div class="param-content">
+<div>
+<p>Example: 123456</p>
+<div class="desc md">Used for getting payrolls that belong to specific ein.
+</div>
+</div>
+</div>
+
+</li>
+</ul>
+<h4>Responses</h4>
+<div class="responses">
+<div>
+<label class="response response-success">
+<span class="fa fa-check"></span>
+<input data-full-tab-id="get-resp-code-tab-id-0" data-tab-class="resp-code-tab-get" name="resp-code-tab-get" type="radio"/>
+<span class="status">200 Ok</span>
+</label>
+<div class="response-desc resp-code-tab-get" id="get-resp-code-tab-id-0">
+</div>
+</div>
+</div>
+</article>
+<article class="code">
+<h4>Definition</h4>
+<div class="uri">
+<code>
+<span class="method get">get</span>
+<span class="textUri"><span class="baseUri">{{ getUriPrefix() }}</span><span class="relativeUri">/v2/companies/{cid}/payrolls</span></span>
+</code>
+</div>
+<h4>Response Samples</h4>
+<div class="tab-title-group">
+<label>
+<input checked="checked" data-full-tab-id="resp-tab-id-get-0" data-tab-class="resp-tab-get" name="resp-tab-get" type="radio"/>
+<span class="tab-title">application/json</span>
+</label>
+<label>
+<input data-full-tab-id="resp-tab-id-get-1" data-tab-class="resp-tab-get" name="resp-tab-get" type="radio"/>
+<span class="tab-title">application/xml</span>
+</label>
+<label>
+<input data-full-tab-id="resp-tab-id-get-2" data-tab-class="resp-tab-get" name="resp-tab-get" type="radio"/>
+<span class="tab-title">text/xml</span>
+</label>
+</div>
+<div>
+<div class="resp-tab-get" id="resp-tab-id-get-0">
+<div class="example">
+
+<div class="get-example-resp-tab-0 activeTab" id="get-tab-resp-example-0">
+
+<pre class="highlightjs">{
+  "payrolls": [
+    {
+      "id": 312320,
+      "name": "Regular 02/15/2017",
+      "pay_date": "2017-02-15",
+      "start_date": "2017-02-15",
+      "end_date": "2017-02-15",
+      "type": {
+        "id": 16640,
+        "display_name": "Regular"
+      },
+      "ein": {
+        "id": 82176,
+        "ein_name": "Default"
+      },
+      "status": "OPEN",
+      "billable": true,
+      "_links": {
+        "self": "http://localhost:8080/ta/rest/v2/companies/220/payrolls/312320"
+      }
+    },
+    {
+      "id": 312576,
+      "name": "Quarterly Regular 2017-02-15",
+      "pay_date": "2017-02-15",
+      "start_date": "2017-02-15",
+      "end_date": "2017-02-15",
+      "type": {
+        "id": 16640,
+        "display_name": "Regular"
+      },
+      "ein": {
+        "id": 82176,
+        "ein_name": "Default"
+      },
+      "status": "OPEN",
+      "billable": true,
+      "_links": {
+        "self": "http://localhost:8080/ta/rest/v2/companies/220/payrolls/312576"
+      }
+    },
+    {
+      "id": 327936,
+      "name": "Quarterly Regular 2017-02-15",
+      "pay_date": "2017-02-15",
+      "start_date": "2017-02-15",
+      "end_date": "2017-02-15",
+      "type": {
+        "id": 16640,
+        "display_name": "Regular"
+      },
+      "ein": {
+        "id": 82176,
+        "ein_name": "Default"
+      },
+      "status": "OPEN",
+      "billable": true,
+      "_links": {
+        "self": "http://localhost:8080/ta/rest/v2/companies/220/payrolls/327936"
+      }
+    }
+  ]
+}</pre>
+</div>
+<div class="get-example-resp-tab-0" id="get-tab-resp-schema-0">
+
+<div class="jsonschema" id="schema-0">{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "type": "object",
+  "properties": {
+    "payrolls": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer"
+          },
+          "name": {
+            "type": "string"
+          },
+          "start_date": {
+            "type": "string",
+            "description": "Date needs to be in the format yyyy-mm-dd within the 1900-12-31 and 2079-06-05 date range"
+          },
+          "end_date": {
+            "type": "string",
+            "description": "Date needs to be in the format yyyy-mm-dd within the 1900-12-31 and 2079-06-05 date range"
+          },
+          "pay_date": {
+            "type": "string",
+            "description": "Date needs to be in the format yyyy-mm-dd within the 1900-12-31 and 2079-06-05 date range"
+          },
+          "type": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "integer"
+              },
+              "display_name": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "id"
+            ]
+          },
+          "status": {
+            "type": "string",
+            "enum": [
+              "NEW",
+              "OPEN",
+              "OPEN_FAILED",
+              "CLOSE_FAILED",
+              "CLOSED",
+              "SUBMITTED",
+              "ROLLBACK_FAILED",
+              "FINALIZE_FAILED",
+              "FINALIZED"
+            ]
+          },
+          "ein": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "integer"
+              },
+              "ein_name": {
+                "type": "string"
+              },
+              "ein_tax_id": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "id"
+            ]
+          },
+          "billable": {
+            "type": "boolean"
+          },
+          "direct_deposit_date": {
+            "type": "string",
+            "description": "Date needs to be in the format yyyy-mm-dd within the 1900-12-31 and 2079-06-05 date range",
+            "pattern": "^(19[0-9]{2}|20[0-6][0-9]|2070)-(0[1-9]|1[0-2])-(0[1-9]|[1-2][0-9]|3[0-1])$"
+          },
+          "sch_submit_date_time": {
+            "type": "string",
+            "description": "Date needs to be in the format yyyy-mm-dd within the 1900-12-31 and 2079-06-05 date range"
+          },
+          "invoice_generator_id": {
+            "type": "integer"
+          },
+          "adjustment_grab_YTD_from_payroll_id": {
+            "type": "integer"
+          },
+          "dflt_pay_statement_type_id": {
+            "type": "integer"
+          },
+          "dflt_pay_stub_note": {
+            "type": "string"
+          },
+          "_links": {
+            "type": "object",
+            "properties": {
+              "self": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "self"
+            ]
+          }
+        },
+        "required": [
+          "id",
+          "pay_date",
+          "type"
+        ]
+      }
+    }
+  },
+  "required": [
+    "payrolls"
+  ]
+}</div>
+</div>
+</div>
+</div>
+<div class="resp-tab-get" id="resp-tab-id-get-1">
+<div class="example">
+
+<div class="get-example-resp-tab-1 activeTab" id="get-tab-resp-example-1">
+
+<pre class="highlightjs">&lt;?xml version='1.0' encoding='UTF-8'?&gt;
+&lt;payrolls&gt;
+  &lt;payroll&gt;
+    &lt;id&gt;246016&lt;/id&gt;
+    &lt;name&gt;Quarterly Regular 2017-01-19&lt;/name&gt;
+    &lt;pay_date&gt;2017-01-19&lt;/pay_date&gt;
+    &lt;start_date&gt;2017-01-19&lt;/start_date&gt;
+    &lt;end_date&gt;2017-01-19&lt;/end_date&gt;
+    &lt;type&gt;
+      &lt;id&gt;16640&lt;/id&gt;
+      &lt;display_name&gt;Regular&lt;/display_name&gt;
+    &lt;/type&gt;
+    &lt;ein&gt;
+      &lt;id&gt;82176&lt;/id&gt;
+      &lt;ein_name&gt;Default&lt;/ein_name&gt;
+      &lt;ein_tax_id&gt;11-1111111&lt;/ein_tax_id&gt;
+    &lt;/ein&gt;
+    &lt;status&gt;OPEN&lt;/status&gt;
+    &lt;billable&gt;true&lt;/billable&gt;
+    &lt;_links&gt;
+      &lt;self&gt;http://localhost:8080/ta/rest/v2/companies/220/payrolls/246016&lt;/self&gt;
+    &lt;/_links&gt;
+  &lt;/payroll&gt;
+  &lt;payroll&gt;
+    &lt;id&gt;246272&lt;/id&gt;
+    &lt;name&gt;Quarterly Regular 2017-01-19&lt;/name&gt;
+    &lt;pay_date&gt;2017-01-19&lt;/pay_date&gt;
+    &lt;start_date&gt;2017-01-19&lt;/start_date&gt;
+    &lt;end_date&gt;2017-01-19&lt;/end_date&gt;
+    &lt;type&gt;
+      &lt;id&gt;16640&lt;/id&gt;
+      &lt;display_name&gt;Regular&lt;/display_name&gt;
+    &lt;/type&gt;
+    &lt;ein&gt;
+      &lt;id&gt;82176&lt;/id&gt;
+      &lt;ein_name&gt;Default&lt;/ein_name&gt;
+      &lt;ein_tax_id&gt;11-1111111&lt;/ein_tax_id&gt;
+    &lt;/ein&gt;
+    &lt;status&gt;OPEN&lt;/status&gt;
+    &lt;billable&gt;true&lt;/billable&gt;
+    &lt;_links&gt;
+      &lt;self&gt;http://localhost:8080/ta/rest/v2/companies/220/payrolls/246272&lt;/self&gt;
+    &lt;/_links&gt;
+  &lt;/payroll&gt;
+&lt;/payrolls&gt;
+</pre>
+</div>
+<div class="get-example-resp-tab-1" id="get-tab-resp-schema-1">
+
+<div class="jsonschema" id="schema-1">&lt;xs:schema
+  xmlns:xs="http://www.w3.org/2001/XMLSchema" attributeFormDefault="unqualified" elementFormDefault="qualified"&gt;
+  &lt;xs:element name="payrolls"&gt;
+    &lt;xs:complexType&gt;
+      &lt;xs:sequence&gt;
+        &lt;xs:element name="payroll" maxOccurs="unbounded" minOccurs="0"&gt;
+          &lt;xs:complexType&gt;
+            &lt;xs:sequence&gt;
+              &lt;xs:element type="xs:integer" name="id"/&gt;
+              &lt;xs:element type="xs:string" name="name"/&gt;
+              &lt;xs:element type="xs:date" name="pay_date"/&gt;
+              &lt;xs:element type="xs:date" name="start_date"/&gt;
+              &lt;xs:element type="xs:date" name="end_date"/&gt;
+              &lt;xs:element name="type"&gt;
+                &lt;xs:complexType&gt;
+                  &lt;xs:sequence&gt;
+                    &lt;xs:element type="xs:integer" name="id"/&gt;
+                    &lt;xs:element type="xs:string" name="display_name"/&gt;
+                  &lt;/xs:sequence&gt;
+                &lt;/xs:complexType&gt;
+              &lt;/xs:element&gt;
+              &lt;xs:element name="ein"&gt;
+                &lt;xs:complexType&gt;
+                  &lt;xs:sequence&gt;
+                    &lt;xs:element type="xs:integer" name="id"/&gt;
+                    &lt;xs:element type="xs:string" name="ein_name"/&gt;
+                    &lt;xs:element type="xs:string" name="ein_tax_id"/&gt;
+                  &lt;/xs:sequence&gt;
+                &lt;/xs:complexType&gt;
+              &lt;/xs:element&gt;
+              &lt;xs:element type="xs:string" name="status"/&gt;
+              &lt;xs:element type="xs:boolean" name="billable"/&gt;
+              &lt;xs:element type="xs:date" name="direct_deposit_date" minOccurs="0"/&gt;
+              &lt;xs:element type="xs:date" name="sch_submit_date_time" minOccurs="0"/&gt;
+              &lt;xs:element type="xs:integer" name="invoice_generator_id" minOccurs="0"/&gt;
+              &lt;xs:element type="xs:integer" name="adjustment_grab_YTD_from_payroll_id" minOccurs="0"/&gt;
+              &lt;xs:element type="xs:integer" name="dflt_pay_statement_type_id" minOccurs="0"/&gt;
+              &lt;xs:element type="xs:string" name="dflt_pay_stub_note" minOccurs="0"/&gt;
+              &lt;xs:element name="_links"&gt;
+                &lt;xs:complexType&gt;
+                  &lt;xs:sequence&gt;
+                    &lt;xs:element type="xs:anyURI" name="self"/&gt;
+                  &lt;/xs:sequence&gt;
+                &lt;/xs:complexType&gt;
+              &lt;/xs:element&gt;
+            &lt;/xs:sequence&gt;
+          &lt;/xs:complexType&gt;
+        &lt;/xs:element&gt;
+      &lt;/xs:sequence&gt;
+    &lt;/xs:complexType&gt;
+  &lt;/xs:element&gt;
+&lt;/xs:schema&gt;</div>
+</div>
+</div>
+</div>
+<div class="resp-tab-get" id="resp-tab-id-get-2">
+<div class="example">
+
+<div class="get-example-resp-tab-2 activeTab" id="get-tab-resp-example-2">
+
+<pre class="highlightjs">&lt;?xml version='1.0' encoding='UTF-8'?&gt;
+&lt;payrolls&gt;
+  &lt;payroll&gt;
+    &lt;id&gt;246016&lt;/id&gt;
+    &lt;name&gt;Quarterly Regular 2017-01-19&lt;/name&gt;
+    &lt;pay_date&gt;2017-01-19&lt;/pay_date&gt;
+    &lt;start_date&gt;2017-01-19&lt;/start_date&gt;
+    &lt;end_date&gt;2017-01-19&lt;/end_date&gt;
+    &lt;type&gt;
+      &lt;id&gt;16640&lt;/id&gt;
+      &lt;display_name&gt;Regular&lt;/display_name&gt;
+    &lt;/type&gt;
+    &lt;ein&gt;
+      &lt;id&gt;82176&lt;/id&gt;
+      &lt;ein_name&gt;Default&lt;/ein_name&gt;
+      &lt;ein_tax_id&gt;11-1111111&lt;/ein_tax_id&gt;
+    &lt;/ein&gt;
+    &lt;status&gt;OPEN&lt;/status&gt;
+    &lt;billable&gt;true&lt;/billable&gt;
+    &lt;_links&gt;
+      &lt;self&gt;http://localhost:8080/ta/rest/v2/companies/220/payrolls/246016&lt;/self&gt;
+    &lt;/_links&gt;
+  &lt;/payroll&gt;
+  &lt;payroll&gt;
+    &lt;id&gt;246272&lt;/id&gt;
+    &lt;name&gt;Quarterly Regular 2017-01-19&lt;/name&gt;
+    &lt;pay_date&gt;2017-01-19&lt;/pay_date&gt;
+    &lt;start_date&gt;2017-01-19&lt;/start_date&gt;
+    &lt;end_date&gt;2017-01-19&lt;/end_date&gt;
+    &lt;type&gt;
+      &lt;id&gt;16640&lt;/id&gt;
+      &lt;display_name&gt;Regular&lt;/display_name&gt;
+    &lt;/type&gt;
+    &lt;ein&gt;
+      &lt;id&gt;82176&lt;/id&gt;
+      &lt;ein_name&gt;Default&lt;/ein_name&gt;
+      &lt;ein_tax_id&gt;11-1111111&lt;/ein_tax_id&gt;
+    &lt;/ein&gt;
+    &lt;status&gt;OPEN&lt;/status&gt;
+    &lt;billable&gt;true&lt;/billable&gt;
+    &lt;_links&gt;
+      &lt;self&gt;http://localhost:8080/ta/rest/v2/companies/220/payrolls/246272&lt;/self&gt;
+    &lt;/_links&gt;
+  &lt;/payroll&gt;
+&lt;/payrolls&gt;
+</pre>
+</div>
+<div class="get-example-resp-tab-2" id="get-tab-resp-schema-2">
+
+<div class="jsonschema" id="schema-2">&lt;xs:schema
+  xmlns:xs="http://www.w3.org/2001/XMLSchema" attributeFormDefault="unqualified" elementFormDefault="qualified"&gt;
+  &lt;xs:element name="payrolls"&gt;
+    &lt;xs:complexType&gt;
+      &lt;xs:sequence&gt;
+        &lt;xs:element name="payroll" maxOccurs="unbounded" minOccurs="0"&gt;
+          &lt;xs:complexType&gt;
+            &lt;xs:sequence&gt;
+              &lt;xs:element type="xs:integer" name="id"/&gt;
+              &lt;xs:element type="xs:string" name="name"/&gt;
+              &lt;xs:element type="xs:date" name="pay_date"/&gt;
+              &lt;xs:element type="xs:date" name="start_date"/&gt;
+              &lt;xs:element type="xs:date" name="end_date"/&gt;
+              &lt;xs:element name="type"&gt;
+                &lt;xs:complexType&gt;
+                  &lt;xs:sequence&gt;
+                    &lt;xs:element type="xs:integer" name="id"/&gt;
+                    &lt;xs:element type="xs:string" name="display_name"/&gt;
+                  &lt;/xs:sequence&gt;
+                &lt;/xs:complexType&gt;
+              &lt;/xs:element&gt;
+              &lt;xs:element name="ein"&gt;
+                &lt;xs:complexType&gt;
+                  &lt;xs:sequence&gt;
+                    &lt;xs:element type="xs:integer" name="id"/&gt;
+                    &lt;xs:element type="xs:string" name="ein_name"/&gt;
+                    &lt;xs:element type="xs:string" name="ein_tax_id"/&gt;
+                  &lt;/xs:sequence&gt;
+                &lt;/xs:complexType&gt;
+              &lt;/xs:element&gt;
+              &lt;xs:element type="xs:string" name="status"/&gt;
+              &lt;xs:element type="xs:boolean" name="billable"/&gt;
+              &lt;xs:element type="xs:date" name="direct_deposit_date" minOccurs="0"/&gt;
+              &lt;xs:element type="xs:date" name="sch_submit_date_time" minOccurs="0"/&gt;
+              &lt;xs:element type="xs:integer" name="invoice_generator_id" minOccurs="0"/&gt;
+              &lt;xs:element type="xs:integer" name="adjustment_grab_YTD_from_payroll_id" minOccurs="0"/&gt;
+              &lt;xs:element type="xs:integer" name="dflt_pay_statement_type_id" minOccurs="0"/&gt;
+              &lt;xs:element type="xs:string" name="dflt_pay_stub_note" minOccurs="0"/&gt;
+              &lt;xs:element name="_links"&gt;
+                &lt;xs:complexType&gt;
+                  &lt;xs:sequence&gt;
+                    &lt;xs:element type="xs:anyURI" name="self"/&gt;
+                  &lt;/xs:sequence&gt;
+                &lt;/xs:complexType&gt;
+              &lt;/xs:element&gt;
+            &lt;/xs:sequence&gt;
+          &lt;/xs:complexType&gt;
+        &lt;/xs:element&gt;
+      &lt;/xs:sequence&gt;
+    &lt;/xs:complexType&gt;
+  &lt;/xs:element&gt;
+&lt;/xs:schema&gt;</div>
+</div>
+</div>
+</div>
+</div>
+</article>
+</section>
+<section class="clearfix">
+<article class="definition">
+<h3 class="anchored" id="post"><span>POST</span>
+<a class="fa fa-link link-anchor" data-url="r=__v2__companies__(cid)__payrolls#post" data-web-id="__v2__companies__(cid)__payrolls"></a>
+</h3>
+<div class="md"><p>Endpoint to create a new payroll that has not been scheduled.
+Based on company setting several payrolls types are supported: Historical, Regular, Void &amp; etc.
+To see available types for your company use /lookup{cid}/payroll-types.
+</p></div>
+<div>
+<ul class="annotation-list">
+<li class="annotation">
+<span>v2</span>
+</li>
+</ul>
+</div>
+<h4>Parameters</h4>
+<h5>Path Parameters</h5>
+<ul class="param-list">
+<li>
+<div class="param-desc">
+<div class="param-name">cid</div>
+<div class="data-type">string</div>
+<div class="required">required</div>
+</div>
+<div class="param-content">
+<div>
+<p>Example: 123456</p>
+<div class="desc md">Company should be referenced via company id or company unique id or company short name using `|short_name` or `!short_name` format.
+</div>
+</div>
+</div>
+
+</li>
+</ul>
+<h4>Responses</h4>
+<div class="responses">
+<div>
+<label class="response response-success">
+<span class="fa fa-check"></span>
+<input data-full-tab-id="post-resp-code-tab-id-0" data-tab-class="resp-code-tab-post" name="resp-code-tab-post" type="radio"/>
+<span class="status">201 Created</span>
+</label>
+<div class="response-desc resp-code-tab-post" id="post-resp-code-tab-id-0">
+<div class="md"><p>Payrolls successfully saved.
+</p></div>
+<ul class="param-list">
+<li>
+<div class="param-desc">
+<div class="param-name">Location</div>
+<div class="data-type">string</div>
+<div class="required">required</div>
+</div>
+<div class="param-content">
+<div>
+<div class="desc md">Location of the newly created payroll.
+</div>
+</div>
+</div>
+
+</li>
+</ul>
+</div>
+</div>
+<div>
+<label class="response response-error">
+<span class="fa fa-times"></span>
+<input data-full-tab-id="post-resp-code-tab-id-1" data-tab-class="resp-code-tab-post" name="resp-code-tab-post" type="radio"/>
+<span class="status">400 Bad Request</span>
+</label>
+<div class="response-desc resp-code-tab-post" id="post-resp-code-tab-id-1">
+<div class="md"><p>In case any error occurs during validation.
+</p></div>
+</div>
+</div>
+<div>
+<label class="response response-error">
+<span class="fa fa-times"></span>
+<input data-full-tab-id="post-resp-code-tab-id-2" data-tab-class="resp-code-tab-post" name="resp-code-tab-post" type="radio"/>
+<span class="status">403 Forbidden</span>
+</label>
+<div class="response-desc resp-code-tab-post" id="post-resp-code-tab-id-2">
+<div class="md"><p>In case of any security issues
+</p></div>
+</div>
+</div>
+<div>
+<label class="response response-error">
+<span class="fa fa-times"></span>
+<input data-full-tab-id="post-resp-code-tab-id-3" data-tab-class="resp-code-tab-post" name="resp-code-tab-post" type="radio"/>
+<span class="status">500 Internal Server Error</span>
+</label>
+<div class="response-desc resp-code-tab-post" id="post-resp-code-tab-id-3">
+<div class="md"><p>Internal server error
+</p></div>
+</div>
+</div>
+</div>
+</article>
+<article class="code">
+<h4>Definition</h4>
+<div class="uri">
+<code>
+<span class="method post">post</span>
+<span class="textUri"><span class="baseUri">{{ getUriPrefix() }}</span><span class="relativeUri">/v2/companies/{cid}/payrolls</span></span>
+</code>
+</div>
+<h4>Request Samples</h4>
+<div class="tab-title-group">
+<label>
+<input checked="checked" data-full-tab-id="req-tab-id-post-0" data-tab-class="req-tab-post" name="req-tab-post" type="radio"/>
+<span class="tab-title">application/json</span>
+</label>
+<label>
+<input data-full-tab-id="req-tab-id-post-1" data-tab-class="req-tab-post" name="req-tab-post" type="radio"/>
+<span class="tab-title">application/xml</span>
+</label>
+<label>
+<input data-full-tab-id="req-tab-id-post-2" data-tab-class="req-tab-post" name="req-tab-post" type="radio"/>
+<span class="tab-title">text/xml</span>
+</label>
+</div>
+<div>
+<div class="req-tab-post" id="req-tab-id-post-0">
+<div class="example">
+
+<div class="post-example-tab-0 activeTab" id="post-tab-example-0">
+
+<pre class="highlightjs">{
+  "name": "Quarterly Regular 01/31/2017",
+  "pay_date": "2017-01-31",
+  "type": {
+    "id": 16640,
+    "display_name": "Regular"
+  }
+}</pre>
+</div>
+<div class="post-example-tab-0" id="post-tab-schema-0">
+
+<div class="jsonschema" id="schema-3">{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "type": "object",
+  "properties": {
+    "name": {
+      "type": "string"
+    },
+    "start_date": {
+      "type": "string",
+      "description": "Date needs to be in the format yyyy-mm-dd within the 1900-12-31 and 2079-06-05 date range",
+      "pattern": "^(19[0-9]{2}|20[0-6][0-9]|2070)-(0[1-9]|1[0-2])-(0[1-9]|[1-2][0-9]|3[0-1])$"
+    },
+    "end_date": {
+      "type": "string",
+      "description": "Date needs to be in the format yyyy-mm-dd within the 1900-12-31 and 2079-06-05 date range",
+      "pattern": "^(19[0-9]{2}|20[0-6][0-9]|2070)-(0[1-9]|1[0-2])-(0[1-9]|[1-2][0-9]|3[0-1])$"
+    },
+    "pay_date": {
+      "type": "string",
+      "description": "Date needs to be in the format yyyy-mm-dd within the 2000-01-01 and nome more than today + 1 year range",
+      "pattern": "^(19[0-9]{2}|20[0-6][0-9]|2070)-(0[1-9]|1[0-2])-(0[1-9]|[1-2][0-9]|3[0-1])$"
+    },
+    "type": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer"
+        },
+        "display_name": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "id"
+      ]
+    },
+    "ein": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer"
+        },
+        "ein_name": {
+          "type": "string"
+        },
+        "ein_tax_id": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "id"
+      ]
+    },
+    "billable": {
+      "type": "boolean"
+    }
+  },
+  "required": [
+    "pay_date",
+    "type"
+  ]
+}</div>
+</div>
+</div>
+</div>
+<div class="req-tab-post" id="req-tab-id-post-1">
+<div class="example">
+
+<div class="post-example-tab-1 activeTab" id="post-tab-example-1">
+
+<pre class="highlightjs">&lt;payroll&gt;
+  &lt;name&gt;Quarterly Regular 01/31/2017&lt;/name&gt;
+  &lt;pay_date&gt;2017-01-19&lt;/pay_date&gt;
+  &lt;type&gt;
+    &lt;id&gt;16640&lt;/id&gt;
+    &lt;display_name&gt;Regular&lt;/display_name&gt;
+  &lt;/type&gt;
+  &lt;billable&gt;true&lt;/billable&gt;
+&lt;/payroll&gt;</pre>
+</div>
+<div class="post-example-tab-1" id="post-tab-schema-1">
+
+<div class="jsonschema" id="schema-4">&lt;xs:schema
+  xmlns:xs="http://www.w3.org/2001/XMLSchema" attributeFormDefault="unqualified" elementFormDefault="qualified"&gt;
+  &lt;xs:element name="payroll"&gt;
+    &lt;xs:complexType&gt;
+      &lt;xs:sequence&gt;
+        &lt;xs:element type="xs:string" name="name" minOccurs="0"/&gt;
+        &lt;xs:element type="xs:date" name="pay_date"/&gt;
+        &lt;xs:element type="xs:date" name="start_date" minOccurs="0"/&gt;
+        &lt;xs:element type="xs:date" name="end_date" minOccurs="0"/&gt;
+        &lt;xs:element name="type"&gt;
+          &lt;xs:complexType&gt;
+            &lt;xs:sequence&gt;
+              &lt;xs:element type="xs:integer" name="id"/&gt;
+              &lt;xs:element type="xs:string" name="display_name" minOccurs="0"/&gt;
+            &lt;/xs:sequence&gt;
+          &lt;/xs:complexType&gt;
+        &lt;/xs:element&gt;
+        &lt;xs:element name="ein" minOccurs="0"&gt;
+          &lt;xs:complexType&gt;
+            &lt;xs:sequence&gt;
+              &lt;xs:element type="xs:integer" name="id"/&gt;
+              &lt;xs:element type="xs:string" name="ein_name" minOccurs="0"/&gt;
+              &lt;xs:element type="xs:string" name="ein_tax_id" minOccurs="0"/&gt;
+            &lt;/xs:sequence&gt;
+          &lt;/xs:complexType&gt;
+        &lt;/xs:element&gt;
+        &lt;xs:element type="xs:boolean" name="billable" minOccurs="0"/&gt;
+      &lt;/xs:sequence&gt;
+    &lt;/xs:complexType&gt;
+  &lt;/xs:element&gt;
+&lt;/xs:schema&gt;
+</div>
+</div>
+</div>
+</div>
+<div class="req-tab-post" id="req-tab-id-post-2">
+<div class="example">
+
+<div class="post-example-tab-2 activeTab" id="post-tab-example-2">
+
+<pre class="highlightjs">&lt;payroll&gt;
+  &lt;name&gt;Quarterly Regular 01/31/2017&lt;/name&gt;
+  &lt;pay_date&gt;2017-01-19&lt;/pay_date&gt;
+  &lt;type&gt;
+    &lt;id&gt;16640&lt;/id&gt;
+    &lt;display_name&gt;Regular&lt;/display_name&gt;
+  &lt;/type&gt;
+  &lt;billable&gt;true&lt;/billable&gt;
+&lt;/payroll&gt;</pre>
+</div>
+<div class="post-example-tab-2" id="post-tab-schema-2">
+
+<div class="jsonschema" id="schema-5">&lt;xs:schema
+  xmlns:xs="http://www.w3.org/2001/XMLSchema" attributeFormDefault="unqualified" elementFormDefault="qualified"&gt;
+  &lt;xs:element name="payroll"&gt;
+    &lt;xs:complexType&gt;
+      &lt;xs:sequence&gt;
+        &lt;xs:element type="xs:string" name="name" minOccurs="0"/&gt;
+        &lt;xs:element type="xs:date" name="pay_date"/&gt;
+        &lt;xs:element type="xs:date" name="start_date" minOccurs="0"/&gt;
+        &lt;xs:element type="xs:date" name="end_date" minOccurs="0"/&gt;
+        &lt;xs:element name="type"&gt;
+          &lt;xs:complexType&gt;
+            &lt;xs:sequence&gt;
+              &lt;xs:element type="xs:integer" name="id"/&gt;
+              &lt;xs:element type="xs:string" name="display_name" minOccurs="0"/&gt;
+            &lt;/xs:sequence&gt;
+          &lt;/xs:complexType&gt;
+        &lt;/xs:element&gt;
+        &lt;xs:element name="ein" minOccurs="0"&gt;
+          &lt;xs:complexType&gt;
+            &lt;xs:sequence&gt;
+              &lt;xs:element type="xs:integer" name="id"/&gt;
+              &lt;xs:element type="xs:string" name="ein_name" minOccurs="0"/&gt;
+              &lt;xs:element type="xs:string" name="ein_tax_id" minOccurs="0"/&gt;
+            &lt;/xs:sequence&gt;
+          &lt;/xs:complexType&gt;
+        &lt;/xs:element&gt;
+        &lt;xs:element type="xs:boolean" name="billable" minOccurs="0"/&gt;
+      &lt;/xs:sequence&gt;
+    &lt;/xs:complexType&gt;
+  &lt;/xs:element&gt;
+&lt;/xs:schema&gt;
+</div>
+</div>
+</div>
+</div>
+</div>
+</article>
+</section>
+</div>
+</body></html>

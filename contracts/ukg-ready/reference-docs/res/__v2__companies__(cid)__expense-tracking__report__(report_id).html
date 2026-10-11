@@ -1,0 +1,540 @@
+<!doctype html>
+<html><head><meta charset="utf-8"><title>Expense Report</title><style>body{font:16px system-ui;max-width:1100px;margin:2rem auto;padding:0 1rem;line-height:1.5}aside{background:#fff3cc;padding:1rem}.jsonschema,pre{white-space:pre-wrap;font:13px monospace;overflow-wrap:anywhere;background:#f4f5f7;padding:1rem}.uri{font-family:monospace}h2,h3{margin-top:2rem}</style></head><body><aside><strong>Modified private reference — 2026-10-09.</strong> Provider-documented illustrative examples are included; authentication token examples are redacted. These are not customer exports or guaranteed production behavior. Candidate sharing is pending. This is not OpenAPI.</aside>
+<div class="group">
+<h2 class="anchored" id="item.anchor">
+<span>Expense Report</span>
+<a class="fa fa-link link-anchor" data-url="r=__v2__companies__(cid)__expense-tracking__report__(report_id)#" data-web-id="__v2__companies__(cid)__expense-tracking__report__(report_id)"></a>
+</h2>
+<section class="clearfix">
+<article class="definition">
+<h3 class="anchored" id="get"><span>GET</span>
+<a class="fa fa-link link-anchor" data-url="r=__v2__companies__(cid)__expense-tracking__report__(report_id)#get" data-web-id="__v2__companies__(cid)__expense-tracking__report__(report_id)"></a>
+</h3>
+<div class="md"><p>Returns specified expense report</p></div>
+<h4>Parameters</h4>
+<h5>Path Parameters</h5>
+<ul class="param-list">
+<li>
+<div class="param-desc">
+<div class="param-name">cid</div>
+<div class="data-type">string</div>
+<div class="required">required</div>
+</div>
+<div class="param-content">
+<div>
+<p>Example: 123456</p>
+<div class="desc md">Company should be referenced via company id or company unique id or company short name using `|short_name` or `!short_name` format.
+</div>
+</div>
+</div>
+
+</li>
+<li>
+<div class="param-desc">
+<div class="param-name">report_id</div>
+<div class="data-type">integer</div>
+<div class="required">required</div>
+</div>
+<div class="param-content">
+<div>
+<div class="desc md">Id of the expense report</div>
+</div>
+</div>
+
+</li>
+</ul>
+<h4>Responses</h4>
+<div class="responses">
+<div>
+<label class="response response-success">
+<span class="fa fa-check"></span>
+<input data-full-tab-id="get-resp-code-tab-id-0" data-tab-class="resp-code-tab-get" name="resp-code-tab-get" type="radio"/>
+<span class="status">200 Ok</span>
+</label>
+<div class="response-desc resp-code-tab-get" id="get-resp-code-tab-id-0">
+</div>
+</div>
+<div>
+<label class="response response-error">
+<span class="fa fa-times"></span>
+<input data-full-tab-id="get-resp-code-tab-id-1" data-tab-class="resp-code-tab-get" name="resp-code-tab-get" type="radio"/>
+<span class="status">403 Forbidden</span>
+</label>
+<div class="response-desc resp-code-tab-get" id="get-resp-code-tab-id-1">
+<div class="md"><p>No company access</p></div>
+</div>
+</div>
+<div>
+<label class="response response-error">
+<span class="fa fa-times"></span>
+<input data-full-tab-id="get-resp-code-tab-id-2" data-tab-class="resp-code-tab-get" name="resp-code-tab-get" type="radio"/>
+<span class="status">404 Not Found</span>
+</label>
+<div class="response-desc resp-code-tab-get" id="get-resp-code-tab-id-2">
+<div class="md"><p>Expense report not found</p></div>
+</div>
+</div>
+</div>
+</article>
+<article class="code">
+<h4>Definition</h4>
+<div class="uri">
+<code>
+<span class="method get">get</span>
+<span class="textUri"><span class="baseUri">{{ getUriPrefix() }}</span><span class="relativeUri">/v2/companies/{cid}/expense-tracking/report/{report_id}</span></span>
+</code>
+</div>
+<h4>Response Samples</h4>
+<div class="tab-title-group">
+<label>
+<input checked="checked" data-full-tab-id="resp-tab-id-get-0" data-tab-class="resp-tab-get" name="resp-tab-get" type="radio"/>
+<span class="tab-title">application/json</span>
+</label>
+</div>
+<div>
+<div class="resp-tab-get" id="resp-tab-id-get-0">
+<div class="example">
+
+<div class="get-example-resp-tab-0 activeTab" id="get-tab-resp-example-0">
+
+<pre class="highlightjs">{
+  "report_id": 770052,
+  "expense_profile_id": 606724,
+  "account_id": 4370410560,
+  "name": "new expense report",
+  "description": "create a new expense report",
+  "status": -10,
+  "attributes": [
+    {
+      "report_attribute_id": 999428,
+      "profile_attribute_id": 1378820,
+      "attribute_id": 623620,
+      "sort_order": 0,
+      "data_type": "CHAR",
+      "subtype": 0,
+      "value": "test attribute",
+      "properties": {
+        "is_required": false,
+        "display_name": "Test Text",
+        "attribute_settings": {}
+      }
+    }
+  ]
+}
+</pre>
+</div>
+<div class="get-example-resp-tab-0" id="get-tab-resp-schema-0">
+
+<div class="jsonschema" id="schema-0">{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "type": "object",
+  "properties": {
+    "report_id": {
+      "type": "integer",
+      "description": "System Id of the report"
+    },
+    "expense_profile_id": {
+      "type": "integer",
+      "description": "Id of the expense profile used to create the report"
+    },
+    "account_id": {
+      "type": "number",
+      "format": "long",
+      "description": "Id of the owner of the report"
+    },
+    "name": {
+      "type": "string",
+      "description": "Name of the report"
+    },
+    "description": {
+      "type": "string",
+      "description": "Description of the report"
+    },
+    "status": {
+      "type": "integer",
+      "description": "Status of the report"
+    },
+    "attributes": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "profile_attribute_id": {
+            "type": "integer",
+            "description": "The Id of the link between a defined attribute and a profile"
+          },
+          "attribute_id": {
+            "type": "integer",
+            "description": "The Id of a defined attribute"
+          },
+          "sort_order": {
+            "type": "integer",
+            "description": "the order this is listed on the page"
+          },
+          "report_attribute_id": {
+            "type": "integer",
+            "description": "id of the line item on the report"
+          },
+          "data_type": {
+            "type": "string",
+            "description": "type of data this attribute represents"
+          },
+          "subtype": {
+            "type": "integer",
+            "description": "the subtype of data that this attribute represents"
+          },
+          "value": {
+            "description": "data held by this line item"
+          },
+          "properties": {
+            "type": "object",
+            "description": "additional properties for the attribute",
+            "properties": {
+              "is_required": {
+                "type": "boolean",
+                "description": "is this attribute required"
+              },
+              "display_name": {
+                "type": "string",
+                "description": "display name for the attribute"
+              },
+              "attribute_settings": {
+                "description": "settings for the attribute"
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "additionalProperties": false
+}</div>
+</div>
+</div>
+</div>
+</div>
+</article>
+</section>
+<section class="clearfix">
+<article class="definition">
+<h3 class="anchored" id="post"><span>POST</span>
+<a class="fa fa-link link-anchor" data-url="r=__v2__companies__(cid)__expense-tracking__report__(report_id)#post" data-web-id="__v2__companies__(cid)__expense-tracking__report__(report_id)"></a>
+</h3>
+<div class="md"><p>Update an expense report</p></div>
+<h4>Parameters</h4>
+<h5>Path Parameters</h5>
+<ul class="param-list">
+<li>
+<div class="param-desc">
+<div class="param-name">cid</div>
+<div class="data-type">string</div>
+<div class="required">required</div>
+</div>
+<div class="param-content">
+<div>
+<p>Example: 123456</p>
+<div class="desc md">Company should be referenced via company id or company unique id or company short name using `|short_name` or `!short_name` format.
+</div>
+</div>
+</div>
+
+</li>
+<li>
+<div class="param-desc">
+<div class="param-name">report_id</div>
+<div class="data-type">integer</div>
+<div class="required">required</div>
+</div>
+<div class="param-content">
+<div>
+<div class="desc md">Id of the expense report</div>
+</div>
+</div>
+
+</li>
+</ul>
+<h4>Responses</h4>
+<div class="responses">
+<div>
+<label class="response response-success">
+<span class="fa fa-check"></span>
+<input data-full-tab-id="post-resp-code-tab-id-0" data-tab-class="resp-code-tab-post" name="resp-code-tab-post" type="radio"/>
+<span class="status">201 Created</span>
+</label>
+<div class="response-desc resp-code-tab-post" id="post-resp-code-tab-id-0">
+<div class="md"><p>Expense report was successfully updated</p></div>
+</div>
+</div>
+<div>
+<label class="response response-error">
+<span class="fa fa-times"></span>
+<input data-full-tab-id="post-resp-code-tab-id-1" data-tab-class="resp-code-tab-post" name="resp-code-tab-post" type="radio"/>
+<span class="status">400 Bad Request</span>
+</label>
+<div class="response-desc resp-code-tab-post" id="post-resp-code-tab-id-1">
+<div class="md"><p>Invalid request</p></div>
+</div>
+</div>
+<div>
+<label class="response response-error">
+<span class="fa fa-times"></span>
+<input data-full-tab-id="post-resp-code-tab-id-2" data-tab-class="resp-code-tab-post" name="resp-code-tab-post" type="radio"/>
+<span class="status">403 Forbidden</span>
+</label>
+<div class="response-desc resp-code-tab-post" id="post-resp-code-tab-id-2">
+<div class="md"><p>No company access</p></div>
+</div>
+</div>
+<div>
+<label class="response response-error">
+<span class="fa fa-times"></span>
+<input data-full-tab-id="post-resp-code-tab-id-3" data-tab-class="resp-code-tab-post" name="resp-code-tab-post" type="radio"/>
+<span class="status">404 Not Found</span>
+</label>
+<div class="response-desc resp-code-tab-post" id="post-resp-code-tab-id-3">
+<div class="md"><p>Expense report not found</p></div>
+</div>
+</div>
+<div>
+<label class="response response-error">
+<span class="fa fa-times"></span>
+<input data-full-tab-id="post-resp-code-tab-id-4" data-tab-class="resp-code-tab-post" name="resp-code-tab-post" type="radio"/>
+<span class="status">500 Internal Server Error</span>
+</label>
+<div class="response-desc resp-code-tab-post" id="post-resp-code-tab-id-4">
+<div class="md"><p>Expense Report failed to save</p></div>
+</div>
+</div>
+</div>
+</article>
+<article class="code">
+<h4>Definition</h4>
+<div class="uri">
+<code>
+<span class="method post">post</span>
+<span class="textUri"><span class="baseUri">{{ getUriPrefix() }}</span><span class="relativeUri">/v2/companies/{cid}/expense-tracking/report/{report_id}</span></span>
+</code>
+</div>
+<h4>Request Samples</h4>
+<div class="tab-title-group">
+<label>
+<input checked="checked" data-full-tab-id="req-tab-id-post-0" data-tab-class="req-tab-post" name="req-tab-post" type="radio"/>
+<span class="tab-title">application/json</span>
+</label>
+</div>
+<div>
+<div class="req-tab-post" id="req-tab-id-post-0">
+<div class="example">
+
+<div class="post-example-tab-0 activeTab" id="post-tab-example-0">
+
+<pre class="highlightjs">{
+  "report_id": 770052,
+  "expense_profile_id": 606724,
+  "name": "new expense report",
+  "status": -10,
+  "description": "create a new expense report",
+  "attributes": [
+    {
+      "report_attribute_id": 999428,
+      "profile_attribute_id": 1378820,
+      "attribute_id": 623620,
+      "sort_order": 0,
+      "data_type": "CHAR",
+      "subtype": 0,
+      "value": "modified test attribute",
+      "properties": {
+        "is_required": false,
+        "display_name": "Test Text",
+        "attribute_settings": {}
+      }
+    }
+  ]
+}</pre>
+</div>
+<div class="post-example-tab-0" id="post-tab-schema-0">
+
+<div class="jsonschema" id="schema-1">{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "type": "object",
+  "properties": {
+    "report_id": {
+      "type": "integer",
+      "description": "System Id of the report"
+    },
+    "expense_profile_id": {
+      "type": "integer",
+      "description": "Id of the expense profile used to create the report"
+    },
+    "account_id": {
+      "type": "number",
+      "format": "long",
+      "description": "Id of the owner of the report"
+    },
+    "name": {
+      "type": "string",
+      "description": "Name of the report"
+    },
+    "description": {
+      "type": "string",
+      "description": "Description of the report"
+    },
+    "status": {
+      "type": "integer",
+      "description": "Status of the report"
+    },
+    "attributes": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "profile_attribute_id": {
+            "type": "integer",
+            "description": "The Id of the link between a defined attribute and a profile"
+          },
+          "attribute_id": {
+            "type": "integer",
+            "description": "The Id of a defined attribute"
+          },
+          "sort_order": {
+            "type": "integer",
+            "description": "the order this is listed on the page"
+          },
+          "report_attribute_id": {
+            "type": "integer",
+            "description": "id of the line item on the report"
+          },
+          "data_type": {
+            "type": "string",
+            "description": "type of data this attribute represents"
+          },
+          "subtype": {
+            "type": "integer",
+            "description": "the subtype of data that this attribute represents"
+          },
+          "value": {
+            "description": "data held by this line item"
+          },
+          "properties": {
+            "type": "object",
+            "description": "additional properties for the attribute",
+            "properties": {
+              "is_required": {
+                "type": "boolean",
+                "description": "is this attribute required"
+              },
+              "display_name": {
+                "type": "string",
+                "description": "display name for the attribute"
+              },
+              "attribute_settings": {
+                "description": "settings for the attribute"
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "additionalProperties": false
+}</div>
+</div>
+</div>
+</div>
+</div>
+</article>
+</section>
+<section class="clearfix">
+<article class="definition">
+<h3 class="anchored" id="delete"><span>DELETE</span>
+<a class="fa fa-link link-anchor" data-url="r=__v2__companies__(cid)__expense-tracking__report__(report_id)#delete" data-web-id="__v2__companies__(cid)__expense-tracking__report__(report_id)"></a>
+</h3>
+<div class="md"><p>Deletes specified expense report</p></div>
+<h4>Parameters</h4>
+<h5>Path Parameters</h5>
+<ul class="param-list">
+<li>
+<div class="param-desc">
+<div class="param-name">cid</div>
+<div class="data-type">string</div>
+<div class="required">required</div>
+</div>
+<div class="param-content">
+<div>
+<p>Example: 123456</p>
+<div class="desc md">Company should be referenced via company id or company unique id or company short name using `|short_name` or `!short_name` format.
+</div>
+</div>
+</div>
+
+</li>
+<li>
+<div class="param-desc">
+<div class="param-name">report_id</div>
+<div class="data-type">integer</div>
+<div class="required">required</div>
+</div>
+<div class="param-content">
+<div>
+<div class="desc md">Id of the expense report</div>
+</div>
+</div>
+
+</li>
+</ul>
+<h4>Responses</h4>
+<div class="responses">
+<div>
+<label class="response response-success">
+<span class="fa fa-check"></span>
+<input data-full-tab-id="delete-resp-code-tab-id-0" data-tab-class="resp-code-tab-delete" name="resp-code-tab-delete" type="radio"/>
+<span class="status">204 No Content</span>
+</label>
+<div class="response-desc resp-code-tab-delete" id="delete-resp-code-tab-id-0">
+<div class="md"><p>Expense tracking report was successfully deleted</p></div>
+</div>
+</div>
+<div>
+<label class="response response-error">
+<span class="fa fa-times"></span>
+<input data-full-tab-id="delete-resp-code-tab-id-1" data-tab-class="resp-code-tab-delete" name="resp-code-tab-delete" type="radio"/>
+<span class="status">403 Forbidden</span>
+</label>
+<div class="response-desc resp-code-tab-delete" id="delete-resp-code-tab-id-1">
+<div class="md"><p>No company access</p></div>
+</div>
+</div>
+<div>
+<label class="response response-error">
+<span class="fa fa-times"></span>
+<input data-full-tab-id="delete-resp-code-tab-id-2" data-tab-class="resp-code-tab-delete" name="resp-code-tab-delete" type="radio"/>
+<span class="status">404 Not Found</span>
+</label>
+<div class="response-desc resp-code-tab-delete" id="delete-resp-code-tab-id-2">
+<div class="md"><p>Expense tracking report was not found</p></div>
+</div>
+</div>
+<div>
+<label class="response response-error">
+<span class="fa fa-times"></span>
+<input data-full-tab-id="delete-resp-code-tab-id-3" data-tab-class="resp-code-tab-delete" name="resp-code-tab-delete" type="radio"/>
+<span class="status">500 Internal Server Error</span>
+</label>
+<div class="response-desc resp-code-tab-delete" id="delete-resp-code-tab-id-3">
+<div class="md"><p>Expense tracking report failed to save</p></div>
+</div>
+</div>
+</div>
+</article>
+<article class="code">
+<h4>Definition</h4>
+<div class="uri">
+<code>
+<span class="method delete">delete</span>
+<span class="textUri"><span class="baseUri">{{ getUriPrefix() }}</span><span class="relativeUri">/v2/companies/{cid}/expense-tracking/report/{report_id}</span></span>
+</code>
+</div>
+</article>
+</section>
+</div>
+</body></html>

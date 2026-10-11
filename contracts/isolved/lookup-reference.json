@@ -1,0 +1,406 @@
+{
+  "provider": "isolved",
+  "reference_version": "6-private-reference-1",
+  "lookup_status": "verified",
+  "notice": "PARTIAL DOCUMENTED ENUM REFERENCE. Uploaded at the organizer's explicit instruction to this private repository. Provider redistribution permission and candidate sharing remain unverified. Provider-documented examples are included; no customer exports or canonical mappings supplied.",
+  "openapi": {
+    "status": "verified",
+    "relative_path": "isolved-v6.swagger.json",
+    "version": "6",
+    "source": "TadaAI/full-stack:references/isolved/api_docs.json",
+    "source_sha256": "ee126ab98e819872bbf1049137dacc2fb9d16dbd23a76d5ef3a6926c139e8300",
+    "sha256": "d0d3292944a892ec3717ed0a377740ca5b965523c27fb228b39dd36d2ed71ad7",
+    "latest_live_version_verified": false,
+    "alternate_artifact": "isolved-v6.alternate.swagger.json"
+  },
+  "distribution": {
+    "status": "user_approved_private_upload",
+    "evidence_reference": "../../docs/REFERENCE_AUDIT.md#private-upload-authorization",
+    "basis": "Organizer explicitly instructed: \"Yeah push those as well\" on 2026-10-09, after the permission gaps were disclosed. This authorizes this private upload; no provider redistribution license is represented.",
+    "provider_redistribution_permission_verified": false,
+    "candidate_sharing_approved": false,
+    "reviewed_at": "2026-10-09"
+  },
+  "lookups": [
+    {
+      "domain": "/paths/~1api~1clients~1{clientId}~1legals~1{legalId}~1employees~1{employeeId}~1scheduleReportByType/get/parameters/4",
+      "source_field_pointers": [
+        "#/paths/~1api~1clients~1{clientId}~1legals~1{legalId}~1employees~1{employeeId}~1scheduleReportByType/get/parameters/4"
+      ],
+      "source_description": "Reporting period type",
+      "completeness": "Exact enum array for this field in the primary snapshot; other fields/domains are not represented.",
+      "entries": [
+        {
+          "code": "Day",
+          "meaning": null,
+          "meaning_status": "No per-code meaning supplied by this enum array; the string label is preserved verbatim.",
+          "evidence_reference": "openapi/isolved-v6.swagger.json#/paths/~1api~1clients~1{clientId}~1legals~1{legalId}~1employees~1{employeeId}~1scheduleReportByType/get/parameters/4/enum/0"
+        },
+        {
+          "code": "Week",
+          "meaning": null,
+          "meaning_status": "No per-code meaning supplied by this enum array; the string label is preserved verbatim.",
+          "evidence_reference": "openapi/isolved-v6.swagger.json#/paths/~1api~1clients~1{clientId}~1legals~1{legalId}~1employees~1{employeeId}~1scheduleReportByType/get/parameters/4/enum/1"
+        },
+        {
+          "code": "Month",
+          "meaning": null,
+          "meaning_status": "No per-code meaning supplied by this enum array; the string label is preserved verbatim.",
+          "evidence_reference": "openapi/isolved-v6.swagger.json#/paths/~1api~1clients~1{clientId}~1legals~1{legalId}~1employees~1{employeeId}~1scheduleReportByType/get/parameters/4/enum/2"
+        }
+      ]
+    },
+    {
+      "domain": "/definitions/iSolved.Dto.Notification/properties/severity",
+      "source_field_pointers": [
+        "#/definitions/iSolved.Dto.Notification/properties/severity"
+      ],
+      "source_description": null,
+      "completeness": "Exact enum array for this field in the primary snapshot; other fields/domains are not represented.",
+      "entries": [
+        {
+          "code": "Info",
+          "meaning": null,
+          "meaning_status": "No per-code meaning supplied by this enum array; the string label is preserved verbatim.",
+          "evidence_reference": "openapi/isolved-v6.swagger.json#/definitions/iSolved.Dto.Notification/properties/severity/enum/0"
+        },
+        {
+          "code": "Error",
+          "meaning": null,
+          "meaning_status": "No per-code meaning supplied by this enum array; the string label is preserved verbatim.",
+          "evidence_reference": "openapi/isolved-v6.swagger.json#/definitions/iSolved.Dto.Notification/properties/severity/enum/1"
+        },
+        {
+          "code": "Warning",
+          "meaning": null,
+          "meaning_status": "No per-code meaning supplied by this enum array; the string label is preserved verbatim.",
+          "evidence_reference": "openapi/isolved-v6.swagger.json#/definitions/iSolved.Dto.Notification/properties/severity/enum/2"
+        },
+        {
+          "code": "Success",
+          "meaning": null,
+          "meaning_status": "No per-code meaning supplied by this enum array; the string label is preserved verbatim.",
+          "evidence_reference": "openapi/isolved-v6.swagger.json#/definitions/iSolved.Dto.Notification/properties/severity/enum/3"
+        }
+      ]
+    },
+    {
+      "domain": "/definitions/AOS.BusinessEntities.Payroll.ValidationMessage/properties/severity",
+      "source_field_pointers": [
+        "#/definitions/AOS.BusinessEntities.Payroll.ValidationMessage/properties/severity"
+      ],
+      "source_description": null,
+      "completeness": "Exact enum array for this field in the primary snapshot; other fields/domains are not represented.",
+      "entries": [
+        {
+          "code": "Information",
+          "meaning": null,
+          "meaning_status": "No per-code meaning supplied by this enum array; the string label is preserved verbatim.",
+          "evidence_reference": "openapi/isolved-v6.swagger.json#/definitions/AOS.BusinessEntities.Payroll.ValidationMessage/properties/severity/enum/0"
+        },
+        {
+          "code": "Warning",
+          "meaning": null,
+          "meaning_status": "No per-code meaning supplied by this enum array; the string label is preserved verbatim.",
+          "evidence_reference": "openapi/isolved-v6.swagger.json#/definitions/AOS.BusinessEntities.Payroll.ValidationMessage/properties/severity/enum/1"
+        },
+        {
+          "code": "Error",
+          "meaning": null,
+          "meaning_status": "No per-code meaning supplied by this enum array; the string label is preserved verbatim.",
+          "evidence_reference": "openapi/isolved-v6.swagger.json#/definitions/AOS.BusinessEntities.Payroll.ValidationMessage/properties/severity/enum/2"
+        },
+        {
+          "code": "FileFormatError",
+          "meaning": null,
+          "meaning_status": "No per-code meaning supplied by this enum array; the string label is preserved verbatim.",
+          "evidence_reference": "openapi/isolved-v6.swagger.json#/definitions/AOS.BusinessEntities.Payroll.ValidationMessage/properties/severity/enum/3"
+        }
+      ]
+    },
+    {
+      "domain": "/definitions/AOS.PayrollOffice.RestAPI.Models.ScheduleBulkCopyModel/properties/overlapAction",
+      "source_field_pointers": [
+        "#/definitions/AOS.PayrollOffice.RestAPI.Models.ScheduleBulkCopyModel/properties/overlapAction"
+      ],
+      "source_description": "Action to take when two schedules overlap.",
+      "completeness": "Exact enum array for this field in the primary snapshot; other fields/domains are not represented.",
+      "entries": [
+        {
+          "code": "Cancel",
+          "meaning": null,
+          "meaning_status": "No per-code meaning supplied by this enum array; the string label is preserved verbatim.",
+          "evidence_reference": "openapi/isolved-v6.swagger.json#/definitions/AOS.PayrollOffice.RestAPI.Models.ScheduleBulkCopyModel/properties/overlapAction/enum/0"
+        },
+        {
+          "code": "Skip",
+          "meaning": null,
+          "meaning_status": "No per-code meaning supplied by this enum array; the string label is preserved verbatim.",
+          "evidence_reference": "openapi/isolved-v6.swagger.json#/definitions/AOS.PayrollOffice.RestAPI.Models.ScheduleBulkCopyModel/properties/overlapAction/enum/1"
+        },
+        {
+          "code": "Replace",
+          "meaning": null,
+          "meaning_status": "No per-code meaning supplied by this enum array; the string label is preserved verbatim.",
+          "evidence_reference": "openapi/isolved-v6.swagger.json#/definitions/AOS.PayrollOffice.RestAPI.Models.ScheduleBulkCopyModel/properties/overlapAction/enum/2"
+        }
+      ]
+    },
+    {
+      "domain": "/definitions/AOS.PayrollOffice.RestAPI.Models.ScheduleBulkCopyModel/properties/overlapType",
+      "source_field_pointers": [
+        "#/definitions/AOS.PayrollOffice.RestAPI.Models.ScheduleBulkCopyModel/properties/overlapType"
+      ],
+      "source_description": "How to determine overlap of schedules.",
+      "completeness": "Exact enum array for this field in the primary snapshot; other fields/domains are not represented.",
+      "entries": [
+        {
+          "code": "Day",
+          "meaning": null,
+          "meaning_status": "No per-code meaning supplied by this enum array; the string label is preserved verbatim.",
+          "evidence_reference": "openapi/isolved-v6.swagger.json#/definitions/AOS.PayrollOffice.RestAPI.Models.ScheduleBulkCopyModel/properties/overlapType/enum/0"
+        },
+        {
+          "code": "Shift",
+          "meaning": null,
+          "meaning_status": "No per-code meaning supplied by this enum array; the string label is preserved verbatim.",
+          "evidence_reference": "openapi/isolved-v6.swagger.json#/definitions/AOS.PayrollOffice.RestAPI.Models.ScheduleBulkCopyModel/properties/overlapType/enum/1"
+        }
+      ]
+    },
+    {
+      "domain": "/definitions/AOS.PayrollOffice.RestAPI.Models.ScheduleCopyModel/properties/destinationDays/items",
+      "source_field_pointers": [
+        "#/definitions/AOS.PayrollOffice.RestAPI.Models.ScheduleCopyModel/properties/destinationDays/items"
+      ],
+      "source_description": null,
+      "completeness": "Exact enum array for this field in the primary snapshot; other fields/domains are not represented.",
+      "entries": [
+        {
+          "code": "Sunday",
+          "meaning": null,
+          "meaning_status": "No per-code meaning supplied by this enum array; the string label is preserved verbatim.",
+          "evidence_reference": "openapi/isolved-v6.swagger.json#/definitions/AOS.PayrollOffice.RestAPI.Models.ScheduleCopyModel/properties/destinationDays/items/enum/0"
+        },
+        {
+          "code": "Monday",
+          "meaning": null,
+          "meaning_status": "No per-code meaning supplied by this enum array; the string label is preserved verbatim.",
+          "evidence_reference": "openapi/isolved-v6.swagger.json#/definitions/AOS.PayrollOffice.RestAPI.Models.ScheduleCopyModel/properties/destinationDays/items/enum/1"
+        },
+        {
+          "code": "Tuesday",
+          "meaning": null,
+          "meaning_status": "No per-code meaning supplied by this enum array; the string label is preserved verbatim.",
+          "evidence_reference": "openapi/isolved-v6.swagger.json#/definitions/AOS.PayrollOffice.RestAPI.Models.ScheduleCopyModel/properties/destinationDays/items/enum/2"
+        },
+        {
+          "code": "Wednesday",
+          "meaning": null,
+          "meaning_status": "No per-code meaning supplied by this enum array; the string label is preserved verbatim.",
+          "evidence_reference": "openapi/isolved-v6.swagger.json#/definitions/AOS.PayrollOffice.RestAPI.Models.ScheduleCopyModel/properties/destinationDays/items/enum/3"
+        },
+        {
+          "code": "Thursday",
+          "meaning": null,
+          "meaning_status": "No per-code meaning supplied by this enum array; the string label is preserved verbatim.",
+          "evidence_reference": "openapi/isolved-v6.swagger.json#/definitions/AOS.PayrollOffice.RestAPI.Models.ScheduleCopyModel/properties/destinationDays/items/enum/4"
+        },
+        {
+          "code": "Friday",
+          "meaning": null,
+          "meaning_status": "No per-code meaning supplied by this enum array; the string label is preserved verbatim.",
+          "evidence_reference": "openapi/isolved-v6.swagger.json#/definitions/AOS.PayrollOffice.RestAPI.Models.ScheduleCopyModel/properties/destinationDays/items/enum/5"
+        },
+        {
+          "code": "Saturday",
+          "meaning": null,
+          "meaning_status": "No per-code meaning supplied by this enum array; the string label is preserved verbatim.",
+          "evidence_reference": "openapi/isolved-v6.swagger.json#/definitions/AOS.PayrollOffice.RestAPI.Models.ScheduleCopyModel/properties/destinationDays/items/enum/6"
+        }
+      ]
+    },
+    {
+      "domain": "/definitions/AOS.PayrollOffice.RestAPI.Models.ScheduleCopyModel/properties/overlapAction",
+      "source_field_pointers": [
+        "#/definitions/AOS.PayrollOffice.RestAPI.Models.ScheduleCopyModel/properties/overlapAction"
+      ],
+      "source_description": "Action to take when two schedules overlap.",
+      "completeness": "Exact enum array for this field in the primary snapshot; other fields/domains are not represented.",
+      "entries": [
+        {
+          "code": "Skip",
+          "meaning": null,
+          "meaning_status": "No per-code meaning supplied by this enum array; the string label is preserved verbatim.",
+          "evidence_reference": "openapi/isolved-v6.swagger.json#/definitions/AOS.PayrollOffice.RestAPI.Models.ScheduleCopyModel/properties/overlapAction/enum/0"
+        },
+        {
+          "code": "Replace",
+          "meaning": null,
+          "meaning_status": "No per-code meaning supplied by this enum array; the string label is preserved verbatim.",
+          "evidence_reference": "openapi/isolved-v6.swagger.json#/definitions/AOS.PayrollOffice.RestAPI.Models.ScheduleCopyModel/properties/overlapAction/enum/1"
+        }
+      ]
+    },
+    {
+      "domain": "/definitions/AOS.PayrollOffice.RestAPI.Models.ScheduleCopyModel/properties/overlapType",
+      "source_field_pointers": [
+        "#/definitions/AOS.PayrollOffice.RestAPI.Models.ScheduleCopyModel/properties/overlapType"
+      ],
+      "source_description": "How to determine overlap of schedules.",
+      "completeness": "Exact enum array for this field in the primary snapshot; other fields/domains are not represented.",
+      "entries": [
+        {
+          "code": "Day",
+          "meaning": null,
+          "meaning_status": "No per-code meaning supplied by this enum array; the string label is preserved verbatim.",
+          "evidence_reference": "openapi/isolved-v6.swagger.json#/definitions/AOS.PayrollOffice.RestAPI.Models.ScheduleCopyModel/properties/overlapType/enum/0"
+        },
+        {
+          "code": "Shift",
+          "meaning": null,
+          "meaning_status": "No per-code meaning supplied by this enum array; the string label is preserved verbatim.",
+          "evidence_reference": "openapi/isolved-v6.swagger.json#/definitions/AOS.PayrollOffice.RestAPI.Models.ScheduleCopyModel/properties/overlapType/enum/1"
+        }
+      ]
+    },
+    {
+      "domain": "/definitions/AOS.PayrollOffice.RestAPI.Models.TimecardApiPunchModel/properties/timecardPunchMode",
+      "source_field_pointers": [
+        "#/definitions/AOS.PayrollOffice.RestAPI.Models.TimecardApiPunchModel/properties/timecardPunchMode"
+      ],
+      "source_description": "Punch Mode",
+      "completeness": "Exact enum array for this field in the primary snapshot; other fields/domains are not represented.",
+      "entries": [
+        {
+          "code": "Auto",
+          "meaning": null,
+          "meaning_status": "No per-code meaning supplied by this enum array; the string label is preserved verbatim.",
+          "evidence_reference": "openapi/isolved-v6.swagger.json#/definitions/AOS.PayrollOffice.RestAPI.Models.TimecardApiPunchModel/properties/timecardPunchMode/enum/0"
+        },
+        {
+          "code": "In",
+          "meaning": null,
+          "meaning_status": "No per-code meaning supplied by this enum array; the string label is preserved verbatim.",
+          "evidence_reference": "openapi/isolved-v6.swagger.json#/definitions/AOS.PayrollOffice.RestAPI.Models.TimecardApiPunchModel/properties/timecardPunchMode/enum/1"
+        },
+        {
+          "code": "Out",
+          "meaning": null,
+          "meaning_status": "No per-code meaning supplied by this enum array; the string label is preserved verbatim.",
+          "evidence_reference": "openapi/isolved-v6.swagger.json#/definitions/AOS.PayrollOffice.RestAPI.Models.TimecardApiPunchModel/properties/timecardPunchMode/enum/2"
+        }
+      ]
+    },
+    {
+      "domain": "/definitions/AOS.PayrollOffice.RestAPI.Models.TimecardApiPunchModel/properties/timecardPunchSource",
+      "source_field_pointers": [
+        "#/definitions/AOS.PayrollOffice.RestAPI.Models.TimecardApiPunchModel/properties/timecardPunchSource"
+      ],
+      "source_description": "Punch Source",
+      "completeness": "Exact enum array for this field in the primary snapshot; other fields/domains are not represented.",
+      "entries": [
+        {
+          "code": "Clock",
+          "meaning": null,
+          "meaning_status": "No per-code meaning supplied by this enum array; the string label is preserved verbatim.",
+          "evidence_reference": "openapi/isolved-v6.swagger.json#/definitions/AOS.PayrollOffice.RestAPI.Models.TimecardApiPunchModel/properties/timecardPunchSource/enum/0"
+        },
+        {
+          "code": "ESSWeb",
+          "meaning": null,
+          "meaning_status": "No per-code meaning supplied by this enum array; the string label is preserved verbatim.",
+          "evidence_reference": "openapi/isolved-v6.swagger.json#/definitions/AOS.PayrollOffice.RestAPI.Models.TimecardApiPunchModel/properties/timecardPunchSource/enum/1"
+        },
+        {
+          "code": "Mobile",
+          "meaning": null,
+          "meaning_status": "No per-code meaning supplied by this enum array; the string label is preserved verbatim.",
+          "evidence_reference": "openapi/isolved-v6.swagger.json#/definitions/AOS.PayrollOffice.RestAPI.Models.TimecardApiPunchModel/properties/timecardPunchSource/enum/2"
+        },
+        {
+          "code": "TimecardProcessor",
+          "meaning": null,
+          "meaning_status": "No per-code meaning supplied by this enum array; the string label is preserved verbatim.",
+          "evidence_reference": "openapi/isolved-v6.swagger.json#/definitions/AOS.PayrollOffice.RestAPI.Models.TimecardApiPunchModel/properties/timecardPunchSource/enum/3"
+        },
+        {
+          "code": "ESSPunchPage",
+          "meaning": null,
+          "meaning_status": "No per-code meaning supplied by this enum array; the string label is preserved verbatim.",
+          "evidence_reference": "openapi/isolved-v6.swagger.json#/definitions/AOS.PayrollOffice.RestAPI.Models.TimecardApiPunchModel/properties/timecardPunchSource/enum/4"
+        },
+        {
+          "code": "Timecard",
+          "meaning": null,
+          "meaning_status": "No per-code meaning supplied by this enum array; the string label is preserved verbatim.",
+          "evidence_reference": "openapi/isolved-v6.swagger.json#/definitions/AOS.PayrollOffice.RestAPI.Models.TimecardApiPunchModel/properties/timecardPunchSource/enum/5"
+        },
+        {
+          "code": "VirtualClock",
+          "meaning": null,
+          "meaning_status": "No per-code meaning supplied by this enum array; the string label is preserved verbatim.",
+          "evidence_reference": "openapi/isolved-v6.swagger.json#/definitions/AOS.PayrollOffice.RestAPI.Models.TimecardApiPunchModel/properties/timecardPunchSource/enum/6"
+        }
+      ]
+    },
+    {
+      "domain": "/definitions/AOS.PayrollOffice.RestAPI.Models.TimecardApiPunchModel/properties/timecardPunchType",
+      "source_field_pointers": [
+        "#/definitions/AOS.PayrollOffice.RestAPI.Models.TimecardApiPunchModel/properties/timecardPunchType"
+      ],
+      "source_description": "Punch Type",
+      "completeness": "Exact enum array for this field in the primary snapshot; other fields/domains are not represented.",
+      "entries": [
+        {
+          "code": "Normal",
+          "meaning": null,
+          "meaning_status": "No per-code meaning supplied by this enum array; the string label is preserved verbatim.",
+          "evidence_reference": "openapi/isolved-v6.swagger.json#/definitions/AOS.PayrollOffice.RestAPI.Models.TimecardApiPunchModel/properties/timecardPunchType/enum/0"
+        },
+        {
+          "code": "Meal",
+          "meaning": null,
+          "meaning_status": "No per-code meaning supplied by this enum array; the string label is preserved verbatim.",
+          "evidence_reference": "openapi/isolved-v6.swagger.json#/definitions/AOS.PayrollOffice.RestAPI.Models.TimecardApiPunchModel/properties/timecardPunchType/enum/1"
+        },
+        {
+          "code": "Break",
+          "meaning": null,
+          "meaning_status": "No per-code meaning supplied by this enum array; the string label is preserved verbatim.",
+          "evidence_reference": "openapi/isolved-v6.swagger.json#/definitions/AOS.PayrollOffice.RestAPI.Models.TimecardApiPunchModel/properties/timecardPunchType/enum/2"
+        },
+        {
+          "code": "AutoMeal",
+          "meaning": null,
+          "meaning_status": "No per-code meaning supplied by this enum array; the string label is preserved verbatim.",
+          "evidence_reference": "openapi/isolved-v6.swagger.json#/definitions/AOS.PayrollOffice.RestAPI.Models.TimecardApiPunchModel/properties/timecardPunchType/enum/3"
+        },
+        {
+          "code": "AutoBreak",
+          "meaning": null,
+          "meaning_status": "No per-code meaning supplied by this enum array; the string label is preserved verbatim.",
+          "evidence_reference": "openapi/isolved-v6.swagger.json#/definitions/AOS.PayrollOffice.RestAPI.Models.TimecardApiPunchModel/properties/timecardPunchType/enum/4"
+        },
+        {
+          "code": "Allocate",
+          "meaning": null,
+          "meaning_status": "No per-code meaning supplied by this enum array; the string label is preserved verbatim.",
+          "evidence_reference": "openapi/isolved-v6.swagger.json#/definitions/AOS.PayrollOffice.RestAPI.Models.TimecardApiPunchModel/properties/timecardPunchType/enum/5"
+        }
+      ]
+    }
+  ],
+  "known_gaps": [
+    "Provider redistribution permission and candidate sharing remain unverified.",
+    "This partial reference omits repeated sort enums; it is not an employment-status or earnings/deduction code dictionary.",
+    "Client-configurable lookup values are absent.",
+    "Primary and alternate both declare API version 6 but differ in schema coverage; no chronology or latest-version claim is made."
+  ],
+  "discovery": {
+    "artifact_kind": "Swagger 2.0 snapshot, API version 6; 361 paths / 538 definitions",
+    "source_sha256": "ee126ab98e819872bbf1049137dacc2fb9d16dbd23a76d5ef3a6926c139e8300",
+    "reviewed_on": "2026-10-09",
+    "contents_copied": true
+  }
+}

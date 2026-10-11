@@ -1,0 +1,38 @@
+<!doctype html>
+<html><head><meta charset="utf-8"><title>File Upload/Download</title><style>body{font:16px system-ui;max-width:1100px;margin:2rem auto;padding:0 1rem;line-height:1.5}aside{background:#fff3cc;padding:1rem}.jsonschema,pre{white-space:pre-wrap;font:13px monospace;overflow-wrap:anywhere;background:#f4f5f7;padding:1rem}.uri{font-family:monospace}h2,h3{margin-top:2rem}</style></head><body><aside><strong>Modified private reference — 2026-10-09.</strong> Provider-documented illustrative examples are included; authentication token examples are redacted. These are not customer exports or guaranteed production behavior. Candidate sharing is pending. This is not OpenAPI.</aside>
+<div class="group">
+<h2 class="docTitle">File Upload/Download</h2>
+<section class="clearfix">
+<article class="documentation md">
+<pre>
+The application provides authorized access to various kind of stored files independent of a users cookie-based session. For example these can be part of the Integrated Document Storage Marketplace product, or other files such as Employee photos.
+
+---
+To upload/download files you first need to receive the link to the file. This link not only provides the url to access the file, but also a short-lived authentication token called a ticket that provides access to that single file. The ticket is generated automatically by the application as part of the response to API requests to resources that support document storage.
+
+A sample link will look similar to this:
+
+"https://www.example.com/ta/fs?ticket=[REDACTED_DOCUMENTATION_TOKEN]"
+
+- See "Document Storage" resource below for additional information
+
+Each ticket provides a specific level of access to the file: upload only, download only or both.
+File Storage service does not support any operations of file/file metadata. You cannot rename, move or delete file. All this needs to be done through the appropriate places (API, UI) where specific file security permissions will be handled.
+
+#### Supported upload types
+
+- Simple Binary
+
+  By default, service uses request body as a source of the data.
+
+- Multipart/Form-Data
+
+  If the request type is a 'multipart/form-data', service would expect file content under the 'upload_content' form parameter.
+
+#### Downloading Files
+Files can be downloaded with a simple HTTP GET request either in a browser directly, or programmatically. If the user does not have access to download a file and attempts to execute a GET request with an upload only ticket an error will be returned.
+Similarly, if the file has not yet been uploaded and a user attempts to download it an error will be returned.</pre>
+</article>
+</section>
+</div>
+</body></html>

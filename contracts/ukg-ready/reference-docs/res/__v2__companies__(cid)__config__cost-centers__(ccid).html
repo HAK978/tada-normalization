@@ -1,0 +1,3221 @@
+<!doctype html>
+<html><head><meta charset="utf-8"><title>Cost Center</title><style>body{font:16px system-ui;max-width:1100px;margin:2rem auto;padding:0 1rem;line-height:1.5}aside{background:#fff3cc;padding:1rem}.jsonschema,pre{white-space:pre-wrap;font:13px monospace;overflow-wrap:anywhere;background:#f4f5f7;padding:1rem}.uri{font-family:monospace}h2,h3{margin-top:2rem}</style></head><body><aside><strong>Modified private reference — 2026-10-09.</strong> Provider-documented illustrative examples are included; authentication token examples are redacted. These are not customer exports or guaranteed production behavior. Candidate sharing is pending. This is not OpenAPI.</aside>
+<div class="group">
+<h2 class="anchored" id="item.anchor">
+<span>Cost Center</span>
+<a class="fa fa-link link-anchor" data-url="r=__v2__companies__(cid)__config__cost-centers__(ccid)#" data-web-id="__v2__companies__(cid)__config__cost-centers__(ccid)"></a>
+</h2>
+<section class="clearfix">
+<article class="definition">
+<h3 class="anchored" id="get"><span>GET</span>
+<a class="fa fa-link link-anchor" data-url="r=__v2__companies__(cid)__config__cost-centers__(ccid)#get" data-web-id="__v2__companies__(cid)__config__cost-centers__(ccid)"></a>
+</h3>
+<div class="md"><p>Retrieves an existing cost center.
+The root node has only `id` and `name`.
+
+| Property    | Comment
+|-------------|--------------------------------------------
+| cost center | TLM, TLM (Small Business Edition: PR/HR Version), HR, HR (Small Business Edition), Payroll, Scheduler subsystem must be enabled in company setup and user must have a Cost Center Definitions view permission.
+| gl codes    | Requires Payroll subsystem.
+| job settings| Requires Payroll subsystem and user must have a Cost Center Trees view permission.
+| job strain  | Requires TLM, HR, Scheduler subsystem and user must have a Cost Center Trees view permission.
+| use employee home address| User must have a Cost Center Trees view permission.
+| work site fields| Requires Payroll subsystem.
+</p></div>
+<div>
+<ul class="annotation-list">
+<li class="annotation">
+<span>v2</span>
+</li>
+</ul>
+</div>
+<h4>Parameters</h4>
+<h5>Path Parameters</h5>
+<ul class="param-list">
+<li>
+<div class="param-desc">
+<div class="param-name">cid</div>
+<div class="data-type">string</div>
+<div class="required">required</div>
+</div>
+<div class="param-content">
+<div>
+<p>Example: 123456</p>
+<div class="desc md">Company should be referenced via company id or company unique id or company short name using `|short_name` or `!short_name` format.
+</div>
+</div>
+</div>
+
+</li>
+<li>
+<div class="param-desc">
+<div class="param-name">ccid</div>
+<div class="data-type">integer</div>
+<div class="required">required</div>
+</div>
+<div class="param-content">
+<div>
+<p>Example: 45</p>
+<div class="desc md">The id of cost center.</div>
+</div>
+</div>
+
+</li>
+</ul>
+<h5>Header Parameters</h5>
+<ul class="param-list">
+<li>
+<div class="param-desc">
+<div class="param-name">Accept</div>
+<div class="data-type">string</div>
+</div>
+<div class="param-content">
+<div>
+<p>Valid values: application/json, application/xml, text/xml</p>
+<p>Default: application/json</p>
+<p>Example: application/json</p>
+</div>
+</div>
+
+</li>
+</ul>
+<h4>Responses</h4>
+<div class="responses">
+<div>
+<label class="response response-success">
+<span class="fa fa-check"></span>
+<input data-full-tab-id="get-resp-code-tab-id-0" data-tab-class="resp-code-tab-get" name="resp-code-tab-get" type="radio"/>
+<span class="status">200 Ok</span>
+</label>
+<div class="response-desc resp-code-tab-get" id="get-resp-code-tab-id-0">
+</div>
+</div>
+<div>
+<label class="response response-error">
+<span class="fa fa-times"></span>
+<input data-full-tab-id="get-resp-code-tab-id-1" data-tab-class="resp-code-tab-get" name="resp-code-tab-get" type="radio"/>
+<span class="status">401 Unauthorized</span>
+</label>
+<div class="response-desc resp-code-tab-get" id="get-resp-code-tab-id-1">
+<div class="md"><p>Returned in case user is not authorized.</p></div>
+</div>
+</div>
+<div>
+<label class="response response-error">
+<span class="fa fa-times"></span>
+<input data-full-tab-id="get-resp-code-tab-id-2" data-tab-class="resp-code-tab-get" name="resp-code-tab-get" type="radio"/>
+<span class="status">403 Forbidden</span>
+</label>
+<div class="response-desc resp-code-tab-get" id="get-resp-code-tab-id-2">
+<div class="md"><p>Returned in case user has no access to the resource.</p></div>
+</div>
+</div>
+<div>
+<label class="response response-error">
+<span class="fa fa-times"></span>
+<input data-full-tab-id="get-resp-code-tab-id-3" data-tab-class="resp-code-tab-get" name="resp-code-tab-get" type="radio"/>
+<span class="status">404 Not Found</span>
+</label>
+<div class="response-desc resp-code-tab-get" id="get-resp-code-tab-id-3">
+<div class="md"><p>Returned in case resource does not exist.</p></div>
+</div>
+</div>
+<div>
+<label class="response response-error">
+<span class="fa fa-times"></span>
+<input data-full-tab-id="get-resp-code-tab-id-4" data-tab-class="resp-code-tab-get" name="resp-code-tab-get" type="radio"/>
+<span class="status">503 Service Unavailable</span>
+</label>
+<div class="response-desc resp-code-tab-get" id="get-resp-code-tab-id-4">
+<div class="md"><p>Returned in the event that the call limit is exceeded. The application will be unavailable for subsequent calls for the duration specified by the X-CallLimit-TimeToWait header.</p></div>
+</div>
+</div>
+</div>
+</article>
+<article class="code">
+<h4>Definition</h4>
+<div class="uri">
+<code>
+<span class="method get">get</span>
+<span class="textUri"><span class="baseUri">{{ getUriPrefix() }}</span><span class="relativeUri">/v2/companies/{cid}/config/cost-centers/{ccid}</span></span>
+</code>
+</div>
+<h4>Response Samples</h4>
+<div class="tab-title-group">
+<label>
+<input checked="checked" data-full-tab-id="resp-tab-id-get-0" data-tab-class="resp-tab-get" name="resp-tab-get" type="radio"/>
+<span class="tab-title">application/json</span>
+</label>
+<label>
+<input data-full-tab-id="resp-tab-id-get-1" data-tab-class="resp-tab-get" name="resp-tab-get" type="radio"/>
+<span class="tab-title">application/xml</span>
+</label>
+</div>
+<div>
+<div class="resp-tab-get" id="resp-tab-id-get-0">
+<div class="example">
+
+<div class="get-example-resp-tab-0 activeTab" id="get-tab-resp-example-0">
+
+<pre class="highlightjs">{
+  "id": 52353253,
+  "external_id": "123",
+  "abbreviation": "AABB",
+  "name": "CC_1",
+  "payroll_code": "75446",
+  "description": "Description",
+  "time_allocation": true,
+  "manning": 2,
+  "gl_codes": [
+    {
+      "index": 0,
+      "value": "code"
+    },
+    {
+      "index": 1,
+      "value": "code"
+    }
+  ],
+  "visible": true,
+  "custom_fields": [
+    {
+      "index": 0,
+      "value": "value0"
+    },
+    {
+      "index": 1,
+      "value": "value1"
+    },
+    {
+      "index": 4,
+      "value": "value4"
+    }
+  ],
+  "location_factor": 0.534,
+  "contacts": [
+    {
+      "index": 0,
+      "account_id": 2205889
+    },
+    {
+      "index": 1,
+      "account_id": 2205953
+    }
+  ],
+  "contact_address": {
+    "address_line_1": "line 1",
+    "address_line_2": "line 2",
+    "address_line_3": "line 3",
+    "country": "FRA",
+    "city": "Paris",
+    "zip": "430000"
+  },
+  "use_employee_home_address": false,
+  "geo_fencing_distance_type": "MILES",
+  "geo_fencing_distance": 12.4,
+  "state_assigned_tax_code": 23523,
+  "is_operating_and_reportable": false,
+  "delivery_point_barcode": "12",
+  "primary_comment_code": "45",
+  "secondary_comment_code": "34",
+  "reasons_for_change": "reason",
+  "cost_center_skills": [
+    {
+      "main_skill": {
+        "id": 426223
+      },
+      "alternative_skills": [
+        {
+          "id": 564565
+        },
+        {
+          "id": 2352352
+        }
+      ]
+    },
+    {
+      "main_skill": {
+        "id": 235235
+      },
+      "alternative_skills": [
+        {
+          "id": 23523
+        },
+        {
+          "id": 52523
+        }
+      ]
+    }
+  ],
+  "job_settings": {
+    "job_code": "123",
+    "certified": true,
+    "project_name": "project name",
+    "project_number": "5463",
+    "is_sub_contractor": false,
+    "work_began": "2016-04-01",
+    "work_completed": "2016-04-01",
+    "contractor_licence_number": "324",
+    "speciality_licence_number": "8678",
+    "self_insured_licence_number": "2131",
+    "workers_comp_policy": "324",
+    "awarding_body_id": "623",
+    "contract_id": "982",
+    "contracting_with": "agency name",
+    "contractor_licence_type": "OTHER",
+    "pwc_project_id": "91",
+    "pwc_registration_number": "12354",
+    "project_location": {
+      "address_line_1": "line 1",
+      "address_line_2": "line 2",
+      "address_line_3": "line 3",
+      "country": "USA",
+      "city": "city",
+      "state": "CA",
+      "zip": "344443"
+    }
+  },
+  "job_strain": {
+    "reference_type": "SINGLE",
+    "id": 312314,
+    "name": "Heavy"
+  },
+  "level": 2,
+  "parent_cc": {
+    "id": 252532
+  },
+  "location_code": "81000"
+}</pre>
+</div>
+<div class="get-example-resp-tab-0" id="get-tab-resp-schema-0">
+
+<div class="jsonschema" id="schema-0">{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "type": "object",
+  "properties": {
+    "external_id": {
+      "type": "string",
+      "maxLength": 40
+    },
+    "abbreviation": {
+      "type": "string",
+      "maxLength": 12
+    },
+    "name": {
+      "type": "string",
+      "maxLength": 60
+    },
+    "payroll_code": {
+      "type": "string",
+      "maxLength": 40
+    },
+    "description": {
+      "type": "string",
+      "maxLength": 1024
+    },
+    "time_allocation": {
+      "type": "boolean",
+      "default": true
+    },
+    "manning": {
+      "type": "number",
+      "minimum": 0.0,
+      "default": 0
+    },
+    "gl_codes": {
+      "type": "array",
+      "maxItems": 2,
+      "items": {
+        "type": "object",
+        "properties": {
+          "index": {
+            "type": "integer",
+            "minimum": 0,
+            "maximum": 1
+          },
+          "value": {
+            "type": "string",
+            "maxLength": 70
+          }
+        },
+        "additionalProperties": false,
+        "required": [
+          "index",
+          "value"
+        ]
+      }
+    },
+    "visible": {
+      "type": "boolean",
+      "default": true
+    },
+    "custom_fields": {
+      "type": "array",
+      "maxItems": 5,
+      "items": {
+        "type": "object",
+        "properties": {
+          "index": {
+            "type": "integer",
+            "minimum": 0,
+            "maximum": 4
+          },
+          "value": {
+            "type": "string",
+            "maxLength": 255
+          }
+        },
+        "additionalProperties": false,
+        "required": [
+          "index",
+          "value"
+        ]
+      }
+    },
+    "location_factor": {
+      "type": "number",
+      "minimum": 0,
+      "maximum": 1
+    },
+    "contacts": {
+      "type": "array",
+      "maxItems": 2,
+      "items": {
+        "type": "object",
+        "properties": {
+          "index": {
+            "type": "integer",
+            "minimum": 0,
+            "maximum": 1
+          },
+          "account_id": {
+            "type": "number",
+            "format": "long"
+          }
+        },
+        "additionalProperties": false,
+        "required": [
+          "index",
+          "account_id"
+        ]
+      }
+    },
+    "contact_address": {
+      "type": "object",
+      "properties": {
+        "country": {
+          "type": "string",
+          "pattern": "^([A-Z]{3})$",
+          "description": "ISO 3166-1 alpha-3."
+        },
+        "address_line_1": {
+          "type": "string",
+          "maxLength": 128
+        },
+        "address_line_2": {
+          "type": "string",
+          "maxLength": 128
+        },
+        "address_line_3": {
+          "type": "string",
+          "maxLength": 128
+        },
+        "city": {
+          "type": "string",
+          "maxLength": 64
+        },
+        "override_locals": {
+          "type": "boolean"
+        },
+        "state": {
+          "type": "string",
+          "maxLength": 3
+        },
+        "zip": {
+          "type": "string",
+          "maxLength": 15
+        },
+        "company_name": {
+          "type": "string",
+          "maxLength": 75
+        },
+        "number": {
+          "type": "string",
+          "maxLength": 10
+        },
+        "number_addition": {
+          "type": "string",
+          "maxLength": 10
+        }
+      },
+      "additionalProperties": false,
+      "required": [
+        "country"
+      ]
+    },
+    "use_employee_home_address": {
+      "type": "boolean"
+    },
+    "geo_fencing_distance_type": {
+      "type": "string",
+      "enum": [
+        "KM",
+        "MILES"
+      ]
+    },
+    "geo_fencing_distance": {
+      "type": "number",
+      "minimum": 0.0,
+      "maximum": 99999
+    },
+    "state_assigned_tax_code": {
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 99999
+    },
+    "is_operating_and_reportable": {
+      "type": "boolean"
+    },
+    "delivery_point_barcode": {
+      "type": "string",
+      "maxLength": 2
+    },
+    "primary_comment_code": {
+      "type": "string",
+      "maxLength": 2
+    },
+    "secondary_comment_code": {
+      "type": "string",
+      "maxLength": 2
+    },
+    "reasons_for_change": {
+      "type": "string",
+      "maxLength": 50
+    },
+    "cost_center_skills": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "main_skill": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "integer"
+              }
+            },
+            "additionalProperties": false,
+            "required": [
+              "id"
+            ]
+          },
+          "alternative_skills": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "id": {
+                  "type": "integer"
+                }
+              },
+              "additionalProperties": false,
+              "required": [
+                "id"
+              ]
+            }
+          }
+        },
+        "additionalProperties": false,
+        "required": [
+          "main_skill"
+        ]
+      }
+    },
+    "job_settings": {
+      "type": "object",
+      "properties": {
+        "job_code": {
+          "type": "string",
+          "maxLength": 128
+        },
+        "certified": {
+          "type": "boolean"
+        },
+        "project_name": {
+          "type": "string",
+          "maxLength": 80
+        },
+        "project_number": {
+          "type": "string",
+          "maxLength": 20
+        },
+        "is_sub_contractor": {
+          "type": "boolean"
+        },
+        "work_began": {
+          "type": "string",
+          "description": "Date needs to be in the format yyyy-mm-dd within the 1900-12-31 and 2079-06-05 date range",
+          "pattern": "^(19[0-9]{2}|20[0-6][0-9]|2070)-(0[1-9]|1[0-2])-(0[1-9]|[1-2][0-9]|3[0-1])$"
+        },
+        "work_completed": {
+          "type": "string",
+          "description": "Date needs to be in the format yyyy-mm-dd within the 1900-12-31 and 2079-06-05 date range",
+          "pattern": "^(19[0-9]{2}|20[0-6][0-9]|2070)-(0[1-9]|1[0-2])-(0[1-9]|[1-2][0-9]|3[0-1])$"
+        },
+        "contractor_licence_number": {
+          "type": "string",
+          "maxLength": 100
+        },
+        "speciality_licence_number": {
+          "type": "string",
+          "maxLength": 20
+        },
+        "self_insured_licence_number": {
+          "type": "string",
+          "maxLength": 20
+        },
+        "workers_comp_policy": {
+          "type": "string",
+          "maxLength": 60
+        },
+        "awarding_body_id": {
+          "type": "string",
+          "maxLength": 20
+        },
+        "contract_id": {
+          "type": "string",
+          "maxLength": 20
+        },
+        "contracting_with": {
+          "type": "string",
+          "maxLength": 30
+        },
+        "contractor_licence_type": {
+          "type": "string",
+          "enum": [
+            "CSLB",
+            "PL",
+            "OTHER"
+          ]
+        },
+        "pwc_project_id": {
+          "type": "string",
+          "maxLength": 20
+        },
+        "pwc_registration_number": {
+          "type": "string",
+          "maxLength": 20
+        },
+        "project_location": {
+          "type": "object",
+          "properties": {
+            "country": {
+              "type": "string",
+              "pattern": "^([A-Z]{3})$",
+              "description": "ISO 3166-1 alpha-3."
+            },
+            "address_line_1": {
+              "type": "string",
+              "maxLength": 128
+            },
+            "address_line_2": {
+              "type": "string",
+              "maxLength": 128
+            },
+            "address_line_3": {
+              "type": "string",
+              "maxLength": 128
+            },
+            "city": {
+              "type": "string",
+              "maxLength": 64
+            },
+            "override_locals": {
+              "type": "boolean"
+            },
+            "state": {
+              "type": "string",
+              "maxLength": 3
+            },
+            "zip": {
+              "type": "string",
+              "maxLength": 15
+            },
+            "number": {
+              "type": "string",
+              "maxLength": 10
+            },
+            "number_addition": {
+              "type": "string",
+              "maxLength": 10
+            }
+          },
+          "additionalProperties": false,
+          "required": [
+            "country"
+          ]
+        }
+      },
+      "additionalProperties": false
+    },
+    "id": {
+      "type": "integer"
+    },
+    "parent_cc": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer"
+        }
+      },
+      "additionalProperties": false,
+      "required": [
+        "id"
+      ]
+    },
+    "level": {
+      "type": [
+        "integer"
+      ],
+      "minimum": 1,
+      "maximum": 10
+    },
+    "workers_comp_code": {
+      "type": "object",
+      "properties": {
+        "external_id": {
+          "type": "string"
+        }
+      },
+      "additionalProperties": false,
+      "required": [
+        "external_id"
+      ]
+    },
+    "job_strain": {
+      "type": "object",
+      "properties": {
+        "reference_type": {
+          "type": "string",
+          "enum": [
+            "SINGLE",
+            "LIST"
+          ]
+        },
+        "id": {
+          "type": "integer"
+        },
+        "name": {
+          "type": "string"
+        }
+      },
+      "additionalProperties": false
+    },
+    "location_code": {
+      "type": "string",
+      "maxLength": 35
+    },
+    "ein": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer"
+        },
+        "ein_name": {
+          "type": "string"
+        }
+      }
+    }
+  },
+  "required": [
+    "name"
+  ],
+  "additionalProperties": false
+}</div>
+</div>
+</div>
+</div>
+<div class="resp-tab-get" id="resp-tab-id-get-1">
+<div class="example">
+
+<div class="get-example-resp-tab-1 activeTab" id="get-tab-resp-example-1">
+
+<pre class="highlightjs">&lt;?xml version="1.0" encoding="UTF-8" ?&gt;
+&lt;cost_center&gt;
+  &lt;id&gt;52353253&lt;/id&gt;
+  &lt;external_id&gt;67823&lt;/external_id&gt;
+  &lt;abbreviation&gt;AABB&lt;/abbreviation&gt;
+  &lt;name&gt;CC_1&lt;/name&gt;
+  &lt;payroll_code&gt;75446&lt;/payroll_code&gt;
+  &lt;description&gt;Description&lt;/description&gt;
+  &lt;time_allocation&gt;true&lt;/time_allocation&gt;
+  &lt;manning&gt;2&lt;/manning&gt;
+  &lt;gl_codes&gt;
+    &lt;gl_code&gt;
+      &lt;index&gt;0&lt;/index&gt;
+      &lt;value&gt;code&lt;/value&gt;
+    &lt;/gl_code&gt;
+    &lt;gl_code&gt;
+      &lt;index&gt;1&lt;/index&gt;
+      &lt;value&gt;code&lt;/value&gt;
+    &lt;/gl_code&gt;
+  &lt;/gl_codes&gt;
+
+  &lt;visible&gt;true&lt;/visible&gt;
+  &lt;custom_fields&gt;
+    &lt;custom_field&gt;
+      &lt;index&gt;0&lt;/index&gt;
+      &lt;value&gt;value0&lt;/value&gt;
+    &lt;/custom_field&gt;
+    &lt;custom_field&gt;
+      &lt;index&gt;1&lt;/index&gt;
+      &lt;value&gt;value1&lt;/value&gt;
+    &lt;/custom_field&gt;
+    &lt;custom_field&gt;
+      &lt;index&gt;4&lt;/index&gt;
+      &lt;value&gt;value4&lt;/value&gt;
+    &lt;/custom_field&gt;
+  &lt;/custom_fields&gt;
+  &lt;location_factor&gt;0.534&lt;/location_factor&gt;
+  &lt;contacts&gt;
+    &lt;contact&gt;
+      &lt;index&gt;0&lt;/index&gt;
+      &lt;account_id&gt;2205889&lt;/account_id&gt;
+    &lt;/contact&gt;
+    &lt;contact&gt;
+      &lt;index&gt;1&lt;/index&gt;
+      &lt;account_id&gt;2205953&lt;/account_id&gt;
+    &lt;/contact&gt;
+  &lt;/contacts&gt;
+  &lt;contact_address&gt;
+    &lt;address_line_1&gt;line 1&lt;/address_line_1&gt;
+    &lt;address_line_2&gt;line 2&lt;/address_line_2&gt;
+    &lt;address_line_3&gt;line 3&lt;/address_line_3&gt;
+    &lt;country&gt;FRA&lt;/country&gt;
+    &lt;city&gt;Paris&lt;/city&gt;
+    &lt;zip&gt;430000&lt;/zip&gt;
+  &lt;/contact_address&gt;
+  &lt;use_employee_home_address&gt;false&lt;/use_employee_home_address&gt;
+  &lt;geo_fencing_distance_type&gt;MILES&lt;/geo_fencing_distance_type&gt;
+  &lt;geo_fencing_distance&gt;12.4&lt;/geo_fencing_distance&gt;
+  &lt;state_assigned_tax_code&gt;23523&lt;/state_assigned_tax_code&gt;
+  &lt;is_operating_and_reportable&gt;false&lt;/is_operating_and_reportable&gt;
+  &lt;delivery_point_barcode&gt;12&lt;/delivery_point_barcode&gt;
+  &lt;primary_comment_code&gt;78&lt;/primary_comment_code&gt;
+  &lt;secondary_comment_code&gt;34&lt;/secondary_comment_code&gt;
+  &lt;reasons_for_change&gt;reason&lt;/reasons_for_change&gt;
+  &lt;cost_center_skills&gt;
+    &lt;skill&gt;
+      &lt;main_skill&gt;
+        &lt;id&gt;43649&lt;/id&gt;
+      &lt;/main_skill&gt;
+      &lt;alternative_skills&gt;
+        &lt;skill&gt;
+          &lt;id&gt;43650&lt;/id&gt;
+        &lt;/skill&gt;
+        &lt;skill&gt;
+          &lt;id&gt;43651&lt;/id&gt;
+        &lt;/skill&gt;
+      &lt;/alternative_skills&gt;
+    &lt;/skill&gt;
+    &lt;skill&gt;
+      &lt;main_skill&gt;
+        &lt;id&gt;43649&lt;/id&gt;
+      &lt;/main_skill&gt;
+      &lt;alternative_skills&gt;
+        &lt;skill&gt;
+          &lt;id&gt;43650&lt;/id&gt;
+        &lt;/skill&gt;
+      &lt;/alternative_skills&gt;
+    &lt;/skill&gt;
+  &lt;/cost_center_skills&gt;
+  &lt;job_settings&gt;
+    &lt;job_code&gt;123&lt;/job_code&gt;
+    &lt;certified&gt;true&lt;/certified&gt;
+    &lt;project_name&gt;project name&lt;/project_name&gt;
+    &lt;project_number&gt;64523&lt;/project_number&gt;
+    &lt;is_sub_contractor&gt;false&lt;/is_sub_contractor&gt;
+    &lt;work_began&gt;2016-04-01&lt;/work_began&gt;
+    &lt;work_completed&gt;2016-04-01&lt;/work_completed&gt;
+    &lt;contractor_licence_number&gt;6573&lt;/contractor_licence_number&gt;
+    &lt;speciality_licence_number&gt;23487&lt;/speciality_licence_number&gt;
+    &lt;self_insured_licence_number&gt;234&lt;/self_insured_licence_number&gt;
+    &lt;workers_comp_policy&gt;45&lt;/workers_comp_policy&gt;
+    &lt;awarding_body_id&gt;78&lt;/awarding_body_id&gt;
+    &lt;contract_id&gt;34&lt;/contract_id&gt;
+    &lt;contracting_with&gt;agency name&lt;/contracting_with&gt;
+    &lt;contractor_licence_type&gt;OTHER&lt;/contractor_licence_type&gt;
+    &lt;pwc_project_id&gt;34&lt;/pwc_project_id&gt;
+    &lt;pwc_registration_number&gt;435&lt;/pwc_registration_number&gt;
+    &lt;project_location&gt;
+      &lt;address_line_1&gt;line 1&lt;/address_line_1&gt;
+      &lt;address_line_2&gt;line 2&lt;/address_line_2&gt;
+      &lt;address_line_3&gt;line 3&lt;/address_line_3&gt;
+      &lt;country&gt;USA&lt;/country&gt;
+      &lt;city&gt;city&lt;/city&gt;
+      &lt;state&gt;CA&lt;/state&gt;
+      &lt;zip&gt;344443&lt;/zip&gt;
+    &lt;/project_location&gt;
+  &lt;/job_settings&gt;
+  &lt;job_strain&gt;
+    &lt;reference_type&gt;SINGLE&lt;/reference_type&gt;
+    &lt;id&gt;312314&lt;/id&gt;
+    &lt;name&gt;Heavy&lt;/name&gt;
+  &lt;/job_strain&gt;
+  &lt;level&gt;2&lt;/level&gt;
+  &lt;parent_cc&gt;
+    &lt;id&gt;252532&lt;/id&gt;
+  &lt;/parent_cc&gt;
+  &lt;location_code&gt;81000&lt;/location_code&gt;
+&lt;/cost_center&gt;
+</pre>
+</div>
+<div class="get-example-resp-tab-1" id="get-tab-resp-schema-1">
+
+<div class="jsonschema" id="schema-1">&lt;xs:schema attributeFormDefault="unqualified" elementFormDefault="qualified"
+           xmlns:xs="http://www.w3.org/2001/XMLSchema"&gt;
+
+  &lt;xs:element name="cost_center"&gt;
+    &lt;xs:complexType&gt;
+      &lt;xs:all&gt;
+        &lt;xs:element name="external_id" minOccurs="0" maxOccurs="1"&gt;
+          &lt;xs:simpleType&gt;
+            &lt;xs:restriction base="xs:string"&gt;
+              &lt;xs:maxLength value="40"/&gt;
+            &lt;/xs:restriction&gt;
+          &lt;/xs:simpleType&gt;
+        &lt;/xs:element&gt;
+        &lt;xs:element name="abbreviation" minOccurs="0" maxOccurs="1"&gt;
+          &lt;xs:simpleType&gt;
+            &lt;xs:restriction base="xs:string"&gt;
+              &lt;xs:maxLength value="12"/&gt;
+            &lt;/xs:restriction&gt;
+          &lt;/xs:simpleType&gt;
+        &lt;/xs:element&gt;
+        &lt;xs:element name="name" minOccurs="1" maxOccurs="1"&gt;
+          &lt;xs:simpleType&gt;
+            &lt;xs:restriction base="xs:string"&gt;
+              &lt;xs:maxLength value="60"/&gt;
+            &lt;/xs:restriction&gt;
+          &lt;/xs:simpleType&gt;
+        &lt;/xs:element&gt;
+        &lt;xs:element name="payroll_code" minOccurs="0" maxOccurs="1"&gt;
+          &lt;xs:simpleType&gt;
+            &lt;xs:restriction base="xs:string"&gt;
+              &lt;xs:maxLength value="40"/&gt;
+            &lt;/xs:restriction&gt;
+          &lt;/xs:simpleType&gt;
+        &lt;/xs:element&gt;
+        &lt;xs:element name="description" minOccurs="0" maxOccurs="1"&gt;
+          &lt;xs:simpleType&gt;
+            &lt;xs:restriction base="xs:string"&gt;
+              &lt;xs:maxLength value="1024"/&gt;
+            &lt;/xs:restriction&gt;
+          &lt;/xs:simpleType&gt;
+        &lt;/xs:element&gt;
+        &lt;xs:element name="time_allocation" type="xs:boolean" minOccurs="0" maxOccurs="1"/&gt;
+        &lt;xs:element name="manning" minOccurs="0" maxOccurs="1"&gt;
+          &lt;xs:simpleType&gt;
+            &lt;xs:restriction base="xs:double"&gt;
+              &lt;xs:minInclusive value="0.0"/&gt;
+            &lt;/xs:restriction&gt;
+          &lt;/xs:simpleType&gt;
+        &lt;/xs:element&gt;
+        &lt;xs:element name="gl_codes" type="gl_codes" minOccurs="0" maxOccurs="1"/&gt;
+        &lt;xs:element name="visible" type="xs:boolean" minOccurs="0" maxOccurs="1"/&gt;
+
+        &lt;xs:element name="custom_fields" minOccurs="0" maxOccurs="1"&gt;
+          &lt;xs:complexType&gt;
+            &lt;xs:sequence&gt;
+              &lt;xs:element name="custom_field" minOccurs="0" maxOccurs="5"&gt;
+                &lt;xs:complexType&gt;
+                  &lt;xs:all&gt;
+                    &lt;xs:element name="index"&gt;
+                      &lt;xs:simpleType&gt;
+                        &lt;xs:restriction base="xs:integer"&gt;
+                          &lt;xs:minInclusive value="0"/&gt;
+                          &lt;xs:maxInclusive value="4"/&gt;
+                        &lt;/xs:restriction&gt;
+                      &lt;/xs:simpleType&gt;
+                    &lt;/xs:element&gt;
+                    &lt;xs:element name="value"&gt;
+                      &lt;xs:simpleType&gt;
+                        &lt;xs:restriction base="xs:string"&gt;
+                          &lt;xs:maxLength value="255"/&gt;
+                        &lt;/xs:restriction&gt;
+                      &lt;/xs:simpleType&gt;
+                    &lt;/xs:element&gt;
+                  &lt;/xs:all&gt;
+                &lt;/xs:complexType&gt;
+              &lt;/xs:element&gt;
+            &lt;/xs:sequence&gt;
+          &lt;/xs:complexType&gt;
+        &lt;/xs:element&gt;
+
+        &lt;xs:element name="location_factor" minOccurs="0" maxOccurs="1"&gt;
+          &lt;xs:simpleType&gt;
+            &lt;xs:restriction base="xs:double"&gt;
+              &lt;xs:maxInclusive value="1"/&gt;
+              &lt;xs:minInclusive value="0"/&gt;
+            &lt;/xs:restriction&gt;
+          &lt;/xs:simpleType&gt;
+        &lt;/xs:element&gt;
+
+        &lt;xs:element name="contacts" minOccurs="0" maxOccurs="1"&gt;
+          &lt;xs:complexType&gt;
+            &lt;xs:sequence&gt;
+              &lt;xs:element name="contact" minOccurs="0" maxOccurs="2"&gt;
+                &lt;xs:complexType&gt;
+                  &lt;xs:all&gt;
+                    &lt;xs:element name="index"&gt;
+                      &lt;xs:simpleType&gt;
+                        &lt;xs:restriction base="xs:integer"&gt;
+                          &lt;xs:minInclusive value="0"/&gt;
+                          &lt;xs:maxInclusive value="1"/&gt;
+                        &lt;/xs:restriction&gt;
+                      &lt;/xs:simpleType&gt;
+                    &lt;/xs:element&gt;
+                    &lt;xs:element type="xs:integer" name="account_id"/&gt;
+                  &lt;/xs:all&gt;
+                &lt;/xs:complexType&gt;
+              &lt;/xs:element&gt;
+            &lt;/xs:sequence&gt;
+          &lt;/xs:complexType&gt;
+        &lt;/xs:element&gt;
+
+        &lt;xs:element name="contact_address" type="contact_address" minOccurs="0" maxOccurs="1"/&gt;
+        &lt;xs:element name="use_employee_home_address" type="xs:boolean" minOccurs="0" maxOccurs="1"/&gt;
+        &lt;xs:element name="geo_fencing_distance_type" minOccurs="0" maxOccurs="1"&gt;
+          &lt;xs:simpleType&gt;
+            &lt;xs:restriction base="xs:string"&gt;
+              &lt;xs:enumeration value="KM"/&gt;
+              &lt;xs:enumeration value="MILES"/&gt;
+            &lt;/xs:restriction&gt;
+          &lt;/xs:simpleType&gt;
+        &lt;/xs:element&gt;
+        &lt;xs:element name="geo_fencing_distance" minOccurs="0" maxOccurs="1"&gt;
+          &lt;xs:simpleType&gt;
+            &lt;xs:restriction base="xs:double"&gt;
+              &lt;xs:minInclusive value="0"/&gt;
+              &lt;xs:maxInclusive value="99999"/&gt;
+            &lt;/xs:restriction&gt;
+          &lt;/xs:simpleType&gt;
+        &lt;/xs:element&gt;
+        &lt;xs:element name="state_assigned_tax_code" minOccurs="0" maxOccurs="1"&gt;
+          &lt;xs:simpleType&gt;
+            &lt;xs:restriction base="xs:string"&gt;
+              &lt;xs:maxLength value="5"/&gt;
+              &lt;xs:pattern value="[0-9]{1,5}"/&gt;
+            &lt;/xs:restriction&gt;
+          &lt;/xs:simpleType&gt;
+        &lt;/xs:element&gt;
+        &lt;xs:element name="is_operating_and_reportable" type="xs:boolean" minOccurs="0" maxOccurs="1"/&gt;
+        &lt;xs:element name="delivery_point_barcode" minOccurs="0" maxOccurs="1"&gt;
+          &lt;xs:simpleType&gt;
+            &lt;xs:restriction base="xs:string"&gt;
+              &lt;xs:maxLength value="2"/&gt;
+            &lt;/xs:restriction&gt;
+          &lt;/xs:simpleType&gt;
+        &lt;/xs:element&gt;
+        &lt;xs:element name="primary_comment_code" minOccurs="0" maxOccurs="1"&gt;
+          &lt;xs:simpleType&gt;
+            &lt;xs:restriction base="xs:string"&gt;
+              &lt;xs:maxLength value="2"/&gt;
+            &lt;/xs:restriction&gt;
+          &lt;/xs:simpleType&gt;
+        &lt;/xs:element&gt;
+        &lt;xs:element name="secondary_comment_code" minOccurs="0" maxOccurs="1"&gt;
+          &lt;xs:simpleType&gt;
+            &lt;xs:restriction base="xs:string"&gt;
+              &lt;xs:maxLength value="2"/&gt;
+            &lt;/xs:restriction&gt;
+          &lt;/xs:simpleType&gt;
+        &lt;/xs:element&gt;
+        &lt;xs:element name="reasons_for_change" minOccurs="0" maxOccurs="1"&gt;
+          &lt;xs:simpleType&gt;
+            &lt;xs:restriction base="xs:string"&gt;
+              &lt;xs:maxLength value="50"/&gt;
+            &lt;/xs:restriction&gt;
+          &lt;/xs:simpleType&gt;
+        &lt;/xs:element&gt;
+        &lt;xs:element name="cost_center_skills" minOccurs="0" maxOccurs="1"&gt;
+          &lt;xs:complexType&gt;
+            &lt;xs:sequence&gt;
+              &lt;xs:element name="skill" type="cost_center_skill" minOccurs="0"
+                          maxOccurs="unbounded"/&gt;
+            &lt;/xs:sequence&gt;
+          &lt;/xs:complexType&gt;
+        &lt;/xs:element&gt;
+        &lt;xs:element name="job_settings" type="job_settings" minOccurs="0" maxOccurs="1"/&gt;
+        &lt;xs:element name="id" type="xs:long" minOccurs="0" maxOccurs="1"/&gt;
+        &lt;xs:element name="parent_cc" type="cost_center_ref" minOccurs="0" maxOccurs="1"/&gt;
+        &lt;xs:element name="level" minOccurs="0" maxOccurs="1"&gt;
+          &lt;xs:simpleType&gt;
+            &lt;xs:restriction base="xs:integer"&gt;
+              &lt;xs:minInclusive value="1"/&gt;
+              &lt;xs:maxInclusive value="10"/&gt;
+            &lt;/xs:restriction&gt;
+          &lt;/xs:simpleType&gt;
+        &lt;/xs:element&gt;
+        &lt;xs:element name="workers_comp_code" minOccurs="0"&gt;
+          &lt;xs:complexType&gt;
+            &lt;xs:sequence&gt;
+              &lt;xs:element type="xs:string" name="external_id"/&gt;
+            &lt;/xs:sequence&gt;
+          &lt;/xs:complexType&gt;
+        &lt;/xs:element&gt;
+        &lt;xs:element name="job_strain" minOccurs="0"&gt;
+          &lt;xs:complexType&gt;
+            &lt;xs:all&gt;
+              &lt;xs:element name="reference_type"&gt;
+                &lt;xs:simpleType&gt;
+                  &lt;xs:restriction base="xs:string"&gt;
+                    &lt;xs:enumeration value="SINGLE"/&gt;
+                    &lt;xs:enumeration value="LIST"/&gt;
+                  &lt;/xs:restriction&gt;
+                &lt;/xs:simpleType&gt;
+              &lt;/xs:element&gt;
+              &lt;xs:element name="id" type="xs:long" minOccurs="0"/&gt;
+              &lt;xs:element name="name" type="xs:string" minOccurs="0"/&gt;
+            &lt;/xs:all&gt;
+          &lt;/xs:complexType&gt;
+        &lt;/xs:element&gt;
+        &lt;xs:element name="location_code" minOccurs="0" maxOccurs="1"&gt;
+          &lt;xs:simpleType&gt;
+            &lt;xs:restriction base="xs:string"&gt;
+              &lt;xs:maxLength value="35"/&gt;
+            &lt;/xs:restriction&gt;
+          &lt;/xs:simpleType&gt;
+        &lt;/xs:element&gt;
+      &lt;/xs:all&gt;
+    &lt;/xs:complexType&gt;
+  &lt;/xs:element&gt;
+
+  &lt;xs:complexType name="cost_center_ref"&gt;
+    &lt;xs:sequence&gt;
+      &lt;xs:element type="xs:long" name="id"/&gt;
+    &lt;/xs:sequence&gt;
+  &lt;/xs:complexType&gt;
+
+  &lt;xs:complexType name="employee"&gt;
+    &lt;xs:sequence&gt;
+      &lt;xs:element type="xs:long" name="account_id"/&gt;
+    &lt;/xs:sequence&gt;
+  &lt;/xs:complexType&gt;
+
+  &lt;xs:complexType name="contact_address"&gt;
+    &lt;xs:complexContent&gt;
+      &lt;xs:extension base="address"&gt;
+        &lt;xs:sequence&gt;
+          &lt;xs:element name="company_name" minOccurs="0" maxOccurs="1"&gt;
+            &lt;xs:simpleType&gt;
+              &lt;xs:restriction base="xs:string"&gt;
+                &lt;xs:maxLength value="75"/&gt;
+              &lt;/xs:restriction&gt;
+            &lt;/xs:simpleType&gt;
+          &lt;/xs:element&gt;
+        &lt;/xs:sequence&gt;
+      &lt;/xs:extension&gt;
+    &lt;/xs:complexContent&gt;
+  &lt;/xs:complexType&gt;
+
+  &lt;xs:complexType name="address"&gt;
+    &lt;xs:sequence&gt;
+      &lt;xs:element name="address_line_1" minOccurs="0"&gt;
+        &lt;xs:simpleType&gt;
+          &lt;xs:restriction base="xs:string"&gt;
+            &lt;xs:maxLength value="128"/&gt;
+          &lt;/xs:restriction&gt;
+        &lt;/xs:simpleType&gt;
+      &lt;/xs:element&gt;
+      &lt;xs:element name="address_line_2" minOccurs="0"&gt;
+        &lt;xs:simpleType&gt;
+          &lt;xs:restriction base="xs:string"&gt;
+            &lt;xs:maxLength value="128"/&gt;
+          &lt;/xs:restriction&gt;
+        &lt;/xs:simpleType&gt;
+      &lt;/xs:element&gt;
+      &lt;xs:element name="address_line_3" minOccurs="0"&gt;
+        &lt;xs:simpleType&gt;
+          &lt;xs:restriction base="xs:string"&gt;
+            &lt;xs:maxLength value="128"/&gt;
+          &lt;/xs:restriction&gt;
+        &lt;/xs:simpleType&gt;
+      &lt;/xs:element&gt;
+      &lt;xs:element name="country" minOccurs="1"&gt;
+        &lt;xs:annotation&gt;
+          &lt;xs:documentation&gt;ISO 3166-1 alpha-3.&lt;/xs:documentation&gt;
+        &lt;/xs:annotation&gt;
+        &lt;xs:simpleType&gt;
+          &lt;xs:restriction base="xs:string"&gt;
+            &lt;xs:pattern value="([A-Z]{3})"/&gt;
+          &lt;/xs:restriction&gt;
+        &lt;/xs:simpleType&gt;
+      &lt;/xs:element&gt;
+      &lt;xs:element name="city" minOccurs="0"&gt;
+        &lt;xs:simpleType&gt;
+          &lt;xs:restriction base="xs:string"&gt;
+            &lt;xs:maxLength value="64"/&gt;
+          &lt;/xs:restriction&gt;
+        &lt;/xs:simpleType&gt;
+      &lt;/xs:element&gt;
+      &lt;xs:element name="state" minOccurs="0"&gt;
+        &lt;xs:annotation&gt;
+          &lt;xs:documentation&gt;See State Code in Master Data section.&lt;/xs:documentation&gt;
+        &lt;/xs:annotation&gt;
+        &lt;xs:simpleType&gt;
+          &lt;xs:restriction base="xs:string"&gt;
+            &lt;xs:maxLength value="3"/&gt;
+          &lt;/xs:restriction&gt;
+        &lt;/xs:simpleType&gt;
+      &lt;/xs:element&gt;
+      &lt;xs:element name="zip" minOccurs="0"&gt;
+        &lt;xs:simpleType&gt;
+          &lt;xs:restriction base="xs:string"&gt;
+            &lt;xs:maxLength value="15"/&gt;
+          &lt;/xs:restriction&gt;
+        &lt;/xs:simpleType&gt;
+      &lt;/xs:element&gt;
+      &lt;xs:element name="number" minOccurs="0" maxOccurs="1"&gt;
+        &lt;xs:simpleType&gt;
+          &lt;xs:restriction base="xs:string"&gt;
+            &lt;xs:maxLength value="10"/&gt;
+          &lt;/xs:restriction&gt;
+        &lt;/xs:simpleType&gt;
+      &lt;/xs:element&gt;
+      &lt;xs:element name="number_addition" minOccurs="0" maxOccurs="1"&gt;
+        &lt;xs:simpleType&gt;
+          &lt;xs:restriction base="xs:string"&gt;
+            &lt;xs:maxLength value="10"/&gt;
+          &lt;/xs:restriction&gt;
+        &lt;/xs:simpleType&gt;
+      &lt;/xs:element&gt;
+    &lt;/xs:sequence&gt;
+  &lt;/xs:complexType&gt;
+
+  &lt;xs:complexType name="skill"&gt;
+    &lt;xs:sequence&gt;
+      &lt;xs:element type="xs:long" name="id"/&gt;
+    &lt;/xs:sequence&gt;
+  &lt;/xs:complexType&gt;
+
+  &lt;xs:simpleType name="custom_field"&gt;
+    &lt;xs:restriction base="xs:string"&gt;
+      &lt;xs:maxLength value="255"/&gt;
+    &lt;/xs:restriction&gt;
+  &lt;/xs:simpleType&gt;
+
+  &lt;xs:complexType name="cost_center_skill"&gt;
+    &lt;xs:all&gt;
+      &lt;xs:element name="main_skill" type="skill" minOccurs="1" maxOccurs="1"/&gt;
+      &lt;xs:element name="alternative_skills" minOccurs="0" maxOccurs="1"&gt;
+        &lt;xs:complexType&gt;
+          &lt;xs:sequence&gt;
+            &lt;xs:element name="skill" type="skill" minOccurs="0" maxOccurs="unbounded"/&gt;
+          &lt;/xs:sequence&gt;
+        &lt;/xs:complexType&gt;
+      &lt;/xs:element&gt;
+    &lt;/xs:all&gt;
+  &lt;/xs:complexType&gt;
+
+  &lt;xs:complexType name="gl_codes"&gt;
+    &lt;xs:sequence&gt;
+      &lt;xs:element name="gl_code" minOccurs="0" maxOccurs="2"&gt;
+        &lt;xs:complexType&gt;
+          &lt;xs:all&gt;
+            &lt;xs:element name="index"&gt;
+              &lt;xs:simpleType&gt;
+                &lt;xs:restriction base="xs:integer"&gt;
+                  &lt;xs:minInclusive value="0"/&gt;
+                  &lt;xs:maxInclusive value="1"/&gt;
+                &lt;/xs:restriction&gt;
+              &lt;/xs:simpleType&gt;
+            &lt;/xs:element&gt;
+            &lt;xs:element name="value"&gt;
+              &lt;xs:simpleType&gt;
+                &lt;xs:restriction base="xs:string"&gt;
+                  &lt;xs:maxLength value="70"/&gt;
+                &lt;/xs:restriction&gt;
+              &lt;/xs:simpleType&gt;
+            &lt;/xs:element&gt;
+          &lt;/xs:all&gt;
+        &lt;/xs:complexType&gt;
+      &lt;/xs:element&gt;
+    &lt;/xs:sequence&gt;
+  &lt;/xs:complexType&gt;
+
+  &lt;xs:complexType name="job_settings"&gt;
+    &lt;xs:all&gt;
+      &lt;xs:element name="job_code" minOccurs="0" maxOccurs="1"&gt;
+        &lt;xs:simpleType&gt;
+          &lt;xs:restriction base="xs:string"&gt;
+            &lt;xs:maxLength value="128"/&gt;
+          &lt;/xs:restriction&gt;
+        &lt;/xs:simpleType&gt;
+      &lt;/xs:element&gt;
+      &lt;xs:element name="certified" type="xs:boolean" minOccurs="0" maxOccurs="1"/&gt;
+      &lt;xs:element name="project_name" minOccurs="0" maxOccurs="1"&gt;
+        &lt;xs:simpleType&gt;
+          &lt;xs:restriction base="xs:string"&gt;
+            &lt;xs:maxLength value="80"/&gt;
+          &lt;/xs:restriction&gt;
+        &lt;/xs:simpleType&gt;
+      &lt;/xs:element&gt;
+      &lt;xs:element name="project_number" minOccurs="0" maxOccurs="1"&gt;
+        &lt;xs:simpleType&gt;
+          &lt;xs:restriction base="xs:string"&gt;
+            &lt;xs:maxLength value="20"/&gt;
+          &lt;/xs:restriction&gt;
+        &lt;/xs:simpleType&gt;
+      &lt;/xs:element&gt;
+      &lt;xs:element name="is_sub_contractor" type="xs:boolean" minOccurs="0" maxOccurs="1"/&gt;
+      &lt;xs:element name="work_began" minOccurs="0" maxOccurs="1"&gt;
+        &lt;xs:simpleType&gt;
+          &lt;xs:restriction base="xs:date"&gt;
+            &lt;xs:minInclusive value="1900-12-31"/&gt;
+            &lt;xs:maxInclusive value="2079-06-05"/&gt;
+          &lt;/xs:restriction&gt;
+        &lt;/xs:simpleType&gt;
+      &lt;/xs:element&gt;
+      &lt;xs:element name="work_completed" minOccurs="0" maxOccurs="1"&gt;
+        &lt;xs:simpleType&gt;
+          &lt;xs:restriction base="xs:date"&gt;
+            &lt;xs:minInclusive value="1900-12-31"/&gt;
+            &lt;xs:maxInclusive value="2079-06-05"/&gt;
+          &lt;/xs:restriction&gt;
+        &lt;/xs:simpleType&gt;
+      &lt;/xs:element&gt;
+      &lt;xs:element name="contractor_licence_number" minOccurs="0" maxOccurs="1"&gt;
+        &lt;xs:simpleType&gt;
+          &lt;xs:restriction base="xs:string"&gt;
+            &lt;xs:maxLength value="100"/&gt;
+          &lt;/xs:restriction&gt;
+        &lt;/xs:simpleType&gt;
+      &lt;/xs:element&gt;
+      &lt;xs:element name="speciality_licence_number" minOccurs="0" maxOccurs="1"&gt;
+        &lt;xs:simpleType&gt;
+          &lt;xs:restriction base="xs:string"&gt;
+            &lt;xs:maxLength value="20"/&gt;
+          &lt;/xs:restriction&gt;
+        &lt;/xs:simpleType&gt;
+      &lt;/xs:element&gt;
+      &lt;xs:element name="self_insured_licence_number" minOccurs="0" maxOccurs="1"&gt;
+        &lt;xs:simpleType&gt;
+          &lt;xs:restriction base="xs:string"&gt;
+            &lt;xs:maxLength value="20"/&gt;
+          &lt;/xs:restriction&gt;
+        &lt;/xs:simpleType&gt;
+      &lt;/xs:element&gt;
+      &lt;xs:element name="workers_comp_policy" minOccurs="0" maxOccurs="1"&gt;
+        &lt;xs:simpleType&gt;
+          &lt;xs:restriction base="xs:string"&gt;
+            &lt;xs:maxLength value="60"/&gt;
+          &lt;/xs:restriction&gt;
+        &lt;/xs:simpleType&gt;
+      &lt;/xs:element&gt;
+      &lt;xs:element name="awarding_body_id" minOccurs="0" maxOccurs="1"&gt;
+        &lt;xs:simpleType&gt;
+          &lt;xs:restriction base="xs:string"&gt;
+            &lt;xs:maxLength value="20"/&gt;
+          &lt;/xs:restriction&gt;
+        &lt;/xs:simpleType&gt;
+      &lt;/xs:element&gt;
+      &lt;xs:element name="contract_id" minOccurs="0" maxOccurs="1"&gt;
+        &lt;xs:simpleType&gt;
+          &lt;xs:restriction base="xs:string"&gt;
+            &lt;xs:maxLength value="20"/&gt;
+          &lt;/xs:restriction&gt;
+        &lt;/xs:simpleType&gt;
+      &lt;/xs:element&gt;
+      &lt;xs:element name="contracting_with" minOccurs="0" maxOccurs="1"&gt;
+        &lt;xs:simpleType&gt;
+          &lt;xs:restriction base="xs:string"&gt;
+            &lt;xs:maxLength value="30"/&gt;
+          &lt;/xs:restriction&gt;
+        &lt;/xs:simpleType&gt;
+      &lt;/xs:element&gt;
+      &lt;xs:element name="contractor_licence_type" minOccurs="0" maxOccurs="1"&gt;
+        &lt;xs:simpleType&gt;
+          &lt;xs:restriction base="xs:string"&gt;
+            &lt;xs:enumeration value="CSLB"/&gt;
+            &lt;xs:enumeration value="PL"/&gt;
+            &lt;xs:enumeration value="OTHER"/&gt;
+          &lt;/xs:restriction&gt;
+        &lt;/xs:simpleType&gt;
+      &lt;/xs:element&gt;
+      &lt;xs:element name="pwc_project_id" minOccurs="0" maxOccurs="1"&gt;
+        &lt;xs:simpleType&gt;
+          &lt;xs:restriction base="xs:string"&gt;
+            &lt;xs:maxLength value="20"/&gt;
+          &lt;/xs:restriction&gt;
+        &lt;/xs:simpleType&gt;
+      &lt;/xs:element&gt;
+      &lt;xs:element name="pwc_registration_number" minOccurs="0" maxOccurs="1"&gt;
+        &lt;xs:simpleType&gt;
+          &lt;xs:restriction base="xs:string"&gt;
+            &lt;xs:maxLength value="20"/&gt;
+          &lt;/xs:restriction&gt;
+        &lt;/xs:simpleType&gt;
+      &lt;/xs:element&gt;
+      &lt;xs:element name="project_location" type="address" minOccurs="0" maxOccurs="1"/&gt;
+    &lt;/xs:all&gt;
+  &lt;/xs:complexType&gt;
+&lt;/xs:schema&gt;
+</div>
+</div>
+</div>
+</div>
+</div>
+</article>
+</section>
+<section class="clearfix">
+<article class="definition">
+<h3 class="anchored" id="patch"><span>PATCH</span>
+<a class="fa fa-link link-anchor" data-url="r=__v2__companies__(cid)__config__cost-centers__(ccid)#patch" data-web-id="__v2__companies__(cid)__config__cost-centers__(ccid)"></a>
+</h3>
+<div class="md"><p>Updates an existing cost center by its ID.
+Requires appropriate permissions to edit cost centers.
+
+To replace, add, or remove attributes in the request body, consider the following example:
+
+**Existing Cost Center Data:**
+```json
+{
+    "id": 17252380288,
+    "level": 1,
+    "parent_cc": {
+        "id": 17252355585
+    },
+    "name": "New ZeLand",
+    "time_allocation": true,
+    "manning": 0.0,
+    "gl_codes": [
+      {
+        "index": 0,
+        "value": "1234"
+      }
+    ],
+    "visible": true,
+    "custom_fields": [],
+    "location_factor": 1.0,
+    "contacts": [],
+    "contact_address": {
+        "country": "USA"
+    },
+    "use_employee_home_address": false,
+    "geo_fencing_distance_type": "KM",
+    "geo_fencing_distance": 0.0,
+    "state_assigned_tax_code": 0,
+    "is_operating_and_reportable": false,
+    "delivery_point_barcode": "00",
+    "cost_center_skills": [],
+    "job_settings": {
+        "certified": false,
+        "is_sub_contractor": false,
+        "project_location": {
+            "country": "USA"
+        }
+    }
+}
+```
+
+**PATCH Request Body:**
+```json
+[
+  { "op": "replace", "path": "/name", "value": "USA" },
+  { "op": "add", "path": "/cost_center_skills", "value": [ { "main_skill": { "id": 1711569344 }, "alternative_skills": [] } ] },
+  { "op": "remove", "path": "/gl_codes" }
+]
+```
+
+**Updated Cost Center Data:**
+```json
+{
+    "id": 17252380288,
+    "level": 1,
+    "parent_cc": {
+        "id": 17252355585
+    },
+    "name": "USA",
+    "time_allocation": true,
+    "manning": 0.0,
+    "gl_codes": [],
+    "visible": true,
+    "custom_fields": [],
+    "location_factor": 1.0,
+    "contacts": [],
+    "contact_address": {
+        "country": "USA"
+    },
+    "use_employee_home_address": false,
+    "geo_fencing_distance_type": "KM",
+    "geo_fencing_distance": 0.0,
+    "state_assigned_tax_code": 0,
+    "is_operating_and_reportable": false,
+    "delivery_point_barcode": "00",
+    "cost_center_skills": [
+
+    ],
+    "job_settings": {
+        "certified": false,
+        "is_sub_contractor": false,
+        "project_location": {
+            "country": "USA"
+        }
+    }
+}
+```
+</p></div>
+<div>
+<ul class="annotation-list">
+<li class="annotation">
+<span>v2</span>
+</li>
+</ul>
+</div>
+<h4>Parameters</h4>
+<h5>Path Parameters</h5>
+<ul class="param-list">
+<li>
+<div class="param-desc">
+<div class="param-name">cid</div>
+<div class="data-type">string</div>
+<div class="required">required</div>
+</div>
+<div class="param-content">
+<div>
+<p>Example: 123456</p>
+<div class="desc md">Company should be referenced via company id or company unique id or company short name using `|short_name` or `!short_name` format.
+</div>
+</div>
+</div>
+
+</li>
+<li>
+<div class="param-desc">
+<div class="param-name">ccid</div>
+<div class="data-type">integer</div>
+<div class="required">required</div>
+</div>
+<div class="param-content">
+<div>
+<p>Example: 45</p>
+<div class="desc md">The id of cost center.</div>
+</div>
+</div>
+
+</li>
+</ul>
+<h5>Header Parameters</h5>
+<ul class="param-list">
+<li>
+<div class="param-desc">
+<div class="param-name">Content-Type</div>
+<div class="data-type">string</div>
+<div class="required">required</div>
+</div>
+<div class="param-content">
+<div>
+<p>Valid values: application/json-patch+json</p>
+<p>Example: application/json-patch+json</p>
+</div>
+</div>
+
+</li>
+</ul>
+<h4>Responses</h4>
+<div class="responses">
+<div>
+<label class="response response-success">
+<span class="fa fa-check"></span>
+<input data-full-tab-id="patch-resp-code-tab-id-0" data-tab-class="resp-code-tab-patch" name="resp-code-tab-patch" type="radio"/>
+<span class="status">204 No Content</span>
+</label>
+<div class="response-desc resp-code-tab-patch" id="patch-resp-code-tab-id-0">
+<div class="md"><p>Cost Center successfully changed.
+</p></div>
+</div>
+</div>
+<div>
+<label class="response response-error">
+<span class="fa fa-times"></span>
+<input data-full-tab-id="patch-resp-code-tab-id-1" data-tab-class="resp-code-tab-patch" name="resp-code-tab-patch" type="radio"/>
+<span class="status">400 Bad Request</span>
+</label>
+<div class="response-desc resp-code-tab-patch" id="patch-resp-code-tab-id-1">
+<div class="md"><p>In case any error occurs during validation.
+</p></div>
+</div>
+</div>
+<div>
+<label class="response response-error">
+<span class="fa fa-times"></span>
+<input data-full-tab-id="patch-resp-code-tab-id-2" data-tab-class="resp-code-tab-patch" name="resp-code-tab-patch" type="radio"/>
+<span class="status">401 Unauthorized</span>
+</label>
+<div class="response-desc resp-code-tab-patch" id="patch-resp-code-tab-id-2">
+<div class="md"><p>Returned in case user is not authorized.
+Note: PATCH request returns Unauthorized when custom view is checked in the security profiles.
+</p></div>
+</div>
+</div>
+<div>
+<label class="response response-error">
+<span class="fa fa-times"></span>
+<input data-full-tab-id="patch-resp-code-tab-id-3" data-tab-class="resp-code-tab-patch" name="resp-code-tab-patch" type="radio"/>
+<span class="status">403 Forbidden</span>
+</label>
+<div class="response-desc resp-code-tab-patch" id="patch-resp-code-tab-id-3">
+<div class="md"><p>In case of any security issues.
+</p></div>
+</div>
+</div>
+<div>
+<label class="response response-error">
+<span class="fa fa-times"></span>
+<input data-full-tab-id="patch-resp-code-tab-id-4" data-tab-class="resp-code-tab-patch" name="resp-code-tab-patch" type="radio"/>
+<span class="status">404 Not Found</span>
+</label>
+<div class="response-desc resp-code-tab-patch" id="patch-resp-code-tab-id-4">
+<div class="md"><p>If company or employee is not found.</p></div>
+</div>
+</div>
+<div>
+<label class="response response-error">
+<span class="fa fa-times"></span>
+<input data-full-tab-id="patch-resp-code-tab-id-5" data-tab-class="resp-code-tab-patch" name="resp-code-tab-patch" type="radio"/>
+<span class="status">415 Unsupported Media Type</span>
+</label>
+<div class="response-desc resp-code-tab-patch" id="patch-resp-code-tab-id-5">
+<div class="md"><p>In case of unsupported media type. The request body must be in JSON Patch format.
+</p></div>
+</div>
+</div>
+<div>
+<label class="response response-error">
+<span class="fa fa-times"></span>
+<input data-full-tab-id="patch-resp-code-tab-id-6" data-tab-class="resp-code-tab-patch" name="resp-code-tab-patch" type="radio"/>
+<span class="status">503 Service Unavailable</span>
+</label>
+<div class="response-desc resp-code-tab-patch" id="patch-resp-code-tab-id-6">
+<div class="md"><p>Returned in the event that the call limit is exceeded. The application will be unavailable for subsequent calls for the duration specified by the X-CallLimit-TimeToWait header.</p></div>
+</div>
+</div>
+</div>
+</article>
+<article class="code">
+<h4>Definition</h4>
+<div class="uri">
+<code>
+<span class="method patch">patch</span>
+<span class="textUri"><span class="baseUri">{{ getUriPrefix() }}</span><span class="relativeUri">/v2/companies/{cid}/config/cost-centers/{ccid}</span></span>
+</code>
+</div>
+<h4>Request Samples</h4>
+<div class="tab-title-group">
+<label>
+<input checked="checked" data-full-tab-id="req-tab-id-patch-0" data-tab-class="req-tab-patch" name="req-tab-patch" type="radio"/>
+<span class="tab-title">application/json-patch+json</span>
+</label>
+</div>
+<div>
+<div class="req-tab-patch" id="req-tab-id-patch-0">
+<div class="example">
+
+<div class="patch-example-tab-0 activeTab" id="patch-tab-example-0">
+
+<pre class="highlightjs">[
+  {
+    "op": "replace",
+    "path": "/name",
+    "value": "USA"
+  },
+  {
+    "op": "add",
+    "path": "/cost_center_skills",
+    "value": [
+      {
+        "main_skill": {
+          "id": 1711569344
+        },
+        "alternative_skills": []
+      }
+    ]
+  },
+  {
+    "op": "remove",
+    "path": "/gl_codes"
+  }
+]</pre>
+</div>
+<div class="patch-example-tab-0" id="patch-tab-schema-0">
+
+<div class="jsonschema" id="schema-2">{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "type": "array",
+  "items": {
+    "type": "object",
+    "properties": {
+      "op": {
+        "type": "string",
+        "enum": [
+          "add",
+          "remove",
+          "replace"
+        ],
+        "description": "The operation to be performed."
+      },
+      "path": {
+        "type": "string",
+        "description": "A JSON Pointer path that specifies the target location within the document."
+      },
+      "value": {
+        "type": [
+          "string",
+          "number",
+          "boolean",
+          "object",
+          "array",
+          "null"
+        ],
+        "description": "The value to be used within the operations. Required for 'add', 'replace' and 'remove' operations."
+      }
+    },
+    "required": [
+      "op",
+      "path"
+    ],
+    "additionalProperties": false
+  }
+}</div>
+</div>
+</div>
+</div>
+</div>
+</article>
+</section>
+<section class="clearfix">
+<article class="definition">
+<h3 class="anchored" id="put"><span>PUT</span>
+<a class="fa fa-link link-anchor" data-url="r=__v2__companies__(cid)__config__cost-centers__(ccid)#put" data-web-id="__v2__companies__(cid)__config__cost-centers__(ccid)"></a>
+</h3>
+<div class="md"><p>Updates an existing cost center by its ID using a full replacement of the resource.
+Requires a 'Cost Center Definitions edit' permission.
+The `id`, `level`, and `parent_cc` fields are used only in GET responses.
+
+Requires at least one of the following subsystems:
+- TLM
+- TLM (Small Business Edition: PR/HR Version)
+- HR
+- HR (Small Business Edition)
+- Payroll
+- Scheduler
+
+The TLM, HR, or Scheduler subsystem must be enabled to update job strain.
+</p></div>
+<div>
+<ul class="annotation-list">
+<li class="annotation">
+<span>v2</span>
+</li>
+</ul>
+</div>
+<h4>Parameters</h4>
+<h5>Path Parameters</h5>
+<ul class="param-list">
+<li>
+<div class="param-desc">
+<div class="param-name">cid</div>
+<div class="data-type">string</div>
+<div class="required">required</div>
+</div>
+<div class="param-content">
+<div>
+<p>Example: 123456</p>
+<div class="desc md">Company should be referenced via company id or company unique id or company short name using `|short_name` or `!short_name` format.
+</div>
+</div>
+</div>
+
+</li>
+<li>
+<div class="param-desc">
+<div class="param-name">ccid</div>
+<div class="data-type">integer</div>
+<div class="required">required</div>
+</div>
+<div class="param-content">
+<div>
+<p>Example: 45</p>
+<div class="desc md">The id of cost center.</div>
+</div>
+</div>
+
+</li>
+</ul>
+<h5>Header Parameters</h5>
+<ul class="param-list">
+<li>
+<div class="param-desc">
+<div class="param-name">Accept</div>
+<div class="data-type">string</div>
+</div>
+<div class="param-content">
+<div>
+<p>Valid values: application/json, application/xml, text/xml</p>
+<p>Default: application/json</p>
+<p>Example: application/json</p>
+</div>
+</div>
+
+</li>
+<li>
+<div class="param-desc">
+<div class="param-name">Content-Type</div>
+<div class="data-type">string</div>
+<div class="required">required</div>
+</div>
+<div class="param-content">
+<div>
+<p>Valid values: application/xml, text/xml, application/json</p>
+<p>Example: application/json</p>
+</div>
+</div>
+
+</li>
+<li>
+<div class="param-desc">
+<div class="param-name">Content-Length</div>
+<div class="data-type">integer</div>
+<div class="required">required</div>
+</div>
+<div class="param-content">
+<div>
+</div>
+</div>
+
+</li>
+</ul>
+<h4>Responses</h4>
+<div class="responses">
+<div>
+<label class="response response-success">
+<span class="fa fa-check"></span>
+<input data-full-tab-id="put-resp-code-tab-id-0" data-tab-class="resp-code-tab-put" name="resp-code-tab-put" type="radio"/>
+<span class="status">204 No Content</span>
+</label>
+<div class="response-desc resp-code-tab-put" id="put-resp-code-tab-id-0">
+</div>
+</div>
+<div>
+<label class="response response-error">
+<span class="fa fa-times"></span>
+<input data-full-tab-id="put-resp-code-tab-id-1" data-tab-class="resp-code-tab-put" name="resp-code-tab-put" type="radio"/>
+<span class="status">401 Unauthorized</span>
+</label>
+<div class="response-desc resp-code-tab-put" id="put-resp-code-tab-id-1">
+<div class="md"><p>Returned in case user is not authorized.</p></div>
+</div>
+</div>
+<div>
+<label class="response response-error">
+<span class="fa fa-times"></span>
+<input data-full-tab-id="put-resp-code-tab-id-2" data-tab-class="resp-code-tab-put" name="resp-code-tab-put" type="radio"/>
+<span class="status">403 Forbidden</span>
+</label>
+<div class="response-desc resp-code-tab-put" id="put-resp-code-tab-id-2">
+<div class="md"><p>Returned in case user has no access to the resource.</p></div>
+</div>
+</div>
+<div>
+<label class="response response-error">
+<span class="fa fa-times"></span>
+<input data-full-tab-id="put-resp-code-tab-id-3" data-tab-class="resp-code-tab-put" name="resp-code-tab-put" type="radio"/>
+<span class="status">404 Not Found</span>
+</label>
+<div class="response-desc resp-code-tab-put" id="put-resp-code-tab-id-3">
+<div class="md"><p>Returned in case resource does not exist.</p></div>
+</div>
+</div>
+<div>
+<label class="response response-error">
+<span class="fa fa-times"></span>
+<input data-full-tab-id="put-resp-code-tab-id-4" data-tab-class="resp-code-tab-put" name="resp-code-tab-put" type="radio"/>
+<span class="status">503 Service Unavailable</span>
+</label>
+<div class="response-desc resp-code-tab-put" id="put-resp-code-tab-id-4">
+<div class="md"><p>Returned in the event that the call limit is exceeded. The application will be unavailable for subsequent calls for the duration specified by the X-CallLimit-TimeToWait header.</p></div>
+</div>
+</div>
+</div>
+</article>
+<article class="code">
+<h4>Definition</h4>
+<div class="uri">
+<code>
+<span class="method put">put</span>
+<span class="textUri"><span class="baseUri">{{ getUriPrefix() }}</span><span class="relativeUri">/v2/companies/{cid}/config/cost-centers/{ccid}</span></span>
+</code>
+</div>
+<h4>Request Samples</h4>
+<div class="tab-title-group">
+<label>
+<input checked="checked" data-full-tab-id="req-tab-id-put-0" data-tab-class="req-tab-put" name="req-tab-put" type="radio"/>
+<span class="tab-title">application/json</span>
+</label>
+<label>
+<input data-full-tab-id="req-tab-id-put-1" data-tab-class="req-tab-put" name="req-tab-put" type="radio"/>
+<span class="tab-title">application/xml</span>
+</label>
+</div>
+<div>
+<div class="req-tab-put" id="req-tab-id-put-0">
+<div class="example">
+
+<div class="put-example-tab-0 activeTab" id="put-tab-example-0">
+
+<pre class="highlightjs">{
+  "external_id": "123",
+  "abbreviation": "AABB",
+  "name": "CC_1",
+  "payroll_code": "75446",
+  "description": "Description",
+  "time_allocation": true,
+  "manning": 2,
+  "gl_codes": [
+    {
+      "index": 0,
+      "value": "code"
+    },
+    {
+      "index": 1,
+      "value": "code"
+    }
+  ],
+  "visible": true,
+  "custom_fields": [
+    {
+      "index": 0,
+      "value": "value0"
+    },
+    {
+      "index": 1,
+      "value": "value1"
+    },
+    {
+      "index": 4,
+      "value": "value4"
+    }
+  ],
+  "location_factor": 0.534,
+  "contacts": [
+    {
+      "index": 0,
+      "account_id": 2205889
+    },
+    {
+      "index": 1,
+      "account_id": 2205953
+    }
+  ],
+  "contact_address": {
+    "address_line_1": "line 1",
+    "address_line_2": "line 2",
+    "address_line_3": "line 3",
+    "country": "FRA",
+    "city": "Paris",
+    "zip": "430000"
+  },
+  "use_employee_home_address": false,
+  "state_assigned_tax_code": 23523,
+  "is_operating_and_reportable": false,
+  "delivery_point_barcode": "12",
+  "primary_comment_code": "45",
+  "secondary_comment_code": "34",
+  "reasons_for_change": "reason",
+  "cost_center_skills": [
+    {
+      "main_skill": {
+        "id": 426223
+      },
+      "alternative_skills": [
+        {
+          "id": 564565
+        },
+        {
+          "id": 2352352
+        }
+      ]
+    },
+    {
+      "main_skill": {
+        "id": 235235
+      },
+      "alternative_skills": [
+        {
+          "id": 23523
+        },
+        {
+          "id": 52523
+        }
+      ]
+    }
+  ],
+  "job_settings": {
+    "job_code": "123",
+    "certified": true,
+    "project_name": "project name",
+    "project_number": "5463",
+    "is_sub_contractor": false,
+    "work_began": "2016-04-01",
+    "work_completed": "2016-04-01",
+    "contractor_licence_number": "324",
+    "speciality_licence_number": "8678",
+    "self_insured_licence_number": "2131",
+    "workers_comp_policy": "324",
+    "awarding_body_id": "623",
+    "contract_id": "982",
+    "contracting_with": "agency name",
+    "contractor_licence_type": "OTHER",
+    "pwc_project_id": "91",
+    "pwc_registration_number": "12354",
+    "project_location": {
+      "address_line_1": "line 1",
+      "address_line_2": "line 2",
+      "address_line_3": "line 3",
+      "country": "USA",
+      "city": "city",
+      "state": "CA",
+      "zip": "344443"
+    }
+  },
+  "job_strain": {
+    "reference_type": "SINGLE",
+    "id": 312314,
+    "name": "Heavy"
+  },
+  "location_code": "81000"
+}</pre>
+</div>
+<div class="put-example-tab-0" id="put-tab-schema-0">
+
+<div class="jsonschema" id="schema-3">{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "type": "object",
+  "properties": {
+    "external_id": {
+      "type": "string",
+      "maxLength": 40
+    },
+    "abbreviation": {
+      "type": "string",
+      "maxLength": 12
+    },
+    "name": {
+      "type": "string",
+      "maxLength": 60
+    },
+    "payroll_code": {
+      "type": "string",
+      "maxLength": 40
+    },
+    "description": {
+      "type": "string",
+      "maxLength": 1024
+    },
+    "time_allocation": {
+      "type": "boolean",
+      "default": true
+    },
+    "manning": {
+      "type": "number",
+      "minimum": 0.0,
+      "default": 0
+    },
+    "gl_codes": {
+      "type": "array",
+      "maxItems": 2,
+      "items": {
+        "type": "object",
+        "properties": {
+          "index": {
+            "type": "integer",
+            "minimum": 0,
+            "maximum": 1
+          },
+          "value": {
+            "type": "string",
+            "maxLength": 70
+          }
+        },
+        "additionalProperties": false,
+        "required": [
+          "index",
+          "value"
+        ]
+      }
+    },
+    "visible": {
+      "type": "boolean",
+      "default": true
+    },
+    "custom_fields": {
+      "type": "array",
+      "maxItems": 5,
+      "items": {
+        "type": "object",
+        "properties": {
+          "index": {
+            "type": "integer",
+            "minimum": 0,
+            "maximum": 4
+          },
+          "value": {
+            "type": "string",
+            "maxLength": 255
+          }
+        },
+        "additionalProperties": false,
+        "required": [
+          "index",
+          "value"
+        ]
+      }
+    },
+    "location_factor": {
+      "type": "number",
+      "minimum": 0,
+      "maximum": 1
+    },
+    "contacts": {
+      "type": "array",
+      "maxItems": 2,
+      "items": {
+        "type": "object",
+        "properties": {
+          "index": {
+            "type": "integer",
+            "minimum": 0,
+            "maximum": 1
+          },
+          "account_id": {
+            "type": "number",
+            "format": "long"
+          }
+        },
+        "additionalProperties": false,
+        "required": [
+          "index",
+          "account_id"
+        ]
+      }
+    },
+    "contact_address": {
+      "type": "object",
+      "properties": {
+        "country": {
+          "type": "string",
+          "pattern": "^([A-Z]{3})$",
+          "description": "ISO 3166-1 alpha-3."
+        },
+        "address_line_1": {
+          "type": "string",
+          "maxLength": 128
+        },
+        "address_line_2": {
+          "type": "string",
+          "maxLength": 128
+        },
+        "address_line_3": {
+          "type": "string",
+          "maxLength": 128
+        },
+        "city": {
+          "type": "string",
+          "maxLength": 64
+        },
+        "override_locals": {
+          "type": "boolean"
+        },
+        "state": {
+          "type": "string",
+          "maxLength": 3
+        },
+        "zip": {
+          "type": "string",
+          "maxLength": 15
+        },
+        "company_name": {
+          "type": "string",
+          "maxLength": 75
+        },
+        "number": {
+          "type": "string",
+          "maxLength": 10
+        },
+        "number_addition": {
+          "type": "string",
+          "maxLength": 10
+        }
+      },
+      "additionalProperties": false,
+      "required": [
+        "country"
+      ]
+    },
+    "use_employee_home_address": {
+      "type": "boolean"
+    },
+    "geo_fencing_distance_type": {
+      "type": "string",
+      "enum": [
+        "KM",
+        "MILES"
+      ]
+    },
+    "geo_fencing_distance": {
+      "type": "number",
+      "minimum": 0.0,
+      "maximum": 99999
+    },
+    "state_assigned_tax_code": {
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 99999
+    },
+    "is_operating_and_reportable": {
+      "type": "boolean"
+    },
+    "delivery_point_barcode": {
+      "type": "string",
+      "maxLength": 2
+    },
+    "primary_comment_code": {
+      "type": "string",
+      "maxLength": 2
+    },
+    "secondary_comment_code": {
+      "type": "string",
+      "maxLength": 2
+    },
+    "reasons_for_change": {
+      "type": "string",
+      "maxLength": 50
+    },
+    "cost_center_skills": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "main_skill": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "integer"
+              }
+            },
+            "additionalProperties": false,
+            "required": [
+              "id"
+            ]
+          },
+          "alternative_skills": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "id": {
+                  "type": "integer"
+                }
+              },
+              "additionalProperties": false,
+              "required": [
+                "id"
+              ]
+            }
+          }
+        },
+        "additionalProperties": false,
+        "required": [
+          "main_skill"
+        ]
+      }
+    },
+    "job_settings": {
+      "type": "object",
+      "properties": {
+        "job_code": {
+          "type": "string",
+          "maxLength": 128
+        },
+        "certified": {
+          "type": "boolean"
+        },
+        "project_name": {
+          "type": "string",
+          "maxLength": 80
+        },
+        "project_number": {
+          "type": "string",
+          "maxLength": 20
+        },
+        "is_sub_contractor": {
+          "type": "boolean"
+        },
+        "work_began": {
+          "type": "string",
+          "description": "Date needs to be in the format yyyy-mm-dd within the 1900-12-31 and 2079-06-05 date range",
+          "pattern": "^(19[0-9]{2}|20[0-6][0-9]|2070)-(0[1-9]|1[0-2])-(0[1-9]|[1-2][0-9]|3[0-1])$"
+        },
+        "work_completed": {
+          "type": "string",
+          "description": "Date needs to be in the format yyyy-mm-dd within the 1900-12-31 and 2079-06-05 date range",
+          "pattern": "^(19[0-9]{2}|20[0-6][0-9]|2070)-(0[1-9]|1[0-2])-(0[1-9]|[1-2][0-9]|3[0-1])$"
+        },
+        "contractor_licence_number": {
+          "type": "string",
+          "maxLength": 100
+        },
+        "speciality_licence_number": {
+          "type": "string",
+          "maxLength": 20
+        },
+        "self_insured_licence_number": {
+          "type": "string",
+          "maxLength": 20
+        },
+        "workers_comp_policy": {
+          "type": "string",
+          "maxLength": 60
+        },
+        "awarding_body_id": {
+          "type": "string",
+          "maxLength": 20
+        },
+        "contract_id": {
+          "type": "string",
+          "maxLength": 20
+        },
+        "contracting_with": {
+          "type": "string",
+          "maxLength": 30
+        },
+        "contractor_licence_type": {
+          "type": "string",
+          "enum": [
+            "CSLB",
+            "PL",
+            "OTHER"
+          ]
+        },
+        "pwc_project_id": {
+          "type": "string",
+          "maxLength": 20
+        },
+        "pwc_registration_number": {
+          "type": "string",
+          "maxLength": 20
+        },
+        "project_location": {
+          "type": "object",
+          "properties": {
+            "country": {
+              "type": "string",
+              "pattern": "^([A-Z]{3})$",
+              "description": "ISO 3166-1 alpha-3."
+            },
+            "address_line_1": {
+              "type": "string",
+              "maxLength": 128
+            },
+            "address_line_2": {
+              "type": "string",
+              "maxLength": 128
+            },
+            "address_line_3": {
+              "type": "string",
+              "maxLength": 128
+            },
+            "city": {
+              "type": "string",
+              "maxLength": 64
+            },
+            "override_locals": {
+              "type": "boolean"
+            },
+            "state": {
+              "type": "string",
+              "maxLength": 3
+            },
+            "zip": {
+              "type": "string",
+              "maxLength": 15
+            },
+            "number": {
+              "type": "string",
+              "maxLength": 10
+            },
+            "number_addition": {
+              "type": "string",
+              "maxLength": 10
+            }
+          },
+          "additionalProperties": false,
+          "required": [
+            "country"
+          ]
+        }
+      },
+      "additionalProperties": false
+    },
+    "id": {
+      "type": "integer"
+    },
+    "parent_cc": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer"
+        }
+      },
+      "additionalProperties": false,
+      "required": [
+        "id"
+      ]
+    },
+    "level": {
+      "type": [
+        "integer"
+      ],
+      "minimum": 1,
+      "maximum": 10
+    },
+    "workers_comp_code": {
+      "type": "object",
+      "properties": {
+        "external_id": {
+          "type": "string"
+        }
+      },
+      "additionalProperties": false,
+      "required": [
+        "external_id"
+      ]
+    },
+    "job_strain": {
+      "type": "object",
+      "properties": {
+        "reference_type": {
+          "type": "string",
+          "enum": [
+            "SINGLE",
+            "LIST"
+          ]
+        },
+        "id": {
+          "type": "integer"
+        },
+        "name": {
+          "type": "string"
+        }
+      },
+      "additionalProperties": false
+    },
+    "location_code": {
+      "type": "string",
+      "maxLength": 35
+    },
+    "ein": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer"
+        },
+        "ein_name": {
+          "type": "string"
+        }
+      }
+    }
+  },
+  "required": [
+    "name"
+  ],
+  "additionalProperties": false
+}</div>
+</div>
+</div>
+</div>
+<div class="req-tab-put" id="req-tab-id-put-1">
+<div class="example">
+
+<div class="put-example-tab-1 activeTab" id="put-tab-example-1">
+
+<pre class="highlightjs">&lt;?xml version="1.0" encoding="UTF-8" ?&gt;
+&lt;cost_center&gt;
+  &lt;external_id&gt;67823&lt;/external_id&gt;
+  &lt;abbreviation&gt;AABB&lt;/abbreviation&gt;
+  &lt;name&gt;CC_1&lt;/name&gt;
+  &lt;payroll_code&gt;75446&lt;/payroll_code&gt;
+  &lt;description&gt;Description&lt;/description&gt;
+  &lt;time_allocation&gt;true&lt;/time_allocation&gt;
+  &lt;manning&gt;2&lt;/manning&gt;
+  &lt;gl_codes&gt;
+    &lt;gl_code&gt;
+      &lt;index&gt;0&lt;/index&gt;
+      &lt;value&gt;code&lt;/value&gt;
+    &lt;/gl_code&gt;
+    &lt;gl_code&gt;
+      &lt;index&gt;1&lt;/index&gt;
+      &lt;value&gt;code&lt;/value&gt;
+    &lt;/gl_code&gt;
+  &lt;/gl_codes&gt;
+
+  &lt;visible&gt;true&lt;/visible&gt;
+  &lt;custom_fields&gt;
+    &lt;custom_field&gt;
+      &lt;index&gt;0&lt;/index&gt;
+      &lt;value&gt;value0&lt;/value&gt;
+    &lt;/custom_field&gt;
+    &lt;custom_field&gt;
+      &lt;index&gt;1&lt;/index&gt;
+      &lt;value&gt;value1&lt;/value&gt;
+    &lt;/custom_field&gt;
+    &lt;custom_field&gt;
+      &lt;index&gt;4&lt;/index&gt;
+      &lt;value&gt;value4&lt;/value&gt;
+    &lt;/custom_field&gt;
+  &lt;/custom_fields&gt;
+  &lt;location_factor&gt;0.534&lt;/location_factor&gt;
+  &lt;contacts&gt;
+    &lt;contact&gt;
+      &lt;index&gt;0&lt;/index&gt;
+      &lt;account_id&gt;2205889&lt;/account_id&gt;
+    &lt;/contact&gt;
+    &lt;contact&gt;
+      &lt;index&gt;1&lt;/index&gt;
+      &lt;account_id&gt;2205953&lt;/account_id&gt;
+    &lt;/contact&gt;
+  &lt;/contacts&gt;
+  &lt;contact_address&gt;
+    &lt;address_line_1&gt;line 1&lt;/address_line_1&gt;
+    &lt;address_line_2&gt;line 2&lt;/address_line_2&gt;
+    &lt;address_line_3&gt;line 3&lt;/address_line_3&gt;
+    &lt;country&gt;FRA&lt;/country&gt;
+    &lt;city&gt;Paris&lt;/city&gt;
+    &lt;zip&gt;430000&lt;/zip&gt;
+  &lt;/contact_address&gt;
+  &lt;use_employee_home_address&gt;false&lt;/use_employee_home_address&gt;
+  &lt;state_assigned_tax_code&gt;23523&lt;/state_assigned_tax_code&gt;
+  &lt;is_operating_and_reportable&gt;false&lt;/is_operating_and_reportable&gt;
+  &lt;delivery_point_barcode&gt;12&lt;/delivery_point_barcode&gt;
+  &lt;primary_comment_code&gt;78&lt;/primary_comment_code&gt;
+  &lt;secondary_comment_code&gt;34&lt;/secondary_comment_code&gt;
+  &lt;reasons_for_change&gt;reason&lt;/reasons_for_change&gt;
+  &lt;cost_center_skills&gt;
+    &lt;skill&gt;
+      &lt;main_skill&gt;
+        &lt;id&gt;43649&lt;/id&gt;
+      &lt;/main_skill&gt;
+      &lt;alternative_skills&gt;
+        &lt;skill&gt;
+          &lt;id&gt;43650&lt;/id&gt;
+        &lt;/skill&gt;
+        &lt;skill&gt;
+          &lt;id&gt;43651&lt;/id&gt;
+        &lt;/skill&gt;
+      &lt;/alternative_skills&gt;
+    &lt;/skill&gt;
+    &lt;skill&gt;
+      &lt;main_skill&gt;
+        &lt;id&gt;43649&lt;/id&gt;
+      &lt;/main_skill&gt;
+      &lt;alternative_skills&gt;
+        &lt;skill&gt;
+          &lt;id&gt;43650&lt;/id&gt;
+        &lt;/skill&gt;
+      &lt;/alternative_skills&gt;
+    &lt;/skill&gt;
+  &lt;/cost_center_skills&gt;
+  &lt;job_settings&gt;
+    &lt;job_code&gt;123&lt;/job_code&gt;
+    &lt;certified&gt;true&lt;/certified&gt;
+    &lt;project_name&gt;project name&lt;/project_name&gt;
+    &lt;project_number&gt;64523&lt;/project_number&gt;
+    &lt;is_sub_contractor&gt;false&lt;/is_sub_contractor&gt;
+    &lt;work_began&gt;2016-04-01&lt;/work_began&gt;
+    &lt;work_completed&gt;2016-04-01&lt;/work_completed&gt;
+    &lt;contractor_licence_number&gt;6573&lt;/contractor_licence_number&gt;
+    &lt;speciality_licence_number&gt;23487&lt;/speciality_licence_number&gt;
+    &lt;self_insured_licence_number&gt;234&lt;/self_insured_licence_number&gt;
+    &lt;workers_comp_policy&gt;45&lt;/workers_comp_policy&gt;
+    &lt;awarding_body_id&gt;78&lt;/awarding_body_id&gt;
+    &lt;contract_id&gt;34&lt;/contract_id&gt;
+    &lt;contracting_with&gt;agency name&lt;/contracting_with&gt;
+    &lt;contractor_licence_type&gt;OTHER&lt;/contractor_licence_type&gt;
+    &lt;pwc_project_id&gt;34&lt;/pwc_project_id&gt;
+    &lt;pwc_registration_number&gt;435&lt;/pwc_registration_number&gt;
+    &lt;project_location&gt;
+      &lt;address_line_1&gt;line 1&lt;/address_line_1&gt;
+      &lt;address_line_2&gt;line 2&lt;/address_line_2&gt;
+      &lt;address_line_3&gt;line 3&lt;/address_line_3&gt;
+      &lt;country&gt;USA&lt;/country&gt;
+      &lt;city&gt;city&lt;/city&gt;
+      &lt;state&gt;CA&lt;/state&gt;
+      &lt;zip&gt;344443&lt;/zip&gt;
+    &lt;/project_location&gt;
+  &lt;/job_settings&gt;
+  &lt;job_strain&gt;
+    &lt;reference_type&gt;SINGLE&lt;/reference_type&gt;
+    &lt;id&gt;312314&lt;/id&gt;
+    &lt;name&gt;Heavy&lt;/name&gt;
+  &lt;/job_strain&gt;
+&lt;/cost_center&gt;
+</pre>
+</div>
+<div class="put-example-tab-1" id="put-tab-schema-1">
+
+<div class="jsonschema" id="schema-4">&lt;xs:schema attributeFormDefault="unqualified" elementFormDefault="qualified"
+           xmlns:xs="http://www.w3.org/2001/XMLSchema"&gt;
+
+  &lt;xs:element name="cost_center"&gt;
+    &lt;xs:complexType&gt;
+      &lt;xs:all&gt;
+        &lt;xs:element name="external_id" minOccurs="0" maxOccurs="1"&gt;
+          &lt;xs:simpleType&gt;
+            &lt;xs:restriction base="xs:string"&gt;
+              &lt;xs:maxLength value="40"/&gt;
+            &lt;/xs:restriction&gt;
+          &lt;/xs:simpleType&gt;
+        &lt;/xs:element&gt;
+        &lt;xs:element name="abbreviation" minOccurs="0" maxOccurs="1"&gt;
+          &lt;xs:simpleType&gt;
+            &lt;xs:restriction base="xs:string"&gt;
+              &lt;xs:maxLength value="12"/&gt;
+            &lt;/xs:restriction&gt;
+          &lt;/xs:simpleType&gt;
+        &lt;/xs:element&gt;
+        &lt;xs:element name="name" minOccurs="1" maxOccurs="1"&gt;
+          &lt;xs:simpleType&gt;
+            &lt;xs:restriction base="xs:string"&gt;
+              &lt;xs:maxLength value="60"/&gt;
+            &lt;/xs:restriction&gt;
+          &lt;/xs:simpleType&gt;
+        &lt;/xs:element&gt;
+        &lt;xs:element name="payroll_code" minOccurs="0" maxOccurs="1"&gt;
+          &lt;xs:simpleType&gt;
+            &lt;xs:restriction base="xs:string"&gt;
+              &lt;xs:maxLength value="40"/&gt;
+            &lt;/xs:restriction&gt;
+          &lt;/xs:simpleType&gt;
+        &lt;/xs:element&gt;
+        &lt;xs:element name="description" minOccurs="0" maxOccurs="1"&gt;
+          &lt;xs:simpleType&gt;
+            &lt;xs:restriction base="xs:string"&gt;
+              &lt;xs:maxLength value="1024"/&gt;
+            &lt;/xs:restriction&gt;
+          &lt;/xs:simpleType&gt;
+        &lt;/xs:element&gt;
+        &lt;xs:element name="time_allocation" type="xs:boolean" minOccurs="0" maxOccurs="1"/&gt;
+        &lt;xs:element name="manning" minOccurs="0" maxOccurs="1"&gt;
+          &lt;xs:simpleType&gt;
+            &lt;xs:restriction base="xs:double"&gt;
+              &lt;xs:minInclusive value="0.0"/&gt;
+            &lt;/xs:restriction&gt;
+          &lt;/xs:simpleType&gt;
+        &lt;/xs:element&gt;
+        &lt;xs:element name="gl_codes" type="gl_codes" minOccurs="0" maxOccurs="1"/&gt;
+        &lt;xs:element name="visible" type="xs:boolean" minOccurs="0" maxOccurs="1"/&gt;
+
+        &lt;xs:element name="custom_fields" minOccurs="0" maxOccurs="1"&gt;
+          &lt;xs:complexType&gt;
+            &lt;xs:sequence&gt;
+              &lt;xs:element name="custom_field" minOccurs="0" maxOccurs="5"&gt;
+                &lt;xs:complexType&gt;
+                  &lt;xs:all&gt;
+                    &lt;xs:element name="index"&gt;
+                      &lt;xs:simpleType&gt;
+                        &lt;xs:restriction base="xs:integer"&gt;
+                          &lt;xs:minInclusive value="0"/&gt;
+                          &lt;xs:maxInclusive value="4"/&gt;
+                        &lt;/xs:restriction&gt;
+                      &lt;/xs:simpleType&gt;
+                    &lt;/xs:element&gt;
+                    &lt;xs:element name="value"&gt;
+                      &lt;xs:simpleType&gt;
+                        &lt;xs:restriction base="xs:string"&gt;
+                          &lt;xs:maxLength value="255"/&gt;
+                        &lt;/xs:restriction&gt;
+                      &lt;/xs:simpleType&gt;
+                    &lt;/xs:element&gt;
+                  &lt;/xs:all&gt;
+                &lt;/xs:complexType&gt;
+              &lt;/xs:element&gt;
+            &lt;/xs:sequence&gt;
+          &lt;/xs:complexType&gt;
+        &lt;/xs:element&gt;
+
+        &lt;xs:element name="location_factor" minOccurs="0" maxOccurs="1"&gt;
+          &lt;xs:simpleType&gt;
+            &lt;xs:restriction base="xs:double"&gt;
+              &lt;xs:maxInclusive value="1"/&gt;
+              &lt;xs:minInclusive value="0"/&gt;
+            &lt;/xs:restriction&gt;
+          &lt;/xs:simpleType&gt;
+        &lt;/xs:element&gt;
+
+        &lt;xs:element name="contacts" minOccurs="0" maxOccurs="1"&gt;
+          &lt;xs:complexType&gt;
+            &lt;xs:sequence&gt;
+              &lt;xs:element name="contact" minOccurs="0" maxOccurs="2"&gt;
+                &lt;xs:complexType&gt;
+                  &lt;xs:all&gt;
+                    &lt;xs:element name="index"&gt;
+                      &lt;xs:simpleType&gt;
+                        &lt;xs:restriction base="xs:integer"&gt;
+                          &lt;xs:minInclusive value="0"/&gt;
+                          &lt;xs:maxInclusive value="1"/&gt;
+                        &lt;/xs:restriction&gt;
+                      &lt;/xs:simpleType&gt;
+                    &lt;/xs:element&gt;
+                    &lt;xs:element type="xs:integer" name="account_id"/&gt;
+                  &lt;/xs:all&gt;
+                &lt;/xs:complexType&gt;
+              &lt;/xs:element&gt;
+            &lt;/xs:sequence&gt;
+          &lt;/xs:complexType&gt;
+        &lt;/xs:element&gt;
+
+        &lt;xs:element name="contact_address" type="contact_address" minOccurs="0" maxOccurs="1"/&gt;
+        &lt;xs:element name="use_employee_home_address" type="xs:boolean" minOccurs="0" maxOccurs="1"/&gt;
+        &lt;xs:element name="geo_fencing_distance_type" minOccurs="0" maxOccurs="1"&gt;
+          &lt;xs:simpleType&gt;
+            &lt;xs:restriction base="xs:string"&gt;
+              &lt;xs:enumeration value="KM"/&gt;
+              &lt;xs:enumeration value="MILES"/&gt;
+            &lt;/xs:restriction&gt;
+          &lt;/xs:simpleType&gt;
+        &lt;/xs:element&gt;
+        &lt;xs:element name="geo_fencing_distance" minOccurs="0" maxOccurs="1"&gt;
+          &lt;xs:simpleType&gt;
+            &lt;xs:restriction base="xs:double"&gt;
+              &lt;xs:minInclusive value="0"/&gt;
+              &lt;xs:maxInclusive value="99999"/&gt;
+            &lt;/xs:restriction&gt;
+          &lt;/xs:simpleType&gt;
+        &lt;/xs:element&gt;
+        &lt;xs:element name="state_assigned_tax_code" minOccurs="0" maxOccurs="1"&gt;
+          &lt;xs:simpleType&gt;
+            &lt;xs:restriction base="xs:string"&gt;
+              &lt;xs:maxLength value="5"/&gt;
+              &lt;xs:pattern value="[0-9]{1,5}"/&gt;
+            &lt;/xs:restriction&gt;
+          &lt;/xs:simpleType&gt;
+        &lt;/xs:element&gt;
+        &lt;xs:element name="is_operating_and_reportable" type="xs:boolean" minOccurs="0" maxOccurs="1"/&gt;
+        &lt;xs:element name="delivery_point_barcode" minOccurs="0" maxOccurs="1"&gt;
+          &lt;xs:simpleType&gt;
+            &lt;xs:restriction base="xs:string"&gt;
+              &lt;xs:maxLength value="2"/&gt;
+            &lt;/xs:restriction&gt;
+          &lt;/xs:simpleType&gt;
+        &lt;/xs:element&gt;
+        &lt;xs:element name="primary_comment_code" minOccurs="0" maxOccurs="1"&gt;
+          &lt;xs:simpleType&gt;
+            &lt;xs:restriction base="xs:string"&gt;
+              &lt;xs:maxLength value="2"/&gt;
+            &lt;/xs:restriction&gt;
+          &lt;/xs:simpleType&gt;
+        &lt;/xs:element&gt;
+        &lt;xs:element name="secondary_comment_code" minOccurs="0" maxOccurs="1"&gt;
+          &lt;xs:simpleType&gt;
+            &lt;xs:restriction base="xs:string"&gt;
+              &lt;xs:maxLength value="2"/&gt;
+            &lt;/xs:restriction&gt;
+          &lt;/xs:simpleType&gt;
+        &lt;/xs:element&gt;
+        &lt;xs:element name="reasons_for_change" minOccurs="0" maxOccurs="1"&gt;
+          &lt;xs:simpleType&gt;
+            &lt;xs:restriction base="xs:string"&gt;
+              &lt;xs:maxLength value="50"/&gt;
+            &lt;/xs:restriction&gt;
+          &lt;/xs:simpleType&gt;
+        &lt;/xs:element&gt;
+        &lt;xs:element name="cost_center_skills" minOccurs="0" maxOccurs="1"&gt;
+          &lt;xs:complexType&gt;
+            &lt;xs:sequence&gt;
+              &lt;xs:element name="skill" type="cost_center_skill" minOccurs="0"
+                          maxOccurs="unbounded"/&gt;
+            &lt;/xs:sequence&gt;
+          &lt;/xs:complexType&gt;
+        &lt;/xs:element&gt;
+        &lt;xs:element name="job_settings" type="job_settings" minOccurs="0" maxOccurs="1"/&gt;
+        &lt;xs:element name="id" type="xs:long" minOccurs="0" maxOccurs="1"/&gt;
+        &lt;xs:element name="parent_cc" type="cost_center_ref" minOccurs="0" maxOccurs="1"/&gt;
+        &lt;xs:element name="level" minOccurs="0" maxOccurs="1"&gt;
+          &lt;xs:simpleType&gt;
+            &lt;xs:restriction base="xs:integer"&gt;
+              &lt;xs:minInclusive value="1"/&gt;
+              &lt;xs:maxInclusive value="10"/&gt;
+            &lt;/xs:restriction&gt;
+          &lt;/xs:simpleType&gt;
+        &lt;/xs:element&gt;
+        &lt;xs:element name="workers_comp_code" minOccurs="0"&gt;
+          &lt;xs:complexType&gt;
+            &lt;xs:sequence&gt;
+              &lt;xs:element type="xs:string" name="external_id"/&gt;
+            &lt;/xs:sequence&gt;
+          &lt;/xs:complexType&gt;
+        &lt;/xs:element&gt;
+        &lt;xs:element name="job_strain" minOccurs="0"&gt;
+          &lt;xs:complexType&gt;
+            &lt;xs:all&gt;
+              &lt;xs:element name="reference_type"&gt;
+                &lt;xs:simpleType&gt;
+                  &lt;xs:restriction base="xs:string"&gt;
+                    &lt;xs:enumeration value="SINGLE"/&gt;
+                    &lt;xs:enumeration value="LIST"/&gt;
+                  &lt;/xs:restriction&gt;
+                &lt;/xs:simpleType&gt;
+              &lt;/xs:element&gt;
+              &lt;xs:element name="id" type="xs:long" minOccurs="0"/&gt;
+              &lt;xs:element name="name" type="xs:string" minOccurs="0"/&gt;
+            &lt;/xs:all&gt;
+          &lt;/xs:complexType&gt;
+        &lt;/xs:element&gt;
+        &lt;xs:element name="location_code" minOccurs="0" maxOccurs="1"&gt;
+          &lt;xs:simpleType&gt;
+            &lt;xs:restriction base="xs:string"&gt;
+              &lt;xs:maxLength value="35"/&gt;
+            &lt;/xs:restriction&gt;
+          &lt;/xs:simpleType&gt;
+        &lt;/xs:element&gt;
+      &lt;/xs:all&gt;
+    &lt;/xs:complexType&gt;
+  &lt;/xs:element&gt;
+
+  &lt;xs:complexType name="cost_center_ref"&gt;
+    &lt;xs:sequence&gt;
+      &lt;xs:element type="xs:long" name="id"/&gt;
+    &lt;/xs:sequence&gt;
+  &lt;/xs:complexType&gt;
+
+  &lt;xs:complexType name="employee"&gt;
+    &lt;xs:sequence&gt;
+      &lt;xs:element type="xs:long" name="account_id"/&gt;
+    &lt;/xs:sequence&gt;
+  &lt;/xs:complexType&gt;
+
+  &lt;xs:complexType name="contact_address"&gt;
+    &lt;xs:complexContent&gt;
+      &lt;xs:extension base="address"&gt;
+        &lt;xs:sequence&gt;
+          &lt;xs:element name="company_name" minOccurs="0" maxOccurs="1"&gt;
+            &lt;xs:simpleType&gt;
+              &lt;xs:restriction base="xs:string"&gt;
+                &lt;xs:maxLength value="75"/&gt;
+              &lt;/xs:restriction&gt;
+            &lt;/xs:simpleType&gt;
+          &lt;/xs:element&gt;
+        &lt;/xs:sequence&gt;
+      &lt;/xs:extension&gt;
+    &lt;/xs:complexContent&gt;
+  &lt;/xs:complexType&gt;
+
+  &lt;xs:complexType name="address"&gt;
+    &lt;xs:sequence&gt;
+      &lt;xs:element name="address_line_1" minOccurs="0"&gt;
+        &lt;xs:simpleType&gt;
+          &lt;xs:restriction base="xs:string"&gt;
+            &lt;xs:maxLength value="128"/&gt;
+          &lt;/xs:restriction&gt;
+        &lt;/xs:simpleType&gt;
+      &lt;/xs:element&gt;
+      &lt;xs:element name="address_line_2" minOccurs="0"&gt;
+        &lt;xs:simpleType&gt;
+          &lt;xs:restriction base="xs:string"&gt;
+            &lt;xs:maxLength value="128"/&gt;
+          &lt;/xs:restriction&gt;
+        &lt;/xs:simpleType&gt;
+      &lt;/xs:element&gt;
+      &lt;xs:element name="address_line_3" minOccurs="0"&gt;
+        &lt;xs:simpleType&gt;
+          &lt;xs:restriction base="xs:string"&gt;
+            &lt;xs:maxLength value="128"/&gt;
+          &lt;/xs:restriction&gt;
+        &lt;/xs:simpleType&gt;
+      &lt;/xs:element&gt;
+      &lt;xs:element name="country" minOccurs="1"&gt;
+        &lt;xs:annotation&gt;
+          &lt;xs:documentation&gt;ISO 3166-1 alpha-3.&lt;/xs:documentation&gt;
+        &lt;/xs:annotation&gt;
+        &lt;xs:simpleType&gt;
+          &lt;xs:restriction base="xs:string"&gt;
+            &lt;xs:pattern value="([A-Z]{3})"/&gt;
+          &lt;/xs:restriction&gt;
+        &lt;/xs:simpleType&gt;
+      &lt;/xs:element&gt;
+      &lt;xs:element name="city" minOccurs="0"&gt;
+        &lt;xs:simpleType&gt;
+          &lt;xs:restriction base="xs:string"&gt;
+            &lt;xs:maxLength value="64"/&gt;
+          &lt;/xs:restriction&gt;
+        &lt;/xs:simpleType&gt;
+      &lt;/xs:element&gt;
+      &lt;xs:element name="state" minOccurs="0"&gt;
+        &lt;xs:annotation&gt;
+          &lt;xs:documentation&gt;See State Code in Master Data section.&lt;/xs:documentation&gt;
+        &lt;/xs:annotation&gt;
+        &lt;xs:simpleType&gt;
+          &lt;xs:restriction base="xs:string"&gt;
+            &lt;xs:maxLength value="3"/&gt;
+          &lt;/xs:restriction&gt;
+        &lt;/xs:simpleType&gt;
+      &lt;/xs:element&gt;
+      &lt;xs:element name="zip" minOccurs="0"&gt;
+        &lt;xs:simpleType&gt;
+          &lt;xs:restriction base="xs:string"&gt;
+            &lt;xs:maxLength value="15"/&gt;
+          &lt;/xs:restriction&gt;
+        &lt;/xs:simpleType&gt;
+      &lt;/xs:element&gt;
+      &lt;xs:element name="number" minOccurs="0" maxOccurs="1"&gt;
+        &lt;xs:simpleType&gt;
+          &lt;xs:restriction base="xs:string"&gt;
+            &lt;xs:maxLength value="10"/&gt;
+          &lt;/xs:restriction&gt;
+        &lt;/xs:simpleType&gt;
+      &lt;/xs:element&gt;
+      &lt;xs:element name="number_addition" minOccurs="0" maxOccurs="1"&gt;
+        &lt;xs:simpleType&gt;
+          &lt;xs:restriction base="xs:string"&gt;
+            &lt;xs:maxLength value="10"/&gt;
+          &lt;/xs:restriction&gt;
+        &lt;/xs:simpleType&gt;
+      &lt;/xs:element&gt;
+    &lt;/xs:sequence&gt;
+  &lt;/xs:complexType&gt;
+
+  &lt;xs:complexType name="skill"&gt;
+    &lt;xs:sequence&gt;
+      &lt;xs:element type="xs:long" name="id"/&gt;
+    &lt;/xs:sequence&gt;
+  &lt;/xs:complexType&gt;
+
+  &lt;xs:simpleType name="custom_field"&gt;
+    &lt;xs:restriction base="xs:string"&gt;
+      &lt;xs:maxLength value="255"/&gt;
+    &lt;/xs:restriction&gt;
+  &lt;/xs:simpleType&gt;
+
+  &lt;xs:complexType name="cost_center_skill"&gt;
+    &lt;xs:all&gt;
+      &lt;xs:element name="main_skill" type="skill" minOccurs="1" maxOccurs="1"/&gt;
+      &lt;xs:element name="alternative_skills" minOccurs="0" maxOccurs="1"&gt;
+        &lt;xs:complexType&gt;
+          &lt;xs:sequence&gt;
+            &lt;xs:element name="skill" type="skill" minOccurs="0" maxOccurs="unbounded"/&gt;
+          &lt;/xs:sequence&gt;
+        &lt;/xs:complexType&gt;
+      &lt;/xs:element&gt;
+    &lt;/xs:all&gt;
+  &lt;/xs:complexType&gt;
+
+  &lt;xs:complexType name="gl_codes"&gt;
+    &lt;xs:sequence&gt;
+      &lt;xs:element name="gl_code" minOccurs="0" maxOccurs="2"&gt;
+        &lt;xs:complexType&gt;
+          &lt;xs:all&gt;
+            &lt;xs:element name="index"&gt;
+              &lt;xs:simpleType&gt;
+                &lt;xs:restriction base="xs:integer"&gt;
+                  &lt;xs:minInclusive value="0"/&gt;
+                  &lt;xs:maxInclusive value="1"/&gt;
+                &lt;/xs:restriction&gt;
+              &lt;/xs:simpleType&gt;
+            &lt;/xs:element&gt;
+            &lt;xs:element name="value"&gt;
+              &lt;xs:simpleType&gt;
+                &lt;xs:restriction base="xs:string"&gt;
+                  &lt;xs:maxLength value="70"/&gt;
+                &lt;/xs:restriction&gt;
+              &lt;/xs:simpleType&gt;
+            &lt;/xs:element&gt;
+          &lt;/xs:all&gt;
+        &lt;/xs:complexType&gt;
+      &lt;/xs:element&gt;
+    &lt;/xs:sequence&gt;
+  &lt;/xs:complexType&gt;
+
+  &lt;xs:complexType name="job_settings"&gt;
+    &lt;xs:all&gt;
+      &lt;xs:element name="job_code" minOccurs="0" maxOccurs="1"&gt;
+        &lt;xs:simpleType&gt;
+          &lt;xs:restriction base="xs:string"&gt;
+            &lt;xs:maxLength value="128"/&gt;
+          &lt;/xs:restriction&gt;
+        &lt;/xs:simpleType&gt;
+      &lt;/xs:element&gt;
+      &lt;xs:element name="certified" type="xs:boolean" minOccurs="0" maxOccurs="1"/&gt;
+      &lt;xs:element name="project_name" minOccurs="0" maxOccurs="1"&gt;
+        &lt;xs:simpleType&gt;
+          &lt;xs:restriction base="xs:string"&gt;
+            &lt;xs:maxLength value="80"/&gt;
+          &lt;/xs:restriction&gt;
+        &lt;/xs:simpleType&gt;
+      &lt;/xs:element&gt;
+      &lt;xs:element name="project_number" minOccurs="0" maxOccurs="1"&gt;
+        &lt;xs:simpleType&gt;
+          &lt;xs:restriction base="xs:string"&gt;
+            &lt;xs:maxLength value="20"/&gt;
+          &lt;/xs:restriction&gt;
+        &lt;/xs:simpleType&gt;
+      &lt;/xs:element&gt;
+      &lt;xs:element name="is_sub_contractor" type="xs:boolean" minOccurs="0" maxOccurs="1"/&gt;
+      &lt;xs:element name="work_began" minOccurs="0" maxOccurs="1"&gt;
+        &lt;xs:simpleType&gt;
+          &lt;xs:restriction base="xs:date"&gt;
+            &lt;xs:minInclusive value="1900-12-31"/&gt;
+            &lt;xs:maxInclusive value="2079-06-05"/&gt;
+          &lt;/xs:restriction&gt;
+        &lt;/xs:simpleType&gt;
+      &lt;/xs:element&gt;
+      &lt;xs:element name="work_completed" minOccurs="0" maxOccurs="1"&gt;
+        &lt;xs:simpleType&gt;
+          &lt;xs:restriction base="xs:date"&gt;
+            &lt;xs:minInclusive value="1900-12-31"/&gt;
+            &lt;xs:maxInclusive value="2079-06-05"/&gt;
+          &lt;/xs:restriction&gt;
+        &lt;/xs:simpleType&gt;
+      &lt;/xs:element&gt;
+      &lt;xs:element name="contractor_licence_number" minOccurs="0" maxOccurs="1"&gt;
+        &lt;xs:simpleType&gt;
+          &lt;xs:restriction base="xs:string"&gt;
+            &lt;xs:maxLength value="100"/&gt;
+          &lt;/xs:restriction&gt;
+        &lt;/xs:simpleType&gt;
+      &lt;/xs:element&gt;
+      &lt;xs:element name="speciality_licence_number" minOccurs="0" maxOccurs="1"&gt;
+        &lt;xs:simpleType&gt;
+          &lt;xs:restriction base="xs:string"&gt;
+            &lt;xs:maxLength value="20"/&gt;
+          &lt;/xs:restriction&gt;
+        &lt;/xs:simpleType&gt;
+      &lt;/xs:element&gt;
+      &lt;xs:element name="self_insured_licence_number" minOccurs="0" maxOccurs="1"&gt;
+        &lt;xs:simpleType&gt;
+          &lt;xs:restriction base="xs:string"&gt;
+            &lt;xs:maxLength value="20"/&gt;
+          &lt;/xs:restriction&gt;
+        &lt;/xs:simpleType&gt;
+      &lt;/xs:element&gt;
+      &lt;xs:element name="workers_comp_policy" minOccurs="0" maxOccurs="1"&gt;
+        &lt;xs:simpleType&gt;
+          &lt;xs:restriction base="xs:string"&gt;
+            &lt;xs:maxLength value="60"/&gt;
+          &lt;/xs:restriction&gt;
+        &lt;/xs:simpleType&gt;
+      &lt;/xs:element&gt;
+      &lt;xs:element name="awarding_body_id" minOccurs="0" maxOccurs="1"&gt;
+        &lt;xs:simpleType&gt;
+          &lt;xs:restriction base="xs:string"&gt;
+            &lt;xs:maxLength value="20"/&gt;
+          &lt;/xs:restriction&gt;
+        &lt;/xs:simpleType&gt;
+      &lt;/xs:element&gt;
+      &lt;xs:element name="contract_id" minOccurs="0" maxOccurs="1"&gt;
+        &lt;xs:simpleType&gt;
+          &lt;xs:restriction base="xs:string"&gt;
+            &lt;xs:maxLength value="20"/&gt;
+          &lt;/xs:restriction&gt;
+        &lt;/xs:simpleType&gt;
+      &lt;/xs:element&gt;
+      &lt;xs:element name="contracting_with" minOccurs="0" maxOccurs="1"&gt;
+        &lt;xs:simpleType&gt;
+          &lt;xs:restriction base="xs:string"&gt;
+            &lt;xs:maxLength value="30"/&gt;
+          &lt;/xs:restriction&gt;
+        &lt;/xs:simpleType&gt;
+      &lt;/xs:element&gt;
+      &lt;xs:element name="contractor_licence_type" minOccurs="0" maxOccurs="1"&gt;
+        &lt;xs:simpleType&gt;
+          &lt;xs:restriction base="xs:string"&gt;
+            &lt;xs:enumeration value="CSLB"/&gt;
+            &lt;xs:enumeration value="PL"/&gt;
+            &lt;xs:enumeration value="OTHER"/&gt;
+          &lt;/xs:restriction&gt;
+        &lt;/xs:simpleType&gt;
+      &lt;/xs:element&gt;
+      &lt;xs:element name="pwc_project_id" minOccurs="0" maxOccurs="1"&gt;
+        &lt;xs:simpleType&gt;
+          &lt;xs:restriction base="xs:string"&gt;
+            &lt;xs:maxLength value="20"/&gt;
+          &lt;/xs:restriction&gt;
+        &lt;/xs:simpleType&gt;
+      &lt;/xs:element&gt;
+      &lt;xs:element name="pwc_registration_number" minOccurs="0" maxOccurs="1"&gt;
+        &lt;xs:simpleType&gt;
+          &lt;xs:restriction base="xs:string"&gt;
+            &lt;xs:maxLength value="20"/&gt;
+          &lt;/xs:restriction&gt;
+        &lt;/xs:simpleType&gt;
+      &lt;/xs:element&gt;
+      &lt;xs:element name="project_location" type="address" minOccurs="0" maxOccurs="1"/&gt;
+    &lt;/xs:all&gt;
+  &lt;/xs:complexType&gt;
+&lt;/xs:schema&gt;
+</div>
+</div>
+</div>
+</div>
+</div>
+</article>
+</section>
+<section class="clearfix">
+<article class="definition">
+<h3 class="anchored" id="delete"><span>DELETE</span>
+<a class="fa fa-link link-anchor" data-url="r=__v2__companies__(cid)__config__cost-centers__(ccid)#delete" data-web-id="__v2__companies__(cid)__config__cost-centers__(ccid)"></a>
+</h3>
+<div class="md"><p>Deletes a cost center by marking it as deleted (soft delete).
+
+Business rules:
+- User must have DELETE_COST_CENTER permission
+- Root cost centers cannot be deleted (they represent the company's top-level hierarchy)
+- Cost centers with children must have children reassigned or deleted first
+- User must have appropriate subsystem access (TA, TALITE2, HR, HRLITE2, PR, PR_CANADA, SCHEDULE)
+- User must have ACL permissions to access the cost center
+- Cost center must belong to the user's company
+</p></div>
+<div>
+<ul class="annotation-list">
+<li class="annotation">
+<span>v2</span>
+</li>
+</ul>
+</div>
+<h4>Parameters</h4>
+<h5>Path Parameters</h5>
+<ul class="param-list">
+<li>
+<div class="param-desc">
+<div class="param-name">cid</div>
+<div class="data-type">string</div>
+<div class="required">required</div>
+</div>
+<div class="param-content">
+<div>
+<p>Example: 123456</p>
+<div class="desc md">Company should be referenced via company id or company unique id or company short name using `|short_name` or `!short_name` format.
+</div>
+</div>
+</div>
+
+</li>
+<li>
+<div class="param-desc">
+<div class="param-name">ccid</div>
+<div class="data-type">integer</div>
+<div class="required">required</div>
+</div>
+<div class="param-content">
+<div>
+<p>Example: 45</p>
+<div class="desc md">The id of cost center.</div>
+</div>
+</div>
+
+</li>
+</ul>
+<h4>Responses</h4>
+<div class="responses">
+<div>
+<label class="response response-success">
+<span class="fa fa-check"></span>
+<input data-full-tab-id="delete-resp-code-tab-id-0" data-tab-class="resp-code-tab-delete" name="resp-code-tab-delete" type="radio"/>
+<span class="status">204 No Content</span>
+</label>
+<div class="response-desc resp-code-tab-delete" id="delete-resp-code-tab-id-0">
+<div class="md"><p>Cost center successfully deleted (no content returned)</p></div>
+</div>
+</div>
+<div>
+<label class="response response-error">
+<span class="fa fa-times"></span>
+<input data-full-tab-id="delete-resp-code-tab-id-1" data-tab-class="resp-code-tab-delete" name="resp-code-tab-delete" type="radio"/>
+<span class="status">400 Bad Request</span>
+</label>
+<div class="response-desc resp-code-tab-delete" id="delete-resp-code-tab-id-1">
+<div class="md"><p>Bad request. Possible reasons:
+- Invalid cost center ID
+- Attempting to delete root cost center
+- Cost center has children that must be reassigned first
+</p></div>
+</div>
+</div>
+<div>
+<label class="response response-error">
+<span class="fa fa-times"></span>
+<input data-full-tab-id="delete-resp-code-tab-id-2" data-tab-class="resp-code-tab-delete" name="resp-code-tab-delete" type="radio"/>
+<span class="status">403 Forbidden</span>
+</label>
+<div class="response-desc resp-code-tab-delete" id="delete-resp-code-tab-id-2">
+<div class="md"><p>Forbidden. Possible reasons:
+- User lacks DELETE_COST_CENTER permission
+- Cost center belongs to different company
+- User lacks ACL permissions to access cost center
+</p></div>
+</div>
+</div>
+<div>
+<label class="response response-error">
+<span class="fa fa-times"></span>
+<input data-full-tab-id="delete-resp-code-tab-id-3" data-tab-class="resp-code-tab-delete" name="resp-code-tab-delete" type="radio"/>
+<span class="status">404 Not Found</span>
+</label>
+<div class="response-desc resp-code-tab-delete" id="delete-resp-code-tab-id-3">
+<div class="md"><p>Cost center not found or already deleted</p></div>
+</div>
+</div>
+<div>
+<label class="response response-error">
+<span class="fa fa-times"></span>
+<input data-full-tab-id="delete-resp-code-tab-id-4" data-tab-class="resp-code-tab-delete" name="resp-code-tab-delete" type="radio"/>
+<span class="status">500 Internal Server Error</span>
+</label>
+<div class="response-desc resp-code-tab-delete" id="delete-resp-code-tab-id-4">
+<div class="md"><p>Internal server error (database save failed)</p></div>
+</div>
+</div>
+<div>
+<label class="response response-error">
+<span class="fa fa-times"></span>
+<input data-full-tab-id="delete-resp-code-tab-id-5" data-tab-class="resp-code-tab-delete" name="resp-code-tab-delete" type="radio"/>
+<span class="status">401 Unauthorized</span>
+</label>
+<div class="response-desc resp-code-tab-delete" id="delete-resp-code-tab-id-5">
+<div class="md"><p>Returned in case user is not authorized.</p></div>
+</div>
+</div>
+<div>
+<label class="response response-error">
+<span class="fa fa-times"></span>
+<input data-full-tab-id="delete-resp-code-tab-id-6" data-tab-class="resp-code-tab-delete" name="resp-code-tab-delete" type="radio"/>
+<span class="status">503 Service Unavailable</span>
+</label>
+<div class="response-desc resp-code-tab-delete" id="delete-resp-code-tab-id-6">
+<div class="md"><p>Returned in the event that the call limit is exceeded. The application will be unavailable for subsequent calls for the duration specified by the X-CallLimit-TimeToWait header.</p></div>
+</div>
+</div>
+</div>
+</article>
+<article class="code">
+<h4>Definition</h4>
+<div class="uri">
+<code>
+<span class="method delete">delete</span>
+<span class="textUri"><span class="baseUri">{{ getUriPrefix() }}</span><span class="relativeUri">/v2/companies/{cid}/config/cost-centers/{ccid}</span></span>
+</code>
+</div>
+</article>
+</section>
+</div>
+</body></html>

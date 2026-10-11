@@ -1,0 +1,252 @@
+<!doctype html>
+<html><head><meta charset="utf-8"><title>Token</title><style>body{font:16px system-ui;max-width:1100px;margin:2rem auto;padding:0 1rem;line-height:1.5}aside{background:#fff3cc;padding:1rem}.jsonschema,pre{white-space:pre-wrap;font:13px monospace;overflow-wrap:anywhere;background:#f4f5f7;padding:1rem}.uri{font-family:monospace}h2,h3{margin-top:2rem}</style></head><body><aside><strong>Modified private reference — 2026-10-09.</strong> Provider-documented illustrative examples are included; authentication token examples are redacted. These are not customer exports or guaranteed production behavior. Candidate sharing is pending. This is not OpenAPI.</aside>
+<div class="group">
+<h2 class="anchored" id="item.anchor">
+<span>Token</span>
+<a class="fa fa-link link-anchor" data-url="r=__v2__companies__(cid)__oauth2__token#" data-web-id="__v2__companies__(cid)__oauth2__token"></a>
+</h2>
+<p class="md">OAuth 2.0 is an industry standard authentication protocol that is used for providing access to resources over HTTP.
+&lt;br&gt;&lt;br&gt;The OAuth 2.0 spec has four important roles:
+&lt;ul&gt;
+  &lt;li&gt;authorization server: The server that issues the access token.&lt;/li&gt;
+  &lt;li&gt;resource owner: Normally your application's end user that grants permission to access the resource server with an access token.&lt;/li&gt;
+  &lt;li&gt;client: The application that requests the access token from the authorization server&lt;/li&gt;
+  &lt;li&gt;resource server: Accepts the access token and must verify that it's valid.&lt;/li&gt;
+&lt;/ul&gt;
+For the purposed of this API guide the authorization server, resource owner and resource server are all the served by this application. Usage of the authorization server for securing 3rd party resource servers is out of scope of this documentation.
+&lt;br&gt;Supported grant_type values: client_credentials, authorization_code, refresh_token.
+&lt;br&gt;&lt;b&gt;client_credentials&lt;/b&gt; required parameters: client_id, client_secret
+&lt;br&gt;&lt;b&gt;authorization_code&lt;/b&gt; required parameters: client_id, code, code_verifier, redirect_uri
+&lt;br&gt;&lt;b&gt;refresh_token&lt;/b&gt; required parameters: client_id, refresh_token
+</p>
+<section class="clearfix">
+<article class="definition">
+<h3 class="anchored" id="post"><span>POST</span>
+<a class="fa fa-link link-anchor" data-url="r=__v2__companies__(cid)__oauth2__token#post" data-web-id="__v2__companies__(cid)__oauth2__token"></a>
+</h3>
+<div class="md"><p>Implements The OAuth 2.0 Authorization Framework Authorization Endpoint &lt;a href="https://www.rfc-editor.org/rfc/rfc6749#section-4.4" target="_blank"&gt;rfc6749 section-4.4 &lt;i class="fa fa-external-link" aria-hidden="true"&gt;&lt;/i&gt;&lt;/a&gt;
+</p></div>
+<h4>Parameters</h4>
+<h5>Path Parameters</h5>
+<ul class="param-list">
+<li>
+<div class="param-desc">
+<div class="param-name">cid</div>
+<div class="data-type">string</div>
+<div class="required">required</div>
+</div>
+<div class="param-content">
+<div>
+<p>Example: 123456</p>
+<div class="desc md">Company should be referenced via company id or company unique id or company short name using `|short_name` or `!short_name` format.
+</div>
+</div>
+</div>
+
+</li>
+</ul>
+<h5>Header Parameters</h5>
+<ul class="param-list">
+<li>
+<div class="param-desc">
+<div class="param-name">Content-Type</div>
+<div class="data-type">string</div>
+<div class="required">required</div>
+</div>
+<div class="param-content">
+<div>
+<p>Example: application/x-www-form-urlencoded</p>
+</div>
+</div>
+
+</li>
+</ul>
+<h4>Responses</h4>
+<div class="responses">
+<div>
+<label class="response response-success">
+<span class="fa fa-check"></span>
+<input data-full-tab-id="post-resp-code-tab-id-0" data-tab-class="resp-code-tab-post" name="resp-code-tab-post" type="radio"/>
+<span class="status">200 Ok</span>
+</label>
+<div class="response-desc resp-code-tab-post" id="post-resp-code-tab-id-0">
+<div class="md"><p>Returned in case of success.</p></div>
+</div>
+</div>
+<div>
+<label class="response response-error">
+<span class="fa fa-times"></span>
+<input data-full-tab-id="post-resp-code-tab-id-1" data-tab-class="resp-code-tab-post" name="resp-code-tab-post" type="radio"/>
+<span class="status">400 Bad Request</span>
+</label>
+<div class="response-desc resp-code-tab-post" id="post-resp-code-tab-id-1">
+<div class="md"><p>Returned in case of any error in the request body.</p></div>
+</div>
+</div>
+<div>
+<label class="response response-error">
+<span class="fa fa-times"></span>
+<input data-full-tab-id="post-resp-code-tab-id-2" data-tab-class="resp-code-tab-post" name="resp-code-tab-post" type="radio"/>
+<span class="status">401 Unauthorized</span>
+</label>
+<div class="response-desc resp-code-tab-post" id="post-resp-code-tab-id-2">
+<div class="md"><p>Returned in case of any error during authentication.</p></div>
+</div>
+</div>
+<div>
+<label class="response response-error">
+<span class="fa fa-times"></span>
+<input data-full-tab-id="post-resp-code-tab-id-3" data-tab-class="resp-code-tab-post" name="resp-code-tab-post" type="radio"/>
+<span class="status">404 Not Found</span>
+</label>
+<div class="response-desc resp-code-tab-post" id="post-resp-code-tab-id-3">
+<div class="md"><p>Returned in case resource does not exist.</p></div>
+</div>
+</div>
+<div>
+<label class="response response-error">
+<span class="fa fa-times"></span>
+<input data-full-tab-id="post-resp-code-tab-id-4" data-tab-class="resp-code-tab-post" name="resp-code-tab-post" type="radio"/>
+<span class="status">405 Method Not Allowed</span>
+</label>
+<div class="response-desc resp-code-tab-post" id="post-resp-code-tab-id-4">
+<div class="md"><p>Returned in case used method is not allowed.</p></div>
+</div>
+</div>
+<div>
+<label class="response response-error">
+<span class="fa fa-times"></span>
+<input data-full-tab-id="post-resp-code-tab-id-5" data-tab-class="resp-code-tab-post" name="resp-code-tab-post" type="radio"/>
+<span class="status">406 Not Acceptable</span>
+</label>
+<div class="response-desc resp-code-tab-post" id="post-resp-code-tab-id-5">
+<div class="md"><p>Returned in case the `Accept` header contains media type unsupported by end point</p></div>
+</div>
+</div>
+<div>
+<label class="response response-error">
+<span class="fa fa-times"></span>
+<input data-full-tab-id="post-resp-code-tab-id-6" data-tab-class="resp-code-tab-post" name="resp-code-tab-post" type="radio"/>
+<span class="status">415 Unsupported Media Type</span>
+</label>
+<div class="response-desc resp-code-tab-post" id="post-resp-code-tab-id-6">
+<div class="md"><p>Returned in the event that the end point doesn't support the media-type specified in the `Content-Type` header.</p></div>
+</div>
+</div>
+</div>
+</article>
+<article class="code">
+<h4>Definition</h4>
+<div class="uri">
+<code>
+<span class="method post">post</span>
+<span class="textUri"><span class="baseUri">{{ getUriPrefix() }}</span><span class="relativeUri">/v2/companies/{cid}/oauth2/token</span></span>
+</code>
+</div>
+<h4>Request Samples</h4>
+<div class="tab-title-group">
+<label>
+<input checked="checked" data-full-tab-id="req-tab-id-post-0" data-tab-class="req-tab-post" name="req-tab-post" type="radio"/>
+<span class="tab-title">application/x-www-form-urlencoded</span>
+</label>
+</div>
+<div>
+<div class="req-tab-post" id="req-tab-id-post-0">
+<div class="example">
+
+<div class="post-example-tab-0 activeTab" id="post-tab-example-0">
+
+<pre class="highlightjs">grant_type=client_credentials&amp;client_id=username&amp;client_secret=password&amp;code=5872322d44ea6d3714462ecb3b2ecd568274c698349c56265cf9ecab85e51aed1c85706b9d306fdef59d29d79075147b0d14c84818d676bab144474f2b88974a581552a1157d41808186870550e9c8aa8ea56b1cd004a499aefd65964ddcb264a777c2687035a145c2366f3c94ff1c67621d2b58d942fba6f45596e028fbae04fdbd9cc3ecdc054c&amp;code_verifier=VoDXuGyV9RDqabFOXMNlHd7mBz7C_r-BvJyRE88GUfk&amp;redirect_uri=https://www.public-client-app.com/oauth2/callback&amp;refresh_token=VoDXuGyV9RDqabFOXMNlHd7mBz7C_r-BvJyRE88GUfk</pre>
+</div>
+<div class="post-example-tab-0" id="post-tab-schema-0">
+
+<div class="jsonschema" id="schema-0">{
+  "type": "object",
+  "properties": {
+    "grant_type": {
+      "type": "string"
+    },
+    "client_id": {
+      "type": "string"
+    },
+    "client_secret": {
+      "type": "string"
+    },
+    "code": {
+      "type": "string"
+    },
+    "code_verifier": {
+      "type": "string"
+    },
+    "redirect_uri": {
+      "type": "string"
+    },
+    "refresh_token": {
+      "type": "string"
+    }
+  },
+  "required": [
+    "grant_type",
+    "client_id"
+  ],
+  "definitions": {},
+  "$schema": "http://json-schema.org/draft-04/schema#"
+}</div>
+</div>
+</div>
+</div>
+</div>
+<h4>Response Samples</h4>
+<div class="tab-title-group">
+<label>
+<input checked="checked" data-full-tab-id="resp-tab-id-post-0" data-tab-class="resp-tab-post" name="resp-tab-post" type="radio"/>
+<span class="tab-title">application/json</span>
+</label>
+</div>
+<div>
+<div class="resp-tab-post" id="resp-tab-id-post-0">
+<div class="example">
+
+<div class="post-example-resp-tab-0 activeTab" id="post-tab-resp-example-0">
+
+<pre class="highlightjs">{
+  "access_token": "[REDACTED_DOCUMENTATION_TOKEN]",
+  "token_type": "Bearer",
+  "expires_in": 3600,
+  "refresh_token": "[REDACTED_DOCUMENTATION_TOKEN]"
+}</pre>
+</div>
+<div class="post-example-resp-tab-0" id="post-tab-resp-schema-0">
+
+<div class="jsonschema" id="schema-1">{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "type": "object",
+  "properties": {
+    "access_token": {
+      "type": "string"
+    },
+    "token_type": {
+      "type": "string"
+    },
+    "expires_in": {
+      "type": "integer"
+    },
+    "refresh_token": {
+      "type": "string"
+    }
+  },
+  "additionalProperties": false,
+  "required": [
+    "access_token",
+    "token_type",
+    "expires_in"
+  ]
+}</div>
+</div>
+</div>
+</div>
+</div>
+</article>
+</section>
+</div>
+</body></html>

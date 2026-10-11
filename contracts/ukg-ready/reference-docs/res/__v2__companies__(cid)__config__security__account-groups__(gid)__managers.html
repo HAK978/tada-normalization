@@ -1,0 +1,2273 @@
+<!doctype html>
+<html><head><meta charset="utf-8"><title>Managers</title><style>body{font:16px system-ui;max-width:1100px;margin:2rem auto;padding:0 1rem;line-height:1.5}aside{background:#fff3cc;padding:1rem}.jsonschema,pre{white-space:pre-wrap;font:13px monospace;overflow-wrap:anywhere;background:#f4f5f7;padding:1rem}.uri{font-family:monospace}h2,h3{margin-top:2rem}</style></head><body><aside><strong>Modified private reference — 2026-10-09.</strong> Provider-documented illustrative examples are included; authentication token examples are redacted. These are not customer exports or guaranteed production behavior. Candidate sharing is pending. This is not OpenAPI.</aside>
+<div class="group">
+<h2 class="anchored" id="item.anchor">
+<span>Managers</span>
+<a class="fa fa-link link-anchor" data-url="r=__v2__companies__(cid)__config__security__account-groups__(gid)__managers#" data-web-id="__v2__companies__(cid)__config__security__account-groups__(gid)__managers"></a>
+</h2>
+<section class="clearfix">
+<article class="definition">
+<h3 class="anchored" id="get"><span>GET</span>
+<a class="fa fa-link link-anchor" data-url="r=__v2__companies__(cid)__config__security__account-groups__(gid)__managers#get" data-web-id="__v2__companies__(cid)__config__security__account-groups__(gid)__managers"></a>
+</h3>
+<div class="md"><p>Retrieves existing regular account group managers.
+</p></div>
+<div>
+<ul class="annotation-list">
+<li class="annotation">
+<span>v2</span>
+</li>
+</ul>
+</div>
+<h4>Parameters</h4>
+<h5>Path Parameters</h5>
+<ul class="param-list">
+<li>
+<div class="param-desc">
+<div class="param-name">cid</div>
+<div class="data-type">string</div>
+<div class="required">required</div>
+</div>
+<div class="param-content">
+<div>
+<p>Example: 123456</p>
+<div class="desc md">Company should be referenced via company id or company unique id or company short name using `|short_name` or `!short_name` format.
+</div>
+</div>
+</div>
+
+</li>
+<li>
+<div class="param-desc">
+<div class="param-name">gid</div>
+<div class="data-type">integer</div>
+<div class="required">required</div>
+</div>
+<div class="param-content">
+<div>
+<div class="desc md">Account Group Id.</div>
+</div>
+</div>
+
+</li>
+</ul>
+<h5>Header Parameters</h5>
+<ul class="param-list">
+<li>
+<div class="param-desc">
+<div class="param-name">Accept</div>
+<div class="data-type">string</div>
+</div>
+<div class="param-content">
+<div>
+<p>Valid values: application/json, application/xml, text/xml</p>
+<p>Default: application/json</p>
+<p>Example: application/json</p>
+</div>
+</div>
+
+</li>
+</ul>
+<h4>Responses</h4>
+<div class="responses">
+<div>
+<label class="response response-success">
+<span class="fa fa-check"></span>
+<input data-full-tab-id="get-resp-code-tab-id-0" data-tab-class="resp-code-tab-get" name="resp-code-tab-get" type="radio"/>
+<span class="status">200 Ok</span>
+</label>
+<div class="response-desc resp-code-tab-get" id="get-resp-code-tab-id-0">
+</div>
+</div>
+<div>
+<label class="response response-error">
+<span class="fa fa-times"></span>
+<input data-full-tab-id="get-resp-code-tab-id-1" data-tab-class="resp-code-tab-get" name="resp-code-tab-get" type="radio"/>
+<span class="status">401 Unauthorized</span>
+</label>
+<div class="response-desc resp-code-tab-get" id="get-resp-code-tab-id-1">
+<div class="md"><p>Returned in case user is not authorized.</p></div>
+</div>
+</div>
+<div>
+<label class="response response-error">
+<span class="fa fa-times"></span>
+<input data-full-tab-id="get-resp-code-tab-id-2" data-tab-class="resp-code-tab-get" name="resp-code-tab-get" type="radio"/>
+<span class="status">403 Forbidden</span>
+</label>
+<div class="response-desc resp-code-tab-get" id="get-resp-code-tab-id-2">
+<div class="md"><p>Returned in case user has no access to the resource.</p></div>
+</div>
+</div>
+<div>
+<label class="response response-error">
+<span class="fa fa-times"></span>
+<input data-full-tab-id="get-resp-code-tab-id-3" data-tab-class="resp-code-tab-get" name="resp-code-tab-get" type="radio"/>
+<span class="status">503 Service Unavailable</span>
+</label>
+<div class="response-desc resp-code-tab-get" id="get-resp-code-tab-id-3">
+<div class="md"><p>Returned in the event that the call limit is exceeded. The application will be unavailable for subsequent calls for the duration specified by the X-CallLimit-TimeToWait header.</p></div>
+</div>
+</div>
+</div>
+</article>
+<article class="code">
+<h4>Definition</h4>
+<div class="uri">
+<code>
+<span class="method get">get</span>
+<span class="textUri"><span class="baseUri">{{ getUriPrefix() }}</span><span class="relativeUri">/v2/companies/{cid}/config/security/account-groups/{gid}/managers</span></span>
+</code>
+</div>
+<h4>Response Samples</h4>
+<div class="tab-title-group">
+<label>
+<input checked="checked" data-full-tab-id="resp-tab-id-get-0" data-tab-class="resp-tab-get" name="resp-tab-get" type="radio"/>
+<span class="tab-title">application/json</span>
+</label>
+<label>
+<input data-full-tab-id="resp-tab-id-get-1" data-tab-class="resp-tab-get" name="resp-tab-get" type="radio"/>
+<span class="tab-title">application/xml</span>
+</label>
+</div>
+<div>
+<div class="resp-tab-get" id="resp-tab-id-get-0">
+<div class="example">
+
+<div class="get-example-resp-tab-0 activeTab" id="get-tab-resp-example-0">
+
+<pre class="highlightjs">{
+  "account_group_managers": [
+    {
+      "employee": {
+        "account_id": 1918851,
+        "username": "user"
+      },
+      "active_from": "1900-12-31",
+      "active_to": "9999-12-31",
+      "permissions": {
+        "employee_information": {
+          "view": true,
+          "edit": false
+        },
+        "employee_time": {
+          "view": false,
+          "edit": false,
+          "approve": false,
+          "approve_override": false,
+          "time_entry_type": {
+            "time": false,
+            "time_off": false,
+            "extra_pay": false,
+            "adjustment": false
+          },
+          "time_entry_field": {
+            "time": true,
+            "time_off": true,
+            "pay_category": true,
+            "shift_premium": true,
+            "piecework": true,
+            "notes": true,
+            "cost_centers": [
+              {
+                "index": 0,
+                "edit": true
+              },
+              {
+                "index": 1,
+                "edit": true
+              },
+              {
+                "index": 2,
+                "edit": true
+              },
+              {
+                "index": 3,
+                "edit": true
+              },
+              {
+                "index": 4,
+                "edit": true
+              },
+              {
+                "index": 5,
+                "edit": true
+              },
+              {
+                "index": 6,
+                "edit": true
+              },
+              {
+                "index": 7,
+                "edit": true
+              },
+              {
+                "index": 8,
+                "edit": true
+              },
+              {
+                "index": 9,
+                "edit": true
+              }
+            ],
+            "extra_fields": [
+              {
+                "index": 0,
+                "edit": true
+              },
+              {
+                "index": 1,
+                "edit": true
+              },
+              {
+                "index": 2,
+                "edit": true
+              },
+              {
+                "index": 3,
+                "edit": true
+              },
+              {
+                "index": 4,
+                "edit": true
+              }
+            ],
+            "rates": [
+              {
+                "index": 0,
+                "edit": true
+              },
+              {
+                "index": 1,
+                "edit": true
+              },
+              {
+                "index": 2,
+                "edit": true
+              },
+              {
+                "index": 3,
+                "edit": true
+              },
+              {
+                "index": 4,
+                "edit": true
+              }
+            ]
+          },
+          "approve_overtime_requests": false,
+          "approve_time_off_requests": false,
+          "allow_top_restriction_override": false,
+          "approve_time_entries": false
+        },
+        "employee_schedule": {
+          "view": false,
+          "edit": false
+        },
+        "employee_base_compensation": {
+          "view": false,
+          "edit": false
+        },
+        "employee_pay_statement": {
+          "view": false,
+          "edit": false
+        },
+        "employee_performance_reviews": {
+          "view": false
+        },
+        "extra_pay_and_counter_adjustment": {
+          "view": false,
+          "edit": false,
+          "field_access": {
+            "time": true,
+            "quantity": true,
+            "amount": true,
+            "counter": true,
+            "shift_premium": true,
+            "notes": true,
+            "reason_code": true,
+            "record_date": true,
+            "cost_centers": [
+              {
+                "index": 0,
+                "edit": true
+              },
+              {
+                "index": 1,
+                "edit": true
+              },
+              {
+                "index": 2,
+                "edit": true
+              },
+              {
+                "index": 3,
+                "edit": true
+              },
+              {
+                "index": 4,
+                "edit": true
+              },
+              {
+                "index": 5,
+                "edit": true
+              },
+              {
+                "index": 6,
+                "edit": true
+              },
+              {
+                "index": 7,
+                "edit": true
+              },
+              {
+                "index": 8,
+                "edit": true
+              },
+              {
+                "index": 9,
+                "edit": true
+              }
+            ]
+          }
+        }
+      }
+    },
+    {
+      "employee": {
+        "account_id": 298354,
+        "username": "user2"
+      },
+      "active_from": "1900-12-31",
+      "active_to": "9999-12-31",
+      "permissions": {
+        "employee_information": {
+          "view": true,
+          "edit": true
+        },
+        "employee_time": {
+          "view": false,
+          "edit": false,
+          "approve": false,
+          "approve_override": false,
+          "time_entry_type": {
+            "time": false,
+            "time_off": false,
+            "extra_pay": false,
+            "adjustment": false
+          },
+          "time_entry_field": {
+            "time": true,
+            "time_off": true,
+            "pay_category": true,
+            "shift_premium": true,
+            "piecework": true,
+            "notes": true,
+            "cost_centers": [
+              {
+                "index": 0,
+                "edit": true
+              },
+              {
+                "index": 1,
+                "edit": true
+              },
+              {
+                "index": 2,
+                "edit": true
+              },
+              {
+                "index": 3,
+                "edit": true
+              },
+              {
+                "index": 4,
+                "edit": true
+              },
+              {
+                "index": 5,
+                "edit": true
+              },
+              {
+                "index": 6,
+                "edit": true
+              },
+              {
+                "index": 7,
+                "edit": true
+              },
+              {
+                "index": 8,
+                "edit": true
+              },
+              {
+                "index": 9,
+                "edit": true
+              }
+            ],
+            "extra_fields": [
+              {
+                "index": 0,
+                "edit": true
+              },
+              {
+                "index": 1,
+                "edit": true
+              },
+              {
+                "index": 2,
+                "edit": true
+              },
+              {
+                "index": 3,
+                "edit": true
+              },
+              {
+                "index": 4,
+                "edit": true
+              }
+            ],
+            "rates": [
+              {
+                "index": 0,
+                "edit": true
+              },
+              {
+                "index": 1,
+                "edit": true
+              },
+              {
+                "index": 2,
+                "edit": true
+              },
+              {
+                "index": 3,
+                "edit": true
+              },
+              {
+                "index": 4,
+                "edit": true
+              }
+            ]
+          },
+          "approve_overtime_requests": false,
+          "approve_time_off_requests": false,
+          "allow_top_restriction_override": false,
+          "approve_time_entries": false
+        },
+        "employee_schedule": {
+          "view": false,
+          "edit": false
+        },
+        "employee_base_compensation": {
+          "view": false,
+          "edit": false
+        },
+        "employee_pay_statement": {
+          "view": false,
+          "edit": false
+        },
+        "employee_performance_reviews": {
+          "view": false
+        },
+        "extra_pay_and_counter_adjustment": {
+          "view": false,
+          "edit": false,
+          "field_access": {
+            "time": true,
+            "quantity": true,
+            "amount": true,
+            "counter": true,
+            "shift_premium": true,
+            "notes": true,
+            "reason_code": true,
+            "record_date": true,
+            "cost_centers": [
+              {
+                "index": 0,
+                "edit": true
+              },
+              {
+                "index": 1,
+                "edit": true
+              },
+              {
+                "index": 2,
+                "edit": true
+              },
+              {
+                "index": 3,
+                "edit": true
+              },
+              {
+                "index": 4,
+                "edit": true
+              },
+              {
+                "index": 5,
+                "edit": true
+              },
+              {
+                "index": 6,
+                "edit": true
+              },
+              {
+                "index": 7,
+                "edit": true
+              },
+              {
+                "index": 8,
+                "edit": true
+              },
+              {
+                "index": 9,
+                "edit": true
+              }
+            ]
+          }
+        }
+      }
+    }
+  ]
+}</pre>
+</div>
+<div class="get-example-resp-tab-0" id="get-tab-resp-schema-0">
+
+<div class="jsonschema" id="schema-0">{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "type": "object",
+  "properties": {
+    "account_group_managers": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "employee": {
+            "type": "object",
+            "properties": {
+              "account_id": {
+                "type": "number",
+                "format": "long"
+              },
+              "username": {
+                "type": "string"
+              }
+            },
+            "additionalProperties": false,
+            "required": [
+              "account_id"
+            ]
+          },
+          "active_from": {
+            "type": "string",
+            "description": "Date needs to be in the format yyyy-mm-dd within the 1900-12-31 and 9999-12-31 date range"
+          },
+          "active_to": {
+            "type": "string",
+            "description": "Date needs to be in the format yyyy-mm-dd within the 1900-12-31 and 9999-12-31 date range"
+          },
+          "permissions": {
+            "type": "object",
+            "properties": {
+              "employee_information": {
+                "type": "object",
+                "properties": {
+                  "view": {
+                    "type": "boolean"
+                  },
+                  "edit": {
+                    "type": "boolean"
+                  }
+                },
+                "additionalProperties": false
+              },
+              "employee_time": {
+                "type": "object",
+                "properties": {
+                  "view": {
+                    "type": "boolean"
+                  },
+                  "edit": {
+                    "type": "boolean"
+                  },
+                  "approve": {
+                    "type": "boolean"
+                  },
+                  "approve_level": {
+                    "type": "integer",
+                    "minimum": 1,
+                    "maximum": 5,
+                    "description": "Required if 'approve' is set to true."
+                  },
+                  "approve_override": {
+                    "type": "boolean"
+                  },
+                  "time_entry_type": {
+                    "type": "object",
+                    "properties": {
+                      "time": {
+                        "type": "boolean"
+                      },
+                      "time_off": {
+                        "type": "boolean"
+                      },
+                      "extra_pay": {
+                        "type": "boolean"
+                      },
+                      "adjustment": {
+                        "type": "boolean"
+                      }
+                    },
+                    "additionalProperties": false
+                  },
+                  "time_entry_field": {
+                    "type": "object",
+                    "properties": {
+                      "time": {
+                        "type": "boolean"
+                      },
+                      "time_off": {
+                        "type": "boolean"
+                      },
+                      "pay_category": {
+                        "type": "boolean"
+                      },
+                      "shift_premium": {
+                        "type": "boolean"
+                      },
+                      "piecework": {
+                        "type": "boolean"
+                      },
+                      "notes": {
+                        "type": "boolean"
+                      },
+                      "cost_centers": {
+                        "type": "array",
+                        "items": {
+                          "type": "object",
+                          "properties": {
+                            "index": {
+                              "type": "integer",
+                              "minimum": 0,
+                              "maximum": 9
+                            },
+                            "edit": {
+                              "type": "boolean"
+                            }
+                          },
+                          "additionalProperties": false,
+                          "required": [
+                            "index",
+                            "edit"
+                          ]
+                        }
+                      },
+                      "extra_fields": {
+                        "type": "array",
+                        "items": {
+                          "type": "object",
+                          "properties": {
+                            "index": {
+                              "type": "integer",
+                              "minimum": 0,
+                              "maximum": 4
+                            },
+                            "edit": {
+                              "type": "boolean"
+                            }
+                          },
+                          "additionalProperties": false,
+                          "required": [
+                            "index",
+                            "edit"
+                          ]
+                        }
+                      },
+                      "rates": {
+                        "type": "array",
+                        "items": {
+                          "type": "object",
+                          "properties": {
+                            "index": {
+                              "type": "integer",
+                              "minimum": 0,
+                              "maximum": 4
+                            },
+                            "edit": {
+                              "type": "boolean"
+                            }
+                          },
+                          "additionalProperties": false,
+                          "required": [
+                            "index",
+                            "edit"
+                          ]
+                        }
+                      }
+                    },
+                    "additionalProperties": false
+                  },
+                  "approve_overtime_requests": {
+                    "type": "boolean"
+                  },
+                  "approve_time_off_requests": {
+                    "type": "boolean"
+                  },
+                  "allow_top_restriction_override": {
+                    "type": "boolean"
+                  },
+                  "approve_time_entries": {
+                    "type": "boolean"
+                  },
+                  "approve_extra_pay_entries": {
+                    "type": "boolean"
+                  }
+                },
+                "additionalProperties": false
+              },
+              "employee_schedule": {
+                "type": "object",
+                "properties": {
+                  "view": {
+                    "type": "boolean"
+                  },
+                  "edit": {
+                    "type": "boolean"
+                  }
+                },
+                "additionalProperties": false
+              },
+              "employee_base_compensation": {
+                "type": "object",
+                "properties": {
+                  "view": {
+                    "type": "boolean"
+                  },
+                  "edit": {
+                    "type": "boolean"
+                  }
+                },
+                "additionalProperties": false
+              },
+              "employee_pay_statement": {
+                "type": "object",
+                "properties": {
+                  "view": {
+                    "type": "boolean"
+                  },
+                  "edit": {
+                    "type": "boolean"
+                  }
+                },
+                "additionalProperties": false
+              },
+              "employee_performance_reviews": {
+                "type": "object",
+                "properties": {
+                  "view": {
+                    "type": "boolean"
+                  }
+                },
+                "additionalProperties": false
+              },
+              "extra_pay_and_counter_adjustment": {
+                "type": "object",
+                "properties": {
+                  "view": {
+                    "type": "boolean"
+                  },
+                  "edit": {
+                    "type": "boolean"
+                  },
+                  "field_access": {
+                    "type": "object",
+                    "properties": {
+                      "time": {
+                        "type": "boolean"
+                      },
+                      "quantity": {
+                        "type": "boolean"
+                      },
+                      "amount": {
+                        "type": "boolean"
+                      },
+                      "counter": {
+                        "type": "boolean"
+                      },
+                      "shift_premium": {
+                        "type": "boolean"
+                      },
+                      "notes": {
+                        "type": "boolean"
+                      },
+                      "reason_code": {
+                        "type": "boolean"
+                      },
+                      "record_date": {
+                        "type": "boolean"
+                      },
+                      "cost_centers": {
+                        "type": "array",
+                        "items": {
+                          "type": "object",
+                          "properties": {
+                            "index": {
+                              "type": "integer",
+                              "minimum": 0,
+                              "maximum": 9
+                            },
+                            "edit": {
+                              "type": "boolean"
+                            }
+                          },
+                          "additionalProperties": false,
+                          "required": [
+                            "index",
+                            "edit"
+                          ]
+                        }
+                      }
+                    },
+                    "additionalProperties": false
+                  }
+                },
+                "additionalProperties": false
+              }
+            },
+            "additionalProperties": false
+          }
+        },
+        "additionalProperties": false,
+        "required": [
+          "employee"
+        ]
+      }
+    }
+  },
+  "additionalProperties": false,
+  "required": [
+    "account_group_managers"
+  ]
+}</div>
+</div>
+</div>
+</div>
+<div class="resp-tab-get" id="resp-tab-id-get-1">
+<div class="example">
+
+<div class="get-example-resp-tab-1 activeTab" id="get-tab-resp-example-1">
+
+<pre class="highlightjs">&lt;?xml version='1.0' encoding='UTF-8'?&gt;
+&lt;account_group_managers&gt;
+  &lt;account_group_manager&gt;
+    &lt;employee&gt;
+      &lt;account_id&gt;1918851&lt;/account_id&gt;
+      &lt;username&gt;user&lt;/username&gt;
+    &lt;/employee&gt;
+    &lt;active_from&gt;1900-12-31&lt;/active_from&gt;
+    &lt;active_to&gt;9999-12-31&lt;/active_to&gt;
+    &lt;permissions&gt;
+      &lt;employee_information&gt;
+        &lt;view&gt;true&lt;/view&gt;
+        &lt;edit&gt;false&lt;/edit&gt;
+      &lt;/employee_information&gt;
+      &lt;employee_time&gt;
+        &lt;view&gt;false&lt;/view&gt;
+        &lt;edit&gt;false&lt;/edit&gt;
+        &lt;approve&gt;false&lt;/approve&gt;
+        &lt;approve_override&gt;false&lt;/approve_override&gt;
+        &lt;time_entry_type&gt;
+          &lt;time&gt;false&lt;/time&gt;
+          &lt;time_off&gt;false&lt;/time_off&gt;
+          &lt;extra_pay&gt;false&lt;/extra_pay&gt;
+          &lt;adjustment&gt;false&lt;/adjustment&gt;
+        &lt;/time_entry_type&gt;
+        &lt;time_entry_field&gt;
+          &lt;time&gt;true&lt;/time&gt;
+          &lt;time_off&gt;true&lt;/time_off&gt;
+          &lt;pay_category&gt;true&lt;/pay_category&gt;
+          &lt;shift_premium&gt;true&lt;/shift_premium&gt;
+          &lt;piecework&gt;true&lt;/piecework&gt;
+          &lt;notes&gt;true&lt;/notes&gt;
+          &lt;cost_centers&gt;
+            &lt;cost_center&gt;
+              &lt;index&gt;0&lt;/index&gt;
+              &lt;edit&gt;true&lt;/edit&gt;
+            &lt;/cost_center&gt;
+            &lt;cost_center&gt;
+              &lt;index&gt;1&lt;/index&gt;
+              &lt;edit&gt;true&lt;/edit&gt;
+            &lt;/cost_center&gt;
+            &lt;cost_center&gt;
+              &lt;index&gt;2&lt;/index&gt;
+              &lt;edit&gt;true&lt;/edit&gt;
+            &lt;/cost_center&gt;
+            &lt;cost_center&gt;
+              &lt;index&gt;3&lt;/index&gt;
+              &lt;edit&gt;true&lt;/edit&gt;
+            &lt;/cost_center&gt;
+            &lt;cost_center&gt;
+              &lt;index&gt;4&lt;/index&gt;
+              &lt;edit&gt;true&lt;/edit&gt;
+            &lt;/cost_center&gt;
+            &lt;cost_center&gt;
+              &lt;index&gt;5&lt;/index&gt;
+              &lt;edit&gt;true&lt;/edit&gt;
+            &lt;/cost_center&gt;
+            &lt;cost_center&gt;
+              &lt;index&gt;6&lt;/index&gt;
+              &lt;edit&gt;true&lt;/edit&gt;
+            &lt;/cost_center&gt;
+            &lt;cost_center&gt;
+              &lt;index&gt;7&lt;/index&gt;
+              &lt;edit&gt;true&lt;/edit&gt;
+            &lt;/cost_center&gt;
+            &lt;cost_center&gt;
+              &lt;index&gt;8&lt;/index&gt;
+              &lt;edit&gt;true&lt;/edit&gt;
+            &lt;/cost_center&gt;
+            &lt;cost_center&gt;
+              &lt;index&gt;9&lt;/index&gt;
+              &lt;edit&gt;true&lt;/edit&gt;
+            &lt;/cost_center&gt;
+          &lt;/cost_centers&gt;
+          &lt;extra_fields&gt;
+            &lt;extra_field&gt;
+              &lt;index&gt;0&lt;/index&gt;
+              &lt;edit&gt;true&lt;/edit&gt;
+            &lt;/extra_field&gt;
+            &lt;extra_field&gt;
+              &lt;index&gt;1&lt;/index&gt;
+              &lt;edit&gt;true&lt;/edit&gt;
+            &lt;/extra_field&gt;
+            &lt;extra_field&gt;
+              &lt;index&gt;2&lt;/index&gt;
+              &lt;edit&gt;true&lt;/edit&gt;
+            &lt;/extra_field&gt;
+            &lt;extra_field&gt;
+              &lt;index&gt;3&lt;/index&gt;
+              &lt;edit&gt;true&lt;/edit&gt;
+            &lt;/extra_field&gt;
+            &lt;extra_field&gt;
+              &lt;index&gt;4&lt;/index&gt;
+              &lt;edit&gt;true&lt;/edit&gt;
+            &lt;/extra_field&gt;
+          &lt;/extra_fields&gt;
+          &lt;rates&gt;
+            &lt;rate&gt;
+              &lt;index&gt;0&lt;/index&gt;
+              &lt;edit&gt;true&lt;/edit&gt;
+            &lt;/rate&gt;
+            &lt;rate&gt;
+              &lt;index&gt;1&lt;/index&gt;
+              &lt;edit&gt;true&lt;/edit&gt;
+            &lt;/rate&gt;
+            &lt;rate&gt;
+              &lt;index&gt;2&lt;/index&gt;
+              &lt;edit&gt;true&lt;/edit&gt;
+            &lt;/rate&gt;
+            &lt;rate&gt;
+              &lt;index&gt;3&lt;/index&gt;
+              &lt;edit&gt;true&lt;/edit&gt;
+            &lt;/rate&gt;
+            &lt;rate&gt;
+              &lt;index&gt;4&lt;/index&gt;
+              &lt;edit&gt;true&lt;/edit&gt;
+            &lt;/rate&gt;
+          &lt;/rates&gt;
+        &lt;/time_entry_field&gt;
+        &lt;approve_overtime_requests&gt;false&lt;/approve_overtime_requests&gt;
+        &lt;approve_time_off_requests&gt;false&lt;/approve_time_off_requests&gt;
+        &lt;allow_top_restriction_override&gt;false&lt;/allow_top_restriction_override&gt;
+        &lt;approve_time_entries&gt;false&lt;/approve_time_entries&gt;
+      &lt;/employee_time&gt;
+      &lt;employee_schedule&gt;
+        &lt;view&gt;false&lt;/view&gt;
+        &lt;edit&gt;false&lt;/edit&gt;
+      &lt;/employee_schedule&gt;
+      &lt;employee_base_compensation&gt;
+        &lt;view&gt;false&lt;/view&gt;
+        &lt;edit&gt;false&lt;/edit&gt;
+      &lt;/employee_base_compensation&gt;
+      &lt;employee_pay_statement&gt;
+        &lt;view&gt;false&lt;/view&gt;
+        &lt;edit&gt;false&lt;/edit&gt;
+      &lt;/employee_pay_statement&gt;
+      &lt;employee_performance_reviews&gt;
+        &lt;view&gt;false&lt;/view&gt;
+      &lt;/employee_performance_reviews&gt;
+      &lt;extra_pay_and_counter_adjustment&gt;
+        &lt;view&gt;false&lt;/view&gt;
+        &lt;edit&gt;false&lt;/edit&gt;
+        &lt;field_access&gt;
+          &lt;time&gt;true&lt;/time&gt;
+          &lt;quantity&gt;true&lt;/quantity&gt;
+          &lt;amount&gt;true&lt;/amount&gt;
+          &lt;counter&gt;true&lt;/counter&gt;
+          &lt;shift_premium&gt;true&lt;/shift_premium&gt;
+          &lt;notes&gt;true&lt;/notes&gt;
+          &lt;reason_code&gt;true&lt;/reason_code&gt;
+          &lt;record_date&gt;true&lt;/record_date&gt;
+          &lt;cost_centers&gt;
+            &lt;cost_center&gt;
+              &lt;index&gt;0&lt;/index&gt;
+              &lt;edit&gt;true&lt;/edit&gt;
+            &lt;/cost_center&gt;
+            &lt;cost_center&gt;
+              &lt;index&gt;1&lt;/index&gt;
+              &lt;edit&gt;true&lt;/edit&gt;
+            &lt;/cost_center&gt;
+            &lt;cost_center&gt;
+              &lt;index&gt;2&lt;/index&gt;
+              &lt;edit&gt;true&lt;/edit&gt;
+            &lt;/cost_center&gt;
+            &lt;cost_center&gt;
+              &lt;index&gt;3&lt;/index&gt;
+              &lt;edit&gt;true&lt;/edit&gt;
+            &lt;/cost_center&gt;
+            &lt;cost_center&gt;
+              &lt;index&gt;4&lt;/index&gt;
+              &lt;edit&gt;true&lt;/edit&gt;
+            &lt;/cost_center&gt;
+            &lt;cost_center&gt;
+              &lt;index&gt;5&lt;/index&gt;
+              &lt;edit&gt;true&lt;/edit&gt;
+            &lt;/cost_center&gt;
+            &lt;cost_center&gt;
+              &lt;index&gt;6&lt;/index&gt;
+              &lt;edit&gt;true&lt;/edit&gt;
+            &lt;/cost_center&gt;
+            &lt;cost_center&gt;
+              &lt;index&gt;7&lt;/index&gt;
+              &lt;edit&gt;true&lt;/edit&gt;
+            &lt;/cost_center&gt;
+            &lt;cost_center&gt;
+              &lt;index&gt;8&lt;/index&gt;
+              &lt;edit&gt;true&lt;/edit&gt;
+            &lt;/cost_center&gt;
+            &lt;cost_center&gt;
+              &lt;index&gt;9&lt;/index&gt;
+              &lt;edit&gt;true&lt;/edit&gt;
+            &lt;/cost_center&gt;
+          &lt;/cost_centers&gt;
+        &lt;/field_access&gt;
+      &lt;/extra_pay_and_counter_adjustment&gt;
+    &lt;/permissions&gt;
+  &lt;/account_group_manager&gt;
+  &lt;account_group_manager&gt;
+    &lt;employee&gt;
+      &lt;account_id&gt;298354&lt;/account_id&gt;
+      &lt;username&gt;user2&lt;/username&gt;
+    &lt;/employee&gt;
+    &lt;active_from&gt;1900-12-31&lt;/active_from&gt;
+    &lt;active_to&gt;9999-12-31&lt;/active_to&gt;
+    &lt;permissions&gt;
+      &lt;employee_information&gt;
+        &lt;view&gt;true&lt;/view&gt;
+        &lt;edit&gt;true&lt;/edit&gt;
+      &lt;/employee_information&gt;
+      &lt;employee_time&gt;
+        &lt;view&gt;false&lt;/view&gt;
+        &lt;edit&gt;false&lt;/edit&gt;
+        &lt;approve&gt;false&lt;/approve&gt;
+        &lt;approve_override&gt;false&lt;/approve_override&gt;
+        &lt;time_entry_type&gt;
+          &lt;time&gt;false&lt;/time&gt;
+          &lt;time_off&gt;false&lt;/time_off&gt;
+          &lt;extra_pay&gt;false&lt;/extra_pay&gt;
+          &lt;adjustment&gt;false&lt;/adjustment&gt;
+        &lt;/time_entry_type&gt;
+        &lt;time_entry_field&gt;
+          &lt;time&gt;true&lt;/time&gt;
+          &lt;time_off&gt;true&lt;/time_off&gt;
+          &lt;pay_category&gt;true&lt;/pay_category&gt;
+          &lt;shift_premium&gt;true&lt;/shift_premium&gt;
+          &lt;piecework&gt;true&lt;/piecework&gt;
+          &lt;notes&gt;true&lt;/notes&gt;
+          &lt;cost_centers&gt;
+            &lt;cost_center&gt;
+              &lt;index&gt;0&lt;/index&gt;
+              &lt;edit&gt;true&lt;/edit&gt;
+            &lt;/cost_center&gt;
+            &lt;cost_center&gt;
+              &lt;index&gt;1&lt;/index&gt;
+              &lt;edit&gt;true&lt;/edit&gt;
+            &lt;/cost_center&gt;
+            &lt;cost_center&gt;
+              &lt;index&gt;2&lt;/index&gt;
+              &lt;edit&gt;true&lt;/edit&gt;
+            &lt;/cost_center&gt;
+            &lt;cost_center&gt;
+              &lt;index&gt;3&lt;/index&gt;
+              &lt;edit&gt;true&lt;/edit&gt;
+            &lt;/cost_center&gt;
+            &lt;cost_center&gt;
+              &lt;index&gt;4&lt;/index&gt;
+              &lt;edit&gt;true&lt;/edit&gt;
+            &lt;/cost_center&gt;
+            &lt;cost_center&gt;
+              &lt;index&gt;5&lt;/index&gt;
+              &lt;edit&gt;true&lt;/edit&gt;
+            &lt;/cost_center&gt;
+            &lt;cost_center&gt;
+              &lt;index&gt;6&lt;/index&gt;
+              &lt;edit&gt;true&lt;/edit&gt;
+            &lt;/cost_center&gt;
+            &lt;cost_center&gt;
+              &lt;index&gt;7&lt;/index&gt;
+              &lt;edit&gt;true&lt;/edit&gt;
+            &lt;/cost_center&gt;
+            &lt;cost_center&gt;
+              &lt;index&gt;8&lt;/index&gt;
+              &lt;edit&gt;true&lt;/edit&gt;
+            &lt;/cost_center&gt;
+            &lt;cost_center&gt;
+              &lt;index&gt;9&lt;/index&gt;
+              &lt;edit&gt;true&lt;/edit&gt;
+            &lt;/cost_center&gt;
+          &lt;/cost_centers&gt;
+          &lt;extra_fields&gt;
+            &lt;extra_field&gt;
+              &lt;index&gt;0&lt;/index&gt;
+              &lt;edit&gt;true&lt;/edit&gt;
+            &lt;/extra_field&gt;
+            &lt;extra_field&gt;
+              &lt;index&gt;1&lt;/index&gt;
+              &lt;edit&gt;true&lt;/edit&gt;
+            &lt;/extra_field&gt;
+            &lt;extra_field&gt;
+              &lt;index&gt;2&lt;/index&gt;
+              &lt;edit&gt;true&lt;/edit&gt;
+            &lt;/extra_field&gt;
+            &lt;extra_field&gt;
+              &lt;index&gt;3&lt;/index&gt;
+              &lt;edit&gt;true&lt;/edit&gt;
+            &lt;/extra_field&gt;
+            &lt;extra_field&gt;
+              &lt;index&gt;4&lt;/index&gt;
+              &lt;edit&gt;true&lt;/edit&gt;
+            &lt;/extra_field&gt;
+          &lt;/extra_fields&gt;
+          &lt;rates&gt;
+            &lt;rate&gt;
+              &lt;index&gt;0&lt;/index&gt;
+              &lt;edit&gt;true&lt;/edit&gt;
+            &lt;/rate&gt;
+            &lt;rate&gt;
+              &lt;index&gt;1&lt;/index&gt;
+              &lt;edit&gt;true&lt;/edit&gt;
+            &lt;/rate&gt;
+            &lt;rate&gt;
+              &lt;index&gt;2&lt;/index&gt;
+              &lt;edit&gt;true&lt;/edit&gt;
+            &lt;/rate&gt;
+            &lt;rate&gt;
+              &lt;index&gt;3&lt;/index&gt;
+              &lt;edit&gt;true&lt;/edit&gt;
+            &lt;/rate&gt;
+            &lt;rate&gt;
+              &lt;index&gt;4&lt;/index&gt;
+              &lt;edit&gt;true&lt;/edit&gt;
+            &lt;/rate&gt;
+          &lt;/rates&gt;
+        &lt;/time_entry_field&gt;
+        &lt;approve_overtime_requests&gt;false&lt;/approve_overtime_requests&gt;
+        &lt;approve_time_off_requests&gt;false&lt;/approve_time_off_requests&gt;
+        &lt;allow_top_restriction_override&gt;false&lt;/allow_top_restriction_override&gt;
+        &lt;approve_time_entries&gt;false&lt;/approve_time_entries&gt;
+      &lt;/employee_time&gt;
+      &lt;employee_schedule&gt;
+        &lt;view&gt;false&lt;/view&gt;
+        &lt;edit&gt;false&lt;/edit&gt;
+      &lt;/employee_schedule&gt;
+      &lt;employee_base_compensation&gt;
+        &lt;view&gt;false&lt;/view&gt;
+        &lt;edit&gt;false&lt;/edit&gt;
+      &lt;/employee_base_compensation&gt;
+      &lt;employee_pay_statement&gt;
+        &lt;view&gt;false&lt;/view&gt;
+        &lt;edit&gt;false&lt;/edit&gt;
+      &lt;/employee_pay_statement&gt;
+      &lt;employee_performance_reviews&gt;
+        &lt;view&gt;false&lt;/view&gt;
+      &lt;/employee_performance_reviews&gt;
+      &lt;extra_pay_and_counter_adjustment&gt;
+        &lt;view&gt;false&lt;/view&gt;
+        &lt;edit&gt;false&lt;/edit&gt;
+        &lt;field_access&gt;
+          &lt;time&gt;true&lt;/time&gt;
+          &lt;quantity&gt;true&lt;/quantity&gt;
+          &lt;amount&gt;true&lt;/amount&gt;
+          &lt;counter&gt;true&lt;/counter&gt;
+          &lt;shift_premium&gt;true&lt;/shift_premium&gt;
+          &lt;notes&gt;true&lt;/notes&gt;
+          &lt;reason_code&gt;true&lt;/reason_code&gt;
+          &lt;record_date&gt;true&lt;/record_date&gt;
+          &lt;cost_centers&gt;
+            &lt;cost_center&gt;
+              &lt;index&gt;0&lt;/index&gt;
+              &lt;edit&gt;true&lt;/edit&gt;
+            &lt;/cost_center&gt;
+            &lt;cost_center&gt;
+              &lt;index&gt;1&lt;/index&gt;
+              &lt;edit&gt;true&lt;/edit&gt;
+            &lt;/cost_center&gt;
+            &lt;cost_center&gt;
+              &lt;index&gt;2&lt;/index&gt;
+              &lt;edit&gt;true&lt;/edit&gt;
+            &lt;/cost_center&gt;
+            &lt;cost_center&gt;
+              &lt;index&gt;3&lt;/index&gt;
+              &lt;edit&gt;true&lt;/edit&gt;
+            &lt;/cost_center&gt;
+            &lt;cost_center&gt;
+              &lt;index&gt;4&lt;/index&gt;
+              &lt;edit&gt;true&lt;/edit&gt;
+            &lt;/cost_center&gt;
+            &lt;cost_center&gt;
+              &lt;index&gt;5&lt;/index&gt;
+              &lt;edit&gt;true&lt;/edit&gt;
+            &lt;/cost_center&gt;
+            &lt;cost_center&gt;
+              &lt;index&gt;6&lt;/index&gt;
+              &lt;edit&gt;true&lt;/edit&gt;
+            &lt;/cost_center&gt;
+            &lt;cost_center&gt;
+              &lt;index&gt;7&lt;/index&gt;
+              &lt;edit&gt;true&lt;/edit&gt;
+            &lt;/cost_center&gt;
+            &lt;cost_center&gt;
+              &lt;index&gt;8&lt;/index&gt;
+              &lt;edit&gt;true&lt;/edit&gt;
+            &lt;/cost_center&gt;
+            &lt;cost_center&gt;
+              &lt;index&gt;9&lt;/index&gt;
+              &lt;edit&gt;true&lt;/edit&gt;
+            &lt;/cost_center&gt;
+          &lt;/cost_centers&gt;
+        &lt;/field_access&gt;
+      &lt;/extra_pay_and_counter_adjustment&gt;
+    &lt;/permissions&gt;
+  &lt;/account_group_manager&gt;
+&lt;/account_group_managers&gt;</pre>
+</div>
+<div class="get-example-resp-tab-1" id="get-tab-resp-schema-1">
+
+<div class="jsonschema" id="schema-1">&lt;xs:schema elementFormDefault="qualified" xmlns:xs="http://www.w3.org/2001/XMLSchema"&gt;
+    &lt;xs:element name="account_group_managers"&gt;
+        &lt;xs:complexType&gt;
+            &lt;xs:sequence&gt;
+                &lt;xs:element name="account_group_manager" maxOccurs="unbounded" minOccurs="0"&gt;
+                    &lt;xs:complexType&gt;
+                        &lt;xs:all&gt;
+                            &lt;xs:element name="employee"&gt;
+                                &lt;xs:complexType&gt;
+                                    &lt;xs:sequence&gt;
+                                        &lt;xs:element type="xs:long" name="account_id"/&gt;
+                                        &lt;xs:element type="xs:string" name="username"/&gt;
+                                    &lt;/xs:sequence&gt;
+                                &lt;/xs:complexType&gt;
+                            &lt;/xs:element&gt;
+                            &lt;xs:element type="xs:date" name="active_from" minOccurs="0"/&gt;
+                            &lt;xs:element type="xs:date" name="active_to" minOccurs="0"/&gt;
+                            &lt;xs:element name="permissions" minOccurs="0"&gt;
+                                &lt;xs:complexType&gt;
+                                    &lt;xs:all&gt;
+                                        &lt;xs:element name="employee_information" minOccurs="0"&gt;
+                                            &lt;xs:complexType&gt;
+                                                &lt;xs:all&gt;
+                                                    &lt;xs:element type="xs:boolean" name="view" minOccurs="0"/&gt;
+                                                    &lt;xs:element type="xs:boolean" name="edit" minOccurs="0"/&gt;
+                                                &lt;/xs:all&gt;
+                                            &lt;/xs:complexType&gt;
+                                        &lt;/xs:element&gt;
+                                        &lt;xs:element name="employee_time" minOccurs="0"&gt;
+                                            &lt;xs:complexType&gt;
+                                                &lt;xs:all&gt;
+                                                    &lt;xs:element type="xs:boolean" name="view" minOccurs="0"/&gt;
+                                                    &lt;xs:element type="xs:boolean" name="edit" minOccurs="0"/&gt;
+                                                    &lt;xs:element type="xs:boolean" name="approve" minOccurs="0"/&gt;
+                                                    &lt;xs:element name="approve_level" minOccurs="0"&gt;
+                                                        &lt;xs:annotation&gt;
+                                                            &lt;xs:documentation&gt;Required if 'approve' is set to true.&lt;/xs:documentation&gt;
+                                                        &lt;/xs:annotation&gt;
+                                                        &lt;xs:simpleType&gt;
+                                                            &lt;xs:restriction base="xs:integer"&gt;
+                                                                &lt;xs:minInclusive value="1"/&gt;
+                                                                &lt;xs:maxInclusive value="5"/&gt;
+                                                            &lt;/xs:restriction&gt;
+                                                        &lt;/xs:simpleType&gt;
+                                                    &lt;/xs:element&gt;
+                                                    &lt;xs:element type="xs:boolean" name="approve_override" minOccurs="0"/&gt;
+                                                    &lt;xs:element name="time_entry_type" minOccurs="0"&gt;
+                                                        &lt;xs:complexType&gt;
+                                                            &lt;xs:all&gt;
+                                                                &lt;xs:element type="xs:boolean" name="time" minOccurs="0"/&gt;
+                                                                &lt;xs:element type="xs:boolean" name="time_off" minOccurs="0"/&gt;
+                                                                &lt;xs:element type="xs:boolean" name="extra_pay" minOccurs="0"/&gt;
+                                                                &lt;xs:element type="xs:boolean" name="adjustment" minOccurs="0"/&gt;
+                                                            &lt;/xs:all&gt;
+                                                        &lt;/xs:complexType&gt;
+                                                    &lt;/xs:element&gt;
+                                                    &lt;xs:element name="time_entry_field" minOccurs="0"&gt;
+                                                        &lt;xs:complexType&gt;
+                                                            &lt;xs:all&gt;
+                                                                &lt;xs:element type="xs:boolean" name="time" minOccurs="0"/&gt;
+                                                                &lt;xs:element type="xs:boolean" name="time_off" minOccurs="0"/&gt;
+                                                                &lt;xs:element type="xs:boolean" name="pay_category" minOccurs="0"/&gt;
+                                                                &lt;xs:element type="xs:boolean" name="shift_premium" minOccurs="0"/&gt;
+                                                                &lt;xs:element type="xs:boolean" name="piecework" minOccurs="0"/&gt;
+                                                                &lt;xs:element type="xs:boolean" name="notes" minOccurs="0"/&gt;
+                                                                &lt;xs:element name="cost_centers" minOccurs="0"&gt;
+                                                                    &lt;xs:complexType&gt;
+                                                                        &lt;xs:sequence&gt;
+                                                                            &lt;xs:element name="cost_center" maxOccurs="10" minOccurs="0"&gt;
+                                                                                &lt;xs:complexType&gt;
+                                                                                    &lt;xs:all&gt;
+                                                                                        &lt;xs:element name="index"&gt;
+                                                                                            &lt;xs:simpleType&gt;
+                                                                                                &lt;xs:restriction base="xs:integer"&gt;
+                                                                                                    &lt;xs:minInclusive value="0"/&gt;
+                                                                                                    &lt;xs:maxInclusive value="9"/&gt;
+                                                                                                &lt;/xs:restriction&gt;
+                                                                                            &lt;/xs:simpleType&gt;
+                                                                                        &lt;/xs:element&gt;
+                                                                                        &lt;xs:element type="xs:boolean" name="edit"/&gt;
+                                                                                    &lt;/xs:all&gt;
+                                                                                &lt;/xs:complexType&gt;
+                                                                            &lt;/xs:element&gt;
+                                                                        &lt;/xs:sequence&gt;
+                                                                    &lt;/xs:complexType&gt;
+                                                                &lt;/xs:element&gt;
+                                                                &lt;xs:element name="extra_fields" minOccurs="0"&gt;
+                                                                    &lt;xs:complexType&gt;
+                                                                        &lt;xs:sequence&gt;
+                                                                            &lt;xs:element name="extra_field" maxOccurs="5" minOccurs="0"&gt;
+                                                                                &lt;xs:complexType&gt;
+                                                                                    &lt;xs:sequence&gt;
+                                                                                        &lt;xs:element name="index"&gt;
+                                                                                            &lt;xs:simpleType&gt;
+                                                                                                &lt;xs:restriction base="xs:integer"&gt;
+                                                                                                    &lt;xs:minInclusive value="0"/&gt;
+                                                                                                    &lt;xs:maxInclusive value="4"/&gt;
+                                                                                                &lt;/xs:restriction&gt;
+                                                                                            &lt;/xs:simpleType&gt;
+                                                                                        &lt;/xs:element&gt;
+                                                                                        &lt;xs:element type="xs:boolean" name="edit"/&gt;
+                                                                                    &lt;/xs:sequence&gt;
+                                                                                &lt;/xs:complexType&gt;
+                                                                            &lt;/xs:element&gt;
+                                                                        &lt;/xs:sequence&gt;
+                                                                    &lt;/xs:complexType&gt;
+                                                                &lt;/xs:element&gt;
+                                                                &lt;xs:element name="rates" minOccurs="0"&gt;
+                                                                    &lt;xs:complexType&gt;
+                                                                        &lt;xs:sequence&gt;
+                                                                            &lt;xs:element name="rate" maxOccurs="5" minOccurs="0"&gt;
+                                                                                &lt;xs:complexType&gt;
+                                                                                    &lt;xs:sequence&gt;
+                                                                                        &lt;xs:element name="index"&gt;
+                                                                                            &lt;xs:simpleType&gt;
+                                                                                                &lt;xs:restriction base="xs:integer"&gt;
+                                                                                                    &lt;xs:minInclusive value="0"/&gt;
+                                                                                                    &lt;xs:maxInclusive value="4"/&gt;
+                                                                                                &lt;/xs:restriction&gt;
+                                                                                            &lt;/xs:simpleType&gt;
+                                                                                        &lt;/xs:element&gt;
+                                                                                        &lt;xs:element type="xs:boolean" name="edit"/&gt;
+                                                                                    &lt;/xs:sequence&gt;
+                                                                                &lt;/xs:complexType&gt;
+                                                                            &lt;/xs:element&gt;
+                                                                        &lt;/xs:sequence&gt;
+                                                                    &lt;/xs:complexType&gt;
+                                                                &lt;/xs:element&gt;
+                                                            &lt;/xs:all&gt;
+                                                        &lt;/xs:complexType&gt;
+                                                    &lt;/xs:element&gt;
+                                                    &lt;xs:element type="xs:boolean" name="approve_overtime_requests" minOccurs="0"/&gt;
+                                                    &lt;xs:element type="xs:boolean" name="approve_time_off_requests" minOccurs="0"/&gt;
+                                                    &lt;xs:element type="xs:boolean" name="allow_top_restriction_override" minOccurs="0"/&gt;
+                                                    &lt;xs:element type="xs:boolean" name="approve_time_entries" minOccurs="0"/&gt;
+                                                    &lt;xs:element type="xs:boolean" name="approve_extra_pay_entries" minOccurs="0"/&gt;
+                                                &lt;/xs:all&gt;
+                                            &lt;/xs:complexType&gt;
+                                        &lt;/xs:element&gt;
+                                        &lt;xs:element name="employee_schedule" minOccurs="0"&gt;
+                                            &lt;xs:complexType&gt;
+                                                &lt;xs:all&gt;
+                                                    &lt;xs:element type="xs:boolean" name="view" minOccurs="0"/&gt;
+                                                    &lt;xs:element type="xs:boolean" name="edit" minOccurs="0"/&gt;
+                                                &lt;/xs:all&gt;
+                                            &lt;/xs:complexType&gt;
+                                        &lt;/xs:element&gt;
+                                        &lt;xs:element name="employee_base_compensation" minOccurs="0"&gt;
+                                            &lt;xs:complexType&gt;
+                                                &lt;xs:all&gt;
+                                                    &lt;xs:element type="xs:boolean" name="view" minOccurs="0"/&gt;
+                                                    &lt;xs:element type="xs:boolean" name="edit" minOccurs="0"/&gt;
+                                                &lt;/xs:all&gt;
+                                            &lt;/xs:complexType&gt;
+                                        &lt;/xs:element&gt;
+                                        &lt;xs:element name="employee_pay_statement" minOccurs="0"&gt;
+                                            &lt;xs:complexType&gt;
+                                                &lt;xs:all&gt;
+                                                    &lt;xs:element type="xs:boolean" name="view" minOccurs="0"/&gt;
+                                                    &lt;xs:element type="xs:boolean" name="edit" minOccurs="0"/&gt;
+                                                &lt;/xs:all&gt;
+                                            &lt;/xs:complexType&gt;
+                                        &lt;/xs:element&gt;
+                                        &lt;xs:element name="employee_performance_reviews" minOccurs="0"&gt;
+                                            &lt;xs:complexType&gt;
+                                                &lt;xs:sequence&gt;
+                                                    &lt;xs:element type="xs:boolean" name="view" minOccurs="0"/&gt;
+                                                &lt;/xs:sequence&gt;
+                                            &lt;/xs:complexType&gt;
+                                        &lt;/xs:element&gt;
+                                        &lt;xs:element name="extra_pay_and_counter_adjustment" minOccurs="0"&gt;
+                                            &lt;xs:complexType&gt;
+                                                &lt;xs:all&gt;
+                                                    &lt;xs:element type="xs:boolean" name="view" minOccurs="0"/&gt;
+                                                    &lt;xs:element type="xs:boolean" name="edit" minOccurs="0"/&gt;
+                                                    &lt;xs:element name="field_access" minOccurs="0"&gt;
+                                                        &lt;xs:complexType&gt;
+                                                            &lt;xs:all&gt;
+                                                                &lt;xs:element type="xs:boolean" name="time" minOccurs="0"/&gt;
+                                                                &lt;xs:element type="xs:boolean" name="quantity" minOccurs="0"/&gt;
+                                                                &lt;xs:element type="xs:boolean" name="amount" minOccurs="0"/&gt;
+                                                                &lt;xs:element type="xs:boolean" name="counter" minOccurs="0"/&gt;
+                                                                &lt;xs:element type="xs:boolean" name="shift_premium" minOccurs="0"/&gt;
+                                                                &lt;xs:element type="xs:boolean" name="notes" minOccurs="0"/&gt;
+                                                                &lt;xs:element type="xs:boolean" name="reason_code" minOccurs="0"/&gt;
+                                                                &lt;xs:element type="xs:boolean" name="record_date" minOccurs="0"/&gt;
+                                                                &lt;xs:element name="cost_centers" minOccurs="0"&gt;
+                                                                    &lt;xs:complexType&gt;
+                                                                        &lt;xs:sequence&gt;
+                                                                            &lt;xs:element name="cost_center" maxOccurs="10" minOccurs="0"&gt;
+                                                                                &lt;xs:complexType&gt;
+                                                                                    &lt;xs:all&gt;
+                                                                                        &lt;xs:element name="index"&gt;
+                                                                                            &lt;xs:simpleType&gt;
+                                                                                                &lt;xs:restriction base="xs:integer"&gt;
+                                                                                                    &lt;xs:minInclusive value="0"/&gt;
+                                                                                                    &lt;xs:maxInclusive value="9"/&gt;
+                                                                                                &lt;/xs:restriction&gt;
+                                                                                            &lt;/xs:simpleType&gt;
+                                                                                        &lt;/xs:element&gt;
+                                                                                        &lt;xs:element type="xs:boolean" name="edit"/&gt;
+                                                                                    &lt;/xs:all&gt;
+                                                                                &lt;/xs:complexType&gt;
+                                                                            &lt;/xs:element&gt;
+                                                                        &lt;/xs:sequence&gt;
+                                                                    &lt;/xs:complexType&gt;
+                                                                &lt;/xs:element&gt;
+                                                            &lt;/xs:all&gt;
+                                                        &lt;/xs:complexType&gt;
+                                                    &lt;/xs:element&gt;
+                                                &lt;/xs:all&gt;
+                                            &lt;/xs:complexType&gt;
+                                        &lt;/xs:element&gt;
+                                    &lt;/xs:all&gt;
+                                &lt;/xs:complexType&gt;
+                            &lt;/xs:element&gt;
+                        &lt;/xs:all&gt;
+                    &lt;/xs:complexType&gt;
+                &lt;/xs:element&gt;
+            &lt;/xs:sequence&gt;
+        &lt;/xs:complexType&gt;
+    &lt;/xs:element&gt;
+&lt;/xs:schema&gt;</div>
+</div>
+</div>
+</div>
+</div>
+</article>
+</section>
+<section class="clearfix">
+<article class="definition">
+<h3 class="anchored" id="post"><span>POST</span>
+<a class="fa fa-link link-anchor" data-url="r=__v2__companies__(cid)__config__security__account-groups__(gid)__managers#post" data-web-id="__v2__companies__(cid)__config__security__account-groups__(gid)__managers"></a>
+</h3>
+<div class="md"><p>Creates a new regular account group manager.
+</p></div>
+<div>
+<ul class="annotation-list">
+<li class="annotation">
+<span>v2</span>
+</li>
+</ul>
+</div>
+<h4>Parameters</h4>
+<h5>Path Parameters</h5>
+<ul class="param-list">
+<li>
+<div class="param-desc">
+<div class="param-name">cid</div>
+<div class="data-type">string</div>
+<div class="required">required</div>
+</div>
+<div class="param-content">
+<div>
+<p>Example: 123456</p>
+<div class="desc md">Company should be referenced via company id or company unique id or company short name using `|short_name` or `!short_name` format.
+</div>
+</div>
+</div>
+
+</li>
+<li>
+<div class="param-desc">
+<div class="param-name">gid</div>
+<div class="data-type">integer</div>
+<div class="required">required</div>
+</div>
+<div class="param-content">
+<div>
+<div class="desc md">Account Group Id.</div>
+</div>
+</div>
+
+</li>
+</ul>
+<h5>Header Parameters</h5>
+<ul class="param-list">
+<li>
+<div class="param-desc">
+<div class="param-name">Accept</div>
+<div class="data-type">string</div>
+</div>
+<div class="param-content">
+<div>
+<p>Valid values: application/json, application/xml, text/xml</p>
+<p>Default: application/json</p>
+<p>Example: application/json</p>
+</div>
+</div>
+
+</li>
+<li>
+<div class="param-desc">
+<div class="param-name">Content-Type</div>
+<div class="data-type">string</div>
+<div class="required">required</div>
+</div>
+<div class="param-content">
+<div>
+<p>Valid values: application/xml, text/xml, application/json</p>
+<p>Example: application/json</p>
+</div>
+</div>
+
+</li>
+<li>
+<div class="param-desc">
+<div class="param-name">Content-Length</div>
+<div class="data-type">integer</div>
+<div class="required">required</div>
+</div>
+<div class="param-content">
+<div>
+</div>
+</div>
+
+</li>
+</ul>
+<h4>Responses</h4>
+<div class="responses">
+<div>
+<label class="response response-success">
+<span class="fa fa-check"></span>
+<input data-full-tab-id="post-resp-code-tab-id-0" data-tab-class="resp-code-tab-post" name="resp-code-tab-post" type="radio"/>
+<span class="status">201 Created</span>
+</label>
+<div class="response-desc resp-code-tab-post" id="post-resp-code-tab-id-0">
+</div>
+</div>
+<div>
+<label class="response response-error">
+<span class="fa fa-times"></span>
+<input data-full-tab-id="post-resp-code-tab-id-1" data-tab-class="resp-code-tab-post" name="resp-code-tab-post" type="radio"/>
+<span class="status">401 Unauthorized</span>
+</label>
+<div class="response-desc resp-code-tab-post" id="post-resp-code-tab-id-1">
+<div class="md"><p>Returned in case user is not authorized.</p></div>
+</div>
+</div>
+<div>
+<label class="response response-error">
+<span class="fa fa-times"></span>
+<input data-full-tab-id="post-resp-code-tab-id-2" data-tab-class="resp-code-tab-post" name="resp-code-tab-post" type="radio"/>
+<span class="status">403 Forbidden</span>
+</label>
+<div class="response-desc resp-code-tab-post" id="post-resp-code-tab-id-2">
+<div class="md"><p>Returned in case user has no access to the resource.</p></div>
+</div>
+</div>
+<div>
+<label class="response response-error">
+<span class="fa fa-times"></span>
+<input data-full-tab-id="post-resp-code-tab-id-3" data-tab-class="resp-code-tab-post" name="resp-code-tab-post" type="radio"/>
+<span class="status">503 Service Unavailable</span>
+</label>
+<div class="response-desc resp-code-tab-post" id="post-resp-code-tab-id-3">
+<div class="md"><p>Returned in the event that the call limit is exceeded. The application will be unavailable for subsequent calls for the duration specified by the X-CallLimit-TimeToWait header.</p></div>
+</div>
+</div>
+</div>
+</article>
+<article class="code">
+<h4>Definition</h4>
+<div class="uri">
+<code>
+<span class="method post">post</span>
+<span class="textUri"><span class="baseUri">{{ getUriPrefix() }}</span><span class="relativeUri">/v2/companies/{cid}/config/security/account-groups/{gid}/managers</span></span>
+</code>
+</div>
+<h4>Request Samples</h4>
+<div class="tab-title-group">
+<label>
+<input checked="checked" data-full-tab-id="req-tab-id-post-0" data-tab-class="req-tab-post" name="req-tab-post" type="radio"/>
+<span class="tab-title">application/json</span>
+</label>
+<label>
+<input data-full-tab-id="req-tab-id-post-1" data-tab-class="req-tab-post" name="req-tab-post" type="radio"/>
+<span class="tab-title">application/xml</span>
+</label>
+</div>
+<div>
+<div class="req-tab-post" id="req-tab-id-post-0">
+<div class="example">
+
+<div class="post-example-tab-0 activeTab" id="post-tab-example-0">
+
+<pre class="highlightjs">{
+  "employee": {
+    "account_id": 10,
+    "username": "user"
+  },
+  "active_from": "2016-01-01",
+  "active_to": "2020-12-31",
+  "permissions": {
+    "employee_information": {
+      "view": true,
+      "edit": true
+    },
+    "employee_time": {
+      "view": true,
+      "edit": true,
+      "approve": true,
+      "approve_level": 4,
+      "time_entry_type": {
+        "time": true,
+        "time_off": false
+      },
+      "time_entry_field": {
+        "time": true,
+        "time_off": true,
+        "pay_category": false,
+        "cost_centers": [
+          {
+            "index": 0,
+            "edit": true
+          },
+          {
+            "index": 1,
+            "edit": true
+          }
+        ]
+      },
+      "approve_overtime_requests": false
+    },
+    "employee_pay_statement": {
+      "view": true,
+      "edit": false
+    }
+  }
+}</pre>
+</div>
+<div class="post-example-tab-0" id="post-tab-schema-0">
+
+<div class="jsonschema" id="schema-2">{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "type": "object",
+  "properties": {
+    "employee": {
+      "type": "object",
+      "properties": {
+        "account_id": {
+          "type": "number",
+          "format": "long"
+        },
+        "username": {
+          "type": "string"
+        }
+      },
+      "additionalProperties": false,
+      "required": [
+        "account_id"
+      ]
+    },
+    "active_from": {
+      "type": "string",
+      "description": "Date needs to be in the format yyyy-mm-dd within the 1900-12-31 and 9999-12-31 date range"
+    },
+    "active_to": {
+      "type": "string",
+      "description": "Date needs to be in the format yyyy-mm-dd within the 1900-12-31 and 9999-12-31 date range"
+    },
+    "permissions": {
+      "type": "object",
+      "properties": {
+        "employee_information": {
+          "type": "object",
+          "properties": {
+            "view": {
+              "type": "boolean"
+            },
+            "edit": {
+              "type": "boolean"
+            }
+          },
+          "additionalProperties": false
+        },
+        "employee_time": {
+          "type": "object",
+          "properties": {
+            "view": {
+              "type": "boolean"
+            },
+            "edit": {
+              "type": "boolean"
+            },
+            "approve": {
+              "type": "boolean"
+            },
+            "approve_level": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 5,
+              "description": "Required if 'approve' is set to true."
+            },
+            "approve_override": {
+              "type": "boolean"
+            },
+            "time_entry_type": {
+              "type": "object",
+              "properties": {
+                "time": {
+                  "type": "boolean"
+                },
+                "time_off": {
+                  "type": "boolean"
+                },
+                "extra_pay": {
+                  "type": "boolean"
+                },
+                "adjustment": {
+                  "type": "boolean"
+                }
+              },
+              "additionalProperties": false
+            },
+            "time_entry_field": {
+              "type": "object",
+              "properties": {
+                "time": {
+                  "type": "boolean"
+                },
+                "time_off": {
+                  "type": "boolean"
+                },
+                "pay_category": {
+                  "type": "boolean"
+                },
+                "shift_premium": {
+                  "type": "boolean"
+                },
+                "piecework": {
+                  "type": "boolean"
+                },
+                "notes": {
+                  "type": "boolean"
+                },
+                "cost_centers": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "index": {
+                        "type": "integer",
+                        "minimum": 0,
+                        "maximum": 9
+                      },
+                      "edit": {
+                        "type": "boolean"
+                      }
+                    },
+                    "additionalProperties": false,
+                    "required": [
+                      "index",
+                      "edit"
+                    ]
+                  }
+                },
+                "extra_fields": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "index": {
+                        "type": "integer",
+                        "minimum": 0,
+                        "maximum": 4
+                      },
+                      "edit": {
+                        "type": "boolean"
+                      }
+                    },
+                    "additionalProperties": false,
+                    "required": [
+                      "index",
+                      "edit"
+                    ]
+                  }
+                },
+                "rates": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "index": {
+                        "type": "integer",
+                        "minimum": 0,
+                        "maximum": 4
+                      },
+                      "edit": {
+                        "type": "boolean"
+                      }
+                    },
+                    "additionalProperties": false,
+                    "required": [
+                      "index",
+                      "edit"
+                    ]
+                  }
+                }
+              },
+              "additionalProperties": false
+            },
+            "approve_overtime_requests": {
+              "type": "boolean"
+            },
+            "approve_time_off_requests": {
+              "type": "boolean"
+            },
+            "allow_top_restriction_override": {
+              "type": "boolean"
+            },
+            "approve_time_entries": {
+              "type": "boolean"
+            },
+            "approve_extra_pay_entries": {
+              "type": "boolean"
+            }
+          },
+          "additionalProperties": false
+        },
+        "employee_schedule": {
+          "type": "object",
+          "properties": {
+            "view": {
+              "type": "boolean"
+            },
+            "edit": {
+              "type": "boolean"
+            }
+          },
+          "additionalProperties": false
+        },
+        "employee_base_compensation": {
+          "type": "object",
+          "properties": {
+            "view": {
+              "type": "boolean"
+            },
+            "edit": {
+              "type": "boolean"
+            }
+          },
+          "additionalProperties": false
+        },
+        "employee_pay_statement": {
+          "type": "object",
+          "properties": {
+            "view": {
+              "type": "boolean"
+            },
+            "edit": {
+              "type": "boolean"
+            }
+          },
+          "additionalProperties": false
+        },
+        "employee_performance_reviews": {
+          "type": "object",
+          "properties": {
+            "view": {
+              "type": "boolean"
+            }
+          },
+          "additionalProperties": false
+        },
+        "extra_pay_and_counter_adjustment": {
+          "type": "object",
+          "properties": {
+            "view": {
+              "type": "boolean"
+            },
+            "edit": {
+              "type": "boolean"
+            },
+            "field_access": {
+              "type": "object",
+              "properties": {
+                "time": {
+                  "type": "boolean"
+                },
+                "quantity": {
+                  "type": "boolean"
+                },
+                "amount": {
+                  "type": "boolean"
+                },
+                "counter": {
+                  "type": "boolean"
+                },
+                "shift_premium": {
+                  "type": "boolean"
+                },
+                "notes": {
+                  "type": "boolean"
+                },
+                "reason_code": {
+                  "type": "boolean"
+                },
+                "record_date": {
+                  "type": "boolean"
+                },
+                "cost_centers": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "index": {
+                        "type": "integer",
+                        "minimum": 0,
+                        "maximum": 9
+                      },
+                      "edit": {
+                        "type": "boolean"
+                      }
+                    },
+                    "additionalProperties": false,
+                    "required": [
+                      "index",
+                      "edit"
+                    ]
+                  }
+                }
+              },
+              "additionalProperties": false
+            }
+          },
+          "additionalProperties": false
+        }
+      },
+      "additionalProperties": false
+    }
+  },
+  "additionalProperties": false,
+  "required": [
+    "employee"
+  ]
+}</div>
+</div>
+</div>
+</div>
+<div class="req-tab-post" id="req-tab-id-post-1">
+<div class="example">
+
+<div class="post-example-tab-1 activeTab" id="post-tab-example-1">
+
+<pre class="highlightjs">&lt;?xml version='1.0' encoding='UTF-8'?&gt;
+&lt;manager&gt;
+  &lt;employee&gt;
+    &lt;account_id&gt;10&lt;/account_id&gt;
+    &lt;username&gt;user&lt;/username&gt;
+  &lt;/employee&gt;
+  &lt;active_from&gt;2016-01-01&lt;/active_from&gt;
+  &lt;active_to&gt;2020-12-31&lt;/active_to&gt;
+  &lt;permissions&gt;
+    &lt;employee_information&gt;
+      &lt;view&gt;true&lt;/view&gt;
+      &lt;edit&gt;true&lt;/edit&gt;
+    &lt;/employee_information&gt;
+    &lt;employee_time&gt;
+      &lt;view&gt;true&lt;/view&gt;
+      &lt;edit&gt;true&lt;/edit&gt;
+      &lt;approve&gt;true&lt;/approve&gt;
+      &lt;approve_level&gt;4&lt;/approve_level&gt;
+      &lt;time_entry_type&gt;
+        &lt;time&gt;true&lt;/time&gt;
+        &lt;time_off&gt;false&lt;/time_off&gt;
+      &lt;/time_entry_type&gt;
+      &lt;time_entry_field&gt;
+        &lt;time&gt;true&lt;/time&gt;
+        &lt;time_off&gt;true&lt;/time_off&gt;
+        &lt;pay_category&gt;false&lt;/pay_category&gt;
+        &lt;cost_centers&gt;
+          &lt;cost_center&gt;
+            &lt;index&gt;0&lt;/index&gt;
+            &lt;edit&gt;true&lt;/edit&gt;
+          &lt;/cost_center&gt;
+          &lt;cost_center&gt;
+            &lt;index&gt;1&lt;/index&gt;
+            &lt;edit&gt;true&lt;/edit&gt;
+          &lt;/cost_center&gt;
+        &lt;/cost_centers&gt;
+      &lt;/time_entry_field&gt;
+      &lt;approve_overtime_requests&gt;false&lt;/approve_overtime_requests&gt;
+    &lt;/employee_time&gt;
+    &lt;employee_pay_statement&gt;
+      &lt;view&gt;true&lt;/view&gt;
+      &lt;edit&gt;true&lt;/edit&gt;
+    &lt;/employee_pay_statement&gt;
+  &lt;/permissions&gt;
+&lt;/manager&gt;</pre>
+</div>
+<div class="post-example-tab-1" id="post-tab-schema-1">
+
+<div class="jsonschema" id="schema-3">&lt;xs:schema attributeFormDefault="unqualified" elementFormDefault="qualified" xmlns:xs="http://www.w3.org/2001/XMLSchema"&gt;
+    &lt;xs:element name="manager"&gt;
+        &lt;xs:complexType&gt;
+            &lt;xs:all&gt;
+                &lt;xs:element name="employee"&gt;
+                    &lt;xs:complexType&gt;
+                        &lt;xs:sequence&gt;
+                            &lt;xs:element type="xs:long" name="account_id"/&gt;
+                            &lt;xs:element type="xs:string" name="username" minOccurs="0"/&gt;
+                        &lt;/xs:sequence&gt;
+                    &lt;/xs:complexType&gt;
+                &lt;/xs:element&gt;
+                &lt;xs:element type="xs:date" name="active_from" minOccurs="0"/&gt;
+                &lt;xs:element type="xs:date" name="active_to" minOccurs="0"/&gt;
+                &lt;xs:element name="permissions" minOccurs="0"&gt;
+                    &lt;xs:complexType&gt;
+                        &lt;xs:all&gt;
+                            &lt;xs:element name="employee_information" minOccurs="0"&gt;
+                                &lt;xs:complexType&gt;
+                                    &lt;xs:all&gt;
+                                        &lt;xs:element type="xs:boolean" name="view" minOccurs="0"/&gt;
+                                        &lt;xs:element type="xs:boolean" name="edit" minOccurs="0"/&gt;
+                                    &lt;/xs:all&gt;
+                                &lt;/xs:complexType&gt;
+                            &lt;/xs:element&gt;
+                            &lt;xs:element name="employee_time" minOccurs="0"&gt;
+                                &lt;xs:complexType&gt;
+                                    &lt;xs:all&gt;
+                                        &lt;xs:element type="xs:boolean" name="view" minOccurs="0"/&gt;
+                                        &lt;xs:element type="xs:boolean" name="edit" minOccurs="0"/&gt;
+                                        &lt;xs:element type="xs:boolean" name="approve" minOccurs="0"/&gt;
+                                        &lt;xs:element name="approve_level" minOccurs="0"&gt;
+                                            &lt;xs:annotation&gt;
+                                                &lt;xs:documentation&gt;Required if 'approve' is set to true.&lt;/xs:documentation&gt;
+                                            &lt;/xs:annotation&gt;
+                                            &lt;xs:simpleType&gt;
+                                                &lt;xs:restriction base="xs:integer"&gt;
+                                                    &lt;xs:minInclusive value="1"/&gt;
+                                                    &lt;xs:maxInclusive value="5"/&gt;
+                                                &lt;/xs:restriction&gt;
+                                            &lt;/xs:simpleType&gt;
+                                        &lt;/xs:element&gt;
+                                        &lt;xs:element type="xs:boolean" name="approve_override" minOccurs="0"/&gt;
+                                        &lt;xs:element name="time_entry_type" minOccurs="0"&gt;
+                                            &lt;xs:complexType&gt;
+                                                &lt;xs:all&gt;
+                                                    &lt;xs:element type="xs:boolean" name="time" minOccurs="0"/&gt;
+                                                    &lt;xs:element type="xs:boolean" name="time_off" minOccurs="0"/&gt;
+                                                    &lt;xs:element type="xs:boolean" name="extra_pay" minOccurs="0"/&gt;
+                                                    &lt;xs:element type="xs:boolean" name="adjustment" minOccurs="0"/&gt;
+                                                &lt;/xs:all&gt;
+                                            &lt;/xs:complexType&gt;
+                                        &lt;/xs:element&gt;
+                                        &lt;xs:element name="time_entry_field" minOccurs="0"&gt;
+                                            &lt;xs:complexType&gt;
+                                                &lt;xs:all&gt;
+                                                    &lt;xs:element type="xs:boolean" name="time" minOccurs="0"/&gt;
+                                                    &lt;xs:element type="xs:boolean" name="time_off" minOccurs="0"/&gt;
+                                                    &lt;xs:element type="xs:boolean" name="pay_category" minOccurs="0"/&gt;
+                                                    &lt;xs:element type="xs:boolean" name="shift_premium" minOccurs="0"/&gt;
+                                                    &lt;xs:element type="xs:boolean" name="piecework" minOccurs="0"/&gt;
+                                                    &lt;xs:element type="xs:boolean" name="notes" minOccurs="0"/&gt;
+                                                    &lt;xs:element name="cost_centers" minOccurs="0"&gt;
+                                                        &lt;xs:complexType&gt;
+                                                            &lt;xs:sequence&gt;
+                                                                &lt;xs:element name="cost_center" maxOccurs="10" minOccurs="0"&gt;
+                                                                    &lt;xs:complexType&gt;
+                                                                        &lt;xs:all&gt;
+                                                                            &lt;xs:element name="index"&gt;
+                                                                                &lt;xs:simpleType&gt;
+                                                                                    &lt;xs:restriction base="xs:integer"&gt;
+                                                                                        &lt;xs:minInclusive value="0"/&gt;
+                                                                                        &lt;xs:maxInclusive value="9"/&gt;
+                                                                                    &lt;/xs:restriction&gt;
+                                                                                &lt;/xs:simpleType&gt;
+                                                                            &lt;/xs:element&gt;
+                                                                            &lt;xs:element type="xs:boolean" name="edit"/&gt;
+                                                                        &lt;/xs:all&gt;
+                                                                    &lt;/xs:complexType&gt;
+                                                                &lt;/xs:element&gt;
+                                                            &lt;/xs:sequence&gt;
+                                                        &lt;/xs:complexType&gt;
+                                                    &lt;/xs:element&gt;
+                                                    &lt;xs:element name="extra_fields" minOccurs="0"&gt;
+                                                        &lt;xs:complexType&gt;
+                                                            &lt;xs:sequence&gt;
+                                                                &lt;xs:element name="extra_field" maxOccurs="5" minOccurs="0"&gt;
+                                                                    &lt;xs:complexType&gt;
+                                                                        &lt;xs:sequence&gt;
+                                                                            &lt;xs:element name="index"&gt;
+                                                                                &lt;xs:simpleType&gt;
+                                                                                    &lt;xs:restriction base="xs:integer"&gt;
+                                                                                        &lt;xs:minInclusive value="0"/&gt;
+                                                                                        &lt;xs:maxInclusive value="4"/&gt;
+                                                                                    &lt;/xs:restriction&gt;
+                                                                                &lt;/xs:simpleType&gt;
+                                                                            &lt;/xs:element&gt;
+                                                                            &lt;xs:element type="xs:boolean" name="edit"/&gt;
+                                                                        &lt;/xs:sequence&gt;
+                                                                    &lt;/xs:complexType&gt;
+                                                                &lt;/xs:element&gt;
+                                                            &lt;/xs:sequence&gt;
+                                                        &lt;/xs:complexType&gt;
+                                                    &lt;/xs:element&gt;
+                                                    &lt;xs:element name="rates" minOccurs="0"&gt;
+                                                        &lt;xs:complexType&gt;
+                                                            &lt;xs:sequence&gt;
+                                                                &lt;xs:element name="rate" maxOccurs="5" minOccurs="0"&gt;
+                                                                    &lt;xs:complexType&gt;
+                                                                        &lt;xs:sequence&gt;
+                                                                            &lt;xs:element name="index"&gt;
+                                                                                &lt;xs:simpleType&gt;
+                                                                                    &lt;xs:restriction base="xs:integer"&gt;
+                                                                                        &lt;xs:minInclusive value="0"/&gt;
+                                                                                        &lt;xs:maxInclusive value="4"/&gt;
+                                                                                    &lt;/xs:restriction&gt;
+                                                                                &lt;/xs:simpleType&gt;
+                                                                            &lt;/xs:element&gt;
+                                                                            &lt;xs:element type="xs:boolean" name="edit"/&gt;
+                                                                        &lt;/xs:sequence&gt;
+                                                                    &lt;/xs:complexType&gt;
+                                                                &lt;/xs:element&gt;
+                                                            &lt;/xs:sequence&gt;
+                                                        &lt;/xs:complexType&gt;
+                                                    &lt;/xs:element&gt;
+                                                &lt;/xs:all&gt;
+                                            &lt;/xs:complexType&gt;
+                                        &lt;/xs:element&gt;
+                                        &lt;xs:element type="xs:boolean" name="approve_overtime_requests" minOccurs="0"/&gt;
+                                        &lt;xs:element type="xs:boolean" name="approve_time_off_requests" minOccurs="0"/&gt;
+                                        &lt;xs:element type="xs:boolean" name="allow_top_restriction_override" minOccurs="0"/&gt;
+                                        &lt;xs:element type="xs:boolean" name="approve_time_entries" minOccurs="0"/&gt;
+                                        &lt;xs:element type="xs:boolean" name="approve_extra_pay_entries" minOccurs="0"/&gt;
+                                    &lt;/xs:all&gt;
+                                &lt;/xs:complexType&gt;
+                            &lt;/xs:element&gt;
+                            &lt;xs:element name="employee_schedule" minOccurs="0"&gt;
+                                &lt;xs:complexType&gt;
+                                    &lt;xs:all&gt;
+                                        &lt;xs:element type="xs:boolean" name="view" minOccurs="0"/&gt;
+                                        &lt;xs:element type="xs:boolean" name="edit" minOccurs="0"/&gt;
+                                    &lt;/xs:all&gt;
+                                &lt;/xs:complexType&gt;
+                            &lt;/xs:element&gt;
+                            &lt;xs:element name="employee_base_compensation" minOccurs="0"&gt;
+                                &lt;xs:complexType&gt;
+                                    &lt;xs:all&gt;
+                                        &lt;xs:element type="xs:boolean" name="view" minOccurs="0"/&gt;
+                                        &lt;xs:element type="xs:boolean" name="edit" minOccurs="0"/&gt;
+                                    &lt;/xs:all&gt;
+                                &lt;/xs:complexType&gt;
+                            &lt;/xs:element&gt;
+                            &lt;xs:element name="employee_pay_statement" minOccurs="0"&gt;
+                                &lt;xs:complexType&gt;
+                                    &lt;xs:all&gt;
+                                        &lt;xs:element type="xs:boolean" name="view" minOccurs="0"/&gt;
+                                        &lt;xs:element type="xs:boolean" name="edit" minOccurs="0"/&gt;
+                                    &lt;/xs:all&gt;
+                                &lt;/xs:complexType&gt;
+                            &lt;/xs:element&gt;
+                            &lt;xs:element name="employee_performance_reviews" minOccurs="0"&gt;
+                                &lt;xs:complexType&gt;
+                                    &lt;xs:sequence&gt;
+                                        &lt;xs:element type="xs:boolean" name="view" minOccurs="0"/&gt;
+                                    &lt;/xs:sequence&gt;
+                                &lt;/xs:complexType&gt;
+                            &lt;/xs:element&gt;
+                            &lt;xs:element name="extra_pay_and_counter_adjustment" minOccurs="0"&gt;
+                                &lt;xs:complexType&gt;
+                                    &lt;xs:all&gt;
+                                        &lt;xs:element type="xs:boolean" name="view" minOccurs="0"/&gt;
+                                        &lt;xs:element type="xs:boolean" name="edit" minOccurs="0"/&gt;
+                                        &lt;xs:element name="field_access" minOccurs="0"&gt;
+                                            &lt;xs:complexType&gt;
+                                                &lt;xs:all&gt;
+                                                    &lt;xs:element type="xs:boolean" name="time" minOccurs="0"/&gt;
+                                                    &lt;xs:element type="xs:boolean" name="quantity" minOccurs="0"/&gt;
+                                                    &lt;xs:element type="xs:boolean" name="amount" minOccurs="0"/&gt;
+                                                    &lt;xs:element type="xs:boolean" name="counter" minOccurs="0"/&gt;
+                                                    &lt;xs:element type="xs:boolean" name="shift_premium" minOccurs="0"/&gt;
+                                                    &lt;xs:element type="xs:boolean" name="notes" minOccurs="0"/&gt;
+                                                    &lt;xs:element type="xs:boolean" name="reason_code" minOccurs="0"/&gt;
+                                                    &lt;xs:element type="xs:boolean" name="record_date" minOccurs="0"/&gt;
+                                                    &lt;xs:element name="cost_centers" minOccurs="0"&gt;
+                                                        &lt;xs:complexType&gt;
+                                                            &lt;xs:sequence&gt;
+                                                                &lt;xs:element name="cost_center" maxOccurs="10" minOccurs="0"&gt;
+                                                                    &lt;xs:complexType&gt;
+                                                                        &lt;xs:all&gt;
+                                                                            &lt;xs:element name="index"&gt;
+                                                                                &lt;xs:simpleType&gt;
+                                                                                    &lt;xs:restriction base="xs:integer"&gt;
+                                                                                        &lt;xs:minInclusive value="0"/&gt;
+                                                                                        &lt;xs:maxInclusive value="9"/&gt;
+                                                                                    &lt;/xs:restriction&gt;
+                                                                                &lt;/xs:simpleType&gt;
+                                                                            &lt;/xs:element&gt;
+                                                                            &lt;xs:element type="xs:boolean" name="edit"/&gt;
+                                                                        &lt;/xs:all&gt;
+                                                                    &lt;/xs:complexType&gt;
+                                                                &lt;/xs:element&gt;
+                                                            &lt;/xs:sequence&gt;
+                                                        &lt;/xs:complexType&gt;
+                                                    &lt;/xs:element&gt;
+                                                &lt;/xs:all&gt;
+                                            &lt;/xs:complexType&gt;
+                                        &lt;/xs:element&gt;
+                                    &lt;/xs:all&gt;
+                                &lt;/xs:complexType&gt;
+                            &lt;/xs:element&gt;
+                        &lt;/xs:all&gt;
+                    &lt;/xs:complexType&gt;
+                &lt;/xs:element&gt;
+            &lt;/xs:all&gt;
+        &lt;/xs:complexType&gt;
+    &lt;/xs:element&gt;
+&lt;/xs:schema&gt;</div>
+</div>
+</div>
+</div>
+</div>
+</article>
+</section>
+</div>
+</body></html>

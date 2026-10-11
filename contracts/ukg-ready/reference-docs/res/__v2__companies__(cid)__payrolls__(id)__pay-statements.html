@@ -1,0 +1,1498 @@
+<!doctype html>
+<html><head><meta charset="utf-8"><title>Pay Statements</title><style>body{font:16px system-ui;max-width:1100px;margin:2rem auto;padding:0 1rem;line-height:1.5}aside{background:#fff3cc;padding:1rem}.jsonschema,pre{white-space:pre-wrap;font:13px monospace;overflow-wrap:anywhere;background:#f4f5f7;padding:1rem}.uri{font-family:monospace}h2,h3{margin-top:2rem}</style></head><body><aside><strong>Modified private reference — 2026-10-09.</strong> Provider-documented illustrative examples are included; authentication token examples are redacted. These are not customer exports or guaranteed production behavior. Candidate sharing is pending. This is not OpenAPI.</aside>
+<div class="group">
+<h2 class="anchored" id="item.anchor">
+<span>Pay Statements</span>
+<a class="fa fa-link link-anchor" data-url="r=__v2__companies__(cid)__payrolls__(id)__pay-statements#" data-web-id="__v2__companies__(cid)__payrolls__(id)__pay-statements"></a>
+</h2>
+<section class="clearfix">
+<article class="definition">
+<h3 class="anchored" id="get"><span>GET</span>
+<a class="fa fa-link link-anchor" data-url="r=__v2__companies__(cid)__payrolls__(id)__pay-statements#get" data-web-id="__v2__companies__(cid)__payrolls__(id)__pay-statements"></a>
+</h3>
+<div class="md"><p>Get information about all payroll pay statements.
+</p></div>
+<div>
+<ul class="annotation-list">
+<li class="annotation">
+<span>v2</span>
+</li>
+</ul>
+</div>
+<h4>Parameters</h4>
+<h5>Path Parameters</h5>
+<ul class="param-list">
+<li>
+<div class="param-desc">
+<div class="param-name">cid</div>
+<div class="data-type">string</div>
+<div class="required">required</div>
+</div>
+<div class="param-content">
+<div>
+<p>Example: 123456</p>
+<div class="desc md">Company should be referenced via company id or company unique id or company short name using `|short_name` or `!short_name` format.
+</div>
+</div>
+</div>
+
+</li>
+<li>
+<div class="param-desc">
+<div class="param-name">id</div>
+<div class="data-type">integer</div>
+<div class="required">required</div>
+</div>
+<div class="param-content">
+<div>
+<div class="desc md">Payroll id.
+</div>
+</div>
+</div>
+
+</li>
+</ul>
+<h5>Query Parameters</h5>
+<ul class="param-list">
+<li>
+<div class="param-desc">
+<div class="param-name">batch_id</div>
+<div class="data-type">string</div>
+</div>
+<div class="param-content">
+<div>
+<p>Example: 123123</p>
+<div class="desc md">filter pay statements by coresponding payroll batch id.</div>
+</div>
+</div>
+
+</li>
+</ul>
+<h5>Header Parameters</h5>
+<ul class="param-list">
+<li>
+<div class="param-desc">
+<div class="param-name">Accept</div>
+<div class="data-type">string</div>
+</div>
+<div class="param-content">
+<div>
+<p>Valid values: application/json, application/xml, text/xml</p>
+<p>Default: application/json</p>
+<p>Example: application/json</p>
+</div>
+</div>
+
+</li>
+</ul>
+<h4>Responses</h4>
+<div class="responses">
+<div>
+<label class="response response-success">
+<span class="fa fa-check"></span>
+<input data-full-tab-id="get-resp-code-tab-id-0" data-tab-class="resp-code-tab-get" name="resp-code-tab-get" type="radio"/>
+<span class="status">200 Ok</span>
+</label>
+<div class="response-desc resp-code-tab-get" id="get-resp-code-tab-id-0">
+</div>
+</div>
+<div>
+<label class="response response-error">
+<span class="fa fa-times"></span>
+<input data-full-tab-id="get-resp-code-tab-id-1" data-tab-class="resp-code-tab-get" name="resp-code-tab-get" type="radio"/>
+<span class="status">401 Unauthorized</span>
+</label>
+<div class="response-desc resp-code-tab-get" id="get-resp-code-tab-id-1">
+<div class="md"><p>Returned in case user is not authorized.</p></div>
+</div>
+</div>
+<div>
+<label class="response response-error">
+<span class="fa fa-times"></span>
+<input data-full-tab-id="get-resp-code-tab-id-2" data-tab-class="resp-code-tab-get" name="resp-code-tab-get" type="radio"/>
+<span class="status">403 Forbidden</span>
+</label>
+<div class="response-desc resp-code-tab-get" id="get-resp-code-tab-id-2">
+<div class="md"><p>Returned in case user has no access to the resource.</p></div>
+</div>
+</div>
+<div>
+<label class="response response-error">
+<span class="fa fa-times"></span>
+<input data-full-tab-id="get-resp-code-tab-id-3" data-tab-class="resp-code-tab-get" name="resp-code-tab-get" type="radio"/>
+<span class="status">404 Not Found</span>
+</label>
+<div class="response-desc resp-code-tab-get" id="get-resp-code-tab-id-3">
+<div class="md"><p>Returned in case resource does not exist.</p></div>
+</div>
+</div>
+<div>
+<label class="response response-error">
+<span class="fa fa-times"></span>
+<input data-full-tab-id="get-resp-code-tab-id-4" data-tab-class="resp-code-tab-get" name="resp-code-tab-get" type="radio"/>
+<span class="status">503 Service Unavailable</span>
+</label>
+<div class="response-desc resp-code-tab-get" id="get-resp-code-tab-id-4">
+<div class="md"><p>Returned in the event that the call limit is exceeded. The application will be unavailable for subsequent calls for the duration specified by the X-CallLimit-TimeToWait header.</p></div>
+</div>
+</div>
+</div>
+</article>
+<article class="code">
+<h4>Definition</h4>
+<div class="uri">
+<code>
+<span class="method get">get</span>
+<span class="textUri"><span class="baseUri">{{ getUriPrefix() }}</span><span class="relativeUri">/v2/companies/{cid}/payrolls/{id}/pay-statements</span></span>
+</code>
+</div>
+<h4>Response Samples</h4>
+<div class="tab-title-group">
+<label>
+<input checked="checked" data-full-tab-id="resp-tab-id-get-0" data-tab-class="resp-tab-get" name="resp-tab-get" type="radio"/>
+<span class="tab-title">application/json</span>
+</label>
+<label>
+<input data-full-tab-id="resp-tab-id-get-1" data-tab-class="resp-tab-get" name="resp-tab-get" type="radio"/>
+<span class="tab-title">application/xml</span>
+</label>
+<label>
+<input data-full-tab-id="resp-tab-id-get-2" data-tab-class="resp-tab-get" name="resp-tab-get" type="radio"/>
+<span class="tab-title">text/xml</span>
+</label>
+</div>
+<div>
+<div class="resp-tab-get" id="resp-tab-id-get-0">
+<div class="example">
+
+<div class="get-example-resp-tab-0 activeTab" id="get-tab-resp-example-0">
+
+<pre class="highlightjs">{
+  "pay_statements": [
+    {
+      "employee": {
+        "account_id": 3588
+      },
+      "id": 147712,
+      "pay_date": "2017-01-19",
+      "status": "OPEN",
+      "type": {
+        "id": 18432,
+        "display_name": "Regular"
+      },
+      "pay_period_start": "2017-01-19",
+      "pay_period_end": "2017-01-19",
+      "_links": {
+        "self": "http://localhost:8080/ta/rest/v2/companies/220/pay-statements/147712"
+      }
+    }
+  ]
+}</pre>
+</div>
+<div class="get-example-resp-tab-0" id="get-tab-resp-schema-0">
+
+<div class="jsonschema" id="schema-0">{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "type": "object",
+  "properties": {
+    "pay_statements": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "employee": {
+            "account_id": {
+              "type": "number",
+              "format": "long"
+            }
+          },
+          "id": {
+            "type": "integer"
+          },
+          "pay_date": {
+            "type": "string",
+            "description": "Date needs to be in the format yyyy-mm-dd within the 1900-12-31 and 2079-06-05 date range"
+          },
+          "status": {
+            "type": "string",
+            "enum": [
+              "INVALID",
+              "NEW",
+              "OPEN",
+              "CLOSED",
+              "FINALIZED"
+            ]
+          },
+          "type": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "integer"
+              },
+              "display_name": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "id"
+            ]
+          },
+          "pay_period_start": {
+            "type": "string",
+            "description": "Date needs to be in the format yyyy-mm-dd within the 1900-12-31 and 2079-06-05 date range"
+          },
+          "pay_period_end": {
+            "type": "string",
+            "description": "Date needs to be in the format yyyy-mm-dd within the 1900-12-31 and 2079-06-05 date range"
+          },
+          "_links": {
+            "type": "object",
+            "properties": {
+              "self": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "self"
+            ]
+          }
+        },
+        "required": [
+          "id",
+          "pay_date",
+          "type",
+          "pay_period_start",
+          "pay_period_end",
+          "_links"
+        ]
+      }
+    }
+  },
+  "required": [
+    "pay_statements"
+  ]
+}</div>
+</div>
+</div>
+</div>
+<div class="resp-tab-get" id="resp-tab-id-get-1">
+<div class="example">
+
+<div class="get-example-resp-tab-1 activeTab" id="get-tab-resp-example-1">
+
+<pre class="highlightjs">&lt;?xml version='1.0' encoding='UTF-8'?&gt;
+&lt;pay_statements&gt;
+    &lt;pay_statement&gt;
+        &lt;employee&gt;
+            &lt;account_id&gt;35238&lt;/account_id&gt;
+        &lt;/employee&gt;
+        &lt;id&gt;246016&lt;/id&gt;
+        &lt;pay_date&gt;2017-03-01&lt;/pay_date&gt;
+        &lt;status&gt;OPEN&lt;/status&gt;
+        &lt;type&gt;
+            &lt;id&gt;18432&lt;/id&gt;
+            &lt;display_name&gt;Regular&lt;/display_name&gt;
+        &lt;/type&gt;
+        &lt;pay_period_start&gt;2017-03-01&lt;/pay_period_start&gt;
+        &lt;pay_period_end&gt;2017-03-01&lt;/pay_period_end&gt;
+        &lt;_links&gt;
+            &lt;self&gt;http://localhost:8080/ta/rest/v2/companies/220/payrolls/393984/pay-statements/35238&lt;/self&gt;
+        &lt;/_links&gt;
+    &lt;/pay_statement&gt;
+    &lt;pay_statement&gt;
+        &lt;employee&gt;
+            &lt;account_id&gt;3588&lt;/account_id&gt;
+        &lt;/employee&gt;
+        &lt;id&gt;246016&lt;/id&gt;
+        &lt;pay_date&gt;2017-03-01&lt;/pay_date&gt;
+        &lt;status&gt;OPEN&lt;/status&gt;
+        &lt;type&gt;
+            &lt;id&gt;18432&lt;/id&gt;
+            &lt;display_name&gt;Regular&lt;/display_name&gt;
+        &lt;/type&gt;
+        &lt;pay_period_start&gt;2017-03-01&lt;/pay_period_start&gt;
+        &lt;pay_period_end&gt;2017-03-01&lt;/pay_period_end&gt;
+        &lt;_links&gt;
+            &lt;self&gt;http://localhost:8080/ta/rest/v2/companies/220/payrolls/393984/pay-statements/246016&lt;/self&gt;
+        &lt;/_links&gt;
+    &lt;/pay_statement&gt;
+&lt;/pay_statements&gt;</pre>
+</div>
+<div class="get-example-resp-tab-1" id="get-tab-resp-schema-1">
+
+<div class="jsonschema" id="schema-1">&lt;xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" attributeFormDefault="unqualified" elementFormDefault="qualified"&gt;
+  &lt;xs:element name="pay_statements"&gt;
+    &lt;xs:complexType&gt;
+      &lt;xs:sequence&gt;
+        &lt;xs:element name="pay_statement" maxOccurs="unbounded" minOccurs="0"&gt;
+          &lt;xs:complexType&gt;
+            &lt;xs:sequence&gt;
+              &lt;xs:element name="employee"&gt;
+                &lt;xs:complexType&gt;
+                  &lt;xs:sequence&gt;
+                    &lt;xs:element type="xs:integer" name="account_id"/&gt;
+                  &lt;/xs:sequence&gt;
+                &lt;/xs:complexType&gt;
+              &lt;/xs:element&gt;
+              &lt;xs:element type="xs:integer" name="id"/&gt;
+              &lt;xs:element type="xs:date" name="pay_date"/&gt;
+              &lt;xs:element type="xs:string" name="status"/&gt;
+              &lt;xs:element name="type"&gt;
+                &lt;xs:complexType&gt;
+                  &lt;xs:sequence&gt;
+                    &lt;xs:element type="xs:integer" name="id"/&gt;
+                    &lt;xs:element type="xs:string" name="display_name"/&gt;
+                  &lt;/xs:sequence&gt;
+                &lt;/xs:complexType&gt;
+              &lt;/xs:element&gt;
+              &lt;xs:element type="xs:date" name="pay_period_start"/&gt;
+              &lt;xs:element type="xs:date" name="pay_period_end"/&gt;
+              &lt;xs:element name="_links"&gt;
+                &lt;xs:complexType&gt;
+                  &lt;xs:sequence&gt;
+                    &lt;xs:element type="xs:anyURI" name="self"/&gt;
+                  &lt;/xs:sequence&gt;
+                &lt;/xs:complexType&gt;
+              &lt;/xs:element&gt;
+            &lt;/xs:sequence&gt;
+          &lt;/xs:complexType&gt;
+        &lt;/xs:element&gt;
+      &lt;/xs:sequence&gt;
+    &lt;/xs:complexType&gt;
+  &lt;/xs:element&gt;
+&lt;/xs:schema&gt;</div>
+</div>
+</div>
+</div>
+<div class="resp-tab-get" id="resp-tab-id-get-2">
+<div class="example">
+
+<div class="get-example-resp-tab-2 activeTab" id="get-tab-resp-example-2">
+
+<pre class="highlightjs">&lt;?xml version='1.0' encoding='UTF-8'?&gt;
+&lt;pay_statements&gt;
+    &lt;pay_statement&gt;
+        &lt;employee&gt;
+            &lt;account_id&gt;35238&lt;/account_id&gt;
+        &lt;/employee&gt;
+        &lt;id&gt;246016&lt;/id&gt;
+        &lt;pay_date&gt;2017-03-01&lt;/pay_date&gt;
+        &lt;status&gt;OPEN&lt;/status&gt;
+        &lt;type&gt;
+            &lt;id&gt;18432&lt;/id&gt;
+            &lt;display_name&gt;Regular&lt;/display_name&gt;
+        &lt;/type&gt;
+        &lt;pay_period_start&gt;2017-03-01&lt;/pay_period_start&gt;
+        &lt;pay_period_end&gt;2017-03-01&lt;/pay_period_end&gt;
+        &lt;_links&gt;
+            &lt;self&gt;http://localhost:8080/ta/rest/v2/companies/220/payrolls/393984/pay-statements/35238&lt;/self&gt;
+        &lt;/_links&gt;
+    &lt;/pay_statement&gt;
+    &lt;pay_statement&gt;
+        &lt;employee&gt;
+            &lt;account_id&gt;3588&lt;/account_id&gt;
+        &lt;/employee&gt;
+        &lt;id&gt;246016&lt;/id&gt;
+        &lt;pay_date&gt;2017-03-01&lt;/pay_date&gt;
+        &lt;status&gt;OPEN&lt;/status&gt;
+        &lt;type&gt;
+            &lt;id&gt;18432&lt;/id&gt;
+            &lt;display_name&gt;Regular&lt;/display_name&gt;
+        &lt;/type&gt;
+        &lt;pay_period_start&gt;2017-03-01&lt;/pay_period_start&gt;
+        &lt;pay_period_end&gt;2017-03-01&lt;/pay_period_end&gt;
+        &lt;_links&gt;
+            &lt;self&gt;http://localhost:8080/ta/rest/v2/companies/220/payrolls/393984/pay-statements/246016&lt;/self&gt;
+        &lt;/_links&gt;
+    &lt;/pay_statement&gt;
+&lt;/pay_statements&gt;</pre>
+</div>
+<div class="get-example-resp-tab-2" id="get-tab-resp-schema-2">
+
+<div class="jsonschema" id="schema-2">&lt;xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" attributeFormDefault="unqualified" elementFormDefault="qualified"&gt;
+  &lt;xs:element name="pay_statements"&gt;
+    &lt;xs:complexType&gt;
+      &lt;xs:sequence&gt;
+        &lt;xs:element name="pay_statement" maxOccurs="unbounded" minOccurs="0"&gt;
+          &lt;xs:complexType&gt;
+            &lt;xs:sequence&gt;
+              &lt;xs:element name="employee"&gt;
+                &lt;xs:complexType&gt;
+                  &lt;xs:sequence&gt;
+                    &lt;xs:element type="xs:integer" name="account_id"/&gt;
+                  &lt;/xs:sequence&gt;
+                &lt;/xs:complexType&gt;
+              &lt;/xs:element&gt;
+              &lt;xs:element type="xs:integer" name="id"/&gt;
+              &lt;xs:element type="xs:date" name="pay_date"/&gt;
+              &lt;xs:element type="xs:string" name="status"/&gt;
+              &lt;xs:element name="type"&gt;
+                &lt;xs:complexType&gt;
+                  &lt;xs:sequence&gt;
+                    &lt;xs:element type="xs:integer" name="id"/&gt;
+                    &lt;xs:element type="xs:string" name="display_name"/&gt;
+                  &lt;/xs:sequence&gt;
+                &lt;/xs:complexType&gt;
+              &lt;/xs:element&gt;
+              &lt;xs:element type="xs:date" name="pay_period_start"/&gt;
+              &lt;xs:element type="xs:date" name="pay_period_end"/&gt;
+              &lt;xs:element name="_links"&gt;
+                &lt;xs:complexType&gt;
+                  &lt;xs:sequence&gt;
+                    &lt;xs:element type="xs:anyURI" name="self"/&gt;
+                  &lt;/xs:sequence&gt;
+                &lt;/xs:complexType&gt;
+              &lt;/xs:element&gt;
+            &lt;/xs:sequence&gt;
+          &lt;/xs:complexType&gt;
+        &lt;/xs:element&gt;
+      &lt;/xs:sequence&gt;
+    &lt;/xs:complexType&gt;
+  &lt;/xs:element&gt;
+&lt;/xs:schema&gt;</div>
+</div>
+</div>
+</div>
+</div>
+</article>
+</section>
+<section class="clearfix">
+<article class="definition">
+<h3 class="anchored" id="post"><span>POST</span>
+<a class="fa fa-link link-anchor" data-url="r=__v2__companies__(cid)__payrolls__(id)__pay-statements#post" data-web-id="__v2__companies__(cid)__payrolls__(id)__pay-statements"></a>
+</h3>
+<div class="md"><p>Endpoint to create new pay statement with provided type for a given employee, allows to enter complex data entry.
+Currently several pre-defined pay statement types such as `3rd Party Sick`, `Bonus`, `Void`, `Regular`, `Historical` are used for particular payroll.
+Pay Statement Types provides you with the ability to define the criteria to be used each time a particular Pay Statement Type is utilized during payroll processing.
+For example, Regular is used for processing a regular payroll, 3rd Party Sick is used for processing the updates of sick pay paid by a third party, and Historical is used for processing historical updates to employee records.
+</p></div>
+<div>
+<ul class="annotation-list">
+<li class="annotation">
+<span>v2</span>
+</li>
+</ul>
+</div>
+<h4>Parameters</h4>
+<h5>Path Parameters</h5>
+<ul class="param-list">
+<li>
+<div class="param-desc">
+<div class="param-name">cid</div>
+<div class="data-type">string</div>
+<div class="required">required</div>
+</div>
+<div class="param-content">
+<div>
+<p>Example: 123456</p>
+<div class="desc md">Company should be referenced via company id or company unique id or company short name using `|short_name` or `!short_name` format.
+</div>
+</div>
+</div>
+
+</li>
+<li>
+<div class="param-desc">
+<div class="param-name">id</div>
+<div class="data-type">integer</div>
+<div class="required">required</div>
+</div>
+<div class="param-content">
+<div>
+<div class="desc md">Payroll id.
+</div>
+</div>
+</div>
+
+</li>
+</ul>
+<h4>Responses</h4>
+<div class="responses">
+<div>
+<label class="response response-success">
+<span class="fa fa-check"></span>
+<input data-full-tab-id="post-resp-code-tab-id-0" data-tab-class="resp-code-tab-post" name="resp-code-tab-post" type="radio"/>
+<span class="status">201 Created</span>
+</label>
+<div class="response-desc resp-code-tab-post" id="post-resp-code-tab-id-0">
+<div class="md"><p>Pay Statement successfully saved.
+</p></div>
+<ul class="param-list">
+<li>
+<div class="param-desc">
+<div class="param-name">Location</div>
+<div class="data-type">string</div>
+<div class="required">required</div>
+</div>
+<div class="param-content">
+<div>
+<div class="desc md">Location of the newly created pay statement.
+</div>
+</div>
+</div>
+
+</li>
+</ul>
+</div>
+</div>
+<div>
+<label class="response response-error">
+<span class="fa fa-times"></span>
+<input data-full-tab-id="post-resp-code-tab-id-1" data-tab-class="resp-code-tab-post" name="resp-code-tab-post" type="radio"/>
+<span class="status">400 Bad Request</span>
+</label>
+<div class="response-desc resp-code-tab-post" id="post-resp-code-tab-id-1">
+<div class="md"><p>In case any error occurs during validation.
+</p></div>
+</div>
+</div>
+<div>
+<label class="response response-error">
+<span class="fa fa-times"></span>
+<input data-full-tab-id="post-resp-code-tab-id-2" data-tab-class="resp-code-tab-post" name="resp-code-tab-post" type="radio"/>
+<span class="status">403 Forbidden</span>
+</label>
+<div class="response-desc resp-code-tab-post" id="post-resp-code-tab-id-2">
+<div class="md"><p>In case of any security issues
+</p></div>
+</div>
+</div>
+<div>
+<label class="response response-error">
+<span class="fa fa-times"></span>
+<input data-full-tab-id="post-resp-code-tab-id-3" data-tab-class="resp-code-tab-post" name="resp-code-tab-post" type="radio"/>
+<span class="status">500 Internal Server Error</span>
+</label>
+<div class="response-desc resp-code-tab-post" id="post-resp-code-tab-id-3">
+<div class="md"><p>Internal server error
+</p></div>
+</div>
+</div>
+</div>
+</article>
+<article class="code">
+<h4>Definition</h4>
+<div class="uri">
+<code>
+<span class="method post">post</span>
+<span class="textUri"><span class="baseUri">{{ getUriPrefix() }}</span><span class="relativeUri">/v2/companies/{cid}/payrolls/{id}/pay-statements</span></span>
+</code>
+</div>
+<h4>Request Samples</h4>
+<div class="tab-title-group">
+<label>
+<input checked="checked" data-full-tab-id="req-tab-id-post-0" data-tab-class="req-tab-post" name="req-tab-post" type="radio"/>
+<span class="tab-title">application/json</span>
+</label>
+<label>
+<input data-full-tab-id="req-tab-id-post-1" data-tab-class="req-tab-post" name="req-tab-post" type="radio"/>
+<span class="tab-title">application/xml</span>
+</label>
+<label>
+<input data-full-tab-id="req-tab-id-post-2" data-tab-class="req-tab-post" name="req-tab-post" type="radio"/>
+<span class="tab-title">text/xml</span>
+</label>
+</div>
+<div>
+<div class="req-tab-post" id="req-tab-id-post-0">
+<div class="example">
+
+<div class="post-example-tab-0 activeTab" id="post-tab-example-0">
+
+<pre class="highlightjs">{
+  "employee": {
+    "account_id": 3588
+  },
+  "type": {
+    "id": 18432,
+    "display_name": "Regular"
+  },
+  "calculate_taxes": false,
+  "process_delta_only" : false,
+  "earnings": [
+    {
+      "earning": {
+        "name": "Regular",
+        "code": "Regular"
+      },
+      "date_range_from": "2017-03-02",
+      "date_range_to": "2017-03-07",
+      "ee_amount": 250,
+      "shift": {
+        "id": 33024,
+        "name": "My Shift premium"
+      },
+      "batch": {
+        "id": 34407234
+      }
+    }
+  ],
+  "deductions": [
+    {
+      "deduction": {
+        "name": "401k",
+        "code": "401k"
+      },
+      "er_amount": 25,
+      "batch": {
+        "id": 34407234
+      }
+    }
+  ]
+}</pre>
+</div>
+<div class="post-example-tab-0" id="post-tab-schema-0">
+
+<div class="jsonschema" id="schema-3">{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "type": "object",
+  "properties": {
+    "employee": {
+      "type": "object",
+      "properties": {
+        "account_id": {
+          "type": "number",
+          "format": "long"
+        }
+      },
+      "required": [
+        "account_id"
+      ]
+    },
+    "type": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer"
+        },
+        "display_name": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "id"
+      ]
+    },
+    "calculate_taxes": {
+      "type": "boolean",
+      "default": false,
+      "description": "The value of 'false' requires explicit saving or recalculation of pay statement. This parameter would not have any effect on Correction or Reconciliation pay statements where the taxes should always be calculated for valid delta."
+    },
+    "process_delta_only": {
+      "type": "boolean",
+      "default": false,
+      "description": "When true, current request is checked against previous request and pay statement is updated only if there is a delta. Must pass true from the first request otherwise the behavior is unpredictable. Must pass batchId otherwise the request would fail. This parameter should not be used with Correction or Reconciliation pay statements."
+    },
+    "earnings": {
+      "type": "array",
+      "items": {
+        "properties": {
+          "date_range_from": {
+            "type": "string",
+            "description": "Date needs to be in the format yyyy-mm-dd within the 1900-12-31 and 2079-06-05 date range"
+          },
+          "date_range_to": {
+            "type": "string",
+            "description": "Date needs to be in the format yyyy-mm-dd within the 1900-12-31 and 2079-06-05 date range"
+          },
+          "hours": {
+            "type": "integer"
+          },
+          "base_rate": {
+            "type": "number"
+          },
+          "quantity": {
+            "type": "number"
+          },
+          "ee_amount": {
+            "type": "number",
+            "description": " Amount should be rounded to a Penny"
+          },
+          "workers_comp_code": {
+            "type": "object",
+            "properties": {
+              "external_id": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "external_id"
+            ]
+          },
+          "shift": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "integer"
+              },
+              "name": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "id"
+            ]
+          },
+          "cost_centers": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "index": {
+                  "type": "integer",
+                  "minValue": 0,
+                  "maxValue": 9
+                },
+                "value": {
+                  "type": [
+                    "object",
+                    "null"
+                  ],
+                  "properties": {
+                    "id": {
+                      "type": "integer"
+                    }
+                  },
+                  "required": [
+                    "id"
+                  ]
+                }
+              },
+              "required": [
+                "index",
+                "value"
+              ]
+            }
+          },
+          "earning": {
+            "type": "object",
+            "properties": {
+              "name": {
+                "type": "string"
+              },
+              "external_id": {
+                "type": "string"
+              },
+              "code": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "code",
+              "name"
+            ]
+          },
+          "batch": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "integer"
+              },
+              "display_name": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "id"
+            ]
+          }
+        },
+        "required": [
+          "earning"
+        ]
+      }
+    },
+    "deductions": {
+      "type": "array",
+      "items": {
+        "properties": {
+          "date_range_from": {
+            "type": "string",
+            "description": "Date needs to be in the format yyyy-mm-dd within the 1900-12-31 and 2079-06-05 date range"
+          },
+          "date_range_to": {
+            "type": "string",
+            "description": "Date needs to be in the format yyyy-mm-dd within the 1900-12-31 and 2079-06-05 date range"
+          },
+          "quantity": {
+            "type": "number"
+          },
+          "base_rate": {
+            "type": "number"
+          },
+          "ee_amount": {
+            "type": "number",
+            "description": " Amount should be rounded to a Penny"
+          },
+          "er_amount": {
+            "type": "number",
+            "description": " Amount should be rounded to a Penny"
+          },
+          "vendor": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "integer"
+              },
+              "name": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "id"
+            ]
+          },
+          "cost_centers": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "index": {
+                  "type": "integer",
+                  "minValue": 0,
+                  "maxValue": 9
+                },
+                "value": {
+                  "type": [
+                    "object",
+                    "null"
+                  ],
+                  "properties": {
+                    "id": {
+                      "type": "integer"
+                    }
+                  },
+                  "required": [
+                    "id"
+                  ]
+                }
+              },
+              "required": [
+                "index",
+                "value"
+              ]
+            }
+          },
+          "workers_comp_code": {
+            "type": "object",
+            "properties": {
+              "external_id": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "external_id"
+            ]
+          },
+          "deduction": {
+            "type": "object",
+            "properties": {
+              "name": {
+                "type": "string"
+              },
+              "external_id": {
+                "type": "string"
+              },
+              "code": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "code",
+              "name"
+            ]
+          },
+          "batch": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "integer"
+              },
+              "display_name": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "id"
+            ]
+          }
+        },
+        "required": [
+          "deduction"
+        ]
+      }
+    },
+    "taxes": {
+      "type": "array",
+      "items": {
+        "properties": {
+          "ee_amount": {
+            "type": "number",
+            "description": " Amount should be rounded to a Penny"
+          },
+          "er_amount": {
+            "type": "number",
+            "description": " Amount should be rounded to a Penny"
+          },
+          "ee_gross_wage": {
+            "type": "number"
+          },
+          "ee_subject_wage": {
+            "type": "number"
+          },
+          "ee_gross_subject_wage": {
+            "type": "number"
+          },
+          "er_gross_wage": {
+            "type": "number"
+          },
+          "er_subject_wage": {
+            "type": "number"
+          },
+          "er_gross_subject_wage": {
+            "type": "number"
+          },
+          "company_tax": {
+            "properties": {
+              "abbrev": {
+                "type": "string"
+              },
+              "code": {
+                "type": "string"
+              },
+              "id": {
+                "type": "integer"
+              },
+              "name": {
+                "type": "string"
+              }
+            },
+            "type": "object",
+            "required": [
+              "id"
+            ]
+          }
+        },
+        "required": [
+          "company_tax"
+        ]
+      }
+    }
+  },
+  "required": [
+    "employee",
+    "type"
+  ]
+}</div>
+</div>
+</div>
+</div>
+<div class="req-tab-post" id="req-tab-id-post-1">
+<div class="example">
+
+<div class="post-example-tab-1 activeTab" id="post-tab-example-1">
+
+<pre class="highlightjs">&lt;pay_statement&gt;
+  &lt;employee&gt;
+    &lt;account_id&gt;3588&lt;/account_id&gt;
+  &lt;/employee&gt;
+  &lt;type&gt;
+    &lt;id&gt;18432&lt;/id&gt;
+    &lt;display_name&gt;Regular&lt;/display_name&gt;
+  &lt;/type&gt;
+  &lt;calculate_taxes&gt;false&lt;/calculate_taxes&gt;
+  &lt;process_delta_only&gt;false&lt;/process_delta_only&gt;
+  &lt;earnings&gt;
+    &lt;earning&gt;
+      &lt;date_range_from&gt;2017-03-02&lt;/date_range_from&gt;
+      &lt;date_range_to&gt;2017-03-07&lt;/date_range_to&gt;
+      &lt;ee_amount&gt;40&lt;/ee_amount&gt;
+      &lt;shift&gt;
+        &lt;id&gt;33024&lt;/id&gt;
+        &lt;name&gt;My Shift premium&lt;/name&gt;
+      &lt;/shift&gt;
+      &lt;earning&gt;
+        &lt;name&gt;Regular&lt;/name&gt;
+        &lt;code&gt;Regular&lt;/code&gt;
+      &lt;/earning&gt;
+      &lt;batch&gt;
+        &lt;id&gt;34407234&lt;/id&gt;
+      &lt;/batch&gt;
+    &lt;/earning&gt;
+  &lt;/earnings&gt;
+  &lt;deductions&gt;
+    &lt;deduction&gt;
+      &lt;er_amount&gt;25&lt;/er_amount&gt;
+      &lt;deduction&gt;
+        &lt;name&gt;401k&lt;/name&gt;
+        &lt;code&gt;401k&lt;/code&gt;
+      &lt;/deduction&gt;
+      &lt;batch&gt;
+        &lt;id&gt;34407234&lt;/id&gt;
+      &lt;/batch&gt;
+    &lt;/deduction&gt;
+  &lt;/deductions&gt;
+&lt;/pay_statement&gt;</pre>
+</div>
+<div class="post-example-tab-1" id="post-tab-schema-1">
+
+<div class="jsonschema" id="schema-4">&lt;xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" attributeFormDefault="unqualified" elementFormDefault="qualified"&gt;
+  &lt;xs:element name="pay_statement"&gt;
+    &lt;xs:complexType&gt;
+      &lt;xs:sequence&gt;
+        &lt;xs:element name="employee"&gt;
+          &lt;xs:complexType&gt;
+            &lt;xs:sequence&gt;
+              &lt;xs:element type="xs:integer" name="account_id"/&gt;
+            &lt;/xs:sequence&gt;
+          &lt;/xs:complexType&gt;
+        &lt;/xs:element&gt;
+        &lt;xs:element name="type"&gt;
+          &lt;xs:complexType&gt;
+            &lt;xs:sequence&gt;
+              &lt;xs:element type="xs:integer" name="id"/&gt;
+              &lt;xs:element type="xs:string" name="display_name"/&gt;
+            &lt;/xs:sequence&gt;
+          &lt;/xs:complexType&gt;
+        &lt;/xs:element&gt;
+        &lt;xs:element type="xs:boolean" name="calculate_taxes"/&gt;
+        &lt;xs:element type="xs:boolean" name="process_delta_only"/&gt;
+        &lt;xs:element name="earnings"&gt;
+          &lt;xs:complexType&gt;
+            &lt;xs:sequence&gt;
+              &lt;xs:element name="earning" maxOccurs="unbounded" minOccurs="0"&gt;
+                &lt;xs:complexType&gt;
+                  &lt;xs:sequence&gt;
+                    &lt;xs:element type="xs:date" name="date_range_from" minOccurs="0"/&gt;
+                    &lt;xs:element type="xs:date" name="date_range_to" minOccurs="0"/&gt;
+                    &lt;xs:element type="xs:long" name="hours" minOccurs="0"/&gt;
+                    &lt;xs:element type="xs:float" name="base_rate" minOccurs="0"/&gt;
+                    &lt;xs:element type="xs:float" name="quantity" minOccurs="0"/&gt;
+                    &lt;xs:element type="xs:float" name="ee_amount" minOccurs="0"/&gt;
+                    &lt;xs:element name="workers_comp_code" minOccurs="0"&gt;
+                      &lt;xs:complexType&gt;
+                        &lt;xs:sequence&gt;
+                          &lt;xs:element type="xs:string" name="name"/&gt;
+                          &lt;xs:element type="xs:string" name="external_id"/&gt;
+                          &lt;xs:element type="xs:string" name="code"/&gt;
+                        &lt;/xs:sequence&gt;
+                      &lt;/xs:complexType&gt;
+                    &lt;/xs:element&gt;
+                    &lt;xs:element name="shift"&gt;
+                      &lt;xs:complexType&gt;
+                        &lt;xs:sequence&gt;
+                        &lt;xs:element name="id" type="xs:long"/&gt;
+                        &lt;xs:element name="name" type="xs:string"/&gt;
+                        &lt;/xs:sequence&gt;
+                      &lt;/xs:complexType&gt;
+                    &lt;/xs:element&gt;
+                    &lt;xs:element name="cost_centers" minOccurs="0"&gt;
+                      &lt;xs:complexType&gt;
+                        &lt;xs:sequence&gt;
+                          &lt;xs:element name="cost_center"&gt;
+                            &lt;xs:complexType&gt;
+                              &lt;xs:sequence&gt;
+                                &lt;xs:element type="xs:short" name="index"/&gt;
+                                &lt;xs:element name="value"&gt;
+                                  &lt;xs:complexType&gt;
+                                    &lt;xs:sequence&gt;
+                                      &lt;xs:element type="xs:integer" name="id"/&gt;
+                                    &lt;/xs:sequence&gt;
+                                  &lt;/xs:complexType&gt;
+                                &lt;/xs:element&gt;
+                              &lt;/xs:sequence&gt;
+                            &lt;/xs:complexType&gt;
+                          &lt;/xs:element&gt;
+                        &lt;/xs:sequence&gt;
+                      &lt;/xs:complexType&gt;
+                    &lt;/xs:element&gt;
+                    &lt;xs:element name="earning"&gt;
+                      &lt;xs:complexType&gt;
+                        &lt;xs:sequence&gt;
+                          &lt;xs:element type="xs:string" name="name"/&gt;
+                          &lt;xs:element type="xs:string" name="external_id" minOccurs="0"/&gt;
+                          &lt;xs:element type="xs:string" name="code"/&gt;
+                        &lt;/xs:sequence&gt;
+                      &lt;/xs:complexType&gt;
+                    &lt;/xs:element&gt;
+                    &lt;xs:element name="batch" minOccurs="0"&gt;
+                      &lt;xs:complexType&gt;
+                        &lt;xs:sequence&gt;
+                          &lt;xs:element type="xs:integer" name="id"/&gt;
+                          &lt;xs:element type="xs:string" name="display_name" minOccurs="0"/&gt;
+                        &lt;/xs:sequence&gt;
+                      &lt;/xs:complexType&gt;
+                    &lt;/xs:element&gt;
+                  &lt;/xs:sequence&gt;
+                &lt;/xs:complexType&gt;
+              &lt;/xs:element&gt;
+            &lt;/xs:sequence&gt;
+          &lt;/xs:complexType&gt;
+        &lt;/xs:element&gt;
+        &lt;xs:element name="deductions"&gt;
+          &lt;xs:complexType&gt;
+            &lt;xs:sequence&gt;
+              &lt;xs:element name="deduction" maxOccurs="unbounded" minOccurs="0"&gt;
+                &lt;xs:complexType&gt;
+                  &lt;xs:sequence&gt;
+                    &lt;xs:element type="xs:date" name="date_range_from" minOccurs="0"/&gt;
+                    &lt;xs:element type="xs:date" name="date_range_to" minOccurs="0"/&gt;
+                    &lt;xs:element type="xs:float" name="quantity" minOccurs="0"/&gt;
+                    &lt;xs:element type="xs:float" name="base_rate" minOccurs="0"/&gt;
+                    &lt;xs:element type="xs:float" name="ee_amount" minOccurs="0"/&gt;
+                    &lt;xs:element type="xs:float" name="er_amount" minOccurs="0"/&gt;
+                    &lt;xs:element name="vendor" minOccurs="0"&gt;
+                      &lt;xs:complexType&gt;
+                        &lt;xs:sequence&gt;
+                          &lt;xs:element type="xs:integer" name="id"/&gt;
+                          &lt;xs:element type="xs:string" name="name"/&gt;
+                        &lt;/xs:sequence&gt;
+                      &lt;/xs:complexType&gt;
+                    &lt;/xs:element&gt;
+                    &lt;xs:element name="cost_centers" minOccurs="0"&gt;
+                      &lt;xs:complexType&gt;
+                        &lt;xs:sequence&gt;
+                          &lt;xs:element name="cost_center"&gt;
+                            &lt;xs:complexType&gt;
+                              &lt;xs:sequence&gt;
+                                &lt;xs:element type="xs:short" name="index"/&gt;
+                                &lt;xs:element name="value"&gt;
+                                  &lt;xs:complexType&gt;
+                                    &lt;xs:sequence&gt;
+                                      &lt;xs:element type="xs:integer" name="id"/&gt;
+                                    &lt;/xs:sequence&gt;
+                                  &lt;/xs:complexType&gt;
+                                &lt;/xs:element&gt;
+                              &lt;/xs:sequence&gt;
+                            &lt;/xs:complexType&gt;
+                          &lt;/xs:element&gt;
+                        &lt;/xs:sequence&gt;
+                      &lt;/xs:complexType&gt;
+                    &lt;/xs:element&gt;
+                    &lt;xs:element name="workers_comp_code" minOccurs="0"&gt;
+                      &lt;xs:complexType&gt;
+                        &lt;xs:sequence&gt;
+                          &lt;xs:element type="xs:string" name="name"/&gt;
+                          &lt;xs:element type="xs:string" name="external_id"/&gt;
+                          &lt;xs:element type="xs:string" name="code"/&gt;
+                        &lt;/xs:sequence&gt;
+                      &lt;/xs:complexType&gt;
+                    &lt;/xs:element&gt;
+                    &lt;xs:element name="deduction"&gt;
+                      &lt;xs:complexType&gt;
+                        &lt;xs:sequence&gt;
+                          &lt;xs:element type="xs:string" name="name"/&gt;
+                          &lt;xs:element type="xs:string" name="external_id" minOccurs="0"/&gt;
+                          &lt;xs:element type="xs:string" name="code"/&gt;
+                        &lt;/xs:sequence&gt;
+                      &lt;/xs:complexType&gt;
+                    &lt;/xs:element&gt;
+                    &lt;xs:element name="batch" minOccurs="0"&gt;
+                      &lt;xs:complexType&gt;
+                        &lt;xs:sequence&gt;
+                          &lt;xs:element type="xs:integer" name="id"/&gt;
+                          &lt;xs:element type="xs:string" name="display_name" minOccurs="0"/&gt;
+                        &lt;/xs:sequence&gt;
+                      &lt;/xs:complexType&gt;
+                    &lt;/xs:element&gt;
+                  &lt;/xs:sequence&gt;
+                &lt;/xs:complexType&gt;
+              &lt;/xs:element&gt;
+            &lt;/xs:sequence&gt;
+          &lt;/xs:complexType&gt;
+        &lt;/xs:element&gt;
+        &lt;xs:element name="taxes" minOccurs="0"&gt;
+          &lt;xs:complexType&gt;
+            &lt;xs:sequence&gt;
+              &lt;xs:element name="tax" maxOccurs="unbounded" minOccurs="0"&gt;
+                &lt;xs:complexType&gt;
+                  &lt;xs:choice maxOccurs="unbounded" minOccurs="0"&gt;
+                    &lt;xs:element type="xs:float" name="ee_amount"/&gt;
+                    &lt;xs:element type="xs:float" name="er_amount"/&gt;
+                    &lt;xs:element type="xs:float" name="ee_gross_wage"/&gt;
+                    &lt;xs:element type="xs:float" name="ee_subject_wage"/&gt;
+                    &lt;xs:element type="xs:float" name="ee_gross_subject_wage"/&gt;
+                    &lt;xs:element type="xs:float" name="er_gross_wage"/&gt;
+                    &lt;xs:element type="xs:float" name="er_subject_wage"/&gt;
+                    &lt;xs:element type="xs:float" name="er_gross_subject_wage"/&gt;
+                    &lt;xs:element name="company_tax"&gt;
+                      &lt;xs:complexType&gt;
+                        &lt;xs:sequence&gt;
+                          &lt;xs:element type="xs:integer" name="id"/&gt;
+                          &lt;xs:element type="xs:string" name="code"/&gt;
+                          &lt;xs:element type="xs:string" name="name"/&gt;
+                          &lt;xs:element type="xs:string" name="abbrev"/&gt;
+                        &lt;/xs:sequence&gt;
+                      &lt;/xs:complexType&gt;
+                    &lt;/xs:element&gt;
+                  &lt;/xs:choice&gt;
+                &lt;/xs:complexType&gt;
+              &lt;/xs:element&gt;
+            &lt;/xs:sequence&gt;
+          &lt;/xs:complexType&gt;
+        &lt;/xs:element&gt;
+      &lt;/xs:sequence&gt;
+    &lt;/xs:complexType&gt;
+  &lt;/xs:element&gt;
+&lt;/xs:schema&gt;
+</div>
+</div>
+</div>
+</div>
+<div class="req-tab-post" id="req-tab-id-post-2">
+<div class="example">
+
+<div class="post-example-tab-2 activeTab" id="post-tab-example-2">
+
+<pre class="highlightjs">&lt;pay_statement&gt;
+  &lt;employee&gt;
+    &lt;account_id&gt;3588&lt;/account_id&gt;
+  &lt;/employee&gt;
+  &lt;type&gt;
+    &lt;id&gt;18432&lt;/id&gt;
+    &lt;display_name&gt;Regular&lt;/display_name&gt;
+  &lt;/type&gt;
+  &lt;calculate_taxes&gt;false&lt;/calculate_taxes&gt;
+  &lt;process_delta_only&gt;false&lt;/process_delta_only&gt;
+  &lt;earnings&gt;
+    &lt;earning&gt;
+      &lt;date_range_from&gt;2017-03-02&lt;/date_range_from&gt;
+      &lt;date_range_to&gt;2017-03-07&lt;/date_range_to&gt;
+      &lt;ee_amount&gt;40&lt;/ee_amount&gt;
+      &lt;shift&gt;
+        &lt;id&gt;33024&lt;/id&gt;
+        &lt;name&gt;My Shift premium&lt;/name&gt;
+      &lt;/shift&gt;
+      &lt;earning&gt;
+        &lt;name&gt;Regular&lt;/name&gt;
+        &lt;code&gt;Regular&lt;/code&gt;
+      &lt;/earning&gt;
+      &lt;batch&gt;
+        &lt;id&gt;34407234&lt;/id&gt;
+      &lt;/batch&gt;
+    &lt;/earning&gt;
+  &lt;/earnings&gt;
+  &lt;deductions&gt;
+    &lt;deduction&gt;
+      &lt;er_amount&gt;25&lt;/er_amount&gt;
+      &lt;deduction&gt;
+        &lt;name&gt;401k&lt;/name&gt;
+        &lt;code&gt;401k&lt;/code&gt;
+      &lt;/deduction&gt;
+      &lt;batch&gt;
+        &lt;id&gt;34407234&lt;/id&gt;
+      &lt;/batch&gt;
+    &lt;/deduction&gt;
+  &lt;/deductions&gt;
+&lt;/pay_statement&gt;</pre>
+</div>
+<div class="post-example-tab-2" id="post-tab-schema-2">
+
+<div class="jsonschema" id="schema-5">&lt;xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" attributeFormDefault="unqualified" elementFormDefault="qualified"&gt;
+  &lt;xs:element name="pay_statement"&gt;
+    &lt;xs:complexType&gt;
+      &lt;xs:sequence&gt;
+        &lt;xs:element name="employee"&gt;
+          &lt;xs:complexType&gt;
+            &lt;xs:sequence&gt;
+              &lt;xs:element type="xs:integer" name="account_id"/&gt;
+            &lt;/xs:sequence&gt;
+          &lt;/xs:complexType&gt;
+        &lt;/xs:element&gt;
+        &lt;xs:element name="type"&gt;
+          &lt;xs:complexType&gt;
+            &lt;xs:sequence&gt;
+              &lt;xs:element type="xs:integer" name="id"/&gt;
+              &lt;xs:element type="xs:string" name="display_name"/&gt;
+            &lt;/xs:sequence&gt;
+          &lt;/xs:complexType&gt;
+        &lt;/xs:element&gt;
+        &lt;xs:element type="xs:boolean" name="calculate_taxes"/&gt;
+        &lt;xs:element type="xs:boolean" name="process_delta_only"/&gt;
+        &lt;xs:element name="earnings"&gt;
+          &lt;xs:complexType&gt;
+            &lt;xs:sequence&gt;
+              &lt;xs:element name="earning" maxOccurs="unbounded" minOccurs="0"&gt;
+                &lt;xs:complexType&gt;
+                  &lt;xs:sequence&gt;
+                    &lt;xs:element type="xs:date" name="date_range_from" minOccurs="0"/&gt;
+                    &lt;xs:element type="xs:date" name="date_range_to" minOccurs="0"/&gt;
+                    &lt;xs:element type="xs:long" name="hours" minOccurs="0"/&gt;
+                    &lt;xs:element type="xs:float" name="base_rate" minOccurs="0"/&gt;
+                    &lt;xs:element type="xs:float" name="quantity" minOccurs="0"/&gt;
+                    &lt;xs:element type="xs:float" name="ee_amount" minOccurs="0"/&gt;
+                    &lt;xs:element name="workers_comp_code" minOccurs="0"&gt;
+                      &lt;xs:complexType&gt;
+                        &lt;xs:sequence&gt;
+                          &lt;xs:element type="xs:string" name="name"/&gt;
+                          &lt;xs:element type="xs:string" name="external_id"/&gt;
+                          &lt;xs:element type="xs:string" name="code"/&gt;
+                        &lt;/xs:sequence&gt;
+                      &lt;/xs:complexType&gt;
+                    &lt;/xs:element&gt;
+                    &lt;xs:element name="shift"&gt;
+                      &lt;xs:complexType&gt;
+                        &lt;xs:sequence&gt;
+                        &lt;xs:element name="id" type="xs:long"/&gt;
+                        &lt;xs:element name="name" type="xs:string"/&gt;
+                        &lt;/xs:sequence&gt;
+                      &lt;/xs:complexType&gt;
+                    &lt;/xs:element&gt;
+                    &lt;xs:element name="cost_centers" minOccurs="0"&gt;
+                      &lt;xs:complexType&gt;
+                        &lt;xs:sequence&gt;
+                          &lt;xs:element name="cost_center"&gt;
+                            &lt;xs:complexType&gt;
+                              &lt;xs:sequence&gt;
+                                &lt;xs:element type="xs:short" name="index"/&gt;
+                                &lt;xs:element name="value"&gt;
+                                  &lt;xs:complexType&gt;
+                                    &lt;xs:sequence&gt;
+                                      &lt;xs:element type="xs:integer" name="id"/&gt;
+                                    &lt;/xs:sequence&gt;
+                                  &lt;/xs:complexType&gt;
+                                &lt;/xs:element&gt;
+                              &lt;/xs:sequence&gt;
+                            &lt;/xs:complexType&gt;
+                          &lt;/xs:element&gt;
+                        &lt;/xs:sequence&gt;
+                      &lt;/xs:complexType&gt;
+                    &lt;/xs:element&gt;
+                    &lt;xs:element name="earning"&gt;
+                      &lt;xs:complexType&gt;
+                        &lt;xs:sequence&gt;
+                          &lt;xs:element type="xs:string" name="name"/&gt;
+                          &lt;xs:element type="xs:string" name="external_id" minOccurs="0"/&gt;
+                          &lt;xs:element type="xs:string" name="code"/&gt;
+                        &lt;/xs:sequence&gt;
+                      &lt;/xs:complexType&gt;
+                    &lt;/xs:element&gt;
+                    &lt;xs:element name="batch" minOccurs="0"&gt;
+                      &lt;xs:complexType&gt;
+                        &lt;xs:sequence&gt;
+                          &lt;xs:element type="xs:integer" name="id"/&gt;
+                          &lt;xs:element type="xs:string" name="display_name" minOccurs="0"/&gt;
+                        &lt;/xs:sequence&gt;
+                      &lt;/xs:complexType&gt;
+                    &lt;/xs:element&gt;
+                  &lt;/xs:sequence&gt;
+                &lt;/xs:complexType&gt;
+              &lt;/xs:element&gt;
+            &lt;/xs:sequence&gt;
+          &lt;/xs:complexType&gt;
+        &lt;/xs:element&gt;
+        &lt;xs:element name="deductions"&gt;
+          &lt;xs:complexType&gt;
+            &lt;xs:sequence&gt;
+              &lt;xs:element name="deduction" maxOccurs="unbounded" minOccurs="0"&gt;
+                &lt;xs:complexType&gt;
+                  &lt;xs:sequence&gt;
+                    &lt;xs:element type="xs:date" name="date_range_from" minOccurs="0"/&gt;
+                    &lt;xs:element type="xs:date" name="date_range_to" minOccurs="0"/&gt;
+                    &lt;xs:element type="xs:float" name="quantity" minOccurs="0"/&gt;
+                    &lt;xs:element type="xs:float" name="base_rate" minOccurs="0"/&gt;
+                    &lt;xs:element type="xs:float" name="ee_amount" minOccurs="0"/&gt;
+                    &lt;xs:element type="xs:float" name="er_amount" minOccurs="0"/&gt;
+                    &lt;xs:element name="vendor" minOccurs="0"&gt;
+                      &lt;xs:complexType&gt;
+                        &lt;xs:sequence&gt;
+                          &lt;xs:element type="xs:integer" name="id"/&gt;
+                          &lt;xs:element type="xs:string" name="name"/&gt;
+                        &lt;/xs:sequence&gt;
+                      &lt;/xs:complexType&gt;
+                    &lt;/xs:element&gt;
+                    &lt;xs:element name="cost_centers" minOccurs="0"&gt;
+                      &lt;xs:complexType&gt;
+                        &lt;xs:sequence&gt;
+                          &lt;xs:element name="cost_center"&gt;
+                            &lt;xs:complexType&gt;
+                              &lt;xs:sequence&gt;
+                                &lt;xs:element type="xs:short" name="index"/&gt;
+                                &lt;xs:element name="value"&gt;
+                                  &lt;xs:complexType&gt;
+                                    &lt;xs:sequence&gt;
+                                      &lt;xs:element type="xs:integer" name="id"/&gt;
+                                    &lt;/xs:sequence&gt;
+                                  &lt;/xs:complexType&gt;
+                                &lt;/xs:element&gt;
+                              &lt;/xs:sequence&gt;
+                            &lt;/xs:complexType&gt;
+                          &lt;/xs:element&gt;
+                        &lt;/xs:sequence&gt;
+                      &lt;/xs:complexType&gt;
+                    &lt;/xs:element&gt;
+                    &lt;xs:element name="workers_comp_code" minOccurs="0"&gt;
+                      &lt;xs:complexType&gt;
+                        &lt;xs:sequence&gt;
+                          &lt;xs:element type="xs:string" name="name"/&gt;
+                          &lt;xs:element type="xs:string" name="external_id"/&gt;
+                          &lt;xs:element type="xs:string" name="code"/&gt;
+                        &lt;/xs:sequence&gt;
+                      &lt;/xs:complexType&gt;
+                    &lt;/xs:element&gt;
+                    &lt;xs:element name="deduction"&gt;
+                      &lt;xs:complexType&gt;
+                        &lt;xs:sequence&gt;
+                          &lt;xs:element type="xs:string" name="name"/&gt;
+                          &lt;xs:element type="xs:string" name="external_id" minOccurs="0"/&gt;
+                          &lt;xs:element type="xs:string" name="code"/&gt;
+                        &lt;/xs:sequence&gt;
+                      &lt;/xs:complexType&gt;
+                    &lt;/xs:element&gt;
+                    &lt;xs:element name="batch" minOccurs="0"&gt;
+                      &lt;xs:complexType&gt;
+                        &lt;xs:sequence&gt;
+                          &lt;xs:element type="xs:integer" name="id"/&gt;
+                          &lt;xs:element type="xs:string" name="display_name" minOccurs="0"/&gt;
+                        &lt;/xs:sequence&gt;
+                      &lt;/xs:complexType&gt;
+                    &lt;/xs:element&gt;
+                  &lt;/xs:sequence&gt;
+                &lt;/xs:complexType&gt;
+              &lt;/xs:element&gt;
+            &lt;/xs:sequence&gt;
+          &lt;/xs:complexType&gt;
+        &lt;/xs:element&gt;
+        &lt;xs:element name="taxes" minOccurs="0"&gt;
+          &lt;xs:complexType&gt;
+            &lt;xs:sequence&gt;
+              &lt;xs:element name="tax" maxOccurs="unbounded" minOccurs="0"&gt;
+                &lt;xs:complexType&gt;
+                  &lt;xs:choice maxOccurs="unbounded" minOccurs="0"&gt;
+                    &lt;xs:element type="xs:float" name="ee_amount"/&gt;
+                    &lt;xs:element type="xs:float" name="er_amount"/&gt;
+                    &lt;xs:element type="xs:float" name="ee_gross_wage"/&gt;
+                    &lt;xs:element type="xs:float" name="ee_subject_wage"/&gt;
+                    &lt;xs:element type="xs:float" name="ee_gross_subject_wage"/&gt;
+                    &lt;xs:element type="xs:float" name="er_gross_wage"/&gt;
+                    &lt;xs:element type="xs:float" name="er_subject_wage"/&gt;
+                    &lt;xs:element type="xs:float" name="er_gross_subject_wage"/&gt;
+                    &lt;xs:element name="company_tax"&gt;
+                      &lt;xs:complexType&gt;
+                        &lt;xs:sequence&gt;
+                          &lt;xs:element type="xs:integer" name="id"/&gt;
+                          &lt;xs:element type="xs:string" name="code"/&gt;
+                          &lt;xs:element type="xs:string" name="name"/&gt;
+                          &lt;xs:element type="xs:string" name="abbrev"/&gt;
+                        &lt;/xs:sequence&gt;
+                      &lt;/xs:complexType&gt;
+                    &lt;/xs:element&gt;
+                  &lt;/xs:choice&gt;
+                &lt;/xs:complexType&gt;
+              &lt;/xs:element&gt;
+            &lt;/xs:sequence&gt;
+          &lt;/xs:complexType&gt;
+        &lt;/xs:element&gt;
+      &lt;/xs:sequence&gt;
+    &lt;/xs:complexType&gt;
+  &lt;/xs:element&gt;
+&lt;/xs:schema&gt;
+</div>
+</div>
+</div>
+</div>
+</div>
+</article>
+</section>
+</div>
+</body></html>

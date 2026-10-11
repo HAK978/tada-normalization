@@ -1,0 +1,438 @@
+<!doctype html>
+<html><head><meta charset="utf-8"><title>Pay period profiles</title><style>body{font:16px system-ui;max-width:1100px;margin:2rem auto;padding:0 1rem;line-height:1.5}aside{background:#fff3cc;padding:1rem}.jsonschema,pre{white-space:pre-wrap;font:13px monospace;overflow-wrap:anywhere;background:#f4f5f7;padding:1rem}.uri{font-family:monospace}h2,h3{margin-top:2rem}</style></head><body><aside><strong>Modified private reference — 2026-10-09.</strong> Provider-documented illustrative examples are included; authentication token examples are redacted. These are not customer exports or guaranteed production behavior. Candidate sharing is pending. This is not OpenAPI.</aside>
+<div class="group">
+<h2 class="anchored" id="item.anchor">
+<span>Pay period profiles</span>
+<a class="fa fa-link link-anchor" data-url="r=__v2__companies__(cid)__lookup__pay-period-profiles#" data-web-id="__v2__companies__(cid)__lookup__pay-period-profiles"></a>
+</h2>
+<section class="clearfix">
+<article class="definition">
+<h3 class="anchored" id="get"><span>GET</span>
+<a class="fa fa-link link-anchor" data-url="r=__v2__companies__(cid)__lookup__pay-period-profiles#get" data-web-id="__v2__companies__(cid)__lookup__pay-period-profiles"></a>
+</h3>
+<div class="md"><p>Returns a list of Pay period profiles in the specified company</p></div>
+<div>
+<ul class="annotation-list">
+<li class="annotation">
+<span>v2</span>
+</li>
+</ul>
+</div>
+<h4>Parameters</h4>
+<h5>Path Parameters</h5>
+<ul class="param-list">
+<li>
+<div class="param-desc">
+<div class="param-name">cid</div>
+<div class="data-type">string</div>
+<div class="required">required</div>
+</div>
+<div class="param-content">
+<div>
+<p>Example: 123456</p>
+<div class="desc md">Company should be referenced via company id or company unique id or company short name using `|short_name` or `!short_name` format.
+</div>
+</div>
+</div>
+
+</li>
+</ul>
+<h5>Query Parameters</h5>
+<ul class="param-list">
+<li>
+<div class="param-desc">
+<div class="param-name">include_emp_profile</div>
+<div class="data-type">boolean</div>
+</div>
+<div class="param-content">
+<div>
+<div class="desc md">Can be used for including active employee pay period profile.</div>
+</div>
+</div>
+
+</li>
+</ul>
+<h5>Header Parameters</h5>
+<ul class="param-list">
+<li>
+<div class="param-desc">
+<div class="param-name">Accept</div>
+<div class="data-type">string</div>
+</div>
+<div class="param-content">
+<div>
+<p>Valid values: application/json, application/xml, text/xml</p>
+<p>Default: application/json</p>
+<p>Example: application/json</p>
+</div>
+</div>
+
+</li>
+</ul>
+<h4>Responses</h4>
+<div class="responses">
+<div>
+<label class="response response-success">
+<span class="fa fa-check"></span>
+<input data-full-tab-id="get-resp-code-tab-id-0" data-tab-class="resp-code-tab-get" name="resp-code-tab-get" type="radio"/>
+<span class="status">200 Ok</span>
+</label>
+<div class="response-desc resp-code-tab-get" id="get-resp-code-tab-id-0">
+</div>
+</div>
+<div>
+<label class="response response-error">
+<span class="fa fa-times"></span>
+<input data-full-tab-id="get-resp-code-tab-id-1" data-tab-class="resp-code-tab-get" name="resp-code-tab-get" type="radio"/>
+<span class="status">401 Unauthorized</span>
+</label>
+<div class="response-desc resp-code-tab-get" id="get-resp-code-tab-id-1">
+<div class="md"><p>Returned in case user is not authorized.</p></div>
+</div>
+</div>
+<div>
+<label class="response response-error">
+<span class="fa fa-times"></span>
+<input data-full-tab-id="get-resp-code-tab-id-2" data-tab-class="resp-code-tab-get" name="resp-code-tab-get" type="radio"/>
+<span class="status">403 Forbidden</span>
+</label>
+<div class="response-desc resp-code-tab-get" id="get-resp-code-tab-id-2">
+<div class="md"><p>Returned in case user has no access to the resource.</p></div>
+</div>
+</div>
+<div>
+<label class="response response-error">
+<span class="fa fa-times"></span>
+<input data-full-tab-id="get-resp-code-tab-id-3" data-tab-class="resp-code-tab-get" name="resp-code-tab-get" type="radio"/>
+<span class="status">503 Service Unavailable</span>
+</label>
+<div class="response-desc resp-code-tab-get" id="get-resp-code-tab-id-3">
+<div class="md"><p>Returned in the event that the call limit is exceeded. The application will be unavailable for subsequent calls for the duration specified by the X-CallLimit-TimeToWait header.</p></div>
+</div>
+</div>
+</div>
+</article>
+<article class="code">
+<h4>Definition</h4>
+<div class="uri">
+<code>
+<span class="method get">get</span>
+<span class="textUri"><span class="baseUri">{{ getUriPrefix() }}</span><span class="relativeUri">/v2/companies/{cid}/lookup/pay-period-profiles</span></span>
+</code>
+</div>
+<h4>Response Samples</h4>
+<div class="tab-title-group">
+<label>
+<input checked="checked" data-full-tab-id="resp-tab-id-get-0" data-tab-class="resp-tab-get" name="resp-tab-get" type="radio"/>
+<span class="tab-title">application/json</span>
+</label>
+<label>
+<input data-full-tab-id="resp-tab-id-get-1" data-tab-class="resp-tab-get" name="resp-tab-get" type="radio"/>
+<span class="tab-title">application/xml</span>
+</label>
+</div>
+<div>
+<div class="resp-tab-get" id="resp-tab-id-get-0">
+<div class="example">
+
+<div class="get-example-resp-tab-0 activeTab" id="get-tab-resp-example-0">
+
+<pre class="highlightjs">{
+  "items": [
+       {
+            "id": 284226,
+            "name": "Check NEW UI Pay",
+            "active": true,
+            "effective_from": "2017-01-01",
+            "effective_to": "2017-12-31",
+            "period_type": {
+                "type": "monthly",
+                "params": {
+                    "start_day": 1
+                }
+            },
+            "is_user_profile": true
+        },
+        {
+            "id": 284290,
+            "name": "NextPayDate",
+            "active": true,
+            "effective_from": "2017-05-29",
+            "effective_to": "2017-07-02",
+            "period_type": {
+                "type": "weekly",
+                "params": {
+                    "week_day": "MONDAY"
+                }
+            }
+        }
+  ]
+}</pre>
+</div>
+<div class="get-example-resp-tab-0" id="get-tab-resp-schema-0">
+
+<div class="jsonschema" id="schema-0">{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "type": "object",
+  "properties": {
+    "items": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer"
+          },
+          "name": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 85
+          },
+          "description": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 255
+          },
+          "active": {
+            "type": "boolean"
+          },
+          "effective_from": {
+            "type": "string",
+            "description": "Date needs to be in the format yyyy-mm-dd within the 1900-12-31 and 2079-06-05 date range"
+          },
+          "effective_to": {
+            "type": "string",
+            "description": "Date needs to be in the format yyyy-mm-dd within the 1900-12-31 and 2079-06-05 date range"
+          },
+          "is_user_profile": {
+            "type": "boolean"
+          },
+          "period_type": {
+            "type": "object",
+            "properties": {
+              "type": {
+                "type": "string",
+                "enum": [
+                  "quarterly",
+                  "monthly",
+                  "monthly_weekday",
+                  "semi_monthly",
+                  "weekly",
+                  "every_n_weeks",
+                  "every_n_days",
+                  "user_defined"
+                ]
+              },
+              "params": {
+                "type": "object",
+                "properties": {
+                  "start_day": {
+                    "type": "integer"
+                  },
+                  "start_date": {
+                    "type": "string",
+                    "description": "Date needs to be in the format yyyy-mm-dd within the 1900-12-31 and 2079-06-05 date range"
+                  },
+                  "week_num": {
+                    "type": "integer"
+                  },
+                  "starting_on_first": {
+                    "type": "integer"
+                  },
+                  "starting_on_sec": {
+                    "type": "integer"
+                  },
+                  "num_weeks": {
+                    "type": "integer"
+                  },
+                  "num_days": {
+                    "type": "integer"
+                  },
+                  "week_day": {
+                    "type": "string",
+                    "enum": [
+                      "SUNDAY",
+                      "MONDAY",
+                      "TUESDAY",
+                      "WEDNESDAY",
+                      "THURSDAY",
+                      "FRIDAY",
+                      "SATURDAY"
+                    ]
+                  }
+                }
+              }
+            },
+            "additionalProperties": false,
+            "required": [
+              "type"
+            ]
+          }
+        },
+        "additionalProperties": false,
+        "required": [
+          "id",
+          "name",
+          "active",
+          "period_type"
+        ]
+      }
+    }
+  },
+  "additionalProperties": false,
+  "required": [
+    "items"
+  ]
+}</div>
+</div>
+</div>
+</div>
+<div class="resp-tab-get" id="resp-tab-id-get-1">
+<div class="example">
+
+<div class="get-example-resp-tab-1 activeTab" id="get-tab-resp-example-1">
+
+<pre class="highlightjs">&lt;?xml version='1.0' encoding='UTF-8'?&gt;
+&lt;items&gt;
+    &lt;item&gt;
+        &lt;id&gt;284226&lt;/id&gt;
+        &lt;name&gt;Check NEW UI Pay&lt;/name&gt;
+        &lt;active&gt;true&lt;/active&gt;
+        &lt;effective_from&gt;2017-01-01&lt;/effective_from&gt;
+        &lt;effective_to&gt;2017-12-31&lt;/effective_to&gt;
+        &lt;period_type&gt;
+            &lt;type&gt;monthly&lt;/type&gt;
+            &lt;params&gt;
+                &lt;start_day&gt;1&lt;/start_day&gt;
+            &lt;/params&gt;
+        &lt;/period_type&gt;
+        &lt;is_user_profile&gt;true&lt;/is_user_profile&gt;
+    &lt;/item&gt;
+    &lt;item&gt;
+        &lt;id&gt;284290&lt;/id&gt;
+        &lt;name&gt;NextPayDate&lt;/name&gt;
+        &lt;active&gt;true&lt;/active&gt;
+        &lt;effective_from&gt;2017-05-29&lt;/effective_from&gt;
+        &lt;effective_to&gt;2017-07-02&lt;/effective_to&gt;
+        &lt;period_type&gt;
+            &lt;type&gt;weekly&lt;/type&gt;
+            &lt;params&gt;
+                &lt;week_day&gt;MONDAY&lt;/week_day&gt;
+            &lt;/params&gt;
+        &lt;/period_type&gt;
+    &lt;/item&gt;
+    &lt;item&gt;
+        &lt;id&gt;284418&lt;/id&gt;
+        &lt;name&gt;PAY Before&lt;/name&gt;
+        &lt;active&gt;true&lt;/active&gt;
+        &lt;effective_from&gt;2017-06-26&lt;/effective_from&gt;
+        &lt;effective_to&gt;2017-07-16&lt;/effective_to&gt;
+        &lt;period_type&gt;
+            &lt;type&gt;weekly&lt;/type&gt;
+            &lt;params&gt;
+                &lt;week_day&gt;MONDAY&lt;/week_day&gt;
+            &lt;/params&gt;
+        &lt;/period_type&gt;
+    &lt;/item&gt;
+&lt;/items&gt;</pre>
+</div>
+<div class="get-example-resp-tab-1" id="get-tab-resp-schema-1">
+
+<div class="jsonschema" id="schema-1">&lt;xs:schema attributeFormDefault="unqualified" elementFormDefault="qualified"
+           xmlns:xs="http://www.w3.org/2001/XMLSchema"&gt;
+
+    &lt;xs:complexType name="period_type"&gt;
+        &lt;xs:all&gt;
+            &lt;xs:element name="type"&gt;
+                &lt;xs:simpleType&gt;
+                    &lt;xs:restriction base="xs:string"&gt;
+                        &lt;xs:enumeration value="quarterly"/&gt;
+                        &lt;xs:enumeration value="monthly"/&gt;
+                        &lt;xs:enumeration value="monthly_weekday"/&gt;
+                        &lt;xs:enumeration value="semi_monthly"/&gt;
+                        &lt;xs:enumeration value="weekly"/&gt;
+                        &lt;xs:enumeration value="every_n_weeks"/&gt;
+                        &lt;xs:enumeration value="every_n_days"/&gt;
+                        &lt;xs:enumeration value="user_defined"/&gt;
+                    &lt;/xs:restriction&gt;
+                &lt;/xs:simpleType&gt;
+            &lt;/xs:element&gt;
+            &lt;xs:element name="params"&gt;
+                &lt;xs:complexType&gt;
+                    &lt;xs:all&gt;
+                        &lt;xs:element type="xs:integer" name="start_day" minOccurs="0"/&gt;
+                        &lt;xs:element type="sysDate" name="start_date" minOccurs="0"/&gt;
+                        &lt;xs:element name="week_day" minOccurs="0"&gt;
+                            &lt;xs:simpleType&gt;
+                                &lt;xs:restriction base="xs:string"&gt;
+                                    &lt;xs:enumeration value="SUNDAY"/&gt;
+                                    &lt;xs:enumeration value="MONDAY"/&gt;
+                                    &lt;xs:enumeration value="TUESDAY"/&gt;
+                                    &lt;xs:enumeration value="WEDNESDAY"/&gt;
+                                    &lt;xs:enumeration value="THURSDAY"/&gt;
+                                    &lt;xs:enumeration value="FRIDAY"/&gt;
+                                    &lt;xs:enumeration value="SATURDAY"/&gt;
+                                &lt;/xs:restriction&gt;
+                            &lt;/xs:simpleType&gt;
+                        &lt;/xs:element&gt;
+                        &lt;xs:element type="xs:integer" name="week_num" minOccurs="0"/&gt;
+                        &lt;xs:element type="xs:integer" name="starting_on_first" minOccurs="0"/&gt;
+                        &lt;xs:element type="xs:integer" name="starting_on_sec" minOccurs="0"/&gt;
+                        &lt;xs:element type="xs:integer" name="num_weeks" minOccurs="0"/&gt;
+                        &lt;xs:element type="xs:integer" name="num_days" minOccurs="0"/&gt;
+                    &lt;/xs:all&gt;
+                &lt;/xs:complexType&gt;
+            &lt;/xs:element&gt;
+        &lt;/xs:all&gt;
+    &lt;/xs:complexType&gt;
+
+    &lt;xs:element name="items"&gt;
+        &lt;xs:complexType&gt;
+            &lt;xs:sequence&gt;
+                &lt;xs:element name="item" maxOccurs="unbounded"&gt;
+                    &lt;xs:complexType&gt;
+                        &lt;xs:all&gt;
+                            &lt;xs:element type="xs:long" name="id"/&gt;
+                            &lt;xs:element name="name"&gt;
+                                &lt;xs:simpleType&gt;
+                                    &lt;xs:restriction base="xs:string"&gt;
+                                        &lt;xs:minLength value="1"/&gt;
+                                        &lt;xs:maxLength value="85"/&gt;
+                                    &lt;/xs:restriction&gt;
+                                &lt;/xs:simpleType&gt;
+                            &lt;/xs:element&gt;
+                            &lt;xs:element name="description" minOccurs="0"&gt;
+                                &lt;xs:simpleType&gt;
+                                    &lt;xs:restriction base="xs:string"&gt;
+                                        &lt;xs:minLength value="1"/&gt;
+                                        &lt;xs:maxLength value="255"/&gt;
+                                    &lt;/xs:restriction&gt;
+                                &lt;/xs:simpleType&gt;
+                            &lt;/xs:element&gt;
+                            &lt;xs:element type="xs:boolean" name="active"/&gt;
+                            &lt;xs:element type="sysDate" name="effective_from" minOccurs="0"/&gt;
+                            &lt;xs:element type="sysDate" name="effective_to" minOccurs="0"/&gt;
+                            &lt;xs:element type="period_type" name="period_type"/&gt;
+                            &lt;xs:element type="xs:boolean" name="is_user_profile" minOccurs="0"/&gt;
+                        &lt;/xs:all&gt;
+                    &lt;/xs:complexType&gt;
+                &lt;/xs:element&gt;
+            &lt;/xs:sequence&gt;
+        &lt;/xs:complexType&gt;
+    &lt;/xs:element&gt;
+
+    &lt;xs:simpleType name="sysDate"&gt;
+        &lt;xs:restriction base="xs:date"&gt;
+            &lt;xs:minInclusive value="1900-12-31"/&gt;
+            &lt;xs:maxInclusive value="2079-06-05"/&gt;
+        &lt;/xs:restriction&gt;
+    &lt;/xs:simpleType&gt;
+&lt;/xs:schema&gt;</div>
+</div>
+</div>
+</div>
+</div>
+</article>
+</section>
+</div>
+</body></html>

@@ -1,0 +1,34 @@
+<!doctype html>
+<html><head><meta charset="utf-8"><title>Pragmatic REST</title><style>body{font:16px system-ui;max-width:1100px;margin:2rem auto;padding:0 1rem;line-height:1.5}aside{background:#fff3cc;padding:1rem}.jsonschema,pre{white-space:pre-wrap;font:13px monospace;overflow-wrap:anywhere;background:#f4f5f7;padding:1rem}.uri{font-family:monospace}h2,h3{margin-top:2rem}</style></head><body><aside><strong>Modified private reference — 2026-10-09.</strong> Provider-documented illustrative examples are included; authentication token examples are redacted. These are not customer exports or guaranteed production behavior. Candidate sharing is pending. This is not OpenAPI.</aside>
+<div class="group">
+<h2 class="docTitle">Pragmatic REST</h2>
+<section class="clearfix">
+<article class="documentation md">
+<pre>Our REST implementation approaches the real-world challenges facing any large-scale API sensibly and realistically in a way that is based on practical rather than purely theoretical considerations.
+
+---
+## Operations that do not fit the REST paradigm
+When an API operation cannot be described in terms of a CRUD (Create/Read/Update/Delete) operation on simple data, we include an additional verb as a URL subresource. This concept is known as "action as a resource."
+
+Perhaps the most common use case involves the execution of data processing.
+
+- The HTTP method is POST or PUT
+- Within the URL, the resource or resource idenifier is followed by a verb subresource according to the following format:
+
+    action(s)/{ACTION verb}
+
+    **Note:** ACTION verbs include: submit, approve, reject, reopen and correct.
+
+    Refer to the API Specifications for full details
+
+    For example:
+
+    `/v2/companies/&lt;company_id&gt;/timesheets/&lt;timesheet_id&gt;/action/submit`
+    `/v2/companies/&lt;company_id&gt;/timesheets/&lt;timesheet_id&gt;/action/reject`
+
+The body consists of a data items required to process the action.
+</pre>
+</article>
+</section>
+</div>
+</body></html>

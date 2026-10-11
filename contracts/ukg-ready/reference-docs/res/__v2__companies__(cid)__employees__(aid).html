@@ -1,0 +1,4868 @@
+<!doctype html>
+<html><head><meta charset="utf-8"><title>Employee</title><style>body{font:16px system-ui;max-width:1100px;margin:2rem auto;padding:0 1rem;line-height:1.5}aside{background:#fff3cc;padding:1rem}.jsonschema,pre{white-space:pre-wrap;font:13px monospace;overflow-wrap:anywhere;background:#f4f5f7;padding:1rem}.uri{font-family:monospace}h2,h3{margin-top:2rem}</style></head><body><aside><strong>Modified private reference — 2026-10-09.</strong> Provider-documented illustrative examples are included; authentication token examples are redacted. These are not customer exports or guaranteed production behavior. Candidate sharing is pending. This is not OpenAPI.</aside>
+<div class="group">
+<h2 class="anchored" id="item.anchor">
+<span>Employee</span>
+<a class="fa fa-link link-anchor" data-url="r=__v2__companies__(cid)__employees__(aid)#" data-web-id="__v2__companies__(cid)__employees__(aid)"></a>
+</h2>
+<section class="clearfix">
+<article class="definition">
+<h3 class="anchored" id="get"><span>GET</span>
+<a class="fa fa-link link-anchor" data-url="r=__v2__companies__(cid)__employees__(aid)#get" data-web-id="__v2__companies__(cid)__employees__(aid)"></a>
+</h3>
+<div class="md"><p>Retrieves the core Employee record, which contains the bulk of the information about an employee. Additionally, the response contains links to other operations to retrieve related data such as Pay Information or Demographics.
+
+The Employee operations use a separate security profile item to control access rights, located in the company security profile at:
+  1. `Modules -&gt; REST API Resources -&gt; Employees -&gt; View`.
+  2. `Modules -&gt; REST API Resources -&gt; Employees -&gt; ESS View`.
+  3. `Modules -&gt; REST API Resources -&gt; Employees -&gt; Custom View`.
+
+&lt;b&gt;Only the 'REST API RESOURCES' security profile items, in combination with 'manager permissions', are considered by this REST API resource.&lt;/b&gt;
+
+For ESS requests, the following fields are ignored: 'external_id', 'nickname', 'force_change_password', 'locked', 'status', 'add_to_new_hire_export', 'terminated', 'retired', 'deceased', 'in_touch'.
+
+The fields 'bsn', 'social_insurance', 'social_security', and 'national_insurance' are for backward compatibility and are populated if data exists. The new pattern for national identification numbers is represented by the 'national_id_numbers' field.
+
+For profiles where custom view is enabled, View permission can be customized for individual fields at:
+              `HR -&gt; Account/Personal Information (Employee Access) -&gt; View/Edit(Custom) -&gt; Permissions`.
+The state and state_code fields usually contain the same value. However, in some cases, state does not match the official state code. When an accurate or official state code is required, always use state_code
+</p></div>
+<div>
+<ul class="annotation-list">
+<li class="annotation">
+<span>v2</span>
+</li>
+</ul>
+</div>
+<h4>Parameters</h4>
+<h5>Path Parameters</h5>
+<ul class="param-list">
+<li>
+<div class="param-desc">
+<div class="param-name">cid</div>
+<div class="data-type">string</div>
+<div class="required">required</div>
+</div>
+<div class="param-content">
+<div>
+<p>Example: 123456</p>
+<div class="desc md">Company should be referenced via company id or company unique id or company short name using `|short_name` or `!short_name` format.
+</div>
+</div>
+</div>
+
+</li>
+<li>
+<div class="param-desc">
+<div class="param-name">aid</div>
+<div class="data-type">string</div>
+<div class="required">required</div>
+</div>
+<div class="param-content">
+<div>
+<p>Example: 1234567</p>
+<div class="desc md">Account should be referenced via account id or account external id using `|external_id` or `!external_id` format.
+</div>
+</div>
+</div>
+
+</li>
+</ul>
+<h5>Header Parameters</h5>
+<ul class="param-list">
+<li>
+<div class="param-desc">
+<div class="param-name">Accept</div>
+<div class="data-type">string</div>
+</div>
+<div class="param-content">
+<div>
+<p>Valid values: application/json, application/xml, text/xml</p>
+<p>Default: application/json</p>
+<p>Example: application/json</p>
+</div>
+</div>
+
+</li>
+</ul>
+<h4>Responses</h4>
+<div class="responses">
+<div>
+<label class="response response-success">
+<span class="fa fa-check"></span>
+<input data-full-tab-id="get-resp-code-tab-id-0" data-tab-class="resp-code-tab-get" name="resp-code-tab-get" type="radio"/>
+<span class="status">200 Ok</span>
+</label>
+<div class="response-desc resp-code-tab-get" id="get-resp-code-tab-id-0">
+</div>
+</div>
+<div>
+<label class="response response-error">
+<span class="fa fa-times"></span>
+<input data-full-tab-id="get-resp-code-tab-id-1" data-tab-class="resp-code-tab-get" name="resp-code-tab-get" type="radio"/>
+<span class="status">401 Unauthorized</span>
+</label>
+<div class="response-desc resp-code-tab-get" id="get-resp-code-tab-id-1">
+<div class="md"><p>Returned in case user is not authorized.</p></div>
+</div>
+</div>
+<div>
+<label class="response response-error">
+<span class="fa fa-times"></span>
+<input data-full-tab-id="get-resp-code-tab-id-2" data-tab-class="resp-code-tab-get" name="resp-code-tab-get" type="radio"/>
+<span class="status">403 Forbidden</span>
+</label>
+<div class="response-desc resp-code-tab-get" id="get-resp-code-tab-id-2">
+<div class="md"><p>Returned in case user has no access to the resource.</p></div>
+</div>
+</div>
+<div>
+<label class="response response-error">
+<span class="fa fa-times"></span>
+<input data-full-tab-id="get-resp-code-tab-id-3" data-tab-class="resp-code-tab-get" name="resp-code-tab-get" type="radio"/>
+<span class="status">404 Not Found</span>
+</label>
+<div class="response-desc resp-code-tab-get" id="get-resp-code-tab-id-3">
+<div class="md"><p>Returned in case resource does not exist.</p></div>
+</div>
+</div>
+<div>
+<label class="response response-error">
+<span class="fa fa-times"></span>
+<input data-full-tab-id="get-resp-code-tab-id-4" data-tab-class="resp-code-tab-get" name="resp-code-tab-get" type="radio"/>
+<span class="status">503 Service Unavailable</span>
+</label>
+<div class="response-desc resp-code-tab-get" id="get-resp-code-tab-id-4">
+<div class="md"><p>Returned in the event that the call limit is exceeded. The application will be unavailable for subsequent calls for the duration specified by the X-CallLimit-TimeToWait header.</p></div>
+</div>
+</div>
+</div>
+</article>
+<article class="code">
+<h4>Definition</h4>
+<div class="uri">
+<code>
+<span class="method get">get</span>
+<span class="textUri"><span class="baseUri">{{ getUriPrefix() }}</span><span class="relativeUri">/v2/companies/{cid}/employees/{aid}</span></span>
+</code>
+</div>
+<h4>Response Samples</h4>
+<div class="tab-title-group">
+<label>
+<input checked="checked" data-full-tab-id="resp-tab-id-get-0" data-tab-class="resp-tab-get" name="resp-tab-get" type="radio"/>
+<span class="tab-title">application/json</span>
+</label>
+<label>
+<input data-full-tab-id="resp-tab-id-get-1" data-tab-class="resp-tab-get" name="resp-tab-get" type="radio"/>
+<span class="tab-title">application/xml</span>
+</label>
+</div>
+<div>
+<div class="resp-tab-get" id="resp-tab-id-get-0">
+<div class="example">
+
+<div class="get-example-resp-tab-0 activeTab" id="get-tab-resp-example-0">
+
+<pre class="highlightjs">{
+  "id": 10,
+  "username": "string",
+  "first_name": "string",
+  "last_name": "string",
+  "photo_href": "string",
+  "isPhotoUploaded": false,
+  "middle_name": "string",
+  "external_id": "string",
+  "employee_id": "string",
+  "address": {
+    "address_line_1": "string",
+    "address_line_2": "string",
+    "address_line_3": "string",
+    "country": "USA",
+    "city": "string",
+    "state": "str",
+    "state_code": "str",
+    "zip": "string",
+    "number": "string",
+    "number_addition": "string"
+  },
+  "use_separate_mailing_address": false,
+  "status": "string",
+  "bsn": "string",
+  "ein": {
+    "id": 10
+  },
+  "force_change_password": false,
+  "locked": true,
+  "first_screen": {
+    "id": "screen"
+  },
+  "phones": {
+    "cell_phone_country_id": "USA",
+    "cell_phone_country_code": "+91",
+    "cell_phone": "+333333333",
+    "home_phone_country_id": "USA",
+    "home_phone_country_code": "+91",
+    "home_phone": "+333333333",
+    "work_phone_country_id": "USA",
+    "work_phone_country_code": "+91",
+    "work_phone": "+333333333",
+    "preferred_phone": "WORK"
+  },
+  "locale": {
+    "id": 1
+  },
+  "mailing_address": {
+    "address_line_1": "string",
+    "address_line_2": "string",
+    "address_line_3": "string",
+    "country": "USA",
+    "city": "string",
+    "state": "str",
+    "zip": "string",
+    "number": "string",
+    "number_addition": "string"
+  },
+  "managers": [
+    {
+      "index": 1,
+      "empl_ref": {
+        "account_id": 10
+      }
+    }
+  ],
+  "national_insurance": "string",
+  "nickname": "string",
+  "primary_email": "string",
+  "secondary_email": "string",
+  "salutation": "string",
+  "social_insurance": "string",
+  "social_security": "string",
+  "suffix": "string",
+  "timezone": "America/New_York",
+  "cost_centers_info": {
+    "defaults": [
+      {
+        "index": 2,
+        "value": {
+          "id": 50
+        }
+      }
+    ],
+    "limits": [
+      {
+        "index": 4,
+        "values": [
+          {
+            "type": "ROOT",
+            "effective_from": "1900-12-31"
+          },
+          {
+            "id": 10,
+            "effective_from": "2013-11-23",
+            "type": "ROOT"
+          }
+        ]
+      }
+    ]
+  },
+  "add_to_new_hire_export": true,
+  "dates": {
+    "hired": "2018-11-01",
+    "deceased": "2018-11-01",
+    "re_hired": "2013-05-22",
+    "started": "2002-11-05",
+    "birthday": "2002-06-24",
+    "review": "2016-02-20",
+    "seniority": "2019-08-19",
+    "frozen_benefit": "2018-02-04",
+    "benefits": "2002-11-16",
+    "retired": "2000-09-14",
+    "terminated": "2015-08-24",
+    "peo_hired": "2015-06-18",
+    "custom_dates": [
+      {
+        "index": 2,
+        "date": "2000-04-21"
+      }
+    ]
+  },
+  "account_extra_fields": [
+    {
+      "index": 4,
+      "values": [
+        {
+          "value": "string",
+          "effective_from": "2017-04-19"
+        }
+      ]
+    }
+  ],
+  "managed_cost_centers_enabled": true,
+  "managed_cost_centers_settings": {
+    "allow_save_others_cost_centers": false
+  },
+  "national_id_numbers": [
+    {
+      "type": "SSN",
+      "value": "012345678",
+      "primary": true
+    },
+    {
+      "type": "BSN",
+      "value": "012345678"
+    }
+  ],
+  "_links": {
+    "self": "https://example.com/ta/rest/v2/companies/453313/employees/10",
+    "demographics": "https://example.com/ta/rest/v2/companies/453313/employees/10/demographics",
+    "pay-info": "https://example.com/ta/rest/v2/companies/453313/employees/10/pay-info",
+    "badges": "https://example.com/ta/rest/v2/companies/453313/employees/10/badges",
+    "profiles": "https://example.com/ta/rest/v2/companies/453313/employees/10/profiles",
+    "hcm-profiles": "https://example.com/ta/rest/v2/companies/453313/employees/10/hcm-profiles",
+    "hcm-fields": "https://example.com/ta/rest/v2/companies/453313/employees/10/hcm-fields"
+  }
+}</pre>
+</div>
+<div class="get-example-resp-tab-0" id="get-tab-resp-schema-0">
+
+<div class="jsonschema" id="schema-0">{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "type": "object",
+  "properties": {
+    "id": {
+      "type": "integer",
+      "description": "This field is only used for GET."
+    },
+    "username": {
+      "type": "string"
+    },
+    "first_name": {
+      "type": "string"
+    },
+    "last_name": {
+      "type": "string"
+    },
+    "photo_href": {
+      "type": "string"
+    },
+    "isPhotoUploaded": {
+      "type": "boolean"
+    },
+    "middle_name": {
+      "type": "string"
+    },
+    "external_id": {
+      "type": "string"
+    },
+    "employee_id": {
+      "type": "string",
+      "maxLength": 20
+    },
+    "status": {
+      "type": "string",
+      "description": "This field is only used for GET."
+    },
+    "bsn": {
+      "type": "string"
+    },
+    "address": {
+      "$ref": "#/definitions/address"
+    },
+    "use_separate_mailing_address": {
+      "type": "boolean"
+    },
+    "mailing_address": {
+      "$ref": "#/definitions/address"
+    },
+    "primary_account_id": {
+      "type": "number",
+      "format": "long",
+      "description": "This field is only returned for multi-EIN companies."
+    },
+    "ein": {
+      "type": "object",
+      "description": "Can be used for POST in multi-ein companies.",
+      "properties": {
+        "id": {
+          "type": "integer"
+        }
+      },
+      "additionalProperties": false
+    },
+    "force_change_password": {
+      "type": "boolean"
+    },
+    "locked": {
+      "type": "boolean"
+    },
+    "first_screen": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string"
+        }
+      },
+      "additionalProperties": false
+    },
+    "phones": {
+      "type": "object",
+      "properties": {
+        "cell_phone_country_id": {
+          "type": "string",
+          "description": "cell_phone_country_id is ISO 3166-1 alpha-3 code for a country denoted by a three letters (Reference Link:- https://en.wikipedia.org/wiki/ISO_3166-1_alpha-3)"
+        },
+        "cell_phone_country_code": {
+          "type": "string"
+        },
+        "cell_phone": {
+          "type": "string"
+        },
+        "home_phone_country_id": {
+          "type": "string",
+          "description": "home_phone_country_id is ISO 3166-1 alpha-3 code for a country denoted by a three letters (Reference Link:- https://en.wikipedia.org/wiki/ISO_3166-1_alpha-3)"
+        },
+        "home_phone_country_code": {
+          "type": "string"
+        },
+        "home_phone": {
+          "type": "string"
+        },
+        "work_phone_country_id": {
+          "type": "string",
+          "description": "work_phone_country_id is ISO 3166-1 alpha-3 code for a country denoted by a three letters (Reference Link:- https://en.wikipedia.org/wiki/ISO_3166-1_alpha-3)"
+        },
+        "work_phone_country_code": {
+          "type": "string"
+        },
+        "work_phone": {
+          "type": "string"
+        },
+        "preferred_phone": {
+          "enum": [
+            "HOME",
+            "CELL",
+            "WORK",
+            "NONE"
+          ]
+        }
+      },
+      "additionalProperties": false
+    },
+    "locale": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer"
+        }
+      },
+      "additionalProperties": false
+    },
+    "managers": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "index": {
+            "type": "integer",
+            "minimum": 0,
+            "maximum": 5
+          },
+          "empl_ref": {
+            "type": "object",
+            "properties": {
+              "account_id": {
+                "type": "number",
+                "format": "long"
+              }
+            },
+            "additionalProperties": false
+          }
+        },
+        "required": [
+          "index"
+        ],
+        "additionalProperties": false
+      }
+    },
+    "national_insurance": {
+      "type": "string"
+    },
+    "nickname": {
+      "type": "string"
+    },
+    "primary_email": {
+      "type": "string"
+    },
+    "secondary_email": {
+      "type": "string"
+    },
+    "salutation": {
+      "type": "string"
+    },
+    "social_insurance": {
+      "type": "string"
+    },
+    "social_security": {
+      "type": "string"
+    },
+    "suffix": {
+      "type": "string"
+    },
+    "timezone": {
+      "type": "string",
+      "description": "See Time Zones in Master Data section."
+    },
+    "cost_centers_info": {
+      "type": "object",
+      "properties": {
+        "defaults": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "index": {
+                "type": "integer",
+                "minimum": 0,
+                "maximum": 8
+              },
+              "value": {
+                "type": "object",
+                "properties": {
+                  "id": {
+                    "type": "integer"
+                  }
+                }
+              }
+            },
+            "additionalProperties": false,
+            "required": [
+              "index"
+            ]
+          }
+        },
+        "limits": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "index": {
+                "type": "integer",
+                "minimum": 0,
+                "maximum": 8
+              },
+              "values": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "id": {
+                      "type": "integer"
+                    },
+                    "effective_from": {
+                      "type": "string",
+                      "description": "Date needs to be in the format yyyy-mm-dd within the 1900-12-31 and 2079-06-05 date range"
+                    },
+                    "type": {
+                      "enum": [
+                        "ROOT",
+                        "LIST"
+                      ]
+                    }
+                  },
+                  "additionalProperties": false,
+                  "required": [
+                    "type"
+                  ]
+                }
+              }
+            },
+            "additionalProperties": false,
+            "required": [
+              "index"
+            ]
+          }
+        }
+      },
+      "additionalProperties": false
+    },
+    "add_to_new_hire_export": {
+      "type": "boolean"
+    },
+    "dates": {
+      "type": "object",
+      "properties": {
+        "hired": {
+          "type": "string",
+          "description": "Date needs to be in the format yyyy-mm-dd within the 1900-12-31 and 2079-06-05 date range"
+        },
+        "deceased": {
+          "type": "string",
+          "description": "Date needs to be in the format yyyy-mm-dd within the 1900-12-31 and 2079-06-05 date range"
+        },
+        "re_hired": {
+          "type": "string",
+          "description": "Date needs to be in the format yyyy-mm-dd within the 1900-12-31 and 2079-06-05 date range"
+        },
+        "started": {
+          "type": "string",
+          "description": "Date needs to be in the format yyyy-mm-dd within the 1900-12-31 and 2079-06-05 date range"
+        },
+        "birthday": {
+          "type": "string",
+          "description": "Date needs to be in the format yyyy-mm-dd within the 1900-12-31 and 2079-06-05 date range"
+        },
+        "review": {
+          "type": "string",
+          "description": "Date needs to be in the format yyyy-mm-dd within the 1900-12-31 and 2079-06-05 date range"
+        },
+        "seniority": {
+          "type": "string",
+          "description": "Date needs to be in the format yyyy-mm-dd within the 1900-12-31 and 2079-06-05 date range"
+        },
+        "frozen_benefit": {
+          "type": "string",
+          "description": "Date needs to be in the format yyyy-mm-dd within the 1900-12-31 and 2079-06-05 date range"
+        },
+        "benefits": {
+          "type": "string",
+          "description": "Date needs to be in the format yyyy-mm-dd within the 1900-12-31 and 2079-06-05 date range"
+        },
+        "retired": {
+          "type": "string",
+          "description": "Date needs to be in the format yyyy-mm-dd within the 1900-12-31 and 2079-06-05 date range"
+        },
+        "terminated": {
+          "type": "string",
+          "description": "This field is only used for GET.Date needs to be in the format yyyy-mm-dd within the 1900-12-31 and 2079-06-05 date range."
+        },
+        "peo_hired": {
+          "type": "string",
+          "description": "Date needs to be in the format yyyy-mm-dd within the 1900-12-31 and 2079-06-05 date range"
+        },
+        "custom_dates": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "index": {
+                "type": "integer",
+                "minimum": 0,
+                "maximum": 4
+              },
+              "date": {
+                "type": "string",
+                "description": "Date needs to be in the format yyyy-mm-dd within the 1900-12-31 and 2079-06-05 date range"
+              }
+            },
+            "required": [
+              "index"
+            ]
+          },
+          "additionalProperties": false
+        }
+      },
+      "additionalProperties": false
+    },
+    "account_extra_fields": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "index": {
+            "type": "integer",
+            "minimum": 0,
+            "maximum": 9
+          },
+          "values": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "value": {
+                  "type": "string"
+                },
+                "effective_from": {
+                  "type": "string",
+                  "description": "Date needs to be in the format yyyy-mm-dd within the 1900-12-31 and 2079-06-05 date range"
+                }
+              }
+            },
+            "additionalProperties": false
+          }
+        },
+        "required": [
+          "index"
+        ],
+        "additionalProperties": false
+      }
+    },
+    "time_entry_extra_fields": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "index": {
+            "type": "integer",
+            "minimum": 0,
+            "maximum": 4
+          },
+          "value": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "index"
+        ]
+      },
+      "additionalProperties": false
+    },
+    "_links": {
+      "type": "object",
+      "description": "This field is only used for GET.",
+      "properties": {
+        "self": {
+          "type": "string"
+        },
+        "demographics": {
+          "type": "string"
+        },
+        "pay-info": {
+          "type": "string"
+        },
+        "badges": {
+          "type": "string"
+        },
+        "profiles": {
+          "type": "string"
+        },
+        "hcm-profiles": {
+          "type": "string"
+        },
+        "hcm-fields": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "self"
+      ],
+      "additionalProperties": false
+    },
+    "hardware_settings": {
+      "type": "object",
+      "properties": {
+        "in_touch": {
+          "type": "object",
+          "properties": {
+            "security_level": {
+              "enum": [
+                "EMPLOYEE",
+                "MANAGER"
+              ]
+            },
+            "pin": {
+              "type": "integer"
+            }
+          }
+        }
+      },
+      "additionalProperties": false
+    },
+    "managed_cost_centers_enabled": {
+      "type": "boolean"
+    },
+    "managed_cost_centers_settings": {
+      "type": "object",
+      "properties": {
+        "allow_save_others_cost_centers": {
+          "type": "boolean"
+        }
+      },
+      "additionalProperties": false
+    },
+    "national_id_numbers": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "type": {
+            "type": "string",
+            "enum": [
+              "SSN",
+              "BSN",
+              "SIN",
+              "NIN",
+              "TFN",
+              "NSS",
+              "OTHER_1",
+              "OTHER_2",
+              "OTHER_3",
+              "OTHER_4",
+              "OTHER_5",
+              "OTHER_6",
+              "OTHER_7",
+              "OTHER_8",
+              "OTHER_9",
+              "OTHER_10",
+              "NO_ID_NEEDED"
+            ]
+          },
+          "value": {
+            "type": "string",
+            "maxLength": 25
+          },
+          "primary": {
+            "type": "boolean",
+            "default": false
+          }
+        },
+        "required": [
+          "type"
+        ],
+        "additionalProperties": false
+      }
+    }
+  },
+  "required": [
+    "username",
+    "first_name",
+    "last_name"
+  ],
+  "additionalProperties": false,
+  "definitions": {
+    "address": {
+      "type": "object",
+      "properties": {
+        "country": {
+          "type": "string",
+          "pattern": "^([A-Z]{3})$",
+          "description": "ISO 3166-1 alpha-3."
+        },
+        "address_line_1": {
+          "type": "string",
+          "maxLength": 128
+        },
+        "address_line_2": {
+          "type": "string",
+          "maxLength": 128
+        },
+        "address_line_3": {
+          "type": "string",
+          "maxLength": 128
+        },
+        "city": {
+          "type": "string",
+          "maxLength": 64
+        },
+        "state": {
+          "type": "string",
+          "description": "See State Code in Master Data section.",
+          "maxLength": 3
+        },
+        "state_code": {
+          "type": "string",
+          "description": "State abbreviation code",
+          "maxLength": 3
+        },
+        "zip": {
+          "type": "string",
+          "maxLength": 15
+        },
+        "number": {
+          "type": "string",
+          "maxLength": 10
+        },
+        "number_addition": {
+          "type": "string",
+          "maxLength": 10
+        }
+      },
+      "additionalProperties": false,
+      "required": [
+        "country"
+      ]
+    }
+  }
+}</div>
+</div>
+</div>
+</div>
+<div class="resp-tab-get" id="resp-tab-id-get-1">
+<div class="example">
+
+<div class="get-example-resp-tab-1 activeTab" id="get-tab-resp-example-1">
+
+<pre class="highlightjs">&lt;employee&gt;
+  &lt;id&gt;10&lt;/id&gt;
+  &lt;username&gt;string&lt;/username&gt;
+  &lt;first_name&gt;string&lt;/first_name&gt;
+  &lt;last_name&gt;string&lt;/last_name&gt;
+  &lt;photo_href&gt;string&lt;/photo_href&gt;
+  &lt;isPhotoUploaded&gt;false&lt;/isPhotoUploaded&gt;
+  &lt;middle_name&gt;string&lt;/middle_name&gt;
+  &lt;external_id&gt;string&lt;/external_id&gt;
+  &lt;employee_id&gt;string&lt;/employee_id&gt;
+  &lt;address&gt;
+    &lt;address_line_1&gt;string&lt;/address_line_1&gt;
+    &lt;address_line_2&gt;string&lt;/address_line_2&gt;
+    &lt;address_line_3&gt;string&lt;/address_line_3&gt;
+    &lt;country&gt;USA&lt;/country&gt;
+    &lt;city&gt;string&lt;/city&gt;
+    &lt;state&gt;NY&lt;/state&gt;
+    &lt;state_code&gt;NY&lt;/state_code&gt;
+    &lt;zip&gt;string&lt;/zip&gt;
+    &lt;number&gt;string&lt;/number&gt;
+    &lt;number_addition&gt;string&lt;/number_addition&gt;
+  &lt;/address&gt;
+  &lt;use_separate_mailing_address&gt;false&lt;/use_separate_mailing_address&gt;
+  &lt;status&gt;string&lt;/status&gt;
+  &lt;bsn&gt;string&lt;/bsn&gt;
+  &lt;ein&gt;
+    &lt;id&gt;10&lt;/id&gt;
+  &lt;/ein&gt;
+  &lt;force_change_password&gt;false&lt;/force_change_password&gt;
+  &lt;locked&gt;true&lt;/locked&gt;
+  &lt;first_screen&gt;
+    &lt;id&gt;scren&lt;/id&gt;
+  &lt;/first_screen&gt;
+  &lt;phones&gt;
+    &lt;cell_phone_country_id&gt;IND&lt;/cell_phone_country_id&gt;
+    &lt;cell_phone_country_code&gt;+91&lt;/cell_phone_country_code&gt;
+    &lt;cell_phone&gt;+3333333333&lt;/cell_phone&gt;
+    &lt;home_phone_country_id&gt;IND&lt;/home_phone_country_id&gt;
+    &lt;home_phone_country_code&gt;+91&lt;/home_phone_country_code&gt;
+    &lt;home_phone&gt;+3333333332&lt;/home_phone&gt;
+    &lt;work_phone_country_id&gt;IND&lt;/work_phone_country_id&gt;
+    &lt;work_phone_country_code&gt;+91&lt;/work_phone_country_code&gt;
+    &lt;work_phone&gt;+3333333331&lt;/work_phone&gt;
+    &lt;preferred_phone&gt;WORK&lt;/preferred_phone&gt;
+  &lt;/phones&gt;
+  &lt;locale&gt;
+    &lt;id&gt;5&lt;/id&gt;
+  &lt;/locale&gt;
+  &lt;mailing_address&gt;
+    &lt;address_line_1&gt;string&lt;/address_line_1&gt;
+    &lt;address_line_2&gt;string&lt;/address_line_2&gt;
+    &lt;address_line_3&gt;string&lt;/address_line_3&gt;
+    &lt;country&gt;USA&lt;/country&gt;
+    &lt;city&gt;string&lt;/city&gt;
+    &lt;state&gt;NY&lt;/state&gt;
+    &lt;zip&gt;string&lt;/zip&gt;
+    &lt;number&gt;string&lt;/number&gt;
+    &lt;number_addition&gt;string&lt;/number_addition&gt;
+  &lt;/mailing_address&gt;
+  &lt;managers&gt;
+    &lt;manager&gt;
+      &lt;index&gt;1&lt;/index&gt;
+      &lt;empl_ref&gt;
+        &lt;account_id&gt;10&lt;/account_id&gt;
+      &lt;/empl_ref&gt;
+    &lt;/manager&gt;
+  &lt;/managers&gt;
+  &lt;national_insurance&gt;string&lt;/national_insurance&gt;
+  &lt;nickname&gt;string&lt;/nickname&gt;
+  &lt;primary_email&gt;string&lt;/primary_email&gt;
+  &lt;secondary_email&gt;string&lt;/secondary_email&gt;
+  &lt;salutation&gt;string&lt;/salutation&gt;
+  &lt;social_insurance&gt;string&lt;/social_insurance&gt;
+  &lt;social_security&gt;string&lt;/social_security&gt;
+  &lt;suffix&gt;string&lt;/suffix&gt;
+  &lt;timezone&gt;America/New_York&lt;/timezone&gt;
+  &lt;cost_centers_info&gt;
+    &lt;defaults&gt;
+      &lt;default&gt;
+        &lt;index&gt;3&lt;/index&gt;
+        &lt;value&gt;
+          &lt;id&gt;100&lt;/id&gt;
+        &lt;/value&gt;
+      &lt;/default&gt;
+    &lt;/defaults&gt;
+    &lt;limits&gt;
+      &lt;limit&gt;
+        &lt;index&gt;2&lt;/index&gt;
+        &lt;values&gt;
+          &lt;value&gt;
+            &lt;type&gt;ROOT&lt;/type&gt;
+            &lt;effective_from&gt;1900-12-31&lt;/effective_from&gt;
+          &lt;/value&gt;
+          &lt;value&gt;
+            &lt;id&gt;10&lt;/id&gt;
+            &lt;effective_from&gt;2013-11-23&lt;/effective_from&gt;
+            &lt;type&gt;ROOT&lt;/type&gt;
+          &lt;/value&gt;
+        &lt;/values&gt;
+      &lt;/limit&gt;
+    &lt;/limits&gt;
+  &lt;/cost_centers_info&gt;
+  &lt;add_to_new_hire_export&gt;true&lt;/add_to_new_hire_export&gt;
+  &lt;dates&gt;
+    &lt;hired&gt;2018-11-01&lt;/hired&gt;
+    &lt;deceased&gt;2018-11-01&lt;/deceased&gt;
+    &lt;re_hired&gt;2013-05-22&lt;/re_hired&gt;
+    &lt;started&gt;2002-11-05&lt;/started&gt;
+    &lt;birthday&gt;2002-06-24&lt;/birthday&gt;
+    &lt;review&gt;2016-02-20&lt;/review&gt;
+    &lt;seniority&gt;2019-08-19&lt;/seniority&gt;
+    &lt;frozen_benefit&gt;2018-02-04&lt;/frozen_benefit&gt;
+    &lt;benefits&gt;2002-11-16&lt;/benefits&gt;
+    &lt;retired&gt;2000-09-14&lt;/retired&gt;
+    &lt;terminated&gt;2015-08-24&lt;/terminated&gt;
+    &lt;peo_hired&gt;2015-06-18+03:00&lt;/peo_hired&gt;
+    &lt;custom_dates&gt;
+      &lt;custom_date&gt;
+        &lt;index&gt;0&lt;/index&gt;
+        &lt;date&gt;2000-04-21&lt;/date&gt;
+      &lt;/custom_date&gt;
+    &lt;/custom_dates&gt;
+  &lt;/dates&gt;
+  &lt;account_extra_fields&gt;
+    &lt;account_extra_field&gt;
+      &lt;index&gt;4&lt;/index&gt;
+      &lt;values&gt;
+        &lt;value&gt;
+          &lt;value&gt;string&lt;/value&gt;
+          &lt;effective_from&gt;2017-04-19&lt;/effective_from&gt;
+        &lt;/value&gt;
+        &lt;value&gt;
+          &lt;value&gt;string&lt;/value&gt;
+          &lt;effective_from&gt;2015-04-19&lt;/effective_from&gt;
+        &lt;/value&gt;
+      &lt;/values&gt;
+    &lt;/account_extra_field&gt;
+  &lt;/account_extra_fields&gt;
+  &lt;managed_cost_centers_enabled&gt;true&lt;/managed_cost_centers_enabled&gt;
+  &lt;managed_cost_centers_settings&gt;
+    &lt;allow_save_others_cost_centers&gt;false&lt;/allow_save_others_cost_centers&gt;
+  &lt;/managed_cost_centers_settings&gt;
+  &lt;national_id_numbers&gt;
+    &lt;national_id_number&gt;
+      &lt;type&gt;SSN&lt;/type&gt;
+      &lt;value&gt;012345678&lt;/value&gt;
+      &lt;primary&gt;true&lt;/primary&gt;
+    &lt;/national_id_number&gt;
+    &lt;national_id_number&gt;
+      &lt;type&gt;OTHER_1&lt;/type&gt;
+      &lt;value&gt;012345678&lt;/value&gt;
+    &lt;/national_id_number&gt;
+  &lt;/national_id_numbers&gt;
+  &lt;_links&gt;
+    &lt;self&gt;https://example.com/ta/rest/v2/companies/1/employees/10&lt;/self&gt;
+    &lt;demographics&gt;https://example.com/ta/rest/v2/companies/1/employees/10/demographics&lt;/demographics&gt;
+    &lt;pay-info&gt;https://example.com/ta/rest/v2/companies/1/employees/10/pay-info&lt;/pay-info&gt;
+    &lt;badges&gt;https://example.com/ta/rest/v2/companies/1/employees/10/badges&lt;/badges&gt;
+    &lt;profiles&gt;https://example.com/ta/rest/v2/companies/1/employees/10/profiles&lt;/profiles&gt;
+    &lt;hcm-profiles&gt;https://example.com/ta/rest/v2/companies/1/employees/10/hcm-profiles&lt;/hcm-profiles&gt;
+    &lt;hcm-fields&gt;https://example.com/ta/rest/v2/companies/1/employees/10/hcm-fields&lt;/hcm-fields&gt;
+  &lt;/_links&gt;
+&lt;/employee&gt;</pre>
+</div>
+<div class="get-example-resp-tab-1" id="get-tab-resp-schema-1">
+
+<div class="jsonschema" id="schema-1">&lt;xs:schema attributeFormDefault="unqualified" elementFormDefault="qualified"
+           xmlns:xs="http://www.w3.org/2001/XMLSchema"&gt;
+    &lt;xs:element name="employee"&gt;
+        &lt;xs:complexType&gt;
+            &lt;xs:all&gt;
+                &lt;xs:element type="xs:long" name="id" minOccurs="0"&gt;
+                    &lt;xs:annotation&gt;
+                        &lt;xs:documentation&gt;This field is only used for GET.&lt;/xs:documentation&gt;
+                    &lt;/xs:annotation&gt;
+                &lt;/xs:element&gt;
+                &lt;xs:element type="xs:string" name="username"/&gt;
+                &lt;xs:element type="xs:string" name="first_name"/&gt;
+                &lt;xs:element type="xs:string" name="last_name"/&gt;
+                &lt;xs:element type="xs:string" name="photo_href" minOccurs="0"/&gt;
+                &lt;xs:element type="xs:boolean" name="isPhotoUploaded" minOccurs="0"/&gt;
+                &lt;xs:element type="xs:string" name="middle_name" minOccurs="0"/&gt;
+                &lt;xs:element type="xs:string" name="external_id" minOccurs="0"/&gt;
+                &lt;xs:element name="employee_id" minOccurs="0"&gt;
+                    &lt;xs:simpleType&gt;
+                        &lt;xs:restriction base="xs:string"&gt;
+                            &lt;xs:maxLength value="20"/&gt;
+                        &lt;/xs:restriction&gt;
+                    &lt;/xs:simpleType&gt;
+                &lt;/xs:element&gt;
+                &lt;xs:element type="address" name="address" minOccurs="0"/&gt;
+                &lt;xs:element type="xs:boolean" name="use_separate_mailing_address" minOccurs="0"/&gt;
+                &lt;xs:element type="xs:string" name="status" minOccurs="0"&gt;
+                    &lt;xs:annotation&gt;
+                        &lt;xs:documentation&gt;This field is only used for GET.&lt;/xs:documentation&gt;
+                    &lt;/xs:annotation&gt;
+                &lt;/xs:element&gt;
+                &lt;xs:element type="xs:string" name="bsn" minOccurs="0"/&gt;
+                &lt;xs:element type="xs:long" name="primary_account_id" minOccurs="0"&gt;
+                    &lt;xs:annotation&gt;
+                        &lt;xs:documentation&gt;This field is only returned for multi-EIN companies.&lt;/xs:documentation&gt;
+                    &lt;/xs:annotation&gt;
+                &lt;/xs:element&gt;
+                &lt;xs:element type="ein" name="ein" minOccurs="0"&gt;
+                    &lt;xs:annotation&gt;
+                        &lt;xs:documentation&gt;Can be used for POST in multi-ein companies.&lt;/xs:documentation&gt;
+                    &lt;/xs:annotation&gt;
+                &lt;/xs:element&gt;
+                &lt;xs:element type="xs:boolean" name="force_change_password" minOccurs="0"/&gt;
+                &lt;xs:element type="xs:boolean" name="locked" minOccurs="0"/&gt;
+                &lt;xs:element type="first_screen_ref" name="first_screen" minOccurs="0"/&gt;
+                &lt;xs:element type="phones" name="phones" minOccurs="0"/&gt;
+                &lt;xs:element type="locale_ref" name="locale" minOccurs="0"/&gt;
+                &lt;xs:element type="address" name="mailing_address" minOccurs="0"/&gt;
+                &lt;xs:element type="xs:string" name="national_insurance" minOccurs="0"/&gt;
+                &lt;xs:element type="xs:string" name="nickname" minOccurs="0"/&gt;
+                &lt;xs:element type="xs:string" name="primary_email" minOccurs="0"/&gt;
+                &lt;xs:element type="xs:string" name="secondary_email" minOccurs="0"/&gt;
+                &lt;xs:element type="xs:string" name="salutation" minOccurs="0"/&gt;
+                &lt;xs:element type="xs:string" name="social_insurance" minOccurs="0"/&gt;
+                &lt;xs:element type="xs:string" name="social_security" minOccurs="0"/&gt;
+                &lt;xs:element type="xs:string" name="suffix" minOccurs="0"/&gt;
+                &lt;xs:element type="xs:string" name="timezone" minOccurs="0"&gt;
+                    &lt;xs:annotation&gt;
+                        &lt;xs:documentation&gt;See Time Zones in Master Data section.&lt;/xs:documentation&gt;
+                    &lt;/xs:annotation&gt;
+                &lt;/xs:element&gt;
+                &lt;xs:element type="dates" name="dates" minOccurs="0"/&gt;
+                &lt;xs:element type="cost_centers_info" name="cost_centers_info" minOccurs="0"/&gt;
+                &lt;xs:element type="managers" name="managers" minOccurs="0"/&gt;
+                &lt;xs:element type="account_extra_fields" name="account_extra_fields" minOccurs="0"/&gt;
+                &lt;xs:element type="time_entry_extra_fields" name="time_entry_extra_fields" minOccurs="0"/&gt;
+                &lt;xs:element type="xs:boolean" name="add_to_new_hire_export" minOccurs="0" maxOccurs="1"/&gt;
+                &lt;xs:element type="hardware_settings" name="hardware_settings" minOccurs="0" maxOccurs="1"/&gt;
+                &lt;xs:element type="xs:boolean" name="managed_cost_centers_enabled" minOccurs="0"/&gt;
+                &lt;xs:element type="managed_cost_centers_settings" name="managed_cost_centers_settings" minOccurs="0"/&gt;
+                &lt;xs:element type="national_id_numbers" name="national_id_numbers" minOccurs="0"/&gt;
+                &lt;xs:element type="resource_links" name="_links" minOccurs="0"&gt;
+                    &lt;xs:annotation&gt;
+                        &lt;xs:documentation&gt;This field is only used for GET.&lt;/xs:documentation&gt;
+                    &lt;/xs:annotation&gt;
+                &lt;/xs:element&gt;
+            &lt;/xs:all&gt;
+        &lt;/xs:complexType&gt;
+    &lt;/xs:element&gt;
+
+    &lt;xs:complexType name="time_entry_extra_fields"&gt;
+        &lt;xs:sequence&gt;
+            &lt;xs:element name="time_entry_extra_field" type="time_entry_extra_field" minOccurs="0"
+                        maxOccurs="5"/&gt;
+        &lt;/xs:sequence&gt;
+    &lt;/xs:complexType&gt;
+
+    &lt;xs:complexType name="time_entry_extra_field"&gt;
+        &lt;xs:all&gt;
+            &lt;xs:element name="index" minOccurs="1"&gt;
+                &lt;xs:simpleType&gt;
+                    &lt;xs:restriction base="xs:nonNegativeInteger"&gt;
+                        &lt;xs:minInclusive value="0"/&gt;
+                        &lt;xs:maxInclusive value="4"/&gt;
+                    &lt;/xs:restriction&gt;
+                &lt;/xs:simpleType&gt;
+            &lt;/xs:element&gt;
+            &lt;xs:element type="xs:string" name="value" minOccurs="0"/&gt;
+        &lt;/xs:all&gt;
+    &lt;/xs:complexType&gt;
+
+    &lt;xs:complexType name="locale_ref"&gt;
+        &lt;xs:all&gt;
+            &lt;xs:element type="xs:long" name="id" minOccurs="0"/&gt;
+        &lt;/xs:all&gt;
+    &lt;/xs:complexType&gt;
+
+    &lt;xs:complexType name="account_extra_fields"&gt;
+        &lt;xs:sequence&gt;
+            &lt;xs:element type="account_extra_field_indexed" name="account_extra_field" minOccurs="0"
+                        maxOccurs="10"/&gt;
+        &lt;/xs:sequence&gt;
+    &lt;/xs:complexType&gt;
+
+    &lt;xs:complexType name="first_screen_ref"&gt;
+        &lt;xs:all&gt;
+            &lt;xs:element type="xs:string" name="id" minOccurs="0"/&gt;
+        &lt;/xs:all&gt;
+    &lt;/xs:complexType&gt;
+
+    &lt;xs:complexType name="extra_field_effective"&gt;
+        &lt;xs:all&gt;
+            &lt;xs:element type="xs:string" name="value" minOccurs="0"/&gt;
+            &lt;xs:element type="xs:date" name="effective_from" minOccurs="0"/&gt;
+        &lt;/xs:all&gt;
+    &lt;/xs:complexType&gt;
+
+    &lt;xs:complexType name="account_extra_field_indexed"&gt;
+        &lt;xs:all&gt;
+            &lt;xs:element name="index"&gt;
+                &lt;xs:simpleType&gt;
+                    &lt;xs:restriction base="xs:nonNegativeInteger"&gt;
+                        &lt;xs:minInclusive value="0"/&gt;
+                        &lt;xs:maxInclusive value="9"/&gt;
+                    &lt;/xs:restriction&gt;
+                &lt;/xs:simpleType&gt;
+            &lt;/xs:element&gt;
+            &lt;xs:element type="extra_fields_effective_values" name="values" minOccurs="0"/&gt;
+        &lt;/xs:all&gt;
+    &lt;/xs:complexType&gt;
+
+    &lt;xs:complexType name="extra_fields_effective_values"&gt;
+        &lt;xs:sequence&gt;
+            &lt;xs:element name="value" type="extra_field_effective" minOccurs="0" maxOccurs="unbounded"/&gt;
+        &lt;/xs:sequence&gt;
+    &lt;/xs:complexType&gt;
+
+    &lt;xs:complexType name="dates"&gt;
+        &lt;xs:all&gt;
+            &lt;xs:element type="xs:date" name="hired" minOccurs="0" maxOccurs="1"/&gt;
+            &lt;xs:element type="xs:date" name="deceased" minOccurs="0" maxOccurs="1"/&gt;
+            &lt;xs:element type="xs:date" name="re_hired" minOccurs="0" maxOccurs="1"/&gt;
+            &lt;xs:element type="xs:date" name="started" minOccurs="0" maxOccurs="1"/&gt;
+            &lt;xs:element type="xs:date" name="birthday" minOccurs="0" maxOccurs="1"/&gt;
+            &lt;xs:element type="xs:date" name="review" minOccurs="0" maxOccurs="1"/&gt;
+            &lt;xs:element type="xs:date" name="seniority" minOccurs="0" maxOccurs="1"/&gt;
+            &lt;xs:element type="xs:date" name="frozen_benefit" minOccurs="0" maxOccurs="1"/&gt;
+            &lt;xs:element type="xs:date" name="benefits" minOccurs="0" maxOccurs="1"/&gt;
+            &lt;xs:element type="xs:date" name="retired" minOccurs="0" maxOccurs="1"/&gt;
+            &lt;xs:element type="xs:date" name="terminated" minOccurs="0" maxOccurs="1"&gt;
+                &lt;xs:annotation&gt;
+                    &lt;xs:documentation&gt;This field is only used for GET.&lt;/xs:documentation&gt;
+                &lt;/xs:annotation&gt;
+            &lt;/xs:element&gt;
+            &lt;xs:element type="xs:date" name="peo_hired" minOccurs="0" maxOccurs="1"/&gt;
+            &lt;xs:element type="custom_dates" name="custom_dates" minOccurs="0" maxOccurs="1"/&gt;
+        &lt;/xs:all&gt;
+    &lt;/xs:complexType&gt;
+
+    &lt;xs:complexType name="custom_dates"&gt;
+        &lt;xs:sequence&gt;
+            &lt;xs:element name="custom_date" minOccurs="0" maxOccurs="5"&gt;
+                &lt;xs:complexType&gt;
+                    &lt;xs:all&gt;
+                        &lt;xs:element type="xs:nonNegativeInteger" name="index" minOccurs="1"/&gt;
+                        &lt;xs:element type="xs:date" name="date" minOccurs="0"/&gt;
+                    &lt;/xs:all&gt;
+                &lt;/xs:complexType&gt;
+            &lt;/xs:element&gt;
+        &lt;/xs:sequence&gt;
+    &lt;/xs:complexType&gt;
+
+    &lt;xs:complexType name="cost_centers_info"&gt;
+        &lt;xs:all&gt;
+            &lt;xs:element type="cost_centers_collection" name="defaults" minOccurs="0"/&gt;
+            &lt;xs:element type="cost_center_limit_collection" name="limits" minOccurs="0"/&gt;
+        &lt;/xs:all&gt;
+    &lt;/xs:complexType&gt;
+
+    &lt;xs:complexType name="cost_centers_collection"&gt;
+        &lt;xs:sequence&gt;
+            &lt;xs:element name="default" type="cost_center_ref_indexed" minOccurs="0" maxOccurs="9"/&gt;
+        &lt;/xs:sequence&gt;
+    &lt;/xs:complexType&gt;
+
+    &lt;xs:complexType name="cost_center_ref_indexed"&gt;
+        &lt;xs:all&gt;
+            &lt;xs:element name="index"&gt;
+                &lt;xs:simpleType&gt;
+                    &lt;xs:restriction base="xs:nonNegativeInteger"&gt;
+                        &lt;xs:maxExclusive value="9"/&gt;
+                    &lt;/xs:restriction&gt;
+                &lt;/xs:simpleType&gt;
+            &lt;/xs:element&gt;
+            &lt;xs:element name="value" type="cost_center_ref" minOccurs="0"/&gt;
+        &lt;/xs:all&gt;
+    &lt;/xs:complexType&gt;
+
+    &lt;xs:complexType name="cost_center_ref"&gt;
+        &lt;xs:sequence&gt;
+            &lt;xs:element type="xs:integer" name="id" minOccurs="0" maxOccurs="1"/&gt;
+        &lt;/xs:sequence&gt;
+    &lt;/xs:complexType&gt;
+
+    &lt;xs:complexType name="cost_center_ref_effective"&gt;
+        &lt;xs:all&gt;
+            &lt;!-- cost center id or list id --&gt;
+            &lt;xs:element type="xs:long" name="id" minOccurs="0"/&gt;
+            &lt;xs:element type="xs:date" name="effective_from" minOccurs="0"/&gt;
+            &lt;xs:element name="type"&gt;
+                &lt;xs:simpleType&gt;
+                    &lt;xs:restriction base="xs:string"&gt;
+                        &lt;xs:enumeration value="ROOT"/&gt;
+                        &lt;xs:enumeration value="LIST"/&gt;
+                    &lt;/xs:restriction&gt;
+                &lt;/xs:simpleType&gt;
+            &lt;/xs:element&gt;
+        &lt;/xs:all&gt;
+    &lt;/xs:complexType&gt;
+
+    &lt;xs:complexType name="cost_center_limit_collection"&gt;
+        &lt;xs:sequence&gt;
+            &lt;xs:element type="cost_center_ref_effective_indexed" name="limit" minOccurs="0" maxOccurs="9"/&gt;
+        &lt;/xs:sequence&gt;
+    &lt;/xs:complexType&gt;
+
+    &lt;xs:complexType name="cost_center_ref_effective_value"&gt;
+        &lt;xs:sequence&gt;
+            &lt;xs:element type="cost_center_ref_effective" name="value" minOccurs="0" maxOccurs="unbounded"/&gt;
+        &lt;/xs:sequence&gt;
+    &lt;/xs:complexType&gt;
+
+    &lt;xs:complexType name="cost_center_ref_effective_indexed"&gt;
+        &lt;xs:all&gt;
+            &lt;xs:element name="index"&gt;
+                &lt;xs:simpleType&gt;
+                    &lt;xs:restriction base="xs:nonNegativeInteger"&gt;
+                        &lt;xs:maxExclusive value="9"/&gt;
+                    &lt;/xs:restriction&gt;
+                &lt;/xs:simpleType&gt;
+            &lt;/xs:element&gt;
+            &lt;xs:element name="values" type="cost_center_ref_effective_value" minOccurs="0"/&gt;
+        &lt;/xs:all&gt;
+    &lt;/xs:complexType&gt;
+
+    &lt;xs:complexType name="ein"&gt;
+        &lt;xs:all&gt;
+            &lt;xs:element type="xs:long" name="id" minOccurs="0"/&gt;
+        &lt;/xs:all&gt;
+    &lt;/xs:complexType&gt;
+
+    &lt;xs:complexType name="employee_ref"&gt;
+        &lt;xs:sequence&gt;
+            &lt;xs:element type="xs:long" name="account_id" minOccurs="0"/&gt;
+        &lt;/xs:sequence&gt;
+    &lt;/xs:complexType&gt;
+
+    &lt;xs:complexType name="phones"&gt;
+        &lt;xs:all&gt;
+            &lt;xs:element type="xs:string" name="cell_phone_country_id" minOccurs="0"&gt;
+                &lt;xs:annotation&gt;
+                    &lt;xs:documentation&gt;cell_phone_country_id is ISO 3166-1 alpha-3 code for a country denoted by a three letters (Reference Link:- https://en.wikipedia.org/wiki/ISO_3166-1_alpha-3)&lt;/xs:documentation&gt;
+                &lt;/xs:annotation&gt;
+            &lt;/xs:element&gt;
+            &lt;xs:element type="xs:string" name="cell_phone_country_code" minOccurs="0"/&gt;
+            &lt;xs:element type="xs:string" name="cell_phone" minOccurs="0"/&gt;
+            &lt;xs:element type="xs:string" name="home_phone_country_id" minOccurs="0"&gt;
+                &lt;xs:annotation&gt;
+                    &lt;xs:documentation&gt;home_phone_country_id is ISO 3166-1 alpha-3 code for a country denoted by a three letters (Reference Link:- https://en.wikipedia.org/wiki/ISO_3166-1_alpha-3)&lt;/xs:documentation&gt;
+                &lt;/xs:annotation&gt;
+            &lt;/xs:element&gt;
+            &lt;xs:element type="xs:string" name="home_phone_country_code" minOccurs="0"/&gt;
+            &lt;xs:element type="xs:string" name="home_phone" minOccurs="0"/&gt;
+            &lt;xs:element type="xs:string" name="work_phone_country_id" minOccurs="0"&gt;
+                &lt;xs:annotation&gt;
+                    &lt;xs:documentation&gt;work_phone_country_id is ISO 3166-1 alpha-3 code for a country denoted by a three letters (Reference Link:- https://en.wikipedia.org/wiki/ISO_3166-1_alpha-3)&lt;/xs:documentation&gt;
+                &lt;/xs:annotation&gt;
+            &lt;/xs:element&gt;
+            &lt;xs:element type="xs:string" name="work_phone_country_code" minOccurs="0"/&gt;
+            &lt;xs:element type="xs:string" name="work_phone" minOccurs="0"/&gt;
+            &lt;xs:element type="phone_type" name="preferred_phone" minOccurs="0"/&gt;
+        &lt;/xs:all&gt;
+    &lt;/xs:complexType&gt;
+
+    &lt;xs:simpleType name="phone_type"&gt;
+        &lt;xs:restriction base="xs:string"&gt;
+            &lt;xs:enumeration value="WORK"/&gt;
+            &lt;xs:enumeration value="CELL"/&gt;
+            &lt;xs:enumeration value="HOME"/&gt;
+            &lt;xs:enumeration value="NONE"/&gt;
+        &lt;/xs:restriction&gt;
+    &lt;/xs:simpleType&gt;
+
+    &lt;xs:complexType name="manager"&gt;
+        &lt;xs:all&gt;
+            &lt;xs:element type="xs:nonNegativeInteger" name="index"/&gt;
+            &lt;xs:element type="employee_ref" name="empl_ref" minOccurs="0"/&gt;
+        &lt;/xs:all&gt;
+    &lt;/xs:complexType&gt;
+
+    &lt;xs:complexType name="managers"&gt;
+        &lt;xs:sequence&gt;
+            &lt;xs:element name="manager" type="manager" minOccurs="0" maxOccurs="6"/&gt;
+        &lt;/xs:sequence&gt;
+    &lt;/xs:complexType&gt;
+
+    &lt;xs:complexType name="address"&gt;
+        &lt;xs:sequence&gt;
+            &lt;xs:element name="address_line_1" minOccurs="0"&gt;
+                &lt;xs:simpleType&gt;
+                    &lt;xs:restriction base="xs:string"&gt;
+                        &lt;xs:maxLength value="128"/&gt;
+                    &lt;/xs:restriction&gt;
+                &lt;/xs:simpleType&gt;
+            &lt;/xs:element&gt;
+            &lt;xs:element name="address_line_2" minOccurs="0"&gt;
+                &lt;xs:simpleType&gt;
+                    &lt;xs:restriction base="xs:string"&gt;
+                        &lt;xs:maxLength value="128"/&gt;
+                    &lt;/xs:restriction&gt;
+                &lt;/xs:simpleType&gt;
+            &lt;/xs:element&gt;
+            &lt;xs:element name="address_line_3" minOccurs="0"&gt;
+                &lt;xs:simpleType&gt;
+                    &lt;xs:restriction base="xs:string"&gt;
+                        &lt;xs:maxLength value="128"/&gt;
+                    &lt;/xs:restriction&gt;
+                &lt;/xs:simpleType&gt;
+            &lt;/xs:element&gt;
+            &lt;xs:element name="country" minOccurs="1"&gt;
+                &lt;xs:annotation&gt;
+                    &lt;xs:documentation&gt;ISO 3166-1 alpha-3.&lt;/xs:documentation&gt;
+                &lt;/xs:annotation&gt;
+                &lt;xs:simpleType&gt;
+                    &lt;xs:restriction base="xs:string"&gt;
+                        &lt;xs:pattern value="([A-Z]{3})"/&gt;
+                    &lt;/xs:restriction&gt;
+                &lt;/xs:simpleType&gt;
+            &lt;/xs:element&gt;
+            &lt;xs:element name="city" minOccurs="0"&gt;
+                &lt;xs:simpleType&gt;
+                    &lt;xs:restriction base="xs:string"&gt;
+                        &lt;xs:maxLength value="64"/&gt;
+                    &lt;/xs:restriction&gt;
+                &lt;/xs:simpleType&gt;
+            &lt;/xs:element&gt;
+            &lt;xs:element name="state" minOccurs="0"&gt;
+                &lt;xs:annotation&gt;
+                    &lt;xs:documentation&gt;See State Code in Master Data section.&lt;/xs:documentation&gt;
+                &lt;/xs:annotation&gt;
+                &lt;xs:simpleType&gt;
+                    &lt;xs:restriction base="xs:string"&gt;
+                        &lt;xs:maxLength value="3"/&gt;
+                    &lt;/xs:restriction&gt;
+                &lt;/xs:simpleType&gt;
+            &lt;/xs:element&gt;
+            &lt;xs:element name="state_code" minOccurs="0"&gt;
+                &lt;xs:annotation&gt;
+                    &lt;xs:documentation&gt;See State Code in Master Data section.&lt;/xs:documentation&gt;
+                &lt;/xs:annotation&gt;
+                &lt;xs:simpleType&gt;
+                    &lt;xs:restriction base="xs:string"&gt;
+                        &lt;xs:maxLength value="3"/&gt;
+                    &lt;/xs:restriction&gt;
+                &lt;/xs:simpleType&gt;
+            &lt;/xs:element&gt;
+            &lt;xs:element name="zip" minOccurs="0"&gt;
+                &lt;xs:simpleType&gt;
+                    &lt;xs:restriction base="xs:string"&gt;
+                        &lt;xs:maxLength value="15"/&gt;
+                    &lt;/xs:restriction&gt;
+                &lt;/xs:simpleType&gt;
+            &lt;/xs:element&gt;
+            &lt;xs:element name="number" minOccurs="0" maxOccurs="1"&gt;
+                &lt;xs:simpleType&gt;
+                    &lt;xs:restriction base="xs:string"&gt;
+                        &lt;xs:maxLength value="10"/&gt;
+                    &lt;/xs:restriction&gt;
+                &lt;/xs:simpleType&gt;
+            &lt;/xs:element&gt;
+            &lt;xs:element name="number_addition" minOccurs="0" maxOccurs="1"&gt;
+                &lt;xs:simpleType&gt;
+                    &lt;xs:restriction base="xs:string"&gt;
+                        &lt;xs:maxLength value="10"/&gt;
+                    &lt;/xs:restriction&gt;
+                &lt;/xs:simpleType&gt;
+            &lt;/xs:element&gt;
+        &lt;/xs:sequence&gt;
+    &lt;/xs:complexType&gt;
+
+    &lt;xs:complexType name="hardware_settings"&gt;
+        &lt;xs:all&gt;
+            &lt;xs:element type="in_touch" name="in_touch" minOccurs="0" maxOccurs="1"/&gt;
+        &lt;/xs:all&gt;
+    &lt;/xs:complexType&gt;
+
+    &lt;xs:complexType name="managed_cost_centers_settings"&gt;
+        &lt;xs:all&gt;
+            &lt;xs:element type="xs:boolean" name="allow_save_others_cost_centers" minOccurs="0"/&gt;
+        &lt;/xs:all&gt;
+    &lt;/xs:complexType&gt;
+
+    &lt;xs:complexType name="in_touch"&gt;
+        &lt;xs:all&gt;
+            &lt;xs:element type="xs:integer" name="pin"/&gt;
+            &lt;xs:element name="security_level"&gt;
+                &lt;xs:simpleType&gt;
+                    &lt;xs:restriction base="xs:string"&gt;
+                        &lt;xs:enumeration value="MANAGER"/&gt;
+                        &lt;xs:enumeration value="EMPLOYEE"/&gt;
+                    &lt;/xs:restriction&gt;
+                &lt;/xs:simpleType&gt;
+            &lt;/xs:element&gt;
+        &lt;/xs:all&gt;
+    &lt;/xs:complexType&gt;
+
+    &lt;xs:complexType name="national_id_numbers"&gt;
+        &lt;xs:sequence&gt;
+            &lt;xs:element name="national_id_number" type="national_id" minOccurs="0" maxOccurs="unbounded"/&gt;
+        &lt;/xs:sequence&gt;
+    &lt;/xs:complexType&gt;
+
+    &lt;xs:complexType name="national_id"&gt;
+        &lt;xs:all&gt;
+            &lt;xs:element name="type" type="national_id_type"/&gt;
+            &lt;xs:element name="value" minOccurs="0"&gt;
+                &lt;xs:simpleType&gt;
+                    &lt;xs:restriction base="xs:string"&gt;
+                        &lt;xs:maxLength value="25"/&gt;
+                    &lt;/xs:restriction&gt;
+                &lt;/xs:simpleType&gt;
+            &lt;/xs:element&gt;
+            &lt;xs:element name="primary" type="xs:boolean" minOccurs="0" default="false"/&gt;
+        &lt;/xs:all&gt;
+    &lt;/xs:complexType&gt;
+
+
+    &lt;xs:simpleType name="national_id_type"&gt;
+        &lt;xs:restriction base="xs:string"&gt;
+            &lt;xs:enumeration value="SSN"/&gt;
+            &lt;xs:enumeration value="BSN"/&gt;
+            &lt;xs:enumeration value="SIN"/&gt;
+            &lt;xs:enumeration value="NIN"/&gt;
+            &lt;xs:enumeration value="TFN"/&gt;
+            &lt;xs:enumeration value="NSS"/&gt;
+            &lt;xs:enumeration value="OTHER_1"/&gt;
+            &lt;xs:enumeration value="OTHER_2"/&gt;
+            &lt;xs:enumeration value="OTHER_3"/&gt;
+            &lt;xs:enumeration value="OTHER_4"/&gt;
+            &lt;xs:enumeration value="OTHER_5"/&gt;
+            &lt;xs:enumeration value="OTHER_6"/&gt;
+            &lt;xs:enumeration value="OTHER_7"/&gt;
+            &lt;xs:enumeration value="OTHER_8"/&gt;
+            &lt;xs:enumeration value="OTHER_9"/&gt;
+            &lt;xs:enumeration value="OTHER_10"/&gt;
+            &lt;xs:enumeration value="NO_ID_NEEDED"/&gt;
+        &lt;/xs:restriction&gt;
+    &lt;/xs:simpleType&gt;
+
+    &lt;xs:complexType name="resource_links"&gt;
+        &lt;xs:all&gt;
+            &lt;xs:element type="xs:string" name="self" minOccurs="1" maxOccurs="1"/&gt;
+            &lt;xs:element type="xs:string" name="demographics" minOccurs="0" maxOccurs="1"/&gt;
+            &lt;xs:element type="xs:string" name="pay-info" minOccurs="0" maxOccurs="1"/&gt;
+            &lt;xs:element type="xs:string" name="badges" minOccurs="0" maxOccurs="1"/&gt;
+            &lt;xs:element type="xs:string" name="profiles" minOccurs="0" maxOccurs="1"/&gt;
+            &lt;xs:element type="xs:string" name="hcm-profiles" minOccurs="0" maxOccurs="1"/&gt;
+            &lt;xs:element type="xs:string" name="hcm-fields" minOccurs="0" maxOccurs="1"/&gt;
+        &lt;/xs:all&gt;
+    &lt;/xs:complexType&gt;
+&lt;/xs:schema&gt;</div>
+</div>
+</div>
+</div>
+</div>
+</article>
+</section>
+<section class="clearfix">
+<article class="definition">
+<h3 class="anchored" id="put"><span>PUT</span>
+<a class="fa fa-link link-anchor" data-url="r=__v2__companies__(cid)__employees__(aid)#put" data-web-id="__v2__companies__(cid)__employees__(aid)"></a>
+</h3>
+<div class="md"><p>Updates the core employee information.
+
+The Employee operations use a separate security profile item to control access rights, located in the company security profile at:
+  1. `Modules -&gt; REST API Resources -&gt; Employees -&gt; Edit`.
+  2. `Modules -&gt; REST API Resources -&gt; Employees -&gt; ESS Edit`.
+
+&lt;b&gt;Only the 'REST API RESOURCES' security profile items, in combination with 'manager permissions', are considered by this REST API resource.&lt;/b&gt;
+
+For ESS requests, the following fields are ignored if included in the PUT body: 'external_id', 'nickname', 'force_change_password', 'locked', 'add_to_new_hire_export', 'terminated', 'retired', 'deceased', 'in_touch'.
+&lt;br/&gt;
+For all other PUT requests, the following fields are ignored if included: 'id', 'terminated', 'links', 'EIN', 'external_id'.
+
+The fields 'bsn', 'social_insurance', 'social_security', and 'national_insurance' are for backward compatibility; the system uses old processing rules if they are included in the request.
+The new pattern for national identification numbers is represented by the 'national_id_numbers' field.
+&lt;b&gt;Note&lt;/b&gt;: 'national_id_numbers' is ignored if the request contains any of 'bsn', 'social_insurance', 'social_security', or 'national_insurance'.
+
+For profiles where Custom view is enabled, Edit permission is disabled by default.
+
+If `effective_from` needs to be updated for a Cost Center, the ROOT `effective_from` must also be specified, like this:
+```json
+"values": [
+  {
+    "type": "ROOT",
+    "effective_from": "1900-12-31"
+  },
+  {
+    "id": 10,
+    "effective_from": "2013-11-23",
+    "type": "ROOT"
+  }
+]
+```
+
+__If you want to apply the default settings of the cost center.__
+You should set the `apply_defaults` field to `true` in the request body like this:
+
+
+```json
+  "cost_center_info": {
+    "defaults": [
+      {
+        "index": 2,
+        "value": {
+          "id": 50
+        },
+        "apply_defaults": true
+      }
+    ]
+  }
+```
+
+__Termination:__
+  `status` field value must be set to the one of existing account statuses with a type equal to "Terminated". `termination_details` field is required.
+
+  The schema of this API will vary depending on the configuration of the company e.g. enabled sub-systems, manager configuration etc. Certain fields listed on the schema may not be required if they are not configured in the termination process of the company.
+
+  HR:
+  `termination_reason`, `termination_notes`, `managers_at_termination`, `rehireable`, `notice`, `benefits_end_date`, `benefit_coverage_end_date`
+
+  HR &amp; Payroll:
+  `deduction_end_date`, `direct_deposit_end_date`, `earning_end_date`
+
+
+  The fields `termination_reason`, `termination_notes`, `managers_at_termination` may also be required depending on the configuration defined in Company Settings.
+
+  To terminate an employee, it may be required to resolve issues with existing configuration/data that exists past the employee's termination date. For example pending timeoff requests can either be approved or rejected.
+
+  Refer to the schema for the correct 'solution' for each of the following:
+  `manager_groups_solutions` - required if employee is a 'Manager 1-6' for the employee(s).
+  `other_groups_solution` - required if employee has access to other group(s).
+  `pto_requests_after_termination_solution` - required if employee has some hours of Pending Time Off Request which fall past termination date.
+  `pto_requests_before_termination_solution` - required if employee has some hours of Pending Time Off Request which fall before termination date.
+  `time_entries_after_termination_solution` - required if employee has Time Entries which fall past termination date.
+  `accrual_not_up_to_date_solutions` - required if accruals for {time_off_name} are Not Accrued up to terminated date.
+  `accrual_over_calculated_solutions` - required if accruals for {time_off_name} are Accrued past terminated date.
+  `security_profile_solution` - required if employee was the only account assigned to {security_profile_name} security profile.
+  `assignments_solution` - required if employee has vehicle(s)/asset(s) assigned.
+  `badges_solution` - required if employee has active badge/s with effective date/s fall past termination date.
+  `account_benefit_plan_solution` - required if employee has future benefit plan(s).
+  `accrual_pay_out_solution` - required if employee can not be paid out.
+  `scheduled_performance_review_solution` - required if scheduled performance review pending. Available options are `delete`, `initiate`, `ignore` and `skip`.
+  `in_progress_performance_review_solution` - required if in progress performance review pending. Available options are `delete`, `end` and `ignore`.
+  `performance_review_to_do_solution` - required if employee has performance review todos.
+  `my_to_do_solution` - required if employee has open my to do items.
+
+  __Rehiring:__
+  `status` field value must be set to the one of existing account statuses with a type NOT equal to "Terminated". `rehire_details` field is required.
+
+  `rehire_details` includes `rehire_as_of_date` field only.
+
+  __Transition from active status to another active:__
+  There is ability to change account status from one active status to another active.
+  Only `status` field needs to be specified.
+</p></div>
+<div>
+<ul class="annotation-list">
+<li class="annotation">
+<span>v2</span>
+</li>
+</ul>
+</div>
+<h4>Parameters</h4>
+<h5>Path Parameters</h5>
+<ul class="param-list">
+<li>
+<div class="param-desc">
+<div class="param-name">cid</div>
+<div class="data-type">string</div>
+<div class="required">required</div>
+</div>
+<div class="param-content">
+<div>
+<p>Example: 123456</p>
+<div class="desc md">Company should be referenced via company id or company unique id or company short name using `|short_name` or `!short_name` format.
+</div>
+</div>
+</div>
+
+</li>
+<li>
+<div class="param-desc">
+<div class="param-name">aid</div>
+<div class="data-type">string</div>
+<div class="required">required</div>
+</div>
+<div class="param-content">
+<div>
+<p>Example: 1234567</p>
+<div class="desc md">Account should be referenced via account id or account external id using `|external_id` or `!external_id` format.
+</div>
+</div>
+</div>
+
+</li>
+</ul>
+<h5>Query Parameters</h5>
+<ul class="param-list">
+<li>
+<div class="param-desc">
+<div class="param-name">transfer_manager_to_dos</div>
+<div class="data-type">boolean</div>
+</div>
+<div class="param-content">
+<div>
+<div class="desc md">If the flag is set to true and "Use Manager Replacement" is enabled for a company, then transfer to dos</div>
+</div>
+</div>
+
+</li>
+<li>
+<div class="param-desc">
+<div class="param-name">ignore_warnings</div>
+<div class="data-type">boolean</div>
+</div>
+<div class="param-content">
+<div>
+<div class="desc md">Warning messages are treated as errors and stops processing. To ignore the warnings set 'ignore_warnings' to true.</div>
+</div>
+</div>
+
+</li>
+</ul>
+<h5>Header Parameters</h5>
+<ul class="param-list">
+<li>
+<div class="param-desc">
+<div class="param-name">Accept</div>
+<div class="data-type">string</div>
+</div>
+<div class="param-content">
+<div>
+<p>Valid values: application/json, application/xml, text/xml</p>
+<p>Default: application/json</p>
+<p>Example: application/json</p>
+</div>
+</div>
+
+</li>
+<li>
+<div class="param-desc">
+<div class="param-name">Content-Type</div>
+<div class="data-type">string</div>
+<div class="required">required</div>
+</div>
+<div class="param-content">
+<div>
+<p>Valid values: application/xml, text/xml, application/json</p>
+<p>Example: application/json</p>
+</div>
+</div>
+
+</li>
+<li>
+<div class="param-desc">
+<div class="param-name">Content-Length</div>
+<div class="data-type">integer</div>
+<div class="required">required</div>
+</div>
+<div class="param-content">
+<div>
+</div>
+</div>
+
+</li>
+</ul>
+<h4>Responses</h4>
+<div class="responses">
+<div>
+<label class="response response-success">
+<span class="fa fa-check"></span>
+<input data-full-tab-id="put-resp-code-tab-id-0" data-tab-class="resp-code-tab-put" name="resp-code-tab-put" type="radio"/>
+<span class="status">204 No Content</span>
+</label>
+<div class="response-desc resp-code-tab-put" id="put-resp-code-tab-id-0">
+<div class="md"><p>Employee successfully changed.
+</p></div>
+</div>
+</div>
+<div>
+<label class="response response-error">
+<span class="fa fa-times"></span>
+<input data-full-tab-id="put-resp-code-tab-id-1" data-tab-class="resp-code-tab-put" name="resp-code-tab-put" type="radio"/>
+<span class="status">400 Bad Request</span>
+</label>
+<div class="response-desc resp-code-tab-put" id="put-resp-code-tab-id-1">
+<div class="md"><p>In case any error occurs during validation.
+</p></div>
+</div>
+</div>
+<div>
+<label class="response response-error">
+<span class="fa fa-times"></span>
+<input data-full-tab-id="put-resp-code-tab-id-2" data-tab-class="resp-code-tab-put" name="resp-code-tab-put" type="radio"/>
+<span class="status">401 Unauthorized</span>
+</label>
+<div class="response-desc resp-code-tab-put" id="put-resp-code-tab-id-2">
+<div class="md"><p>Returned in case user is not authorized.
+Note: PUT request returns Unauthorized when custom view is checked in the security profiles.
+</p></div>
+</div>
+</div>
+<div>
+<label class="response response-error">
+<span class="fa fa-times"></span>
+<input data-full-tab-id="put-resp-code-tab-id-3" data-tab-class="resp-code-tab-put" name="resp-code-tab-put" type="radio"/>
+<span class="status">403 Forbidden</span>
+</label>
+<div class="response-desc resp-code-tab-put" id="put-resp-code-tab-id-3">
+<div class="md"><p>In case of any security issues
+</p></div>
+</div>
+</div>
+<div>
+<label class="response response-error">
+<span class="fa fa-times"></span>
+<input data-full-tab-id="put-resp-code-tab-id-4" data-tab-class="resp-code-tab-put" name="resp-code-tab-put" type="radio"/>
+<span class="status">500 Internal Server Error</span>
+</label>
+<div class="response-desc resp-code-tab-put" id="put-resp-code-tab-id-4">
+<div class="md"><p>Internal server error
+</p></div>
+</div>
+</div>
+<div>
+<label class="response response-error">
+<span class="fa fa-times"></span>
+<input data-full-tab-id="put-resp-code-tab-id-5" data-tab-class="resp-code-tab-put" name="resp-code-tab-put" type="radio"/>
+<span class="status">404 Not Found</span>
+</label>
+<div class="response-desc resp-code-tab-put" id="put-resp-code-tab-id-5">
+<div class="md"><p>Returned in case resource does not exist.</p></div>
+</div>
+</div>
+<div>
+<label class="response response-error">
+<span class="fa fa-times"></span>
+<input data-full-tab-id="put-resp-code-tab-id-6" data-tab-class="resp-code-tab-put" name="resp-code-tab-put" type="radio"/>
+<span class="status">503 Service Unavailable</span>
+</label>
+<div class="response-desc resp-code-tab-put" id="put-resp-code-tab-id-6">
+<div class="md"><p>Returned in the event that the call limit is exceeded. The application will be unavailable for subsequent calls for the duration specified by the X-CallLimit-TimeToWait header.</p></div>
+</div>
+</div>
+</div>
+</article>
+<article class="code">
+<h4>Definition</h4>
+<div class="uri">
+<code>
+<span class="method put">put</span>
+<span class="textUri"><span class="baseUri">{{ getUriPrefix() }}</span><span class="relativeUri">/v2/companies/{cid}/employees/{aid}</span></span>
+</code>
+</div>
+<h4>Request Samples</h4>
+<div class="tab-title-group">
+<label>
+<input checked="checked" data-full-tab-id="req-tab-id-put-0" data-tab-class="req-tab-put" name="req-tab-put" type="radio"/>
+<span class="tab-title">application/json</span>
+</label>
+<label>
+<input data-full-tab-id="req-tab-id-put-1" data-tab-class="req-tab-put" name="req-tab-put" type="radio"/>
+<span class="tab-title">application/xml</span>
+</label>
+</div>
+<div>
+<div class="req-tab-put" id="req-tab-id-put-0">
+<div class="example">
+
+<div class="put-example-tab-0 activeTab" id="put-tab-example-0">
+
+<pre class="highlightjs">{
+  "id": 10,
+  "username": "string",
+  "first_name": "string",
+  "last_name": "string",
+  "photo_href": "string",
+  "isPhotoUploaded": false,
+  "middle_name": "string",
+  "external_id": "string",
+  "employee_id": "string",
+  "address": {
+    "address_line_1": "string",
+    "address_line_2": "string",
+    "address_line_3": "string",
+    "country": "USA",
+    "city": "string",
+    "state": "str",
+    "zip": "string",
+    "number": "string",
+    "number_addition": "string"
+  },
+  "use_separate_mailing_address": false,
+  "status": "Terminated",
+  "termination_details": {
+    "account_status": "Terminated",
+    "termination_date": "2016-04-04",
+    "termination_reason": "reason_name",
+    "termination_notes": "notes",
+    "managers_at_termination": [
+      {
+        "index": 1,
+        "value": {
+          "username": "manager1_username"
+        }
+      },
+      {
+        "index": 2,
+        "value": {
+          "username": "manager2_username"
+        }
+      }
+    ],
+    "rehireable": true,
+    "notice": {
+      "interval": "Days",
+      "count": 5
+    },
+    "benefits_end_date": "2016-04-04",
+    "benefit_coverage_end_date": "2016-04-04",
+    "deduction_end_date": "2016-04-04",
+    "direct_deposit_end_date": "2016-04-04",
+    "earning_end_date": "2016-04-04",
+    "manager_groups_solutions": [
+      {
+        "index": 1,
+        "action": "Remove"
+      },
+      {
+        "index": 2,
+        "action": "Ignore"
+      },
+      {
+        "index": 3,
+        "action": "Replace",
+        "replace_with": {
+          "username": "username"
+        }
+      }
+    ],
+    "other_groups_solution": {
+      "action": "Remove"
+    },
+    "pto_requests_after_termination_solution": {
+      "action": "Delete All"
+    },
+    "pto_requests_before_termination_solution": {
+      "action": "Delete All"
+    },
+    "time_entries_after_termination_solution": {
+      "action": "Delete All Except TO"
+    },
+    "accrual_not_up_to_date_solutions": [
+      {
+        "time_off": {
+          "name": "pto1_name"
+        },
+        "action": "Calculate and Update"
+      },
+      {
+        "time_off": {
+          "name": "pto2_name"
+        },
+        "action": "Ignore"
+      }
+    ],
+    "accrual_over_calculated_solutions": [
+      {
+        "time_off": {
+          "name": "pto3_name"
+        },
+        "action": "Rollback"
+      },
+      {
+        "time_off": {
+          "name": "pto4_name"
+        },
+        "action": "Ignore"
+      }
+    ],
+    "security_profile_solution": {
+      "action": "Ignore"
+    },
+    "assignments_solution": {
+      "action": "Remove"
+    },
+    "badges_solution": {
+      "action": "Set End Date"
+    },
+    "account_benefit_plan_solution": {
+      "action": "Ignore"
+    },
+    "accrual_pay_out_solution": {
+      "action": "Skip"
+    },
+    "scheduled_performance_review_solution": {
+      "action": "Ignore"
+    },
+    "in_progress_performance_review_solution": {
+      "action": "Ignore"
+    },
+    "performance_review_to_do_solution": {
+      "action": "Replace"
+    },
+    "my_to_do_solution": {
+      "action": "Delete"
+    }
+  },
+  "bsn": "string",
+  "ein": {
+    "id": 10
+  },
+  "force_change_password": false,
+  "locked": true,
+  "first_screen": {
+    "id": "screen"
+  },
+  "phones": {
+    "cell_phone_country_id": "USA",
+    "cell_phone_country_code": "+91",
+    "cell_phone": "+333333333",
+    "home_phone_country_id": "USA",
+    "home_phone_country_code": "+91",
+    "home_phone": "+333333333",
+    "work_phone_country_id": "USA",
+    "work_phone_country_code": "+91",
+    "work_phone": "+333333333",
+    "preferred_phone": "WORK"
+  },
+  "locale": {
+    "id": 1
+  },
+  "mailing_address": {
+    "address_line_1": "string",
+    "address_line_2": "string",
+    "address_line_3": "string",
+    "country": "USA",
+    "city": "string",
+    "state": "str",
+    "zip": "string",
+    "number": "string",
+    "number_addition": "string"
+  },
+  "managers": [
+    {
+      "index": 1,
+      "empl_ref": {
+        "account_id": 10
+      }
+    }
+  ],
+  "national_insurance": "string",
+  "nickname": "string",
+  "primary_email": "string",
+  "secondary_email": "string",
+  "salutation": "string",
+  "social_insurance": "string",
+  "social_security": "string",
+  "suffix": "string",
+  "timezone": "America/New_York",
+  "cost_centers_info": {
+    "defaults": [
+      {
+        "index": 2,
+        "value": {
+          "id": 50
+        },
+        "apply_defaults": false
+      }
+    ],
+    "limits": [
+      {
+        "index": 4,
+        "values": [
+          {
+            "type": "ROOT",
+            "effective_from": "1900-12-31"
+          },
+          {
+            "id": 10,
+            "effective_from": "2013-11-23",
+            "type": "ROOT"
+          }
+        ]
+      }
+    ]
+  },
+  "add_to_new_hire_export": true,
+  "dates": {
+    "hired": "2018-11-01",
+    "deceased": "2018-11-01",
+    "re_hired": "2013-05-22",
+    "started": "2002-11-05",
+    "birthday": "2002-06-24",
+    "review": "2016-02-20",
+    "seniority": "2019-08-19",
+    "frozen_benefit": "2018-02-04",
+    "benefits": "2002-11-16",
+    "retired": "2000-09-14",
+    "terminated": "2015-08-24",
+    "peo_hired": "2015-06-18",
+    "custom_dates": [
+      {
+        "index": 2,
+        "date": "2000-04-21"
+      }
+    ]
+  },
+  "account_extra_fields": [
+    {
+      "index": 4,
+      "values": [
+        {
+          "value": "string",
+          "effective_from": "2017-04-19"
+        }
+      ]
+    }
+  ],
+  "managed_cost_centers_enabled": true,
+  "managed_cost_centers_settings": {
+    "allow_save_others_cost_centers": false
+  },
+  "national_id_numbers": [
+    {
+      "type": "SSN",
+      "value": "012345678",
+      "primary": true
+    },
+    {
+      "type": "BSN",
+      "value": "012345678"
+    }
+  ],
+  "_links": {
+    "self": "https://example.com/ta/rest/v2/companies/453313/employees/10",
+    "demographics": "https://example.com/ta/rest/v2/companies/453313/employees/10/demographics",
+    "pay-info": "https://example.com/ta/rest/v2/companies/453313/employees/10/pay-info",
+    "badges": "https://example.com/ta/rest/v2/companies/453313/employees/10/badges",
+    "profiles": "https://example.com/ta/rest/v2/companies/453313/employees/10/profiles",
+    "hcm-profiles": "https://example.com/ta/rest/v2/companies/453313/employees/10/hcm-profiles",
+    "hcm-fields": "https://example.com/ta/rest/v2/companies/453313/employees/10/hcm-fields"
+  }
+}</pre>
+</div>
+<div class="put-example-tab-0" id="put-tab-schema-0">
+
+<div class="jsonschema" id="schema-2">{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "type": "object",
+  "properties": {
+    "id": {
+      "type": "integer",
+      "description": "This field is only used for GET."
+    },
+    "username": {
+      "type": "string"
+    },
+    "first_name": {
+      "type": "string"
+    },
+    "last_name": {
+      "type": "string"
+    },
+    "photo_href": {
+      "type": "string"
+    },
+    "isPhotoUploaded": {
+      "type": "boolean"
+    },
+    "middle_name": {
+      "type": "string"
+    },
+    "external_id": {
+      "type": "string"
+    },
+    "employee_id": {
+      "type": "string",
+      "maxLength": 20
+    },
+    "status": {
+      "type": "string",
+      "maxLength": 35
+    },
+    "termination_details": {
+      "type": "object",
+      "properties": {
+        "account_status": {
+          "type": "string",
+          "maxLength": 35
+        },
+        "termination_date": {
+          "type": "string",
+          "pattern": "^(19[0-9]{2}|20[0-6][0-9]|2070)-(0[1-9]|1[0-2])-(0[1-9]|[1-2][0-9]|3[0-1])$"
+        },
+        "termination_reason": {
+          "type": "string",
+          "maxLength": 50
+        },
+        "termination_notes": {
+          "type": "string",
+          "maxLength": 200
+        },
+        "managers_at_termination": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "index": {
+                "type": "integer",
+                "minimum": 1,
+                "maximum": 6
+              },
+              "value": {
+                "oneOf": [
+                  {
+                    "type": "object",
+                    "properties": {
+                      "account_id": {
+                        "type": "string"
+                      },
+                      "external_id": {
+                        "type": "string"
+                      },
+                      "username": {
+                        "type": "string"
+                      },
+                      "employee_id": {
+                        "type": "string"
+                      },
+                      "ein_name": {
+                        "type": "string"
+                      },
+                      "ein_tax_id": {
+                        "type": "string"
+                      }
+                    },
+                    "additionalProperties": false,
+                    "minProperties": 1,
+                    "maxProperties": 2
+                  },
+                  {
+                    "type": "null"
+                  }
+                ]
+              }
+            }
+          }
+        },
+        "rehireable": {
+          "type": "boolean"
+        },
+        "notice": {
+          "type": "object",
+          "properties": {
+            "interval": {
+              "type": "string",
+              "enum": [
+                "Days",
+                "Weeks",
+                "Months",
+                "Years"
+              ]
+            },
+            "count": {
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 32767
+            }
+          },
+          "additionalProperties": false,
+          "minProperties": 2,
+          "maxProperties": 2
+        },
+        "benefits_end_date": {
+          "type": "string",
+          "pattern": "^(19[0-9]{2}|20[0-6][0-9]|2070)-(0[1-9]|1[0-2])-(0[1-9]|[1-2][0-9]|3[0-1])$"
+        },
+        "benefit_coverage_end_date": {
+          "type": "string",
+          "pattern": "^(19[0-9]{2}|20[0-6][0-9]|2070)-(0[1-9]|1[0-2])-(0[1-9]|[1-2][0-9]|3[0-1])$"
+        },
+        "deduction_end_date": {
+          "type": "string",
+          "pattern": "^(19[0-9]{2}|20[0-6][0-9]|2070)-(0[1-9]|1[0-2])-(0[1-9]|[1-2][0-9]|3[0-1])$"
+        },
+        "direct_deposit_end_date": {
+          "type": "string",
+          "pattern": "^(19[0-9]{2}|20[0-6][0-9]|2070)-(0[1-9]|1[0-2])-(0[1-9]|[1-2][0-9]|3[0-1])$"
+        },
+        "earning_end_date": {
+          "type": "string",
+          "pattern": "^(19[0-9]{2}|20[0-6][0-9]|2070)-(0[1-9]|1[0-2])-(0[1-9]|[1-2][0-9]|3[0-1])$"
+        },
+        "manager_groups_solutions": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "index": {
+                "type": "integer",
+                "minimum": 1,
+                "maximum": 6
+              },
+              "action": {
+                "type": "string",
+                "enum": [
+                  "Ignore",
+                  "Remove",
+                  "Replace"
+                ]
+              },
+              "replace_with": {
+                "type": "object",
+                "properties": {
+                  "account_id": {
+                    "type": "string"
+                  },
+                  "external_id": {
+                    "type": "string"
+                  },
+                  "username": {
+                    "type": "string"
+                  },
+                  "employee_id": {
+                    "type": "string"
+                  },
+                  "ein_name": {
+                    "type": "string"
+                  },
+                  "ein_tax_id": {
+                    "type": "string"
+                  }
+                },
+                "additionalProperties": false,
+                "minProperties": 1,
+                "maxProperties": 2
+              }
+            },
+            "additionalProperties": false,
+            "minProperties": 2,
+            "maxProperties": 3
+          },
+          "description": "Required if employee is a 'Manager 1-6' for the employee(s)."
+        },
+        "other_groups_solution": {
+          "type": "object",
+          "properties": {
+            "action": {
+              "type": "string",
+              "enum": [
+                "Ignore",
+                "Remove"
+              ]
+            }
+          },
+          "additionalProperties": false,
+          "minProperties": 1,
+          "maxProperties": 1,
+          "description": "Required if employee has access to other group(s)."
+        },
+        "pto_requests_after_termination_solution": {
+          "type": "object",
+          "properties": {
+            "action": {
+              "type": "string",
+              "enum": [
+                "Delete All",
+                "Reject All"
+              ]
+            }
+          },
+          "additionalProperties": false,
+          "minProperties": 1,
+          "maxProperties": 1,
+          "description": "Required if employee has N hours of Pending Time Off Request which fall past termination date. If 'Use Workflow For Time Off Request' is enabled in Workflow Policies the only supported action is 'Delete All'."
+        },
+        "pto_requests_before_termination_solution": {
+          "type": "object",
+          "properties": {
+            "action": {
+              "type": "string",
+              "enum": [
+                "Delete All",
+                "Reject All",
+                "Approve All"
+              ]
+            }
+          },
+          "additionalProperties": false,
+          "minProperties": 1,
+          "maxProperties": 1,
+          "description": "Required if employee has N hours of Pending Time Off Request which fall before termination date. If 'Use Workflow For Time Off Request' is enabled in Workflow Policies the only supported action is 'Delete All'."
+        },
+        "time_entries_after_termination_solution": {
+          "type": "object",
+          "properties": {
+            "action": {
+              "type": "string",
+              "enum": [
+                "Ignore",
+                "Delete All",
+                "Delete All Except TO"
+              ]
+            }
+          },
+          "additionalProperties": false,
+          "minProperties": 1,
+          "maxProperties": 1,
+          "description": "Required if employee has Time Entries which fall past termination date."
+        },
+        "accrual_not_up_to_date_solutions": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "action": {
+                "type": "string",
+                "enum": [
+                  "Calculate and Update",
+                  "Ignore"
+                ]
+              },
+              "time_off": {
+                "type": "object",
+                "properties": {
+                  "name": {
+                    "type": "string"
+                  },
+                  "payroll_code": {
+                    "type": "string"
+                  },
+                  "external_id": {
+                    "type": "string"
+                  },
+                  "path": {
+                    "type": "string"
+                  }
+                },
+                "additionalProperties": false,
+                "minProperties": 1,
+                "maxProperties": 1
+              }
+            },
+            "additionalProperties": false,
+            "minProperties": 2,
+            "maxProperties": 2
+          },
+          "description": "Required if accruals for {time_off_name} are Not Accrued up to terminated date."
+        },
+        "accrual_over_calculated_solutions": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "action": {
+                "type": "string",
+                "enum": [
+                  "Rollback",
+                  "Ignore"
+                ]
+              },
+              "time_off": {
+                "type": "object",
+                "properties": {
+                  "name": {
+                    "type": "string"
+                  },
+                  "payroll_code": {
+                    "type": "string"
+                  },
+                  "external_id": {
+                    "type": "string"
+                  },
+                  "path": {
+                    "type": "string"
+                  }
+                },
+                "additionalProperties": false,
+                "minProperties": 1,
+                "maxProperties": 1
+              }
+            },
+            "additionalProperties": false,
+            "minProperties": 2,
+            "maxProperties": 2
+          },
+          "description": "Required if accruals for {time_off_name} are Accrued past terminated date."
+        },
+        "security_profile_solution": {
+          "type": "object",
+          "properties": {
+            "action": {
+              "type": "string",
+              "enum": [
+                "Ignore"
+              ]
+            }
+          },
+          "additionalProperties": false,
+          "minProperties": 1,
+          "maxProperties": 1,
+          "description": "Required if employee was the only account assigned to {security_profile_name} security profile."
+        },
+        "assignments_solution": {
+          "type": "object",
+          "properties": {
+            "action": {
+              "type": "string",
+              "enum": [
+                "Ignore",
+                "Remove"
+              ]
+            }
+          },
+          "additionalProperties": false,
+          "minProperties": 1,
+          "maxProperties": 1,
+          "description": "Required if employee has vehicle(s)/asset(s) assigned."
+        },
+        "badges_solution": {
+          "type": "object",
+          "properties": {
+            "action": {
+              "type": "string",
+              "enum": [
+                "Ignore",
+                "Set End Date"
+              ]
+            }
+          },
+          "additionalProperties": false,
+          "minProperties": 1,
+          "maxProperties": 1,
+          "description": "Required if employee has active badge/s with effective date/s fall past termination date."
+        },
+        "account_benefit_plan_solution": {
+          "type": "object",
+          "properties": {
+            "action": {
+              "type": "string",
+              "enum": [
+                "Ignore",
+                "Delete All"
+              ]
+            }
+          },
+          "additionalProperties": false,
+          "minProperties": 1,
+          "maxProperties": 1,
+          "description": "Required if employee has future benefit plan(s)."
+        },
+        "accrual_pay_out_solution": {
+          "type": "object",
+          "properties": {
+            "action": {
+              "type": "string",
+              "enum": [
+                "Skip In Case Of Exception",
+                "Skip"
+              ]
+            }
+          },
+          "additionalProperties": false,
+          "minProperties": 1,
+          "maxProperties": 1,
+          "description": "Required if employee accruals can not be paid out."
+        },
+        "scheduled_performance_review_solution": {
+          "type": "object",
+          "properties": {
+            "action": {
+              "type": "string",
+              "enum": [
+                "Delete",
+                "Initiate",
+                "Skip",
+                "Ignore"
+              ]
+            }
+          },
+          "additionalProperties": false,
+          "minProperties": 1,
+          "maxProperties": 1,
+          "description": "Required if employee has scheduled performance review."
+        },
+        "in_progress_performance_review_solution": {
+          "type": "object",
+          "properties": {
+            "action": {
+              "type": "string",
+              "enum": [
+                "Delete",
+                "End",
+                "Ignore"
+              ]
+            }
+          },
+          "additionalProperties": false,
+          "minProperties": 1,
+          "maxProperties": 1,
+          "description": "Required if employee has in progress performance review."
+        },
+        "performance_review_to_do_solution": {
+          "type": "object",
+          "properties": {
+            "action": {
+              "type": "string",
+              "enum": [
+                "Ignore",
+                "Replace"
+              ]
+            },
+            "replace_with": {
+              "type": "object",
+              "properties": {
+                "account_id": {
+                  "type": "string"
+                }
+              },
+              "additionalProperties": false,
+              "minProperties": 1,
+              "maxProperties": 2
+            }
+          },
+          "additionalProperties": false,
+          "minProperties": 1,
+          "maxProperties": 1,
+          "description": "Required if employee has in progress performance review."
+        },
+        "my_to_do_solution": {
+          "type": "object",
+          "properties": {
+            "action": {
+              "type": "string",
+              "enum": [
+                "Delete",
+                "Ignore"
+              ]
+            }
+          },
+          "additionalProperties": false,
+          "minProperties": 1,
+          "maxProperties": 1,
+          "description": "Required if employee has open my to do items."
+        }
+      },
+      "additionalProperties": false,
+      "required": [
+        "account_status",
+        "termination_date"
+      ]
+    },
+    "rehire_details": {
+      "type": "object",
+      "properties": {
+        "rehire_as_of_date": {
+          "type": "string",
+          "pattern": "^(19[0-9]{2}|20[0-6][0-9]|2070)-(0[1-9]|1[0-2])-(0[1-9]|[1-2][0-9]|3[0-1])$"
+        }
+      },
+      "additionalProperties": false,
+      "required": [
+        "rehire_as_of_date"
+      ]
+    },
+    "bsn": {
+      "type": "string"
+    },
+    "address": {
+      "$ref": "#/definitions/address"
+    },
+    "use_separate_mailing_address": {
+      "type": "boolean"
+    },
+    "mailing_address": {
+      "$ref": "#/definitions/address"
+    },
+    "primary_account_id": {
+      "type": "number",
+      "format": "long",
+      "description": "This field is only returned for multi-EIN companies."
+    },
+    "ein": {
+      "type": "object",
+      "description": "Can be used for POST in multi-ein companies.",
+      "properties": {
+        "id": {
+          "type": "integer"
+        }
+      },
+      "additionalProperties": false
+    },
+    "force_change_password": {
+      "type": "boolean"
+    },
+    "locked": {
+      "type": "boolean"
+    },
+    "first_screen": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string"
+        }
+      },
+      "additionalProperties": false
+    },
+    "phones": {
+      "type": "object",
+      "properties": {
+        "cell_phone_country_id": {
+          "type": "string",
+          "description": "cell_phone_country_id is ISO 3166-1 alpha-3 code for a country denoted by a three letters (Reference Link:- https://en.wikipedia.org/wiki/ISO_3166-1_alpha-3)"
+        },
+        "cell_phone_country_code": {
+          "type": "string"
+        },
+        "cell_phone": {
+          "type": "string"
+        },
+        "home_phone_country_id": {
+          "type": "string",
+          "description": "home_phone_country_id is ISO 3166-1 alpha-3 code for a country denoted by a three letters (Reference Link:- https://en.wikipedia.org/wiki/ISO_3166-1_alpha-3)"
+        },
+        "home_phone_country_code": {
+          "type": "string"
+        },
+        "home_phone": {
+          "type": "string"
+        },
+        "work_phone_country_id": {
+          "type": "string",
+          "description": "work_phone_country_id is ISO 3166-1 alpha-3 code for a country denoted by a three letters (Reference Link:- https://en.wikipedia.org/wiki/ISO_3166-1_alpha-3)"
+        },
+        "work_phone_country_code": {
+          "type": "string"
+        },
+        "work_phone": {
+          "type": "string"
+        },
+        "preferred_phone": {
+          "enum": [
+            "HOME",
+            "CELL",
+            "WORK",
+            "NONE"
+          ]
+        }
+      },
+      "additionalProperties": false
+    },
+    "locale": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer"
+        }
+      },
+      "additionalProperties": false
+    },
+    "managers": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "index": {
+            "type": "integer",
+            "minimum": 0,
+            "maximum": 5
+          },
+          "empl_ref": {
+            "type": "object",
+            "properties": {
+              "account_id": {
+                "type": "number",
+                "format": "long"
+              }
+            },
+            "additionalProperties": false
+          }
+        },
+        "required": [
+          "index"
+        ],
+        "additionalProperties": false
+      }
+    },
+    "national_insurance": {
+      "type": "string"
+    },
+    "nickname": {
+      "type": "string"
+    },
+    "primary_email": {
+      "type": "string"
+    },
+    "secondary_email": {
+      "type": "string"
+    },
+    "salutation": {
+      "type": "string"
+    },
+    "social_insurance": {
+      "type": "string"
+    },
+    "social_security": {
+      "type": "string"
+    },
+    "suffix": {
+      "type": "string"
+    },
+    "timezone": {
+      "type": "string",
+      "description": "See Time Zones in Master Data section."
+    },
+    "cost_centers_info": {
+      "type": "object",
+      "properties": {
+        "defaults": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "index": {
+                "type": "integer",
+                "minimum": 0,
+                "maximum": 8
+              },
+              "value": {
+                "type": "object",
+                "properties": {
+                  "id": {
+                    "type": "integer"
+                  }
+                }
+              },
+              "apply_defaults": {
+                "type": "boolean"
+              }
+            },
+            "additionalProperties": false,
+            "required": [
+              "index"
+            ]
+          }
+        },
+        "limits": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "index": {
+                "type": "integer",
+                "minimum": 0,
+                "maximum": 8
+              },
+              "values": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "id": {
+                      "type": "integer"
+                    },
+                    "effective_from": {
+                      "type": "string",
+                      "description": "Date needs to be in the format yyyy-mm-dd within the 1900-12-31 and 2079-06-05 date range"
+                    },
+                    "type": {
+                      "enum": [
+                        "ROOT",
+                        "LIST"
+                      ]
+                    }
+                  },
+                  "additionalProperties": false,
+                  "required": [
+                    "type"
+                  ]
+                }
+              }
+            },
+            "additionalProperties": false,
+            "required": [
+              "index"
+            ]
+          }
+        }
+      },
+      "additionalProperties": false
+    },
+    "add_to_new_hire_export": {
+      "type": "boolean"
+    },
+    "dates": {
+      "type": "object",
+      "properties": {
+        "hired": {
+          "type": "string",
+          "description": "Date needs to be in the format yyyy-mm-dd within the 1900-12-31 and 2079-06-05 date range"
+        },
+        "deceased": {
+          "type": "string",
+          "description": "Date needs to be in the format yyyy-mm-dd within the 1900-12-31 and 2079-06-05 date range"
+        },
+        "re_hired": {
+          "type": "string",
+          "description": "Date needs to be in the format yyyy-mm-dd within the 1900-12-31 and 2079-06-05 date range"
+        },
+        "started": {
+          "type": "string",
+          "description": "Date needs to be in the format yyyy-mm-dd within the 1900-12-31 and 2079-06-05 date range"
+        },
+        "birthday": {
+          "type": "string",
+          "description": "Date needs to be in the format yyyy-mm-dd within the 1900-12-31 and 2079-06-05 date range"
+        },
+        "review": {
+          "type": "string",
+          "description": "Date needs to be in the format yyyy-mm-dd within the 1900-12-31 and 2079-06-05 date range"
+        },
+        "seniority": {
+          "type": "string",
+          "description": "Date needs to be in the format yyyy-mm-dd within the 1900-12-31 and 2079-06-05 date range"
+        },
+        "frozen_benefit": {
+          "type": "string",
+          "description": "Date needs to be in the format yyyy-mm-dd within the 1900-12-31 and 2079-06-05 date range"
+        },
+        "benefits": {
+          "type": "string",
+          "description": "Date needs to be in the format yyyy-mm-dd within the 1900-12-31 and 2079-06-05 date range"
+        },
+        "retired": {
+          "type": "string",
+          "description": "Date needs to be in the format yyyy-mm-dd within the 1900-12-31 and 2079-06-05 date range"
+        },
+        "terminated": {
+          "type": "string",
+          "description": "This field is only used for GET.Date needs to be in the format yyyy-mm-dd within the 1900-12-31 and 2079-06-05 date range."
+        },
+        "peo_hired": {
+          "type": "string",
+          "description": "Date needs to be in the format yyyy-mm-dd within the 1900-12-31 and 2079-06-05 date range"
+        },
+        "custom_dates": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "index": {
+                "type": "integer",
+                "minimum": 0,
+                "maximum": 4
+              },
+              "date": {
+                "type": "string",
+                "description": "Date needs to be in the format yyyy-mm-dd within the 1900-12-31 and 2079-06-05 date range"
+              }
+            },
+            "required": [
+              "index"
+            ]
+          },
+          "additionalProperties": false
+        }
+      },
+      "additionalProperties": false
+    },
+    "account_extra_fields": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "index": {
+            "type": "integer",
+            "minimum": 0,
+            "maximum": 9
+          },
+          "values": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "value": {
+                  "type": "string"
+                },
+                "effective_from": {
+                  "type": "string",
+                  "description": "Date needs to be in the format yyyy-mm-dd within the 1900-12-31 and 2079-06-05 date range"
+                }
+              }
+            },
+            "additionalProperties": false
+          }
+        },
+        "required": [
+          "index"
+        ],
+        "additionalProperties": false
+      }
+    },
+    "time_entry_extra_fields": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "index": {
+            "type": "integer",
+            "minimum": 0,
+            "maximum": 4
+          },
+          "value": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "index"
+        ]
+      },
+      "additionalProperties": false
+    },
+    "_links": {
+      "type": "object",
+      "description": "This field is only used for GET.",
+      "properties": {
+        "self": {
+          "type": "string"
+        },
+        "demographics": {
+          "type": "string"
+        },
+        "pay-info": {
+          "type": "string"
+        },
+        "badges": {
+          "type": "string"
+        },
+        "profiles": {
+          "type": "string"
+        },
+        "hcm-profiles": {
+          "type": "string"
+        },
+        "hcm-fields": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "self"
+      ],
+      "additionalProperties": false
+    },
+    "hardware_settings": {
+      "type": "object",
+      "properties": {
+        "in_touch": {
+          "type": "object",
+          "properties": {
+            "security_level": {
+              "enum": [
+                "EMPLOYEE",
+                "MANAGER"
+              ]
+            },
+            "pin": {
+              "type": "integer"
+            }
+          }
+        }
+      },
+      "additionalProperties": false
+    },
+    "managed_cost_centers_enabled": {
+      "type": "boolean"
+    },
+    "managed_cost_centers_settings": {
+      "type": "object",
+      "properties": {
+        "allow_save_others_cost_centers": {
+          "type": "boolean"
+        }
+      },
+      "additionalProperties": false
+    },
+    "national_id_numbers": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "type": {
+            "type": "string",
+            "enum": [
+              "SSN",
+              "BSN",
+              "SIN",
+              "NIN",
+              "TFN",
+              "NSS",
+              "OTHER_1",
+              "OTHER_2",
+              "OTHER_3",
+              "OTHER_4",
+              "OTHER_5",
+              "OTHER_6",
+              "OTHER_7",
+              "OTHER_8",
+              "OTHER_9",
+              "OTHER_10",
+              "NO_ID_NEEDED"
+            ]
+          },
+          "value": {
+            "type": "string",
+            "maxLength": 25
+          },
+          "primary": {
+            "type": "boolean",
+            "default": false
+          }
+        },
+        "required": [
+          "type"
+        ],
+        "additionalProperties": false
+      }
+    }
+  },
+  "required": [
+    "username",
+    "first_name",
+    "last_name"
+  ],
+  "additionalProperties": false,
+  "definitions": {
+    "address": {
+      "type": "object",
+      "properties": {
+        "country": {
+          "type": "string",
+          "pattern": "^([A-Z]{3})$",
+          "description": "ISO 3166-1 alpha-3."
+        },
+        "address_line_1": {
+          "type": "string",
+          "maxLength": 128
+        },
+        "address_line_2": {
+          "type": "string",
+          "maxLength": 128
+        },
+        "address_line_3": {
+          "type": "string",
+          "maxLength": 128
+        },
+        "city": {
+          "type": "string",
+          "maxLength": 64
+        },
+        "state": {
+          "type": "string",
+          "description": "See State Code in Master Data section.",
+          "maxLength": 3
+        },
+        "zip": {
+          "type": "string",
+          "maxLength": 15
+        },
+        "number": {
+          "type": "string",
+          "maxLength": 10
+        },
+        "number_addition": {
+          "type": "string",
+          "maxLength": 10
+        }
+      },
+      "additionalProperties": false,
+      "required": [
+        "country"
+      ]
+    }
+  }
+}</div>
+</div>
+</div>
+</div>
+<div class="req-tab-put" id="req-tab-id-put-1">
+<div class="example">
+
+<div class="put-example-tab-1 activeTab" id="put-tab-example-1">
+
+<pre class="highlightjs">&lt;employee&gt;
+  &lt;id&gt;10&lt;/id&gt;
+  &lt;username&gt;string&lt;/username&gt;
+  &lt;first_name&gt;string&lt;/first_name&gt;
+  &lt;last_name&gt;string&lt;/last_name&gt;
+  &lt;photo_href&gt;string&lt;/photo_href&gt;
+  &lt;isPhotoUploaded&gt;false&lt;/isPhotoUploaded&gt;
+  &lt;middle_name&gt;string&lt;/middle_name&gt;
+  &lt;external_id&gt;string&lt;/external_id&gt;
+  &lt;employee_id&gt;string&lt;/employee_id&gt;
+  &lt;address&gt;
+    &lt;address_line_1&gt;string&lt;/address_line_1&gt;
+    &lt;address_line_2&gt;string&lt;/address_line_2&gt;
+    &lt;address_line_3&gt;string&lt;/address_line_3&gt;
+    &lt;country&gt;USA&lt;/country&gt;
+    &lt;city&gt;string&lt;/city&gt;
+    &lt;state&gt;NY&lt;/state&gt;
+    &lt;zip&gt;string&lt;/zip&gt;
+    &lt;number&gt;string&lt;/number&gt;
+    &lt;number_addition&gt;string&lt;/number_addition&gt;
+  &lt;/address&gt;
+  &lt;use_separate_mailing_address&gt;false&lt;/use_separate_mailing_address&gt;
+  &lt;status&gt;Terminated&lt;/status&gt;
+  &lt;termination_details&gt;
+    &lt;account_status&gt;Terminated&lt;/account_status&gt;
+    &lt;termination_date&gt;2016-04-04&lt;/termination_date&gt;
+    &lt;termination_reason&gt;reason_name&lt;/termination_reason&gt;
+    &lt;termination_notes&gt;notes&lt;/termination_notes&gt;
+
+    &lt;managers_at_termination&gt;
+      &lt;manager_at_termination&gt;
+        &lt;index&gt;1&lt;/index&gt;
+        &lt;value&gt;
+          &lt;username&gt;manager1_username&lt;/username&gt;
+        &lt;/value&gt;
+      &lt;/manager_at_termination&gt;
+      &lt;manager_at_termination&gt;
+        &lt;index&gt;2&lt;/index&gt;
+        &lt;value&gt;
+          &lt;username&gt;manager2_username&lt;/username&gt;
+        &lt;/value&gt;
+      &lt;/manager_at_termination&gt;
+    &lt;/managers_at_termination&gt;
+
+    &lt;rehireable&gt;true&lt;/rehireable&gt;
+
+    &lt;notice&gt;
+      &lt;interval&gt;Days&lt;/interval&gt;
+      &lt;count&gt;5&lt;/count&gt;
+    &lt;/notice&gt;
+
+    &lt;benefits_end_date&gt;2016-04-04&lt;/benefits_end_date&gt;
+    &lt;benefit_coverage_end_date&gt;2016-04-04&lt;/benefit_coverage_end_date&gt;
+    &lt;deduction_end_date&gt;2016-04-04&lt;/deduction_end_date&gt;
+    &lt;direct_deposit_end_date&gt;2016-04-04&lt;/direct_deposit_end_date&gt;
+    &lt;earning_end_date&gt;2016-04-04&lt;/earning_end_date&gt;
+
+    &lt;manager_groups_solutions&gt;
+      &lt;manager_groups_solution&gt;
+        &lt;index&gt;1&lt;/index&gt;
+        &lt;action&gt;Remove&lt;/action&gt;
+      &lt;/manager_groups_solution&gt;
+      &lt;manager_groups_solution&gt;
+        &lt;index&gt;2&lt;/index&gt;
+        &lt;action&gt;Ignore&lt;/action&gt;
+      &lt;/manager_groups_solution&gt;
+      &lt;manager_groups_solution&gt;
+        &lt;index&gt;3&lt;/index&gt;
+        &lt;action&gt;Replace&lt;/action&gt;
+        &lt;replace_with&gt;
+          &lt;username&gt;username&lt;/username&gt;
+        &lt;/replace_with&gt;
+      &lt;/manager_groups_solution&gt;
+    &lt;/manager_groups_solutions&gt;
+
+    &lt;other_groups_solution&gt;
+      &lt;action&gt;Remove&lt;/action&gt;
+    &lt;/other_groups_solution&gt;
+
+    &lt;pto_requests_after_termination_solution&gt;
+      &lt;action&gt;Delete All&lt;/action&gt;
+    &lt;/pto_requests_after_termination_solution&gt;
+
+    &lt;pto_requests_before_termination_solution&gt;
+      &lt;action&gt;Delete All&lt;/action&gt;
+    &lt;/pto_requests_before_termination_solution&gt;
+
+    &lt;time_entries_after_termination_solution&gt;
+      &lt;action&gt;Delete All Except TO&lt;/action&gt;
+    &lt;/time_entries_after_termination_solution&gt;
+
+    &lt;accrual_not_up_to_date_solutions&gt;
+      &lt;accrual_not_up_to_date_solution&gt;
+        &lt;time_off&gt;
+          &lt;name&gt;pto1_name&lt;/name&gt;
+        &lt;/time_off&gt;
+        &lt;action&gt;Calculate and Update&lt;/action&gt;
+      &lt;/accrual_not_up_to_date_solution&gt;
+      &lt;accrual_not_up_to_date_solution&gt;
+        &lt;time_off&gt;
+          &lt;name&gt;pto2_name&lt;/name&gt;
+        &lt;/time_off&gt;
+        &lt;action&gt;Ignore&lt;/action&gt;
+      &lt;/accrual_not_up_to_date_solution&gt;
+    &lt;/accrual_not_up_to_date_solutions&gt;
+
+    &lt;accrual_over_calculated_solutions&gt;
+      &lt;accrual_over_calculated_solution&gt;
+        &lt;time_off&gt;
+          &lt;name&gt;pto3_name&lt;/name&gt;
+        &lt;/time_off&gt;
+        &lt;action&gt;Rollback&lt;/action&gt;
+      &lt;/accrual_over_calculated_solution&gt;
+      &lt;accrual_over_calculated_solution&gt;
+        &lt;time_off&gt;
+          &lt;name&gt;pto4_name&lt;/name&gt;
+        &lt;/time_off&gt;
+        &lt;action&gt;Ignore&lt;/action&gt;
+      &lt;/accrual_over_calculated_solution&gt;
+    &lt;/accrual_over_calculated_solutions&gt;
+
+    &lt;security_profile_solution&gt;
+      &lt;action&gt;Ignore&lt;/action&gt;
+    &lt;/security_profile_solution&gt;
+
+    &lt;assignments_solution&gt;
+      &lt;action&gt;Remove&lt;/action&gt;
+    &lt;/assignments_solution&gt;
+
+    &lt;badges_solution&gt;
+      &lt;action&gt;Set End Date&lt;/action&gt;
+    &lt;/badges_solution&gt;
+
+    &lt;account_benefit_plan_solution&gt;
+      &lt;action&gt;Ignore&lt;/action&gt;
+    &lt;/account_benefit_plan_solution&gt;
+
+    &lt;accrual_pay_out_solution&gt;
+      &lt;action&gt;Skip&lt;/action&gt;
+    &lt;/accrual_pay_out_solution&gt;
+
+    &lt;scheduled_performance_review_solution&gt;
+      &lt;action&gt;Ignore&lt;/action&gt;
+    &lt;/scheduled_performance_review_solution&gt;
+
+    &lt;in_progress_performance_review_solution&gt;
+      &lt;action&gt;Ignore&lt;/action&gt;
+    &lt;/in_progress_performance_review_solution&gt;
+
+    &lt;performance_review_to_do_solution&gt;
+      &lt;action&gt;Replace&lt;/action&gt;
+    &lt;/performance_review_to_do_solution&gt;
+    &lt;my_to_do_solution&gt;
+      &lt;action&gt;Delete&lt;/action&gt;
+    &lt;/my_to_do_solution&gt;
+  &lt;/termination_details&gt;
+  &lt;bsn&gt;string&lt;/bsn&gt;
+  &lt;ein&gt;
+    &lt;id&gt;10&lt;/id&gt;
+  &lt;/ein&gt;
+  &lt;force_change_password&gt;false&lt;/force_change_password&gt;
+  &lt;locked&gt;true&lt;/locked&gt;
+  &lt;first_screen&gt;
+    &lt;id&gt;scren&lt;/id&gt;
+  &lt;/first_screen&gt;
+  &lt;phones&gt;
+    &lt;cell_phone_country_id&gt;IND&lt;/cell_phone_country_id&gt;
+    &lt;cell_phone_country_code&gt;+91&lt;/cell_phone_country_code&gt;
+    &lt;cell_phone&gt;+3333333333&lt;/cell_phone&gt;
+    &lt;home_phone_country_id&gt;IND&lt;/home_phone_country_id&gt;
+    &lt;home_phone_country_code&gt;+91&lt;/home_phone_country_code&gt;
+    &lt;home_phone&gt;+3333333332&lt;/home_phone&gt;
+    &lt;work_phone_country_id&gt;IND&lt;/work_phone_country_id&gt;
+    &lt;work_phone_country_code&gt;+91&lt;/work_phone_country_code&gt;
+    &lt;work_phone&gt;+3333333331&lt;/work_phone&gt;
+    &lt;preferred_phone&gt;WORK&lt;/preferred_phone&gt;
+  &lt;/phones&gt;
+  &lt;locale&gt;
+    &lt;id&gt;5&lt;/id&gt;
+  &lt;/locale&gt;
+  &lt;mailing_address&gt;
+    &lt;address_line_1&gt;string&lt;/address_line_1&gt;
+    &lt;address_line_2&gt;string&lt;/address_line_2&gt;
+    &lt;address_line_3&gt;string&lt;/address_line_3&gt;
+    &lt;country&gt;USA&lt;/country&gt;
+    &lt;city&gt;string&lt;/city&gt;
+    &lt;state&gt;NY&lt;/state&gt;
+    &lt;zip&gt;string&lt;/zip&gt;
+    &lt;number&gt;string&lt;/number&gt;
+    &lt;number_addition&gt;string&lt;/number_addition&gt;
+  &lt;/mailing_address&gt;
+  &lt;managers&gt;
+    &lt;manager&gt;
+      &lt;index&gt;1&lt;/index&gt;
+      &lt;empl_ref&gt;
+        &lt;account_id&gt;10&lt;/account_id&gt;
+      &lt;/empl_ref&gt;
+    &lt;/manager&gt;
+  &lt;/managers&gt;
+  &lt;national_insurance&gt;string&lt;/national_insurance&gt;
+  &lt;nickname&gt;string&lt;/nickname&gt;
+  &lt;primary_email&gt;string&lt;/primary_email&gt;
+  &lt;secondary_email&gt;string&lt;/secondary_email&gt;
+  &lt;salutation&gt;string&lt;/salutation&gt;
+  &lt;social_insurance&gt;string&lt;/social_insurance&gt;
+  &lt;social_security&gt;string&lt;/social_security&gt;
+  &lt;suffix&gt;string&lt;/suffix&gt;
+  &lt;timezone&gt;America/New_York&lt;/timezone&gt;
+  &lt;cost_centers_info&gt;
+    &lt;defaults&gt;
+      &lt;default&gt;
+        &lt;index&gt;3&lt;/index&gt;
+        &lt;value&gt;
+          &lt;id&gt;100&lt;/id&gt;
+        &lt;/value&gt;
+        &lt;apply_defaults&gt;false&lt;/apply_defaults&gt;
+      &lt;/default&gt;
+    &lt;/defaults&gt;
+    &lt;limits&gt;
+      &lt;limit&gt;
+        &lt;index&gt;2&lt;/index&gt;
+        &lt;values&gt;
+          &lt;value&gt;
+            &lt;type&gt;ROOT&lt;/type&gt;
+            &lt;effective_from&gt;1900-12-31&lt;/effective_from&gt;
+          &lt;/value&gt;
+          &lt;value&gt;
+            &lt;id&gt;10&lt;/id&gt;
+            &lt;effective_from&gt;2013-11-23&lt;/effective_from&gt;
+            &lt;type&gt;ROOT&lt;/type&gt;
+          &lt;/value&gt;
+        &lt;/values&gt;
+      &lt;/limit&gt;
+    &lt;/limits&gt;
+  &lt;/cost_centers_info&gt;
+  &lt;add_to_new_hire_export&gt;true&lt;/add_to_new_hire_export&gt;
+  &lt;dates&gt;
+    &lt;hired&gt;2018-11-01&lt;/hired&gt;
+    &lt;deceased&gt;2018-11-01&lt;/deceased&gt;
+    &lt;re_hired&gt;2013-05-22&lt;/re_hired&gt;
+    &lt;started&gt;2002-11-05&lt;/started&gt;
+    &lt;birthday&gt;2002-06-24&lt;/birthday&gt;
+    &lt;review&gt;2016-02-20&lt;/review&gt;
+    &lt;seniority&gt;2019-08-19&lt;/seniority&gt;
+    &lt;frozen_benefit&gt;2018-02-04&lt;/frozen_benefit&gt;
+    &lt;benefits&gt;2002-11-16&lt;/benefits&gt;
+    &lt;retired&gt;2000-09-14&lt;/retired&gt;
+    &lt;terminated&gt;2015-08-24&lt;/terminated&gt;
+    &lt;peo_hired&gt;2015-06-18+03:00&lt;/peo_hired&gt;
+    &lt;custom_dates&gt;
+      &lt;custom_date&gt;
+        &lt;index&gt;0&lt;/index&gt;
+        &lt;date&gt;2000-04-21&lt;/date&gt;
+      &lt;/custom_date&gt;
+    &lt;/custom_dates&gt;
+  &lt;/dates&gt;
+  &lt;account_extra_fields&gt;
+    &lt;account_extra_field&gt;
+      &lt;index&gt;4&lt;/index&gt;
+      &lt;values&gt;
+        &lt;value&gt;
+          &lt;value&gt;string&lt;/value&gt;
+          &lt;effective_from&gt;2017-04-19&lt;/effective_from&gt;
+        &lt;/value&gt;
+        &lt;value&gt;
+          &lt;value&gt;string&lt;/value&gt;
+          &lt;effective_from&gt;2015-04-19&lt;/effective_from&gt;
+        &lt;/value&gt;
+      &lt;/values&gt;
+    &lt;/account_extra_field&gt;
+  &lt;/account_extra_fields&gt;
+  &lt;managed_cost_centers_enabled&gt;true&lt;/managed_cost_centers_enabled&gt;
+  &lt;managed_cost_centers_settings&gt;
+    &lt;allow_save_others_cost_centers&gt;false&lt;/allow_save_others_cost_centers&gt;
+  &lt;/managed_cost_centers_settings&gt;
+  &lt;national_id_numbers&gt;
+    &lt;national_id_number&gt;
+      &lt;type&gt;SSN&lt;/type&gt;
+      &lt;value&gt;012345678&lt;/value&gt;
+      &lt;primary&gt;true&lt;/primary&gt;
+    &lt;/national_id_number&gt;
+    &lt;national_id_number&gt;
+      &lt;type&gt;OTHER_1&lt;/type&gt;
+      &lt;value&gt;012345678&lt;/value&gt;
+    &lt;/national_id_number&gt;
+  &lt;/national_id_numbers&gt;
+  &lt;_links&gt;
+    &lt;self&gt;https://example.com/ta/rest/v2/companies/1/employees/10&lt;/self&gt;
+    &lt;demographics&gt;https://example.com/ta/rest/v2/companies/1/employees/10/demographics&lt;/demographics&gt;
+    &lt;pay-info&gt;https://example.com/ta/rest/v2/companies/1/employees/10/pay-info&lt;/pay-info&gt;
+    &lt;badges&gt;https://example.com/ta/rest/v2/companies/1/employees/10/badges&lt;/badges&gt;
+    &lt;profiles&gt;https://example.com/ta/rest/v2/companies/1/employees/10/profiles&lt;/profiles&gt;
+    &lt;hcm-profiles&gt;https://example.com/ta/rest/v2/companies/1/employees/10/hcm-profiles&lt;/hcm-profiles&gt;
+    &lt;hcm-fields&gt;https://example.com/ta/rest/v2/companies/1/employees/10/hcm-fields&lt;/hcm-fields&gt;
+  &lt;/_links&gt;
+&lt;/employee&gt;</pre>
+</div>
+<div class="put-example-tab-1" id="put-tab-schema-1">
+
+<div class="jsonschema" id="schema-3">&lt;xs:schema attributeFormDefault="unqualified" elementFormDefault="qualified"
+           xmlns:xs="http://www.w3.org/2001/XMLSchema"&gt;
+    &lt;xs:element name="employee"&gt;
+        &lt;xs:complexType&gt;
+            &lt;xs:all&gt;
+                &lt;xs:element type="xs:long" name="id" minOccurs="0"&gt;
+                    &lt;xs:annotation&gt;
+                        &lt;xs:documentation&gt;This field is only used for GET.&lt;/xs:documentation&gt;
+                    &lt;/xs:annotation&gt;
+                &lt;/xs:element&gt;
+                &lt;xs:element type="xs:string" name="username"/&gt;
+                &lt;xs:element type="xs:string" name="first_name"/&gt;
+                &lt;xs:element type="xs:string" name="last_name"/&gt;
+                &lt;xs:element type="xs:string" name="photo_href" minOccurs="0"/&gt;
+                &lt;xs:element type="xs:boolean" name="isPhotoUploaded" minOccurs="0"/&gt;
+                &lt;xs:element type="xs:string" name="middle_name" minOccurs="0"/&gt;
+                &lt;xs:element type="xs:string" name="external_id" minOccurs="0"/&gt;
+                &lt;xs:element name="employee_id" minOccurs="0"&gt;
+                    &lt;xs:simpleType&gt;
+                        &lt;xs:restriction base="xs:string"&gt;
+                            &lt;xs:maxLength value="20"/&gt;
+                        &lt;/xs:restriction&gt;
+                    &lt;/xs:simpleType&gt;
+                &lt;/xs:element&gt;
+                &lt;xs:element type="address" name="address" minOccurs="0"/&gt;
+                &lt;xs:element type="xs:boolean" name="use_separate_mailing_address" minOccurs="0"/&gt;
+                &lt;xs:element type="xs:string" name="status" minOccurs="0"/&gt;
+                &lt;xs:element name="termination_details" type="termination_details" minOccurs="0"/&gt;
+                &lt;xs:element name="rehire_details" type="rehire_details" minOccurs="0"/&gt;
+                &lt;xs:element type="xs:string" name="bsn" minOccurs="0"/&gt;
+                &lt;xs:element type="xs:long" name="primary_account_id" minOccurs="0"&gt;
+                    &lt;xs:annotation&gt;
+                        &lt;xs:documentation&gt;This field is only returned for multi-EIN companies.&lt;/xs:documentation&gt;
+                    &lt;/xs:annotation&gt;
+                &lt;/xs:element&gt;
+                &lt;xs:element type="ein" name="ein" minOccurs="0"&gt;
+                    &lt;xs:annotation&gt;
+                        &lt;xs:documentation&gt;Can be used for POST in multi-ein companies.&lt;/xs:documentation&gt;
+                    &lt;/xs:annotation&gt;
+                &lt;/xs:element&gt;
+                &lt;xs:element type="xs:boolean" name="force_change_password" minOccurs="0"/&gt;
+                &lt;xs:element type="xs:boolean" name="locked" minOccurs="0"/&gt;
+                &lt;xs:element type="first_screen_ref" name="first_screen" minOccurs="0"/&gt;
+                &lt;xs:element type="phones" name="phones" minOccurs="0"/&gt;
+                &lt;xs:element type="locale_ref" name="locale" minOccurs="0"/&gt;
+                &lt;xs:element type="address" name="mailing_address" minOccurs="0"/&gt;
+                &lt;xs:element type="xs:string" name="national_insurance" minOccurs="0"/&gt;
+                &lt;xs:element type="xs:string" name="nickname" minOccurs="0"/&gt;
+                &lt;xs:element type="xs:string" name="primary_email" minOccurs="0"/&gt;
+                &lt;xs:element type="xs:string" name="secondary_email" minOccurs="0"/&gt;
+                &lt;xs:element type="xs:string" name="salutation" minOccurs="0"/&gt;
+                &lt;xs:element type="xs:string" name="social_insurance" minOccurs="0"/&gt;
+                &lt;xs:element type="xs:string" name="social_security" minOccurs="0"/&gt;
+                &lt;xs:element type="xs:string" name="suffix" minOccurs="0"/&gt;
+                &lt;xs:element type="xs:string" name="timezone" minOccurs="0"&gt;
+                    &lt;xs:annotation&gt;
+                        &lt;xs:documentation&gt;See Time Zones in Master Data section.&lt;/xs:documentation&gt;
+                    &lt;/xs:annotation&gt;
+                &lt;/xs:element&gt;
+                &lt;xs:element type="dates" name="dates" minOccurs="0"/&gt;
+                &lt;xs:element type="cost_centers_info" name="cost_centers_info" minOccurs="0"/&gt;
+                &lt;xs:element type="managers" name="managers" minOccurs="0"/&gt;
+                &lt;xs:element type="account_extra_fields" name="account_extra_fields" minOccurs="0"/&gt;
+                &lt;xs:element type="time_entry_extra_fields" name="time_entry_extra_fields" minOccurs="0"/&gt;
+                &lt;xs:element type="xs:boolean" name="add_to_new_hire_export" minOccurs="0" maxOccurs="1"/&gt;
+                &lt;xs:element type="hardware_settings" name="hardware_settings" minOccurs="0" maxOccurs="1"/&gt;
+                &lt;xs:element type="xs:boolean" name="managed_cost_centers_enabled" minOccurs="0"/&gt;
+                &lt;xs:element type="managed_cost_centers_settings" name="managed_cost_centers_settings" minOccurs="0"/&gt;
+                &lt;xs:element type="national_id_numbers" name="national_id_numbers" minOccurs="0"/&gt;
+                &lt;xs:element type="resource_links" name="_links" minOccurs="0"&gt;
+                    &lt;xs:annotation&gt;
+                        &lt;xs:documentation&gt;This field is only used for GET.&lt;/xs:documentation&gt;
+                    &lt;/xs:annotation&gt;
+                &lt;/xs:element&gt;
+            &lt;/xs:all&gt;
+        &lt;/xs:complexType&gt;
+    &lt;/xs:element&gt;
+
+    &lt;xs:complexType name="termination_details"&gt;
+        &lt;xs:all&gt;
+            &lt;xs:element name="account_status" minOccurs="1"&gt;
+                &lt;xs:simpleType&gt;
+                    &lt;xs:restriction base="xs:string"&gt;
+                        &lt;xs:maxLength value="35"/&gt;
+                    &lt;/xs:restriction&gt;
+                &lt;/xs:simpleType&gt;
+            &lt;/xs:element&gt;
+
+            &lt;xs:element name="termination_date" type="sys_date" minOccurs="1"/&gt;
+
+            &lt;xs:element name="termination_reason" minOccurs="0"&gt;
+                &lt;xs:simpleType&gt;
+                    &lt;xs:restriction base="xs:string"&gt;
+                        &lt;xs:maxLength value="50"/&gt;
+                    &lt;/xs:restriction&gt;
+                &lt;/xs:simpleType&gt;
+            &lt;/xs:element&gt;
+
+            &lt;xs:element name="termination_notes" minOccurs="0"&gt;
+                &lt;xs:simpleType&gt;
+                    &lt;xs:restriction base="xs:string"&gt;
+                        &lt;xs:maxLength value="200"/&gt;
+                    &lt;/xs:restriction&gt;
+                &lt;/xs:simpleType&gt;
+            &lt;/xs:element&gt;
+
+            &lt;xs:element name="managers_at_termination" type="managers_at_termination" minOccurs="0"/&gt;
+            &lt;xs:element name="rehireable" type="xs:boolean" minOccurs='0'/&gt;
+            &lt;xs:element name="notice" type="notice" minOccurs="0"/&gt;
+
+            &lt;xs:element name="benefits_end_date" type="sys_date" minOccurs="0"/&gt;
+            &lt;xs:element name="benefit_coverage_end_date" type="sys_date" minOccurs="0"/&gt;
+            &lt;xs:element name="deduction_end_date" type="sys_date" minOccurs="0"/&gt;
+            &lt;xs:element name="direct_deposit_end_date" type="sys_date" minOccurs="0"/&gt;
+            &lt;xs:element name="earning_end_date" type="sys_date" minOccurs="0"/&gt;
+
+            &lt;xs:element name="manager_groups_solutions" type="manager_groups_solutions" minOccurs="0"/&gt;
+            &lt;xs:element name="other_groups_solution" type="other_groups_solution" minOccurs="0"/&gt;
+            &lt;xs:element name="pto_requests_after_termination_solution" type="pto_requests_after_termination_solution" minOccurs="0"/&gt;
+            &lt;xs:element name="pto_requests_before_termination_solution" type="pto_requests_before_termination_solution" minOccurs="0"/&gt;
+            &lt;xs:element name="time_entries_after_termination_solution" type="time_entries_after_termination_solution" minOccurs="0"/&gt;
+            &lt;xs:element name="accrual_not_up_to_date_solutions" type="accrual_not_up_to_date_solutions" minOccurs="0"/&gt;
+            &lt;xs:element name="accrual_over_calculated_solutions" type="accrual_over_calculated_solutions" minOccurs="0"/&gt;
+            &lt;xs:element name="security_profile_solution" type="security_profile_solution" minOccurs="0"/&gt;
+            &lt;xs:element name="assignments_solution" type="assignments_solution" minOccurs="0"/&gt;
+            &lt;xs:element name="badges_solution" type="badges_solution" minOccurs="0"/&gt;
+            &lt;xs:element name="account_benefit_plan_solution" type="account_benefit_plan_solution" minOccurs="0"/&gt;
+            &lt;xs:element name="accrual_pay_out_solution" type="accrual_pay_out_solution" minOccurs="0"/&gt;
+            &lt;xs:element name="scheduled_performance_review_solution" type="scheduled_performance_review_solution" minOccurs="0"/&gt;
+            &lt;xs:element name="in_progress_performance_review_solution" type="in_progress_performance_review_solution" minOccurs="0"/&gt;
+            &lt;xs:element name="performance_review_to_do_solution" type="performance_review_to_do_solution" minOccurs="0"/&gt;
+            &lt;xs:element name="my_to_do_solution" type="my_to_do_solution" minOccurs="0"/&gt;
+        &lt;/xs:all&gt;
+    &lt;/xs:complexType&gt;
+
+    &lt;xs:complexType name="rehire_details"&gt;
+        &lt;xs:all&gt;
+            &lt;xs:element name="rehire_as_of_date" minOccurs="1"&gt;
+                &lt;xs:simpleType&gt;
+                    &lt;xs:restriction base="xs:date"&gt;
+                        &lt;xs:pattern value="(19[0-9]{2}|20[0-6][0-9]|2070)-(0[1-9]|1[0-2])-(0[1-9]|[1-2][0-9]|3[0-1])"/&gt;
+                    &lt;/xs:restriction&gt;
+                &lt;/xs:simpleType&gt;
+            &lt;/xs:element&gt;
+        &lt;/xs:all&gt;
+    &lt;/xs:complexType&gt;
+
+    &lt;xs:simpleType name="sys_date"&gt;
+        &lt;xs:restriction base="xs:date"&gt;
+            &lt;xs:pattern value="(19[0-9]{2}|20[0-6][0-9]|2070)-(0[1-9]|1[0-2])-(0[1-9]|[1-2][0-9]|3[0-1])"/&gt;
+        &lt;/xs:restriction&gt;
+    &lt;/xs:simpleType&gt;
+
+    &lt;xs:complexType name="managers_at_termination"&gt;
+        &lt;xs:sequence&gt;
+            &lt;xs:element name="manager_at_termination" minOccurs="1" maxOccurs="unbounded"&gt;
+                &lt;xs:complexType&gt;
+                    &lt;xs:all minOccurs="1"&gt;
+                        &lt;xs:element name="index"&gt;
+                            &lt;xs:simpleType&gt;
+                                &lt;xs:restriction base="xs:integer"&gt;
+                                    &lt;xs:minInclusive value="1"/&gt;
+                                    &lt;xs:maxInclusive value="6"/&gt;
+                                &lt;/xs:restriction&gt;
+                            &lt;/xs:simpleType&gt;
+                        &lt;/xs:element&gt;
+                        &lt;xs:element type="employee_ref" name="value"/&gt;
+                    &lt;/xs:all&gt;
+                &lt;/xs:complexType&gt;
+            &lt;/xs:element&gt;
+        &lt;/xs:sequence&gt;
+    &lt;/xs:complexType&gt;
+
+    &lt;xs:complexType name="notice"&gt;
+        &lt;xs:all minOccurs="1"&gt;
+            &lt;xs:element name="interval" minOccurs='1'&gt;
+                &lt;xs:simpleType&gt;
+                    &lt;xs:restriction base="xs:string"&gt;
+                        &lt;xs:enumeration value="Days"/&gt;
+                        &lt;xs:enumeration value="Weeks"/&gt;
+                        &lt;xs:enumeration value="Months"/&gt;
+                        &lt;xs:enumeration value="Years"/&gt;
+                    &lt;/xs:restriction&gt;
+                &lt;/xs:simpleType&gt;
+            &lt;/xs:element&gt;
+            &lt;xs:element name="count" minOccurs='1'&gt;
+                &lt;xs:simpleType&gt;
+                    &lt;xs:restriction base="xs:integer"&gt;
+                        &lt;xs:minInclusive value="0"/&gt;
+                        &lt;xs:maxInclusive value="32767"/&gt;
+                    &lt;/xs:restriction&gt;
+                &lt;/xs:simpleType&gt;
+            &lt;/xs:element&gt;
+        &lt;/xs:all&gt;
+    &lt;/xs:complexType&gt;
+
+    &lt;xs:complexType name="manager_groups_solutions"&gt;
+        &lt;xs:sequence&gt;
+            &lt;xs:element name="manager_groups_solution" minOccurs="1" maxOccurs="unbounded"&gt;
+                &lt;xs:complexType&gt;
+                    &lt;xs:all&gt;
+                        &lt;xs:element name="index" minOccurs="1"&gt;
+                            &lt;xs:simpleType&gt;
+                                &lt;xs:restriction base="xs:integer"&gt;
+                                    &lt;xs:minInclusive value="1"/&gt;
+                                    &lt;xs:maxInclusive value="6"/&gt;
+                                &lt;/xs:restriction&gt;
+                            &lt;/xs:simpleType&gt;
+                        &lt;/xs:element&gt;
+                        &lt;xs:element name="action" minOccurs='1'&gt;
+                            &lt;xs:simpleType&gt;
+                                &lt;xs:restriction base="xs:string"&gt;
+                                    &lt;xs:enumeration value="Ignore"/&gt;
+                                    &lt;xs:enumeration value="Remove"/&gt;
+                                    &lt;xs:enumeration value="Replace"/&gt;
+                                &lt;/xs:restriction&gt;
+                            &lt;/xs:simpleType&gt;
+                        &lt;/xs:element&gt;
+                        &lt;xs:element name="replace_with" type="employee_ref" minOccurs="0"/&gt;
+                    &lt;/xs:all&gt;
+                &lt;/xs:complexType&gt;
+            &lt;/xs:element&gt;
+        &lt;/xs:sequence&gt;
+    &lt;/xs:complexType&gt;
+
+    &lt;xs:complexType name="other_groups_solution"&gt;
+        &lt;xs:all minOccurs="1"&gt;
+            &lt;xs:element name="action" minOccurs='1'&gt;
+                &lt;xs:simpleType&gt;
+                    &lt;xs:restriction base="xs:string"&gt;
+                        &lt;xs:enumeration value="Ignore"/&gt;
+                        &lt;xs:enumeration value="Remove"/&gt;
+                    &lt;/xs:restriction&gt;
+                &lt;/xs:simpleType&gt;
+            &lt;/xs:element&gt;
+        &lt;/xs:all&gt;
+    &lt;/xs:complexType&gt;
+
+    &lt;xs:complexType name="pto_requests_after_termination_solution"&gt;
+        &lt;xs:all minOccurs="1"&gt;
+            &lt;xs:element name="action" minOccurs='1'&gt;
+                &lt;xs:simpleType&gt;
+                    &lt;xs:restriction base="xs:string"&gt;
+                        &lt;xs:enumeration value="Delete All"/&gt;
+                        &lt;xs:enumeration value="Reject All"/&gt;
+                    &lt;/xs:restriction&gt;
+                &lt;/xs:simpleType&gt;
+            &lt;/xs:element&gt;
+        &lt;/xs:all&gt;
+    &lt;/xs:complexType&gt;
+
+    &lt;xs:complexType name="pto_requests_before_termination_solution"&gt;
+        &lt;xs:all minOccurs="1"&gt;
+            &lt;xs:element name="action" minOccurs='1'&gt;
+                &lt;xs:simpleType&gt;
+                    &lt;xs:restriction base="xs:string"&gt;
+                        &lt;xs:enumeration value="Delete All"/&gt;
+                        &lt;xs:enumeration value="Reject All"/&gt;
+                        &lt;xs:enumeration value="Approve All"/&gt;
+                    &lt;/xs:restriction&gt;
+                &lt;/xs:simpleType&gt;
+            &lt;/xs:element&gt;
+        &lt;/xs:all&gt;
+    &lt;/xs:complexType&gt;
+
+    &lt;xs:complexType name="time_entries_after_termination_solution"&gt;
+        &lt;xs:all minOccurs="1"&gt;
+            &lt;xs:element name="action" minOccurs='1'&gt;
+                &lt;xs:simpleType&gt;
+                    &lt;xs:restriction base="xs:string"&gt;
+                        &lt;xs:enumeration value="Ignore"/&gt;
+                        &lt;xs:enumeration value="Delete All"/&gt;
+                        &lt;xs:enumeration value="Delete All Except TO"/&gt;
+                    &lt;/xs:restriction&gt;
+                &lt;/xs:simpleType&gt;
+            &lt;/xs:element&gt;
+        &lt;/xs:all&gt;
+    &lt;/xs:complexType&gt;
+
+    &lt;xs:complexType name="accrual_not_up_to_date_solutions"&gt;
+        &lt;xs:sequence&gt;
+            &lt;xs:element name="accrual_not_up_to_date_solution" minOccurs="1" maxOccurs="unbounded"&gt;
+                &lt;xs:complexType&gt;
+                    &lt;xs:all&gt;
+                        &lt;xs:element name="action" minOccurs='1'&gt;
+                            &lt;xs:simpleType&gt;
+                                &lt;xs:restriction base="xs:string"&gt;
+                                    &lt;xs:enumeration value="Calculate and Update"/&gt;
+                                    &lt;xs:enumeration value="Ignore"/&gt;
+                                &lt;/xs:restriction&gt;
+                            &lt;/xs:simpleType&gt;
+                        &lt;/xs:element&gt;
+                        &lt;xs:element name="time_off" type="time_off" minOccurs="0"/&gt;
+                    &lt;/xs:all&gt;
+                &lt;/xs:complexType&gt;
+            &lt;/xs:element&gt;
+        &lt;/xs:sequence&gt;
+    &lt;/xs:complexType&gt;
+
+    &lt;xs:complexType name="accrual_over_calculated_solutions"&gt;
+        &lt;xs:sequence&gt;
+            &lt;xs:element name="accrual_over_calculated_solution" minOccurs="1" maxOccurs="unbounded"&gt;
+                &lt;xs:complexType&gt;
+                    &lt;xs:all&gt;
+                        &lt;xs:element name="action" minOccurs='1'&gt;
+                            &lt;xs:simpleType&gt;
+                                &lt;xs:restriction base="xs:string"&gt;
+                                    &lt;xs:enumeration value="Rollback"/&gt;
+                                    &lt;xs:enumeration value="Ignore"/&gt;
+                                &lt;/xs:restriction&gt;
+                            &lt;/xs:simpleType&gt;
+                        &lt;/xs:element&gt;
+                        &lt;xs:element name="time_off" type="time_off" minOccurs="0"/&gt;
+                    &lt;/xs:all&gt;
+                &lt;/xs:complexType&gt;
+            &lt;/xs:element&gt;
+        &lt;/xs:sequence&gt;
+    &lt;/xs:complexType&gt;
+
+    &lt;xs:complexType name="account_benefit_plan_solution"&gt;
+        &lt;xs:all minOccurs="1"&gt;
+            &lt;xs:element name="action" minOccurs='1'&gt;
+                &lt;xs:simpleType&gt;
+                    &lt;xs:restriction base="xs:string"&gt;
+                        &lt;xs:enumeration value="Ignore"/&gt;
+                        &lt;xs:enumeration value="Delete All"/&gt;
+                    &lt;/xs:restriction&gt;
+                &lt;/xs:simpleType&gt;
+            &lt;/xs:element&gt;
+        &lt;/xs:all&gt;
+    &lt;/xs:complexType&gt;
+
+    &lt;xs:complexType name="accrual_pay_out_solution"&gt;
+        &lt;xs:all minOccurs="1"&gt;
+            &lt;xs:element name="action" minOccurs='1'&gt;
+                &lt;xs:simpleType&gt;
+                    &lt;xs:restriction base="xs:string"&gt;
+                        &lt;xs:enumeration value="Skip In Case Of Exception"/&gt;
+                        &lt;xs:enumeration value="Skip"/&gt;
+                    &lt;/xs:restriction&gt;
+                &lt;/xs:simpleType&gt;
+            &lt;/xs:element&gt;
+        &lt;/xs:all&gt;
+    &lt;/xs:complexType&gt;
+
+    &lt;xs:complexType name="time_off"&gt;
+        &lt;xs:choice&gt;
+            &lt;xs:element type="xs:string" name="name"/&gt;
+            &lt;xs:element type="xs:string" name="payroll_code"/&gt;
+            &lt;xs:element type="xs:string" name="external_id"/&gt;
+            &lt;xs:element type="xs:string" name="path"/&gt;
+        &lt;/xs:choice&gt;
+    &lt;/xs:complexType&gt;
+
+    &lt;xs:complexType name="security_profile_solution"&gt;
+        &lt;xs:all minOccurs="1"&gt;
+            &lt;xs:element name="action" minOccurs='1'&gt;
+                &lt;xs:simpleType&gt;
+                    &lt;xs:restriction base="xs:string"&gt;
+                        &lt;xs:enumeration value="Ignore"/&gt;
+                    &lt;/xs:restriction&gt;
+                &lt;/xs:simpleType&gt;
+            &lt;/xs:element&gt;
+        &lt;/xs:all&gt;
+    &lt;/xs:complexType&gt;
+
+    &lt;xs:complexType name="assignments_solution"&gt;
+        &lt;xs:all minOccurs="1"&gt;
+            &lt;xs:element name="action" minOccurs='1'&gt;
+                &lt;xs:simpleType&gt;
+                    &lt;xs:restriction base="xs:string"&gt;
+                        &lt;xs:enumeration value="Ignore"/&gt;
+                        &lt;xs:enumeration value="Remove"/&gt;
+                    &lt;/xs:restriction&gt;
+                &lt;/xs:simpleType&gt;
+            &lt;/xs:element&gt;
+        &lt;/xs:all&gt;
+    &lt;/xs:complexType&gt;
+
+    &lt;xs:complexType name="badges_solution"&gt;
+        &lt;xs:all minOccurs="1"&gt;
+            &lt;xs:element name="action" minOccurs='1'&gt;
+                &lt;xs:simpleType&gt;
+                    &lt;xs:restriction base="xs:string"&gt;
+                        &lt;xs:enumeration value="Ignore"/&gt;
+                        &lt;xs:enumeration value="Set End Date"/&gt;
+                    &lt;/xs:restriction&gt;
+                &lt;/xs:simpleType&gt;
+            &lt;/xs:element&gt;
+        &lt;/xs:all&gt;
+    &lt;/xs:complexType&gt;
+
+    &lt;xs:complexType name="scheduled_performance_review_solution"&gt;
+        &lt;xs:all minOccurs="1"&gt;
+            &lt;xs:element name="action" minOccurs='1'&gt;
+                &lt;xs:simpleType&gt;
+                    &lt;xs:restriction base="xs:string"&gt;
+                        &lt;xs:enumeration value="Delete"/&gt;
+                        &lt;xs:enumeration value="Initiate"/&gt;
+                        &lt;xs:enumeration value="Skip"/&gt;
+                        &lt;xs:enumeration value="Ignore"/&gt;
+                    &lt;/xs:restriction&gt;
+                &lt;/xs:simpleType&gt;
+            &lt;/xs:element&gt;
+        &lt;/xs:all&gt;
+    &lt;/xs:complexType&gt;
+
+    &lt;xs:complexType name="in_progress_performance_review_solution"&gt;
+        &lt;xs:all minOccurs="1"&gt;
+            &lt;xs:element name="action" minOccurs='1'&gt;
+                &lt;xs:simpleType&gt;
+                    &lt;xs:restriction base="xs:string"&gt;
+                        &lt;xs:enumeration value="Delete"/&gt;
+                        &lt;xs:enumeration value="End"/&gt;
+                        &lt;xs:enumeration value="Ignore"/&gt;
+                    &lt;/xs:restriction&gt;
+                &lt;/xs:simpleType&gt;
+            &lt;/xs:element&gt;
+        &lt;/xs:all&gt;
+    &lt;/xs:complexType&gt;
+
+    &lt;xs:complexType name="performance_review_to_do_solution"&gt;
+        &lt;xs:all minOccurs="1"&gt;
+            &lt;xs:element name="action" minOccurs='1'&gt;
+                &lt;xs:simpleType&gt;
+                    &lt;xs:restriction base="xs:string"&gt;
+                        &lt;xs:enumeration value="Ignore"/&gt;
+                        &lt;xs:enumeration value="Replace"/&gt;
+                    &lt;/xs:restriction&gt;
+                &lt;/xs:simpleType&gt;
+            &lt;/xs:element&gt;
+        &lt;/xs:all&gt;
+    &lt;/xs:complexType&gt;
+
+    &lt;xs:complexType name="my_to_do_solution"&gt;
+        &lt;xs:all minOccurs="1"&gt;
+            &lt;xs:element name="action" minOccurs='1'&gt;
+                &lt;xs:simpleType&gt;
+                    &lt;xs:restriction base="xs:string"&gt;
+                        &lt;xs:enumeration value="Delete"/&gt;
+                        &lt;xs:enumeration value="Ignore"/&gt;
+                    &lt;/xs:restriction&gt;
+                &lt;/xs:simpleType&gt;
+            &lt;/xs:element&gt;
+        &lt;/xs:all&gt;
+    &lt;/xs:complexType&gt;
+
+    &lt;xs:complexType name="time_entry_extra_fields"&gt;
+        &lt;xs:sequence&gt;
+            &lt;xs:element name="time_entry_extra_field" type="time_entry_extra_field" minOccurs="0"
+                        maxOccurs="5"/&gt;
+        &lt;/xs:sequence&gt;
+    &lt;/xs:complexType&gt;
+
+    &lt;xs:complexType name="time_entry_extra_field"&gt;
+        &lt;xs:all&gt;
+            &lt;xs:element name="index" minOccurs="1"&gt;
+                &lt;xs:simpleType&gt;
+                    &lt;xs:restriction base="xs:nonNegativeInteger"&gt;
+                        &lt;xs:minInclusive value="0"/&gt;
+                        &lt;xs:maxInclusive value="4"/&gt;
+                    &lt;/xs:restriction&gt;
+                &lt;/xs:simpleType&gt;
+            &lt;/xs:element&gt;
+            &lt;xs:element type="xs:string" name="value" minOccurs="0"/&gt;
+        &lt;/xs:all&gt;
+    &lt;/xs:complexType&gt;
+
+    &lt;xs:complexType name="locale_ref"&gt;
+        &lt;xs:all&gt;
+            &lt;xs:element type="xs:long" name="id" minOccurs="0"/&gt;
+        &lt;/xs:all&gt;
+    &lt;/xs:complexType&gt;
+
+    &lt;xs:complexType name="account_extra_fields"&gt;
+        &lt;xs:sequence&gt;
+            &lt;xs:element type="account_extra_field_indexed" name="account_extra_field" minOccurs="0"
+                        maxOccurs="10"/&gt;
+        &lt;/xs:sequence&gt;
+    &lt;/xs:complexType&gt;
+
+    &lt;xs:complexType name="first_screen_ref"&gt;
+        &lt;xs:all&gt;
+            &lt;xs:element type="xs:string" name="id" minOccurs="0"/&gt;
+        &lt;/xs:all&gt;
+    &lt;/xs:complexType&gt;
+
+    &lt;xs:complexType name="extra_field_effective"&gt;
+        &lt;xs:all&gt;
+            &lt;xs:element type="xs:string" name="value" minOccurs="0"/&gt;
+            &lt;xs:element type="xs:date" name="effective_from" minOccurs="0"/&gt;
+        &lt;/xs:all&gt;
+    &lt;/xs:complexType&gt;
+
+    &lt;xs:complexType name="account_extra_field_indexed"&gt;
+        &lt;xs:all&gt;
+            &lt;xs:element name="index"&gt;
+                &lt;xs:simpleType&gt;
+                    &lt;xs:restriction base="xs:nonNegativeInteger"&gt;
+                        &lt;xs:minInclusive value="0"/&gt;
+                        &lt;xs:maxInclusive value="9"/&gt;
+                    &lt;/xs:restriction&gt;
+                &lt;/xs:simpleType&gt;
+            &lt;/xs:element&gt;
+            &lt;xs:element type="extra_fields_effective_values" name="values" minOccurs="0"/&gt;
+        &lt;/xs:all&gt;
+    &lt;/xs:complexType&gt;
+
+    &lt;xs:complexType name="extra_fields_effective_values"&gt;
+        &lt;xs:sequence&gt;
+            &lt;xs:element name="value" type="extra_field_effective" minOccurs="0" maxOccurs="unbounded"/&gt;
+        &lt;/xs:sequence&gt;
+    &lt;/xs:complexType&gt;
+
+    &lt;xs:complexType name="dates"&gt;
+        &lt;xs:all&gt;
+            &lt;xs:element type="xs:date" name="hired" minOccurs="0" maxOccurs="1"/&gt;
+            &lt;xs:element type="xs:date" name="deceased" minOccurs="0" maxOccurs="1"/&gt;
+            &lt;xs:element type="xs:date" name="re_hired" minOccurs="0" maxOccurs="1"/&gt;
+            &lt;xs:element type="xs:date" name="started" minOccurs="0" maxOccurs="1"/&gt;
+            &lt;xs:element type="xs:date" name="birthday" minOccurs="0" maxOccurs="1"/&gt;
+            &lt;xs:element type="xs:date" name="review" minOccurs="0" maxOccurs="1"/&gt;
+            &lt;xs:element type="xs:date" name="seniority" minOccurs="0" maxOccurs="1"/&gt;
+            &lt;xs:element type="xs:date" name="frozen_benefit" minOccurs="0" maxOccurs="1"/&gt;
+            &lt;xs:element type="xs:date" name="benefits" minOccurs="0" maxOccurs="1"/&gt;
+            &lt;xs:element type="xs:date" name="retired" minOccurs="0" maxOccurs="1"/&gt;
+            &lt;xs:element type="xs:date" name="terminated" minOccurs="0" maxOccurs="1"&gt;
+                &lt;xs:annotation&gt;
+                    &lt;xs:documentation&gt;This field is only used for GET.&lt;/xs:documentation&gt;
+                &lt;/xs:annotation&gt;
+            &lt;/xs:element&gt;
+            &lt;xs:element type="xs:date" name="peo_hired" minOccurs="0" maxOccurs="1"/&gt;
+            &lt;xs:element type="custom_dates" name="custom_dates" minOccurs="0" maxOccurs="1"/&gt;
+        &lt;/xs:all&gt;
+    &lt;/xs:complexType&gt;
+
+    &lt;xs:complexType name="custom_dates"&gt;
+        &lt;xs:sequence&gt;
+            &lt;xs:element name="custom_date" minOccurs="0" maxOccurs="5"&gt;
+                &lt;xs:complexType&gt;
+                    &lt;xs:all&gt;
+                        &lt;xs:element type="xs:nonNegativeInteger" name="index" minOccurs="1"/&gt;
+                        &lt;xs:element type="xs:date" name="date" minOccurs="0"/&gt;
+                    &lt;/xs:all&gt;
+                &lt;/xs:complexType&gt;
+            &lt;/xs:element&gt;
+        &lt;/xs:sequence&gt;
+    &lt;/xs:complexType&gt;
+
+    &lt;xs:complexType name="cost_centers_info"&gt;
+        &lt;xs:all&gt;
+            &lt;xs:element type="cost_centers_collection" name="defaults" minOccurs="0"/&gt;
+            &lt;xs:element type="cost_center_limit_collection" name="limits" minOccurs="0"/&gt;
+        &lt;/xs:all&gt;
+    &lt;/xs:complexType&gt;
+
+    &lt;xs:complexType name="cost_centers_collection"&gt;
+        &lt;xs:sequence&gt;
+            &lt;xs:element name="default" type="cost_center_ref_indexed" minOccurs="0" maxOccurs="9"/&gt;
+        &lt;/xs:sequence&gt;
+    &lt;/xs:complexType&gt;
+
+    &lt;xs:complexType name="cost_center_ref_indexed"&gt;
+        &lt;xs:all&gt;
+            &lt;xs:element name="index"&gt;
+                &lt;xs:simpleType&gt;
+                    &lt;xs:restriction base="xs:nonNegativeInteger"&gt;
+                        &lt;xs:maxExclusive value="9"/&gt;
+                    &lt;/xs:restriction&gt;
+                &lt;/xs:simpleType&gt;
+            &lt;/xs:element&gt;
+            &lt;xs:element name="value" type="cost_center_ref" minOccurs="0"/&gt;
+            &lt;xs:element type="xs:boolean" name="apply_defaults" minOccurs="0"/&gt;
+        &lt;/xs:all&gt;
+    &lt;/xs:complexType&gt;
+
+    &lt;xs:complexType name="cost_center_ref"&gt;
+        &lt;xs:sequence&gt;
+            &lt;xs:element type="xs:integer" name="id" minOccurs="0" maxOccurs="1"/&gt;
+        &lt;/xs:sequence&gt;
+    &lt;/xs:complexType&gt;
+
+    &lt;xs:complexType name="cost_center_ref_effective"&gt;
+        &lt;xs:all&gt;
+            &lt;!-- cost center id or list id --&gt;
+            &lt;xs:element type="xs:long" name="id" minOccurs="0"/&gt;
+            &lt;xs:element type="xs:date" name="effective_from" minOccurs="0"/&gt;
+            &lt;xs:element name="type"&gt;
+                &lt;xs:simpleType&gt;
+                    &lt;xs:restriction base="xs:string"&gt;
+                        &lt;xs:enumeration value="ROOT"/&gt;
+                        &lt;xs:enumeration value="LIST"/&gt;
+                    &lt;/xs:restriction&gt;
+                &lt;/xs:simpleType&gt;
+            &lt;/xs:element&gt;
+        &lt;/xs:all&gt;
+    &lt;/xs:complexType&gt;
+
+    &lt;xs:complexType name="cost_center_limit_collection"&gt;
+        &lt;xs:sequence&gt;
+            &lt;xs:element type="cost_center_ref_effective_indexed" name="limit" minOccurs="0" maxOccurs="9"/&gt;
+        &lt;/xs:sequence&gt;
+    &lt;/xs:complexType&gt;
+
+    &lt;xs:complexType name="cost_center_ref_effective_value"&gt;
+        &lt;xs:sequence&gt;
+            &lt;xs:element type="cost_center_ref_effective" name="value" minOccurs="0" maxOccurs="unbounded"/&gt;
+        &lt;/xs:sequence&gt;
+    &lt;/xs:complexType&gt;
+
+    &lt;xs:complexType name="cost_center_ref_effective_indexed"&gt;
+        &lt;xs:all&gt;
+            &lt;xs:element name="index"&gt;
+                &lt;xs:simpleType&gt;
+                    &lt;xs:restriction base="xs:nonNegativeInteger"&gt;
+                        &lt;xs:maxExclusive value="9"/&gt;
+                    &lt;/xs:restriction&gt;
+                &lt;/xs:simpleType&gt;
+            &lt;/xs:element&gt;
+            &lt;xs:element name="values" type="cost_center_ref_effective_value" minOccurs="0"/&gt;
+        &lt;/xs:all&gt;
+    &lt;/xs:complexType&gt;
+
+    &lt;xs:complexType name="ein"&gt;
+        &lt;xs:all&gt;
+            &lt;xs:element type="xs:long" name="id" minOccurs="0"/&gt;
+        &lt;/xs:all&gt;
+    &lt;/xs:complexType&gt;
+
+    &lt;xs:complexType name="employee_ref"&gt;
+        &lt;xs:sequence&gt;
+            &lt;xs:choice&gt;
+                &lt;xs:element type="xs:string" name="account_id"/&gt;
+                &lt;xs:element type="xs:string" name="external_id"/&gt;
+                &lt;xs:element type="xs:string" name="username"/&gt;
+                &lt;xs:element type="xs:string" name="employee_id"/&gt;
+            &lt;/xs:choice&gt;
+            &lt;xs:element type="xs:string" name="ein_name" minOccurs="0"/&gt;
+            &lt;xs:element type="xs:string" name="ein_tax_id" minOccurs="0"/&gt;
+        &lt;/xs:sequence&gt;
+    &lt;/xs:complexType&gt;
+
+    &lt;xs:complexType name="phones"&gt;
+        &lt;xs:all&gt;
+            &lt;xs:element type="xs:string" name="cell_phone_country_id" minOccurs="0"&gt;
+                &lt;xs:annotation&gt;
+                    &lt;xs:documentation&gt;cell_phone_country_id is ISO 3166-1 alpha-3 code for a country denoted by a three letters (Reference Link:- https://en.wikipedia.org/wiki/ISO_3166-1_alpha-3)&lt;/xs:documentation&gt;
+                &lt;/xs:annotation&gt;
+            &lt;/xs:element&gt;
+            &lt;xs:element type="xs:string" name="cell_phone_country_code" minOccurs="0"/&gt;
+            &lt;xs:element type="xs:string" name="cell_phone" minOccurs="0"/&gt;
+            &lt;xs:element type="xs:string" name="home_phone_country_id" minOccurs="0"&gt;
+                &lt;xs:annotation&gt;
+                    &lt;xs:documentation&gt;home_phone_country_id is ISO 3166-1 alpha-3 code for a country denoted by a three letters (Reference Link:- https://en.wikipedia.org/wiki/ISO_3166-1_alpha-3)&lt;/xs:documentation&gt;
+                &lt;/xs:annotation&gt;
+            &lt;/xs:element&gt;
+            &lt;xs:element type="xs:string" name="home_phone_country_code" minOccurs="0"/&gt;
+            &lt;xs:element type="xs:string" name="home_phone" minOccurs="0"/&gt;
+            &lt;xs:element type="xs:string" name="work_phone_country_id" minOccurs="0"&gt;
+                &lt;xs:annotation&gt;
+                    &lt;xs:documentation&gt;work_phone_country_id is ISO 3166-1 alpha-3 code for a country denoted by a three letters (Reference Link:- https://en.wikipedia.org/wiki/ISO_3166-1_alpha-3)&lt;/xs:documentation&gt;
+                &lt;/xs:annotation&gt;
+            &lt;/xs:element&gt;
+            &lt;xs:element type="xs:string" name="work_phone_country_code" minOccurs="0"/&gt;
+            &lt;xs:element type="xs:string" name="work_phone" minOccurs="0"/&gt;
+            &lt;xs:element type="phone_type" name="preferred_phone" minOccurs="0"/&gt;
+        &lt;/xs:all&gt;
+    &lt;/xs:complexType&gt;
+
+    &lt;xs:simpleType name="phone_type"&gt;
+        &lt;xs:restriction base="xs:string"&gt;
+            &lt;xs:enumeration value="WORK"/&gt;
+            &lt;xs:enumeration value="CELL"/&gt;
+            &lt;xs:enumeration value="HOME"/&gt;
+            &lt;xs:enumeration value="NONE"/&gt;
+        &lt;/xs:restriction&gt;
+    &lt;/xs:simpleType&gt;
+
+    &lt;xs:complexType name="manager"&gt;
+        &lt;xs:all&gt;
+            &lt;xs:element type="xs:nonNegativeInteger" name="index"/&gt;
+            &lt;xs:element type="employee_ref" name="empl_ref" minOccurs="0"/&gt;
+        &lt;/xs:all&gt;
+    &lt;/xs:complexType&gt;
+
+    &lt;xs:complexType name="managers"&gt;
+        &lt;xs:sequence&gt;
+            &lt;xs:element name="manager" type="manager" minOccurs="0" maxOccurs="6"/&gt;
+        &lt;/xs:sequence&gt;
+    &lt;/xs:complexType&gt;
+
+    &lt;xs:complexType name="address"&gt;
+        &lt;xs:sequence&gt;
+            &lt;xs:element name="address_line_1" minOccurs="0"&gt;
+                &lt;xs:simpleType&gt;
+                    &lt;xs:restriction base="xs:string"&gt;
+                        &lt;xs:maxLength value="128"/&gt;
+                    &lt;/xs:restriction&gt;
+                &lt;/xs:simpleType&gt;
+            &lt;/xs:element&gt;
+            &lt;xs:element name="address_line_2" minOccurs="0"&gt;
+                &lt;xs:simpleType&gt;
+                    &lt;xs:restriction base="xs:string"&gt;
+                        &lt;xs:maxLength value="128"/&gt;
+                    &lt;/xs:restriction&gt;
+                &lt;/xs:simpleType&gt;
+            &lt;/xs:element&gt;
+            &lt;xs:element name="address_line_3" minOccurs="0"&gt;
+                &lt;xs:simpleType&gt;
+                    &lt;xs:restriction base="xs:string"&gt;
+                        &lt;xs:maxLength value="128"/&gt;
+                    &lt;/xs:restriction&gt;
+                &lt;/xs:simpleType&gt;
+            &lt;/xs:element&gt;
+            &lt;xs:element name="country" minOccurs="1"&gt;
+                &lt;xs:annotation&gt;
+                    &lt;xs:documentation&gt;ISO 3166-1 alpha-3.&lt;/xs:documentation&gt;
+                &lt;/xs:annotation&gt;
+                &lt;xs:simpleType&gt;
+                    &lt;xs:restriction base="xs:string"&gt;
+                        &lt;xs:pattern value="([A-Z]{3})"/&gt;
+                    &lt;/xs:restriction&gt;
+                &lt;/xs:simpleType&gt;
+            &lt;/xs:element&gt;
+            &lt;xs:element name="city" minOccurs="0"&gt;
+                &lt;xs:simpleType&gt;
+                    &lt;xs:restriction base="xs:string"&gt;
+                        &lt;xs:maxLength value="64"/&gt;
+                    &lt;/xs:restriction&gt;
+                &lt;/xs:simpleType&gt;
+            &lt;/xs:element&gt;
+            &lt;xs:element name="state" minOccurs="0"&gt;
+                &lt;xs:annotation&gt;
+                    &lt;xs:documentation&gt;See State Code in Master Data section.&lt;/xs:documentation&gt;
+                &lt;/xs:annotation&gt;
+                &lt;xs:simpleType&gt;
+                    &lt;xs:restriction base="xs:string"&gt;
+                        &lt;xs:maxLength value="3"/&gt;
+                    &lt;/xs:restriction&gt;
+                &lt;/xs:simpleType&gt;
+            &lt;/xs:element&gt;
+            &lt;xs:element name="zip" minOccurs="0"&gt;
+                &lt;xs:simpleType&gt;
+                    &lt;xs:restriction base="xs:string"&gt;
+                        &lt;xs:maxLength value="15"/&gt;
+                    &lt;/xs:restriction&gt;
+                &lt;/xs:simpleType&gt;
+            &lt;/xs:element&gt;
+            &lt;xs:element name="number" minOccurs="0" maxOccurs="1"&gt;
+                &lt;xs:simpleType&gt;
+                    &lt;xs:restriction base="xs:string"&gt;
+                        &lt;xs:maxLength value="10"/&gt;
+                    &lt;/xs:restriction&gt;
+                &lt;/xs:simpleType&gt;
+            &lt;/xs:element&gt;
+            &lt;xs:element name="number_addition" minOccurs="0" maxOccurs="1"&gt;
+                &lt;xs:simpleType&gt;
+                    &lt;xs:restriction base="xs:string"&gt;
+                        &lt;xs:maxLength value="10"/&gt;
+                    &lt;/xs:restriction&gt;
+                &lt;/xs:simpleType&gt;
+            &lt;/xs:element&gt;
+        &lt;/xs:sequence&gt;
+    &lt;/xs:complexType&gt;
+
+    &lt;xs:complexType name="hardware_settings"&gt;
+        &lt;xs:all&gt;
+            &lt;xs:element type="in_touch" name="in_touch" minOccurs="0" maxOccurs="1"/&gt;
+        &lt;/xs:all&gt;
+    &lt;/xs:complexType&gt;
+
+    &lt;xs:complexType name="managed_cost_centers_settings"&gt;
+        &lt;xs:all&gt;
+            &lt;xs:element type="xs:boolean" name="allow_save_others_cost_centers" minOccurs="0"/&gt;
+        &lt;/xs:all&gt;
+    &lt;/xs:complexType&gt;
+
+    &lt;xs:complexType name="in_touch"&gt;
+        &lt;xs:all&gt;
+            &lt;xs:element type="xs:integer" name="pin"/&gt;
+            &lt;xs:element name="security_level"&gt;
+                &lt;xs:simpleType&gt;
+                    &lt;xs:restriction base="xs:string"&gt;
+                        &lt;xs:enumeration value="MANAGER"/&gt;
+                        &lt;xs:enumeration value="EMPLOYEE"/&gt;
+                    &lt;/xs:restriction&gt;
+                &lt;/xs:simpleType&gt;
+            &lt;/xs:element&gt;
+        &lt;/xs:all&gt;
+    &lt;/xs:complexType&gt;
+
+    &lt;xs:complexType name="national_id_numbers"&gt;
+        &lt;xs:sequence&gt;
+            &lt;xs:element name="national_id_number" type="national_id" minOccurs="0" maxOccurs="unbounded"/&gt;
+        &lt;/xs:sequence&gt;
+    &lt;/xs:complexType&gt;
+
+    &lt;xs:complexType name="national_id"&gt;
+        &lt;xs:all&gt;
+            &lt;xs:element name="type" type="national_id_type"/&gt;
+            &lt;xs:element name="value" minOccurs="0"&gt;
+                &lt;xs:simpleType&gt;
+                    &lt;xs:restriction base="xs:string"&gt;
+                        &lt;xs:maxLength value="25"/&gt;
+                    &lt;/xs:restriction&gt;
+                &lt;/xs:simpleType&gt;
+            &lt;/xs:element&gt;
+            &lt;xs:element name="primary" type="xs:boolean" minOccurs="0" default="false"/&gt;
+        &lt;/xs:all&gt;
+    &lt;/xs:complexType&gt;
+
+
+    &lt;xs:simpleType name="national_id_type"&gt;
+        &lt;xs:restriction base="xs:string"&gt;
+            &lt;xs:enumeration value="SSN"/&gt;
+            &lt;xs:enumeration value="BSN"/&gt;
+            &lt;xs:enumeration value="SIN"/&gt;
+            &lt;xs:enumeration value="NIN"/&gt;
+            &lt;xs:enumeration value="TFN"/&gt;
+            &lt;xs:enumeration value="NSS"/&gt;
+            &lt;xs:enumeration value="OTHER_1"/&gt;
+            &lt;xs:enumeration value="OTHER_2"/&gt;
+            &lt;xs:enumeration value="OTHER_3"/&gt;
+            &lt;xs:enumeration value="OTHER_4"/&gt;
+            &lt;xs:enumeration value="OTHER_5"/&gt;
+            &lt;xs:enumeration value="OTHER_6"/&gt;
+            &lt;xs:enumeration value="OTHER_7"/&gt;
+            &lt;xs:enumeration value="OTHER_8"/&gt;
+            &lt;xs:enumeration value="OTHER_9"/&gt;
+            &lt;xs:enumeration value="OTHER_10"/&gt;
+            &lt;xs:enumeration value="NO_ID_NEEDED"/&gt;
+        &lt;/xs:restriction&gt;
+    &lt;/xs:simpleType&gt;
+
+    &lt;xs:complexType name="resource_links"&gt;
+        &lt;xs:all&gt;
+            &lt;xs:element type="xs:string" name="self" minOccurs="1" maxOccurs="1"/&gt;
+            &lt;xs:element type="xs:string" name="demographics" minOccurs="0" maxOccurs="1"/&gt;
+            &lt;xs:element type="xs:string" name="pay-info" minOccurs="0" maxOccurs="1"/&gt;
+            &lt;xs:element type="xs:string" name="badges" minOccurs="0" maxOccurs="1"/&gt;
+            &lt;xs:element type="xs:string" name="profiles" minOccurs="0" maxOccurs="1"/&gt;
+            &lt;xs:element type="xs:string" name="hcm-profiles" minOccurs="0" maxOccurs="1"/&gt;
+            &lt;xs:element type="xs:string" name="hcm-fields" minOccurs="0" maxOccurs="1"/&gt;
+        &lt;/xs:all&gt;
+    &lt;/xs:complexType&gt;
+&lt;/xs:schema&gt;</div>
+</div>
+</div>
+</div>
+</div>
+</article>
+</section>
+<section class="clearfix">
+<article class="definition">
+<h3 class="anchored" id="patch"><span>PATCH</span>
+<a class="fa fa-link link-anchor" data-url="r=__v2__companies__(cid)__employees__(aid)#patch" data-web-id="__v2__companies__(cid)__employees__(aid)"></a>
+</h3>
+<div class="md"><p>Applies partial updates to an employee resource using JSON Patch.
+
+The Employee operations use a separate security profile item to control access rights, located in the company security profile at:
+ 1. `Modules -&gt; REST API Resources -&gt; Employees -&gt; Edit`.
+ 2. `Modules -&gt; REST API Resources -&gt; Employees -&gt; ESS Edit`.
+
+&lt;b&gt;Only the 'REST API RESOURCES' security profile items, in combination with 'manager permissions', are considered by this REST API resource.&lt;/b&gt;
+The PATCH request works by retrieving the &lt;b&gt;current employee state&lt;/b&gt; using a GET request.
+It then applies the operations provided in the PATCH request &lt;b&gt;on top of the current employee state&lt;/b&gt;,
+and then sends the updated data via a PUT request. Refer to the Employee V2 GET and PUT requests to determine which fields can be modified.
+&lt;b&gt;Ignored Fields in PATCH Requests&lt;/b&gt;
+  &lt;b&gt;- For ESS Requests:&lt;/b&gt; The following fields will be ignored:
+        - `external_ID`
+        - `nickname`
+        - `force_change_password`
+        - `locked`
+        - `status`
+        - `add_to_new_hire_export`
+        - `terminated`
+        - `retired`
+        - `deceased`
+        - `in_touch`
+  &lt;b&gt;- For Other PATCH Requests:&lt;/b&gt; The following fields will be ignored:
+        - `id`
+        - `status`
+        - `terminated`
+        - `links`
+        - `EIN`
+        - `external_ID`
+  Additionally, the national_id_numbers field will be ignored if the &lt;b&gt;current employee state&lt;/b&gt; contains any of the following fields:
+        - `bsn`
+        - `social_insurance`
+        - `social_security`
+        - `national_insurance`
+&lt;b&gt;Backward Compatible Fields&lt;/b&gt;
+The following fields are left for backward compatibility and the system will use old process rules if they are added to the request:
+        - `bsn`
+        - `social_insurance`
+        - `social_security`
+        - `national_insurance`
+&lt;b&gt;Note&lt;/b&gt;:  'national_id_numbers' will be ignored if request contains any of 'bsn', 'social_insurance', 'social_security' and 'national_insurance' fields.
+
+For profiles where Custom view is enabled, Edit permission is disabled by default.
+
+&lt;b&gt;Example Request:&lt;/b&gt;
+To replace/add/remove attributes in the request body, consider the following example:
+
+**Existing Employee Data:**
+```json
+{
+  "nickname": "nickname",
+  "salutation": "Mr",
+  "address": {
+    "country": "IND"
+  },
+  "account_extra_fields": [
+    {
+      "index": 3,
+      "values": [
+        {
+          "value": "East"
+        }
+      ]
+    },
+    {
+      "index": 4,
+      "values": [
+        {
+          "value": "Employee"
+        }
+      ]
+    }
+  ]
+}
+```
+
+**PATCH Request Body:**
+```json
+[
+  { "op": "replace", "path": "/nickname", "value": "NewNickname" },
+  { "op": "add", "path": "/primary_email", "value": "abc@ukg.com" },
+  { "op": "replace", "path": "/address/country", "value": "USA" },
+  { "op": "remove", "path": "/salutation" },
+  { "op": "add", "path": "/managers", "value": [] },
+  { "op": "add", "path": "/managers/0", "value": { "index": 0, "empl_ref": {} } },
+  { "op": "add", "path": "/managers/0/empl_ref/account_id", "value": 4341264964 },
+  { "op": "replace", "path": "/managers/0/empl_ref/account_id", "value": 4341264962 },
+  { "op": "add", "path": "/account_extra_fields/-", "value": {"index": 0, "values":[ {"value": "Safty" } ] } },
+  { "op": "replace", "path": "/account_extra_fields/0/values/0/value", "value": "East" },
+  { "op": "remove", "path": "/account_extra_fields/1" }
+]
+```
+
+**Updated Employee Data:**
+```json
+{
+  "nickname": "NewNickname",
+  "primary_email": "abc@ukg.com",
+  "address": {
+    "country": "USA"
+  },
+  "managers": [
+    {
+      "index": 0,
+      "empl_ref": {
+        "account_id": 4341264962
+      }
+    }
+  ],
+  "account_extra_fields": [
+    {
+      "index": 0,
+      "values": [
+        {
+          "value": "Safty"
+        }
+      ]
+    },
+    {
+      "index": 3,
+      "values": [
+        {
+          "value": "West"
+        }
+      ]
+    }
+  ]
+}
+```
+</p></div>
+<div>
+<ul class="annotation-list">
+<li class="annotation">
+<span>v2</span>
+</li>
+</ul>
+</div>
+<h4>Parameters</h4>
+<h5>Path Parameters</h5>
+<ul class="param-list">
+<li>
+<div class="param-desc">
+<div class="param-name">cid</div>
+<div class="data-type">string</div>
+<div class="required">required</div>
+</div>
+<div class="param-content">
+<div>
+<p>Example: 123456</p>
+<div class="desc md">Company should be referenced via company id or company unique id or company short name using `|short_name` or `!short_name` format.
+</div>
+</div>
+</div>
+
+</li>
+<li>
+<div class="param-desc">
+<div class="param-name">aid</div>
+<div class="data-type">string</div>
+<div class="required">required</div>
+</div>
+<div class="param-content">
+<div>
+<p>Example: 1234567</p>
+<div class="desc md">Account should be referenced via account id or account external id using `|external_id` or `!external_id` format.
+</div>
+</div>
+</div>
+
+</li>
+</ul>
+<h5>Header Parameters</h5>
+<ul class="param-list">
+<li>
+<div class="param-desc">
+<div class="param-name">Content-Type</div>
+<div class="data-type">string</div>
+<div class="required">required</div>
+</div>
+<div class="param-content">
+<div>
+<p>Valid values: application/json-patch+json</p>
+<p>Example: application/json-patch+json</p>
+</div>
+</div>
+
+</li>
+</ul>
+<h4>Responses</h4>
+<div class="responses">
+<div>
+<label class="response response-success">
+<span class="fa fa-check"></span>
+<input data-full-tab-id="patch-resp-code-tab-id-0" data-tab-class="resp-code-tab-patch" name="resp-code-tab-patch" type="radio"/>
+<span class="status">204 No Content</span>
+</label>
+<div class="response-desc resp-code-tab-patch" id="patch-resp-code-tab-id-0">
+<div class="md"><p>Employee successfully changed.
+</p></div>
+</div>
+</div>
+<div>
+<label class="response response-error">
+<span class="fa fa-times"></span>
+<input data-full-tab-id="patch-resp-code-tab-id-1" data-tab-class="resp-code-tab-patch" name="resp-code-tab-patch" type="radio"/>
+<span class="status">400 Bad Request</span>
+</label>
+<div class="response-desc resp-code-tab-patch" id="patch-resp-code-tab-id-1">
+<div class="md"><p>In case any error occurs during validation.
+</p></div>
+</div>
+</div>
+<div>
+<label class="response response-error">
+<span class="fa fa-times"></span>
+<input data-full-tab-id="patch-resp-code-tab-id-2" data-tab-class="resp-code-tab-patch" name="resp-code-tab-patch" type="radio"/>
+<span class="status">401 Unauthorized</span>
+</label>
+<div class="response-desc resp-code-tab-patch" id="patch-resp-code-tab-id-2">
+<div class="md"><p>Returned in case user is not authorized.
+Note: PATCH request returns Unauthorized when custom view is checked in the security profiles.
+</p></div>
+</div>
+</div>
+<div>
+<label class="response response-error">
+<span class="fa fa-times"></span>
+<input data-full-tab-id="patch-resp-code-tab-id-3" data-tab-class="resp-code-tab-patch" name="resp-code-tab-patch" type="radio"/>
+<span class="status">403 Forbidden</span>
+</label>
+<div class="response-desc resp-code-tab-patch" id="patch-resp-code-tab-id-3">
+<div class="md"><p>In case of any security issues.
+</p></div>
+</div>
+</div>
+<div>
+<label class="response response-error">
+<span class="fa fa-times"></span>
+<input data-full-tab-id="patch-resp-code-tab-id-4" data-tab-class="resp-code-tab-patch" name="resp-code-tab-patch" type="radio"/>
+<span class="status">404 Not Found</span>
+</label>
+<div class="response-desc resp-code-tab-patch" id="patch-resp-code-tab-id-4">
+<div class="md"><p>If company or employee is not found.</p></div>
+</div>
+</div>
+<div>
+<label class="response response-error">
+<span class="fa fa-times"></span>
+<input data-full-tab-id="patch-resp-code-tab-id-5" data-tab-class="resp-code-tab-patch" name="resp-code-tab-patch" type="radio"/>
+<span class="status">415 Unsupported Media Type</span>
+</label>
+<div class="response-desc resp-code-tab-patch" id="patch-resp-code-tab-id-5">
+<div class="md"><p>In case of unsupported media type. The request body must be in JSON Patch format.
+</p></div>
+</div>
+</div>
+<div>
+<label class="response response-error">
+<span class="fa fa-times"></span>
+<input data-full-tab-id="patch-resp-code-tab-id-6" data-tab-class="resp-code-tab-patch" name="resp-code-tab-patch" type="radio"/>
+<span class="status">503 Service Unavailable</span>
+</label>
+<div class="response-desc resp-code-tab-patch" id="patch-resp-code-tab-id-6">
+<div class="md"><p>Returned in the event that the call limit is exceeded. The application will be unavailable for subsequent calls for the duration specified by the X-CallLimit-TimeToWait header.</p></div>
+</div>
+</div>
+</div>
+</article>
+<article class="code">
+<h4>Definition</h4>
+<div class="uri">
+<code>
+<span class="method patch">patch</span>
+<span class="textUri"><span class="baseUri">{{ getUriPrefix() }}</span><span class="relativeUri">/v2/companies/{cid}/employees/{aid}</span></span>
+</code>
+</div>
+<h4>Request Samples</h4>
+<div class="tab-title-group">
+<label>
+<input checked="checked" data-full-tab-id="req-tab-id-patch-0" data-tab-class="req-tab-patch" name="req-tab-patch" type="radio"/>
+<span class="tab-title">application/json-patch+json</span>
+</label>
+</div>
+<div>
+<div class="req-tab-patch" id="req-tab-id-patch-0">
+<div class="example">
+
+<div class="patch-example-tab-0 activeTab" id="patch-tab-example-0">
+
+<pre class="highlightjs">[
+  {
+    "op": "replace",
+    "path": "/last_name",
+    "value": "Newname"
+  },
+  {
+    "op": "add",
+    "path": "/address/country",
+    "value": "USA"
+  },
+  {
+    "op": "remove",
+    "path": "/salutation"
+  },
+  {
+    "op": "add",
+    "path": "/managers",
+    "value": []
+  },
+  {
+    "op": "add",
+    "path": "/managers/0",
+    "value": {
+      "index": 0,
+      "empl_ref": {}
+    }
+  },
+  {
+    "op": "add",
+    "path": "/managers/0/empl_ref/account_id",
+    "value": 4341264964
+  },
+  {
+    "op": "replace",
+    "path": "/managers/0/empl_ref/account_id",
+    "value": 4341264962
+  },
+  {
+    "op": "add",
+    "path": "/account_extra_fields/-",
+    "value": {
+      "index": 0,
+      "values": [
+        {
+          "value": "Safty"
+        }
+      ]
+    }
+  },
+  {
+    "op": "replace",
+    "path": "/account_extra_fields/0/values/0/value",
+    "value": "East"
+  },
+  {
+    "op": "remove",
+    "path": "/account_extra_fields/1"
+  }
+]</pre>
+</div>
+<div class="patch-example-tab-0" id="patch-tab-schema-0">
+
+<div class="jsonschema" id="schema-4">{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "type": "array",
+  "items": {
+    "type": "object",
+    "properties": {
+      "op": {
+        "type": "string",
+        "enum": [
+          "add",
+          "remove",
+          "replace"
+        ],
+        "description": "The operation to be performed."
+      },
+      "path": {
+        "type": "string",
+        "description": "A JSON Pointer path that specifies the target location within the document."
+      },
+      "value": {
+        "type": [
+          "string",
+          "number",
+          "boolean",
+          "object",
+          "array",
+          "null"
+        ],
+        "description": "The value to be used within the operations. Required for 'add', 'replace' and 'remove' andoperations."
+      }
+    },
+    "required": [
+      "op",
+      "path"
+    ],
+    "additionalProperties": false
+  }
+}</div>
+</div>
+</div>
+</div>
+</div>
+</article>
+</section>
+<section class="clearfix">
+<article class="definition">
+<h3 class="anchored" id="delete"><span>DELETE</span>
+<a class="fa fa-link link-anchor" data-url="r=__v2__companies__(cid)__employees__(aid)#delete" data-web-id="__v2__companies__(cid)__employees__(aid)"></a>
+</h3>
+<div class="md"><p>Deletes an employee.
+Employees can only be deleted by their managers (a user with rights to the employee). An employee who is their own manager cannot delete their own account.
+The ability to delete an employee also depends on the Pay Statement status. If the Pay Statement is 'Open', 'Closed', or 'Finalized', deletion is restricted.
+
+This operation uses the Integration REST API security model:
+  1. `Modules -&gt; REST API Resources -&gt; Employees -&gt; Edit`.
+
+&lt;b&gt;Only the 'REST API RESOURCES' security profile items, in combination with 'manager permissions', are considered by this REST API resource.&lt;/b&gt;
+
+responses:
+  204:
+    description: Employee was successfully deleted.
+  400:
+    description: |
+      In case any error occurs during validation.
+  403:
+    description: |
+      In case of any security issues
+  500:
+    description: |
+      Internal server error
+</p></div>
+<div>
+<ul class="annotation-list">
+<li class="annotation">
+<span>v2</span>
+</li>
+</ul>
+</div>
+<h4>Parameters</h4>
+<h5>Path Parameters</h5>
+<ul class="param-list">
+<li>
+<div class="param-desc">
+<div class="param-name">cid</div>
+<div class="data-type">string</div>
+<div class="required">required</div>
+</div>
+<div class="param-content">
+<div>
+<p>Example: 123456</p>
+<div class="desc md">Company should be referenced via company id or company unique id or company short name using `|short_name` or `!short_name` format.
+</div>
+</div>
+</div>
+
+</li>
+<li>
+<div class="param-desc">
+<div class="param-name">aid</div>
+<div class="data-type">string</div>
+<div class="required">required</div>
+</div>
+<div class="param-content">
+<div>
+<p>Example: 1234567</p>
+<div class="desc md">Account should be referenced via account id or account external id using `|external_id` or `!external_id` format.
+</div>
+</div>
+</div>
+
+</li>
+</ul>
+<h4>Responses</h4>
+<div class="responses">
+<div>
+<label class="response response-success">
+<span class="fa fa-check"></span>
+<input data-full-tab-id="delete-resp-code-tab-id-0" data-tab-class="resp-code-tab-delete" name="resp-code-tab-delete" type="radio"/>
+<span class="status">204 No Content</span>
+</label>
+<div class="response-desc resp-code-tab-delete" id="delete-resp-code-tab-id-0">
+</div>
+</div>
+<div>
+<label class="response response-error">
+<span class="fa fa-times"></span>
+<input data-full-tab-id="delete-resp-code-tab-id-1" data-tab-class="resp-code-tab-delete" name="resp-code-tab-delete" type="radio"/>
+<span class="status">401 Unauthorized</span>
+</label>
+<div class="response-desc resp-code-tab-delete" id="delete-resp-code-tab-id-1">
+<div class="md"><p>Returned in case user is not authorized.</p></div>
+</div>
+</div>
+<div>
+<label class="response response-error">
+<span class="fa fa-times"></span>
+<input data-full-tab-id="delete-resp-code-tab-id-2" data-tab-class="resp-code-tab-delete" name="resp-code-tab-delete" type="radio"/>
+<span class="status">403 Forbidden</span>
+</label>
+<div class="response-desc resp-code-tab-delete" id="delete-resp-code-tab-id-2">
+<div class="md"><p>Returned in case user has no access to the resource.</p></div>
+</div>
+</div>
+<div>
+<label class="response response-error">
+<span class="fa fa-times"></span>
+<input data-full-tab-id="delete-resp-code-tab-id-3" data-tab-class="resp-code-tab-delete" name="resp-code-tab-delete" type="radio"/>
+<span class="status">404 Not Found</span>
+</label>
+<div class="response-desc resp-code-tab-delete" id="delete-resp-code-tab-id-3">
+<div class="md"><p>Returned in case resource does not exist.</p></div>
+</div>
+</div>
+<div>
+<label class="response response-error">
+<span class="fa fa-times"></span>
+<input data-full-tab-id="delete-resp-code-tab-id-4" data-tab-class="resp-code-tab-delete" name="resp-code-tab-delete" type="radio"/>
+<span class="status">503 Service Unavailable</span>
+</label>
+<div class="response-desc resp-code-tab-delete" id="delete-resp-code-tab-id-4">
+<div class="md"><p>Returned in the event that the call limit is exceeded. The application will be unavailable for subsequent calls for the duration specified by the X-CallLimit-TimeToWait header.</p></div>
+</div>
+</div>
+</div>
+</article>
+<article class="code">
+<h4>Definition</h4>
+<div class="uri">
+<code>
+<span class="method delete">delete</span>
+<span class="textUri"><span class="baseUri">{{ getUriPrefix() }}</span><span class="relativeUri">/v2/companies/{cid}/employees/{aid}</span></span>
+</code>
+</div>
+</article>
+</section>
+</div>
+</body></html>

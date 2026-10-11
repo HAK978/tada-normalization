@@ -1,0 +1,1624 @@
+<!doctype html>
+<html><head><meta charset="utf-8"><title>Rate Table</title><style>body{font:16px system-ui;max-width:1100px;margin:2rem auto;padding:0 1rem;line-height:1.5}aside{background:#fff3cc;padding:1rem}.jsonschema,pre{white-space:pre-wrap;font:13px monospace;overflow-wrap:anywhere;background:#f4f5f7;padding:1rem}.uri{font-family:monospace}h2,h3{margin-top:2rem}</style></head><body><aside><strong>Modified private reference — 2026-10-09.</strong> Provider-documented illustrative examples are included; authentication token examples are redacted. These are not customer exports or guaranteed production behavior. Candidate sharing is pending. This is not OpenAPI.</aside>
+<div class="group">
+<h2 class="anchored" id="item.anchor">
+<span>Rate Table</span>
+<a class="fa fa-link link-anchor" data-url="r=__v2__companies__(cid)__rates__tables__(tid)#" data-web-id="__v2__companies__(cid)__rates__tables__(tid)"></a>
+</h2>
+<section class="clearfix">
+<article class="definition">
+<h3 class="anchored" id="get"><span>GET</span>
+<a class="fa fa-link link-anchor" data-url="r=__v2__companies__(cid)__rates__tables__(tid)#get" data-web-id="__v2__companies__(cid)__rates__tables__(tid)"></a>
+</h3>
+<div class="md"><p>Endpoint for fetching rate table details by its id. Rates functionality must be enabled in company.</p></div>
+<div>
+<ul class="annotation-list">
+<li class="annotation">
+<span>v2</span>
+</li>
+</ul>
+</div>
+<h4>Parameters</h4>
+<h5>Path Parameters</h5>
+<ul class="param-list">
+<li>
+<div class="param-desc">
+<div class="param-name">cid</div>
+<div class="data-type">string</div>
+<div class="required">required</div>
+</div>
+<div class="param-content">
+<div>
+<p>Example: 123456</p>
+<div class="desc md">Company should be referenced via company id or company unique id or company short name using `|short_name` or `!short_name` format.
+</div>
+</div>
+</div>
+
+</li>
+<li>
+<div class="param-desc">
+<div class="param-name">tid</div>
+<div class="data-type">integer</div>
+<div class="required">required</div>
+</div>
+<div class="param-content">
+<div>
+<div class="desc md">Rate Table id.</div>
+</div>
+</div>
+
+</li>
+</ul>
+<h5>Header Parameters</h5>
+<ul class="param-list">
+<li>
+<div class="param-desc">
+<div class="param-name">Accept</div>
+<div class="data-type">string</div>
+</div>
+<div class="param-content">
+<div>
+<p>Valid values: application/json, application/xml, text/xml</p>
+<p>Default: application/json</p>
+<p>Example: application/json</p>
+</div>
+</div>
+
+</li>
+</ul>
+<h4>Responses</h4>
+<div class="responses">
+<div>
+<label class="response response-success">
+<span class="fa fa-check"></span>
+<input data-full-tab-id="get-resp-code-tab-id-0" data-tab-class="resp-code-tab-get" name="resp-code-tab-get" type="radio"/>
+<span class="status">200 Ok</span>
+</label>
+<div class="response-desc resp-code-tab-get" id="get-resp-code-tab-id-0">
+</div>
+</div>
+<div>
+<label class="response response-error">
+<span class="fa fa-times"></span>
+<input data-full-tab-id="get-resp-code-tab-id-1" data-tab-class="resp-code-tab-get" name="resp-code-tab-get" type="radio"/>
+<span class="status">401 Unauthorized</span>
+</label>
+<div class="response-desc resp-code-tab-get" id="get-resp-code-tab-id-1">
+<div class="md"><p>Returned in case user is not authorized.</p></div>
+</div>
+</div>
+<div>
+<label class="response response-error">
+<span class="fa fa-times"></span>
+<input data-full-tab-id="get-resp-code-tab-id-2" data-tab-class="resp-code-tab-get" name="resp-code-tab-get" type="radio"/>
+<span class="status">403 Forbidden</span>
+</label>
+<div class="response-desc resp-code-tab-get" id="get-resp-code-tab-id-2">
+<div class="md"><p>Returned in case user has no access to the resource.</p></div>
+</div>
+</div>
+<div>
+<label class="response response-error">
+<span class="fa fa-times"></span>
+<input data-full-tab-id="get-resp-code-tab-id-3" data-tab-class="resp-code-tab-get" name="resp-code-tab-get" type="radio"/>
+<span class="status">404 Not Found</span>
+</label>
+<div class="response-desc resp-code-tab-get" id="get-resp-code-tab-id-3">
+<div class="md"><p>Returned in case resource does not exist.</p></div>
+</div>
+</div>
+<div>
+<label class="response response-error">
+<span class="fa fa-times"></span>
+<input data-full-tab-id="get-resp-code-tab-id-4" data-tab-class="resp-code-tab-get" name="resp-code-tab-get" type="radio"/>
+<span class="status">503 Service Unavailable</span>
+</label>
+<div class="response-desc resp-code-tab-get" id="get-resp-code-tab-id-4">
+<div class="md"><p>Returned in the event that the call limit is exceeded. The application will be unavailable for subsequent calls for the duration specified by the X-CallLimit-TimeToWait header.</p></div>
+</div>
+</div>
+</div>
+</article>
+<article class="code">
+<h4>Definition</h4>
+<div class="uri">
+<code>
+<span class="method get">get</span>
+<span class="textUri"><span class="baseUri">{{ getUriPrefix() }}</span><span class="relativeUri">/v2/companies/{cid}/rates/tables/{tid}</span></span>
+</code>
+</div>
+<h4>Response Samples</h4>
+<div class="tab-title-group">
+<label>
+<input checked="checked" data-full-tab-id="resp-tab-id-get-0" data-tab-class="resp-tab-get" name="resp-tab-get" type="radio"/>
+<span class="tab-title">application/json</span>
+</label>
+<label>
+<input data-full-tab-id="resp-tab-id-get-1" data-tab-class="resp-tab-get" name="resp-tab-get" type="radio"/>
+<span class="tab-title">application/xml</span>
+</label>
+<label>
+<input data-full-tab-id="resp-tab-id-get-2" data-tab-class="resp-tab-get" name="resp-tab-get" type="radio"/>
+<span class="tab-title">text/xml</span>
+</label>
+</div>
+<div>
+<div class="resp-tab-get" id="resp-tab-id-get-0">
+<div class="example">
+
+<div class="get-example-resp-tab-0 activeTab" id="get-tab-resp-example-0">
+
+<pre class="highlightjs">{
+  "id": 419392,
+  "name": "Personal",
+  "label": "Rate Table 1",
+  "description": "Rate 1 Personal Table",
+  "name_description_read_only": true,
+  "is_simple": true,
+  "auto_create_cost_center_lists": true,
+  "include_cc_from_ext_rules": false,
+  "include_sub_tree_type": "NEVER",
+  "currency": "USD",
+  "owner": {
+    "account_id": 2193922,
+    "display_name": "Steve Jobs",
+    "abbr": "SJ",
+    "ein": {
+      "id": 904449,
+      "display_name": "Company EIN_1"
+    },
+    "employee_id": "sjobs"
+  },
+  "ext_table": {
+    "id": 419328,
+    "display_name": "rate1"
+  },
+  "ext_table_read_only": false,
+  "alt_tables": [
+    {
+      "op": "MULT",
+      "read_only": false
+    },
+    {
+      "table": {
+        "id": 419328,
+        "display_name": "rate1"
+      },
+      "read_only": false
+    },
+    {
+      "op": "ALT",
+      "read_only": false
+    }
+  ],
+  "_links": {
+    "self": "http://example.com/ta/rest/v2/companies/3560/rates/tables/419392",
+    "edit": "http://example.com/ta/rest/v2/companies/3560/rates/tables/419392",
+    "reapply_rates": "http://example.com/ta/rest/v2/companies/3560/rates/tables/419392/actions/reapply-rates",
+    "download": "http://example.com/ta/fs?ticket=[REDACTED_DOCUMENTATION_TOKEN]"
+  }
+}</pre>
+</div>
+<div class="get-example-resp-tab-0" id="get-tab-resp-schema-0">
+
+<div class="jsonschema" id="schema-0">{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "type": "object",
+  "required": [
+    "id",
+    "name",
+    "_links"
+  ],
+  "additionalProperties": false,
+  "properties": {
+    "id": {
+      "type": "integer"
+    },
+    "name": {
+      "type": "string"
+    },
+    "label": {
+      "type": "string"
+    },
+    "description": {
+      "type": "string"
+    },
+    "name_description_read_only": {
+      "type": "boolean"
+    },
+    "is_simple": {
+      "type": "boolean"
+    },
+    "auto_create_cost_center_lists": {
+      "type": "boolean"
+    },
+    "include_cc_from_ext_rules": {
+      "type": "boolean"
+    },
+    "include_sub_tree_type": {
+      "type": "string",
+      "enum": [
+        "NEVER",
+        "ONLY_IF_CHECKED",
+        "ALWAYS"
+      ]
+    },
+    "currency": {
+      "type": "string",
+      "enum": [
+        "USD",
+        "GBP",
+        "EUR",
+        "CAD",
+        "AUD",
+        "NZD",
+        "MXN",
+        "CNY",
+        "SEK",
+        "BRL",
+        "INR",
+        "SGD",
+        "HKD",
+        "CHF",
+        "CRC",
+        "UAH",
+        "MOP",
+        "DKK",
+        "XXX"
+      ]
+    },
+    "owner": {
+      "type": "object",
+      "required": [
+        "account_id",
+        "display_name",
+        "employee_id"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "account_id": {
+          "type": "number",
+          "format": "long"
+        },
+        "display_name": {
+          "type": "string"
+        },
+        "abbr": {
+          "type": "string"
+        },
+        "ein": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "id",
+            "display_name"
+          ],
+          "properties": {
+            "id": {
+              "type": "integer"
+            },
+            "display_name": {
+              "type": "string"
+            }
+          }
+        },
+        "employee_id": {
+          "type": "string"
+        },
+        "currency": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "id": {
+              "type": "integer"
+            },
+            "code": {
+              "type": "string"
+            },
+            "symbol": {
+              "type": "string"
+            }
+          }
+        }
+      }
+    },
+    "ext_table": {
+      "type": "object",
+      "required": [
+        "id",
+        "display_name"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "id": {
+          "type": "integer"
+        },
+        "display_name": {
+          "type": "string"
+        }
+      }
+    },
+    "ext_table_read_only": {
+      "type": "boolean"
+    },
+    "alt_tables": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "table": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "id",
+              "display_name"
+            ],
+            "properties": {
+              "id": {
+                "type": "integer"
+              },
+              "display_name": {
+                "type": "string"
+              }
+            }
+          },
+          "op": {
+            "type": "string"
+          },
+          "read_only": {
+            "type": "boolean"
+          }
+        }
+      }
+    },
+    "_links": {
+      "type": "object",
+      "properties": {
+        "self": {
+          "type": "string"
+        },
+        "edit": {
+          "type": "string"
+        },
+        "reapply-rates": {
+          "type": "string"
+        },
+        "download": {
+          "type": "string"
+        }
+      }
+    }
+  }
+}</div>
+</div>
+</div>
+</div>
+<div class="resp-tab-get" id="resp-tab-id-get-1">
+<div class="example">
+
+<div class="get-example-resp-tab-1 activeTab" id="get-tab-resp-example-1">
+
+<pre class="highlightjs">&lt;?xml version="1.0" encoding="UTF-8" ?&gt;
+&lt;rate_table&gt;
+  &lt;id&gt;5816320&lt;/id&gt;
+  &lt;name&gt;Personal&lt;/name&gt;
+  &lt;label&gt;Rate Table 1&lt;/label&gt;
+  &lt;description&gt;Rate 1 Personal Table&lt;/description&gt;
+  &lt;name_description_read_only&gt;true&lt;/name_description_read_only&gt;
+  &lt;is_simple&gt;false&lt;/is_simple&gt;
+  &lt;auto_create_cost_center_lists&gt;true&lt;/auto_create_cost_center_lists&gt;
+  &lt;include_cc_from_ext_rules&gt;false&lt;/include_cc_from_ext_rules&gt;
+  &lt;include_sub_tree_type&gt;NEVER&lt;/include_sub_tree_type&gt;
+  &lt;currency&gt;USD&lt;/currency&gt;
+  &lt;ext_table&gt;
+    &lt;id&gt;5636096&lt;/id&gt;
+    &lt;display_name&gt;Rate_Table_1&lt;/display_name&gt;
+  &lt;/ext_table&gt;
+  &lt;ext_table_read_only&gt;false&lt;/ext_table_read_only&gt;
+  &lt;alt_tables&gt;
+    &lt;alt_table&gt;
+      &lt;table&gt;
+        &lt;id&gt;5636096&lt;/id&gt;
+        &lt;display_name&gt;Rate_Table_1&lt;/display_name&gt;
+      &lt;/table&gt;
+      &lt;op&gt;ADD&lt;/op&gt;
+      &lt;read_only&gt;false&lt;/read_only&gt;
+    &lt;/alt_table&gt;
+    &lt;alt_table&gt;
+      &lt;table&gt;
+        &lt;id&gt;5636352&lt;/id&gt;
+        &lt;display_name&gt;Rate_Table_5&lt;/display_name&gt;
+      &lt;/table&gt;
+      &lt;op&gt;ADD&lt;/op&gt;
+      &lt;read_only&gt;false&lt;/read_only&gt;
+    &lt;/alt_table&gt;
+    &lt;alt_table&gt;
+      &lt;op&gt;&lt;/op&gt;
+      &lt;read_only&gt;false&lt;/read_only&gt;
+    &lt;/alt_table&gt;
+  &lt;/alt_tables&gt;
+  &lt;owner&gt;
+    &lt;account_id&gt;15172&lt;/account_id&gt;
+    &lt;display_name&gt;Lora Palmer&lt;/display_name&gt;
+    &lt;abbr&gt;LP&lt;/abbr&gt;
+    &lt;employee_id&gt;Lora&lt;/employee_id&gt;
+  &lt;/owner&gt;
+  &lt;_links&gt;
+    &lt;self&gt;http://example.com/ta/rest/v2/companies/3560/rates/tables/5816320&lt;/self&gt;
+    &lt;edit&gt;http://example.com/ta/rest/v2/companies/3560/rates/tables/5816320&lt;/edit&gt;
+    &lt;reapply_rates&gt;http://example.com/ta/rest/v2/companies/3560/rates/tables/5816320/actions/reapply-rates&lt;/reapply_rates&gt;
+    &lt;download&gt;http://example.com/ta/fs?ticket=[REDACTED_DOCUMENTATION_TOKEN]&lt;/download&gt;
+  &lt;/_links&gt;
+&lt;/rate_table&gt;</pre>
+</div>
+<div class="get-example-resp-tab-1" id="get-tab-resp-schema-1">
+
+<div class="jsonschema" id="schema-1">&lt;?xml version="1.0" encoding="UTF-8" ?&gt;
+&lt;xs:schema attributeFormDefault="unqualified" elementFormDefault="qualified"
+           xmlns:xs="http://www.w3.org/2001/XMLSchema"&gt;
+
+  &lt;xs:element name="rate_table"&gt;
+    &lt;xs:complexType&gt;
+      &lt;xs:sequence&gt;
+        &lt;xs:element name="id" type="xs:int"/&gt;
+        &lt;xs:element name="name" type="xs:string"/&gt;
+        &lt;xs:element name="label" type="xs:string" minOccurs="0"/&gt;
+        &lt;xs:element name="description" type="xs:string" minOccurs="0"/&gt;
+        &lt;xs:element name="name_description_read_only" type="xs:string" minOccurs="0"/&gt;
+        &lt;xs:element name="is_simple" type="xs:string" minOccurs="0"/&gt;
+        &lt;xs:element name="auto_create_cost_center_lists" type="xs:string" minOccurs="0"/&gt;
+        &lt;xs:element name="include_cc_from_ext_rules" type="xs:string" minOccurs="0"/&gt;
+        &lt;xs:element ref="include_sub_tree_type" minOccurs="0"/&gt;
+        &lt;xs:element ref="currency" minOccurs="0"/&gt;
+        &lt;xs:element ref="ext_table" minOccurs="0"/&gt;
+        &lt;xs:element name="ext_table_read_only" type="xs:string" minOccurs="0"/&gt;
+        &lt;xs:element ref="alt_tables" minOccurs="0"/&gt;
+        &lt;xs:element ref="owner" minOccurs="0"/&gt;
+        &lt;xs:element ref="_links" minOccurs="0"/&gt;
+      &lt;/xs:sequence&gt;
+    &lt;/xs:complexType&gt;
+  &lt;/xs:element&gt;
+
+  &lt;xs:element name="include_sub_tree_type"&gt;
+    &lt;xs:simpleType&gt;
+      &lt;xs:restriction base="xs:string"&gt;
+        &lt;xs:enumeration value="NEVER"/&gt;
+        &lt;xs:enumeration value="ONLY_IF_CHECKED"/&gt;
+        &lt;xs:enumeration value="ALWAYS"/&gt;
+      &lt;/xs:restriction&gt;
+    &lt;/xs:simpleType&gt;
+  &lt;/xs:element&gt;
+
+  &lt;xs:element name="currency"&gt;
+    &lt;xs:simpleType&gt;
+      &lt;xs:restriction base="xs:string"&gt;
+        &lt;xs:enumeration value="USD"/&gt;
+        &lt;xs:enumeration value="GBP"/&gt;
+        &lt;xs:enumeration value="EUR"/&gt;
+        &lt;xs:enumeration value="CAD"/&gt;
+        &lt;xs:enumeration value="AUD"/&gt;
+        &lt;xs:enumeration value="NZD"/&gt;
+        &lt;xs:enumeration value="MXN"/&gt;
+        &lt;xs:enumeration value="CNY"/&gt;
+        &lt;xs:enumeration value="SEK"/&gt;
+        &lt;xs:enumeration value="BRL"/&gt;
+        &lt;xs:enumeration value="INR"/&gt;
+        &lt;xs:enumeration value="SGD"/&gt;
+        &lt;xs:enumeration value="HKD"/&gt;
+        &lt;xs:enumeration value="CHF"/&gt;
+        &lt;xs:enumeration value="CRC"/&gt;
+        &lt;xs:enumeration value="UAH"/&gt;
+        &lt;xs:enumeration value="MOP"/&gt;
+        &lt;xs:enumeration value="DKK"/&gt;
+        &lt;xs:enumeration value="XXX"/&gt;
+      &lt;/xs:restriction&gt;
+    &lt;/xs:simpleType&gt;
+  &lt;/xs:element&gt;
+
+  &lt;xs:element name="ext_table"&gt;
+    &lt;xs:complexType&gt;
+      &lt;xs:sequence&gt;
+        &lt;xs:element name="id" type="xs:int"/&gt;
+        &lt;xs:element name="display_name" type="xs:string"/&gt;
+      &lt;/xs:sequence&gt;
+    &lt;/xs:complexType&gt;
+  &lt;/xs:element&gt;
+
+  &lt;xs:element name="alt_tables"&gt;
+    &lt;xs:complexType&gt;
+      &lt;xs:sequence&gt;
+        &lt;xs:element name="alt_table" maxOccurs="unbounded" minOccurs="0"&gt;
+          &lt;xs:complexType&gt;
+            &lt;xs:sequence&gt;
+              &lt;xs:element name="table" minOccurs="0"&gt;
+                &lt;xs:complexType&gt;
+                  &lt;xs:sequence&gt;
+                    &lt;xs:element name="id" type="xs:int"/&gt;
+                    &lt;xs:element name="display_name" type="xs:string"/&gt;
+                  &lt;/xs:sequence&gt;
+                &lt;/xs:complexType&gt;
+              &lt;/xs:element&gt;
+              &lt;xs:element name="op" type="xs:string"/&gt;
+              &lt;xs:element name="read_only" type="xs:string"/&gt;
+            &lt;/xs:sequence&gt;
+          &lt;/xs:complexType&gt;
+        &lt;/xs:element&gt;
+      &lt;/xs:sequence&gt;
+    &lt;/xs:complexType&gt;
+  &lt;/xs:element&gt;
+
+  &lt;xs:element name="owner"&gt;
+    &lt;xs:complexType&gt;
+      &lt;xs:sequence&gt;
+        &lt;xs:element name="account_id" type="xs:short"/&gt;
+        &lt;xs:element name="display_name" type="xs:string"/&gt;
+        &lt;xs:element name="abbr" type="xs:string"/&gt;
+        &lt;xs:element name="employee_id" type="xs:string"/&gt;
+      &lt;/xs:sequence&gt;
+    &lt;/xs:complexType&gt;
+  &lt;/xs:element&gt;
+
+  &lt;xs:element name="_links"&gt;
+    &lt;xs:complexType&gt;
+      &lt;xs:sequence&gt;
+        &lt;xs:element name="self" type="xs:anyURI"/&gt;
+        &lt;xs:element name="edit" type="xs:anyURI" minOccurs="0"/&gt;
+        &lt;xs:element name="reapply_rates" type="xs:anyURI" minOccurs="0"/&gt;
+        &lt;xs:element name="download" type="xs:anyURI" minOccurs="0"/&gt;
+      &lt;/xs:sequence&gt;
+    &lt;/xs:complexType&gt;
+  &lt;/xs:element&gt;
+
+&lt;/xs:schema&gt;</div>
+</div>
+</div>
+</div>
+<div class="resp-tab-get" id="resp-tab-id-get-2">
+<div class="example">
+
+<div class="get-example-resp-tab-2 activeTab" id="get-tab-resp-example-2">
+
+<pre class="highlightjs">&lt;?xml version="1.0" encoding="UTF-8" ?&gt;
+&lt;rate_table&gt;
+  &lt;id&gt;5816320&lt;/id&gt;
+  &lt;name&gt;Personal&lt;/name&gt;
+  &lt;label&gt;Rate Table 1&lt;/label&gt;
+  &lt;description&gt;Rate 1 Personal Table&lt;/description&gt;
+  &lt;name_description_read_only&gt;true&lt;/name_description_read_only&gt;
+  &lt;is_simple&gt;false&lt;/is_simple&gt;
+  &lt;auto_create_cost_center_lists&gt;true&lt;/auto_create_cost_center_lists&gt;
+  &lt;include_cc_from_ext_rules&gt;false&lt;/include_cc_from_ext_rules&gt;
+  &lt;include_sub_tree_type&gt;NEVER&lt;/include_sub_tree_type&gt;
+  &lt;currency&gt;USD&lt;/currency&gt;
+  &lt;ext_table&gt;
+    &lt;id&gt;5636096&lt;/id&gt;
+    &lt;display_name&gt;Rate_Table_1&lt;/display_name&gt;
+  &lt;/ext_table&gt;
+  &lt;ext_table_read_only&gt;false&lt;/ext_table_read_only&gt;
+  &lt;alt_tables&gt;
+    &lt;alt_table&gt;
+      &lt;table&gt;
+        &lt;id&gt;5636096&lt;/id&gt;
+        &lt;display_name&gt;Rate_Table_1&lt;/display_name&gt;
+      &lt;/table&gt;
+      &lt;op&gt;ADD&lt;/op&gt;
+      &lt;read_only&gt;false&lt;/read_only&gt;
+    &lt;/alt_table&gt;
+    &lt;alt_table&gt;
+      &lt;table&gt;
+        &lt;id&gt;5636352&lt;/id&gt;
+        &lt;display_name&gt;Rate_Table_5&lt;/display_name&gt;
+      &lt;/table&gt;
+      &lt;op&gt;ADD&lt;/op&gt;
+      &lt;read_only&gt;false&lt;/read_only&gt;
+    &lt;/alt_table&gt;
+    &lt;alt_table&gt;
+      &lt;op&gt;&lt;/op&gt;
+      &lt;read_only&gt;false&lt;/read_only&gt;
+    &lt;/alt_table&gt;
+  &lt;/alt_tables&gt;
+  &lt;owner&gt;
+    &lt;account_id&gt;15172&lt;/account_id&gt;
+    &lt;display_name&gt;Lora Palmer&lt;/display_name&gt;
+    &lt;abbr&gt;LP&lt;/abbr&gt;
+    &lt;employee_id&gt;Lora&lt;/employee_id&gt;
+  &lt;/owner&gt;
+  &lt;_links&gt;
+    &lt;self&gt;http://example.com/ta/rest/v2/companies/3560/rates/tables/5816320&lt;/self&gt;
+    &lt;edit&gt;http://example.com/ta/rest/v2/companies/3560/rates/tables/5816320&lt;/edit&gt;
+    &lt;reapply_rates&gt;http://example.com/ta/rest/v2/companies/3560/rates/tables/5816320/actions/reapply-rates&lt;/reapply_rates&gt;
+    &lt;download&gt;http://example.com/ta/fs?ticket=[REDACTED_DOCUMENTATION_TOKEN]&lt;/download&gt;
+  &lt;/_links&gt;
+&lt;/rate_table&gt;</pre>
+</div>
+<div class="get-example-resp-tab-2" id="get-tab-resp-schema-2">
+
+<div class="jsonschema" id="schema-2">&lt;?xml version="1.0" encoding="UTF-8" ?&gt;
+&lt;xs:schema attributeFormDefault="unqualified" elementFormDefault="qualified"
+           xmlns:xs="http://www.w3.org/2001/XMLSchema"&gt;
+
+  &lt;xs:element name="rate_table"&gt;
+    &lt;xs:complexType&gt;
+      &lt;xs:sequence&gt;
+        &lt;xs:element name="id" type="xs:int"/&gt;
+        &lt;xs:element name="name" type="xs:string"/&gt;
+        &lt;xs:element name="label" type="xs:string" minOccurs="0"/&gt;
+        &lt;xs:element name="description" type="xs:string" minOccurs="0"/&gt;
+        &lt;xs:element name="name_description_read_only" type="xs:string" minOccurs="0"/&gt;
+        &lt;xs:element name="is_simple" type="xs:string" minOccurs="0"/&gt;
+        &lt;xs:element name="auto_create_cost_center_lists" type="xs:string" minOccurs="0"/&gt;
+        &lt;xs:element name="include_cc_from_ext_rules" type="xs:string" minOccurs="0"/&gt;
+        &lt;xs:element ref="include_sub_tree_type" minOccurs="0"/&gt;
+        &lt;xs:element ref="currency" minOccurs="0"/&gt;
+        &lt;xs:element ref="ext_table" minOccurs="0"/&gt;
+        &lt;xs:element name="ext_table_read_only" type="xs:string" minOccurs="0"/&gt;
+        &lt;xs:element ref="alt_tables" minOccurs="0"/&gt;
+        &lt;xs:element ref="owner" minOccurs="0"/&gt;
+        &lt;xs:element ref="_links" minOccurs="0"/&gt;
+      &lt;/xs:sequence&gt;
+    &lt;/xs:complexType&gt;
+  &lt;/xs:element&gt;
+
+  &lt;xs:element name="include_sub_tree_type"&gt;
+    &lt;xs:simpleType&gt;
+      &lt;xs:restriction base="xs:string"&gt;
+        &lt;xs:enumeration value="NEVER"/&gt;
+        &lt;xs:enumeration value="ONLY_IF_CHECKED"/&gt;
+        &lt;xs:enumeration value="ALWAYS"/&gt;
+      &lt;/xs:restriction&gt;
+    &lt;/xs:simpleType&gt;
+  &lt;/xs:element&gt;
+
+  &lt;xs:element name="currency"&gt;
+    &lt;xs:simpleType&gt;
+      &lt;xs:restriction base="xs:string"&gt;
+        &lt;xs:enumeration value="USD"/&gt;
+        &lt;xs:enumeration value="GBP"/&gt;
+        &lt;xs:enumeration value="EUR"/&gt;
+        &lt;xs:enumeration value="CAD"/&gt;
+        &lt;xs:enumeration value="AUD"/&gt;
+        &lt;xs:enumeration value="NZD"/&gt;
+        &lt;xs:enumeration value="MXN"/&gt;
+        &lt;xs:enumeration value="CNY"/&gt;
+        &lt;xs:enumeration value="SEK"/&gt;
+        &lt;xs:enumeration value="BRL"/&gt;
+        &lt;xs:enumeration value="INR"/&gt;
+        &lt;xs:enumeration value="SGD"/&gt;
+        &lt;xs:enumeration value="HKD"/&gt;
+        &lt;xs:enumeration value="CHF"/&gt;
+        &lt;xs:enumeration value="CRC"/&gt;
+        &lt;xs:enumeration value="UAH"/&gt;
+        &lt;xs:enumeration value="MOP"/&gt;
+        &lt;xs:enumeration value="DKK"/&gt;
+        &lt;xs:enumeration value="XXX"/&gt;
+      &lt;/xs:restriction&gt;
+    &lt;/xs:simpleType&gt;
+  &lt;/xs:element&gt;
+
+  &lt;xs:element name="ext_table"&gt;
+    &lt;xs:complexType&gt;
+      &lt;xs:sequence&gt;
+        &lt;xs:element name="id" type="xs:int"/&gt;
+        &lt;xs:element name="display_name" type="xs:string"/&gt;
+      &lt;/xs:sequence&gt;
+    &lt;/xs:complexType&gt;
+  &lt;/xs:element&gt;
+
+  &lt;xs:element name="alt_tables"&gt;
+    &lt;xs:complexType&gt;
+      &lt;xs:sequence&gt;
+        &lt;xs:element name="alt_table" maxOccurs="unbounded" minOccurs="0"&gt;
+          &lt;xs:complexType&gt;
+            &lt;xs:sequence&gt;
+              &lt;xs:element name="table" minOccurs="0"&gt;
+                &lt;xs:complexType&gt;
+                  &lt;xs:sequence&gt;
+                    &lt;xs:element name="id" type="xs:int"/&gt;
+                    &lt;xs:element name="display_name" type="xs:string"/&gt;
+                  &lt;/xs:sequence&gt;
+                &lt;/xs:complexType&gt;
+              &lt;/xs:element&gt;
+              &lt;xs:element name="op" type="xs:string"/&gt;
+              &lt;xs:element name="read_only" type="xs:string"/&gt;
+            &lt;/xs:sequence&gt;
+          &lt;/xs:complexType&gt;
+        &lt;/xs:element&gt;
+      &lt;/xs:sequence&gt;
+    &lt;/xs:complexType&gt;
+  &lt;/xs:element&gt;
+
+  &lt;xs:element name="owner"&gt;
+    &lt;xs:complexType&gt;
+      &lt;xs:sequence&gt;
+        &lt;xs:element name="account_id" type="xs:short"/&gt;
+        &lt;xs:element name="display_name" type="xs:string"/&gt;
+        &lt;xs:element name="abbr" type="xs:string"/&gt;
+        &lt;xs:element name="employee_id" type="xs:string"/&gt;
+      &lt;/xs:sequence&gt;
+    &lt;/xs:complexType&gt;
+  &lt;/xs:element&gt;
+
+  &lt;xs:element name="_links"&gt;
+    &lt;xs:complexType&gt;
+      &lt;xs:sequence&gt;
+        &lt;xs:element name="self" type="xs:anyURI"/&gt;
+        &lt;xs:element name="edit" type="xs:anyURI" minOccurs="0"/&gt;
+        &lt;xs:element name="reapply_rates" type="xs:anyURI" minOccurs="0"/&gt;
+        &lt;xs:element name="download" type="xs:anyURI" minOccurs="0"/&gt;
+      &lt;/xs:sequence&gt;
+    &lt;/xs:complexType&gt;
+  &lt;/xs:element&gt;
+
+&lt;/xs:schema&gt;</div>
+</div>
+</div>
+</div>
+</div>
+</article>
+</section>
+<section class="clearfix">
+<article class="definition">
+<h3 class="anchored" id="put"><span>PUT</span>
+<a class="fa fa-link link-anchor" data-url="r=__v2__companies__(cid)__rates__tables__(tid)#put" data-web-id="__v2__companies__(cid)__rates__tables__(tid)"></a>
+</h3>
+<div class="md"><p>Endpoint for updating rate table. Rates functionality must be enabled in company.
+</p></div>
+<div>
+<ul class="annotation-list">
+<li class="annotation">
+<span>v2</span>
+</li>
+</ul>
+</div>
+<h4>Parameters</h4>
+<h5>Path Parameters</h5>
+<ul class="param-list">
+<li>
+<div class="param-desc">
+<div class="param-name">cid</div>
+<div class="data-type">string</div>
+<div class="required">required</div>
+</div>
+<div class="param-content">
+<div>
+<p>Example: 123456</p>
+<div class="desc md">Company should be referenced via company id or company unique id or company short name using `|short_name` or `!short_name` format.
+</div>
+</div>
+</div>
+
+</li>
+<li>
+<div class="param-desc">
+<div class="param-name">tid</div>
+<div class="data-type">integer</div>
+<div class="required">required</div>
+</div>
+<div class="param-content">
+<div>
+<div class="desc md">Rate Table id.</div>
+</div>
+</div>
+
+</li>
+</ul>
+<h5>Header Parameters</h5>
+<ul class="param-list">
+<li>
+<div class="param-desc">
+<div class="param-name">Accept</div>
+<div class="data-type">string</div>
+</div>
+<div class="param-content">
+<div>
+<p>Valid values: application/json, application/xml, text/xml</p>
+<p>Default: application/json</p>
+<p>Example: application/json</p>
+</div>
+</div>
+
+</li>
+<li>
+<div class="param-desc">
+<div class="param-name">Content-Type</div>
+<div class="data-type">string</div>
+<div class="required">required</div>
+</div>
+<div class="param-content">
+<div>
+<p>Valid values: application/xml, text/xml, application/json</p>
+<p>Example: application/json</p>
+</div>
+</div>
+
+</li>
+<li>
+<div class="param-desc">
+<div class="param-name">Content-Length</div>
+<div class="data-type">integer</div>
+<div class="required">required</div>
+</div>
+<div class="param-content">
+<div>
+</div>
+</div>
+
+</li>
+</ul>
+<h4>Responses</h4>
+<div class="responses">
+<div>
+<label class="response response-success">
+<span class="fa fa-check"></span>
+<input data-full-tab-id="put-resp-code-tab-id-0" data-tab-class="resp-code-tab-put" name="resp-code-tab-put" type="radio"/>
+<span class="status">200 Ok</span>
+</label>
+<div class="response-desc resp-code-tab-put" id="put-resp-code-tab-id-0">
+<div class="md"><p>Returned in case if Rate Table was successfully saved but warning message should be displayed to user.</p></div>
+</div>
+</div>
+<div>
+<label class="response response-success">
+<span class="fa fa-check"></span>
+<input data-full-tab-id="put-resp-code-tab-id-1" data-tab-class="resp-code-tab-put" name="resp-code-tab-put" type="radio"/>
+<span class="status">204 No Content</span>
+</label>
+<div class="response-desc resp-code-tab-put" id="put-resp-code-tab-id-1">
+<div class="md"><p>Returned in case if Rate Table was successfully updated.</p></div>
+</div>
+</div>
+<div>
+<label class="response response-error">
+<span class="fa fa-times"></span>
+<input data-full-tab-id="put-resp-code-tab-id-2" data-tab-class="resp-code-tab-put" name="resp-code-tab-put" type="radio"/>
+<span class="status">401 Unauthorized</span>
+</label>
+<div class="response-desc resp-code-tab-put" id="put-resp-code-tab-id-2">
+<div class="md"><p>Returned in case user is not authorized.</p></div>
+</div>
+</div>
+<div>
+<label class="response response-error">
+<span class="fa fa-times"></span>
+<input data-full-tab-id="put-resp-code-tab-id-3" data-tab-class="resp-code-tab-put" name="resp-code-tab-put" type="radio"/>
+<span class="status">403 Forbidden</span>
+</label>
+<div class="response-desc resp-code-tab-put" id="put-resp-code-tab-id-3">
+<div class="md"><p>Returned in case user has no access to the resource.</p></div>
+</div>
+</div>
+<div>
+<label class="response response-error">
+<span class="fa fa-times"></span>
+<input data-full-tab-id="put-resp-code-tab-id-4" data-tab-class="resp-code-tab-put" name="resp-code-tab-put" type="radio"/>
+<span class="status">404 Not Found</span>
+</label>
+<div class="response-desc resp-code-tab-put" id="put-resp-code-tab-id-4">
+<div class="md"><p>Returned in case resource does not exist.</p></div>
+</div>
+</div>
+<div>
+<label class="response response-error">
+<span class="fa fa-times"></span>
+<input data-full-tab-id="put-resp-code-tab-id-5" data-tab-class="resp-code-tab-put" name="resp-code-tab-put" type="radio"/>
+<span class="status">503 Service Unavailable</span>
+</label>
+<div class="response-desc resp-code-tab-put" id="put-resp-code-tab-id-5">
+<div class="md"><p>Returned in the event that the call limit is exceeded. The application will be unavailable for subsequent calls for the duration specified by the X-CallLimit-TimeToWait header.</p></div>
+</div>
+</div>
+</div>
+</article>
+<article class="code">
+<h4>Definition</h4>
+<div class="uri">
+<code>
+<span class="method put">put</span>
+<span class="textUri"><span class="baseUri">{{ getUriPrefix() }}</span><span class="relativeUri">/v2/companies/{cid}/rates/tables/{tid}</span></span>
+</code>
+</div>
+<h4>Request Samples</h4>
+<div class="tab-title-group">
+<label>
+<input checked="checked" data-full-tab-id="req-tab-id-put-0" data-tab-class="req-tab-put" name="req-tab-put" type="radio"/>
+<span class="tab-title">application/json</span>
+</label>
+<label>
+<input data-full-tab-id="req-tab-id-put-1" data-tab-class="req-tab-put" name="req-tab-put" type="radio"/>
+<span class="tab-title">application/xml</span>
+</label>
+<label>
+<input data-full-tab-id="req-tab-id-put-2" data-tab-class="req-tab-put" name="req-tab-put" type="radio"/>
+<span class="tab-title">text/xml</span>
+</label>
+</div>
+<div>
+<div class="req-tab-put" id="req-tab-id-put-0">
+<div class="example">
+
+<div class="put-example-tab-0 activeTab" id="put-tab-example-0">
+
+<pre class="highlightjs">{
+  "name": "Personal",
+  "description": "Rate 1 Personal Table",
+  "auto_create_cost_center_lists": true,
+  "include_cc_from_ext_rules": false,
+  "currency": "USD",
+  "ext_table": {
+    "id": 419328
+  },
+  "alt_tables": [
+    {
+      "op": "MULT",
+      "table": {
+        "id": 419328
+      }
+    },
+    {
+      "table": {
+        "id": 419328
+      },
+      "op": "ALT"
+    },
+    {
+      "op": "ALT2"
+    }
+  ]
+}</pre>
+</div>
+<div class="put-example-tab-0" id="put-tab-schema-0">
+
+<div class="jsonschema" id="schema-3">{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "name": {
+      "type": "string"
+    },
+    "description": {
+      "type": "string"
+    },
+    "auto_create_cost_center_lists": {
+      "type": "boolean"
+    },
+    "include_cc_from_ext_rules": {
+      "type": "boolean"
+    },
+    "include_sub_tree_type": {
+      "type": "string",
+      "enum": [
+        "NEVER",
+        "ONLY_IF_CHECKED",
+        "ALWAYS"
+      ]
+    },
+    "currency": {
+      "type": "string",
+      "enum": [
+        "USD",
+        "GBP",
+        "EUR",
+        "CAD",
+        "AUD",
+        "NZD",
+        "MXN",
+        "CNY",
+        "SEK",
+        "BRL",
+        "INR",
+        "SGD",
+        "HKD",
+        "CHF",
+        "CRC",
+        "UAH",
+        "MOP",
+        "DKK",
+        "XXX"
+      ]
+    },
+    "ext_table": {
+      "type": "object",
+      "required": [
+        "id"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "id": {
+          "type": "integer"
+        },
+        "display_name": {
+          "type": "string"
+        }
+      }
+    },
+    "alt_tables": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "table": {
+            "type": "object",
+            "required": [
+              "id"
+            ],
+            "properties": {
+              "id": {
+                "type": "integer"
+              },
+              "display_name": {
+                "type": "string"
+              }
+            }
+          },
+          "op": {
+            "type": "string"
+          }
+        }
+      }
+    }
+  }
+}</div>
+</div>
+</div>
+</div>
+<div class="req-tab-put" id="req-tab-id-put-1">
+<div class="example">
+
+<div class="put-example-tab-1 activeTab" id="put-tab-example-1">
+
+<pre class="highlightjs">&lt;?xml version="1.0" encoding="UTF-8" ?&gt;
+&lt;rate_table&gt;
+  &lt;name&gt;Personal&lt;/name&gt;
+  &lt;description&gt;Rate 1 Personal Table&lt;/description&gt;
+  &lt;auto_create_cost_center_lists&gt;false&lt;/auto_create_cost_center_lists&gt;
+  &lt;include_cc_from_ext_rules&gt;false&lt;/include_cc_from_ext_rules&gt;
+  &lt;include_sub_tree_type&gt;NEVER&lt;/include_sub_tree_type&gt;
+  &lt;currency&gt;USD&lt;/currency&gt;
+  &lt;ext_table&gt;
+    &lt;id&gt;5636096&lt;/id&gt;
+    &lt;display_name&gt;Rate_Table_1&lt;/display_name&gt;
+  &lt;/ext_table&gt;
+  &lt;alt_tables&gt;
+    &lt;alt_table&gt;
+      &lt;table&gt;
+        &lt;id&gt;5636096&lt;/id&gt;
+        &lt;display_name&gt;Rate_Table_1&lt;/display_name&gt;
+      &lt;/table&gt;
+      &lt;op&gt;ADD&lt;/op&gt;
+    &lt;/alt_table&gt;
+    &lt;alt_table&gt;
+      &lt;table&gt;
+        &lt;id&gt;5636352&lt;/id&gt;
+        &lt;display_name&gt;Rate_Table_5&lt;/display_name&gt;
+      &lt;/table&gt;
+      &lt;op&gt;ADD&lt;/op&gt;
+    &lt;/alt_table&gt;
+    &lt;alt_table&gt;
+      &lt;op&gt;&lt;/op&gt;
+    &lt;/alt_table&gt;
+  &lt;/alt_tables&gt;
+&lt;/rate_table&gt;</pre>
+</div>
+<div class="put-example-tab-1" id="put-tab-schema-1">
+
+<div class="jsonschema" id="schema-4">&lt;?xml version="1.0" encoding="UTF-8" ?&gt;
+&lt;xs:schema attributeFormDefault="unqualified" elementFormDefault="qualified"
+           xmlns:xs="http://www.w3.org/2001/XMLSchema"&gt;
+
+  &lt;xs:element name="rate_table"&gt;
+    &lt;xs:complexType&gt;
+      &lt;xs:sequence&gt;
+        &lt;xs:element name="name" type="xs:string"/&gt;
+        &lt;xs:element name="description" type="xs:string"/&gt;
+        &lt;xs:element name="auto_create_cost_center_lists" type="xs:string"/&gt;
+        &lt;xs:element name="include_cc_from_ext_rules" type="xs:string" minOccurs="0"/&gt;
+        &lt;xs:element ref="include_sub_tree_type"/&gt;
+        &lt;xs:element ref="currency"/&gt;
+        &lt;xs:element ref="ext_table"/&gt;
+        &lt;xs:element ref="alt_tables"/&gt;
+      &lt;/xs:sequence&gt;
+    &lt;/xs:complexType&gt;
+  &lt;/xs:element&gt;
+
+  &lt;xs:element name="include_sub_tree_type"&gt;
+    &lt;xs:simpleType&gt;
+      &lt;xs:restriction base="xs:string"&gt;
+        &lt;xs:enumeration value="NEVER"/&gt;
+        &lt;xs:enumeration value="ONLY_IF_CHECKED"/&gt;
+        &lt;xs:enumeration value="ALWAYS"/&gt;
+      &lt;/xs:restriction&gt;
+    &lt;/xs:simpleType&gt;
+  &lt;/xs:element&gt;
+
+  &lt;xs:element name="currency"&gt;
+    &lt;xs:simpleType&gt;
+      &lt;xs:restriction base="xs:string"&gt;
+        &lt;xs:enumeration value="USD"/&gt;
+        &lt;xs:enumeration value="GBP"/&gt;
+        &lt;xs:enumeration value="EUR"/&gt;
+        &lt;xs:enumeration value="CAD"/&gt;
+        &lt;xs:enumeration value="AUD"/&gt;
+        &lt;xs:enumeration value="NZD"/&gt;
+        &lt;xs:enumeration value="MXN"/&gt;
+        &lt;xs:enumeration value="CNY"/&gt;
+        &lt;xs:enumeration value="SEK"/&gt;
+        &lt;xs:enumeration value="BRL"/&gt;
+        &lt;xs:enumeration value="INR"/&gt;
+        &lt;xs:enumeration value="SGD"/&gt;
+        &lt;xs:enumeration value="HKD"/&gt;
+        &lt;xs:enumeration value="CHF"/&gt;
+        &lt;xs:enumeration value="CRC"/&gt;
+        &lt;xs:enumeration value="UAH"/&gt;
+        &lt;xs:enumeration value="MOP"/&gt;
+        &lt;xs:enumeration value="DKK"/&gt;
+        &lt;xs:enumeration value="XXX"/&gt;
+      &lt;/xs:restriction&gt;
+    &lt;/xs:simpleType&gt;
+  &lt;/xs:element&gt;
+
+  &lt;xs:element name="ext_table"&gt;
+    &lt;xs:complexType&gt;
+      &lt;xs:sequence&gt;
+        &lt;xs:element name="id" type="xs:int"/&gt;
+        &lt;xs:element name="display_name" type="xs:string"/&gt;
+      &lt;/xs:sequence&gt;
+    &lt;/xs:complexType&gt;
+  &lt;/xs:element&gt;
+
+  &lt;xs:element name="alt_tables"&gt;
+    &lt;xs:complexType&gt;
+      &lt;xs:sequence&gt;
+        &lt;xs:element name="alt_table" maxOccurs="unbounded" minOccurs="0"&gt;
+          &lt;xs:complexType&gt;
+            &lt;xs:sequence&gt;
+              &lt;xs:element name="table" minOccurs="0"&gt;
+                &lt;xs:complexType&gt;
+                  &lt;xs:sequence&gt;
+                    &lt;xs:element name="id" type="xs:int"/&gt;
+                    &lt;xs:element name="display_name" type="xs:string"/&gt;
+                  &lt;/xs:sequence&gt;
+                &lt;/xs:complexType&gt;
+              &lt;/xs:element&gt;
+              &lt;xs:element name="op" type="xs:string"/&gt;
+            &lt;/xs:sequence&gt;
+          &lt;/xs:complexType&gt;
+        &lt;/xs:element&gt;
+      &lt;/xs:sequence&gt;
+    &lt;/xs:complexType&gt;
+  &lt;/xs:element&gt;
+
+&lt;/xs:schema&gt;</div>
+</div>
+</div>
+</div>
+<div class="req-tab-put" id="req-tab-id-put-2">
+<div class="example">
+
+<div class="put-example-tab-2 activeTab" id="put-tab-example-2">
+
+<pre class="highlightjs">&lt;?xml version="1.0" encoding="UTF-8" ?&gt;
+&lt;rate_table&gt;
+  &lt;name&gt;Personal&lt;/name&gt;
+  &lt;description&gt;Rate 1 Personal Table&lt;/description&gt;
+  &lt;auto_create_cost_center_lists&gt;false&lt;/auto_create_cost_center_lists&gt;
+  &lt;include_cc_from_ext_rules&gt;false&lt;/include_cc_from_ext_rules&gt;
+  &lt;include_sub_tree_type&gt;NEVER&lt;/include_sub_tree_type&gt;
+  &lt;currency&gt;USD&lt;/currency&gt;
+  &lt;ext_table&gt;
+    &lt;id&gt;5636096&lt;/id&gt;
+    &lt;display_name&gt;Rate_Table_1&lt;/display_name&gt;
+  &lt;/ext_table&gt;
+  &lt;alt_tables&gt;
+    &lt;alt_table&gt;
+      &lt;table&gt;
+        &lt;id&gt;5636096&lt;/id&gt;
+        &lt;display_name&gt;Rate_Table_1&lt;/display_name&gt;
+      &lt;/table&gt;
+      &lt;op&gt;ADD&lt;/op&gt;
+    &lt;/alt_table&gt;
+    &lt;alt_table&gt;
+      &lt;table&gt;
+        &lt;id&gt;5636352&lt;/id&gt;
+        &lt;display_name&gt;Rate_Table_5&lt;/display_name&gt;
+      &lt;/table&gt;
+      &lt;op&gt;ADD&lt;/op&gt;
+    &lt;/alt_table&gt;
+    &lt;alt_table&gt;
+      &lt;op&gt;&lt;/op&gt;
+    &lt;/alt_table&gt;
+  &lt;/alt_tables&gt;
+&lt;/rate_table&gt;</pre>
+</div>
+<div class="put-example-tab-2" id="put-tab-schema-2">
+
+<div class="jsonschema" id="schema-5">&lt;?xml version="1.0" encoding="UTF-8" ?&gt;
+&lt;xs:schema attributeFormDefault="unqualified" elementFormDefault="qualified"
+           xmlns:xs="http://www.w3.org/2001/XMLSchema"&gt;
+
+  &lt;xs:element name="rate_table"&gt;
+    &lt;xs:complexType&gt;
+      &lt;xs:sequence&gt;
+        &lt;xs:element name="name" type="xs:string"/&gt;
+        &lt;xs:element name="description" type="xs:string"/&gt;
+        &lt;xs:element name="auto_create_cost_center_lists" type="xs:string"/&gt;
+        &lt;xs:element name="include_cc_from_ext_rules" type="xs:string" minOccurs="0"/&gt;
+        &lt;xs:element ref="include_sub_tree_type"/&gt;
+        &lt;xs:element ref="currency"/&gt;
+        &lt;xs:element ref="ext_table"/&gt;
+        &lt;xs:element ref="alt_tables"/&gt;
+      &lt;/xs:sequence&gt;
+    &lt;/xs:complexType&gt;
+  &lt;/xs:element&gt;
+
+  &lt;xs:element name="include_sub_tree_type"&gt;
+    &lt;xs:simpleType&gt;
+      &lt;xs:restriction base="xs:string"&gt;
+        &lt;xs:enumeration value="NEVER"/&gt;
+        &lt;xs:enumeration value="ONLY_IF_CHECKED"/&gt;
+        &lt;xs:enumeration value="ALWAYS"/&gt;
+      &lt;/xs:restriction&gt;
+    &lt;/xs:simpleType&gt;
+  &lt;/xs:element&gt;
+
+  &lt;xs:element name="currency"&gt;
+    &lt;xs:simpleType&gt;
+      &lt;xs:restriction base="xs:string"&gt;
+        &lt;xs:enumeration value="USD"/&gt;
+        &lt;xs:enumeration value="GBP"/&gt;
+        &lt;xs:enumeration value="EUR"/&gt;
+        &lt;xs:enumeration value="CAD"/&gt;
+        &lt;xs:enumeration value="AUD"/&gt;
+        &lt;xs:enumeration value="NZD"/&gt;
+        &lt;xs:enumeration value="MXN"/&gt;
+        &lt;xs:enumeration value="CNY"/&gt;
+        &lt;xs:enumeration value="SEK"/&gt;
+        &lt;xs:enumeration value="BRL"/&gt;
+        &lt;xs:enumeration value="INR"/&gt;
+        &lt;xs:enumeration value="SGD"/&gt;
+        &lt;xs:enumeration value="HKD"/&gt;
+        &lt;xs:enumeration value="CHF"/&gt;
+        &lt;xs:enumeration value="CRC"/&gt;
+        &lt;xs:enumeration value="UAH"/&gt;
+        &lt;xs:enumeration value="MOP"/&gt;
+        &lt;xs:enumeration value="DKK"/&gt;
+        &lt;xs:enumeration value="XXX"/&gt;
+      &lt;/xs:restriction&gt;
+    &lt;/xs:simpleType&gt;
+  &lt;/xs:element&gt;
+
+  &lt;xs:element name="ext_table"&gt;
+    &lt;xs:complexType&gt;
+      &lt;xs:sequence&gt;
+        &lt;xs:element name="id" type="xs:int"/&gt;
+        &lt;xs:element name="display_name" type="xs:string"/&gt;
+      &lt;/xs:sequence&gt;
+    &lt;/xs:complexType&gt;
+  &lt;/xs:element&gt;
+
+  &lt;xs:element name="alt_tables"&gt;
+    &lt;xs:complexType&gt;
+      &lt;xs:sequence&gt;
+        &lt;xs:element name="alt_table" maxOccurs="unbounded" minOccurs="0"&gt;
+          &lt;xs:complexType&gt;
+            &lt;xs:sequence&gt;
+              &lt;xs:element name="table" minOccurs="0"&gt;
+                &lt;xs:complexType&gt;
+                  &lt;xs:sequence&gt;
+                    &lt;xs:element name="id" type="xs:int"/&gt;
+                    &lt;xs:element name="display_name" type="xs:string"/&gt;
+                  &lt;/xs:sequence&gt;
+                &lt;/xs:complexType&gt;
+              &lt;/xs:element&gt;
+              &lt;xs:element name="op" type="xs:string"/&gt;
+            &lt;/xs:sequence&gt;
+          &lt;/xs:complexType&gt;
+        &lt;/xs:element&gt;
+      &lt;/xs:sequence&gt;
+    &lt;/xs:complexType&gt;
+  &lt;/xs:element&gt;
+
+&lt;/xs:schema&gt;</div>
+</div>
+</div>
+</div>
+</div>
+<h4>Response Samples</h4>
+<div class="tab-title-group">
+<label>
+<input checked="checked" data-full-tab-id="resp-tab-id-put-0" data-tab-class="resp-tab-put" name="resp-tab-put" type="radio"/>
+<span class="tab-title">application/json</span>
+</label>
+<label>
+<input data-full-tab-id="resp-tab-id-put-1" data-tab-class="resp-tab-put" name="resp-tab-put" type="radio"/>
+<span class="tab-title">application/xml</span>
+</label>
+<label>
+<input data-full-tab-id="resp-tab-id-put-2" data-tab-class="resp-tab-put" name="resp-tab-put" type="radio"/>
+<span class="tab-title">text/xml</span>
+</label>
+</div>
+<div>
+<div class="resp-tab-put" id="resp-tab-id-put-0">
+<div class="example">
+
+<div class="put-example-resp-tab-0 activeTab" id="put-tab-resp-example-0">
+
+<pre class="highlightjs">{
+  "user_messages": [
+    {
+      "severity": "INFO",
+      "text": "This is response from happy server."
+    },
+    {
+      "severity": "WARN",
+      "text": "This is response from puzzled server."
+    },
+    {
+      "severity": "ERROR",
+      "text": "This is response from angry server."
+    }
+  ]
+}</pre>
+</div>
+<div class="put-example-resp-tab-0" id="put-tab-resp-schema-0">
+
+<div class="jsonschema" id="schema-6">{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "type": "object",
+  "properties": {
+    "user_messages": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "severity": {
+            "type": "string",
+            "enum": [
+              "ERROR",
+              "WARN",
+              "INFO"
+            ]
+          },
+          "text": {
+            "type": "string"
+          },
+          "details": {
+            "type": "object"
+          }
+        },
+        "additionalProperties": false
+      }
+    }
+  },
+  "additionalProperties": false,
+  "required": [
+    "user_messages"
+  ]
+}</div>
+</div>
+</div>
+</div>
+<div class="resp-tab-put" id="resp-tab-id-put-1">
+<div class="example">
+
+<div class="put-example-resp-tab-1 activeTab" id="put-tab-resp-example-1">
+
+<pre class="highlightjs">&lt;?xml version="1.0" encoding="UTF-8" ?&gt;
+&lt;user_messages&gt;
+  &lt;user_message&gt;
+    &lt;severity&gt;INFO&lt;/severity&gt;
+    &lt;text&gt;This is response from happy server.&lt;/text&gt;
+  &lt;/user_message&gt;
+  &lt;user_message&gt;
+    &lt;severity&gt;WARN&lt;/severity&gt;
+    &lt;text&gt;This is response from puzzled server.&lt;/text&gt;
+  &lt;/user_message&gt;
+  &lt;user_message&gt;
+    &lt;severity&gt;ERROR&lt;/severity&gt;
+    &lt;text&gt;This is response from angry server.&lt;/text&gt;
+  &lt;/user_message&gt;
+&lt;/user_messages&gt;</pre>
+</div>
+<div class="put-example-resp-tab-1" id="put-tab-resp-schema-1">
+
+<div class="jsonschema" id="schema-7">&lt;?xml version="1.0" encoding="UTF-8" ?&gt;
+&lt;xs:schema attributeFormDefault="unqualified" elementFormDefault="qualified"
+           xmlns:xs="http://www.w3.org/2001/XMLSchema"&gt;
+  &lt;xs:element name="user_messages"&gt;
+    &lt;xs:complexType&gt;
+      &lt;xs:sequence&gt;
+        &lt;xs:element name="user_message" maxOccurs="unbounded" minOccurs="0"&gt;
+          &lt;xs:complexType&gt;
+            &lt;xs:sequence&gt;
+              &lt;xs:element name="severity"&gt;
+                &lt;xs:simpleType&gt;
+                  &lt;xs:restriction base="xs:string"&gt;
+                    &lt;xs:enumeration value=""/&gt;
+                    &lt;xs:enumeration value="INFO"/&gt;
+                    &lt;xs:enumeration value="WARN"/&gt;
+                    &lt;xs:enumeration value="ERROR"/&gt;
+                  &lt;/xs:restriction&gt;
+                &lt;/xs:simpleType&gt;
+              &lt;/xs:element&gt;
+              &lt;xs:element type="xs:string" name="text"/&gt;
+            &lt;/xs:sequence&gt;
+          &lt;/xs:complexType&gt;
+        &lt;/xs:element&gt;
+      &lt;/xs:sequence&gt;
+    &lt;/xs:complexType&gt;
+  &lt;/xs:element&gt;
+&lt;/xs:schema&gt;</div>
+</div>
+</div>
+</div>
+<div class="resp-tab-put" id="resp-tab-id-put-2">
+<div class="example">
+
+<div class="put-example-resp-tab-2 activeTab" id="put-tab-resp-example-2">
+
+<pre class="highlightjs">&lt;?xml version="1.0" encoding="UTF-8" ?&gt;
+&lt;user_messages&gt;
+  &lt;user_message&gt;
+    &lt;severity&gt;INFO&lt;/severity&gt;
+    &lt;text&gt;This is response from happy server.&lt;/text&gt;
+  &lt;/user_message&gt;
+  &lt;user_message&gt;
+    &lt;severity&gt;WARN&lt;/severity&gt;
+    &lt;text&gt;This is response from puzzled server.&lt;/text&gt;
+  &lt;/user_message&gt;
+  &lt;user_message&gt;
+    &lt;severity&gt;ERROR&lt;/severity&gt;
+    &lt;text&gt;This is response from angry server.&lt;/text&gt;
+  &lt;/user_message&gt;
+&lt;/user_messages&gt;</pre>
+</div>
+<div class="put-example-resp-tab-2" id="put-tab-resp-schema-2">
+
+<div class="jsonschema" id="schema-8">&lt;?xml version="1.0" encoding="UTF-8" ?&gt;
+&lt;xs:schema attributeFormDefault="unqualified" elementFormDefault="qualified"
+           xmlns:xs="http://www.w3.org/2001/XMLSchema"&gt;
+  &lt;xs:element name="user_messages"&gt;
+    &lt;xs:complexType&gt;
+      &lt;xs:sequence&gt;
+        &lt;xs:element name="user_message" maxOccurs="unbounded" minOccurs="0"&gt;
+          &lt;xs:complexType&gt;
+            &lt;xs:sequence&gt;
+              &lt;xs:element name="severity"&gt;
+                &lt;xs:simpleType&gt;
+                  &lt;xs:restriction base="xs:string"&gt;
+                    &lt;xs:enumeration value=""/&gt;
+                    &lt;xs:enumeration value="INFO"/&gt;
+                    &lt;xs:enumeration value="WARN"/&gt;
+                    &lt;xs:enumeration value="ERROR"/&gt;
+                  &lt;/xs:restriction&gt;
+                &lt;/xs:simpleType&gt;
+              &lt;/xs:element&gt;
+              &lt;xs:element type="xs:string" name="text"/&gt;
+            &lt;/xs:sequence&gt;
+          &lt;/xs:complexType&gt;
+        &lt;/xs:element&gt;
+      &lt;/xs:sequence&gt;
+    &lt;/xs:complexType&gt;
+  &lt;/xs:element&gt;
+&lt;/xs:schema&gt;</div>
+</div>
+</div>
+</div>
+</div>
+</article>
+</section>
+<section class="clearfix">
+<article class="definition">
+<h3 class="anchored" id="delete"><span>DELETE</span>
+<a class="fa fa-link link-anchor" data-url="r=__v2__companies__(cid)__rates__tables__(tid)#delete" data-web-id="__v2__companies__(cid)__rates__tables__(tid)"></a>
+</h3>
+<div class="md"><p>Endpoint to delete rate table by id, only company rate tables which don't used could be deleted.</p></div>
+<div>
+<ul class="annotation-list">
+<li class="annotation">
+<span>v2</span>
+</li>
+</ul>
+</div>
+<h4>Parameters</h4>
+<h5>Path Parameters</h5>
+<ul class="param-list">
+<li>
+<div class="param-desc">
+<div class="param-name">cid</div>
+<div class="data-type">string</div>
+<div class="required">required</div>
+</div>
+<div class="param-content">
+<div>
+<p>Example: 123456</p>
+<div class="desc md">Company should be referenced via company id or company unique id or company short name using `|short_name` or `!short_name` format.
+</div>
+</div>
+</div>
+
+</li>
+<li>
+<div class="param-desc">
+<div class="param-name">tid</div>
+<div class="data-type">integer</div>
+<div class="required">required</div>
+</div>
+<div class="param-content">
+<div>
+<div class="desc md">Rate Table id.</div>
+</div>
+</div>
+
+</li>
+</ul>
+<h4>Responses</h4>
+<div class="responses">
+<div>
+<label class="response response-success">
+<span class="fa fa-check"></span>
+<input data-full-tab-id="delete-resp-code-tab-id-0" data-tab-class="resp-code-tab-delete" name="resp-code-tab-delete" type="radio"/>
+<span class="status">204 No Content</span>
+</label>
+<div class="response-desc resp-code-tab-delete" id="delete-resp-code-tab-id-0">
+<div class="md"><p>Rate table was successfully deleted.</p></div>
+</div>
+</div>
+<div>
+<label class="response response-error">
+<span class="fa fa-times"></span>
+<input data-full-tab-id="delete-resp-code-tab-id-1" data-tab-class="resp-code-tab-delete" name="resp-code-tab-delete" type="radio"/>
+<span class="status">401 Unauthorized</span>
+</label>
+<div class="response-desc resp-code-tab-delete" id="delete-resp-code-tab-id-1">
+<div class="md"><p>Returned in case user is not authorized.</p></div>
+</div>
+</div>
+<div>
+<label class="response response-error">
+<span class="fa fa-times"></span>
+<input data-full-tab-id="delete-resp-code-tab-id-2" data-tab-class="resp-code-tab-delete" name="resp-code-tab-delete" type="radio"/>
+<span class="status">403 Forbidden</span>
+</label>
+<div class="response-desc resp-code-tab-delete" id="delete-resp-code-tab-id-2">
+<div class="md"><p>Returned in case user has no access to the resource.</p></div>
+</div>
+</div>
+<div>
+<label class="response response-error">
+<span class="fa fa-times"></span>
+<input data-full-tab-id="delete-resp-code-tab-id-3" data-tab-class="resp-code-tab-delete" name="resp-code-tab-delete" type="radio"/>
+<span class="status">404 Not Found</span>
+</label>
+<div class="response-desc resp-code-tab-delete" id="delete-resp-code-tab-id-3">
+<div class="md"><p>Returned in case resource does not exist.</p></div>
+</div>
+</div>
+<div>
+<label class="response response-error">
+<span class="fa fa-times"></span>
+<input data-full-tab-id="delete-resp-code-tab-id-4" data-tab-class="resp-code-tab-delete" name="resp-code-tab-delete" type="radio"/>
+<span class="status">503 Service Unavailable</span>
+</label>
+<div class="response-desc resp-code-tab-delete" id="delete-resp-code-tab-id-4">
+<div class="md"><p>Returned in the event that the call limit is exceeded. The application will be unavailable for subsequent calls for the duration specified by the X-CallLimit-TimeToWait header.</p></div>
+</div>
+</div>
+</div>
+</article>
+<article class="code">
+<h4>Definition</h4>
+<div class="uri">
+<code>
+<span class="method delete">delete</span>
+<span class="textUri"><span class="baseUri">{{ getUriPrefix() }}</span><span class="relativeUri">/v2/companies/{cid}/rates/tables/{tid}</span></span>
+</code>
+</div>
+</article>
+</section>
+</div>
+</body></html>

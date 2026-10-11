@@ -1,0 +1,1343 @@
+<!doctype html>
+<html><head><meta charset="utf-8"><title>Pay Information</title><style>body{font:16px system-ui;max-width:1100px;margin:2rem auto;padding:0 1rem;line-height:1.5}aside{background:#fff3cc;padding:1rem}.jsonschema,pre{white-space:pre-wrap;font:13px monospace;overflow-wrap:anywhere;background:#f4f5f7;padding:1rem}.uri{font-family:monospace}h2,h3{margin-top:2rem}</style></head><body><aside><strong>Modified private reference — 2026-10-09.</strong> Provider-documented illustrative examples are included; authentication token examples are redacted. These are not customer exports or guaranteed production behavior. Candidate sharing is pending. This is not OpenAPI.</aside>
+<div class="group">
+<h2 class="anchored" id="item.anchor">
+<span>Pay Information</span>
+<a class="fa fa-link link-anchor" data-url="r=__v2__companies__(cid)__employees__(aid)__pay-info#" data-web-id="__v2__companies__(cid)__employees__(aid)__pay-info"></a>
+</h2>
+<section class="clearfix">
+<article class="definition">
+<h3 class="anchored" id="get"><span>GET</span>
+<a class="fa fa-link link-anchor" data-url="r=__v2__companies__(cid)__employees__(aid)__pay-info#get" data-web-id="__v2__companies__(cid)__employees__(aid)__pay-info"></a>
+</h3>
+<div class="md"><p>Returns the employee pay information.
+
+The Employee APIs use a separate security profile item to control access rights which is located in the company security profile in the following location:
+  1. `Modules -&gt; REST API Resources -&gt; Employee Pay Information -&gt; View`.
+
+&lt;b&gt;Only the 'REST API RESOURCES' security profile items in combination with 'manager permissions' are considered by this REST API resource.&lt;/b&gt;
+</p></div>
+<div>
+<ul class="annotation-list">
+<li class="annotation">
+<span>v2</span>
+</li>
+</ul>
+</div>
+<h4>Parameters</h4>
+<h5>Path Parameters</h5>
+<ul class="param-list">
+<li>
+<div class="param-desc">
+<div class="param-name">cid</div>
+<div class="data-type">string</div>
+<div class="required">required</div>
+</div>
+<div class="param-content">
+<div>
+<p>Example: 123456</p>
+<div class="desc md">Company should be referenced via company id or company unique id or company short name using `|short_name` or `!short_name` format.
+</div>
+</div>
+</div>
+
+</li>
+<li>
+<div class="param-desc">
+<div class="param-name">aid</div>
+<div class="data-type">string</div>
+<div class="required">required</div>
+</div>
+<div class="param-content">
+<div>
+<p>Example: 1234567</p>
+<div class="desc md">Account should be referenced via account id or account external id using `|external_id` or `!external_id` format.
+</div>
+</div>
+</div>
+
+</li>
+</ul>
+<h5>Header Parameters</h5>
+<ul class="param-list">
+<li>
+<div class="param-desc">
+<div class="param-name">Accept</div>
+<div class="data-type">string</div>
+</div>
+<div class="param-content">
+<div>
+<p>Valid values: application/json, application/xml, text/xml</p>
+<p>Default: application/json</p>
+<p>Example: application/json</p>
+</div>
+</div>
+
+</li>
+</ul>
+<h4>Responses</h4>
+<div class="responses">
+<div>
+<label class="response response-success">
+<span class="fa fa-check"></span>
+<input data-full-tab-id="get-resp-code-tab-id-0" data-tab-class="resp-code-tab-get" name="resp-code-tab-get" type="radio"/>
+<span class="status">200 Ok</span>
+</label>
+<div class="response-desc resp-code-tab-get" id="get-resp-code-tab-id-0">
+</div>
+</div>
+<div>
+<label class="response response-error">
+<span class="fa fa-times"></span>
+<input data-full-tab-id="get-resp-code-tab-id-1" data-tab-class="resp-code-tab-get" name="resp-code-tab-get" type="radio"/>
+<span class="status">401 Unauthorized</span>
+</label>
+<div class="response-desc resp-code-tab-get" id="get-resp-code-tab-id-1">
+<div class="md"><p>Returned in case user is not authorized.</p></div>
+</div>
+</div>
+<div>
+<label class="response response-error">
+<span class="fa fa-times"></span>
+<input data-full-tab-id="get-resp-code-tab-id-2" data-tab-class="resp-code-tab-get" name="resp-code-tab-get" type="radio"/>
+<span class="status">403 Forbidden</span>
+</label>
+<div class="response-desc resp-code-tab-get" id="get-resp-code-tab-id-2">
+<div class="md"><p>Returned in case user has no access to the resource.</p></div>
+</div>
+</div>
+<div>
+<label class="response response-error">
+<span class="fa fa-times"></span>
+<input data-full-tab-id="get-resp-code-tab-id-3" data-tab-class="resp-code-tab-get" name="resp-code-tab-get" type="radio"/>
+<span class="status">404 Not Found</span>
+</label>
+<div class="response-desc resp-code-tab-get" id="get-resp-code-tab-id-3">
+<div class="md"><p>Returned in case resource does not exist.</p></div>
+</div>
+</div>
+<div>
+<label class="response response-error">
+<span class="fa fa-times"></span>
+<input data-full-tab-id="get-resp-code-tab-id-4" data-tab-class="resp-code-tab-get" name="resp-code-tab-get" type="radio"/>
+<span class="status">503 Service Unavailable</span>
+</label>
+<div class="response-desc resp-code-tab-get" id="get-resp-code-tab-id-4">
+<div class="md"><p>Returned in the event that the call limit is exceeded. The application will be unavailable for subsequent calls for the duration specified by the X-CallLimit-TimeToWait header.</p></div>
+</div>
+</div>
+</div>
+</article>
+<article class="code">
+<h4>Definition</h4>
+<div class="uri">
+<code>
+<span class="method get">get</span>
+<span class="textUri"><span class="baseUri">{{ getUriPrefix() }}</span><span class="relativeUri">/v2/companies/{cid}/employees/{aid}/pay-info</span></span>
+</code>
+</div>
+<h4>Response Samples</h4>
+<div class="tab-title-group">
+<label>
+<input checked="checked" data-full-tab-id="resp-tab-id-get-0" data-tab-class="resp-tab-get" name="resp-tab-get" type="radio"/>
+<span class="tab-title">application/json</span>
+</label>
+<label>
+<input data-full-tab-id="resp-tab-id-get-1" data-tab-class="resp-tab-get" name="resp-tab-get" type="radio"/>
+<span class="tab-title">application/xml</span>
+</label>
+</div>
+<div>
+<div class="resp-tab-get" id="resp-tab-id-get-0">
+<div class="example">
+
+<div class="get-example-resp-tab-0 activeTab" id="get-tab-resp-example-0">
+
+<pre class="highlightjs">{
+  "default_job": {
+    "id": 1546305
+  },
+  "job_change_reason_code": {
+    "display_name": "Promotion"
+  },
+  "job_last_changed": "2017-04-04",
+  "standard_work_day": 28800000,
+  "employee_type": {
+    "id": 2
+  },
+  "pay_type": {
+    "id": 3
+  },
+  "shift_premium": {
+    "id": 6
+  },
+  "medical_eligibility": "NOT_ELIGIBLE",
+  "dental_eligibility": "NOT_ELIGIBLE",
+  "dependent_benefits_eligibility": "NOT_ELIGIBLE",
+  "benefit_auto_enrollment_eligibility": "ELIGIBLE",
+  "eeo_classification": "PROFESSIONALS",
+  "eeo4_classification": "SERVICE_MAINTENANCE",
+  "eeo4_function": "FIRE_PROTECTION",
+  "workers_comp_code": {
+    "external_id": "3179:AL"
+  },
+  "union": {
+    "id": 4
+  },
+  "payroll_classification": "HOUSEHOLD",
+  "bank_account_number": "BANKNUMBER1",
+  "pay_grade": {
+    "id": 5,
+    "parent": {
+      "id": 10,
+      "code": 1008,
+      "name": "parent"
+    }
+  },
+  "gl_codes": [
+    {
+      "index": 0,
+      "value": "MyCompanyGLBook"
+    }
+  ],
+  "ttoc": [
+    {
+      "id": 101,
+      "display_name": "Bartenders",
+      "effective_from": "2026-01-01"
+    }
+  ]
+}
+</pre>
+</div>
+<div class="get-example-resp-tab-0" id="get-tab-resp-schema-0">
+
+<div class="jsonschema" id="schema-0">{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "type": "object",
+  "properties": {
+    "default_job": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer"
+        }
+      },
+      "additionalProperties": false
+    },
+    "job_change_reason_code": {
+      "type": "object",
+      "properties": {
+        "display_name": {
+          "type": "string",
+          "maxLength": 50
+        }
+      },
+      "description": "Required only if 'default_job' is specified.",
+      "additionalProperties": false
+    },
+    "job_last_changed": {
+      "type": "string",
+      "pattern": "^(19[0-9]{2}|20[0-6][0-9]|2070)-(0[1-9]|1[0-2])-(0[1-9]|[1-2][0-9]|3[0-1])$",
+      "description": "Date needs to be in the format yyyy-mm-dd within the 1900-12-31 and 2079-06-05 date range"
+    },
+    "standard_work_day": {
+      "type": "integer",
+      "description": "Standard work day is represented in milliseconds."
+    },
+    "employee_type": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "number",
+          "format": "long"
+        }
+      },
+      "additionalProperties": false
+    },
+    "pay_type": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer"
+        }
+      },
+      "additionalProperties": false
+    },
+    "shift_premium": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer"
+        }
+      },
+      "additionalProperties": false
+    },
+    "medical_eligibility": {
+      "type": "string",
+      "enum": [
+        "ELIGIBLE",
+        "NOT_ELIGIBLE"
+      ]
+    },
+    "dental_eligibility": {
+      "type": "string",
+      "enum": [
+        "NOT_ELIGIBLE",
+        "PAYEE",
+        "PAYEE_SPOUSE_CHILD",
+        "PAYEE_SPOUSE",
+        "PAYEE_CHILD"
+      ]
+    },
+    "dependent_benefits_eligibility": {
+      "type": "string",
+      "enum": [
+        "ELIGIBLE",
+        "NOT_ELIGIBLE"
+      ]
+    },
+    "benefit_auto_enrollment_eligibility": {
+      "type": "string",
+      "enum": [
+        "ELIGIBLE",
+        "NOT_ELIGIBLE"
+      ]
+    },
+    "eeo_classification": {
+      "type": "string",
+      "enum": [
+        "EXECUTIVE_OR_SENIOR_LEVEL_OFFICIALS_AND_MANAGERS",
+        "FIRST_OR_MID_LEVEL_OFFICIALS_AND_MANAGERS",
+        "PROFESSIONALS",
+        "TECHNICIANS",
+        "SALES_WORKERS",
+        "ADMINISTRATIVE_SUPPORT_WORKERS",
+        "CRAFT_WORKERS",
+        "OPERATIVES",
+        "LABORERS_AND_HELPERS",
+        "SERVICE_WORKERS"
+      ]
+    },
+    "eeo4_classification": {
+      "type": "string",
+      "enum": [
+        "OFFICIALS",
+        "PROFESSIONALS",
+        "TECHNICIANS",
+        "PROTECTIVE_SERVICE",
+        "PARAPROFESSIONALS",
+        "ADMINISTRATIVE_SUPPORT",
+        "SKILLED_CRAFT",
+        "SERVICE_MAINTENANCE"
+      ]
+    },
+    "eeo4_function": {
+      "type": "string",
+      "enum": [
+        "FINANCIAL_ADMINISTRATION",
+        "STREETS_HIGHWAYS",
+        "PUBLIC_WELFARE",
+        "POLICE_PROTECTION",
+        "FIRE_PROTECTION",
+        "NATURAL_RESOURCES",
+        "HOSPITALS",
+        "HEALTH",
+        "HOUSING",
+        "COMMUNITY_DEVELOPMENT",
+        "CORRECTIONS",
+        "UTILITY_TRANSPORTATION",
+        "SANITATION_SEWAGE",
+        "EMPLOYMENT_SECURITY",
+        "OTHER"
+      ]
+    },
+    "workers_comp_code": {
+      "type": "object",
+      "properties": {
+        "external_id": {
+          "type": "string"
+        }
+      }
+    },
+    "union": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer"
+        }
+      },
+      "additionalProperties": false
+    },
+    "payroll_classification": {
+      "type": "string",
+      "enum": [
+        "REGULAR",
+        "HOUSEHOLD",
+        "FORM_943"
+      ]
+    },
+    "bank_account_number": {
+      "type": "string",
+      "maxLength": 100
+    },
+    "pay_grade": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer"
+        },
+        "parent": {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "integer"
+            },
+            "code": {
+              "type": "integer"
+            },
+            "name": {
+              "type": "string"
+            }
+          }
+        }
+      },
+      "additionalProperties": false
+    },
+    "gl_codes": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "index": {
+            "type": "integer"
+          },
+          "value": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "ttoc": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer"
+          },
+          "display_name": {
+            "type": "string"
+          },
+          "effective_from": {
+            "type": "string",
+            "pattern": "^(19[0-9]{2}|20[0-6][0-9]|2070)-(0[1-9]|1[0-2])-(0[1-9]|[1-2][0-9]|3[0-1])$",
+            "description": "Date needs to be in the format yyyy-mm-dd within the 1900-12-31 and 2070-12-31 date range"
+          }
+        }
+      }
+    }
+  },
+  "required": [
+    "payroll_classification"
+  ],
+  "additionalProperties": false
+}</div>
+</div>
+</div>
+</div>
+<div class="resp-tab-get" id="resp-tab-id-get-1">
+<div class="example">
+
+<div class="get-example-resp-tab-1 activeTab" id="get-tab-resp-example-1">
+
+<pre class="highlightjs">&lt;?xml version='1.0' encoding='UTF-8'?&gt;
+&lt;pay_information&gt;
+  &lt;default_job&gt;
+    &lt;id&gt;1546305&lt;/id&gt;
+  &lt;/default_job&gt;
+  &lt;job_change_reason_code&gt;
+    &lt;display_name&gt;Promotion&lt;/display_name&gt;
+  &lt;/job_change_reason_code&gt;
+  &lt;job_last_changed&gt;2017-04-04&lt;/job_last_changed&gt;
+  &lt;standard_work_day&gt;28800000&lt;/standard_work_day&gt;
+  &lt;employee_type&gt;
+    &lt;id&gt;2&lt;/id&gt;
+  &lt;/employee_type&gt;
+  &lt;pay_type&gt;
+    &lt;id&gt;1&lt;/id&gt;
+  &lt;/pay_type&gt;
+  &lt;shift_premium&gt;
+    &lt;id&gt;6&lt;/id&gt;
+  &lt;/shift_premium&gt;
+  &lt;medical_eligibility&gt;NOT_ELIGIBLE&lt;/medical_eligibility&gt;
+  &lt;dental_eligibility&gt;NOT_ELIGIBLE&lt;/dental_eligibility&gt;
+  &lt;dependent_benefits_eligibility&gt;NOT_ELIGIBLE&lt;/dependent_benefits_eligibility&gt;
+  &lt;benefit_auto_enrollment_eligibility&gt;ELIGIBLE&lt;/benefit_auto_enrollment_eligibility&gt;
+  &lt;eeo_classification&gt;PROFESSIONALS&lt;/eeo_classification&gt;
+  &lt;eeo4_classification&gt;SERVICE_MAINTENANCE&lt;/eeo4_classification&gt;
+  &lt;eeo4_function&gt;FIRE_PROTECTION&lt;/eeo4_function&gt;
+  &lt;workers_comp_code&gt;
+    &lt;external_id&gt;3179:AL&lt;/external_id&gt;
+  &lt;/workers_comp_code&gt;
+  &lt;union&gt;
+    &lt;id&gt;6&lt;/id&gt;
+  &lt;/union&gt;
+  &lt;payroll_classification&gt;HOUSEHOLD&lt;/payroll_classification&gt;
+  &lt;bank_account_number&gt;BANKNUMBER1&lt;/bank_account_number&gt;
+  &lt;pay_grade&gt;
+    &lt;id&gt;6&lt;/id&gt;
+    &lt;parent&gt;
+      &lt;id&gt;12&lt;/id&gt;
+      &lt;code&gt;1002&lt;/code&gt;
+      &lt;name&gt;parent&lt;/name&gt;
+    &lt;/parent&gt;
+  &lt;/pay_grade&gt;
+  &lt;gl_codes&gt;
+    &lt;gl_code&gt;
+      &lt;index&gt;0&lt;/index&gt;
+      &lt;value&gt;MyCompanyGLBook&lt;/value&gt;
+    &lt;/gl_code&gt;
+  &lt;/gl_codes&gt;
+  &lt;ttoc&gt;
+    &lt;ttoc_item&gt;
+      &lt;id&gt;101&lt;/id&gt;
+      &lt;display_name&gt;Bartenders&lt;/display_name&gt;
+      &lt;effective_from&gt;2026-01-01&lt;/effective_from&gt;
+    &lt;/ttoc_item&gt;
+  &lt;/ttoc&gt;
+&lt;/pay_information&gt;
+</pre>
+</div>
+<div class="get-example-resp-tab-1" id="get-tab-resp-schema-1">
+
+<div class="jsonschema" id="schema-1">&lt;xs:schema attributeFormDefault="unqualified" elementFormDefault="qualified"
+           xmlns:xs="http://www.w3.org/2001/XMLSchema"&gt;
+    &lt;xs:element name="pay_information"&gt;
+        &lt;xs:complexType&gt;
+            &lt;xs:all&gt;
+                &lt;xs:element type="ref" name="default_job" minOccurs="0"/&gt;
+                &lt;xs:element type="job_change_reason_code" name="job_change_reason_code" minOccurs="0"/&gt;
+                &lt;xs:element type="xs:date" name="job_last_changed" minOccurs="0"/&gt;
+                &lt;xs:element type="xs:long" name="standard_work_day" minOccurs="0"/&gt;
+                &lt;xs:element type="ref" name="employee_type" minOccurs="0"/&gt;
+                &lt;xs:element type="ref" name="pay_type" minOccurs="0"/&gt;
+                &lt;xs:element type="ref" name="shift_premium" minOccurs="0"/&gt;
+                &lt;xs:element type="eligibility" name="medical_eligibility" minOccurs="0"/&gt;
+                &lt;xs:element type="dental_eligibility" name="dental_eligibility" minOccurs="0"/&gt;
+                &lt;xs:element type="eligibility" name="dependent_benefits_eligibility" minOccurs="0"/&gt;
+                &lt;xs:element type="eligibility" name="benefit_auto_enrollment_eligibility" minOccurs="0"/&gt;
+                &lt;xs:element type="xs:string" name="eeo_classification" minOccurs="0"/&gt;
+                &lt;xs:element type="xs:string" name="eeo4_classification" minOccurs="0"/&gt;
+                &lt;xs:element type="xs:string" name="eeo4_function" minOccurs="0"/&gt;
+                &lt;xs:element type="workers_comp_code" name="workers_comp_code" minOccurs="0"/&gt;
+                &lt;xs:element type="ref" name="union" minOccurs="0"/&gt;
+                &lt;xs:element type="payroll_classification" name="payroll_classification" minOccurs="1" maxOccurs="1"/&gt;
+                &lt;xs:element type="xs:string" name="bank_account_number" minOccurs="0"/&gt;
+                &lt;xs:element type="pay_grade" name="pay_grade" minOccurs="0"/&gt;
+                &lt;xs:element name="gl_codes" minOccurs="0"&gt;
+                    &lt;xs:complexType&gt;
+                        &lt;xs:sequence minOccurs="0" maxOccurs="unbounded"&gt;
+                            &lt;xs:element type="gl_code" name="gl_code" minOccurs="0"/&gt;
+                        &lt;/xs:sequence&gt;
+                    &lt;/xs:complexType&gt;
+                &lt;/xs:element&gt;
+                &lt;xs:element name="ttoc" minOccurs="0"&gt;
+                    &lt;xs:complexType&gt;
+                        &lt;xs:sequence minOccurs="0" maxOccurs="unbounded"&gt;
+                            &lt;xs:element type="ttoc_item" name="ttoc_item" minOccurs="0"/&gt;
+                        &lt;/xs:sequence&gt;
+                    &lt;/xs:complexType&gt;
+                &lt;/xs:element&gt;
+            &lt;/xs:all&gt;
+        &lt;/xs:complexType&gt;
+    &lt;/xs:element&gt;
+
+    &lt;xs:complexType name="job_change_reason_code"&gt;
+        &lt;xs:all&gt;
+            &lt;xs:element type="xs:string" name="display_name"/&gt;
+        &lt;/xs:all&gt;
+    &lt;/xs:complexType&gt;
+
+    &lt;xs:complexType name="ref"&gt;
+        &lt;xs:all&gt;
+            &lt;xs:element type="xs:long" name="id"/&gt;
+        &lt;/xs:all&gt;
+    &lt;/xs:complexType&gt;
+
+    &lt;xs:simpleType name="eligibility"&gt;
+        &lt;xs:restriction base="xs:string"&gt;
+            &lt;xs:enumeration value="ELIGIBLE"/&gt;
+            &lt;xs:enumeration value="NOT_ELIGIBLE"/&gt;
+        &lt;/xs:restriction&gt;
+    &lt;/xs:simpleType&gt;
+
+    &lt;xs:simpleType name="dental_eligibility"&gt;
+        &lt;xs:restriction base="xs:string"&gt;
+            &lt;xs:enumeration value="NOT_ELIGIBLE"/&gt;
+            &lt;xs:enumeration value="PAYEE"/&gt;
+            &lt;xs:enumeration value="PAYEE_SPOUSE_CHILD"/&gt;
+            &lt;xs:enumeration value="PAYEE_SPOUSE"/&gt;
+            &lt;xs:enumeration value="PAYEE_CHILD"/&gt;
+        &lt;/xs:restriction&gt;
+    &lt;/xs:simpleType&gt;
+
+    &lt;xs:simpleType name="eeo_classification"&gt;
+        &lt;xs:restriction base="xs:string"&gt;
+            &lt;xs:enumeration value="EXECUTIVE_OR_SENIOR_LEVEL_OFFICIALS_AND_MANAGERS"/&gt;
+            &lt;xs:enumeration value="FIRST_OR_MID_LEVEL_OFFICIALS_AND_MANAGERS"/&gt;
+            &lt;xs:enumeration value="PROFESSIONALS"/&gt;
+            &lt;xs:enumeration value="TECHNICIANS"/&gt;
+            &lt;xs:enumeration value="SALES_WORKERS"/&gt;
+            &lt;xs:enumeration value="ADMINISTRATIVE_SUPPORT_WORKERS"/&gt;
+            &lt;xs:enumeration value="CRAFT_WORKERS"/&gt;
+            &lt;xs:enumeration value="OPERATIVES"/&gt;
+            &lt;xs:enumeration value="LABORERS_AND_HELPERS"/&gt;
+            &lt;xs:enumeration value="SERVICE_WORKERS"/&gt;
+        &lt;/xs:restriction&gt;
+    &lt;/xs:simpleType&gt;
+
+    &lt;xs:simpleType name="eeo4_classification"&gt;
+        &lt;xs:restriction base="xs:string"&gt;
+            &lt;xs:enumeration value="OFFICIALS"/&gt;
+            &lt;xs:enumeration value="PROFESSIONALS"/&gt;
+            &lt;xs:enumeration value="TECHNICIANS"/&gt;
+            &lt;xs:enumeration value="PROTECTIVE_SERVICE"/&gt;
+            &lt;xs:enumeration value="PARAPROFESSIONALS"/&gt;
+            &lt;xs:enumeration value="ADMINISTRATIVE_SUPPORT"/&gt;
+            &lt;xs:enumeration value="SKILLED_CRAFT"/&gt;
+            &lt;xs:enumeration value="SERVICE_MAINTENANCE"/&gt;
+        &lt;/xs:restriction&gt;
+    &lt;/xs:simpleType&gt;
+
+    &lt;xs:simpleType name="eeo4_function"&gt;
+        &lt;xs:restriction base="xs:string"&gt;
+            &lt;xs:enumeration value="FINANCIAL_ADMINISTRATION"/&gt;
+            &lt;xs:enumeration value="STREETS_HIGHWAYS"/&gt;
+            &lt;xs:enumeration value="PUBLIC_WELFARE"/&gt;
+            &lt;xs:enumeration value="POLICE_PROTECTION"/&gt;
+            &lt;xs:enumeration value="FIRE_PROTECTION"/&gt;
+            &lt;xs:enumeration value="NATURAL_RESOURCES"/&gt;
+            &lt;xs:enumeration value="HOSPITALS"/&gt;
+            &lt;xs:enumeration value="HEALTH"/&gt;
+            &lt;xs:enumeration value="HOUSING"/&gt;
+            &lt;xs:enumeration value="CORRECTIONS"/&gt;
+            &lt;xs:enumeration value="UTILITY_TRANSPORTATION"/&gt;
+            &lt;xs:enumeration value="SANITATION_SEWAGE"/&gt;
+            &lt;xs:enumeration value="EMPLOYMENT_SECURITY"/&gt;
+            &lt;xs:enumeration value="OTHER"/&gt;
+        &lt;/xs:restriction&gt;
+    &lt;/xs:simpleType&gt;
+
+    &lt;xs:complexType name="workers_comp_code"&gt;
+        &lt;xs:all&gt;
+            &lt;xs:element type="xs:string" name="external_id" minOccurs="0"/&gt;
+        &lt;/xs:all&gt;
+    &lt;/xs:complexType&gt;
+
+    &lt;xs:simpleType name="payroll_classification"&gt;
+        &lt;xs:restriction base="xs:string"&gt;
+            &lt;xs:enumeration value="REGULAR"/&gt;
+            &lt;xs:enumeration value="HOUSEHOLD"/&gt;
+            &lt;xs:enumeration value="FORM_943"/&gt;
+        &lt;/xs:restriction&gt;
+    &lt;/xs:simpleType&gt;
+
+    &lt;xs:complexType name="gl_code"&gt;
+        &lt;xs:all&gt;
+            &lt;xs:element type="xs:integer" name="index" minOccurs="0"/&gt;
+            &lt;xs:element type="xs:string" name="value" minOccurs="0"/&gt;
+        &lt;/xs:all&gt;
+    &lt;/xs:complexType&gt;
+
+    &lt;xs:complexType name="ttoc_item"&gt;
+        &lt;xs:all&gt;
+            &lt;xs:element type="xs:long" name="id" minOccurs="0"/&gt;
+            &lt;xs:element type="xs:string" name="display_name" minOccurs="0"/&gt;
+            &lt;xs:element type="xs:date" name="effective_from" minOccurs="0"/&gt;
+        &lt;/xs:all&gt;
+    &lt;/xs:complexType&gt;
+
+    &lt;xs:complexType name="pay_grade"&gt;
+        &lt;xs:all&gt;
+            &lt;xs:element type="xs:long" name="id"/&gt;
+            &lt;xs:element name="parent"&gt;
+                &lt;xs:complexType&gt;
+                    &lt;xs:all&gt;
+                        &lt;xs:element type="xs:long" name="id"/&gt;
+                        &lt;xs:element type="xs:long" name="code"/&gt;
+                        &lt;xs:element type="xs:string" name="name"/&gt;
+                    &lt;/xs:all&gt;
+                &lt;/xs:complexType&gt;
+            &lt;/xs:element&gt;
+        &lt;/xs:all&gt;
+    &lt;/xs:complexType&gt;
+&lt;/xs:schema&gt;
+</div>
+</div>
+</div>
+</div>
+</div>
+</article>
+</section>
+<section class="clearfix">
+<article class="definition">
+<h3 class="anchored" id="put"><span>PUT</span>
+<a class="fa fa-link link-anchor" data-url="r=__v2__companies__(cid)__employees__(aid)__pay-info#put" data-web-id="__v2__companies__(cid)__employees__(aid)__pay-info"></a>
+</h3>
+<div class="md"><p>Update the employee pay information.
+
+The Employee APIs use a separate security profile item to control access rights which is located in the company security profile in the following location:
+  1. `Modules -&gt; REST API Resources -&gt; Employee Pay Information -&gt; Edit`.
+
+&lt;b&gt;Only the 'REST API RESOURCES' security profile items in combination with 'manager permissions' are considered by this REST API resource.&lt;/b&gt;
+</p></div>
+<div>
+<ul class="annotation-list">
+<li class="annotation">
+<span>v2</span>
+</li>
+</ul>
+</div>
+<h4>Parameters</h4>
+<h5>Path Parameters</h5>
+<ul class="param-list">
+<li>
+<div class="param-desc">
+<div class="param-name">cid</div>
+<div class="data-type">string</div>
+<div class="required">required</div>
+</div>
+<div class="param-content">
+<div>
+<p>Example: 123456</p>
+<div class="desc md">Company should be referenced via company id or company unique id or company short name using `|short_name` or `!short_name` format.
+</div>
+</div>
+</div>
+
+</li>
+<li>
+<div class="param-desc">
+<div class="param-name">aid</div>
+<div class="data-type">string</div>
+<div class="required">required</div>
+</div>
+<div class="param-content">
+<div>
+<p>Example: 1234567</p>
+<div class="desc md">Account should be referenced via account id or account external id using `|external_id` or `!external_id` format.
+</div>
+</div>
+</div>
+
+</li>
+</ul>
+<h5>Header Parameters</h5>
+<ul class="param-list">
+<li>
+<div class="param-desc">
+<div class="param-name">Accept</div>
+<div class="data-type">string</div>
+</div>
+<div class="param-content">
+<div>
+<p>Valid values: application/json, application/xml, text/xml</p>
+<p>Default: application/json</p>
+<p>Example: application/json</p>
+</div>
+</div>
+
+</li>
+<li>
+<div class="param-desc">
+<div class="param-name">Content-Type</div>
+<div class="data-type">string</div>
+<div class="required">required</div>
+</div>
+<div class="param-content">
+<div>
+<p>Valid values: application/xml, text/xml, application/json</p>
+<p>Example: application/json</p>
+</div>
+</div>
+
+</li>
+<li>
+<div class="param-desc">
+<div class="param-name">Content-Length</div>
+<div class="data-type">integer</div>
+<div class="required">required</div>
+</div>
+<div class="param-content">
+<div>
+</div>
+</div>
+
+</li>
+</ul>
+<h4>Responses</h4>
+<div class="responses">
+<div>
+<label class="response response-success">
+<span class="fa fa-check"></span>
+<input data-full-tab-id="put-resp-code-tab-id-0" data-tab-class="resp-code-tab-put" name="resp-code-tab-put" type="radio"/>
+<span class="status">204 No Content</span>
+</label>
+<div class="response-desc resp-code-tab-put" id="put-resp-code-tab-id-0">
+<div class="md"><p>Pay Information was successfully updated.</p></div>
+</div>
+</div>
+<div>
+<label class="response response-error">
+<span class="fa fa-times"></span>
+<input data-full-tab-id="put-resp-code-tab-id-1" data-tab-class="resp-code-tab-put" name="resp-code-tab-put" type="radio"/>
+<span class="status">401 Unauthorized</span>
+</label>
+<div class="response-desc resp-code-tab-put" id="put-resp-code-tab-id-1">
+<div class="md"><p>Returned in case user is not authorized.</p></div>
+</div>
+</div>
+<div>
+<label class="response response-error">
+<span class="fa fa-times"></span>
+<input data-full-tab-id="put-resp-code-tab-id-2" data-tab-class="resp-code-tab-put" name="resp-code-tab-put" type="radio"/>
+<span class="status">403 Forbidden</span>
+</label>
+<div class="response-desc resp-code-tab-put" id="put-resp-code-tab-id-2">
+<div class="md"><p>Returned in case user has no access to the resource.</p></div>
+</div>
+</div>
+<div>
+<label class="response response-error">
+<span class="fa fa-times"></span>
+<input data-full-tab-id="put-resp-code-tab-id-3" data-tab-class="resp-code-tab-put" name="resp-code-tab-put" type="radio"/>
+<span class="status">404 Not Found</span>
+</label>
+<div class="response-desc resp-code-tab-put" id="put-resp-code-tab-id-3">
+<div class="md"><p>Returned in case resource does not exist.</p></div>
+</div>
+</div>
+<div>
+<label class="response response-error">
+<span class="fa fa-times"></span>
+<input data-full-tab-id="put-resp-code-tab-id-4" data-tab-class="resp-code-tab-put" name="resp-code-tab-put" type="radio"/>
+<span class="status">503 Service Unavailable</span>
+</label>
+<div class="response-desc resp-code-tab-put" id="put-resp-code-tab-id-4">
+<div class="md"><p>Returned in the event that the call limit is exceeded. The application will be unavailable for subsequent calls for the duration specified by the X-CallLimit-TimeToWait header.</p></div>
+</div>
+</div>
+</div>
+</article>
+<article class="code">
+<h4>Definition</h4>
+<div class="uri">
+<code>
+<span class="method put">put</span>
+<span class="textUri"><span class="baseUri">{{ getUriPrefix() }}</span><span class="relativeUri">/v2/companies/{cid}/employees/{aid}/pay-info</span></span>
+</code>
+</div>
+<h4>Request Samples</h4>
+<div class="tab-title-group">
+<label>
+<input checked="checked" data-full-tab-id="req-tab-id-put-0" data-tab-class="req-tab-put" name="req-tab-put" type="radio"/>
+<span class="tab-title">application/json</span>
+</label>
+<label>
+<input data-full-tab-id="req-tab-id-put-1" data-tab-class="req-tab-put" name="req-tab-put" type="radio"/>
+<span class="tab-title">application/xml</span>
+</label>
+</div>
+<div>
+<div class="req-tab-put" id="req-tab-id-put-0">
+<div class="example">
+
+<div class="put-example-tab-0 activeTab" id="put-tab-example-0">
+
+<pre class="highlightjs">{
+  "default_job": {
+    "id": 1546305
+  },
+  "job_change_reason_code": {
+    "display_name": "Promotion"
+  },
+  "job_last_changed": "2017-04-04",
+  "standard_work_day": 28800000,
+  "employee_type": {
+    "id": 2
+  },
+  "pay_type": {
+    "id": 3
+  },
+  "shift_premium": {
+    "id": 6
+  },
+  "medical_eligibility": "NOT_ELIGIBLE",
+  "dental_eligibility": "NOT_ELIGIBLE",
+  "dependent_benefits_eligibility": "NOT_ELIGIBLE",
+  "benefit_auto_enrollment_eligibility": "ELIGIBLE",
+  "eeo_classification": "PROFESSIONALS",
+  "eeo4_classification": "SERVICE_MAINTENANCE",
+  "eeo4_function": "FIRE_PROTECTION",
+  "workers_comp_code": {
+    "external_id": "3179:AL"
+  },
+  "union": {
+    "id": 4
+  },
+  "payroll_classification": "HOUSEHOLD",
+  "bank_account_number": "BANKNUMBER1",
+  "pay_grade": {
+    "id": 5
+  },
+  "gl_codes": [
+    {
+      "index": 0,
+      "value": "MyCompanyGLBook"
+    }
+  ],
+  "ttoc": [
+    {
+      "id": 101,
+      "display_name": "Bartenders",
+      "effective_from": "2026-01-01"
+    }
+  ]
+}
+</pre>
+</div>
+<div class="put-example-tab-0" id="put-tab-schema-0">
+
+<div class="jsonschema" id="schema-2">{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "type": "object",
+  "properties": {
+    "default_job": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer"
+        }
+      },
+      "additionalProperties": false
+    },
+    "job_change_reason_code": {
+      "type": "object",
+      "properties": {
+        "display_name": {
+          "type": "string",
+          "maxLength": 50
+        }
+      },
+      "description": "Required only if 'default_job' is specified.",
+      "additionalProperties": false
+    },
+    "job_last_changed": {
+      "type": "string",
+      "pattern": "^(19[0-9]{2}|20[0-6][0-9]|2070)-(0[1-9]|1[0-2])-(0[1-9]|[1-2][0-9]|3[0-1])$",
+      "description": "Date needs to be in the format yyyy-mm-dd within the 1900-12-31 and 2079-06-05 date range"
+    },
+    "standard_work_day": {
+      "type": "integer",
+      "description": "Standard work day is represented in milliseconds."
+    },
+    "employee_type": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "number",
+          "format": "long"
+        }
+      },
+      "additionalProperties": false
+    },
+    "pay_type": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer"
+        }
+      },
+      "additionalProperties": false
+    },
+    "shift_premium": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer"
+        }
+      },
+      "additionalProperties": false
+    },
+    "medical_eligibility": {
+      "type": "string",
+      "enum": [
+        "ELIGIBLE",
+        "NOT_ELIGIBLE"
+      ]
+    },
+    "dental_eligibility": {
+      "type": "string",
+      "enum": [
+        "NOT_ELIGIBLE",
+        "PAYEE",
+        "PAYEE_SPOUSE_CHILD",
+        "PAYEE_SPOUSE",
+        "PAYEE_CHILD"
+      ]
+    },
+    "dependent_benefits_eligibility": {
+      "type": "string",
+      "enum": [
+        "ELIGIBLE",
+        "NOT_ELIGIBLE"
+      ]
+    },
+    "benefit_auto_enrollment_eligibility": {
+      "type": "string",
+      "enum": [
+        "ELIGIBLE",
+        "NOT_ELIGIBLE"
+      ]
+    },
+    "eeo_classification": {
+      "type": "string",
+      "enum": [
+        "EXECUTIVE_OR_SENIOR_LEVEL_OFFICIALS_AND_MANAGERS",
+        "FIRST_OR_MID_LEVEL_OFFICIALS_AND_MANAGERS",
+        "PROFESSIONALS",
+        "TECHNICIANS",
+        "SALES_WORKERS",
+        "ADMINISTRATIVE_SUPPORT_WORKERS",
+        "CRAFT_WORKERS",
+        "OPERATIVES",
+        "LABORERS_AND_HELPERS",
+        "SERVICE_WORKERS"
+      ]
+    },
+    "eeo4_classification": {
+      "type": "string",
+      "enum": [
+        "OFFICIALS",
+        "PROFESSIONALS",
+        "TECHNICIANS",
+        "PROTECTIVE_SERVICE",
+        "PARAPROFESSIONALS",
+        "ADMINISTRATIVE_SUPPORT",
+        "SKILLED_CRAFT",
+        "SERVICE_MAINTENANCE"
+      ]
+    },
+    "eeo4_function": {
+      "type": "string",
+      "enum": [
+        "FINANCIAL_ADMINISTRATION",
+        "STREETS_HIGHWAYS",
+        "PUBLIC_WELFARE",
+        "POLICE_PROTECTION",
+        "FIRE_PROTECTION",
+        "NATURAL_RESOURCES",
+        "HOSPITALS",
+        "HEALTH",
+        "HOUSING",
+        "COMMUNITY_DEVELOPMENT",
+        "CORRECTIONS",
+        "UTILITY_TRANSPORTATION",
+        "SANITATION_SEWAGE",
+        "EMPLOYMENT_SECURITY",
+        "OTHER"
+      ]
+    },
+    "workers_comp_code": {
+      "type": "object",
+      "properties": {
+        "external_id": {
+          "type": "string"
+        }
+      }
+    },
+    "union": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer"
+        }
+      },
+      "additionalProperties": false
+    },
+    "payroll_classification": {
+      "type": "string",
+      "enum": [
+        "REGULAR",
+        "HOUSEHOLD",
+        "FORM_943"
+      ]
+    },
+    "bank_account_number": {
+      "type": "string",
+      "maxLength": 100
+    },
+    "pay_grade": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer"
+        }
+      },
+      "additionalProperties": false
+    },
+    "gl_codes": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "index": {
+            "type": "integer"
+          },
+          "value": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "ttoc": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer"
+          },
+          "display_name": {
+            "type": "string"
+          },
+          "effective_from": {
+            "type": "string",
+            "pattern": "^(19[0-9]{2}|20[0-6][0-9]|2070)-(0[1-9]|1[0-2])-(0[1-9]|[1-2][0-9]|3[0-1])$",
+            "description": "Date needs to be in the format yyyy-mm-dd within the 1900-12-31 and 2070-12-31 date range"
+          }
+        }
+      }
+    }
+  },
+  "required": [
+    "payroll_classification"
+  ],
+  "additionalProperties": false
+}</div>
+</div>
+</div>
+</div>
+<div class="req-tab-put" id="req-tab-id-put-1">
+<div class="example">
+
+<div class="put-example-tab-1 activeTab" id="put-tab-example-1">
+
+<pre class="highlightjs">&lt;?xml version='1.0' encoding='UTF-8'?&gt;
+&lt;pay_information&gt;
+    &lt;default_job&gt;
+        &lt;id&gt;1546305&lt;/id&gt;
+    &lt;/default_job&gt;
+    &lt;job_change_reason_code&gt;
+        &lt;display_name&gt;Promotion&lt;/display_name&gt;
+    &lt;/job_change_reason_code&gt;
+    &lt;job_last_changed&gt;2017-04-04&lt;/job_last_changed&gt;
+    &lt;standard_work_day&gt;28800000&lt;/standard_work_day&gt;
+    &lt;employee_type&gt;
+        &lt;id&gt;2&lt;/id&gt;
+    &lt;/employee_type&gt;
+    &lt;pay_type&gt;
+        &lt;id&gt;1&lt;/id&gt;
+    &lt;/pay_type&gt;
+    &lt;shift_premium&gt;
+        &lt;id&gt;6&lt;/id&gt;
+    &lt;/shift_premium&gt;
+    &lt;medical_eligibility&gt;NOT_ELIGIBLE&lt;/medical_eligibility&gt;
+    &lt;dental_eligibility&gt;NOT_ELIGIBLE&lt;/dental_eligibility&gt;
+    &lt;dependent_benefits_eligibility&gt;NOT_ELIGIBLE&lt;/dependent_benefits_eligibility&gt;
+    &lt;benefit_auto_enrollment_eligibility&gt;ELIGIBLE&lt;/benefit_auto_enrollment_eligibility&gt;
+    &lt;eeo_classification&gt;PROFESSIONALS&lt;/eeo_classification&gt;
+    &lt;workers_comp_code&gt;
+        &lt;external_id&gt;3179:AL&lt;/external_id&gt;
+    &lt;/workers_comp_code&gt;
+    &lt;union&gt;
+        &lt;id&gt;6&lt;/id&gt;
+    &lt;/union&gt;
+    &lt;payroll_classification&gt;HOUSEHOLD&lt;/payroll_classification&gt;
+    &lt;bank_account_number&gt;BANKNUMBER1&lt;/bank_account_number&gt;
+    &lt;pay_grade&gt;
+        &lt;id&gt;6&lt;/id&gt;
+    &lt;/pay_grade&gt;
+    &lt;gl_codes&gt;
+        &lt;gl_code&gt;
+            &lt;index&gt;0&lt;/index&gt;
+            &lt;value&gt;MyCompanyGLBook&lt;/value&gt;
+        &lt;/gl_code&gt;
+    &lt;/gl_codes&gt;
+    &lt;ttoc&gt;
+        &lt;ttoc_item&gt;
+            &lt;id&gt;101&lt;/id&gt;
+            &lt;display_name&gt;Bartenders&lt;/display_name&gt;
+            &lt;effective_from&gt;2026-01-01&lt;/effective_from&gt;
+        &lt;/ttoc_item&gt;
+    &lt;/ttoc&gt;
+&lt;/pay_information&gt;
+</pre>
+</div>
+<div class="put-example-tab-1" id="put-tab-schema-1">
+
+<div class="jsonschema" id="schema-3">&lt;xs:schema attributeFormDefault="unqualified" elementFormDefault="qualified"
+           xmlns:xs="http://www.w3.org/2001/XMLSchema"&gt;
+    &lt;xs:element name="pay_information"&gt;
+        &lt;xs:complexType&gt;
+            &lt;xs:all&gt;
+                &lt;xs:element type="ref" name="default_job" minOccurs="0"/&gt;
+                &lt;xs:element type="job_change_reason_code" name="job_change_reason_code" minOccurs="0"/&gt;
+                &lt;xs:element type="xs:date" name="job_last_changed" minOccurs="0"/&gt;
+                &lt;xs:element type="xs:long" name="standard_work_day" minOccurs="0"/&gt;
+                &lt;xs:element type="ref" name="employee_type" minOccurs="0"/&gt;
+                &lt;xs:element type="ref" name="pay_type" minOccurs="0"/&gt;
+                &lt;xs:element type="ref" name="shift_premium" minOccurs="0"/&gt;
+                &lt;xs:element type="eligibility" name="medical_eligibility" minOccurs="0"/&gt;
+                &lt;xs:element type="dental_eligibility" name="dental_eligibility" minOccurs="0"/&gt;
+                &lt;xs:element type="eligibility" name="dependent_benefits_eligibility" minOccurs="0"/&gt;
+                &lt;xs:element type="eligibility" name="benefit_auto_enrollment_eligibility" minOccurs="0"/&gt;
+                &lt;xs:element type="xs:string" name="eeo_classification" minOccurs="0"/&gt;
+                &lt;xs:element type="workers_comp_code" name="workers_comp_code" minOccurs="0"/&gt;
+                &lt;xs:element type="ref" name="union" minOccurs="0"/&gt;
+                &lt;xs:element type="payroll_classification" name="payroll_classification" minOccurs="1" maxOccurs="1"/&gt;
+                &lt;xs:element type="xs:string" name="bank_account_number" minOccurs="0"/&gt;
+                &lt;xs:element type="ref" name="pay_grade" minOccurs="0"/&gt;
+                &lt;xs:element name="gl_codes" minOccurs="0"&gt;
+                    &lt;xs:complexType&gt;
+                        &lt;xs:sequence minOccurs="0" maxOccurs="unbounded"&gt;
+                            &lt;xs:element type="gl_code" name="gl_code" minOccurs="0"/&gt;
+                        &lt;/xs:sequence&gt;
+                    &lt;/xs:complexType&gt;
+                &lt;/xs:element&gt;
+                &lt;xs:element name="ttoc" minOccurs="0"&gt;
+                    &lt;xs:complexType&gt;
+                        &lt;xs:sequence minOccurs="0" maxOccurs="unbounded"&gt;
+                            &lt;xs:element type="ttoc_item" name="ttoc_item" minOccurs="0"/&gt;
+                        &lt;/xs:sequence&gt;
+                    &lt;/xs:complexType&gt;
+                &lt;/xs:element&gt;
+            &lt;/xs:all&gt;
+        &lt;/xs:complexType&gt;
+    &lt;/xs:element&gt;
+
+    &lt;xs:complexType name="job_change_reason_code"&gt;
+        &lt;xs:all&gt;
+            &lt;xs:element type="xs:string" name="display_name"/&gt;
+        &lt;/xs:all&gt;
+    &lt;/xs:complexType&gt;
+
+    &lt;xs:complexType name="ref"&gt;
+        &lt;xs:all&gt;
+            &lt;xs:element type="xs:long" name="id"/&gt;
+        &lt;/xs:all&gt;
+    &lt;/xs:complexType&gt;
+
+    &lt;xs:simpleType name="eligibility"&gt;
+        &lt;xs:restriction base="xs:string"&gt;
+            &lt;xs:enumeration value="ELIGIBLE"/&gt;
+            &lt;xs:enumeration value="NOT_ELIGIBLE"/&gt;
+        &lt;/xs:restriction&gt;
+    &lt;/xs:simpleType&gt;
+
+    &lt;xs:simpleType name="dental_eligibility"&gt;
+        &lt;xs:restriction base="xs:string"&gt;
+            &lt;xs:enumeration value="NOT_ELIGIBLE"/&gt;
+            &lt;xs:enumeration value="PAYEE"/&gt;
+            &lt;xs:enumeration value="PAYEE_SPOUSE_CHILD"/&gt;
+            &lt;xs:enumeration value="PAYEE_SPOUSE"/&gt;
+            &lt;xs:enumeration value="PAYEE_CHILD"/&gt;
+        &lt;/xs:restriction&gt;
+    &lt;/xs:simpleType&gt;
+
+    &lt;xs:simpleType name="eeo_classification"&gt;
+        &lt;xs:restriction base="xs:string"&gt;
+            &lt;xs:enumeration value="EXECUTIVE_OR_SENIOR_LEVEL_OFFICIALS_AND_MANAGERS"/&gt;
+            &lt;xs:enumeration value="FIRST_OR_MID_LEVEL_OFFICIALS_AND_MANAGERS"/&gt;
+            &lt;xs:enumeration value="PROFESSIONALS"/&gt;
+            &lt;xs:enumeration value="TECHNICIANS"/&gt;
+            &lt;xs:enumeration value="SALES_WORKERS"/&gt;
+            &lt;xs:enumeration value="ADMINISTRATIVE_SUPPORT_WORKERS"/&gt;
+            &lt;xs:enumeration value="CRAFT_WORKERS"/&gt;
+            &lt;xs:enumeration value="OPERATIVES"/&gt;
+            &lt;xs:enumeration value="LABORERS_AND_HELPERS"/&gt;
+            &lt;xs:enumeration value="SERVICE_WORKERS"/&gt;
+        &lt;/xs:restriction&gt;
+    &lt;/xs:simpleType&gt;
+
+    &lt;xs:simpleType name="eeo4_classification"&gt;
+        &lt;xs:restriction base="xs:string"&gt;
+            &lt;xs:enumeration value="OFFICIALS"/&gt;
+            &lt;xs:enumeration value="PROFESSIONALS"/&gt;
+            &lt;xs:enumeration value="TECHNICIANS"/&gt;
+            &lt;xs:enumeration value="PROTECTIVE_SERVICE"/&gt;
+            &lt;xs:enumeration value="PARAPROFESSIONALS"/&gt;
+            &lt;xs:enumeration value="ADMINISTRATIVE_SUPPORT"/&gt;
+            &lt;xs:enumeration value="SKILLED_CRAFT"/&gt;
+            &lt;xs:enumeration value="SERVICE_MAINTENANCE"/&gt;
+        &lt;/xs:restriction&gt;
+    &lt;/xs:simpleType&gt;
+
+    &lt;xs:simpleType name="eeo4_function"&gt;
+        &lt;xs:restriction base="xs:string"&gt;
+            &lt;xs:enumeration value="FINANCIAL_ADMINISTRATION"/&gt;
+            &lt;xs:enumeration value="STREETS_HIGHWAYS"/&gt;
+            &lt;xs:enumeration value="PUBLIC_WELFARE"/&gt;
+            &lt;xs:enumeration value="POLICE_PROTECTION"/&gt;
+            &lt;xs:enumeration value="FIRE_PROTECTION"/&gt;
+            &lt;xs:enumeration value="NATURAL_RESOURCES"/&gt;
+            &lt;xs:enumeration value="HOSPITALS"/&gt;
+            &lt;xs:enumeration value="HEALTH"/&gt;
+            &lt;xs:enumeration value="HOUSING"/&gt;
+            &lt;xs:enumeration value="CORRECTIONS"/&gt;
+            &lt;xs:enumeration value="UTILITY_TRANSPORTATION"/&gt;
+            &lt;xs:enumeration value="SANITATION_SEWAGE"/&gt;
+            &lt;xs:enumeration value="EMPLOYMENT_SECURITY"/&gt;
+            &lt;xs:enumeration value="OTHER"/&gt;
+        &lt;/xs:restriction&gt;
+    &lt;/xs:simpleType&gt;
+
+    &lt;xs:complexType name="workers_comp_code"&gt;
+        &lt;xs:all&gt;
+            &lt;xs:element type="xs:string" name="external_id" minOccurs="0"/&gt;
+        &lt;/xs:all&gt;
+    &lt;/xs:complexType&gt;
+
+    &lt;xs:simpleType name="payroll_classification"&gt;
+        &lt;xs:restriction base="xs:string"&gt;
+            &lt;xs:enumeration value="REGULAR"/&gt;
+            &lt;xs:enumeration value="HOUSEHOLD"/&gt;
+            &lt;xs:enumeration value="FORM_943"/&gt;
+        &lt;/xs:restriction&gt;
+    &lt;/xs:simpleType&gt;
+
+    &lt;xs:complexType name="gl_code"&gt;
+        &lt;xs:all&gt;
+            &lt;xs:element type="xs:integer" name="index" minOccurs="0"/&gt;
+            &lt;xs:element type="xs:string" name="value" minOccurs="0"/&gt;
+        &lt;/xs:all&gt;
+    &lt;/xs:complexType&gt;
+
+    &lt;xs:complexType name="ttoc_item"&gt;
+        &lt;xs:all&gt;
+            &lt;xs:element type="xs:long" name="id" minOccurs="0"/&gt;
+            &lt;xs:element type="xs:string" name="display_name" minOccurs="0"/&gt;
+            &lt;xs:element type="xs:date" name="effective_from" minOccurs="0"/&gt;
+        &lt;/xs:all&gt;
+    &lt;/xs:complexType&gt;
+&lt;/xs:schema&gt;
+</div>
+</div>
+</div>
+</div>
+</div>
+</article>
+</section>
+</div>
+</body></html>

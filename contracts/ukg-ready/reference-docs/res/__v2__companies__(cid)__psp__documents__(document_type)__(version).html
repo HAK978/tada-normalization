@@ -1,0 +1,225 @@
+<!doctype html>
+<html><head><meta charset="utf-8"><title>Document Version</title><style>body{font:16px system-ui;max-width:1100px;margin:2rem auto;padding:0 1rem;line-height:1.5}aside{background:#fff3cc;padding:1rem}.jsonschema,pre{white-space:pre-wrap;font:13px monospace;overflow-wrap:anywhere;background:#f4f5f7;padding:1rem}.uri{font-family:monospace}h2,h3{margin-top:2rem}</style></head><body><aside><strong>Modified private reference — 2026-10-09.</strong> Provider-documented illustrative examples are included; authentication token examples are redacted. These are not customer exports or guaranteed production behavior. Candidate sharing is pending. This is not OpenAPI.</aside>
+<div class="group">
+<h2 class="anchored" id="item.anchor">
+<span>Document Version</span>
+<a class="fa fa-link link-anchor" data-url="r=__v2__companies__(cid)__psp__documents__(document_type)__(version)#" data-web-id="__v2__companies__(cid)__psp__documents__(document_type)__(version)"></a>
+</h2>
+<section class="clearfix">
+<article class="definition">
+<h3 class="anchored" id="post"><span>POST</span>
+<a class="fa fa-link link-anchor" data-url="r=__v2__companies__(cid)__psp__documents__(document_type)__(version)#post" data-web-id="__v2__companies__(cid)__psp__documents__(document_type)__(version)"></a>
+</h3>
+<div class="md"><p>Submits a Payment Service Platform document for processing and storage.
+
+**General Behavior:**
+- Validates the request body according to the document type and version
+- Checks document size against company's maximum file size setting
+- Creates a document upload record linked to the company
+- Stores the document in blob storage
+- Returns the document upload name and ID upon successful storage
+
+**Security Requirements:**
+The authentication token must have the required security access:
+- "Modules &gt; REST API Resources &gt; PSP Documents &gt; Add checkbox"
+- "Distribution &gt; Distribution &gt; Upload Service Provider Documents checkbox"
+  - Requires "Integrated Document Storage" Marketplace Product
+
+**Document Access:**
+- Uploaded documents will be visible in "Distribution &gt; Tools &gt; Upload Service Provider Documents"
+
+**Supported Document Types:**
+
+| Document Type | Version | Description | Request Body Schema | Request Body Example |
+|--------------|---------|-------------|-------------------|---------------|
+| `direct-deposit-reject` | v5 | Rejected/returned Direct Deposit transactions | [psp-direct-deposit-reject-request-v5-schema.json](../raml/public/endpoints/psp/schema/psp-direct-deposit-reject-request-v5-schema.json) | [psp-direct-deposit-reject-request-v5-example.json](../raml/public/endpoints/psp/examples/psp-direct-deposit-reject-request-v5-example.json) |
+
+**Note:** For detailed schemas, validation rules, and examples for each document type,
+refer to the document-type-specific RAML files in the same directory.
+</p></div>
+<div>
+<ul class="annotation-list">
+<li class="annotation">
+<span>v2</span>
+</li>
+</ul>
+</div>
+<h4>Parameters</h4>
+<h5>Path Parameters</h5>
+<ul class="param-list">
+<li>
+<div class="param-desc">
+<div class="param-name">cid</div>
+<div class="data-type">string</div>
+<div class="required">required</div>
+</div>
+<div class="param-content">
+<div>
+<p>Example: 123456</p>
+<div class="desc md">Company should be referenced via company id or company unique id or company short name using `|short_name` or `!short_name` format.
+</div>
+</div>
+</div>
+
+</li>
+<li>
+<div class="param-desc">
+<div class="param-name">document_type</div>
+<div class="data-type">string</div>
+<div class="required">required</div>
+</div>
+<div class="param-content">
+<div>
+<p>Example: direct-deposit-reject</p>
+<div class="desc md">The type of PSP document to submit.
+</div>
+</div>
+</div>
+
+</li>
+<li>
+<div class="param-desc">
+<div class="param-name">version</div>
+<div class="data-type">string</div>
+<div class="required">required</div>
+</div>
+<div class="param-content">
+<div>
+<p>Example: v5</p>
+<div class="desc md">The version of the document schema.
+</div>
+</div>
+</div>
+
+</li>
+</ul>
+<h4>Responses</h4>
+<div class="responses">
+<div>
+<label class="response response-success">
+<span class="fa fa-check"></span>
+<input data-full-tab-id="post-resp-code-tab-id-0" data-tab-class="resp-code-tab-post" name="resp-code-tab-post" type="radio"/>
+<span class="status">200 Ok</span>
+</label>
+<div class="response-desc resp-code-tab-post" id="post-resp-code-tab-id-0">
+<div class="md"><p>Document has been accepted and stored successfully.
+Returns the document upload ID.
+</p></div>
+</div>
+</div>
+<div>
+<label class="response response-error">
+<span class="fa fa-times"></span>
+<input data-full-tab-id="post-resp-code-tab-id-1" data-tab-class="resp-code-tab-post" name="resp-code-tab-post" type="radio"/>
+<span class="status">400 Bad Request</span>
+</label>
+<div class="response-desc resp-code-tab-post" id="post-resp-code-tab-id-1">
+<div class="md"><p>Bad request. Possible reasons:
+- Missing required fields
+- Invalid field values
+- File size exceeds company's maximum document size
+- Unsupported document type
+- Unsupported version
+- Document type not configured for the company
+</p></div>
+</div>
+</div>
+<div>
+<label class="response response-error">
+<span class="fa fa-times"></span>
+<input data-full-tab-id="post-resp-code-tab-id-2" data-tab-class="resp-code-tab-post" name="resp-code-tab-post" type="radio"/>
+<span class="status">403 Forbidden</span>
+</label>
+<div class="response-desc resp-code-tab-post" id="post-resp-code-tab-id-2">
+<div class="md"><p>Forbidden. User lacks required security permissions.
+</p></div>
+</div>
+</div>
+<div>
+<label class="response response-error">
+<span class="fa fa-times"></span>
+<input data-full-tab-id="post-resp-code-tab-id-3" data-tab-class="resp-code-tab-post" name="resp-code-tab-post" type="radio"/>
+<span class="status">500 Internal Server Error</span>
+</label>
+<div class="response-desc resp-code-tab-post" id="post-resp-code-tab-id-3">
+<div class="md"><p>Internal server error. Document upload creation or blob storage failed.
+</p></div>
+</div>
+</div>
+</div>
+</article>
+<article class="code">
+<h4>Definition</h4>
+<div class="uri">
+<code>
+<span class="method post">post</span>
+<span class="textUri"><span class="baseUri">{{ getUriPrefix() }}</span><span class="relativeUri">/v2/companies/{cid}/psp/documents/{document_type}/{version}</span></span>
+</code>
+</div>
+<h4>Request Samples</h4>
+<div class="tab-title-group">
+<label>
+<input checked="checked" data-full-tab-id="req-tab-id-post-0" data-tab-class="req-tab-post" name="req-tab-post" type="radio"/>
+<span class="tab-title">application/json</span>
+</label>
+</div>
+<div>
+<div class="req-tab-post" id="req-tab-id-post-0">
+<div class="example">
+
+<div class="post-example-tab-0" id="post-tab-schema-0">
+
+<div class="jsonschema" id="schema-0">object</div>
+</div>
+</div>
+</div>
+</div>
+<h4>Response Samples</h4>
+<div class="tab-title-group">
+<label>
+<input checked="checked" data-full-tab-id="resp-tab-id-post-0" data-tab-class="resp-tab-post" name="resp-tab-post" type="radio"/>
+<span class="tab-title">application/json</span>
+</label>
+</div>
+<div>
+<div class="resp-tab-post" id="resp-tab-id-post-0">
+<div class="example">
+
+<div class="post-example-resp-tab-0 activeTab" id="post-tab-resp-example-0">
+
+<pre class="highlightjs">{
+  "documentName": "AFT_Returns_20260126.json",
+  "documentId": "1234567890"
+}
+</pre>
+</div>
+<div class="post-example-resp-tab-0" id="post-tab-resp-schema-0">
+
+<div class="jsonschema" id="schema-1">{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "type": "object",
+  "title": "Direct Deposit Post Response",
+  "description": "Response body for PSP document upload",
+  "required": [
+    "documentName",
+    "documentId"
+  ],
+  "properties": {
+    "documentName": {
+      "type": "string",
+      "description": "The display name of the uploaded document"
+    },
+    "documentId": {
+      "type": "string",
+      "description": "The unique identifier of the created document upload"
+    }
+  }
+}</div>
+</div>
+</div>
+</div>
+</div>
+</article>
+</section>
+</div>
+</body></html>

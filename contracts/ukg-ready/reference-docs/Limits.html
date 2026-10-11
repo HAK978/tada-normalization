@@ -1,0 +1,52 @@
+<!doctype html>
+<html><head><meta charset="utf-8"><title>Limits</title><style>body{font:16px system-ui;max-width:1100px;margin:2rem auto;padding:0 1rem;line-height:1.5}aside{background:#fff3cc;padding:1rem}.jsonschema,pre{white-space:pre-wrap;font:13px monospace;overflow-wrap:anywhere;background:#f4f5f7;padding:1rem}.uri{font-family:monospace}h2,h3{margin-top:2rem}</style></head><body><aside><strong>Modified private reference — 2026-10-09.</strong> Provider-documented illustrative examples are included; authentication token examples are redacted. These are not customer exports or guaranteed production behavior. Candidate sharing is pending. This is not OpenAPI.</aside>
+<div class="group">
+<h2 class="docTitle">Limits</h2>
+<section class="clearfix">
+<article class="documentation md">
+<pre>Throttling and service limits establish sensible, safe constraints on data returned by the API. These limits play an important role in preserving the health of our ecosystem and help ensure all users experience consistently high performance.
+
+The API enforces both limits on the number of calls a client can make in a rolling minute period (Throttling) and limits on the Size of requests (Service Limits).
+
+---
+
+# Throttling
+
+Throttling mechanisms work alongside service limits to preserve the health of the suite ecosystem and help ensure all users experience consistently high performance.
+
+Throttling avoids service failures and severe slowdowns by ensuring usage of a resource does not exceed the load capacity of backend services. **Throttling limits are applied on a rolling 60-second window** based on the size of the company (Active Employees), the more employees the higher the limit.
+
+The HTTP status code for throttling is 503. Refer to the HTTP status codes topic for more information.
+
+**Default Throttling limits**
+
+|     Employees | Limit |
+|--------------:|------:|
+|       0 - 249 |   500 |
+|     250 - 499 |   750 |
+|     500 - 999 |  1000 |
+|         1000+ |  1500 |
+
+# Service Limits
+
+Generally, service limits constrain the size of a request or response to ensure each request does not exceed reasonable limits. You cannot retrieve more data than the limits specified by these constraints in a single call.
+
+The HTTP status code for service limits is 413. Refer to the HTTP status codes topic for more information about HTTP status codes.
+
+The Service Limits are applied on all Resources and are checked based on the `Content-Length` header. If the `Content-Length` header is omitted from a request, or the `Content-Length` is greater than the allowed limit the request will immediately return an error.
+
+
+**Default Service Limits**
+
+| Time Window* | Limit (Mb) | Report rows |
+|--------------|-----------:|------------:|
+| 6am - 10 am  |          1 |       50000 |
+| 10am - 4pm   |          5 |      100000 |
+| 4pm - 8pm    |          1 |       50000 |
+| 8pm - 6am    |         10 |      200000 |
+
+***Time-Window** - The time window is based on the timezone which is configured for the company.</pre>
+</article>
+</section>
+</div>
+</body></html>

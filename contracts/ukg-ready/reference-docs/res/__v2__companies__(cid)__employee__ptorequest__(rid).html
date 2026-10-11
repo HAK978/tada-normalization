@@ -1,0 +1,364 @@
+<!doctype html>
+<html><head><meta charset="utf-8"><title>PTO Request</title><style>body{font:16px system-ui;max-width:1100px;margin:2rem auto;padding:0 1rem;line-height:1.5}aside{background:#fff3cc;padding:1rem}.jsonschema,pre{white-space:pre-wrap;font:13px monospace;overflow-wrap:anywhere;background:#f4f5f7;padding:1rem}.uri{font-family:monospace}h2,h3{margin-top:2rem}</style></head><body><aside><strong>Modified private reference — 2026-10-09.</strong> Provider-documented illustrative examples are included; authentication token examples are redacted. These are not customer exports or guaranteed production behavior. Candidate sharing is pending. This is not OpenAPI.</aside>
+<div class="group">
+<h2 class="anchored" id="item.anchor">
+<span>PTO Request</span>
+<a class="fa fa-link link-anchor" data-url="r=__v2__companies__(cid)__employee__ptorequest__(rid)#" data-web-id="__v2__companies__(cid)__employee__ptorequest__(rid)"></a>
+</h2>
+<section class="clearfix">
+<article class="definition">
+<h3 class="anchored" id="get"><span>GET</span>
+<a class="fa fa-link link-anchor" data-url="r=__v2__companies__(cid)__employee__ptorequest__(rid)#get" data-web-id="__v2__companies__(cid)__employee__ptorequest__(rid)"></a>
+</h3>
+<div class="md"><p>Endpoint provides information about single time off request.</p></div>
+<h4>Parameters</h4>
+<h5>Path Parameters</h5>
+<ul class="param-list">
+<li>
+<div class="param-desc">
+<div class="param-name">cid</div>
+<div class="data-type">string</div>
+<div class="required">required</div>
+</div>
+<div class="param-content">
+<div>
+<p>Example: 123456</p>
+<div class="desc md">Company should be referenced via company id or company unique id or company short name using `|short_name` or `!short_name` format.
+</div>
+</div>
+</div>
+
+</li>
+<li>
+<div class="param-desc">
+<div class="param-name">rid</div>
+<div class="data-type">integer</div>
+<div class="required">required</div>
+</div>
+<div class="param-content">
+<div>
+<div class="desc md">Time off request id</div>
+</div>
+</div>
+
+</li>
+</ul>
+<h4>Responses</h4>
+<div class="responses">
+<div>
+<label class="response response-success">
+<span class="fa fa-check"></span>
+<input data-full-tab-id="get-resp-code-tab-id-0" data-tab-class="resp-code-tab-get" name="resp-code-tab-get" type="radio"/>
+<span class="status">200 Ok</span>
+</label>
+<div class="response-desc resp-code-tab-get" id="get-resp-code-tab-id-0">
+</div>
+</div>
+</div>
+</article>
+<article class="code">
+<h4>Definition</h4>
+<div class="uri">
+<code>
+<span class="method get">get</span>
+<span class="textUri"><span class="baseUri">{{ getUriPrefix() }}</span><span class="relativeUri">/v2/companies/{cid}/employee/ptorequest/{rid}</span></span>
+</code>
+</div>
+<h4>Response Samples</h4>
+<div class="tab-title-group">
+<label>
+<input checked="checked" data-full-tab-id="resp-tab-id-get-0" data-tab-class="resp-tab-get" name="resp-tab-get" type="radio"/>
+<span class="tab-title">application/json</span>
+</label>
+<label>
+<input data-full-tab-id="resp-tab-id-get-1" data-tab-class="resp-tab-get" name="resp-tab-get" type="radio"/>
+<span class="tab-title">application/xml</span>
+</label>
+</div>
+<div>
+<div class="resp-tab-get" id="resp-tab-id-get-0">
+<div class="example">
+
+<div class="get-example-resp-tab-0 activeTab" id="get-tab-resp-example-0">
+
+<pre class="highlightjs">{
+  "employee": {
+    "account_id": 2206081,
+    "full_name": "Bonnie Armstrong"
+  },
+  "time_off": {
+    "id": 1537857,
+    "name": "OVT",
+    "color_id": 1
+  },
+  "comment": "Accepted: aaas",
+  "from_date": "2017-05-02",
+  "to_date": "2017-05-04",
+  "from_time": "00:00",
+  "to_time": "00:00",
+  "pto_details": {
+    "time_entry_id": "216209668",
+    "request_id": "4253253",
+    "request_state": "Approved",
+    "requested_time": "24:00",
+    "duration_unit": "HOURS",
+    "created": "2017-04-28",
+    "approved_date": "2017-04-28T12:29:00.000-04:00",
+    "work_flow_status": "Approved",
+    "can_delete": true,
+    "note_thread_id": "9844353",
+    "cost_center_ids": [
+      "1537793"
+    ],
+    "approved_by": {
+      "account_id": 2194305,
+      "full_name": "System Administrator"
+    }
+  },
+  "notes_count": 1
+}
+</pre>
+</div>
+<div class="get-example-resp-tab-0" id="get-tab-resp-schema-0">
+
+<div class="jsonschema" id="schema-0">{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "type": "object",
+  "properties": {
+    "employee": {
+      "type": "object",
+      "properties": {
+        "account_id": {
+          "type": "number",
+          "format": "long"
+        },
+        "username": {
+          "type": "string"
+        },
+        "ein_name": {
+          "type": "string"
+        },
+        "ein_tax_id": {
+          "type": "string"
+        }
+      }
+    },
+    "time_off": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer"
+        },
+        "name": {
+          "type": "string"
+        },
+        "color_id": {
+          "type": "integer"
+        }
+      }
+    },
+    "pto_details": {
+      "type": "object",
+      "properties": {
+        "request_id": {
+          "type": "string"
+        },
+        "request_state": {
+          "type": "string"
+        },
+        "requested_date": {
+          "type": "string"
+        },
+        "requested_time": {
+          "type": "string"
+        },
+        "duration_unit": {
+          "type": "string",
+          "enum": [
+            "HOURS",
+            "DAYS"
+          ]
+        },
+        "created": {
+          "type": "string"
+        },
+        "work_flow_status": {
+          "type": "string"
+        },
+        "approved_by": {
+          "type": "object",
+          "properties": {
+            "account_id": {
+              "type": "number",
+              "format": "long"
+            },
+            "full_name": {
+              "type": "string"
+            }
+          }
+        },
+        "rejected_by": {
+          "type": "object",
+          "properties": {
+            "account_id": {
+              "type": "number",
+              "format": "long"
+            },
+            "full_name": {
+              "type": "string"
+            }
+          }
+        },
+        "note_thread_id": {
+          "type": "string"
+        },
+        "cost_center_ids": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "notes_count": {
+      "type": "integer"
+    },
+    "dynamic_duration_type": {
+      "type": "string",
+      "enum": [
+        "Full Day",
+        "Half Day",
+        "First Half",
+        "Second Half",
+        "Fill Day"
+      ]
+    }
+  }
+}</div>
+</div>
+</div>
+</div>
+<div class="resp-tab-get" id="resp-tab-id-get-1">
+<div class="example">
+
+<div class="get-example-resp-tab-1 activeTab" id="get-tab-resp-example-1">
+
+<pre class="highlightjs">&lt;pto_request&gt;
+  &lt;employee&gt;
+    &lt;account_id&gt;2206081&lt;/account_id&gt;
+    &lt;full_name&gt;Bonnie Armstrong&lt;/full_name&gt;
+  &lt;/employee&gt;
+  &lt;time_off&gt;
+    &lt;id&gt;1537857&lt;/id&gt;
+    &lt;name&gt;OVT&lt;/name&gt;
+    &lt;color_id&gt;1&lt;/color_id&gt;
+  &lt;/time_off&gt;
+  &lt;comment&gt;Accepted: aaas&lt;/comment&gt;
+  &lt;from_date&gt;2017-05-02&lt;/from_date&gt;
+  &lt;to_date&gt;2017-05-04&lt;/to_date&gt;
+  &lt;from_time&gt;00:00&lt;/from_time&gt;
+  &lt;to_time&gt;00:00&lt;/to_time&gt;
+  &lt;pto_details&gt;
+    &lt;time_entry_id&gt;216209668&lt;/time_entry_id&gt;
+    &lt;request_id&gt;4253253&lt;/request_id&gt;
+    &lt;request_state&gt;Approved&lt;/request_state&gt;
+    &lt;requested_time&gt;24:00&lt;/requested_time&gt;
+    &lt;duration_unit&gt;HOURS&lt;/duration_unit&gt;
+    &lt;created&gt;2017-04-28&lt;/created&gt;
+    &lt;approved_date&gt;2017-04-28T12:29:00.000-04:00&lt;/approved_date&gt;
+    &lt;work_flow_status&gt;Approved&lt;/work_flow_status&gt;
+    &lt;can_delete&gt;true&lt;/can_delete&gt;
+    &lt;note_thread_id&gt;9844353&lt;/note_thread_id&gt;
+    &lt;cost_center_ids&gt;
+      &lt;cost_center_ids&gt;1537793&lt;/cost_center_ids&gt;
+    &lt;/cost_center_ids&gt;
+    &lt;approved_by&gt;
+      &lt;account_id&gt;2194305&lt;/account_id&gt;
+      &lt;full_name&gt;System Administrator&lt;/full_name&gt;
+    &lt;/approved_by&gt;
+  &lt;/pto_details&gt;
+  &lt;notes_count&gt;1&lt;/notes_count&gt;
+&lt;/pto_request&gt;
+</pre>
+</div>
+<div class="get-example-resp-tab-1" id="get-tab-resp-schema-1">
+
+<div class="jsonschema" id="schema-1">&lt;xs:schema attributeFormDefault="unqualified" elementFormDefault="qualified"
+  xmlns:xs="http://www.w3.org/2001/XMLSchema"&gt;
+  &lt;xs:element name="pto_request"&gt;
+    &lt;xs:complexType&gt;
+      &lt;xs:sequence&gt;
+        &lt;xs:element name="employee"&gt;
+          &lt;xs:complexType&gt;
+            &lt;xs:sequence&gt;
+              &lt;xs:element type="xs:int" name="account_id"/&gt;
+              &lt;xs:element type="xs:string" name="full_name"/&gt;
+            &lt;/xs:sequence&gt;
+          &lt;/xs:complexType&gt;
+        &lt;/xs:element&gt;
+        &lt;xs:element name="time_off"&gt;
+          &lt;xs:complexType&gt;
+            &lt;xs:sequence&gt;
+              &lt;xs:element type="xs:int" name="id"/&gt;
+              &lt;xs:element type="xs:string" name="name"/&gt;
+              &lt;xs:element type="xs:int" name="color_id"/&gt;
+            &lt;/xs:sequence&gt;
+          &lt;/xs:complexType&gt;
+        &lt;/xs:element&gt;
+        &lt;xs:element type="xs:string" name="comment"/&gt;
+        &lt;xs:element type="xs:date" name="from_date"/&gt;
+        &lt;xs:element type="xs:date" name="to_date"/&gt;
+        &lt;xs:element type="xs:string" name="from_time"/&gt;
+        &lt;xs:element type="xs:string" name="to_time"/&gt;
+        &lt;xs:element name="pto_details"&gt;
+          &lt;xs:complexType&gt;
+            &lt;xs:sequence&gt;
+              &lt;xs:element type="xs:int" name="time_entry_id"/&gt;
+              &lt;xs:element type="xs:int" name="request_id"/&gt;
+              &lt;xs:element type="xs:string" name="request_state"/&gt;
+              &lt;xs:element type="xs:string" name="requested_time"/&gt;
+              &lt;xs:element name="duration_unit"&gt;
+               &lt;xs:simpleType&gt;
+                 &lt;xs:restriction base="xs:string"&gt;
+                   &lt;xs:enumeration value="HOURS"/&gt;
+                   &lt;xs:enumeration value="DAYS"/&gt;
+                 &lt;/xs:restriction&gt;
+               &lt;/xs:simpleType&gt;
+              &lt;/xs:element&gt;
+              &lt;xs:element type="xs:date" name="created"/&gt;
+              &lt;xs:element type="xs:dateTime" name="approved_date"/&gt;
+              &lt;xs:element type="xs:string" name="work_flow_status"/&gt;
+              &lt;xs:element type="xs:string" name="can_delete"/&gt;
+              &lt;xs:element type="xs:int" name="note_thread_id"/&gt;
+              &lt;xs:element name="cost_center_ids"&gt;
+                &lt;xs:complexType&gt;
+                  &lt;xs:sequence&gt;
+                    &lt;xs:element type="xs:int" name="cost_center_ids"/&gt;
+                  &lt;/xs:sequence&gt;
+                &lt;/xs:complexType&gt;
+              &lt;/xs:element&gt;
+              &lt;xs:element name="approved_by"&gt;
+                &lt;xs:complexType&gt;
+                  &lt;xs:sequence&gt;
+                    &lt;xs:element type="xs:int" name="account_id"/&gt;
+                    &lt;xs:element type="xs:string" name="full_name"/&gt;
+                  &lt;/xs:sequence&gt;
+                &lt;/xs:complexType&gt;
+              &lt;/xs:element&gt;
+            &lt;/xs:sequence&gt;
+          &lt;/xs:complexType&gt;
+        &lt;/xs:element&gt;
+        &lt;xs:element type="xs:int" name="notes_count"/&gt;
+      &lt;/xs:sequence&gt;
+    &lt;/xs:complexType&gt;
+  &lt;/xs:element&gt;
+&lt;/xs:schema&gt;
+</div>
+</div>
+</div>
+</div>
+</div>
+</article>
+</section>
+</div>
+</body></html>

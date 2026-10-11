@@ -1,0 +1,1822 @@
+<!doctype html>
+<html><head><meta charset="utf-8"><title>Profiles</title><style>body{font:16px system-ui;max-width:1100px;margin:2rem auto;padding:0 1rem;line-height:1.5}aside{background:#fff3cc;padding:1rem}.jsonschema,pre{white-space:pre-wrap;font:13px monospace;overflow-wrap:anywhere;background:#f4f5f7;padding:1rem}.uri{font-family:monospace}h2,h3{margin-top:2rem}</style></head><body><aside><strong>Modified private reference — 2026-10-09.</strong> Provider-documented illustrative examples are included; authentication token examples are redacted. These are not customer exports or guaranteed production behavior. Candidate sharing is pending. This is not OpenAPI.</aside>
+<div class="group">
+<h2 class="anchored" id="item.anchor">
+<span>Profiles</span>
+<a class="fa fa-link link-anchor" data-url="r=__v2__companies__(cid)__employees__(aid)__profiles#" data-web-id="__v2__companies__(cid)__employees__(aid)__profiles"></a>
+</h2>
+<section class="clearfix">
+<article class="definition">
+<h3 class="anchored" id="get"><span>GET</span>
+<a class="fa fa-link link-anchor" data-url="r=__v2__companies__(cid)__employees__(aid)__profiles#get" data-web-id="__v2__companies__(cid)__employees__(aid)__profiles"></a>
+</h3>
+<div class="md"><p>Returns the employee profiles information.
+
+The Employee APIs use a separate security profile item to control access rights which is located in the company security profile in the following location:
+  1. `Modules -&gt; REST API Resources -&gt; Employee Profiles -&gt; View`.
+
+&lt;b&gt;Only the 'REST API RESOURCES' security profile items in combination with 'manager permissions' are considered by this REST API resource.&lt;/b&gt;
+</p></div>
+<div>
+<ul class="annotation-list">
+<li class="annotation">
+<span>v2</span>
+</li>
+</ul>
+</div>
+<h4>Parameters</h4>
+<h5>Path Parameters</h5>
+<ul class="param-list">
+<li>
+<div class="param-desc">
+<div class="param-name">cid</div>
+<div class="data-type">string</div>
+<div class="required">required</div>
+</div>
+<div class="param-content">
+<div>
+<p>Example: 123456</p>
+<div class="desc md">Company should be referenced via company id or company unique id or company short name using `|short_name` or `!short_name` format.
+</div>
+</div>
+</div>
+
+</li>
+<li>
+<div class="param-desc">
+<div class="param-name">aid</div>
+<div class="data-type">string</div>
+<div class="required">required</div>
+</div>
+<div class="param-content">
+<div>
+<p>Example: 1234567</p>
+<div class="desc md">Account should be referenced via account id or account external id using `|external_id` or `!external_id` format.
+</div>
+</div>
+</div>
+
+</li>
+</ul>
+<h5>Header Parameters</h5>
+<ul class="param-list">
+<li>
+<div class="param-desc">
+<div class="param-name">Accept</div>
+<div class="data-type">string</div>
+</div>
+<div class="param-content">
+<div>
+<p>Valid values: application/json, application/xml, text/xml</p>
+<p>Default: application/json</p>
+<p>Example: application/json</p>
+</div>
+</div>
+
+</li>
+</ul>
+<h4>Responses</h4>
+<div class="responses">
+<div>
+<label class="response response-success">
+<span class="fa fa-check"></span>
+<input data-full-tab-id="get-resp-code-tab-id-0" data-tab-class="resp-code-tab-get" name="resp-code-tab-get" type="radio"/>
+<span class="status">200 Ok</span>
+</label>
+<div class="response-desc resp-code-tab-get" id="get-resp-code-tab-id-0">
+</div>
+</div>
+<div>
+<label class="response response-error">
+<span class="fa fa-times"></span>
+<input data-full-tab-id="get-resp-code-tab-id-1" data-tab-class="resp-code-tab-get" name="resp-code-tab-get" type="radio"/>
+<span class="status">401 Unauthorized</span>
+</label>
+<div class="response-desc resp-code-tab-get" id="get-resp-code-tab-id-1">
+<div class="md"><p>Returned in case user is not authorized.</p></div>
+</div>
+</div>
+<div>
+<label class="response response-error">
+<span class="fa fa-times"></span>
+<input data-full-tab-id="get-resp-code-tab-id-2" data-tab-class="resp-code-tab-get" name="resp-code-tab-get" type="radio"/>
+<span class="status">403 Forbidden</span>
+</label>
+<div class="response-desc resp-code-tab-get" id="get-resp-code-tab-id-2">
+<div class="md"><p>Returned in case user has no access to the resource.</p></div>
+</div>
+</div>
+<div>
+<label class="response response-error">
+<span class="fa fa-times"></span>
+<input data-full-tab-id="get-resp-code-tab-id-3" data-tab-class="resp-code-tab-get" name="resp-code-tab-get" type="radio"/>
+<span class="status">404 Not Found</span>
+</label>
+<div class="response-desc resp-code-tab-get" id="get-resp-code-tab-id-3">
+<div class="md"><p>Returned in case resource does not exist.</p></div>
+</div>
+</div>
+<div>
+<label class="response response-error">
+<span class="fa fa-times"></span>
+<input data-full-tab-id="get-resp-code-tab-id-4" data-tab-class="resp-code-tab-get" name="resp-code-tab-get" type="radio"/>
+<span class="status">503 Service Unavailable</span>
+</label>
+<div class="response-desc resp-code-tab-get" id="get-resp-code-tab-id-4">
+<div class="md"><p>Returned in the event that the call limit is exceeded. The application will be unavailable for subsequent calls for the duration specified by the X-CallLimit-TimeToWait header.</p></div>
+</div>
+</div>
+</div>
+</article>
+<article class="code">
+<h4>Definition</h4>
+<div class="uri">
+<code>
+<span class="method get">get</span>
+<span class="textUri"><span class="baseUri">{{ getUriPrefix() }}</span><span class="relativeUri">/v2/companies/{cid}/employees/{aid}/profiles</span></span>
+</code>
+</div>
+<h4>Response Samples</h4>
+<div class="tab-title-group">
+<label>
+<input checked="checked" data-full-tab-id="resp-tab-id-get-0" data-tab-class="resp-tab-get" name="resp-tab-get" type="radio"/>
+<span class="tab-title">application/json</span>
+</label>
+<label>
+<input data-full-tab-id="resp-tab-id-get-1" data-tab-class="resp-tab-get" name="resp-tab-get" type="radio"/>
+<span class="tab-title">application/xml</span>
+</label>
+</div>
+<div>
+<div class="resp-tab-get" id="resp-tab-id-get-0">
+<div class="example">
+
+<div class="get-example-resp-tab-0 activeTab" id="get-tab-resp-example-0">
+
+<pre class="highlightjs">{
+  "benefit": [
+    {
+      "id": 11,
+      "effective_from": "2016-01-01"
+    },
+    {
+      "id": 12,
+      "effective_from": "2017-01-01"
+    }
+  ],
+
+  "security": [
+    {
+      "id": 11,
+      "effective_from": "1900-12-31"
+    }
+  ],
+
+  "pay_period": [
+    {
+      "id": 12,
+      "effective_from": "1900-12-31",
+      "name": "Pay Period Profile"
+    }
+  ],
+
+  "work_schedule" : [
+    {
+      "id": 678,
+      "start_pattern_offset": 1,
+      "effective_from": "1900-12-31"
+    }
+  ],
+
+  "rate_tables": [
+    {
+      "index": 0,
+      "refs": [
+        {
+          "id": 99,
+          "effective_from": "1900-12-31"
+        }
+      ]
+    },
+    {
+      "index": 1,
+      "refs": [
+        {
+          "id": 100,
+          "effective_from": "1900-12-31"
+        }
+      ]
+    }
+  ]
+}</pre>
+</div>
+<div class="get-example-resp-tab-0" id="get-tab-resp-schema-0">
+
+<div class="jsonschema" id="schema-0">{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "type": "object",
+  "properties": {
+    "attestation": {
+      "$ref": "#/definitions/effective_profile"
+    },
+    "access": {
+      "$ref": "#/definitions/profile"
+    },
+    "accruals": {
+      "$ref": "#/definitions/effective_profile"
+    },
+    "accruals2_bank": {
+      "$ref": "#/definitions/effective_profile"
+    },
+    "benefit": {
+      "$ref": "#/definitions/effective_profile"
+    },
+    "bradford_factor": {
+      "$ref": "#/definitions/profile"
+    },
+    "competency": {
+      "$ref": "#/definitions/profile"
+    },
+    "counter_distribution": {
+      "$ref": "#/definitions/effective_profile"
+    },
+    "data_retention": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "minimum": 0
+          },
+          "effective_from": {
+            "type": "string",
+            "description": "Date needs to be in the format yyyy-mm-dd within the 1900-12-31 and 2079-06-05 date range."
+          }
+        },
+        "additionalProperties": false,
+        "required": [
+          "id",
+          "effective_from"
+        ]
+      }
+    },
+    "delivery_policy_1099": {
+      "$ref": "#/definitions/profile"
+    },
+    "delivery_policy_pst": {
+      "$ref": "#/definitions/profile"
+    },
+    "delivery_policy_w2": {
+      "$ref": "#/definitions/profile"
+    },
+    "demographic": {
+      "$ref": "#/definitions/profile"
+    },
+    "external_benchmarks": {
+      "$ref": "#/definitions/profile"
+    },
+    "employee_sync": {
+      "$ref": "#/definitions/profile"
+    },
+    "holiday": {
+      "$ref": "#/definitions/profile"
+    },
+    "labor_distribution": {
+      "$ref": "#/definitions/profile"
+    },
+    "leave_of_absence": {
+      "$ref": "#/definitions/profile"
+    },
+    "pay_calculations": {
+      "$ref": "#/definitions/effective_profile"
+    },
+    "pay_period": {
+      "type": "array",
+      "maxItems": 1,
+      "items": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "minimum": 0
+          },
+          "effective_from": {
+            "type": "string",
+            "description": "Date needs to be in the format yyyy-mm-dd within the 1900-12-31 and 2079-06-05 date range."
+          },
+          "name": {
+            "type": "string",
+            "description": "Display name of profile"
+          }
+        },
+        "additionalProperties": false,
+        "required": [
+          "id",
+          "effective_from"
+        ]
+      }
+    },
+    "pay_prep": {
+      "$ref": "#/definitions/effective_profile"
+    },
+    "pension": {
+      "$ref": "#/definitions/profile"
+    },
+    "performance_review": {
+      "$ref": "#/definitions/profile"
+    },
+    "points": {
+      "$ref": "#/definitions/profile"
+    },
+    "pst_population": {
+      "$ref": "#/definitions/profile"
+    },
+    "rate_tables": {
+      "type": "array",
+      "maxItems": 5,
+      "items": {
+        "type": "object",
+        "properties": {
+          "index": {
+            "type": "integer",
+            "minimum": 0,
+            "maximum": 4
+          },
+          "refs": {
+            "$ref": "#/definitions/profile"
+          }
+        },
+        "additionalProperties": false,
+        "required": [
+          "index",
+          "refs"
+        ]
+      }
+    },
+    "role": {
+      "$ref": "#/definitions/profile"
+    },
+    "scheduler": {
+      "$ref": "#/definitions/profile"
+    },
+    "scorecard": {
+      "$ref": "#/definitions/effective_profile"
+    },
+    "security": {
+      "$ref": "#/definitions/profile"
+    },
+    "succession": {
+      "$ref": "#/definitions/profile"
+    },
+    "time_off_planning": {
+      "$ref": "#/definitions/effective_profile"
+    },
+    "timesheet": {
+      "$ref": "#/definitions/profile"
+    },
+    "training": {
+      "$ref": "#/definitions/profile"
+    },
+    "ts_auto_population": {
+      "$ref": "#/definitions/profile"
+    },
+    "work_schedule": {
+      "type": "array",
+      "maxItems": 1,
+      "items": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "minimum": 0
+          },
+          "start_pattern_offset": {
+            "type": "integer",
+            "minimum": 1,
+            "description": "Offset value is a day number from which work schedule pattern should be applied."
+          },
+          "effective_from": {
+            "type": "string",
+            "description": "Date needs to be in the format yyyy-mm-dd within the 1900-12-31 and 2079-06-05 date range."
+          },
+          "personal": {
+            "type": "boolean"
+          },
+          "start_pattern_offset_unit": {
+            "type": "integer"
+          }
+        },
+        "additionalProperties": false,
+        "required": [
+          "id",
+          "effective_from"
+        ]
+      }
+    },
+    "workday_breakdown": {
+      "$ref": "#/definitions/profile"
+    },
+    "working_time_regulations": {
+      "$ref": "#/definitions/effective_profile"
+    },
+    "mercury_layout": {
+      "$ref": "#/definitions/effective_profile"
+    },
+    "offline_restrictions": {
+      "$ref": "#/definitions/effective_profile"
+    },
+    "onboarding": {
+      "$ref": "#/definitions/effective_profile"
+    }
+  },
+  "additionalProperties": false,
+  "definitions": {
+    "profile": {
+      "type": "array",
+      "maxItems": 1,
+      "items": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "minimum": 0
+          },
+          "effective_from": {
+            "type": "string",
+            "description": "Date needs to be in the format yyyy-mm-dd within the 1900-12-31 and 2079-06-05 date range."
+          }
+        },
+        "additionalProperties": false,
+        "required": [
+          "id",
+          "effective_from"
+        ]
+      }
+    },
+    "effective_profile": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "minimum": 0
+          },
+          "effective_from": {
+            "type": "string",
+            "description": "Date needs to be in the format yyyy-mm-dd within the 1900-12-31 and 2079-06-05 date range."
+          }
+        },
+        "additionalProperties": false,
+        "required": [
+          "id",
+          "effective_from"
+        ]
+      }
+    }
+  }
+}</div>
+</div>
+</div>
+</div>
+<div class="resp-tab-get" id="resp-tab-id-get-1">
+<div class="example">
+
+<div class="get-example-resp-tab-1 activeTab" id="get-tab-resp-example-1">
+
+<pre class="highlightjs">&lt;employee_profiles&gt;
+  &lt;benefit&gt;
+    &lt;benefit&gt;
+      &lt;id&gt;11&lt;/id&gt;
+      &lt;effective_from&gt;2016-01-01&lt;/effective_from&gt;
+    &lt;/benefit&gt;
+    &lt;benefit&gt;
+      &lt;id&gt;12&lt;/id&gt;
+      &lt;effective_from&gt;2017-01-01&lt;/effective_from&gt;
+    &lt;/benefit&gt;
+  &lt;/benefit&gt;
+
+  &lt;security&gt;
+    &lt;security&gt;
+      &lt;id&gt;11&lt;/id&gt;
+      &lt;effective_from&gt;1900-12-31&lt;/effective_from&gt;
+    &lt;/security&gt;
+  &lt;/security&gt;
+
+  &lt;pay_period&gt;
+    &lt;pay_period&gt;
+      &lt;id&gt;12&lt;/id&gt;
+      &lt;effective_from&gt;1900-12-31&lt;/effective_from&gt;
+      &lt;name&gt;"Pay Period Profile"&lt;/name&gt;
+    &lt;/pay_period&gt;
+  &lt;/pay_period&gt;
+
+  &lt;work_schedule&gt;
+    &lt;work_schedule&gt;
+      &lt;id&gt;678&lt;/id&gt;
+      &lt;start_pattern_offset&gt;1&lt;/start_pattern_offset&gt;
+      &lt;effective_from&gt;1900-12-31&lt;/effective_from&gt;
+    &lt;/work_schedule&gt;
+  &lt;/work_schedule&gt;
+
+  &lt;rate_tables&gt;
+    &lt;rate_table&gt;
+      &lt;index&gt;0&lt;/index&gt;
+      &lt;refs&gt;
+        &lt;ref&gt;
+          &lt;id&gt;99&lt;/id&gt;
+          &lt;effective_from&gt;1900-12-31&lt;/effective_from&gt;
+        &lt;/ref&gt;
+      &lt;/refs&gt;
+    &lt;/rate_table&gt;
+    &lt;rate_table&gt;
+      &lt;index&gt;1&lt;/index&gt;
+      &lt;refs&gt;
+        &lt;ref&gt;
+          &lt;id&gt;100&lt;/id&gt;
+          &lt;effective_from&gt;1900-12-31&lt;/effective_from&gt;
+        &lt;/ref&gt;
+      &lt;/refs&gt;
+    &lt;/rate_table&gt;
+  &lt;/rate_tables&gt;
+&lt;/employee_profiles&gt;</pre>
+</div>
+<div class="get-example-resp-tab-1" id="get-tab-resp-schema-1">
+
+<div class="jsonschema" id="schema-1">&lt;xs:schema attributeFormDefault="unqualified" elementFormDefault="qualified" xmlns:xs="http://www.w3.org/2001/XMLSchema"&gt;
+    &lt;xs:element name="employee_profiles"&gt;
+        &lt;xs:complexType&gt;
+            &lt;xs:all&gt;
+
+                &lt;xs:element name="attestation" minOccurs="0"&gt;
+                    &lt;xs:complexType&gt;
+                        &lt;xs:sequence&gt;
+                            &lt;xs:element name="attestation" type="employee_profile" maxOccurs="unbounded"/&gt;
+                        &lt;/xs:sequence&gt;
+                    &lt;/xs:complexType&gt;
+                &lt;/xs:element&gt;
+
+                &lt;xs:element name="access" minOccurs="0"&gt;
+                    &lt;xs:complexType&gt;
+                        &lt;xs:sequence&gt;
+                            &lt;xs:element name="access" type="employee_profile"/&gt;
+                        &lt;/xs:sequence&gt;
+                    &lt;/xs:complexType&gt;
+                &lt;/xs:element&gt;
+
+                &lt;xs:element name="accruals" minOccurs="0"&gt;
+                    &lt;xs:complexType&gt;
+                        &lt;xs:sequence&gt;
+                            &lt;xs:element name="accruals" type="employee_profile"/&gt;
+                        &lt;/xs:sequence&gt;
+                    &lt;/xs:complexType&gt;
+                &lt;/xs:element&gt;
+
+                &lt;xs:element name="benefit" minOccurs="0"&gt;
+                    &lt;xs:complexType&gt;
+                        &lt;xs:sequence&gt;
+                            &lt;xs:element name="benefit" type="employee_profile" maxOccurs="unbounded"/&gt;
+                        &lt;/xs:sequence&gt;
+                    &lt;/xs:complexType&gt;
+                &lt;/xs:element&gt;
+
+                &lt;xs:element name="bradford_factor" minOccurs="0"&gt;
+                    &lt;xs:complexType&gt;
+                        &lt;xs:sequence&gt;
+                            &lt;xs:element name="bradford_factor" type="employee_profile"/&gt;
+                        &lt;/xs:sequence&gt;
+                    &lt;/xs:complexType&gt;
+                &lt;/xs:element&gt;
+
+                &lt;xs:element name="competency" minOccurs="0"&gt;
+                    &lt;xs:complexType&gt;
+                        &lt;xs:sequence&gt;
+                            &lt;xs:element name="competency" type="employee_profile"/&gt;
+                        &lt;/xs:sequence&gt;
+                    &lt;/xs:complexType&gt;
+                &lt;/xs:element&gt;
+
+                &lt;xs:element name="counter_distribution" minOccurs="0"&gt;
+                    &lt;xs:complexType&gt;
+                        &lt;xs:sequence&gt;
+                            &lt;xs:element name="counter_distribution" type="employee_profile"/&gt;
+                        &lt;/xs:sequence&gt;
+                    &lt;/xs:complexType&gt;
+                &lt;/xs:element&gt;
+
+                &lt;xs:element name="data_retention" minOccurs="0"&gt;
+                    &lt;xs:complexType&gt;
+                        &lt;xs:sequence&gt;
+                            &lt;xs:element name="data_retention" type="employee_profile" maxOccurs="unbounded"/&gt;
+                        &lt;/xs:sequence&gt;
+                    &lt;/xs:complexType&gt;
+                &lt;/xs:element&gt;
+
+                &lt;xs:element name="delivery_policy_1099" minOccurs="0"&gt;
+                    &lt;xs:complexType&gt;
+                        &lt;xs:sequence&gt;
+                            &lt;xs:element name="delivery_policy_1099" type="employee_profile"/&gt;
+                        &lt;/xs:sequence&gt;
+                    &lt;/xs:complexType&gt;
+                &lt;/xs:element&gt;
+
+                &lt;xs:element name="delivery_policy_pst" minOccurs="0"&gt;
+                    &lt;xs:complexType&gt;
+                        &lt;xs:sequence&gt;
+                            &lt;xs:element name="delivery_policy_pst" type="employee_profile"/&gt;
+                        &lt;/xs:sequence&gt;
+                    &lt;/xs:complexType&gt;
+                &lt;/xs:element&gt;
+
+                &lt;xs:element name="delivery_policy_w2" minOccurs="0"&gt;
+                    &lt;xs:complexType&gt;
+                        &lt;xs:sequence&gt;
+                            &lt;xs:element name="delivery_policy_w2" type="employee_profile"/&gt;
+                        &lt;/xs:sequence&gt;
+                    &lt;/xs:complexType&gt;
+                &lt;/xs:element&gt;
+
+                &lt;xs:element name="demographic" minOccurs="0"&gt;
+                    &lt;xs:complexType&gt;
+                        &lt;xs:sequence&gt;
+                            &lt;xs:element name="demographic" type="employee_profile"/&gt;
+                        &lt;/xs:sequence&gt;
+                    &lt;/xs:complexType&gt;
+                &lt;/xs:element&gt;
+
+                &lt;xs:element name="employee_sync" minOccurs="0"&gt;
+                    &lt;xs:complexType&gt;
+                        &lt;xs:sequence&gt;
+                            &lt;xs:element name="employee_sync" type="employee_profile"/&gt;
+                        &lt;/xs:sequence&gt;
+                    &lt;/xs:complexType&gt;
+                &lt;/xs:element&gt;
+
+                &lt;xs:element name="holiday" minOccurs="0"&gt;
+                    &lt;xs:complexType&gt;
+                        &lt;xs:sequence&gt;
+                            &lt;xs:element name="holiday" type="employee_profile"/&gt;
+                        &lt;/xs:sequence&gt;
+                    &lt;/xs:complexType&gt;
+                &lt;/xs:element&gt;
+
+                &lt;xs:element name="labor_distribution" minOccurs="0"&gt;
+                    &lt;xs:complexType&gt;
+                        &lt;xs:sequence&gt;
+                            &lt;xs:element name="labor_distribution" type="employee_profile"/&gt;
+                        &lt;/xs:sequence&gt;
+                    &lt;/xs:complexType&gt;
+                &lt;/xs:element&gt;
+
+                &lt;xs:element name="leave_of_absence" minOccurs="0"&gt;
+                    &lt;xs:complexType&gt;
+                        &lt;xs:sequence&gt;
+                            &lt;xs:element name="leave_of_absence" type="employee_profile"/&gt;
+                        &lt;/xs:sequence&gt;
+                    &lt;/xs:complexType&gt;
+                &lt;/xs:element&gt;
+
+                &lt;xs:element name="pay_calculations" minOccurs="0"&gt;
+                    &lt;xs:complexType&gt;
+                        &lt;xs:sequence&gt;
+                            &lt;xs:element name="pay_calculations" type="employee_profile" maxOccurs="unbounded"/&gt;
+                        &lt;/xs:sequence&gt;
+                    &lt;/xs:complexType&gt;
+                &lt;/xs:element&gt;
+
+                &lt;xs:element name="pay_period" minOccurs="0"&gt;
+                    &lt;xs:complexType&gt;
+                        &lt;xs:sequence&gt;
+                            &lt;xs:element name="pay_period" type="employee_profile"/&gt;
+                        &lt;/xs:sequence&gt;
+                    &lt;/xs:complexType&gt;
+                &lt;/xs:element&gt;
+
+                &lt;xs:element name="pay_prep" minOccurs="0"&gt;
+                    &lt;xs:complexType&gt;
+                        &lt;xs:sequence&gt;
+                            &lt;xs:element name="pay_prep" type="employee_profile" maxOccurs="unbounded"/&gt;
+                        &lt;/xs:sequence&gt;
+                    &lt;/xs:complexType&gt;
+                &lt;/xs:element&gt;
+
+                &lt;xs:element name="pension" minOccurs="0"&gt;
+                    &lt;xs:complexType&gt;
+                        &lt;xs:sequence&gt;
+                            &lt;xs:element name="pension" type="employee_profile"/&gt;
+                        &lt;/xs:sequence&gt;
+                    &lt;/xs:complexType&gt;
+                &lt;/xs:element&gt;
+
+                &lt;xs:element name="performance_review" minOccurs="0"&gt;
+                    &lt;xs:complexType&gt;
+                        &lt;xs:sequence&gt;
+                            &lt;xs:element name="performance_review" type="employee_profile"/&gt;
+                        &lt;/xs:sequence&gt;
+                    &lt;/xs:complexType&gt;
+                &lt;/xs:element&gt;
+
+                &lt;xs:element name="points" minOccurs="0"&gt;
+                    &lt;xs:complexType&gt;
+                        &lt;xs:sequence&gt;
+                            &lt;xs:element name="points" type="employee_profile"/&gt;
+                        &lt;/xs:sequence&gt;
+                    &lt;/xs:complexType&gt;
+                &lt;/xs:element&gt;
+
+                &lt;xs:element name="pst_population" minOccurs="0"&gt;
+                    &lt;xs:complexType&gt;
+                        &lt;xs:sequence&gt;
+                            &lt;xs:element name="pst_population" type="employee_profile"/&gt;
+                        &lt;/xs:sequence&gt;
+                    &lt;/xs:complexType&gt;
+                &lt;/xs:element&gt;
+
+                &lt;xs:element name="rate_tables" minOccurs="0"&gt;
+                    &lt;xs:complexType&gt;
+                        &lt;xs:sequence&gt;
+                            &lt;xs:element name="rate_table" maxOccurs="5" minOccurs="0"&gt;
+                                &lt;xs:complexType&gt;
+                                    &lt;xs:all&gt;
+                                        &lt;xs:element type="xs:int" name="index"/&gt;
+                                        &lt;xs:element name="refs"&gt;
+                                            &lt;xs:complexType&gt;
+                                                &lt;xs:sequence&gt;
+                                                    &lt;xs:element name="ref"&gt;
+                                                        &lt;xs:complexType&gt;
+                                                            &lt;xs:all&gt;
+                                                                &lt;xs:element type="xs:nonNegativeInteger" name="id"/&gt;
+                                                                &lt;xs:element type="effective_date" name="effective_from"/&gt;
+                                                            &lt;/xs:all&gt;
+                                                        &lt;/xs:complexType&gt;
+                                                    &lt;/xs:element&gt;
+                                                &lt;/xs:sequence&gt;
+                                            &lt;/xs:complexType&gt;
+                                        &lt;/xs:element&gt;
+                                    &lt;/xs:all&gt;
+                                &lt;/xs:complexType&gt;
+                            &lt;/xs:element&gt;
+                        &lt;/xs:sequence&gt;
+                    &lt;/xs:complexType&gt;
+                &lt;/xs:element&gt;
+
+                &lt;xs:element name="role" minOccurs="0"&gt;
+                    &lt;xs:complexType&gt;
+                        &lt;xs:sequence&gt;
+                            &lt;xs:element name="role" type="employee_profile"/&gt;
+                        &lt;/xs:sequence&gt;
+                    &lt;/xs:complexType&gt;
+                &lt;/xs:element&gt;
+
+                &lt;xs:element name="scheduler" minOccurs="0"&gt;
+                    &lt;xs:complexType&gt;
+                        &lt;xs:sequence&gt;
+                            &lt;xs:element name="scheduler" type="employee_profile"/&gt;
+                        &lt;/xs:sequence&gt;
+                    &lt;/xs:complexType&gt;
+                &lt;/xs:element&gt;
+
+                &lt;xs:element name="scorecard" minOccurs="0"&gt;
+                    &lt;xs:complexType&gt;
+                        &lt;xs:sequence&gt;
+                            &lt;xs:element name="scorecard" type="employee_profile" maxOccurs="unbounded"/&gt;
+                        &lt;/xs:sequence&gt;
+                    &lt;/xs:complexType&gt;
+                &lt;/xs:element&gt;
+
+                &lt;xs:element name="security" minOccurs="0"&gt;
+                    &lt;xs:complexType&gt;
+                        &lt;xs:sequence&gt;
+                            &lt;xs:element name="security" type="employee_profile"/&gt;
+                        &lt;/xs:sequence&gt;
+                    &lt;/xs:complexType&gt;
+                &lt;/xs:element&gt;
+
+                &lt;xs:element name="succession" minOccurs="0"&gt;
+                    &lt;xs:complexType&gt;
+                        &lt;xs:sequence&gt;
+                            &lt;xs:element name="succession" type="employee_profile"/&gt;
+                        &lt;/xs:sequence&gt;
+                    &lt;/xs:complexType&gt;
+                &lt;/xs:element&gt;
+
+                &lt;xs:element name="time_off_planning" minOccurs="0"&gt;
+                    &lt;xs:complexType&gt;
+                        &lt;xs:sequence&gt;
+                            &lt;xs:element name="time_off_planning" type="employee_profile" maxOccurs="unbounded"/&gt;
+                        &lt;/xs:sequence&gt;
+                    &lt;/xs:complexType&gt;
+                &lt;/xs:element&gt;
+
+                &lt;xs:element name="timesheet" minOccurs="0"&gt;
+                    &lt;xs:complexType&gt;
+                        &lt;xs:sequence&gt;
+                            &lt;xs:element name="timesheet" type="employee_profile"/&gt;
+                        &lt;/xs:sequence&gt;
+                    &lt;/xs:complexType&gt;
+                &lt;/xs:element&gt;
+
+                &lt;xs:element name="training" minOccurs="0"&gt;
+                    &lt;xs:complexType&gt;
+                        &lt;xs:sequence&gt;
+                            &lt;xs:element name="training" type="employee_profile"/&gt;
+                        &lt;/xs:sequence&gt;
+                    &lt;/xs:complexType&gt;
+                &lt;/xs:element&gt;
+
+                &lt;xs:element name="ts_auto_population" minOccurs="0"&gt;
+                    &lt;xs:complexType&gt;
+                        &lt;xs:sequence&gt;
+                            &lt;xs:element name="ts_auto_population" type="employee_profile"/&gt;
+                        &lt;/xs:sequence&gt;
+                    &lt;/xs:complexType&gt;
+                &lt;/xs:element&gt;
+
+                &lt;xs:element name="workday_breakdown" minOccurs="0"&gt;
+                    &lt;xs:complexType&gt;
+                        &lt;xs:sequence&gt;
+                            &lt;xs:element name="workday_breakdown" type="employee_profile"/&gt;
+                        &lt;/xs:sequence&gt;
+                    &lt;/xs:complexType&gt;
+                &lt;/xs:element&gt;
+
+                &lt;xs:element name="working_time_regulations" minOccurs="0"&gt;
+                    &lt;xs:complexType&gt;
+                        &lt;xs:sequence&gt;
+                            &lt;xs:element name="working_time_regulations" type="employee_profile" maxOccurs="unbounded"/&gt;
+                        &lt;/xs:sequence&gt;
+                    &lt;/xs:complexType&gt;
+                &lt;/xs:element&gt;
+
+                &lt;xs:element name="work_schedule" minOccurs="0"&gt;
+                    &lt;xs:complexType&gt;
+                        &lt;xs:sequence&gt;
+                            &lt;xs:element name="work_schedule"&gt;
+                                &lt;xs:complexType&gt;
+                                    &lt;xs:all&gt;
+                                        &lt;xs:element type="xs:nonNegativeInteger" name="id"/&gt;
+                                        &lt;xs:element type="xs:positiveInteger" name="start_pattern_offset" minOccurs="0"&gt;
+                                            &lt;xs:annotation&gt;
+                                                &lt;xs:documentation&gt;
+                                                    Offset value is a day number from which work schedule pattern should be applied.
+                                                &lt;/xs:documentation&gt;
+                                            &lt;/xs:annotation&gt;
+                                        &lt;/xs:element&gt;
+                                        &lt;xs:element type="effective_date" name="effective_from"/&gt;
+                                    &lt;/xs:all&gt;
+                                &lt;/xs:complexType&gt;
+                            &lt;/xs:element&gt;
+                        &lt;/xs:sequence&gt;
+                    &lt;/xs:complexType&gt;
+                &lt;/xs:element&gt;
+
+            &lt;/xs:all&gt;
+        &lt;/xs:complexType&gt;
+    &lt;/xs:element&gt;
+
+    &lt;xs:complexType name="employee_profile"&gt;
+        &lt;xs:all&gt;
+            &lt;xs:element type="xs:nonNegativeInteger" name="id"/&gt;
+            &lt;xs:element type="effective_date" name="effective_from"/&gt;
+            &lt;xs:element type="xs:string" name="name" minOccurs="0"/&gt;
+        &lt;/xs:all&gt;
+    &lt;/xs:complexType&gt;
+
+    &lt;xs:simpleType name="effective_date"&gt;
+        &lt;xs:restriction base="xs:date"&gt;
+            &lt;xs:minInclusive value="1900-12-31"/&gt;
+            &lt;xs:maxInclusive value="2079-06-05"/&gt;
+        &lt;/xs:restriction&gt;
+    &lt;/xs:simpleType&gt;
+
+&lt;/xs:schema&gt;</div>
+</div>
+</div>
+</div>
+</div>
+</article>
+</section>
+<section class="clearfix">
+<article class="definition">
+<h3 class="anchored" id="put"><span>PUT</span>
+<a class="fa fa-link link-anchor" data-url="r=__v2__companies__(cid)__employees__(aid)__profiles#put" data-web-id="__v2__companies__(cid)__employees__(aid)__profiles"></a>
+</h3>
+<div class="md"><p>Update the employee profiles information.
+
+The Employee APIs use a separate security profile item to control access rights which is located in the company security profile in the following location:
+  1. `Modules -&gt; REST API Resources -&gt; Employee Profiles -&gt; Edit`.
+
+If a profile does not support effective dates you must send one element array and `effective_from` is ignored.
+
+&lt;b&gt;Only the 'REST API RESOURCES' security profile items in combination with 'manager permissions' are considered by this REST API resource.&lt;/b&gt;
+</p></div>
+<div>
+<ul class="annotation-list">
+<li class="annotation">
+<span>v2</span>
+</li>
+</ul>
+</div>
+<h4>Parameters</h4>
+<h5>Path Parameters</h5>
+<ul class="param-list">
+<li>
+<div class="param-desc">
+<div class="param-name">cid</div>
+<div class="data-type">string</div>
+<div class="required">required</div>
+</div>
+<div class="param-content">
+<div>
+<p>Example: 123456</p>
+<div class="desc md">Company should be referenced via company id or company unique id or company short name using `|short_name` or `!short_name` format.
+</div>
+</div>
+</div>
+
+</li>
+<li>
+<div class="param-desc">
+<div class="param-name">aid</div>
+<div class="data-type">string</div>
+<div class="required">required</div>
+</div>
+<div class="param-content">
+<div>
+<p>Example: 1234567</p>
+<div class="desc md">Account should be referenced via account id or account external id using `|external_id` or `!external_id` format.
+</div>
+</div>
+</div>
+
+</li>
+</ul>
+<h5>Header Parameters</h5>
+<ul class="param-list">
+<li>
+<div class="param-desc">
+<div class="param-name">Accept</div>
+<div class="data-type">string</div>
+</div>
+<div class="param-content">
+<div>
+<p>Valid values: application/json, application/xml, text/xml</p>
+<p>Default: application/json</p>
+<p>Example: application/json</p>
+</div>
+</div>
+
+</li>
+<li>
+<div class="param-desc">
+<div class="param-name">Content-Type</div>
+<div class="data-type">string</div>
+<div class="required">required</div>
+</div>
+<div class="param-content">
+<div>
+<p>Valid values: application/xml, text/xml, application/json</p>
+<p>Example: application/json</p>
+</div>
+</div>
+
+</li>
+<li>
+<div class="param-desc">
+<div class="param-name">Content-Length</div>
+<div class="data-type">integer</div>
+<div class="required">required</div>
+</div>
+<div class="param-content">
+<div>
+</div>
+</div>
+
+</li>
+</ul>
+<h4>Responses</h4>
+<div class="responses">
+<div>
+<label class="response response-success">
+<span class="fa fa-check"></span>
+<input data-full-tab-id="put-resp-code-tab-id-0" data-tab-class="resp-code-tab-put" name="resp-code-tab-put" type="radio"/>
+<span class="status">204 No Content</span>
+</label>
+<div class="response-desc resp-code-tab-put" id="put-resp-code-tab-id-0">
+<div class="md"><p>Employee profiles was successfully replaced.</p></div>
+</div>
+</div>
+<div>
+<label class="response response-error">
+<span class="fa fa-times"></span>
+<input data-full-tab-id="put-resp-code-tab-id-1" data-tab-class="resp-code-tab-put" name="resp-code-tab-put" type="radio"/>
+<span class="status">401 Unauthorized</span>
+</label>
+<div class="response-desc resp-code-tab-put" id="put-resp-code-tab-id-1">
+<div class="md"><p>Returned in case user is not authorized.</p></div>
+</div>
+</div>
+<div>
+<label class="response response-error">
+<span class="fa fa-times"></span>
+<input data-full-tab-id="put-resp-code-tab-id-2" data-tab-class="resp-code-tab-put" name="resp-code-tab-put" type="radio"/>
+<span class="status">403 Forbidden</span>
+</label>
+<div class="response-desc resp-code-tab-put" id="put-resp-code-tab-id-2">
+<div class="md"><p>Returned in case user has no access to the resource.</p></div>
+</div>
+</div>
+<div>
+<label class="response response-error">
+<span class="fa fa-times"></span>
+<input data-full-tab-id="put-resp-code-tab-id-3" data-tab-class="resp-code-tab-put" name="resp-code-tab-put" type="radio"/>
+<span class="status">404 Not Found</span>
+</label>
+<div class="response-desc resp-code-tab-put" id="put-resp-code-tab-id-3">
+<div class="md"><p>Returned in case resource does not exist.</p></div>
+</div>
+</div>
+<div>
+<label class="response response-error">
+<span class="fa fa-times"></span>
+<input data-full-tab-id="put-resp-code-tab-id-4" data-tab-class="resp-code-tab-put" name="resp-code-tab-put" type="radio"/>
+<span class="status">503 Service Unavailable</span>
+</label>
+<div class="response-desc resp-code-tab-put" id="put-resp-code-tab-id-4">
+<div class="md"><p>Returned in the event that the call limit is exceeded. The application will be unavailable for subsequent calls for the duration specified by the X-CallLimit-TimeToWait header.</p></div>
+</div>
+</div>
+</div>
+</article>
+<article class="code">
+<h4>Definition</h4>
+<div class="uri">
+<code>
+<span class="method put">put</span>
+<span class="textUri"><span class="baseUri">{{ getUriPrefix() }}</span><span class="relativeUri">/v2/companies/{cid}/employees/{aid}/profiles</span></span>
+</code>
+</div>
+<h4>Request Samples</h4>
+<div class="tab-title-group">
+<label>
+<input checked="checked" data-full-tab-id="req-tab-id-put-0" data-tab-class="req-tab-put" name="req-tab-put" type="radio"/>
+<span class="tab-title">application/json</span>
+</label>
+<label>
+<input data-full-tab-id="req-tab-id-put-1" data-tab-class="req-tab-put" name="req-tab-put" type="radio"/>
+<span class="tab-title">application/xml</span>
+</label>
+</div>
+<div>
+<div class="req-tab-put" id="req-tab-id-put-0">
+<div class="example">
+
+<div class="put-example-tab-0 activeTab" id="put-tab-example-0">
+
+<pre class="highlightjs">{
+  "benefit": [
+    {
+      "id": 11,
+      "effective_from": "2016-01-01"
+    },
+    {
+      "id": 12,
+      "effective_from": "2017-01-01"
+    }
+  ],
+
+  "security": [
+    {
+      "id": 11,
+      "effective_from": "1900-12-31"
+    }
+  ],
+
+  "pay_period": [
+    {
+      "id": 12,
+      "effective_from": "1900-12-31",
+      "name": "Pay Period Profile"
+    }
+  ],
+
+  "work_schedule" : [
+    {
+      "id": 678,
+      "start_pattern_offset": 1,
+      "effective_from": "1900-12-31"
+    }
+  ],
+
+  "rate_tables": [
+    {
+      "index": 0,
+      "refs": [
+        {
+          "id": 99,
+          "effective_from": "1900-12-31"
+        }
+      ]
+    },
+    {
+      "index": 1,
+      "refs": [
+        {
+          "id": 100,
+          "effective_from": "1900-12-31"
+        }
+      ]
+    }
+  ]
+}</pre>
+</div>
+<div class="put-example-tab-0" id="put-tab-schema-0">
+
+<div class="jsonschema" id="schema-2">{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "type": "object",
+  "properties": {
+    "attestation": {
+      "$ref": "#/definitions/effective_profile"
+    },
+    "access": {
+      "$ref": "#/definitions/profile"
+    },
+    "accruals": {
+      "$ref": "#/definitions/effective_profile"
+    },
+    "accruals2_bank": {
+      "$ref": "#/definitions/effective_profile"
+    },
+    "benefit": {
+      "$ref": "#/definitions/effective_profile"
+    },
+    "bradford_factor": {
+      "$ref": "#/definitions/profile"
+    },
+    "competency": {
+      "$ref": "#/definitions/profile"
+    },
+    "counter_distribution": {
+      "$ref": "#/definitions/effective_profile"
+    },
+    "data_retention": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "minimum": 0
+          },
+          "effective_from": {
+            "type": "string",
+            "description": "Date needs to be in the format yyyy-mm-dd within the 1900-12-31 and 2079-06-05 date range."
+          }
+        },
+        "additionalProperties": false,
+        "required": [
+          "id",
+          "effective_from"
+        ]
+      }
+    },
+    "delivery_policy_1099": {
+      "$ref": "#/definitions/profile"
+    },
+    "delivery_policy_pst": {
+      "$ref": "#/definitions/profile"
+    },
+    "delivery_policy_w2": {
+      "$ref": "#/definitions/profile"
+    },
+    "demographic": {
+      "$ref": "#/definitions/profile"
+    },
+    "external_benchmarks": {
+      "$ref": "#/definitions/profile"
+    },
+    "employee_sync": {
+      "$ref": "#/definitions/profile"
+    },
+    "holiday": {
+      "$ref": "#/definitions/profile"
+    },
+    "labor_distribution": {
+      "$ref": "#/definitions/profile"
+    },
+    "leave_of_absence": {
+      "$ref": "#/definitions/profile"
+    },
+    "pay_calculations": {
+      "$ref": "#/definitions/effective_profile"
+    },
+    "pay_period": {
+      "type": "array",
+      "maxItems": 1,
+      "items": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "minimum": 0
+          },
+          "effective_from": {
+            "type": "string",
+            "description": "Date needs to be in the format yyyy-mm-dd within the 1900-12-31 and 2079-06-05 date range."
+          },
+          "name": {
+            "type": "string",
+            "description": "Display name of profile"
+          }
+        },
+        "additionalProperties": false,
+        "required": [
+          "id",
+          "effective_from"
+        ]
+      }
+    },
+    "pay_prep": {
+      "$ref": "#/definitions/effective_profile"
+    },
+    "pension": {
+      "$ref": "#/definitions/profile"
+    },
+    "performance_review": {
+      "$ref": "#/definitions/profile"
+    },
+    "points": {
+      "$ref": "#/definitions/profile"
+    },
+    "pst_population": {
+      "$ref": "#/definitions/profile"
+    },
+    "rate_tables": {
+      "type": "array",
+      "maxItems": 5,
+      "items": {
+        "type": "object",
+        "properties": {
+          "index": {
+            "type": "integer",
+            "minimum": 0,
+            "maximum": 4
+          },
+          "refs": {
+            "$ref": "#/definitions/profile"
+          }
+        },
+        "additionalProperties": false,
+        "required": [
+          "index",
+          "refs"
+        ]
+      }
+    },
+    "role": {
+      "$ref": "#/definitions/profile"
+    },
+    "scheduler": {
+      "$ref": "#/definitions/profile"
+    },
+    "scorecard": {
+      "$ref": "#/definitions/effective_profile"
+    },
+    "security": {
+      "$ref": "#/definitions/profile"
+    },
+    "succession": {
+      "$ref": "#/definitions/profile"
+    },
+    "time_off_planning": {
+      "$ref": "#/definitions/effective_profile"
+    },
+    "timesheet": {
+      "$ref": "#/definitions/profile"
+    },
+    "training": {
+      "$ref": "#/definitions/profile"
+    },
+    "ts_auto_population": {
+      "$ref": "#/definitions/profile"
+    },
+    "work_schedule": {
+      "type": "array",
+      "maxItems": 1,
+      "items": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "minimum": 0
+          },
+          "start_pattern_offset": {
+            "type": "integer",
+            "minimum": 1,
+            "description": "Offset value is a day number from which work schedule pattern should be applied."
+          },
+          "effective_from": {
+            "type": "string",
+            "description": "Date needs to be in the format yyyy-mm-dd within the 1900-12-31 and 2079-06-05 date range."
+          },
+          "personal": {
+            "type": "boolean"
+          },
+          "start_pattern_offset_unit": {
+            "type": "integer"
+          }
+        },
+        "additionalProperties": false,
+        "required": [
+          "id",
+          "effective_from"
+        ]
+      }
+    },
+    "workday_breakdown": {
+      "$ref": "#/definitions/profile"
+    },
+    "working_time_regulations": {
+      "$ref": "#/definitions/effective_profile"
+    },
+    "mercury_layout": {
+      "$ref": "#/definitions/effective_profile"
+    },
+    "offline_restrictions": {
+      "$ref": "#/definitions/effective_profile"
+    },
+    "onboarding": {
+      "$ref": "#/definitions/effective_profile"
+    }
+  },
+  "additionalProperties": false,
+  "definitions": {
+    "profile": {
+      "type": "array",
+      "maxItems": 1,
+      "items": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "minimum": 0
+          },
+          "effective_from": {
+            "type": "string",
+            "description": "Date needs to be in the format yyyy-mm-dd within the 1900-12-31 and 2079-06-05 date range."
+          }
+        },
+        "additionalProperties": false,
+        "required": [
+          "id",
+          "effective_from"
+        ]
+      }
+    },
+    "effective_profile": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "minimum": 0
+          },
+          "effective_from": {
+            "type": "string",
+            "description": "Date needs to be in the format yyyy-mm-dd within the 1900-12-31 and 2079-06-05 date range."
+          }
+        },
+        "additionalProperties": false,
+        "required": [
+          "id",
+          "effective_from"
+        ]
+      }
+    }
+  }
+}</div>
+</div>
+</div>
+</div>
+<div class="req-tab-put" id="req-tab-id-put-1">
+<div class="example">
+
+<div class="put-example-tab-1 activeTab" id="put-tab-example-1">
+
+<pre class="highlightjs">&lt;employee_profiles&gt;
+  &lt;benefit&gt;
+    &lt;benefit&gt;
+      &lt;id&gt;11&lt;/id&gt;
+      &lt;effective_from&gt;2016-01-01&lt;/effective_from&gt;
+    &lt;/benefit&gt;
+    &lt;benefit&gt;
+      &lt;id&gt;12&lt;/id&gt;
+      &lt;effective_from&gt;2017-01-01&lt;/effective_from&gt;
+    &lt;/benefit&gt;
+  &lt;/benefit&gt;
+
+  &lt;security&gt;
+    &lt;security&gt;
+      &lt;id&gt;11&lt;/id&gt;
+      &lt;effective_from&gt;1900-12-31&lt;/effective_from&gt;
+    &lt;/security&gt;
+  &lt;/security&gt;
+
+  &lt;pay_period&gt;
+    &lt;pay_period&gt;
+      &lt;id&gt;12&lt;/id&gt;
+      &lt;effective_from&gt;1900-12-31&lt;/effective_from&gt;
+      &lt;name&gt;"Pay Period Profile"&lt;/name&gt;
+    &lt;/pay_period&gt;
+  &lt;/pay_period&gt;
+
+  &lt;work_schedule&gt;
+    &lt;work_schedule&gt;
+      &lt;id&gt;678&lt;/id&gt;
+      &lt;start_pattern_offset&gt;1&lt;/start_pattern_offset&gt;
+      &lt;effective_from&gt;1900-12-31&lt;/effective_from&gt;
+    &lt;/work_schedule&gt;
+  &lt;/work_schedule&gt;
+
+  &lt;rate_tables&gt;
+    &lt;rate_table&gt;
+      &lt;index&gt;0&lt;/index&gt;
+      &lt;refs&gt;
+        &lt;ref&gt;
+          &lt;id&gt;99&lt;/id&gt;
+          &lt;effective_from&gt;1900-12-31&lt;/effective_from&gt;
+        &lt;/ref&gt;
+      &lt;/refs&gt;
+    &lt;/rate_table&gt;
+    &lt;rate_table&gt;
+      &lt;index&gt;1&lt;/index&gt;
+      &lt;refs&gt;
+        &lt;ref&gt;
+          &lt;id&gt;100&lt;/id&gt;
+          &lt;effective_from&gt;1900-12-31&lt;/effective_from&gt;
+        &lt;/ref&gt;
+      &lt;/refs&gt;
+    &lt;/rate_table&gt;
+  &lt;/rate_tables&gt;
+&lt;/employee_profiles&gt;</pre>
+</div>
+<div class="put-example-tab-1" id="put-tab-schema-1">
+
+<div class="jsonschema" id="schema-3">&lt;xs:schema attributeFormDefault="unqualified" elementFormDefault="qualified" xmlns:xs="http://www.w3.org/2001/XMLSchema"&gt;
+    &lt;xs:element name="employee_profiles"&gt;
+        &lt;xs:complexType&gt;
+            &lt;xs:all&gt;
+
+                &lt;xs:element name="attestation" minOccurs="0"&gt;
+                    &lt;xs:complexType&gt;
+                        &lt;xs:sequence&gt;
+                            &lt;xs:element name="attestation" type="employee_profile" maxOccurs="unbounded"/&gt;
+                        &lt;/xs:sequence&gt;
+                    &lt;/xs:complexType&gt;
+                &lt;/xs:element&gt;
+
+                &lt;xs:element name="access" minOccurs="0"&gt;
+                    &lt;xs:complexType&gt;
+                        &lt;xs:sequence&gt;
+                            &lt;xs:element name="access" type="employee_profile"/&gt;
+                        &lt;/xs:sequence&gt;
+                    &lt;/xs:complexType&gt;
+                &lt;/xs:element&gt;
+
+                &lt;xs:element name="accruals" minOccurs="0"&gt;
+                    &lt;xs:complexType&gt;
+                        &lt;xs:sequence&gt;
+                            &lt;xs:element name="accruals" type="employee_profile"/&gt;
+                        &lt;/xs:sequence&gt;
+                    &lt;/xs:complexType&gt;
+                &lt;/xs:element&gt;
+
+                &lt;xs:element name="benefit" minOccurs="0"&gt;
+                    &lt;xs:complexType&gt;
+                        &lt;xs:sequence&gt;
+                            &lt;xs:element name="benefit" type="employee_profile" maxOccurs="unbounded"/&gt;
+                        &lt;/xs:sequence&gt;
+                    &lt;/xs:complexType&gt;
+                &lt;/xs:element&gt;
+
+                &lt;xs:element name="bradford_factor" minOccurs="0"&gt;
+                    &lt;xs:complexType&gt;
+                        &lt;xs:sequence&gt;
+                            &lt;xs:element name="bradford_factor" type="employee_profile"/&gt;
+                        &lt;/xs:sequence&gt;
+                    &lt;/xs:complexType&gt;
+                &lt;/xs:element&gt;
+
+                &lt;xs:element name="competency" minOccurs="0"&gt;
+                    &lt;xs:complexType&gt;
+                        &lt;xs:sequence&gt;
+                            &lt;xs:element name="competency" type="employee_profile"/&gt;
+                        &lt;/xs:sequence&gt;
+                    &lt;/xs:complexType&gt;
+                &lt;/xs:element&gt;
+
+                &lt;xs:element name="counter_distribution" minOccurs="0"&gt;
+                    &lt;xs:complexType&gt;
+                        &lt;xs:sequence&gt;
+                            &lt;xs:element name="counter_distribution" type="employee_profile"/&gt;
+                        &lt;/xs:sequence&gt;
+                    &lt;/xs:complexType&gt;
+                &lt;/xs:element&gt;
+
+                &lt;xs:element name="data_retention" minOccurs="0"&gt;
+                    &lt;xs:complexType&gt;
+                        &lt;xs:sequence&gt;
+                            &lt;xs:element name="data_retention" type="employee_profile" maxOccurs="unbounded"/&gt;
+                        &lt;/xs:sequence&gt;
+                    &lt;/xs:complexType&gt;
+                &lt;/xs:element&gt;
+
+                &lt;xs:element name="delivery_policy_1099" minOccurs="0"&gt;
+                    &lt;xs:complexType&gt;
+                        &lt;xs:sequence&gt;
+                            &lt;xs:element name="delivery_policy_1099" type="employee_profile"/&gt;
+                        &lt;/xs:sequence&gt;
+                    &lt;/xs:complexType&gt;
+                &lt;/xs:element&gt;
+
+                &lt;xs:element name="delivery_policy_pst" minOccurs="0"&gt;
+                    &lt;xs:complexType&gt;
+                        &lt;xs:sequence&gt;
+                            &lt;xs:element name="delivery_policy_pst" type="employee_profile"/&gt;
+                        &lt;/xs:sequence&gt;
+                    &lt;/xs:complexType&gt;
+                &lt;/xs:element&gt;
+
+                &lt;xs:element name="delivery_policy_w2" minOccurs="0"&gt;
+                    &lt;xs:complexType&gt;
+                        &lt;xs:sequence&gt;
+                            &lt;xs:element name="delivery_policy_w2" type="employee_profile"/&gt;
+                        &lt;/xs:sequence&gt;
+                    &lt;/xs:complexType&gt;
+                &lt;/xs:element&gt;
+
+                &lt;xs:element name="demographic" minOccurs="0"&gt;
+                    &lt;xs:complexType&gt;
+                        &lt;xs:sequence&gt;
+                            &lt;xs:element name="demographic" type="employee_profile"/&gt;
+                        &lt;/xs:sequence&gt;
+                    &lt;/xs:complexType&gt;
+                &lt;/xs:element&gt;
+
+                &lt;xs:element name="employee_sync" minOccurs="0"&gt;
+                    &lt;xs:complexType&gt;
+                        &lt;xs:sequence&gt;
+                            &lt;xs:element name="employee_sync" type="employee_profile"/&gt;
+                        &lt;/xs:sequence&gt;
+                    &lt;/xs:complexType&gt;
+                &lt;/xs:element&gt;
+
+                &lt;xs:element name="holiday" minOccurs="0"&gt;
+                    &lt;xs:complexType&gt;
+                        &lt;xs:sequence&gt;
+                            &lt;xs:element name="holiday" type="employee_profile"/&gt;
+                        &lt;/xs:sequence&gt;
+                    &lt;/xs:complexType&gt;
+                &lt;/xs:element&gt;
+
+                &lt;xs:element name="labor_distribution" minOccurs="0"&gt;
+                    &lt;xs:complexType&gt;
+                        &lt;xs:sequence&gt;
+                            &lt;xs:element name="labor_distribution" type="employee_profile"/&gt;
+                        &lt;/xs:sequence&gt;
+                    &lt;/xs:complexType&gt;
+                &lt;/xs:element&gt;
+
+                &lt;xs:element name="leave_of_absence" minOccurs="0"&gt;
+                    &lt;xs:complexType&gt;
+                        &lt;xs:sequence&gt;
+                            &lt;xs:element name="leave_of_absence" type="employee_profile"/&gt;
+                        &lt;/xs:sequence&gt;
+                    &lt;/xs:complexType&gt;
+                &lt;/xs:element&gt;
+
+                &lt;xs:element name="pay_calculations" minOccurs="0"&gt;
+                    &lt;xs:complexType&gt;
+                        &lt;xs:sequence&gt;
+                            &lt;xs:element name="pay_calculations" type="employee_profile" maxOccurs="unbounded"/&gt;
+                        &lt;/xs:sequence&gt;
+                    &lt;/xs:complexType&gt;
+                &lt;/xs:element&gt;
+
+                &lt;xs:element name="pay_period" minOccurs="0"&gt;
+                    &lt;xs:complexType&gt;
+                        &lt;xs:sequence&gt;
+                            &lt;xs:element name="pay_period" type="employee_profile"/&gt;
+                        &lt;/xs:sequence&gt;
+                    &lt;/xs:complexType&gt;
+                &lt;/xs:element&gt;
+
+                &lt;xs:element name="pay_prep" minOccurs="0"&gt;
+                    &lt;xs:complexType&gt;
+                        &lt;xs:sequence&gt;
+                            &lt;xs:element name="pay_prep" type="employee_profile" maxOccurs="unbounded"/&gt;
+                        &lt;/xs:sequence&gt;
+                    &lt;/xs:complexType&gt;
+                &lt;/xs:element&gt;
+
+                &lt;xs:element name="pension" minOccurs="0"&gt;
+                    &lt;xs:complexType&gt;
+                        &lt;xs:sequence&gt;
+                            &lt;xs:element name="pension" type="employee_profile"/&gt;
+                        &lt;/xs:sequence&gt;
+                    &lt;/xs:complexType&gt;
+                &lt;/xs:element&gt;
+
+                &lt;xs:element name="performance_review" minOccurs="0"&gt;
+                    &lt;xs:complexType&gt;
+                        &lt;xs:sequence&gt;
+                            &lt;xs:element name="performance_review" type="employee_profile"/&gt;
+                        &lt;/xs:sequence&gt;
+                    &lt;/xs:complexType&gt;
+                &lt;/xs:element&gt;
+
+                &lt;xs:element name="points" minOccurs="0"&gt;
+                    &lt;xs:complexType&gt;
+                        &lt;xs:sequence&gt;
+                            &lt;xs:element name="points" type="employee_profile"/&gt;
+                        &lt;/xs:sequence&gt;
+                    &lt;/xs:complexType&gt;
+                &lt;/xs:element&gt;
+
+                &lt;xs:element name="pst_population" minOccurs="0"&gt;
+                    &lt;xs:complexType&gt;
+                        &lt;xs:sequence&gt;
+                            &lt;xs:element name="pst_population" type="employee_profile"/&gt;
+                        &lt;/xs:sequence&gt;
+                    &lt;/xs:complexType&gt;
+                &lt;/xs:element&gt;
+
+                &lt;xs:element name="rate_tables" minOccurs="0"&gt;
+                    &lt;xs:complexType&gt;
+                        &lt;xs:sequence&gt;
+                            &lt;xs:element name="rate_table" maxOccurs="5" minOccurs="0"&gt;
+                                &lt;xs:complexType&gt;
+                                    &lt;xs:all&gt;
+                                        &lt;xs:element type="xs:int" name="index"/&gt;
+                                        &lt;xs:element name="refs"&gt;
+                                            &lt;xs:complexType&gt;
+                                                &lt;xs:sequence&gt;
+                                                    &lt;xs:element name="ref"&gt;
+                                                        &lt;xs:complexType&gt;
+                                                            &lt;xs:all&gt;
+                                                                &lt;xs:element type="xs:nonNegativeInteger" name="id"/&gt;
+                                                                &lt;xs:element type="effective_date" name="effective_from"/&gt;
+                                                            &lt;/xs:all&gt;
+                                                        &lt;/xs:complexType&gt;
+                                                    &lt;/xs:element&gt;
+                                                &lt;/xs:sequence&gt;
+                                            &lt;/xs:complexType&gt;
+                                        &lt;/xs:element&gt;
+                                    &lt;/xs:all&gt;
+                                &lt;/xs:complexType&gt;
+                            &lt;/xs:element&gt;
+                        &lt;/xs:sequence&gt;
+                    &lt;/xs:complexType&gt;
+                &lt;/xs:element&gt;
+
+                &lt;xs:element name="role" minOccurs="0"&gt;
+                    &lt;xs:complexType&gt;
+                        &lt;xs:sequence&gt;
+                            &lt;xs:element name="role" type="employee_profile"/&gt;
+                        &lt;/xs:sequence&gt;
+                    &lt;/xs:complexType&gt;
+                &lt;/xs:element&gt;
+
+                &lt;xs:element name="scheduler" minOccurs="0"&gt;
+                    &lt;xs:complexType&gt;
+                        &lt;xs:sequence&gt;
+                            &lt;xs:element name="scheduler" type="employee_profile"/&gt;
+                        &lt;/xs:sequence&gt;
+                    &lt;/xs:complexType&gt;
+                &lt;/xs:element&gt;
+
+                &lt;xs:element name="scorecard" minOccurs="0"&gt;
+                    &lt;xs:complexType&gt;
+                        &lt;xs:sequence&gt;
+                            &lt;xs:element name="scorecard" type="employee_profile" maxOccurs="unbounded"/&gt;
+                        &lt;/xs:sequence&gt;
+                    &lt;/xs:complexType&gt;
+                &lt;/xs:element&gt;
+
+                &lt;xs:element name="security" minOccurs="0"&gt;
+                    &lt;xs:complexType&gt;
+                        &lt;xs:sequence&gt;
+                            &lt;xs:element name="security" type="employee_profile"/&gt;
+                        &lt;/xs:sequence&gt;
+                    &lt;/xs:complexType&gt;
+                &lt;/xs:element&gt;
+
+                &lt;xs:element name="succession" minOccurs="0"&gt;
+                    &lt;xs:complexType&gt;
+                        &lt;xs:sequence&gt;
+                            &lt;xs:element name="succession" type="employee_profile"/&gt;
+                        &lt;/xs:sequence&gt;
+                    &lt;/xs:complexType&gt;
+                &lt;/xs:element&gt;
+
+                &lt;xs:element name="time_off_planning" minOccurs="0"&gt;
+                    &lt;xs:complexType&gt;
+                        &lt;xs:sequence&gt;
+                            &lt;xs:element name="time_off_planning" type="employee_profile" maxOccurs="unbounded"/&gt;
+                        &lt;/xs:sequence&gt;
+                    &lt;/xs:complexType&gt;
+                &lt;/xs:element&gt;
+
+                &lt;xs:element name="timesheet" minOccurs="0"&gt;
+                    &lt;xs:complexType&gt;
+                        &lt;xs:sequence&gt;
+                            &lt;xs:element name="timesheet" type="employee_profile"/&gt;
+                        &lt;/xs:sequence&gt;
+                    &lt;/xs:complexType&gt;
+                &lt;/xs:element&gt;
+
+                &lt;xs:element name="training" minOccurs="0"&gt;
+                    &lt;xs:complexType&gt;
+                        &lt;xs:sequence&gt;
+                            &lt;xs:element name="training" type="employee_profile"/&gt;
+                        &lt;/xs:sequence&gt;
+                    &lt;/xs:complexType&gt;
+                &lt;/xs:element&gt;
+
+                &lt;xs:element name="ts_auto_population" minOccurs="0"&gt;
+                    &lt;xs:complexType&gt;
+                        &lt;xs:sequence&gt;
+                            &lt;xs:element name="ts_auto_population" type="employee_profile"/&gt;
+                        &lt;/xs:sequence&gt;
+                    &lt;/xs:complexType&gt;
+                &lt;/xs:element&gt;
+
+                &lt;xs:element name="workday_breakdown" minOccurs="0"&gt;
+                    &lt;xs:complexType&gt;
+                        &lt;xs:sequence&gt;
+                            &lt;xs:element name="workday_breakdown" type="employee_profile"/&gt;
+                        &lt;/xs:sequence&gt;
+                    &lt;/xs:complexType&gt;
+                &lt;/xs:element&gt;
+
+                &lt;xs:element name="working_time_regulations" minOccurs="0"&gt;
+                    &lt;xs:complexType&gt;
+                        &lt;xs:sequence&gt;
+                            &lt;xs:element name="working_time_regulations" type="employee_profile" maxOccurs="unbounded"/&gt;
+                        &lt;/xs:sequence&gt;
+                    &lt;/xs:complexType&gt;
+                &lt;/xs:element&gt;
+
+                &lt;xs:element name="work_schedule" minOccurs="0"&gt;
+                    &lt;xs:complexType&gt;
+                        &lt;xs:sequence&gt;
+                            &lt;xs:element name="work_schedule"&gt;
+                                &lt;xs:complexType&gt;
+                                    &lt;xs:all&gt;
+                                        &lt;xs:element type="xs:nonNegativeInteger" name="id"/&gt;
+                                        &lt;xs:element type="xs:positiveInteger" name="start_pattern_offset" minOccurs="0"&gt;
+                                            &lt;xs:annotation&gt;
+                                                &lt;xs:documentation&gt;
+                                                    Offset value is a day number from which work schedule pattern should be applied.
+                                                &lt;/xs:documentation&gt;
+                                            &lt;/xs:annotation&gt;
+                                        &lt;/xs:element&gt;
+                                        &lt;xs:element type="effective_date" name="effective_from"/&gt;
+                                    &lt;/xs:all&gt;
+                                &lt;/xs:complexType&gt;
+                            &lt;/xs:element&gt;
+                        &lt;/xs:sequence&gt;
+                    &lt;/xs:complexType&gt;
+                &lt;/xs:element&gt;
+
+            &lt;/xs:all&gt;
+        &lt;/xs:complexType&gt;
+    &lt;/xs:element&gt;
+
+    &lt;xs:complexType name="employee_profile"&gt;
+        &lt;xs:all&gt;
+            &lt;xs:element type="xs:nonNegativeInteger" name="id"/&gt;
+            &lt;xs:element type="effective_date" name="effective_from"/&gt;
+            &lt;xs:element type="xs:string" name="name" minOccurs="0"/&gt;
+        &lt;/xs:all&gt;
+    &lt;/xs:complexType&gt;
+
+    &lt;xs:simpleType name="effective_date"&gt;
+        &lt;xs:restriction base="xs:date"&gt;
+            &lt;xs:minInclusive value="1900-12-31"/&gt;
+            &lt;xs:maxInclusive value="2079-06-05"/&gt;
+        &lt;/xs:restriction&gt;
+    &lt;/xs:simpleType&gt;
+
+&lt;/xs:schema&gt;</div>
+</div>
+</div>
+</div>
+</div>
+</article>
+</section>
+</div>
+</body></html>

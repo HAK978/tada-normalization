@@ -1,0 +1,192 @@
+<!doctype html>
+<html><head><meta charset="utf-8"><title>Quickstart</title><style>body{font:16px system-ui;max-width:1100px;margin:2rem auto;padding:0 1rem;line-height:1.5}aside{background:#fff3cc;padding:1rem}.jsonschema,pre{white-space:pre-wrap;font:13px monospace;overflow-wrap:anywhere;background:#f4f5f7;padding:1rem}.uri{font-family:monospace}h2,h3{margin-top:2rem}</style></head><body><aside><strong>Modified private reference — 2026-10-09.</strong> Provider-documented illustrative examples are included; authentication token examples are redacted. These are not customer exports or guaranteed production behavior. Candidate sharing is pending. This is not OpenAPI.</aside>
+<div class="group">
+<h2 class="docTitle">Quickstart</h2>
+<section class="clearfix">
+<article class="documentation md">
+<pre>To make an API call, you must request an authentication token and call the API using an HTTP method and a URL, which includes a root unique to you and one of the URLs (or endpoints) listed in the Developer Hub.
+
+---
+
+# Prerequisites
+
+The following are required to invoke the API:
+
+*   A client ID and client secret. Refer to the &lt;a onclick="loadResourcePartial(event, 'Client id and secret.html', 'Client ID and client secret')"&gt;Client ID and client secret&lt;/a&gt; topic for more information.
+*   If you have not already done so, be sure to understand the basic structure of our API outlined in the &lt;a onclick="loadResourcePartial(event, 'Foundations.html', 'Foundations')"&gt;Foundations&lt;/a&gt; topic.
+
+## Call the API
+
+Before you make an API call, it is helpful to understand the flow typical of every interaction between an application and the API. After the flow is described, we move on to exercises and code examples.
+
+## Anatomy of an API call
+
+Every API call follows this basic flow:
+
+1.  Your application requests and receives an OAuth 2.0 token from the authentication server.
+2.  Your application invokes the API by making a properly-formatted call consisting of an verb (HTTP method) and a noun (API resource in the form of a URL) along with all necessary HTTP headers, parameters, and any required JSON body.
+3.  Your authorization token is validated.
+4.  If valid, the system receives and processes your application's API request.
+5.  The system returns an API response to your application.
+
+## Exercises
+
+The following exercises illustrate simple calls against the API. If you have access to the API, feel free to follow along and try out a call yourself.
+
+### Generate a token
+
+_**Note:** This exercise uses the Postman extension for Google Chrome._
+
+To obtain an access token:
+
+1.  Open Postman
+2.  Create and Save a Request
+3.  Change the **METHOD** to **POST**
+4.  Add the authentication URL: `https://HOSTNAME/ta/rest/v2/companies/COMPANY_ID/oauth2/token`
+    _**Note:** Remember to replace `HOSTNAME` and `COMPANY_ID` with the appropriate values for your system._
+5.  Select **Headers** and add the following key/value pairs:
+    *   `Content-Type : application/x-www-form-urlencoded`
+6.  Select **Body**
+7.  Choose content type **x-www-form-urlencoded**
+8.  Add the following key/value pairs:
+    *   `client_id : CLIENT ID`
+    *   `client_secret : CLIENT SECRET`
+    *   `grant_type : client_credentials`
+9.  Select **Send** to generate and receive an access token
+
+    _**Note:** You should select and copy your access token before you leave this screen._
+
+
+Refer to the &lt;a onclick="loadResourcePartial(event, 'Authentication and security.html', 'Authentication and security')"&gt;Authentication and security&lt;/a&gt; topic for more information about generating and refreshing an access token.
+
+### Call an API resource
+
+Once you have an access token, you're ready to call an API resource. The following exercises step you through a set of sample calls.
+
+#### First exercise
+
+_**Note:** This exercise uses the Postman extension for Google Chrome._
+
+This exercise calls the Get Employees operation using the GET HTTP method.
+
+To call the API:
+
+1.  Open Postman
+2.  Ensure the **METHOD** is **GET**
+3.  Add the URL: `https://HOSTNAME/ta/rest/v2/companies/COMPANY_ID/employees`
+
+    _**Note:** The URL is composed of two parts: a root (`https://HOSTNAME/ta/rest/`) and an endpoint (`/v2/companies/COMPANY_ID/employees`). The Developer Hub documents all available endpoints._
+
+    _**Note:** Remember to replace `HOSTNAME` and `COMPANY_ID` with the appropriate values for your system._
+
+4.  Select **Headers** and add the following key/value pairs:
+    *   `content-type : application/json`
+    *   `Authorization : ACCESS_TOKEN`
+
+    _**Note:** Replace `ACCESS_TOKEN` with the token generated during the Generate a token exercise._
+5.  Select **Send** to call the API
+
+This call returns a response body similar to the following example:
+
+```json
+{
+  "employees": [
+    {
+      "id": 1,
+      "username": "username",
+      "first_name": "first_name",
+      "last_name": "last_name",
+      "employee_id": "employee_id",
+      "external_id": "external_id",
+      "primary_account_id": 1,
+      "ein_name": "Default",
+      "dates": {
+        "hired": "2015-06-12",
+        "re_hired": "2019-02-25",
+        "started": "2015-06-12",
+        "terminated": "2019-02-17"
+      },
+      "status": "Active",
+      "_links": {
+        "self": "https://example.com/ta/rest/v2/companies/453313/employees/1",
+        "demographics": "https://example.com/ta/rest/v2/companies/453313/employees/1/demographics",
+        "pay-info": "https://example.com/ta/rest/v2/companies/453313/employees/1/pay-info",
+        "badges": "https://example.com/ta/rest/v2/companies/453313/employees/1/badges",
+        "profiles": "https://example.com/ta/rest/v2/companies/453313/employees/1/profiles",
+        "hcm-profiles": "https://example.com/ta/rest/v2/companies/453313/employees/1/hcm-profiles",
+        "hcm-fields": "https://example.com/ta/rest/v2/companies/453313/employees/1/hcm-fields"
+      }
+    }
+...
+}
+```
+
+## Code examples
+
+*   Request Type: `HTTP GET`
+*   Content Type: `application/json`
+*   External URL: `https://HOSTNAME/ta/rest/v2/companies/COMPANY_ID/employees`
+
+The following code examples demonstrate an API call.
+
+**cURL**
+
+```shell
+curl -X GET \
+  https://HOSTNAME/ta/rest/v2/companies/COMPANY_ID/employees \
+  -H 'authorization: ACCESS_TOKEN' \
+  -H 'content-type: application/json'
+```
+
+**Java OkHttp**
+
+```java
+OkHttpClient client = new OkHttpClient();
+
+Request request = new Request.Builder()
+  .url("https://HOSTNAME/ta/rest/v2/companies/COMPANY_ID/employees")
+  .get()
+  .addHeader("content-type", "application/json")
+  .addHeader("authorization", "ACCESS_TOKEN")
+  .build();
+
+Response response = client.newCall(request).execute();
+```
+This call returns a response body similar to the following example:
+
+```json
+{
+  "employees": [
+    {
+      "id": 1,
+      "username": "username",
+      "first_name": "first_name",
+      "last_name": "last_name",
+      "employee_id": "employee_id",
+      "external_id": "external_id",
+      "primary_account_id": 1,
+      "ein_name": "Default",
+      "dates": {
+        "hired": "2015-06-12",
+        "re_hired": "2019-02-25",
+        "started": "2015-06-12",
+        "terminated": "2019-02-17"
+      },
+      "status": "Active",
+      "_links": {
+        "self": "https://example.com/ta/rest/v2/companies/453313/employees/1",
+        "demographics": "https://example.com/ta/rest/v2/companies/453313/employees/1/demographics",
+        "pay-info": "https://example.com/ta/rest/v2/companies/453313/employees/1/pay-info",
+        "badges": "https://example.com/ta/rest/v2/companies/453313/employees/1/badges",
+        "profiles": "https://example.com/ta/rest/v2/companies/453313/employees/1/profiles",
+        "hcm-profiles": "https://example.com/ta/rest/v2/companies/453313/employees/1/hcm-profiles",
+        "hcm-fields": "https://example.com/ta/rest/v2/companies/453313/employees/1/hcm-fields"
+      }
+    }
+...
+}
+```</pre>
+</article>
+</section>
+</div>
+</body></html>

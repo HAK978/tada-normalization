@@ -1,0 +1,2174 @@
+<!doctype html>
+<html><head><meta charset="utf-8"><title>Schedules</title><style>body{font:16px system-ui;max-width:1100px;margin:2rem auto;padding:0 1rem;line-height:1.5}aside{background:#fff3cc;padding:1rem}.jsonschema,pre{white-space:pre-wrap;font:13px monospace;overflow-wrap:anywhere;background:#f4f5f7;padding:1rem}.uri{font-family:monospace}h2,h3{margin-top:2rem}</style></head><body><aside><strong>Modified private reference — 2026-10-09.</strong> Provider-documented illustrative examples are included; authentication token examples are redacted. These are not customer exports or guaranteed production behavior. Candidate sharing is pending. This is not OpenAPI.</aside>
+<div class="group">
+<h2 class="anchored" id="item.anchor">
+<span>Schedules</span>
+<a class="fa fa-link link-anchor" data-url="r=__v2__companies__(cid)__employee__schedules#" data-web-id="__v2__companies__(cid)__employee__schedules"></a>
+</h2>
+<section class="clearfix">
+<article class="definition">
+<h3 class="anchored" id="get"><span>GET</span>
+<a class="fa fa-link link-anchor" data-url="r=__v2__companies__(cid)__employee__schedules#get" data-web-id="__v2__companies__(cid)__employee__schedules"></a>
+</h3>
+<div class="md"><p>Fetch Schedule items for a single user.
+Employee can be specified by one of the parameters - `employee:system_id`, `employee:external_id`, `employee:username`, `username`.
+Employee can be specified by filter parameter as well.
+Company Id is specified in the path (URI) parameter.
+Date range is required, and must not exceed 31 days.
+Predicted Schedule taken from Employee Work Schedule Profile is displayed in the response `predicted:true`, if GET request is sent for future dates with empty Schedule.
+Schedules GET endpoint is supported only for companies with TLM functionality (TLM Lite1/2 are not supported).
+</p></div>
+<h4>Parameters</h4>
+<h5>Path Parameters</h5>
+<ul class="param-list">
+<li>
+<div class="param-desc">
+<div class="param-name">cid</div>
+<div class="data-type">string</div>
+<div class="required">required</div>
+</div>
+<div class="param-content">
+<div>
+<p>Example: 123456</p>
+<div class="desc md">Company should be referenced via company id or company unique id or company short name using `|short_name` or `!short_name` format.
+</div>
+</div>
+</div>
+
+</li>
+</ul>
+<h5>Query Parameters</h5>
+<ul class="param-list">
+<li>
+<div class="param-desc">
+<div class="param-name">employee:system_id</div>
+<div class="data-type">integer</div>
+</div>
+<div class="param-content">
+<div>
+<div class="desc md">System id of employee</div>
+</div>
+</div>
+
+</li>
+<li>
+<div class="param-desc">
+<div class="param-name">employee:external_id</div>
+<div class="data-type">string</div>
+</div>
+<div class="param-content">
+<div>
+<div class="desc md">External id of employee</div>
+</div>
+</div>
+
+</li>
+<li>
+<div class="param-desc">
+<div class="param-name">employee:username</div>
+<div class="data-type">string</div>
+</div>
+<div class="param-content">
+<div>
+<div class="desc md">Employee user name</div>
+</div>
+</div>
+
+</li>
+<li>
+<div class="param-desc">
+<div class="param-name">username</div>
+<div class="data-type">string</div>
+</div>
+<div class="param-content">
+<div>
+<div class="desc md">Shortcut for `employee:username` parameter</div>
+</div>
+</div>
+
+</li>
+<li>
+<div class="param-desc">
+<div class="param-name">fromDate</div>
+<div class="data-type">string</div>
+<div class="required">required</div>
+</div>
+<div class="param-content">
+<div>
+<div class="desc md">Date Range Start date</div>
+</div>
+</div>
+
+</li>
+<li>
+<div class="param-desc">
+<div class="param-name">toDate</div>
+<div class="data-type">string</div>
+<div class="required">required</div>
+</div>
+<div class="param-content">
+<div>
+<div class="desc md">Date Range End date</div>
+</div>
+</div>
+
+</li>
+</ul>
+<h4>Responses</h4>
+<div class="responses">
+<div>
+<label class="response response-success">
+<span class="fa fa-check"></span>
+<input data-full-tab-id="get-resp-code-tab-id-0" data-tab-class="resp-code-tab-get" name="resp-code-tab-get" type="radio"/>
+<span class="status">200 Ok</span>
+</label>
+<div class="response-desc resp-code-tab-get" id="get-resp-code-tab-id-0">
+<div class="md"><p>Contains Schedules info for specified user for specified period. While using filter in case of multiple errors return 200 code is used as well.</p></div>
+</div>
+</div>
+<div>
+<label class="response response-error">
+<span class="fa fa-times"></span>
+<input data-full-tab-id="get-resp-code-tab-id-1" data-tab-class="resp-code-tab-get" name="resp-code-tab-get" type="radio"/>
+<span class="status">400 Bad Request</span>
+</label>
+<div class="response-desc resp-code-tab-get" id="get-resp-code-tab-id-1">
+<div class="md"><p>Returned in case invalid date ranges, company or employee references are provided.</p></div>
+</div>
+</div>
+<div>
+<label class="response response-error">
+<span class="fa fa-times"></span>
+<input data-full-tab-id="get-resp-code-tab-id-2" data-tab-class="resp-code-tab-get" name="resp-code-tab-get" type="radio"/>
+<span class="status">403 Forbidden</span>
+</label>
+<div class="response-desc resp-code-tab-get" id="get-resp-code-tab-id-2">
+<div class="md"><p>Returned in case when got no access to company, user or functionality.</p></div>
+</div>
+</div>
+<div>
+<label class="response response-error">
+<span class="fa fa-times"></span>
+<input data-full-tab-id="get-resp-code-tab-id-3" data-tab-class="resp-code-tab-get" name="resp-code-tab-get" type="radio"/>
+<span class="status">406 Not Acceptable</span>
+</label>
+<div class="response-desc resp-code-tab-get" id="get-resp-code-tab-id-3">
+<div class="md"><p>Returned in case the `Accept` header contains media type unsupported by end point</p></div>
+</div>
+</div>
+<div>
+<label class="response response-error">
+<span class="fa fa-times"></span>
+<input data-full-tab-id="get-resp-code-tab-id-4" data-tab-class="resp-code-tab-get" name="resp-code-tab-get" type="radio"/>
+<span class="status">500 Internal Server Error</span>
+</label>
+<div class="response-desc resp-code-tab-get" id="get-resp-code-tab-id-4">
+<div class="md"><p>Returned in the event an internal server error occurred while processing the request.</p></div>
+</div>
+</div>
+<div>
+<label class="response response-error">
+<span class="fa fa-times"></span>
+<input data-full-tab-id="get-resp-code-tab-id-5" data-tab-class="resp-code-tab-get" name="resp-code-tab-get" type="radio"/>
+<span class="status">503 Service Unavailable</span>
+</label>
+<div class="response-desc resp-code-tab-get" id="get-resp-code-tab-id-5">
+<div class="md"><p>Returned in the event that the call limit is exceeded. The application will be unavailable for subsequent calls for the duration specified by the X-CallLimit-TimeToWait header.</p></div>
+</div>
+</div>
+</div>
+</article>
+<article class="code">
+<h4>Definition</h4>
+<div class="uri">
+<code>
+<span class="method get">get</span>
+<span class="textUri"><span class="baseUri">{{ getUriPrefix() }}</span><span class="relativeUri">/v2/companies/{cid}/employee/schedules</span></span>
+</code>
+</div>
+<h4>Response Samples</h4>
+<div class="tab-title-group">
+<label>
+<input checked="checked" data-full-tab-id="resp-tab-id-get-0" data-tab-class="resp-tab-get" name="resp-tab-get" type="radio"/>
+<span class="tab-title">application/json</span>
+</label>
+<label>
+<input data-full-tab-id="resp-tab-id-get-1" data-tab-class="resp-tab-get" name="resp-tab-get" type="radio"/>
+<span class="tab-title">application/xml</span>
+</label>
+</div>
+<div>
+<div class="resp-tab-get" id="resp-tab-id-get-0">
+<div class="example">
+
+<div class="get-example-resp-tab-0 activeTab" id="get-tab-resp-example-0">
+
+<pre class="highlightjs">{
+  "schedules": [
+    {
+      "id": 145893863,
+      "date": "2016-02-02",
+      "shift_num": 1,
+      "type_name": "Free Flow",
+      "daily_rule_name": "Salaried 8 Hour",
+      "total_hours": "8:00",
+      "cost_center_2": {
+        "path": "CC2/1",
+        "name": "CC2/1"
+      },
+      "cost_center_3": {
+        "path": "CC3/1",
+        "name": "CC3/1"
+      },
+      "cost_center_4": {
+        "path": "CC4/1",
+        "name": "CC4/1"
+      },
+      "cost_center_5": {
+        "path": "CC5/1",
+        "name": "CC5/1"
+      },
+      "cost_center_6": {
+        "path": "CC6/2",
+        "name": "CC6/2"
+      },
+      "cost_center_7": {
+        "path": "CC7/1",
+        "name": "CC7/1"
+      },
+      "cost_center_8": {
+        "path": "CC8/1",
+        "name": "CC8/1"
+      },
+      "cost_center_9": {
+        "path": "CC9/1",
+        "name": "CC9/1"
+      },
+      "job": {
+        "path": "Developer",
+        "name": "Developer"
+      },
+      "is_working": true
+    },
+    {
+      "id": 145893810,
+      "date": "2016-02-06",
+      "shift_num": 1,
+      "type_name": "Fixed",
+      "start_time": "23:00 prev.",
+      "end_time": "14:00",
+      "is_working": true
+    },
+    {
+      "id": 145893807,
+      "date": "2016-02-04",
+      "shift_num": 1,
+      "type_name": "Flexitime",
+      "daily_rule_name": "Flexitime",
+      "start_time": "09:00",
+      "start_time_max": "10:00",
+      "end_time": "16:00",
+      "end_time_max": "17:00",
+      "std_total_hours": "8:15",
+      "shift_premium": "Shift1",
+      "cost_center_1": {
+        "path": "CC1/1",
+        "name": "CC1/1"
+      },
+      "workday_breakdown": "Breakdown 1",
+      "day_type": "Day Type 1",
+      "is_working": true
+    },
+    {
+      "date": "2016-02-03",
+      "shift_num": 1,
+      "type_name": "Floating",
+      "daily_rule_name": "Floating",
+      "from_date": "Wed",
+      "start_time": "08:00",
+      "start_time_max": "09:00",
+      "total_hours": "7:45",
+      "lunch": {
+        "min_lunch_time": "1:00",
+        "max_lunch_time": "1:00",
+        "paid_lunch_time": "1:00",
+        "lunch_start_at": "12:00"
+      },
+      "is_working": true,
+      "predicted": true
+    }
+  ]
+}</pre>
+</div>
+<div class="get-example-resp-tab-0" id="get-tab-resp-schema-0">
+
+<div class="jsonschema" id="schema-0">{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "type": "object",
+  "properties": {
+    "schedules": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer"
+          },
+          "date": {
+            "type": "string"
+          },
+          "shift_num": {
+            "type": "integer"
+          },
+          "type_name": {
+            "type": "string"
+          },
+          "daily_rule_name": {
+            "type": "string"
+          },
+          "start_time": {
+            "type": "string",
+            "pattern": "^([0-1][0-9]|2[0-3]):([0-5][0-9])( prev.| next)?$"
+          },
+          "start_time_max": {
+            "type": "string",
+            "pattern": "^([0-1][0-9]|2[0-3]):([0-5][0-9])( prev.| next)?$"
+          },
+          "end_time": {
+            "type": "string",
+            "pattern": "^([0-1][0-9]|2[0-3]):([0-5][0-9])$"
+          },
+          "end_time_max": {
+            "type": "string",
+            "pattern": "^([0-1][0-9]|2[0-3]):([0-5][0-9])$"
+          },
+          "total_hours": {
+            "type": "string",
+            "pattern": "^((1?[0-9]|2[0-3]):([0-5][0-9])|(24:00))$"
+          },
+          "std_total_hours": {
+            "type": "string",
+            "pattern": "^((1?[0-9]|2[0-3]):([0-5][0-9])|(24:00))$"
+          },
+          "employee": {
+            "type": "object",
+            "properties": {
+              "account_id": {
+                "type": "number",
+                "format": "long"
+              },
+              "external_id": {
+                "type": "string"
+              },
+              "username": {
+                "type": "string"
+              },
+              "employee_id": {
+                "type": "string"
+              },
+              "ein_name": {
+                "type": "string"
+              },
+              "ein_tax_id": {
+                "type": "string"
+              }
+            },
+            "minProperties": 1,
+            "maxProperties": 3
+          },
+          "lunch": {
+            "type": "object",
+            "properties": {
+              "min_lunch_time": {
+                "type": "string",
+                "pattern": "^((1?[0-9]|2[0-3]):([0-5][0-9])|(24:00))$"
+              },
+              "max_lunch_time": {
+                "type": "string",
+                "pattern": "^((1?[0-9]|2[0-3]):([0-5][0-9])|(24:00))$"
+              },
+              "paid_lunch_time": {
+                "type": "string",
+                "pattern": "^((1?[0-9]|2[0-3]):([0-5][0-9])|(24:00))$"
+              },
+              "lunch_start_at": {
+                "type": "string",
+                "pattern": "^([0-1][0-9]|2[0-3]):([0-5][0-9])$"
+              },
+              "lunch_start_after": {
+                "type": "string",
+                "pattern": "^((1?[0-9]|2[0-3]):([0-5][0-9])|(24:00))$"
+              }
+            }
+          },
+          "shift_premium": {
+            "type": "string"
+          },
+          "cost_center_1": {
+            "type": "object",
+            "properties": {
+              "path": {
+                "type": "string"
+              },
+              "name": {
+                "type": "string"
+              }
+            }
+          },
+          "cost_center_2": {
+            "type": "object",
+            "properties": {
+              "path": {
+                "type": "string"
+              },
+              "name": {
+                "type": "string"
+              }
+            }
+          },
+          "cost_center_3": {
+            "type": "object",
+            "properties": {
+              "path": {
+                "type": "string"
+              },
+              "name": {
+                "type": "string"
+              }
+            }
+          },
+          "cost_center_4": {
+            "type": "object",
+            "properties": {
+              "path": {
+                "type": "string"
+              },
+              "name": {
+                "type": "string"
+              }
+            }
+          },
+          "cost_center_5": {
+            "type": "object",
+            "properties": {
+              "path": {
+                "type": "string"
+              },
+              "name": {
+                "type": "string"
+              }
+            }
+          },
+          "cost_center_6": {
+            "type": "object",
+            "properties": {
+              "path": {
+                "type": "string"
+              },
+              "name": {
+                "type": "string"
+              }
+            }
+          },
+          "cost_center_7": {
+            "type": "object",
+            "properties": {
+              "path": {
+                "type": "string"
+              },
+              "name": {
+                "type": "string"
+              }
+            }
+          },
+          "cost_center_8": {
+            "type": "object",
+            "properties": {
+              "path": {
+                "type": "string"
+              },
+              "name": {
+                "type": "string"
+              }
+            }
+          },
+          "cost_center_9": {
+            "type": "object",
+            "properties": {
+              "path": {
+                "type": "string"
+              },
+              "name": {
+                "type": "string"
+              }
+            }
+          },
+          "job": {
+            "type": "object",
+            "properties": {
+              "path": {
+                "type": "string"
+              },
+              "name": {
+                "type": "string"
+              }
+            }
+          },
+          "workday_breakdown": {
+            "type": "string"
+          },
+          "day_type": {
+            "type": "string"
+          },
+          "is_working": {
+            "type": "boolean"
+          },
+          "predicted": {
+            "type": "boolean"
+          }
+        },
+        "required": [
+          "date"
+        ]
+      }
+    }
+  },
+  "required": [
+    "schedules"
+  ]
+}</div>
+</div>
+</div>
+</div>
+<div class="resp-tab-get" id="resp-tab-id-get-1">
+<div class="example">
+
+<div class="get-example-resp-tab-1 activeTab" id="get-tab-resp-example-1">
+
+<pre class="highlightjs">&lt;?xml version='1.0' encoding='UTF-8'?&gt;
+&lt;schedules&gt;
+  &lt;schedule&gt;
+    &lt;id&gt;145893863&lt;/id&gt;
+    &lt;date&gt;2016-02-02&lt;/date&gt;
+    &lt;shift_num&gt;1&lt;/shift_num&gt;
+    &lt;type_name&gt;Free Flow&lt;/type_name&gt;
+    &lt;daily_rule_name&gt;Salaried 8 Hour&lt;/daily_rule_name&gt;
+    &lt;total_hours&gt;8:00&lt;/total_hours&gt;
+    &lt;cost_center_2&gt;
+      &lt;path&gt;CC2/1&lt;/path&gt;
+      &lt;name&gt;CC2/1&lt;/name&gt;
+    &lt;/cost_center_2&gt;
+    &lt;cost_center_3&gt;
+      &lt;path&gt;CC3/1&lt;/path&gt;
+      &lt;name&gt;CC3/1&lt;/name&gt;
+    &lt;/cost_center_3&gt;
+    &lt;cost_center_4&gt;
+      &lt;path&gt;CC4/1&lt;/path&gt;
+      &lt;name&gt;CC4/1&lt;/name&gt;
+    &lt;/cost_center_4&gt;
+    &lt;cost_center_5&gt;
+      &lt;path&gt;CC5/1&lt;/path&gt;
+      &lt;name&gt;CC5/1&lt;/name&gt;
+    &lt;/cost_center_5&gt;
+    &lt;cost_center_6&gt;
+      &lt;path&gt;CC6/2&lt;/path&gt;
+      &lt;name&gt;CC6/2&lt;/name&gt;
+    &lt;/cost_center_6&gt;
+    &lt;cost_center_7&gt;
+      &lt;path&gt;CC7/1&lt;/path&gt;
+      &lt;name&gt;CC7/1&lt;/name&gt;
+    &lt;/cost_center_7&gt;
+    &lt;cost_center_8&gt;
+      &lt;path&gt;CC8/1&lt;/path&gt;
+      &lt;name&gt;CC8/1&lt;/name&gt;
+    &lt;/cost_center_8&gt;
+    &lt;cost_center_9&gt;
+      &lt;path&gt;CC9/1&lt;/path&gt;
+      &lt;name&gt;CC9/1&lt;/name&gt;
+    &lt;/cost_center_9&gt;
+    &lt;job&gt;
+      &lt;path&gt;Developer&lt;/path&gt;
+      &lt;name&gt;Developer&lt;/name&gt;
+    &lt;/job&gt;
+    &lt;is_working&gt;true&lt;/is_working&gt;
+  &lt;/schedule&gt;
+  &lt;schedule&gt;
+    &lt;id&gt;145893806&lt;/id&gt;
+    &lt;date&gt;2016-02-03&lt;/date&gt;
+    &lt;shift_num&gt;1&lt;/shift_num&gt;
+    &lt;type_name&gt;Floating&lt;/type_name&gt;
+    &lt;daily_rule_name&gt;Floating&lt;/daily_rule_name&gt;
+    &lt;start_time&gt;08:00&lt;/start_time&gt;
+    &lt;start_time_max&gt;09:00&lt;/start_time_max&gt;
+    &lt;total_hours&gt;7:45&lt;/total_hours&gt;
+    &lt;lunch&gt;
+      &lt;min_lunch_time&gt;1:00&lt;/min_lunch_time&gt;
+      &lt;max_lunch_time&gt;1:00&lt;/max_lunch_time&gt;
+      &lt;paid_lunch_time&gt;1:00&lt;/paid_lunch_time&gt;
+      &lt;lunch_start_at&gt;12:00&lt;/lunch_start_at&gt;
+    &lt;/lunch&gt;
+    &lt;is_working&gt;true&lt;/is_working&gt;
+  &lt;/schedule&gt;
+  &lt;schedule&gt;
+    &lt;id&gt;145893807&lt;/id&gt;
+    &lt;date&gt;2016-02-04&lt;/date&gt;
+    &lt;shift_num&gt;1&lt;/shift_num&gt;
+    &lt;type_name&gt;Flexitime&lt;/type_name&gt;
+    &lt;daily_rule_name&gt;Flexitime&lt;/daily_rule_name&gt;
+    &lt;start_time&gt;09:00&lt;/start_time&gt;
+    &lt;start_time_max&gt;10:00&lt;/start_time_max&gt;
+    &lt;end_time&gt;16:00&lt;/end_time&gt;
+    &lt;end_time_max&gt;17:00&lt;/end_time_max&gt;
+    &lt;std_total_hours&gt;8:15&lt;/std_total_hours&gt;
+    &lt;shift_premium&gt;Shift1&lt;/shift_premium&gt;
+    &lt;cost_center_1&gt;
+      &lt;path&gt;CC1/1&lt;/path&gt;
+      &lt;name&gt;CC1/1&lt;/name&gt;
+    &lt;/cost_center_1&gt;
+    &lt;workday_breakdown&gt;Breakdown 1&lt;/workday_breakdown&gt;
+    &lt;day_type&gt;Day Type 1&lt;/day_type&gt;
+    &lt;is_working&gt;true&lt;/is_working&gt;
+  &lt;/schedule&gt;
+  &lt;schedule&gt;
+    &lt;id&gt;145893810&lt;/id&gt;
+    &lt;date&gt;2016-02-06&lt;/date&gt;
+    &lt;shift_num&gt;1&lt;/shift_num&gt;
+    &lt;type_name&gt;Fixed&lt;/type_name&gt;
+    &lt;start_time&gt;23:00 prev.&lt;/start_time&gt;
+    &lt;end_time&gt;02:00&lt;/end_time&gt;
+    &lt;is_working&gt;true&lt;/is_working&gt;
+  &lt;/schedule&gt;
+  &lt;schedule&gt;
+    &lt;date&gt;2016-03-18&lt;/date&gt;
+    &lt;shift_num&gt;1&lt;/shift_num&gt;
+    &lt;type_name&gt;Free Flow&lt;/type_name&gt;
+    &lt;total_hours&gt;8:00&lt;/total_hours&gt;
+    &lt;std_total_hours&gt;8:00&lt;/std_total_hours&gt;
+    &lt;is_working&gt;true&lt;/is_working&gt;
+    &lt;predicted&gt;true&lt;/predicted&gt;
+  &lt;/schedule&gt;
+&lt;/schedules&gt;
+</pre>
+</div>
+<div class="get-example-resp-tab-1" id="get-tab-resp-schema-1">
+
+<div class="jsonschema" id="schema-1">&lt;xs:schema attributeFormDefault="unqualified" elementFormDefault="qualified"
+           xmlns:xs="http://www.w3.org/2001/XMLSchema"&gt;
+    &lt;xs:element name="schedules"&gt;
+        &lt;xs:complexType&gt;
+            &lt;xs:sequence&gt;
+                &lt;xs:element maxOccurs="unbounded" minOccurs="0" name="schedule"&gt;
+                    &lt;xs:complexType&gt;
+                        &lt;xs:sequence&gt;
+                            &lt;xs:element name="id" type="xs:int" minOccurs="0" maxOccurs="1"/&gt;
+                            &lt;xs:element name="date" type="xs:string" minOccurs="1" maxOccurs="1"/&gt;
+                            &lt;xs:element minOccurs="0" name="shift_num" type="xs:int"/&gt;
+                            &lt;xs:element minOccurs="0" name="type_name" type="xs:string"/&gt;
+                            &lt;xs:element minOccurs="0" name="daily_rule_name" type="xs:string"/&gt;
+                            &lt;xs:element name="start_time" minOccurs='0'&gt;
+                                &lt;xs:simpleType&gt;
+                                    &lt;xs:restriction base="xs:string"&gt;
+                                        &lt;xs:pattern value="([0-1][0-9]|2[0-3]):([0-5][0-9])( prev.| next)?"/&gt;
+                                    &lt;/xs:restriction&gt;
+                                &lt;/xs:simpleType&gt;
+                            &lt;/xs:element&gt;
+                            &lt;xs:element name="start_time_max" minOccurs='0'&gt;
+                                &lt;xs:simpleType&gt;
+                                    &lt;xs:restriction base="xs:string"&gt;
+                                        &lt;xs:pattern value="([0-1][0-9]|2[0-3]):([0-5][0-9])( prev.| next)?"/&gt;
+                                    &lt;/xs:restriction&gt;
+                                &lt;/xs:simpleType&gt;
+                            &lt;/xs:element&gt;
+                            &lt;xs:element name="end_time" minOccurs='0'&gt;
+                                &lt;xs:simpleType&gt;
+                                    &lt;xs:restriction base="xs:string"&gt;
+                                        &lt;xs:pattern value="([0-1][0-9]|2[0-3]):([0-5][0-9])"/&gt;
+                                    &lt;/xs:restriction&gt;
+                                &lt;/xs:simpleType&gt;
+                            &lt;/xs:element&gt;
+                            &lt;xs:element name="end_time_max" minOccurs='0'&gt;
+                                &lt;xs:simpleType&gt;
+                                    &lt;xs:restriction base="xs:string"&gt;
+                                        &lt;xs:pattern value="([0-1][0-9]|2[0-3]):([0-5][0-9])"/&gt;
+                                    &lt;/xs:restriction&gt;
+                                &lt;/xs:simpleType&gt;
+                            &lt;/xs:element&gt;
+                            &lt;xs:element name="total_hours" minOccurs='0'&gt;
+                                &lt;xs:simpleType&gt;
+                                    &lt;xs:restriction base="xs:string"&gt;
+                                        &lt;xs:pattern value="((1?[0-9]|2[0-3]):([0-5][0-9])|(24:00))"/&gt;
+                                    &lt;/xs:restriction&gt;
+                                &lt;/xs:simpleType&gt;
+                            &lt;/xs:element&gt;
+                            &lt;xs:element name="std_total_hours" minOccurs='0'&gt;
+                                &lt;xs:simpleType&gt;
+                                    &lt;xs:restriction base="xs:string"&gt;
+                                        &lt;xs:pattern value="((1?[0-9]|2[0-3]):([0-5][0-9])|(24:00))"/&gt;
+                                    &lt;/xs:restriction&gt;
+                                &lt;/xs:simpleType&gt;
+                            &lt;/xs:element&gt;
+                            &lt;xs:element minOccurs="0" name="employee"&gt;
+                                &lt;xs:complexType&gt;
+                                    &lt;xs:sequence&gt;
+                                        &lt;xs:choice&gt;
+                                            &lt;xs:element type="xs:long" name="account_id"/&gt;
+                                            &lt;xs:element type="xs:string" name="external_id"/&gt;
+                                            &lt;xs:element type="xs:string" name="username"/&gt;
+                                            &lt;xs:element type="xs:string" name="employee_id"/&gt;
+                                        &lt;/xs:choice&gt;
+                                        &lt;xs:element type="xs:string" name="ein_name" minOccurs="0"/&gt;
+                                        &lt;xs:element type="xs:string" name="ein_tax_id" minOccurs="0"/&gt;
+                                    &lt;/xs:sequence&gt;
+                                &lt;/xs:complexType&gt;
+                            &lt;/xs:element&gt;
+                            &lt;xs:element minOccurs="0" name="lunch"&gt;
+                                &lt;xs:complexType&gt;
+                                    &lt;xs:all&gt;
+                                        &lt;xs:element name="min_lunch_time" minOccurs='0'&gt;
+                                            &lt;xs:simpleType&gt;
+                                                &lt;xs:restriction base="xs:string"&gt;
+                                                    &lt;xs:pattern value="((1?[0-9]|2[0-3]):([0-5][0-9])|(24:00))"/&gt;
+                                                &lt;/xs:restriction&gt;
+                                            &lt;/xs:simpleType&gt;
+                                        &lt;/xs:element&gt;
+                                        &lt;xs:element name="max_lunch_time" minOccurs='0'&gt;
+                                            &lt;xs:simpleType&gt;
+                                                &lt;xs:restriction base="xs:string"&gt;
+                                                    &lt;xs:pattern value="((1?[0-9]|2[0-3]):([0-5][0-9])|(24:00))"/&gt;
+                                                &lt;/xs:restriction&gt;
+                                            &lt;/xs:simpleType&gt;
+                                        &lt;/xs:element&gt;
+                                        &lt;xs:element name="paid_lunch_time" minOccurs='0'&gt;
+                                            &lt;xs:simpleType&gt;
+                                                &lt;xs:restriction base="xs:string"&gt;
+                                                    &lt;xs:pattern value="((1?[0-9]|2[0-3]):([0-5][0-9])|(24:00))"/&gt;
+                                                &lt;/xs:restriction&gt;
+                                            &lt;/xs:simpleType&gt;
+                                        &lt;/xs:element&gt;
+                                        &lt;xs:element name="lunch_start_after" minOccurs='0'&gt;
+                                            &lt;xs:simpleType&gt;
+                                                &lt;xs:restriction base="xs:string"&gt;
+                                                    &lt;xs:pattern value="((1?[0-9]|2[0-3]):([0-5][0-9])|(24:00))"/&gt;
+                                                &lt;/xs:restriction&gt;
+                                            &lt;/xs:simpleType&gt;
+                                        &lt;/xs:element&gt;
+                                        &lt;xs:element name="lunch_start_at" minOccurs='0'&gt;
+                                            &lt;xs:simpleType&gt;
+                                                &lt;xs:restriction base="xs:string"&gt;
+                                                    &lt;xs:pattern value="([0-1][0-9]|2[0-3]):([0-5][0-9])"/&gt;
+                                                &lt;/xs:restriction&gt;
+                                            &lt;/xs:simpleType&gt;
+                                        &lt;/xs:element&gt;
+                                    &lt;/xs:all&gt;
+                                &lt;/xs:complexType&gt;
+                            &lt;/xs:element&gt;
+                            &lt;xs:element minOccurs="0" name="shift_premium" type="xs:string"/&gt;
+                            &lt;xs:element minOccurs="0" name="cost_center_1"&gt;
+                                &lt;xs:complexType&gt;
+                                    &lt;xs:all&gt;
+                                        &lt;xs:element name="path" type="xs:string"/&gt;
+                                        &lt;xs:element name="name" type="xs:string"/&gt;
+                                    &lt;/xs:all&gt;
+                                &lt;/xs:complexType&gt;
+                            &lt;/xs:element&gt;
+                            &lt;xs:element minOccurs="0" name="cost_center_2"&gt;
+                                &lt;xs:complexType&gt;
+                                    &lt;xs:all&gt;
+                                        &lt;xs:element name="path" type="xs:string"/&gt;
+                                        &lt;xs:element name="name" type="xs:string"/&gt;
+                                    &lt;/xs:all&gt;
+                                &lt;/xs:complexType&gt;
+                            &lt;/xs:element&gt;
+                            &lt;xs:element minOccurs="0" name="cost_center_3"&gt;
+                                &lt;xs:complexType&gt;
+                                    &lt;xs:all&gt;
+                                        &lt;xs:element name="path" type="xs:string"/&gt;
+                                        &lt;xs:element name="name" type="xs:string"/&gt;
+                                    &lt;/xs:all&gt;
+                                &lt;/xs:complexType&gt;
+                            &lt;/xs:element&gt;
+                            &lt;xs:element minOccurs="0" name="cost_center_4"&gt;
+                                &lt;xs:complexType&gt;
+                                    &lt;xs:all&gt;
+                                        &lt;xs:element name="path" type="xs:string"/&gt;
+                                        &lt;xs:element name="name" type="xs:string"/&gt;
+                                    &lt;/xs:all&gt;
+                                &lt;/xs:complexType&gt;
+                            &lt;/xs:element&gt;
+                            &lt;xs:element minOccurs="0" name="cost_center_5"&gt;
+                                &lt;xs:complexType&gt;
+                                    &lt;xs:all&gt;
+                                        &lt;xs:element name="path" type="xs:string"/&gt;
+                                        &lt;xs:element name="name" type="xs:string"/&gt;
+                                    &lt;/xs:all&gt;
+                                &lt;/xs:complexType&gt;
+                            &lt;/xs:element&gt;
+                            &lt;xs:element minOccurs="0" name="cost_center_6"&gt;
+                                &lt;xs:complexType&gt;
+                                    &lt;xs:all&gt;
+                                        &lt;xs:element name="path" type="xs:string"/&gt;
+                                        &lt;xs:element name="name" type="xs:string"/&gt;
+                                    &lt;/xs:all&gt;
+                                &lt;/xs:complexType&gt;
+                            &lt;/xs:element&gt;
+                            &lt;xs:element minOccurs="0" name="cost_center_7"&gt;
+                                &lt;xs:complexType&gt;
+                                    &lt;xs:all&gt;
+                                        &lt;xs:element name="path" type="xs:string"/&gt;
+                                        &lt;xs:element name="name" type="xs:string"/&gt;
+                                    &lt;/xs:all&gt;
+                                &lt;/xs:complexType&gt;
+                            &lt;/xs:element&gt;
+                            &lt;xs:element minOccurs="0" name="cost_center_8"&gt;
+                                &lt;xs:complexType&gt;
+                                    &lt;xs:all&gt;
+                                        &lt;xs:element name="path" type="xs:string"/&gt;
+                                        &lt;xs:element name="name" type="xs:string"/&gt;
+                                    &lt;/xs:all&gt;
+                                &lt;/xs:complexType&gt;
+                            &lt;/xs:element&gt;
+                            &lt;xs:element minOccurs="0" name="cost_center_9"&gt;
+                                &lt;xs:complexType&gt;
+                                    &lt;xs:all&gt;
+                                        &lt;xs:element name="path" type="xs:string"/&gt;
+                                        &lt;xs:element name="name" type="xs:string"/&gt;
+                                    &lt;/xs:all&gt;
+                                &lt;/xs:complexType&gt;
+                            &lt;/xs:element&gt;
+                            &lt;xs:element minOccurs="0" name="job"&gt;
+                                &lt;xs:complexType&gt;
+                                    &lt;xs:all&gt;
+                                        &lt;xs:element name="path" type="xs:string"/&gt;
+                                        &lt;xs:element name="name" type="xs:string"/&gt;
+                                    &lt;/xs:all&gt;
+                                &lt;/xs:complexType&gt;
+                            &lt;/xs:element&gt;
+                            &lt;xs:element minOccurs="0" name="workday_breakdown" type="xs:string"/&gt;
+                            &lt;xs:element minOccurs="0" name="day_type" type="xs:string"/&gt;
+                            &lt;xs:element minOccurs="0" name="is_working" type="xs:boolean"/&gt;
+                            &lt;xs:element minOccurs="0" name="predicted" type="xs:boolean"/&gt;
+                        &lt;/xs:sequence&gt;
+                    &lt;/xs:complexType&gt;
+                &lt;/xs:element&gt;
+            &lt;/xs:sequence&gt;
+        &lt;/xs:complexType&gt;
+    &lt;/xs:element&gt;
+&lt;/xs:schema&gt;</div>
+</div>
+</div>
+</div>
+</div>
+</article>
+</section>
+<section class="clearfix">
+<article class="definition">
+<h3 class="anchored" id="put"><span>PUT</span>
+<a class="fa fa-link link-anchor" data-url="r=__v2__companies__(cid)__employee__schedules#put" data-web-id="__v2__companies__(cid)__employee__schedules"></a>
+</h3>
+<div class="md"><p>Endpoint to update employees' schedule on specified date range.
+All data will be replaced with new one on specified date range.
+Date range is required, and must not exceed 31 days.
+shift_num is not required. By default it will be set to 1.
+1_005 error can be returned if json or xml has incorrect structure or contains unsupported attributes.
+</p></div>
+<h4>Parameters</h4>
+<h5>Path Parameters</h5>
+<ul class="param-list">
+<li>
+<div class="param-desc">
+<div class="param-name">cid</div>
+<div class="data-type">string</div>
+<div class="required">required</div>
+</div>
+<div class="param-content">
+<div>
+<p>Example: 123456</p>
+<div class="desc md">Company should be referenced via company id or company unique id or company short name using `|short_name` or `!short_name` format.
+</div>
+</div>
+</div>
+
+</li>
+</ul>
+<h5>Header Parameters</h5>
+<ul class="param-list">
+<li>
+<div class="param-desc">
+<div class="param-name">Accept</div>
+<div class="data-type">string</div>
+</div>
+<div class="param-content">
+<div>
+<p>Valid values: application/xml, text/xml, */xml, application/json</p>
+<p>Example: application/xml</p>
+</div>
+</div>
+
+</li>
+<li>
+<div class="param-desc">
+<div class="param-name">Content-Type</div>
+<div class="data-type">string</div>
+<div class="required">required</div>
+</div>
+<div class="param-content">
+<div>
+<p>Valid values: application/xml, text/xml, application/json</p>
+<p>Example: application/xml</p>
+</div>
+</div>
+
+</li>
+<li>
+<div class="param-desc">
+<div class="param-name">Content-Length</div>
+<div class="data-type">integer</div>
+<div class="required">required</div>
+</div>
+<div class="param-content">
+<div>
+</div>
+</div>
+
+</li>
+</ul>
+<h4>Responses</h4>
+<div class="responses">
+<div>
+<label class="response response-success">
+<span class="fa fa-check"></span>
+<input data-full-tab-id="put-resp-code-tab-id-0" data-tab-class="resp-code-tab-put" name="resp-code-tab-put" type="radio"/>
+<span class="status">200 Ok</span>
+</label>
+<div class="response-desc resp-code-tab-put" id="put-resp-code-tab-id-0">
+<div class="md"><p>Returned in case payload was successfully processed.
+Note: each separate item in the payload may contain errors.
+Refer to the corresponding error code table and response schema.
+</p></div>
+</div>
+</div>
+<div>
+<label class="response response-error">
+<span class="fa fa-times"></span>
+<input data-full-tab-id="put-resp-code-tab-id-1" data-tab-class="resp-code-tab-put" name="resp-code-tab-put" type="radio"/>
+<span class="status">400 Bad Request</span>
+</label>
+<div class="response-desc resp-code-tab-put" id="put-resp-code-tab-id-1">
+<div class="md"><p>Indicates that the server cannot process the request due to a client error (e.g., malformed request syntax, invalid request).</p></div>
+</div>
+</div>
+<div>
+<label class="response response-error">
+<span class="fa fa-times"></span>
+<input data-full-tab-id="put-resp-code-tab-id-2" data-tab-class="resp-code-tab-put" name="resp-code-tab-put" type="radio"/>
+<span class="status">406 Not Acceptable</span>
+</label>
+<div class="response-desc resp-code-tab-put" id="put-resp-code-tab-id-2">
+<div class="md"><p>Returned in case the `Accept` header contains media type unsupported by end point</p></div>
+</div>
+</div>
+<div>
+<label class="response response-error">
+<span class="fa fa-times"></span>
+<input data-full-tab-id="put-resp-code-tab-id-3" data-tab-class="resp-code-tab-put" name="resp-code-tab-put" type="radio"/>
+<span class="status">413 Request Entity Too Large</span>
+</label>
+<div class="response-desc resp-code-tab-put" id="put-resp-code-tab-id-3">
+<div class="md"><p>Returned in the event that the size of the payload exceeds defined limits. Refer to the Restrictions section for details.</p></div>
+</div>
+</div>
+<div>
+<label class="response response-error">
+<span class="fa fa-times"></span>
+<input data-full-tab-id="put-resp-code-tab-id-4" data-tab-class="resp-code-tab-put" name="resp-code-tab-put" type="radio"/>
+<span class="status">415 Unsupported Media Type</span>
+</label>
+<div class="response-desc resp-code-tab-put" id="put-resp-code-tab-id-4">
+<div class="md"><p>Returned in the event that the end point doesn't support the media-type specified in the `Content-Type` header.</p></div>
+</div>
+</div>
+<div>
+<label class="response response-error">
+<span class="fa fa-times"></span>
+<input data-full-tab-id="put-resp-code-tab-id-5" data-tab-class="resp-code-tab-put" name="resp-code-tab-put" type="radio"/>
+<span class="status">500 Internal Server Error</span>
+</label>
+<div class="response-desc resp-code-tab-put" id="put-resp-code-tab-id-5">
+<div class="md"><p>Returned in the event an internal server error occurred while processing the request.</p></div>
+</div>
+</div>
+<div>
+<label class="response response-error">
+<span class="fa fa-times"></span>
+<input data-full-tab-id="put-resp-code-tab-id-6" data-tab-class="resp-code-tab-put" name="resp-code-tab-put" type="radio"/>
+<span class="status">503 Service Unavailable</span>
+</label>
+<div class="response-desc resp-code-tab-put" id="put-resp-code-tab-id-6">
+<div class="md"><p>Returned in the event that the call limit is exceeded. The application will be unavailable for subsequent calls for the duration specified by the X-CallLimit-TimeToWait header.</p></div>
+</div>
+</div>
+</div>
+</article>
+<article class="code">
+<h4>Definition</h4>
+<div class="uri">
+<code>
+<span class="method put">put</span>
+<span class="textUri"><span class="baseUri">{{ getUriPrefix() }}</span><span class="relativeUri">/v2/companies/{cid}/employee/schedules</span></span>
+</code>
+</div>
+<h4>Request Samples</h4>
+<div class="tab-title-group">
+<label>
+<input checked="checked" data-full-tab-id="req-tab-id-put-0" data-tab-class="req-tab-put" name="req-tab-put" type="radio"/>
+<span class="tab-title">application/json</span>
+</label>
+<label>
+<input data-full-tab-id="req-tab-id-put-1" data-tab-class="req-tab-put" name="req-tab-put" type="radio"/>
+<span class="tab-title">application/xml</span>
+</label>
+</div>
+<div>
+<div class="req-tab-put" id="req-tab-id-put-0">
+<div class="example">
+
+<div class="put-example-tab-0 activeTab" id="put-tab-example-0">
+
+<pre class="highlightjs">{
+  "employee_schedule": [
+    {
+      "company": {
+        "short_name": "Kronos Incorporated"
+      },
+      "employee": {
+        "username": "Mark S. Ain"
+      },
+      "date_from": "2016-03-14",
+      "date_to": "2016-03-18",
+      "schedule": [
+        {
+          "date": "2016-03-15",
+          "shift_num": 1,
+          "shift_premium": "default shift",
+          "type_name": "fixed",
+          "start_time": "22:00 prev.",
+          "cost_center_1": {
+            "name": "main office"
+          },
+          "workday_breakdown": "breakdown 1",
+          "day_type": "type 1",
+          "std_total_hours": "1:00",
+          "lunch": {
+            "min_lunch_time": "1:00",
+            "max_lunch_time": "3:00",
+            "paid_lunch_time": "2:00",
+            "lunch_start_after": "3:00"
+          }
+        },
+        {
+          "date": "2016-03-15",
+          "shift_num": "1",
+          "daily_rule_name": "Salaried 8 Hour",
+          "shift_premium": "nightly shift",
+          "cost_center_1": {
+            "name": "main office"
+          },
+          "workday_breakdown": "breakdown 1",
+          "day_type": "type 1",
+          "is_working": "false"
+        }
+      ]
+    }
+  ]
+}</pre>
+</div>
+<div class="put-example-tab-0" id="put-tab-schema-0">
+
+<div class="jsonschema" id="schema-2">{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "type": "object",
+  "properties": {
+    "employee_schedule": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "company": {
+            "type": "object",
+            "properties": {
+              "external_id": {
+                "type": "string"
+              },
+              "short_name": {
+                "type": "string"
+              },
+              "system_id": {
+                "type": "string"
+              }
+            },
+            "minProperties": 1,
+            "maxProperties": 1
+          },
+          "employee": {
+            "type": "object",
+            "properties": {
+              "account_id": {
+                "type": "number",
+                "format": "long"
+              },
+              "external_id": {
+                "type": "string"
+              },
+              "username": {
+                "type": "string"
+              },
+              "employee_id": {
+                "type": "string"
+              },
+              "ein_name": {
+                "type": "string"
+              },
+              "ein_tax_id": {
+                "type": "string"
+              }
+            },
+            "minProperties": 1,
+            "maxProperties": 2
+          },
+          "date_from": {
+            "type": "string"
+          },
+          "date_to": {
+            "type": "string"
+          },
+          "schedule": {
+            "type": "array",
+            "items": [
+              {
+                "type": "object",
+                "properties": {
+                  "date": {
+                    "type": "string",
+                    "pattern": "^(19[0-9]{2}|20[0-6][0-9]|2070)-(0[1-9]|1[0-2])-(0[1-9]|[1-2][0-9]|3[0-1])$"
+                  },
+                  "shift_num": {
+                    "type": "integer",
+                    "minimum": 1,
+                    "maximum": 2
+                  },
+                  "type_name": {
+                    "type": "string",
+                    "enum": [
+                      "fixed",
+                      "free flow",
+                      "floating",
+                      "flexitime"
+                    ]
+                  },
+                  "daily_rule_name": {
+                    "type": "string"
+                  },
+                  "start_time": {
+                    "type": "string",
+                    "pattern": "^([0-1][0-9]|2[0-3]):([0-5][0-9])( prev.| next)?$"
+                  },
+                  "start_time_max": {
+                    "type": "string",
+                    "pattern": "^([0-1][0-9]|2[0-3]):([0-5][0-9])( prev.| next)?$"
+                  },
+                  "end_time": {
+                    "type": "string",
+                    "pattern": "^([0-1][0-9]|2[0-3]):([0-5][0-9])$"
+                  },
+                  "end_time_max": {
+                    "type": "string",
+                    "pattern": "^([0-1][0-9]|2[0-3]):([0-5][0-9])$"
+                  },
+                  "total_hours": {
+                    "type": "string",
+                    "pattern": "^((1?[0-9]|2[0-3]):([0-5][0-9])|(24:00))$"
+                  },
+                  "std_total_hours": {
+                    "type": "string",
+                    "pattern": "^((1?[0-9]|2[0-3]):([0-5][0-9])|(24:00))$"
+                  },
+                  "cost_center_1": {
+                    "type": "object",
+                    "properties": {
+                      "name": {
+                        "type": "string"
+                      }
+                    }
+                  },
+                  "cost_center_2": {
+                    "type": "object",
+                    "properties": {
+                      "name": {
+                        "type": "string"
+                      }
+                    }
+                  },
+                  "cost_center_3": {
+                    "type": "object",
+                    "properties": {
+                      "name": {
+                        "type": "string"
+                      }
+                    }
+                  },
+                  "cost_center_4": {
+                    "type": "object",
+                    "properties": {
+                      "name": {
+                        "type": "string"
+                      }
+                    }
+                  },
+                  "cost_center_5": {
+                    "type": "object",
+                    "properties": {
+                      "name": {
+                        "type": "string"
+                      }
+                    }
+                  },
+                  "cost_center_6": {
+                    "type": "object",
+                    "properties": {
+                      "name": {
+                        "type": "string"
+                      }
+                    }
+                  },
+                  "cost_center_7": {
+                    "type": "object",
+                    "properties": {
+                      "name": {
+                        "type": "string"
+                      }
+                    }
+                  },
+                  "cost_center_8": {
+                    "type": "object",
+                    "properties": {
+                      "name": {
+                        "type": "string"
+                      }
+                    }
+                  },
+                  "cost_center_9": {
+                    "type": "object",
+                    "properties": {
+                      "name": {
+                        "type": "string"
+                      }
+                    }
+                  },
+                  "job": {
+                    "type": "object",
+                    "properties": {
+                      "name": {
+                        "type": "string"
+                      }
+                    }
+                  },
+                  "workday_breakdown": {
+                    "type": "string"
+                  },
+                  "shift_premium": {
+                    "type": "string"
+                  },
+                  "day_type": {
+                    "type": "string"
+                  },
+                  "lunch": {
+                    "type": "object",
+                    "properties": {
+                      "min_lunch_time": {
+                        "type": "string",
+                        "pattern": "^((1?[0-9]|2[0-3]):([0-5][0-9])|(24:00))$"
+                      },
+                      "max_lunch_time": {
+                        "type": "string",
+                        "pattern": "^((1?[0-9]|2[0-3]):([0-5][0-9])|(24:00))$"
+                      },
+                      "paid_lunch_time": {
+                        "type": "string",
+                        "pattern": "^((1?[0-9]|2[0-3]):([0-5][0-9])|(24:00))$"
+                      },
+                      "lunch_start_at": {
+                        "type": "string",
+                        "pattern": "^([0-1][0-9]|2[0-3]):([0-5][0-9])$"
+                      },
+                      "lunch_start_after": {
+                        "type": "string",
+                        "pattern": "^((1?[0-9]|2[0-3]):([0-5][0-9])|(24:00))$"
+                      }
+                    }
+                  }
+                }
+              }
+            ]
+          }
+        },
+        "required": [
+          "company",
+          "employee",
+          "date_from",
+          "date_to"
+        ]
+      }
+    }
+  }
+}</div>
+</div>
+</div>
+</div>
+<div class="req-tab-put" id="req-tab-id-put-1">
+<div class="example">
+
+<div class="put-example-tab-1 activeTab" id="put-tab-example-1">
+
+<pre class="highlightjs">&lt;?xml version='1.0' encoding='UTF-8'?&gt;
+&lt;employee_schedule&gt;
+    &lt;employee_schedule_entry&gt;
+        &lt;company&gt;
+            &lt;short_name&gt;"Kronos Incorporated"&lt;/short_name&gt;
+        &lt;/company&gt;
+        &lt;employee&gt;
+            &lt;username&gt;Mark S. Ain&lt;/username&gt;
+        &lt;/employee&gt;
+        &lt;date_from&gt;2016-03-14&lt;/date_from&gt;
+        &lt;date_to&gt;2016-03-18&lt;/date_to&gt;
+        &lt;schedule&gt;
+            &lt;schedule_entry&gt;
+                &lt;date&gt;2016-03-15&lt;/date&gt;
+                &lt;shift_num&gt;1&lt;/shift_num&gt;
+                &lt;shift_premium&gt;default shift&lt;/shift_premium&gt;
+                &lt;type_name&gt;fixed&lt;/type_name&gt;
+                &lt;start_time&gt;22:00 prev.&lt;/start_time&gt;
+                &lt;end_time&gt;05:00&lt;/end_time&gt;
+                &lt;cost_center_1&gt;
+                    &lt;name&gt;main office&lt;/name&gt;
+                &lt;/cost_center_1&gt;
+                &lt;workday_breakdown&gt;breakdown 1&lt;/workday_breakdown&gt;
+                &lt;day_type&gt;type 1&lt;/day_type&gt;
+                &lt;std_total_hours&gt;1:00&lt;/std_total_hours&gt;
+                &lt;lunch&gt;
+                    &lt;min_lunch_time&gt;1:00&lt;/min_lunch_time&gt;
+                    &lt;max_lunch_time&gt;3:00&lt;/max_lunch_time&gt;
+                    &lt;paid_lunch_time&gt;2:00&lt;/paid_lunch_time&gt;
+                    &lt;lunch_start_after&gt;3:00&lt;/lunch_start_after&gt;
+                &lt;/lunch&gt;
+            &lt;/schedule_entry&gt;
+            &lt;schedule_entry&gt;
+                &lt;date&gt;2016-03-15&lt;/date&gt;
+                &lt;shift_num&gt;1&lt;/shift_num&gt;
+                &lt;daily_rule_name&gt;Salaried 8 Hour&lt;/daily_rule_name&gt;
+                &lt;shift_premium&gt;nightly shift&lt;/shift_premium&gt;
+                &lt;cost_center_1&gt;
+                    &lt;name&gt;main office&lt;/name&gt;
+                &lt;/cost_center_1&gt;
+                &lt;workday_breakdown&gt;breakdown 1&lt;/workday_breakdown&gt;
+                &lt;day_type&gt;type 1&lt;/day_type&gt;
+                &lt;is_working&gt;false&lt;/is_working&gt;
+            &lt;/schedule_entry&gt;
+        &lt;/schedule&gt;
+    &lt;/employee_schedule_entry&gt;
+&lt;/employee_schedule&gt;</pre>
+</div>
+<div class="put-example-tab-1" id="put-tab-schema-1">
+
+<div class="jsonschema" id="schema-3">&lt;xs:schema attributeFormDefault="unqualified" elementFormDefault="qualified"
+           xmlns:xs="http://www.w3.org/2001/XMLSchema"&gt;
+    &lt;xs:element name="employee_schedule"&gt;
+        &lt;xs:complexType&gt;
+            &lt;xs:sequence&gt;
+                &lt;xs:element name="employee_schedule_entry" type="employee_schedule_entry" minOccurs="1"
+                            maxOccurs="unbounded"/&gt;
+
+            &lt;/xs:sequence&gt;
+        &lt;/xs:complexType&gt;
+    &lt;/xs:element&gt;
+    &lt;xs:complexType name="employee_schedule_entry"&gt;
+        &lt;xs:all&gt;
+            &lt;xs:element name="company" type="company"/&gt;
+            &lt;xs:element name="employee" type="employee_ref"/&gt;
+            &lt;xs:element type="xs:date" name="date_from"/&gt;
+            &lt;xs:element type="xs:date" name="date_to"/&gt;
+            &lt;xs:element name="schedule" minOccurs="0"&gt;
+                &lt;xs:complexType&gt;
+                    &lt;xs:sequence&gt;
+                        &lt;xs:element name="schedule_entry" maxOccurs="unbounded" minOccurs="0"
+                                    type="schedule_entry"/&gt;
+                    &lt;/xs:sequence&gt;
+                &lt;/xs:complexType&gt;
+            &lt;/xs:element&gt;
+        &lt;/xs:all&gt;
+    &lt;/xs:complexType&gt;
+    &lt;xs:complexType name="company"&gt;
+        &lt;xs:choice&gt;
+            &lt;xs:element type="xs:string" name="external_id"/&gt;
+            &lt;xs:element type="xs:string" name="short_name"/&gt;
+            &lt;xs:element type="xs:string" name="system_id"/&gt;
+        &lt;/xs:choice&gt;
+    &lt;/xs:complexType&gt;
+    &lt;xs:complexType name="employee_ref"&gt;
+        &lt;xs:sequence&gt;
+            &lt;xs:choice&gt;
+                &lt;xs:element type="xs:long" name="account_id"/&gt;
+                &lt;xs:element type="xs:string" name="external_id"/&gt;
+                &lt;xs:element type="xs:string" name="username"/&gt;
+                &lt;xs:element type="xs:string" name="employee_id"/&gt;
+            &lt;/xs:choice&gt;
+            &lt;xs:element type="xs:string" name="ein_name" minOccurs="0"/&gt;
+            &lt;xs:element type="xs:string" name="ein_tax_id" minOccurs="0"/&gt;
+        &lt;/xs:sequence&gt;
+    &lt;/xs:complexType&gt;
+    &lt;xs:complexType name="schedule_entry"&gt;
+        &lt;xs:all&gt;
+            &lt;xs:element type="xs:date" name="date" minOccurs="1"/&gt;
+            &lt;xs:element name="shift_num" minOccurs="0"&gt;
+                &lt;xs:simpleType&gt;
+                    &lt;xs:restriction base="xs:byte"&gt;
+                        &lt;xs:minInclusive value="1"/&gt;
+                        &lt;xs:maxInclusive value="2"/&gt;
+                    &lt;/xs:restriction&gt;
+                &lt;/xs:simpleType&gt;
+            &lt;/xs:element&gt;
+            &lt;xs:element name="type_name"
+                        minOccurs="0"&gt;
+                &lt;xs:simpleType&gt;
+                    &lt;xs:restriction base="xs:string"&gt;
+                        &lt;xs:enumeration value="fixed"/&gt;
+                        &lt;xs:enumeration value="free flow"/&gt;
+                        &lt;xs:enumeration value="floating"/&gt;
+                        &lt;xs:enumeration value="flexitime"/&gt;
+                    &lt;/xs:restriction&gt;
+                &lt;/xs:simpleType&gt;
+            &lt;/xs:element&gt;
+            &lt;xs:element type="xs:string" name="daily_rule_name"
+                        minOccurs="0"/&gt;
+            &lt;xs:element name="start_time" minOccurs='0'&gt;
+                &lt;xs:simpleType&gt;
+                    &lt;xs:restriction base="xs:string"&gt;
+                        &lt;xs:pattern value="([0-1][0-9]|2[0-3]):([0-5][0-9])( prev.| next)?"/&gt;
+                    &lt;/xs:restriction&gt;
+                &lt;/xs:simpleType&gt;
+            &lt;/xs:element&gt;
+            &lt;xs:element name="start_time_max" minOccurs='0'&gt;
+                &lt;xs:simpleType&gt;
+                    &lt;xs:restriction base="xs:string"&gt;
+                        &lt;xs:pattern value="([0-1][0-9]|2[0-3]):([0-5][0-9])( prev.| next)?"/&gt;
+                    &lt;/xs:restriction&gt;
+                &lt;/xs:simpleType&gt;
+            &lt;/xs:element&gt;
+            &lt;xs:element name="end_time" minOccurs='0'&gt;
+                &lt;xs:simpleType&gt;
+                    &lt;xs:restriction base="xs:string"&gt;
+                        &lt;xs:pattern value="([0-1][0-9]|2[0-3]):([0-5][0-9])"/&gt;
+                    &lt;/xs:restriction&gt;
+                &lt;/xs:simpleType&gt;
+            &lt;/xs:element&gt;
+            &lt;xs:element name="end_time_max" minOccurs='0'&gt;
+                &lt;xs:simpleType&gt;
+                    &lt;xs:restriction base="xs:string"&gt;
+                        &lt;xs:pattern value="([0-1][0-9]|2[0-3]):([0-5][0-9])"/&gt;
+                    &lt;/xs:restriction&gt;
+                &lt;/xs:simpleType&gt;
+            &lt;/xs:element&gt;
+            &lt;xs:element name="total_hours" minOccurs='0'&gt;
+                &lt;xs:simpleType&gt;
+                    &lt;xs:restriction base="xs:string"&gt;
+                        &lt;xs:pattern value="((1?[0-9]|2[0-3]):([0-5][0-9])|(24:00))"/&gt;
+                    &lt;/xs:restriction&gt;
+                &lt;/xs:simpleType&gt;
+            &lt;/xs:element&gt;
+            &lt;xs:element name="std_total_hours" minOccurs='0'&gt;
+                &lt;xs:simpleType&gt;
+                    &lt;xs:restriction base="xs:string"&gt;
+                        &lt;xs:pattern value="((1?[0-9]|2[0-3]):([0-5][0-9])|(24:00))"/&gt;
+                    &lt;/xs:restriction&gt;
+                &lt;/xs:simpleType&gt;
+            &lt;/xs:element&gt;
+            &lt;xs:element name="lunch" minOccurs="0" type="lunch"/&gt;
+            &lt;xs:element type="xs:string" name="shift_premium" minOccurs="0"/&gt;
+            &lt;xs:element name="cost_center_1" type="cost_center" minOccurs="0"/&gt;
+            &lt;xs:element name="cost_center_2" type="cost_center" minOccurs="0"/&gt;
+            &lt;xs:element name="cost_center_3" type="cost_center" minOccurs="0"/&gt;
+            &lt;xs:element name="cost_center_4" type="cost_center" minOccurs="0"/&gt;
+            &lt;xs:element name="cost_center_5" type="cost_center" minOccurs="0"/&gt;
+            &lt;xs:element name="cost_center_6" type="cost_center" minOccurs="0"/&gt;
+            &lt;xs:element name="cost_center_7" type="cost_center" minOccurs="0"/&gt;
+            &lt;xs:element name="cost_center_8" type="cost_center" minOccurs="0"/&gt;
+            &lt;xs:element name="cost_center_9" type="cost_center" minOccurs="0"/&gt;
+            &lt;xs:element name="job" type="cost_center" minOccurs="0"/&gt;
+            &lt;xs:element type="xs:string" name="workday_breakdown" minOccurs="0"/&gt;
+            &lt;xs:element type="xs:string" name="day_type" minOccurs="0"/&gt;
+            &lt;xs:element type="xs:boolean" name="is_working"
+                        minOccurs="0"/&gt;
+        &lt;/xs:all&gt;
+    &lt;/xs:complexType&gt;
+    &lt;xs:complexType name="lunch"&gt;
+        &lt;xs:sequence&gt;
+            &lt;xs:element name="min_lunch_time" minOccurs='0'&gt;
+                &lt;xs:simpleType&gt;
+                    &lt;xs:restriction base="xs:string"&gt;
+                        &lt;xs:pattern value="((1?[0-9]|2[0-3]):([0-5][0-9])|(24:00))"/&gt;
+                    &lt;/xs:restriction&gt;
+                &lt;/xs:simpleType&gt;
+            &lt;/xs:element&gt;
+            &lt;xs:element name="max_lunch_time" minOccurs='0'&gt;
+                &lt;xs:simpleType&gt;
+                    &lt;xs:restriction base="xs:string"&gt;
+                        &lt;xs:pattern value="((1?[0-9]|2[0-3]):([0-5][0-9])|(24:00))"/&gt;
+                    &lt;/xs:restriction&gt;
+                &lt;/xs:simpleType&gt;
+            &lt;/xs:element&gt;
+            &lt;xs:element name="paid_lunch_time" minOccurs='0'&gt;
+                &lt;xs:simpleType&gt;
+                    &lt;xs:restriction base="xs:string"&gt;
+                        &lt;xs:pattern value="((1?[0-9]|2[0-3]):([0-5][0-9])|(24:00))"/&gt;
+                    &lt;/xs:restriction&gt;
+                &lt;/xs:simpleType&gt;
+            &lt;/xs:element&gt;
+            &lt;xs:element name="lunch_start_after" minOccurs='0'&gt;
+                &lt;xs:simpleType&gt;
+                    &lt;xs:restriction base="xs:string"&gt;
+                        &lt;xs:pattern value="((1?[0-9]|2[0-3]):([0-5][0-9])|(24:00))"/&gt;
+                    &lt;/xs:restriction&gt;
+                &lt;/xs:simpleType&gt;
+            &lt;/xs:element&gt;
+            &lt;xs:element name="lunch_start_at" minOccurs='0'&gt;
+                &lt;xs:simpleType&gt;
+                    &lt;xs:restriction base="xs:string"&gt;
+                        &lt;xs:pattern value="([0-1][0-9]|2[0-3]):([0-5][0-9])"/&gt;
+                    &lt;/xs:restriction&gt;
+                &lt;/xs:simpleType&gt;
+            &lt;/xs:element&gt;
+        &lt;/xs:sequence&gt;
+    &lt;/xs:complexType&gt;
+    &lt;xs:complexType name="cost_center"&gt;
+        &lt;xs:sequence&gt;
+            &lt;xs:element type="xs:string" name="name"/&gt;
+        &lt;/xs:sequence&gt;
+    &lt;/xs:complexType&gt;
+&lt;/xs:schema&gt;</div>
+</div>
+</div>
+</div>
+</div>
+<h4>Response Samples</h4>
+<div class="tab-title-group">
+<label>
+<input checked="checked" data-full-tab-id="resp-tab-id-put-0" data-tab-class="resp-tab-put" name="resp-tab-put" type="radio"/>
+<span class="tab-title">application/json</span>
+</label>
+<label>
+<input data-full-tab-id="resp-tab-id-put-1" data-tab-class="resp-tab-put" name="resp-tab-put" type="radio"/>
+<span class="tab-title">application/xml</span>
+</label>
+<label>
+<input data-full-tab-id="resp-tab-id-put-2" data-tab-class="resp-tab-put" name="resp-tab-put" type="radio"/>
+<span class="tab-title">text/xml</span>
+</label>
+</div>
+<div>
+<div class="resp-tab-put" id="resp-tab-id-put-0">
+<div class="example">
+
+<div class="put-example-resp-tab-0 activeTab" id="put-tab-resp-example-0">
+
+<pre class="highlightjs">{
+  "items": [
+    {
+      "index": 0,
+      "id": "153467",
+      "status": "OK"
+    },
+    {
+      "index": 1,
+      "status": "FAILURE",
+      "errors": [
+        {
+          "code": 153652,
+          "message": "Cannot process entity because of ..."
+        }
+      ]
+    }
+  ]
+}</pre>
+</div>
+<div class="put-example-resp-tab-0" id="put-tab-resp-schema-0">
+
+<div class="jsonschema" id="schema-4">{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "type": "object",
+  "properties": {
+    "items": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "index": {
+            "type": [
+              "integer",
+              "null"
+            ]
+          },
+          "id": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "status": {
+            "type": "string",
+            "enum": [
+              "OK",
+              "FAILURE"
+            ]
+          },
+          "errors": {
+            "type": [
+              "array",
+              "null"
+            ],
+            "items": {
+              "type": "object",
+              "properties": {
+                "code": {
+                  "type": "integer"
+                },
+                "message": {
+                  "type": "string"
+                },
+                "key": {
+                  "type": "string"
+                }
+              },
+              "additionalProperties": false,
+              "required": [
+                "code",
+                "message"
+              ]
+            }
+          }
+        },
+        "additionalProperties": false
+      }
+    }
+  },
+  "additionalProperties": false
+}</div>
+</div>
+</div>
+</div>
+<div class="resp-tab-put" id="resp-tab-id-put-1">
+<div class="example">
+
+<div class="put-example-resp-tab-1 activeTab" id="put-tab-resp-example-1">
+
+<pre class="highlightjs">&lt;?xml version="1.0" encoding="UTF-8" ?&gt;
+&lt;result&gt;
+  &lt;item&gt;
+    &lt;index&gt;0&lt;/index&gt;
+    &lt;id&gt;153467&lt;/id&gt;
+    &lt;status&gt;OK&lt;/status&gt;
+  &lt;/item&gt;
+  &lt;item&gt;
+    &lt;index&gt;0&lt;/index&gt;
+    &lt;status&gt;FAILURE&lt;/status&gt;
+    &lt;errors&gt;
+      &lt;error&gt;
+        &lt;code&gt;153652&lt;/code&gt;
+        &lt;message&gt;Cannot process entity because of ...&lt;/message&gt;
+      &lt;/error&gt;
+    &lt;/errors&gt;
+  &lt;/item&gt;
+&lt;/result&gt;</pre>
+</div>
+<div class="put-example-resp-tab-1" id="put-tab-resp-schema-1">
+
+<div class="jsonschema" id="schema-5">&lt;xs:schema attributeFormDefault="unqualified" elementFormDefault="qualified"
+           xmlns:xs="http://www.w3.org/2001/XMLSchema"&gt;
+
+    &lt;xs:element name="result"&gt;
+        &lt;xs:complexType&gt;
+            &lt;xs:sequence maxOccurs="unbounded"&gt;
+                &lt;xs:element type="item" name="item"/&gt;
+            &lt;/xs:sequence&gt;
+        &lt;/xs:complexType&gt;
+    &lt;/xs:element&gt;
+
+    &lt;xs:complexType name="item"&gt;
+        &lt;xs:all&gt;
+            &lt;xs:element type="xs:nonNegativeInteger" name="index" minOccurs="1"/&gt;
+            &lt;xs:element type="xs:string" name="id" minOccurs="0"/&gt;
+            &lt;xs:element type="errors" name="errors" minOccurs="0"/&gt;
+            &lt;xs:element type="status" name="status" minOccurs="1" maxOccurs="1"/&gt;
+        &lt;/xs:all&gt;
+    &lt;/xs:complexType&gt;
+
+    &lt;xs:complexType name="errorType"&gt;
+        &lt;xs:all&gt;
+            &lt;xs:element type="xs:integer" name="code"/&gt;
+            &lt;xs:element type="xs:string" name="message"/&gt;
+            &lt;xs:element type="xs:string" name="key" minOccurs="0"/&gt;
+        &lt;/xs:all&gt;
+    &lt;/xs:complexType&gt;
+
+    &lt;xs:complexType name="errors"&gt;
+        &lt;xs:sequence minOccurs="0" maxOccurs="unbounded"&gt;
+            &lt;xs:element type="errorType" name="error"/&gt;
+        &lt;/xs:sequence&gt;
+    &lt;/xs:complexType&gt;
+
+    &lt;xs:simpleType name="status"&gt;
+        &lt;xs:restriction base="xs:string"&gt;
+            &lt;xs:enumeration value="OK"/&gt;
+            &lt;xs:enumeration value="FAILURE"/&gt;
+        &lt;/xs:restriction&gt;
+    &lt;/xs:simpleType&gt;
+&lt;/xs:schema&gt;</div>
+</div>
+</div>
+</div>
+<div class="resp-tab-put" id="resp-tab-id-put-2">
+<div class="example">
+
+<div class="put-example-resp-tab-2 activeTab" id="put-tab-resp-example-2">
+
+<pre class="highlightjs">&lt;?xml version="1.0" encoding="UTF-8" ?&gt;
+&lt;result&gt;
+  &lt;item&gt;
+    &lt;index&gt;0&lt;/index&gt;
+    &lt;id&gt;153467&lt;/id&gt;
+    &lt;status&gt;OK&lt;/status&gt;
+  &lt;/item&gt;
+  &lt;item&gt;
+    &lt;index&gt;0&lt;/index&gt;
+    &lt;status&gt;FAILURE&lt;/status&gt;
+    &lt;errors&gt;
+      &lt;error&gt;
+        &lt;code&gt;153652&lt;/code&gt;
+        &lt;message&gt;Cannot process entity because of ...&lt;/message&gt;
+      &lt;/error&gt;
+    &lt;/errors&gt;
+  &lt;/item&gt;
+&lt;/result&gt;</pre>
+</div>
+<div class="put-example-resp-tab-2" id="put-tab-resp-schema-2">
+
+<div class="jsonschema" id="schema-6">&lt;xs:schema attributeFormDefault="unqualified" elementFormDefault="qualified"
+           xmlns:xs="http://www.w3.org/2001/XMLSchema"&gt;
+
+    &lt;xs:element name="result"&gt;
+        &lt;xs:complexType&gt;
+            &lt;xs:sequence maxOccurs="unbounded"&gt;
+                &lt;xs:element type="item" name="item"/&gt;
+            &lt;/xs:sequence&gt;
+        &lt;/xs:complexType&gt;
+    &lt;/xs:element&gt;
+
+    &lt;xs:complexType name="item"&gt;
+        &lt;xs:all&gt;
+            &lt;xs:element type="xs:nonNegativeInteger" name="index" minOccurs="1"/&gt;
+            &lt;xs:element type="xs:string" name="id" minOccurs="0"/&gt;
+            &lt;xs:element type="errors" name="errors" minOccurs="0"/&gt;
+            &lt;xs:element type="status" name="status" minOccurs="1" maxOccurs="1"/&gt;
+        &lt;/xs:all&gt;
+    &lt;/xs:complexType&gt;
+
+    &lt;xs:complexType name="errorType"&gt;
+        &lt;xs:all&gt;
+            &lt;xs:element type="xs:integer" name="code"/&gt;
+            &lt;xs:element type="xs:string" name="message"/&gt;
+            &lt;xs:element type="xs:string" name="key" minOccurs="0"/&gt;
+        &lt;/xs:all&gt;
+    &lt;/xs:complexType&gt;
+
+    &lt;xs:complexType name="errors"&gt;
+        &lt;xs:sequence minOccurs="0" maxOccurs="unbounded"&gt;
+            &lt;xs:element type="errorType" name="error"/&gt;
+        &lt;/xs:sequence&gt;
+    &lt;/xs:complexType&gt;
+
+    &lt;xs:simpleType name="status"&gt;
+        &lt;xs:restriction base="xs:string"&gt;
+            &lt;xs:enumeration value="OK"/&gt;
+            &lt;xs:enumeration value="FAILURE"/&gt;
+        &lt;/xs:restriction&gt;
+    &lt;/xs:simpleType&gt;
+&lt;/xs:schema&gt;</div>
+</div>
+</div>
+</div>
+</div>
+</article>
+</section>
+<section class="clearfix">
+<article class="definition">
+<h3 class="anchored" id="delete"><span>DELETE</span>
+<a class="fa fa-link link-anchor" data-url="r=__v2__companies__(cid)__employee__schedules#delete" data-web-id="__v2__companies__(cid)__employee__schedules"></a>
+</h3>
+<div class="md"><p>Deletes employee schedule on specified date range</p></div>
+<h4>Parameters</h4>
+<h5>Path Parameters</h5>
+<ul class="param-list">
+<li>
+<div class="param-desc">
+<div class="param-name">cid</div>
+<div class="data-type">string</div>
+<div class="required">required</div>
+</div>
+<div class="param-content">
+<div>
+<p>Example: 123456</p>
+<div class="desc md">Company should be referenced via company id or company unique id or company short name using `|short_name` or `!short_name` format.
+</div>
+</div>
+</div>
+
+</li>
+</ul>
+<h5>Query Parameters</h5>
+<ul class="param-list">
+<li>
+<div class="param-desc">
+<div class="param-name">employee:system_id</div>
+<div class="data-type">integer</div>
+</div>
+<div class="param-content">
+<div>
+<div class="desc md">System id of employee</div>
+</div>
+</div>
+
+</li>
+<li>
+<div class="param-desc">
+<div class="param-name">employee:external_id</div>
+<div class="data-type">string</div>
+</div>
+<div class="param-content">
+<div>
+<div class="desc md">External id of employee</div>
+</div>
+</div>
+
+</li>
+<li>
+<div class="param-desc">
+<div class="param-name">employee:username</div>
+<div class="data-type">string</div>
+</div>
+<div class="param-content">
+<div>
+<div class="desc md">Employee user name</div>
+</div>
+</div>
+
+</li>
+<li>
+<div class="param-desc">
+<div class="param-name">username</div>
+<div class="data-type">string</div>
+</div>
+<div class="param-content">
+<div>
+<div class="desc md">Shortcut for `employee:username` parameter</div>
+</div>
+</div>
+
+</li>
+<li>
+<div class="param-desc">
+<div class="param-name">employee:ein_name</div>
+<div class="data-type">string</div>
+</div>
+<div class="param-content">
+<div>
+<div class="desc md">Employee EIN name</div>
+</div>
+</div>
+
+</li>
+<li>
+<div class="param-desc">
+<div class="param-name">employee:ein_tax_id</div>
+<div class="data-type">string</div>
+</div>
+<div class="param-content">
+<div>
+<div class="desc md">Employee EIN tax Id</div>
+</div>
+</div>
+
+</li>
+<li>
+<div class="param-desc">
+<div class="param-name">date_from</div>
+<div class="data-type">string</div>
+<div class="required">required</div>
+</div>
+<div class="param-content">
+<div>
+<div class="desc md">first date of the range you want to clear. Set in format yyyy-MM-dd</div>
+</div>
+</div>
+
+</li>
+<li>
+<div class="param-desc">
+<div class="param-name">date_to</div>
+<div class="data-type">string</div>
+<div class="required">required</div>
+</div>
+<div class="param-content">
+<div>
+<div class="desc md">last date of the range you want to clear. Set in format yyyy-MM-dd</div>
+</div>
+</div>
+
+</li>
+</ul>
+<h4>Responses</h4>
+<div class="responses">
+<div>
+<label class="response response-success">
+<span class="fa fa-check"></span>
+<input data-full-tab-id="delete-resp-code-tab-id-0" data-tab-class="resp-code-tab-delete" name="resp-code-tab-delete" type="radio"/>
+<span class="status">200 Ok</span>
+</label>
+<div class="response-desc resp-code-tab-delete" id="delete-resp-code-tab-id-0">
+<div class="md"><p>Contains list of deleted schedule entries</p></div>
+</div>
+</div>
+<div>
+<label class="response response-error">
+<span class="fa fa-times"></span>
+<input data-full-tab-id="delete-resp-code-tab-id-1" data-tab-class="resp-code-tab-delete" name="resp-code-tab-delete" type="radio"/>
+<span class="status">400 Bad Request</span>
+</label>
+<div class="response-desc resp-code-tab-delete" id="delete-resp-code-tab-id-1">
+<div class="md"><p>Can not process request. Invalid data is sent</p></div>
+</div>
+</div>
+<div>
+<label class="response response-error">
+<span class="fa fa-times"></span>
+<input data-full-tab-id="delete-resp-code-tab-id-2" data-tab-class="resp-code-tab-delete" name="resp-code-tab-delete" type="radio"/>
+<span class="status">403 Forbidden</span>
+</label>
+<div class="response-desc resp-code-tab-delete" id="delete-resp-code-tab-id-2">
+<div class="md"><p>Requester does not have access to target company or does not have required security to modify user's schedule or company does not support this functionality</p></div>
+</div>
+</div>
+<div>
+<label class="response response-error">
+<span class="fa fa-times"></span>
+<input data-full-tab-id="delete-resp-code-tab-id-3" data-tab-class="resp-code-tab-delete" name="resp-code-tab-delete" type="radio"/>
+<span class="status">500 Internal Server Error</span>
+</label>
+<div class="response-desc resp-code-tab-delete" id="delete-resp-code-tab-id-3">
+<div class="md"><p>Internal server error</p></div>
+</div>
+</div>
+<div>
+<label class="response response-error">
+<span class="fa fa-times"></span>
+<input data-full-tab-id="delete-resp-code-tab-id-4" data-tab-class="resp-code-tab-delete" name="resp-code-tab-delete" type="radio"/>
+<span class="status">503 Service Unavailable</span>
+</label>
+<div class="response-desc resp-code-tab-delete" id="delete-resp-code-tab-id-4">
+<div class="md"><p>Returned in the event that the call limit is exceeded. The application will be unavailable for subsequent calls for the duration specified by the X-CallLimit-TimeToWait header.</p></div>
+</div>
+</div>
+</div>
+</article>
+<article class="code">
+<h4>Definition</h4>
+<div class="uri">
+<code>
+<span class="method delete">delete</span>
+<span class="textUri"><span class="baseUri">{{ getUriPrefix() }}</span><span class="relativeUri">/v2/companies/{cid}/employee/schedules</span></span>
+</code>
+</div>
+<h4>Response Samples</h4>
+<div class="tab-title-group">
+<label>
+<input checked="checked" data-full-tab-id="resp-tab-id-delete-0" data-tab-class="resp-tab-delete" name="resp-tab-delete" type="radio"/>
+<span class="tab-title">application/json</span>
+</label>
+<label>
+<input data-full-tab-id="resp-tab-id-delete-1" data-tab-class="resp-tab-delete" name="resp-tab-delete" type="radio"/>
+<span class="tab-title">application/xml</span>
+</label>
+</div>
+<div>
+<div class="resp-tab-delete" id="resp-tab-id-delete-0">
+<div class="example">
+
+<div class="delete-example-resp-tab-0 activeTab" id="delete-tab-resp-example-0">
+
+<pre class="highlightjs">{
+  "items": [
+    {
+      "index": 0,
+      "id": "153467",
+      "status": "OK"
+    },
+    {
+      "index": 1,
+      "status": "FAILURE",
+      "errors": [
+        {
+          "code": 153652,
+          "message": "Cannot process entity because of ..."
+        }
+      ]
+    }
+  ]
+}</pre>
+</div>
+<div class="delete-example-resp-tab-0" id="delete-tab-resp-schema-0">
+
+<div class="jsonschema" id="schema-7">{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "type": "object",
+  "properties": {
+    "items": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "index": {
+            "type": [
+              "integer",
+              "null"
+            ]
+          },
+          "id": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "status": {
+            "type": "string",
+            "enum": [
+              "OK",
+              "FAILURE"
+            ]
+          },
+          "errors": {
+            "type": [
+              "array",
+              "null"
+            ],
+            "items": {
+              "type": "object",
+              "properties": {
+                "code": {
+                  "type": "integer"
+                },
+                "message": {
+                  "type": "string"
+                },
+                "key": {
+                  "type": "string"
+                }
+              },
+              "additionalProperties": false,
+              "required": [
+                "code",
+                "message"
+              ]
+            }
+          }
+        },
+        "additionalProperties": false
+      }
+    }
+  },
+  "additionalProperties": false
+}</div>
+</div>
+</div>
+</div>
+<div class="resp-tab-delete" id="resp-tab-id-delete-1">
+<div class="example">
+
+<div class="delete-example-resp-tab-1 activeTab" id="delete-tab-resp-example-1">
+
+<pre class="highlightjs">&lt;?xml version="1.0" encoding="UTF-8" ?&gt;
+&lt;result&gt;
+  &lt;item&gt;
+    &lt;index&gt;0&lt;/index&gt;
+    &lt;id&gt;153467&lt;/id&gt;
+    &lt;status&gt;OK&lt;/status&gt;
+  &lt;/item&gt;
+  &lt;item&gt;
+    &lt;index&gt;0&lt;/index&gt;
+    &lt;status&gt;FAILURE&lt;/status&gt;
+    &lt;errors&gt;
+      &lt;error&gt;
+        &lt;code&gt;153652&lt;/code&gt;
+        &lt;message&gt;Cannot process entity because of ...&lt;/message&gt;
+      &lt;/error&gt;
+    &lt;/errors&gt;
+  &lt;/item&gt;
+&lt;/result&gt;</pre>
+</div>
+<div class="delete-example-resp-tab-1" id="delete-tab-resp-schema-1">
+
+<div class="jsonschema" id="schema-8">&lt;xs:schema attributeFormDefault="unqualified" elementFormDefault="qualified"
+           xmlns:xs="http://www.w3.org/2001/XMLSchema"&gt;
+
+    &lt;xs:element name="result"&gt;
+        &lt;xs:complexType&gt;
+            &lt;xs:sequence maxOccurs="unbounded"&gt;
+                &lt;xs:element type="item" name="item"/&gt;
+            &lt;/xs:sequence&gt;
+        &lt;/xs:complexType&gt;
+    &lt;/xs:element&gt;
+
+    &lt;xs:complexType name="item"&gt;
+        &lt;xs:all&gt;
+            &lt;xs:element type="xs:nonNegativeInteger" name="index" minOccurs="1"/&gt;
+            &lt;xs:element type="xs:string" name="id" minOccurs="0"/&gt;
+            &lt;xs:element type="errors" name="errors" minOccurs="0"/&gt;
+            &lt;xs:element type="status" name="status" minOccurs="1" maxOccurs="1"/&gt;
+        &lt;/xs:all&gt;
+    &lt;/xs:complexType&gt;
+
+    &lt;xs:complexType name="errorType"&gt;
+        &lt;xs:all&gt;
+            &lt;xs:element type="xs:integer" name="code"/&gt;
+            &lt;xs:element type="xs:string" name="message"/&gt;
+            &lt;xs:element type="xs:string" name="key" minOccurs="0"/&gt;
+        &lt;/xs:all&gt;
+    &lt;/xs:complexType&gt;
+
+    &lt;xs:complexType name="errors"&gt;
+        &lt;xs:sequence minOccurs="0" maxOccurs="unbounded"&gt;
+            &lt;xs:element type="errorType" name="error"/&gt;
+        &lt;/xs:sequence&gt;
+    &lt;/xs:complexType&gt;
+
+    &lt;xs:simpleType name="status"&gt;
+        &lt;xs:restriction base="xs:string"&gt;
+            &lt;xs:enumeration value="OK"/&gt;
+            &lt;xs:enumeration value="FAILURE"/&gt;
+        &lt;/xs:restriction&gt;
+    &lt;/xs:simpleType&gt;
+&lt;/xs:schema&gt;</div>
+</div>
+</div>
+</div>
+</div>
+</article>
+</section>
+</div>
+</body></html>

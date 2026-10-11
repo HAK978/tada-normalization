@@ -1,0 +1,1311 @@
+<!doctype html>
+<html><head><meta charset="utf-8"><title>PTO Request</title><style>body{font:16px system-ui;max-width:1100px;margin:2rem auto;padding:0 1rem;line-height:1.5}aside{background:#fff3cc;padding:1rem}.jsonschema,pre{white-space:pre-wrap;font:13px monospace;overflow-wrap:anywhere;background:#f4f5f7;padding:1rem}.uri{font-family:monospace}h2,h3{margin-top:2rem}</style></head><body><aside><strong>Modified private reference — 2026-10-09.</strong> Provider-documented illustrative examples are included; authentication token examples are redacted. These are not customer exports or guaranteed production behavior. Candidate sharing is pending. This is not OpenAPI.</aside>
+<div class="group">
+<h2 class="anchored" id="item.anchor">
+<span>PTO Request</span>
+<a class="fa fa-link link-anchor" data-url="r=__v2__companies__(cid)__employee__ptorequest#" data-web-id="__v2__companies__(cid)__employee__ptorequest"></a>
+</h2>
+<section class="clearfix">
+<article class="definition">
+<h3 class="anchored" id="get"><span>GET</span>
+<a class="fa fa-link link-anchor" data-url="r=__v2__companies__(cid)__employee__ptorequest#get" data-web-id="__v2__companies__(cid)__employee__ptorequest"></a>
+</h3>
+<div class="md"><p>Endpoint to list of time off requests for self.
+`TA|TALITE|HR,SCHEDULE` functionality must be enabled in company setup.
+</p></div>
+<div>
+<ul class="annotation-list">
+<li class="annotation">
+<span>v2</span>
+</li>
+</ul>
+</div>
+<h4>Parameters</h4>
+<h5>Path Parameters</h5>
+<ul class="param-list">
+<li>
+<div class="param-desc">
+<div class="param-name">cid</div>
+<div class="data-type">string</div>
+<div class="required">required</div>
+</div>
+<div class="param-content">
+<div>
+<p>Example: 123456</p>
+<div class="desc md">Company should be referenced via company id or company unique id or company short name using `|short_name` or `!short_name` format.
+</div>
+</div>
+</div>
+
+</li>
+</ul>
+<h5>Query Parameters</h5>
+<ul class="param-list">
+<li>
+<div class="param-desc">
+<div class="param-name">fromDate</div>
+<div class="data-type">string</div>
+</div>
+<div class="param-content">
+<div>
+<div class="desc md">Time off request date date range start</div>
+</div>
+</div>
+
+</li>
+<li>
+<div class="param-desc">
+<div class="param-name">toDate</div>
+<div class="data-type">string</div>
+</div>
+<div class="param-content">
+<div>
+<div class="desc md">Time off request date date range end</div>
+</div>
+</div>
+
+</li>
+<li>
+<div class="param-desc">
+<div class="param-name">sort</div>
+<div class="data-type">string</div>
+</div>
+<div class="param-content">
+<div>
+<p>Example: -from_date</p>
+<div class="desc md">Query parameter to control sorting order. Default is descending by requested date.
+Supported field to sort by is `from_date`
+</div>
+</div>
+</div>
+
+</li>
+</ul>
+<h4>Responses</h4>
+<div class="responses">
+<div>
+<label class="response response-success">
+<span class="fa fa-check"></span>
+<input data-full-tab-id="get-resp-code-tab-id-0" data-tab-class="resp-code-tab-get" name="resp-code-tab-get" type="radio"/>
+<span class="status">200 Ok</span>
+</label>
+<div class="response-desc resp-code-tab-get" id="get-resp-code-tab-id-0">
+<div class="md"><p>Contains list of time off requests for logged in user</p></div>
+</div>
+</div>
+<div>
+<label class="response response-error">
+<span class="fa fa-times"></span>
+<input data-full-tab-id="get-resp-code-tab-id-1" data-tab-class="resp-code-tab-get" name="resp-code-tab-get" type="radio"/>
+<span class="status">400 Bad Request</span>
+</label>
+<div class="response-desc resp-code-tab-get" id="get-resp-code-tab-id-1">
+<div class="md"><p>Bad Request, eg. Account not found</p></div>
+</div>
+</div>
+<div>
+<label class="response response-error">
+<span class="fa fa-times"></span>
+<input data-full-tab-id="get-resp-code-tab-id-2" data-tab-class="resp-code-tab-get" name="resp-code-tab-get" type="radio"/>
+<span class="status">403 Forbidden</span>
+</label>
+<div class="response-desc resp-code-tab-get" id="get-resp-code-tab-id-2">
+<div class="md"><p>Required functionality is not enabled</p></div>
+</div>
+</div>
+<div>
+<label class="response response-error">
+<span class="fa fa-times"></span>
+<input data-full-tab-id="get-resp-code-tab-id-3" data-tab-class="resp-code-tab-get" name="resp-code-tab-get" type="radio"/>
+<span class="status">500 Internal Server Error</span>
+</label>
+<div class="response-desc resp-code-tab-get" id="get-resp-code-tab-id-3">
+<div class="md"><p>Returned in the event an internal server error occurred while processing the request.</p></div>
+</div>
+</div>
+</div>
+</article>
+<article class="code">
+<h4>Definition</h4>
+<div class="uri">
+<code>
+<span class="method get">get</span>
+<span class="textUri"><span class="baseUri">{{ getUriPrefix() }}</span><span class="relativeUri">/v2/companies/{cid}/employee/ptorequest</span></span>
+</code>
+</div>
+<h4>Response Samples</h4>
+<div class="tab-title-group">
+<label>
+<input checked="checked" data-full-tab-id="resp-tab-id-get-0" data-tab-class="resp-tab-get" name="resp-tab-get" type="radio"/>
+<span class="tab-title">application/json</span>
+</label>
+</div>
+<div>
+<div class="resp-tab-get" id="resp-tab-id-get-0">
+<div class="example">
+
+<div class="get-example-resp-tab-0 activeTab" id="get-tab-resp-example-0">
+
+<pre class="highlightjs">{
+  "ptorequests": [
+    {
+      "dynamicDurationAs": "Unknown",
+      "employee": {
+        "account_id": 2152390,
+        "full_name": "Monica Gellar",
+        "ein_name" : "12-3456789"
+      },
+      "time_off": {
+        "id": 1486785,
+        "name": "Personal"
+      },
+      "from_date": "2016-09-09",
+      "to_date": "2016-09-09",
+      "from_time": "00:00",
+      "to_time": "00:00",
+      "pto_details": {
+        "request_id": "4958849",
+        "request_state": "New",
+        "request_type": "Partial",
+        "requested_time": "08:00",
+        "duration_unit": "HOURS",
+        "created": "2016-09-08",
+        "can_delete": true,
+        "cancel_needs_approval": false,
+        "approved_by": {
+          "account_id": 123434,
+          "full_name": "Full Name"
+        },
+        "note_thread_id": "9841476",
+        "cost_center_ids": [
+          "1486594",
+          "1486665",
+          "1486666",
+          "1486667",
+          "1486668",
+          "1486669",
+          "1486670",
+          "1486671",
+          "1486672",
+          "1486673"
+        ]
+      },
+      "notes_count": 1
+    },
+    {
+      "dynamicDurationAs": "Unknown",
+      "employee": {
+        "account_id": 2152390,
+        "full_name": "Monica Gellar"
+      },
+      "time_off": {
+        "id": 1486785,
+        "name": "Personal"
+      },
+      "from_date": "2016-09-10",
+      "to_date": "2016-09-10",
+      "from_time": "00:00",
+      "to_time": "00:00",
+      "pto_details": {
+        "request_id": "4958850",
+        "request_state": "New",
+        "requested_time": "08:00",
+        "duration_unit": "HOURS",
+        "created": "2016-09-08",
+        "can_delete": true,
+        "cancel_needs_approval": false,
+        "rejected_by": {
+          "account_id": 123434,
+          "full_name": "Full Name"
+        },
+        "note_thread_id": "9841477",
+        "cost_center_ids": [
+          "1486594",
+          "1486665",
+          "1486666",
+          "1486667",
+          "1486668",
+          "1486669",
+          "1486670",
+          "1486671",
+          "1486672",
+          "1486673"
+        ]
+      },
+      "notes_count": 1
+    }
+  ]
+}</pre>
+</div>
+<div class="get-example-resp-tab-0" id="get-tab-resp-schema-0">
+
+<div class="jsonschema" id="schema-0">{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "type": "object",
+  "properties": {
+    "ptorequests": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "employee": {
+            "type": "object",
+            "properties": {
+              "account_id": {
+                "type": "number",
+                "format": "long"
+              },
+              "username": {
+                "type": "string"
+              },
+              "ein_name": {
+                "type": "string"
+              },
+              "ein_tax_id": {
+                "type": "string"
+              }
+            }
+          },
+          "time_off": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "integer"
+              },
+              "name": {
+                "type": "string"
+              }
+            }
+          },
+          "pto_details": {
+            "type": "object",
+            "properties": {
+              "request_id": {
+                "type": "string"
+              },
+              "request_state": {
+                "type": "string"
+              },
+              "request_type": {
+                "type": "string"
+              },
+              "requested_date": {
+                "type": "string"
+              },
+              "requested_time": {
+                "type": "string"
+              },
+              "time_per_day": {
+                "type": "string"
+              },
+              "duration_unit": {
+                "type": "string",
+                "enum": [
+                  "HOURS",
+                  "DAYS"
+                ]
+              },
+              "created": {
+                "type": "string"
+              },
+              "work_flow_status": {
+                "type": "string"
+              },
+              "can_delete": {
+                "type": "boolean"
+              },
+              "cancel_needs_approval": {
+                "type": "boolean"
+              },
+              "approved_by": {
+                "type": "object",
+                "properties": {
+                  "account_id": {
+                    "type": "number",
+                    "format": "long"
+                  },
+                  "full_name": {
+                    "type": "string"
+                  }
+                }
+              },
+              "rejected_by": {
+                "type": "object",
+                "properties": {
+                  "account_id": {
+                    "type": "number",
+                    "format": "long"
+                  },
+                  "full_name": {
+                    "type": "string"
+                  }
+                }
+              },
+              "note_thread_id": {
+                "type": "string"
+              },
+              "cost_center_ids": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
+              }
+            }
+          },
+          "notes_count": {
+            "type": "integer"
+          },
+          "dynamic_duration_type": {
+            "type": "string",
+            "enum": [
+              "Full Day",
+              "Half Day",
+              "First Half",
+              "Second Half",
+              "Fill Day"
+            ]
+          }
+        }
+      }
+    }
+  }
+}</div>
+</div>
+</div>
+</div>
+</div>
+</article>
+</section>
+<section class="clearfix">
+<article class="definition">
+<h3 class="anchored" id="post"><span>POST</span>
+<a class="fa fa-link link-anchor" data-url="r=__v2__companies__(cid)__employee__ptorequest#post" data-web-id="__v2__companies__(cid)__employee__ptorequest"></a>
+</h3>
+<div class="md"><p>Endpoint for creating new Time Off Request.
+`TA|TALITE|HR` functionality must be enabled in company setup.
+This endpoint is for creating time off request either by an employee for self or by a manager on behalf of an employee.
+For all requests valid `timeoff` is a required field.
+Allowed time off request types are:
+- `FullDay`
+- `Partial`
+- `PartialBlk`
+- `Multiple`
+- `Dynamic`
+
+For `FullDay` request, from_date is required.
+For `Partial` day request, from_date, from_time and to_time are required fields.
+For `PartialBlk` request, from_date and total_time are required fields.
+For `Multiple` type request, from_date is a required field.
+For `Dynamic` type request, from_date and dynamic_duration are a required field.
+Allowed values for `dynamic_duration`:
+- `FULL_DAY`
+- `FIRST_HALF_OF_DAY`
+- `SECOND_HALF_OF_DAY`
+- `HALF_DAY`
+- `FILL_DAY`
+
+Date format for all date fields when requesting time off is `yyyy-mm-dd` format.
+Time format for all time fields when requesting time off is 24 hour `hh:mm:ss` format.
+`confirm_map` - the confirmation data for the request. The confirm map contains the code and the user response for the code. Code `0` is used to confirm a request. Any other value implies the user does not confirm the request and the request should not be created.
+The POST request returns an execute result set, which contains the success code on success.
+POST requests can return `info`/`confirm`/`critical`/`error`/`warning` message types.
+Info messages are benign and contain some information for the client. Other types of messages need a confirmation from the client to successfully create a time off request. The example json shows a warning message.
+</p></div>
+<div>
+<ul class="annotation-list">
+<li class="annotation">
+<span>v2</span>
+</li>
+</ul>
+</div>
+<h4>Parameters</h4>
+<h5>Path Parameters</h5>
+<ul class="param-list">
+<li>
+<div class="param-desc">
+<div class="param-name">cid</div>
+<div class="data-type">string</div>
+<div class="required">required</div>
+</div>
+<div class="param-content">
+<div>
+<p>Example: 123456</p>
+<div class="desc md">Company should be referenced via company id or company unique id or company short name using `|short_name` or `!short_name` format.
+</div>
+</div>
+</div>
+
+</li>
+</ul>
+<h5>Header Parameters</h5>
+<ul class="param-list">
+<li>
+<div class="param-desc">
+<div class="param-name">Accept</div>
+<div class="data-type">string</div>
+</div>
+<div class="param-content">
+<div>
+<p>Valid values: application/xml, text/xml, */xml, application/json</p>
+<p>Example: application/xml</p>
+</div>
+</div>
+
+</li>
+<li>
+<div class="param-desc">
+<div class="param-name">Content-Type</div>
+<div class="data-type">string</div>
+<div class="required">required</div>
+</div>
+<div class="param-content">
+<div>
+<p>Valid values: application/xml, text/xml, application/json</p>
+<p>Example: application/xml</p>
+</div>
+</div>
+
+</li>
+<li>
+<div class="param-desc">
+<div class="param-name">Content-Length</div>
+<div class="data-type">integer</div>
+<div class="required">required</div>
+</div>
+<div class="param-content">
+<div>
+</div>
+</div>
+
+</li>
+</ul>
+<h4>Responses</h4>
+<div class="responses">
+<div>
+<label class="response response-success">
+<span class="fa fa-check"></span>
+<input data-full-tab-id="post-resp-code-tab-id-0" data-tab-class="resp-code-tab-post" name="resp-code-tab-post" type="radio"/>
+<span class="status">200 Ok</span>
+</label>
+<div class="response-desc resp-code-tab-post" id="post-resp-code-tab-id-0">
+<div class="md"><p>Returned in case payload was successfully processed.
+Note: each separate item in the payload may contain errors.
+Refer to the corresponding error code table and response schema.
+</p></div>
+</div>
+</div>
+<div>
+<label class="response response-error">
+<span class="fa fa-times"></span>
+<input data-full-tab-id="post-resp-code-tab-id-1" data-tab-class="resp-code-tab-post" name="resp-code-tab-post" type="radio"/>
+<span class="status">401 Unauthorized</span>
+</label>
+<div class="response-desc resp-code-tab-post" id="post-resp-code-tab-id-1">
+<div class="md"><p>Unauthorized, Authentication is required</p></div>
+</div>
+</div>
+<div>
+<label class="response response-error">
+<span class="fa fa-times"></span>
+<input data-full-tab-id="post-resp-code-tab-id-2" data-tab-class="resp-code-tab-post" name="resp-code-tab-post" type="radio"/>
+<span class="status">404 Not Found</span>
+</label>
+<div class="response-desc resp-code-tab-post" id="post-resp-code-tab-id-2">
+<div class="md"><p>Not found, Account was not found</p></div>
+</div>
+</div>
+<div>
+<label class="response response-error">
+<span class="fa fa-times"></span>
+<input data-full-tab-id="post-resp-code-tab-id-3" data-tab-class="resp-code-tab-post" name="resp-code-tab-post" type="radio"/>
+<span class="status">503 Service Unavailable</span>
+</label>
+<div class="response-desc resp-code-tab-post" id="post-resp-code-tab-id-3">
+<div class="md"><p>Returned in the event that the call limit is exceeded. The application will be unavailable for subsequent calls for the duration specified by the X-CallLimit-TimeToWait header.</p></div>
+</div>
+</div>
+<div>
+<label class="response response-error">
+<span class="fa fa-times"></span>
+<input data-full-tab-id="post-resp-code-tab-id-4" data-tab-class="resp-code-tab-post" name="resp-code-tab-post" type="radio"/>
+<span class="status">400 Bad Request</span>
+</label>
+<div class="response-desc resp-code-tab-post" id="post-resp-code-tab-id-4">
+<div class="md"><p>Indicates that the server cannot process the request due to a client error (e.g., malformed request syntax, invalid request).</p></div>
+</div>
+</div>
+<div>
+<label class="response response-error">
+<span class="fa fa-times"></span>
+<input data-full-tab-id="post-resp-code-tab-id-5" data-tab-class="resp-code-tab-post" name="resp-code-tab-post" type="radio"/>
+<span class="status">406 Not Acceptable</span>
+</label>
+<div class="response-desc resp-code-tab-post" id="post-resp-code-tab-id-5">
+<div class="md"><p>Returned in case the `Accept` header contains media type unsupported by end point</p></div>
+</div>
+</div>
+<div>
+<label class="response response-error">
+<span class="fa fa-times"></span>
+<input data-full-tab-id="post-resp-code-tab-id-6" data-tab-class="resp-code-tab-post" name="resp-code-tab-post" type="radio"/>
+<span class="status">413 Request Entity Too Large</span>
+</label>
+<div class="response-desc resp-code-tab-post" id="post-resp-code-tab-id-6">
+<div class="md"><p>Returned in the event that the size of the payload exceeds defined limits. Refer to the Restrictions section for details.</p></div>
+</div>
+</div>
+<div>
+<label class="response response-error">
+<span class="fa fa-times"></span>
+<input data-full-tab-id="post-resp-code-tab-id-7" data-tab-class="resp-code-tab-post" name="resp-code-tab-post" type="radio"/>
+<span class="status">415 Unsupported Media Type</span>
+</label>
+<div class="response-desc resp-code-tab-post" id="post-resp-code-tab-id-7">
+<div class="md"><p>Returned in the event that the end point doesn't support the media-type specified in the `Content-Type` header.</p></div>
+</div>
+</div>
+<div>
+<label class="response response-error">
+<span class="fa fa-times"></span>
+<input data-full-tab-id="post-resp-code-tab-id-8" data-tab-class="resp-code-tab-post" name="resp-code-tab-post" type="radio"/>
+<span class="status">500 Internal Server Error</span>
+</label>
+<div class="response-desc resp-code-tab-post" id="post-resp-code-tab-id-8">
+<div class="md"><p>Returned in the event an internal server error occurred while processing the request.</p></div>
+</div>
+</div>
+</div>
+</article>
+<article class="code">
+<h4>Definition</h4>
+<div class="uri">
+<code>
+<span class="method post">post</span>
+<span class="textUri"><span class="baseUri">{{ getUriPrefix() }}</span><span class="relativeUri">/v2/companies/{cid}/employee/ptorequest</span></span>
+</code>
+</div>
+<h4>Request Samples</h4>
+<div class="tab-title-group">
+<label>
+<input checked="checked" data-full-tab-id="req-tab-id-post-0" data-tab-class="req-tab-post" name="req-tab-post" type="radio"/>
+<span class="tab-title">application/json</span>
+</label>
+<label>
+<input data-full-tab-id="req-tab-id-post-1" data-tab-class="req-tab-post" name="req-tab-post" type="radio"/>
+<span class="tab-title">application/xml</span>
+</label>
+<label>
+<input data-full-tab-id="req-tab-id-post-2" data-tab-class="req-tab-post" name="req-tab-post" type="radio"/>
+<span class="tab-title">text/xml</span>
+</label>
+</div>
+<div>
+<div class="req-tab-post" id="req-tab-id-post-0">
+<div class="example">
+
+<div class="post-example-tab-0 activeTab" id="post-tab-example-0">
+
+<pre class="highlightjs">{
+  "pto_request": {
+    "employee": {
+      "username": "username"
+    },
+    "time_off": {
+      "name": "POV"
+    },
+    "type": "PartialBlk",
+    "comment": "Test PTO Request Create Using Rest",
+    "cost_centers": [],
+    "from_date": "2016-09-09",
+    "total_time": "1.00",
+    "bankCategory": 131072
+  },
+  "confirm_map": {
+    "@@PTORequest.DateAlreadyHasPendingPTO": "0"
+  }
+}</pre>
+</div>
+<div class="post-example-tab-0" id="post-tab-schema-0">
+
+<div class="jsonschema" id="schema-1">{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "type": "object",
+  "properties": {
+    "pto_request": {
+      "type": "object",
+      "properties": {
+        "employee": {
+          "type": "object",
+          "properties": {
+            "username": {
+              "type": "string"
+            },
+            "account_id": {
+              "type": "string"
+            },
+            "external_id": {
+              "type": "string"
+            }
+          }
+        },
+        "time_off": {
+          "type": "object",
+          "properties": {
+            "name": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "name"
+          ]
+        },
+        "type": {
+          "type": "string",
+          "enum": [
+            "FullDay",
+            "Partial",
+            "PartialBlk",
+            "Multiple",
+            "Dynamic"
+          ]
+        },
+        "comment": {
+          "type": "string"
+        },
+        "from_date": {
+          "type": "string"
+        },
+        "to_date": {
+          "type": "string"
+        },
+        "from_time": {
+          "type": "string"
+        },
+        "to_time": {
+          "type": "string"
+        },
+        "total_time": {
+          "type": "string"
+        },
+        "dynamic_duration": {
+          "type": "string",
+          "enum": [
+            "FULL_DAY",
+            "FIRST_HALF_OF_DAY",
+            "SECOND_HALF_OF_DAY",
+            "HALF_DAY",
+            "FILL_DAY"
+          ]
+        },
+        "fill_to_norm": {
+          "type": "boolean"
+        },
+        "fill_to_halfnorm": {
+          "type": "boolean"
+        },
+        "cost_centers": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "index": {
+                "type": "integer"
+              },
+              "value": {
+                "type": "object",
+                "properties": {
+                  "id": {
+                    "type": "integer"
+                  },
+                  "display_name": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "id"
+                ],
+                "additionalProperties": false
+              }
+            },
+            "required": [
+              "index",
+              "value"
+            ],
+            "additionalProperties": false
+          }
+        },
+        "bankCategory": {
+          "type": "number"
+        }
+      },
+      "required": [
+        "employee",
+        "time_off",
+        "type",
+        "from_date"
+      ]
+    },
+    "confirm_map": {
+      "type": "object",
+      "properties": {
+        "confirm_code": {
+          "type": "string"
+        }
+      }
+    }
+  },
+  "required": [
+    "pto_request"
+  ]
+}</div>
+</div>
+</div>
+</div>
+<div class="req-tab-post" id="req-tab-id-post-1">
+<div class="example">
+
+<div class="post-example-tab-1 activeTab" id="post-tab-example-1">
+
+<pre class="highlightjs">&lt;?xml version="1.0" encoding="UTF-8" ?&gt;
+&lt;pto_request_confirm&gt;
+  &lt;pto_request&gt;
+    &lt;employee&gt;
+      &lt;username&gt;username&lt;/username&gt;
+    &lt;/employee&gt;
+    &lt;time_off&gt;
+      &lt;name&gt;POV&lt;/name&gt;
+    &lt;/time_off&gt;
+    &lt;type&gt;PartialBlk&lt;/type&gt;
+    &lt;comment&gt;Test Multiple PTO Request Create Using Rest&lt;/comment&gt;
+    &lt;from_date&gt;2019-02-04&lt;/from_date&gt;
+    &lt;total_time&gt;1:00&lt;/total_time&gt;
+    &lt;bankCategory&gt;131072&lt;/bankCategory&gt;
+  &lt;/pto_request&gt;
+&lt;/pto_request_confirm&gt;
+
+</pre>
+</div>
+<div class="post-example-tab-1" id="post-tab-schema-1">
+
+<div class="jsonschema" id="schema-2">&lt;xs:schema attributeFormDefault="unqualified" elementFormDefault="qualified"
+           xmlns:xs="http://www.w3.org/2001/XMLSchema"&gt;
+  &lt;xs:element name="pto_request_confirm"&gt;
+    &lt;xs:complexType&gt;
+      &lt;xs:sequence&gt;
+        &lt;xs:element name="pto_request"&gt;
+          &lt;xs:complexType&gt;
+            &lt;xs:sequence&gt;
+              &lt;xs:element name="employee"&gt;
+                &lt;xs:complexType&gt;
+                  &lt;xs:all&gt;
+                    &lt;xs:element type="xs:string" name="username" minOccurs="0"/&gt;
+                    &lt;xs:element type="xs:string" name="account_id" minOccurs="0"/&gt;
+                    &lt;xs:element type="xs:string" name="external_id" minOccurs="0"/&gt;
+                  &lt;/xs:all&gt;
+                &lt;/xs:complexType&gt;
+              &lt;/xs:element&gt;
+              &lt;xs:element name="time_off"&gt;
+                &lt;xs:complexType&gt;
+                  &lt;xs:sequence&gt;
+                    &lt;xs:element type="xs:string" name="name"/&gt;
+                  &lt;/xs:sequence&gt;
+                &lt;/xs:complexType&gt;
+              &lt;/xs:element&gt;
+              &lt;xs:element type="xs:string" name="type"/&gt;
+              &lt;xs:element type="xs:string" name="comment" minOccurs="0"/&gt;
+              &lt;xs:element type="xs:date" name="from_date"/&gt;
+              &lt;xs:element type="xs:date" name="to_date" minOccurs="0"/&gt;
+              &lt;xs:element type="xs:string" name="from_time" minOccurs="0"/&gt;
+              &lt;xs:element type="xs:string" name="to_time" minOccurs="0"/&gt;
+              &lt;xs:element type="xs:string" name="total_time" minOccurs="0"/&gt;
+              &lt;xs:element type="xs:string" name="dynamic_duration" minOccurs="0"/&gt;
+              &lt;xs:element type="xs:boolean" name="fill_to_norm" minOccurs="0"/&gt;
+              &lt;xs:element type="xs:boolean" name="fill_to_halfnorm" minOccurs="0"/&gt;
+              &lt;xs:element type="xs:long" name="bankCategory" minOccurs="0"/&gt;
+            &lt;/xs:sequence&gt;
+          &lt;/xs:complexType&gt;
+        &lt;/xs:element&gt;
+      &lt;/xs:sequence&gt;
+    &lt;/xs:complexType&gt;
+  &lt;/xs:element&gt;
+&lt;/xs:schema&gt;</div>
+</div>
+</div>
+</div>
+<div class="req-tab-post" id="req-tab-id-post-2">
+<div class="example">
+
+<div class="post-example-tab-2 activeTab" id="post-tab-example-2">
+
+<pre class="highlightjs">&lt;?xml version="1.0" encoding="UTF-8" ?&gt;
+&lt;pto_request_confirm&gt;
+  &lt;pto_request&gt;
+    &lt;employee&gt;
+      &lt;username&gt;username&lt;/username&gt;
+    &lt;/employee&gt;
+    &lt;time_off&gt;
+      &lt;name&gt;POV&lt;/name&gt;
+    &lt;/time_off&gt;
+    &lt;type&gt;PartialBlk&lt;/type&gt;
+    &lt;comment&gt;Test Multiple PTO Request Create Using Rest&lt;/comment&gt;
+    &lt;from_date&gt;2019-02-04&lt;/from_date&gt;
+    &lt;total_time&gt;1:00&lt;/total_time&gt;
+    &lt;bankCategory&gt;131072&lt;/bankCategory&gt;
+  &lt;/pto_request&gt;
+&lt;/pto_request_confirm&gt;
+
+</pre>
+</div>
+<div class="post-example-tab-2" id="post-tab-schema-2">
+
+<div class="jsonschema" id="schema-3">&lt;xs:schema attributeFormDefault="unqualified" elementFormDefault="qualified"
+           xmlns:xs="http://www.w3.org/2001/XMLSchema"&gt;
+  &lt;xs:element name="pto_request_confirm"&gt;
+    &lt;xs:complexType&gt;
+      &lt;xs:sequence&gt;
+        &lt;xs:element name="pto_request"&gt;
+          &lt;xs:complexType&gt;
+            &lt;xs:sequence&gt;
+              &lt;xs:element name="employee"&gt;
+                &lt;xs:complexType&gt;
+                  &lt;xs:all&gt;
+                    &lt;xs:element type="xs:string" name="username" minOccurs="0"/&gt;
+                    &lt;xs:element type="xs:string" name="account_id" minOccurs="0"/&gt;
+                    &lt;xs:element type="xs:string" name="external_id" minOccurs="0"/&gt;
+                  &lt;/xs:all&gt;
+                &lt;/xs:complexType&gt;
+              &lt;/xs:element&gt;
+              &lt;xs:element name="time_off"&gt;
+                &lt;xs:complexType&gt;
+                  &lt;xs:sequence&gt;
+                    &lt;xs:element type="xs:string" name="name"/&gt;
+                  &lt;/xs:sequence&gt;
+                &lt;/xs:complexType&gt;
+              &lt;/xs:element&gt;
+              &lt;xs:element type="xs:string" name="type"/&gt;
+              &lt;xs:element type="xs:string" name="comment" minOccurs="0"/&gt;
+              &lt;xs:element type="xs:date" name="from_date"/&gt;
+              &lt;xs:element type="xs:date" name="to_date" minOccurs="0"/&gt;
+              &lt;xs:element type="xs:string" name="from_time" minOccurs="0"/&gt;
+              &lt;xs:element type="xs:string" name="to_time" minOccurs="0"/&gt;
+              &lt;xs:element type="xs:string" name="total_time" minOccurs="0"/&gt;
+              &lt;xs:element type="xs:string" name="dynamic_duration" minOccurs="0"/&gt;
+              &lt;xs:element type="xs:boolean" name="fill_to_norm" minOccurs="0"/&gt;
+              &lt;xs:element type="xs:boolean" name="fill_to_halfnorm" minOccurs="0"/&gt;
+              &lt;xs:element type="xs:long" name="bankCategory" minOccurs="0"/&gt;
+            &lt;/xs:sequence&gt;
+          &lt;/xs:complexType&gt;
+        &lt;/xs:element&gt;
+      &lt;/xs:sequence&gt;
+    &lt;/xs:complexType&gt;
+  &lt;/xs:element&gt;
+&lt;/xs:schema&gt;</div>
+</div>
+</div>
+</div>
+</div>
+<h4>Response Samples</h4>
+<div class="tab-title-group">
+<label>
+<input checked="checked" data-full-tab-id="resp-tab-id-post-0" data-tab-class="resp-tab-post" name="resp-tab-post" type="radio"/>
+<span class="tab-title">application/json</span>
+</label>
+<label>
+<input data-full-tab-id="resp-tab-id-post-1" data-tab-class="resp-tab-post" name="resp-tab-post" type="radio"/>
+<span class="tab-title">application/xml</span>
+</label>
+<label>
+<input data-full-tab-id="resp-tab-id-post-2" data-tab-class="resp-tab-post" name="resp-tab-post" type="radio"/>
+<span class="tab-title">text/xml</span>
+</label>
+</div>
+<div>
+<div class="resp-tab-post" id="resp-tab-id-post-0">
+<div class="example">
+
+<div class="post-example-resp-tab-0 activeTab" id="post-tab-resp-example-0">
+
+<pre class="highlightjs">{
+  "success": false,
+  "requestedTime": 1556226000000,
+  "results": [
+    {
+      "type": "WARNING",
+      "msgId": "@@PTORequest.DateAlreadyHasPendingPTO",
+      "params": {
+        "requestedTime": "0:00",
+        "TOName": "Personal",
+        "date": "08/08/2016"
+      },
+      "success": false,
+      "msg": "08/08/2016 already has pending Time Off requested (Personal) for 0:00 hours."
+    }
+  ]
+}</pre>
+</div>
+<div class="post-example-resp-tab-0" id="post-tab-resp-schema-0">
+
+<div class="jsonschema" id="schema-4">{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "type": "object",
+  "properties": {
+    "success": {
+      "type": "boolean"
+    },
+    "amount": {
+      "requestedTime": "integer"
+    },
+    "results": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "type": {
+            "type": "string"
+          },
+          "msgId": {
+            "type": "string"
+          },
+          "params": {
+            "type": "object",
+            "properties": {
+              "requestedTime": {
+                "type": "string"
+              },
+              "TOName": {
+                "type": "string"
+              },
+              "date": {
+                "type": "string"
+              }
+            }
+          },
+          "success": {
+            "type": "boolean"
+          },
+          "msg": {
+            "type": "string"
+          }
+        }
+      }
+    }
+  }
+}</div>
+</div>
+</div>
+</div>
+<div class="resp-tab-post" id="resp-tab-id-post-1">
+<div class="example">
+
+<div class="post-example-resp-tab-1 activeTab" id="post-tab-resp-example-1">
+
+<pre class="highlightjs">&lt;?xml version="1.0" encoding="UTF-8" ?&gt;
+&lt;result&gt;
+  &lt;item&gt;
+    &lt;index&gt;0&lt;/index&gt;
+    &lt;id&gt;153467&lt;/id&gt;
+    &lt;status&gt;OK&lt;/status&gt;
+  &lt;/item&gt;
+  &lt;item&gt;
+    &lt;index&gt;0&lt;/index&gt;
+    &lt;status&gt;FAILURE&lt;/status&gt;
+    &lt;errors&gt;
+      &lt;error&gt;
+        &lt;code&gt;153652&lt;/code&gt;
+        &lt;message&gt;Cannot process entity because of ...&lt;/message&gt;
+      &lt;/error&gt;
+    &lt;/errors&gt;
+  &lt;/item&gt;
+&lt;/result&gt;</pre>
+</div>
+<div class="post-example-resp-tab-1" id="post-tab-resp-schema-1">
+
+<div class="jsonschema" id="schema-5">&lt;xs:schema attributeFormDefault="unqualified" elementFormDefault="qualified"
+           xmlns:xs="http://www.w3.org/2001/XMLSchema"&gt;
+
+    &lt;xs:element name="result"&gt;
+        &lt;xs:complexType&gt;
+            &lt;xs:sequence maxOccurs="unbounded"&gt;
+                &lt;xs:element type="item" name="item"/&gt;
+            &lt;/xs:sequence&gt;
+        &lt;/xs:complexType&gt;
+    &lt;/xs:element&gt;
+
+    &lt;xs:complexType name="item"&gt;
+        &lt;xs:all&gt;
+            &lt;xs:element type="xs:nonNegativeInteger" name="index" minOccurs="1"/&gt;
+            &lt;xs:element type="xs:string" name="id" minOccurs="0"/&gt;
+            &lt;xs:element type="errors" name="errors" minOccurs="0"/&gt;
+            &lt;xs:element type="status" name="status" minOccurs="1" maxOccurs="1"/&gt;
+        &lt;/xs:all&gt;
+    &lt;/xs:complexType&gt;
+
+    &lt;xs:complexType name="errorType"&gt;
+        &lt;xs:all&gt;
+            &lt;xs:element type="xs:integer" name="code"/&gt;
+            &lt;xs:element type="xs:string" name="message"/&gt;
+            &lt;xs:element type="xs:string" name="key" minOccurs="0"/&gt;
+        &lt;/xs:all&gt;
+    &lt;/xs:complexType&gt;
+
+    &lt;xs:complexType name="errors"&gt;
+        &lt;xs:sequence minOccurs="0" maxOccurs="unbounded"&gt;
+            &lt;xs:element type="errorType" name="error"/&gt;
+        &lt;/xs:sequence&gt;
+    &lt;/xs:complexType&gt;
+
+    &lt;xs:simpleType name="status"&gt;
+        &lt;xs:restriction base="xs:string"&gt;
+            &lt;xs:enumeration value="OK"/&gt;
+            &lt;xs:enumeration value="FAILURE"/&gt;
+        &lt;/xs:restriction&gt;
+    &lt;/xs:simpleType&gt;
+&lt;/xs:schema&gt;</div>
+</div>
+</div>
+</div>
+<div class="resp-tab-post" id="resp-tab-id-post-2">
+<div class="example">
+
+<div class="post-example-resp-tab-2 activeTab" id="post-tab-resp-example-2">
+
+<pre class="highlightjs">&lt;?xml version="1.0" encoding="UTF-8" ?&gt;
+&lt;result&gt;
+  &lt;item&gt;
+    &lt;index&gt;0&lt;/index&gt;
+    &lt;id&gt;153467&lt;/id&gt;
+    &lt;status&gt;OK&lt;/status&gt;
+  &lt;/item&gt;
+  &lt;item&gt;
+    &lt;index&gt;0&lt;/index&gt;
+    &lt;status&gt;FAILURE&lt;/status&gt;
+    &lt;errors&gt;
+      &lt;error&gt;
+        &lt;code&gt;153652&lt;/code&gt;
+        &lt;message&gt;Cannot process entity because of ...&lt;/message&gt;
+      &lt;/error&gt;
+    &lt;/errors&gt;
+  &lt;/item&gt;
+&lt;/result&gt;</pre>
+</div>
+<div class="post-example-resp-tab-2" id="post-tab-resp-schema-2">
+
+<div class="jsonschema" id="schema-6">&lt;xs:schema attributeFormDefault="unqualified" elementFormDefault="qualified"
+           xmlns:xs="http://www.w3.org/2001/XMLSchema"&gt;
+
+    &lt;xs:element name="result"&gt;
+        &lt;xs:complexType&gt;
+            &lt;xs:sequence maxOccurs="unbounded"&gt;
+                &lt;xs:element type="item" name="item"/&gt;
+            &lt;/xs:sequence&gt;
+        &lt;/xs:complexType&gt;
+    &lt;/xs:element&gt;
+
+    &lt;xs:complexType name="item"&gt;
+        &lt;xs:all&gt;
+            &lt;xs:element type="xs:nonNegativeInteger" name="index" minOccurs="1"/&gt;
+            &lt;xs:element type="xs:string" name="id" minOccurs="0"/&gt;
+            &lt;xs:element type="errors" name="errors" minOccurs="0"/&gt;
+            &lt;xs:element type="status" name="status" minOccurs="1" maxOccurs="1"/&gt;
+        &lt;/xs:all&gt;
+    &lt;/xs:complexType&gt;
+
+    &lt;xs:complexType name="errorType"&gt;
+        &lt;xs:all&gt;
+            &lt;xs:element type="xs:integer" name="code"/&gt;
+            &lt;xs:element type="xs:string" name="message"/&gt;
+            &lt;xs:element type="xs:string" name="key" minOccurs="0"/&gt;
+        &lt;/xs:all&gt;
+    &lt;/xs:complexType&gt;
+
+    &lt;xs:complexType name="errors"&gt;
+        &lt;xs:sequence minOccurs="0" maxOccurs="unbounded"&gt;
+            &lt;xs:element type="errorType" name="error"/&gt;
+        &lt;/xs:sequence&gt;
+    &lt;/xs:complexType&gt;
+
+    &lt;xs:simpleType name="status"&gt;
+        &lt;xs:restriction base="xs:string"&gt;
+            &lt;xs:enumeration value="OK"/&gt;
+            &lt;xs:enumeration value="FAILURE"/&gt;
+        &lt;/xs:restriction&gt;
+    &lt;/xs:simpleType&gt;
+&lt;/xs:schema&gt;</div>
+</div>
+</div>
+</div>
+</div>
+</article>
+</section>
+<section class="clearfix">
+<article class="definition">
+<h3 class="anchored" id="delete"><span>DELETE</span>
+<a class="fa fa-link link-anchor" data-url="r=__v2__companies__(cid)__employee__ptorequest#delete" data-web-id="__v2__companies__(cid)__employee__ptorequest"></a>
+</h3>
+<div class="md"><p>Endpoint for deleting time off requests.
+`TA|TALITE|HR|SCHEDULE` functionality must be enabled in company setup.
+</p></div>
+<div>
+<ul class="annotation-list">
+<li class="annotation">
+<span>v2</span>
+</li>
+</ul>
+</div>
+<h4>Parameters</h4>
+<h5>Path Parameters</h5>
+<ul class="param-list">
+<li>
+<div class="param-desc">
+<div class="param-name">cid</div>
+<div class="data-type">string</div>
+<div class="required">required</div>
+</div>
+<div class="param-content">
+<div>
+<p>Example: 123456</p>
+<div class="desc md">Company should be referenced via company id or company unique id or company short name using `|short_name` or `!short_name` format.
+</div>
+</div>
+</div>
+
+</li>
+</ul>
+<h5>Query Parameters</h5>
+<ul class="param-list">
+<li>
+<div class="param-desc">
+<div class="param-name">ids</div>
+<div class="data-type">string</div>
+<div class="required">required</div>
+</div>
+<div class="param-content">
+<div>
+<p>Example: ids=123456,1234567</p>
+<div class="desc md">Request Id is needed to delete request for an employee or for multiple employees
+</div>
+</div>
+</div>
+
+</li>
+<li>
+<div class="param-desc">
+<div class="param-name">comment</div>
+<div class="data-type">string</div>
+</div>
+<div class="param-content">
+<div>
+<p>Example: comment=Some text</p>
+<div class="desc md">Text for comment
+</div>
+</div>
+</div>
+
+</li>
+</ul>
+<h4>Responses</h4>
+<div class="responses">
+<div>
+<label class="response response-success">
+<span class="fa fa-check"></span>
+<input data-full-tab-id="delete-resp-code-tab-id-0" data-tab-class="resp-code-tab-delete" name="resp-code-tab-delete" type="radio"/>
+<span class="status">200 Ok</span>
+</label>
+<div class="response-desc resp-code-tab-delete" id="delete-resp-code-tab-id-0">
+</div>
+</div>
+<div>
+<label class="response response-error">
+<span class="fa fa-times"></span>
+<input data-full-tab-id="delete-resp-code-tab-id-1" data-tab-class="resp-code-tab-delete" name="resp-code-tab-delete" type="radio"/>
+<span class="status">404 Not Found</span>
+</label>
+<div class="response-desc resp-code-tab-delete" id="delete-resp-code-tab-id-1">
+<div class="md"><p>Returned in case when some PTO Requests were not found</p></div>
+</div>
+</div>
+</div>
+</article>
+<article class="code">
+<h4>Definition</h4>
+<div class="uri">
+<code>
+<span class="method delete">delete</span>
+<span class="textUri"><span class="baseUri">{{ getUriPrefix() }}</span><span class="relativeUri">/v2/companies/{cid}/employee/ptorequest</span></span>
+</code>
+</div>
+<h4>Response Samples</h4>
+<div class="tab-title-group">
+<label>
+<input checked="checked" data-full-tab-id="resp-tab-id-delete-0" data-tab-class="resp-tab-delete" name="resp-tab-delete" type="radio"/>
+<span class="tab-title">application/json</span>
+</label>
+</div>
+<div>
+<div class="resp-tab-delete" id="resp-tab-id-delete-0">
+<div class="example">
+
+<div class="delete-example-resp-tab-0 activeTab" id="delete-tab-resp-example-0">
+
+<pre class="highlightjs">{
+  "success": true,
+  "results": [
+    {
+      "type": "SUCCESS",
+      "msgId": "@@DISPLAY_NAME_WasDeletedSuccessfully",
+      "params": {
+        "DISPLAY_NAME": "Monica Gellar: Personal (08/08/2016)"
+      },
+      "success": true,
+      "msg": "Monica Gellar: Personal (08/08/2016) was deleted successfully."
+    }
+  ]
+}</pre>
+</div>
+<div class="delete-example-resp-tab-0" id="delete-tab-resp-schema-0">
+
+<div class="jsonschema" id="schema-7">{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "type": "object",
+  "properties": {
+    "success": {
+      "type": "boolean"
+    },
+    "results": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "type": {
+            "type": "string"
+          },
+          "msgId": {
+            "type": "string"
+          },
+          "params": {
+            "type": "object",
+            "properties": {
+              "DISPLAY_NAME": {
+                "type": "string"
+              }
+            }
+          },
+          "success": {
+            "type": "boolean"
+          },
+          "msg": {
+            "type": "string"
+          }
+        }
+      }
+    }
+  }
+}</div>
+</div>
+</div>
+</div>
+</div>
+</article>
+</section>
+</div>
+</body></html>

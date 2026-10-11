@@ -1,0 +1,1531 @@
+<!doctype html>
+<html><head><meta charset="utf-8"><title>Multi Pay Statements</title><style>body{font:16px system-ui;max-width:1100px;margin:2rem auto;padding:0 1rem;line-height:1.5}aside{background:#fff3cc;padding:1rem}.jsonschema,pre{white-space:pre-wrap;font:13px monospace;overflow-wrap:anywhere;background:#f4f5f7;padding:1rem}.uri{font-family:monospace}h2,h3{margin-top:2rem}</style></head><body><aside><strong>Modified private reference — 2026-10-09.</strong> Provider-documented illustrative examples are included; authentication token examples are redacted. These are not customer exports or guaranteed production behavior. Candidate sharing is pending. This is not OpenAPI.</aside>
+<div class="group">
+<h2 class="anchored" id="item.anchor">
+<span>Multi Pay Statements</span>
+<a class="fa fa-link link-anchor" data-url="r=__v2__companies__(cid)__payrolls__multi-pay-statements#" data-web-id="__v2__companies__(cid)__payrolls__multi-pay-statements"></a>
+</h2>
+<section class="clearfix">
+<article class="definition">
+<h3 class="anchored" id="post"><span>POST</span>
+<a class="fa fa-link link-anchor" data-url="r=__v2__companies__(cid)__payrolls__multi-pay-statements#post" data-web-id="__v2__companies__(cid)__payrolls__multi-pay-statements"></a>
+</h3>
+<div class="md"><p>Endpoint to create new pay statement for multiple employees in a bulk with provided `payroll(start_date/end_date)` and `ein(id/display_name)` for the given employees, allows to enter complex data entry. Attributes `type` and `batch` are optional parameters. If consumer does not pass `type` and `batch`, the API will read regular paystatment type as default and master batch as default.
+Currently several pre-defined pay statement types such as `3rd Party Sick`, `Bonus`, `Void`, `Regular`, `Historical` are used for particular payroll.
+Pay Statement Types provides you with the ability to define the criteria to be used each time a particular Pay Statement Type is utilized during payroll processing.
+For example, Regular is used for processing a regular payroll, 3rd Party Sick is used for processing the updates of sick pay paid by a third party, and Historical is used for processing historical updates to employee records.
+</p></div>
+<div>
+<ul class="annotation-list">
+<li class="annotation">
+<span>dev</span>
+</li>
+</ul>
+</div>
+<h4>Parameters</h4>
+<h5>Path Parameters</h5>
+<ul class="param-list">
+<li>
+<div class="param-desc">
+<div class="param-name">cid</div>
+<div class="data-type">string</div>
+<div class="required">required</div>
+</div>
+<div class="param-content">
+<div>
+<p>Example: 123456</p>
+<div class="desc md">Company should be referenced via company id or company unique id or company short name using `|short_name` or `!short_name` format.
+</div>
+</div>
+</div>
+
+</li>
+</ul>
+<h4>Responses</h4>
+<div class="responses">
+<div>
+<label class="response response-success">
+<span class="fa fa-check"></span>
+<input data-full-tab-id="post-resp-code-tab-id-0" data-tab-class="resp-code-tab-post" name="resp-code-tab-post" type="radio"/>
+<span class="status">200 Ok</span>
+</label>
+<div class="response-desc resp-code-tab-post" id="post-resp-code-tab-id-0">
+</div>
+</div>
+<div>
+<label class="response response-error">
+<span class="fa fa-times"></span>
+<input data-full-tab-id="post-resp-code-tab-id-1" data-tab-class="resp-code-tab-post" name="resp-code-tab-post" type="radio"/>
+<span class="status">403 Forbidden</span>
+</label>
+<div class="response-desc resp-code-tab-post" id="post-resp-code-tab-id-1">
+<div class="md"><p>In case of any security issues
+</p></div>
+</div>
+</div>
+<div>
+<label class="response response-error">
+<span class="fa fa-times"></span>
+<input data-full-tab-id="post-resp-code-tab-id-2" data-tab-class="resp-code-tab-post" name="resp-code-tab-post" type="radio"/>
+<span class="status">500 Internal Server Error</span>
+</label>
+<div class="response-desc resp-code-tab-post" id="post-resp-code-tab-id-2">
+<div class="md"><p>Internal server error
+</p></div>
+</div>
+</div>
+</div>
+</article>
+<article class="code">
+<h4>Definition</h4>
+<div class="uri">
+<code>
+<span class="method post">post</span>
+<span class="textUri"><span class="baseUri">{{ getUriPrefix() }}</span><span class="relativeUri">/v2/companies/{cid}/payrolls/multi-pay-statements</span></span>
+</code>
+</div>
+<h4>Request Samples</h4>
+<div class="tab-title-group">
+<label>
+<input checked="checked" data-full-tab-id="req-tab-id-post-0" data-tab-class="req-tab-post" name="req-tab-post" type="radio"/>
+<span class="tab-title">application/json</span>
+</label>
+<label>
+<input data-full-tab-id="req-tab-id-post-1" data-tab-class="req-tab-post" name="req-tab-post" type="radio"/>
+<span class="tab-title">application/xml</span>
+</label>
+<label>
+<input data-full-tab-id="req-tab-id-post-2" data-tab-class="req-tab-post" name="req-tab-post" type="radio"/>
+<span class="tab-title">text/xml</span>
+</label>
+</div>
+<div>
+<div class="req-tab-post" id="req-tab-id-post-0">
+<div class="example">
+
+<div class="post-example-tab-0 activeTab" id="post-tab-example-0">
+
+<pre class="highlightjs">{
+    "pay_statements": [
+        {
+            "employee": {
+                "account_id": 3588
+            },
+            "ein": {
+                "ein_name": "EIN1"
+            },
+            "payroll": {
+                "start_date": "2019-01-01",
+                "end_date": "2019-01-31"
+            },
+            "type": {
+                "id": 18432,
+                "display_name": "Regular"
+            },
+            "process_delta_only": false,
+            "earnings": [
+                {
+                    "earning": {
+                        "name": "Regular",
+                        "code": "Regular"
+                    },
+                    "date_range_from": "2019-01-01",
+                    "date_range_to": "2019-01-31",
+                    "ee_amount": 250,
+                    "cost_centers": [
+                        {
+                            "index": 0,
+                            "value": {
+                                "id": 123456,
+                                "name": "Operations"
+                            }
+                        }
+                    ],
+                    "shift": {
+                        "id": 33024,
+                        "name": "My Shift premium"
+                    },
+                    "batch": {
+                        "id": 34407234,
+                        "display_name": "Regular"
+                    }
+                }
+            ],
+            "deductions": [
+                {
+                    "deduction": {
+                        "name": "401k",
+                        "code": "401k"
+                    },
+                    "er_amount": 25
+                }
+            ]
+        },
+        {
+            "employee": {
+                "account_id": 3589
+            },
+            "ein": {
+                "ein_name": "EIN2"
+            },
+            "payroll": {
+                "start_date": "2019-01-01",
+                "end_date": "2019-01-31"
+            },
+            "type": {
+                "display_name": "Regular"
+            },
+            "batch": {
+                "display_name": "Regular"
+            },
+            "process_delta_only": false,
+            "earnings": [
+                {
+                    "earning": {
+                        "name": "Regular",
+                        "code": "Regular"
+                    },
+                    "date_range_from": "2019-01-01",
+                    "date_range_to": "2019-01-31",
+                    "ee_amount": 250,
+                    "cost_centers": [
+                        {
+                            "index": 0,
+                            "value": {
+                                "id": 123456,
+                                "name": "Operations"
+                            }
+                        }
+                    ],
+                    "shift": {
+                        "id": 33024,
+                        "name": "My Shift premium"
+                    }
+                }
+            ],
+            "deductions": [
+                {
+                    "deduction": {
+                        "name": "401k",
+                        "code": "401k"
+                    },
+                    "er_amount": 25
+                }
+            ]
+        }
+    ]
+}</pre>
+</div>
+<div class="post-example-tab-0" id="post-tab-schema-0">
+
+<div class="jsonschema" id="schema-0">{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "type": "object",
+  "properties": {
+    "pay_statements": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "employee": {
+            "type": "object",
+            "properties": {
+              "account_id": {
+                "type": "number",
+                "format": "long"
+              }
+            },
+            "required": [
+              "account_id"
+            ]
+          },
+          "ein": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "integer"
+              },
+              "ein_name": {
+                "type": "string"
+              }
+            }
+          },
+          "payroll": {
+            "type": "object",
+            "properties": {
+              "start_date": {
+                "type": "string",
+                "description": "Pay period start date. Date needs to be in the format yyyy-mm-dd within the 1900-12-31 and 2079-06-05 date range"
+              },
+              "end_date": {
+                "type": "string",
+                "description": "Pay period start date. Date needs to be in the format yyyy-mm-dd within the 1900-12-31 and 2079-06-05 date range"
+              }
+            },
+            "required": [
+              "start_date",
+              "end_date"
+            ]
+          },
+          "type": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "integer"
+              },
+              "display_name": {
+                "type": "string"
+              }
+            }
+          },
+          "calculate_taxes": {
+            "type": "boolean",
+            "default": false,
+            "description": "The value of 'false' requires explicit saving or recalculation of pay statement. This parameter would not have any effect on Correction or Reconciliation pay statements where the taxes should always be calculated for valid delta."
+          },
+          "process_delta_only": {
+            "type": "boolean",
+            "default": false,
+            "description": "When true, current request is checked against previous request and pay statement is updated only if there is a delta. Must pass true from the first request otherwise the behavior is unpredictable. Must pass batchId otherwise the request would fail. This parameter should not be used with Correction or Reconciliation pay statements."
+          },
+          "earnings": {
+            "type": "array",
+            "items": {
+              "properties": {
+                "date_range_from": {
+                  "type": "string",
+                  "description": "Date needs to be in the format yyyy-mm-dd within the 1900-12-31 and 2079-06-05 date range"
+                },
+                "date_range_to": {
+                  "type": "string",
+                  "description": "Date needs to be in the format yyyy-mm-dd within the 1900-12-31 and 2079-06-05 date range"
+                },
+                "hours": {
+                  "type": "integer"
+                },
+                "base_rate": {
+                  "type": "number"
+                },
+                "quantity": {
+                  "type": "number"
+                },
+                "ee_amount": {
+                  "type": "number",
+                  "description": " Amount should be rounded to a Penny"
+                },
+                "workers_comp_code": {
+                  "type": "object",
+                  "properties": {
+                    "external_id": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "external_id"
+                  ]
+                },
+                "shift": {
+                  "type": "object",
+                  "properties": {
+                    "id": {
+                      "type": "integer"
+                    },
+                    "name": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "id"
+                  ]
+                },
+                "cost_centers": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "index": {
+                        "type": "integer",
+                        "minValue": 0,
+                        "maxValue": 9
+                      },
+                      "value": {
+                        "type": [
+                          "object",
+                          "null"
+                        ],
+                        "properties": {
+                          "name": {
+                            "type": "string"
+                          }
+                        },
+                        "required": [
+                          "name"
+                        ]
+                      }
+                    },
+                    "required": [
+                      "index",
+                      "value"
+                    ]
+                  }
+                },
+                "earning": {
+                  "type": "object",
+                  "properties": {
+                    "name": {
+                      "type": "string"
+                    },
+                    "external_id": {
+                      "type": "string"
+                    },
+                    "code": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "code",
+                    "name"
+                  ]
+                },
+                "batch": {
+                  "type": "object",
+                  "properties": {
+                    "id": {
+                      "type": "integer"
+                    },
+                    "display_name": {
+                      "type": "string"
+                    }
+                  }
+                }
+              },
+              "required": [
+                "earning"
+              ]
+            }
+          },
+          "deductions": {
+            "type": "array",
+            "items": {
+              "properties": {
+                "date_range_from": {
+                  "type": "string",
+                  "description": "Date needs to be in the format yyyy-mm-dd within the 1900-12-31 and 2079-06-05 date range"
+                },
+                "date_range_to": {
+                  "type": "string",
+                  "description": "Date needs to be in the format yyyy-mm-dd within the 1900-12-31 and 2079-06-05 date range"
+                },
+                "quantity": {
+                  "type": "number"
+                },
+                "base_rate": {
+                  "type": "number"
+                },
+                "ee_amount": {
+                  "type": "number",
+                  "description": " Amount should be rounded to a Penny"
+                },
+                "er_amount": {
+                  "type": "number",
+                  "description": " Amount should be rounded to a Penny"
+                },
+                "vendor": {
+                  "type": "object",
+                  "properties": {
+                    "id": {
+                      "type": "integer"
+                    },
+                    "name": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "id"
+                  ]
+                },
+                "cost_centers": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "index": {
+                        "type": "integer",
+                        "minValue": 0,
+                        "maxValue": 9
+                      },
+                      "value": {
+                        "type": [
+                          "object",
+                          "null"
+                        ],
+                        "properties": {
+                          "name": {
+                            "type": "string"
+                          }
+                        },
+                        "required": [
+                          "name"
+                        ]
+                      }
+                    },
+                    "required": [
+                      "index",
+                      "value"
+                    ]
+                  }
+                },
+                "workers_comp_code": {
+                  "type": "object",
+                  "properties": {
+                    "external_id": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "external_id"
+                  ]
+                },
+                "deduction": {
+                  "type": "object",
+                  "properties": {
+                    "name": {
+                      "type": "string"
+                    },
+                    "external_id": {
+                      "type": "string"
+                    },
+                    "code": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "code",
+                    "name"
+                  ]
+                },
+                "batch": {
+                  "type": "object",
+                  "properties": {
+                    "id": {
+                      "type": "integer"
+                    },
+                    "display_name": {
+                      "type": "string"
+                    }
+                  }
+                }
+              },
+              "required": [
+                "deduction"
+              ]
+            }
+          },
+          "taxes": {
+            "type": "array",
+            "items": {
+              "properties": {
+                "ee_amount": {
+                  "type": "number",
+                  "description": " Amount should be rounded to a Penny"
+                },
+                "er_amount": {
+                  "type": "number",
+                  "description": " Amount should be rounded to a Penny"
+                },
+                "ee_gross_wage": {
+                  "type": "number"
+                },
+                "ee_subject_wage": {
+                  "type": "number"
+                },
+                "ee_gross_subject_wage": {
+                  "type": "number"
+                },
+                "er_gross_wage": {
+                  "type": "number"
+                },
+                "er_subject_wage": {
+                  "type": "number"
+                },
+                "er_gross_subject_wage": {
+                  "type": "number"
+                },
+                "company_tax": {
+                  "properties": {
+                    "abbrev": {
+                      "type": "string"
+                    },
+                    "code": {
+                      "type": "string"
+                    },
+                    "id": {
+                      "type": "integer"
+                    },
+                    "name": {
+                      "type": "string"
+                    }
+                  },
+                  "type": "object",
+                  "required": [
+                    "id"
+                  ]
+                }
+              },
+              "required": [
+                "company_tax"
+              ]
+            }
+          }
+        },
+        "required": [
+          "employee",
+          "ein",
+          "payroll"
+        ]
+      }
+    }
+  },
+  "required": [
+    "pay_statements"
+  ]
+}</div>
+</div>
+</div>
+</div>
+<div class="req-tab-post" id="req-tab-id-post-1">
+<div class="example">
+
+<div class="post-example-tab-1 activeTab" id="post-tab-example-1">
+
+<pre class="highlightjs">&lt;pay_statements&gt;
+    &lt;pay_statement&gt;
+        &lt;employee&gt;
+            &lt;account_id&gt;3588&lt;/account_id&gt;
+        &lt;/employee&gt;
+        &lt;ein&gt;
+            &lt;id&gt;12134312&lt;/id&gt;
+            &lt;ein_name&gt;EIN1&lt;/ein_name&gt;
+        &lt;/ein&gt;
+        &lt;payroll&gt;
+            &lt;start_date&gt;2019-01-01&lt;/start_date&gt;
+            &lt;end_date&gt;2019-01-31&lt;/end_date&gt;
+        &lt;/payroll&gt;
+        &lt;type&gt;
+            &lt;id&gt;12134322&lt;/id&gt;
+            &lt;display_name&gt;Regular&lt;/display_name&gt;
+        &lt;/type&gt;
+        &lt;calculate_taxes&gt;false&lt;/calculate_taxes&gt;
+        &lt;process_delta_only&gt;false&lt;/process_delta_only&gt;
+        &lt;earnings&gt;
+            &lt;earning&gt;
+                &lt;date_range_from&gt;2019-01-01&lt;/date_range_from&gt;
+                &lt;date_range_to&gt;2019-01-31&lt;/date_range_to&gt;
+                &lt;ee_amount&gt;40&lt;/ee_amount&gt;
+                &lt;shift&gt;
+                    &lt;id&gt;33024&lt;/id&gt;
+                    &lt;name&gt;My Shift premium&lt;/name&gt;
+                &lt;/shift&gt;
+                &lt;cost_centers&gt;
+                    &lt;cost_center&gt;
+                        &lt;index&gt;0&lt;/index&gt;
+                        &lt;value&gt;
+                            &lt;id&gt;123456&lt;/id&gt;
+                            &lt;name&gt;Operations&lt;/name&gt;
+                        &lt;/value&gt;
+                    &lt;/cost_center&gt;
+                &lt;/cost_centers&gt;
+                &lt;earning&gt;
+                    &lt;name&gt;Regular&lt;/name&gt;
+                    &lt;code&gt;Regular&lt;/code&gt;
+                &lt;/earning&gt;
+                &lt;batch&gt;
+                    &lt;id&gt;12134345&lt;/id&gt;
+                    &lt;display_name&gt;Regular&lt;/display_name&gt;
+                &lt;/batch&gt;
+            &lt;/earning&gt;
+        &lt;/earnings&gt;
+        &lt;deductions&gt;
+            &lt;deduction&gt;
+                &lt;er_amount&gt;25&lt;/er_amount&gt;
+                &lt;deduction&gt;
+                    &lt;name&gt;401k&lt;/name&gt;
+                    &lt;code&gt;401k&lt;/code&gt;
+                &lt;/deduction&gt;
+            &lt;/deduction&gt;
+        &lt;/deductions&gt;
+    &lt;/pay_statement&gt;
+    &lt;pay_statement&gt;
+        &lt;employee&gt;
+            &lt;account_id&gt;3589&lt;/account_id&gt;
+        &lt;/employee&gt;
+        &lt;ein&gt;
+            &lt;ein_name&gt;EIN1&lt;/ein_name&gt;
+        &lt;/ein&gt;
+        &lt;payroll&gt;
+            &lt;start_date&gt;2019-01-01&lt;/start_date&gt;
+            &lt;end_date&gt;2019-01-31&lt;/end_date&gt;
+        &lt;/payroll&gt;
+        &lt;type&gt;
+            &lt;id&gt;1211213&lt;/id&gt;
+            &lt;display_name&gt;Regular&lt;/display_name&gt;
+        &lt;/type&gt;
+        &lt;calculate_taxes&gt;false&lt;/calculate_taxes&gt;
+        &lt;process_delta_only&gt;false&lt;/process_delta_only&gt;
+        &lt;earnings&gt;
+            &lt;earning&gt;
+                &lt;date_range_from&gt;2019-01-01&lt;/date_range_from&gt;
+                &lt;date_range_to&gt;2019-01-31&lt;/date_range_to&gt;
+                &lt;ee_amount&gt;40&lt;/ee_amount&gt;
+                &lt;shift&gt;
+                    &lt;id&gt;33024&lt;/id&gt;
+                    &lt;name&gt;My Shift premium&lt;/name&gt;
+                &lt;/shift&gt;
+                &lt;cost_centers&gt;
+                    &lt;cost_center&gt;
+                        &lt;index&gt;0&lt;/index&gt;
+                        &lt;value&gt;
+                            &lt;id&gt;123456&lt;/id&gt;
+                            &lt;name&gt;Operations&lt;/name&gt;
+                        &lt;/value&gt;
+                    &lt;/cost_center&gt;
+                &lt;/cost_centers&gt;
+                &lt;earning&gt;
+                    &lt;name&gt;Regular&lt;/name&gt;
+                    &lt;code&gt;Regular&lt;/code&gt;
+                &lt;/earning&gt;
+            &lt;/earning&gt;
+        &lt;/earnings&gt;
+        &lt;deductions&gt;
+            &lt;deduction&gt;
+                &lt;er_amount&gt;25&lt;/er_amount&gt;
+                &lt;deduction&gt;
+                    &lt;name&gt;401k&lt;/name&gt;
+                    &lt;code&gt;401k&lt;/code&gt;
+                &lt;/deduction&gt;
+            &lt;/deduction&gt;
+        &lt;/deductions&gt;
+    &lt;/pay_statement&gt;
+&lt;/pay_statements&gt;</pre>
+</div>
+<div class="post-example-tab-1" id="post-tab-schema-1">
+
+<div class="jsonschema" id="schema-1">&lt;xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" attributeFormDefault="unqualified" elementFormDefault="qualified"&gt;
+    &lt;xs:element name="pay_statements"&gt;
+        &lt;xs:complexType&gt;
+            &lt;xs:sequence&gt;
+                &lt;xs:element name="pay_statement" minOccurs="1" maxOccurs="unbounded"&gt;
+                    &lt;xs:complexType&gt;
+                        &lt;xs:sequence&gt;
+                            &lt;xs:element name="employee"&gt;
+                                &lt;xs:complexType&gt;
+                                    &lt;xs:sequence&gt;
+                                        &lt;xs:element type="xs:integer" name="account_id" /&gt;
+                                    &lt;/xs:sequence&gt;
+                                &lt;/xs:complexType&gt;
+                            &lt;/xs:element&gt;
+                            &lt;xs:element name="ein"&gt;
+                                &lt;xs:complexType&gt;
+                                    &lt;xs:sequence&gt;
+                                        &lt;xs:element type="xs:integer" name="id" minOccurs="0"/&gt;
+                                        &lt;xs:element type="xs:string" name="ein_name" minOccurs="0"/&gt;
+                                    &lt;/xs:sequence&gt;
+                                &lt;/xs:complexType&gt;
+                            &lt;/xs:element&gt;
+                            &lt;xs:element name="payroll"&gt;
+                                &lt;xs:complexType&gt;
+                                    &lt;xs:sequence&gt;
+                                        &lt;xs:element type="xs:string" name="start_date" /&gt;
+                                        &lt;xs:element type="xs:string" name="end_date" /&gt;
+                                    &lt;/xs:sequence&gt;
+                                &lt;/xs:complexType&gt;
+                            &lt;/xs:element&gt;
+                            &lt;xs:element name="type" minOccurs="0"&gt;
+                                &lt;xs:complexType&gt;
+                                    &lt;xs:sequence&gt;
+                                        &lt;xs:element type="xs:integer" name="id" minOccurs="0"/&gt;
+                                        &lt;xs:element type="xs:string" name="display_name" minOccurs="0"/&gt;
+                                    &lt;/xs:sequence&gt;
+                                &lt;/xs:complexType&gt;
+                            &lt;/xs:element&gt;
+                            &lt;xs:element type="xs:boolean" name="calculate_taxes"/&gt;
+                            &lt;xs:element type="xs:boolean" name="process_delta_only" /&gt;
+                            &lt;xs:element name="earnings"&gt;
+                                &lt;xs:complexType&gt;
+                                    &lt;xs:sequence&gt;
+                                        &lt;xs:element name="earning" maxOccurs="unbounded"
+                                            minOccurs="0"&gt;
+                                            &lt;xs:complexType&gt;
+                                                &lt;xs:sequence&gt;
+                                                    &lt;xs:element type="xs:date"
+                                                        name="date_range_from" minOccurs="0" /&gt;
+                                                    &lt;xs:element type="xs:date" name="date_range_to"
+                                                        minOccurs="0" /&gt;
+                                                    &lt;xs:element type="xs:long" name="hours"
+                                                        minOccurs="0" /&gt;
+                                                    &lt;xs:element type="xs:float" name="base_rate"
+                                                        minOccurs="0" /&gt;
+                                                    &lt;xs:element type="xs:float" name="quantity"
+                                                        minOccurs="0" /&gt;
+                                                    &lt;xs:element type="xs:float" name="ee_amount"
+                                                        minOccurs="0" /&gt;
+                                                    &lt;xs:element name="workers_comp_code"
+                                                        minOccurs="0"&gt;
+                                                        &lt;xs:complexType&gt;
+                                                            &lt;xs:sequence&gt;
+                                                                &lt;xs:element type="xs:string" name="name" /&gt;
+                                                                &lt;xs:element type="xs:string"
+                                                                    name="external_id" /&gt;
+                                                                &lt;xs:element type="xs:string" name="code" /&gt;
+                                                            &lt;/xs:sequence&gt;
+                                                        &lt;/xs:complexType&gt;
+                                                    &lt;/xs:element&gt;
+                                                    &lt;xs:element name="shift"&gt;
+                                                        &lt;xs:complexType&gt;
+                                                            &lt;xs:sequence&gt;
+                                                                &lt;xs:element name="id" type="xs:long" /&gt;
+                                                                &lt;xs:element name="name" type="xs:string" /&gt;
+                                                            &lt;/xs:sequence&gt;
+                                                        &lt;/xs:complexType&gt;
+                                                    &lt;/xs:element&gt;
+                                                    &lt;xs:element name="cost_centers" minOccurs="0"&gt;
+                                                        &lt;xs:complexType&gt;
+                                                            &lt;xs:sequence&gt;
+                                                                &lt;xs:element name="cost_center"&gt;
+                                                                    &lt;xs:complexType&gt;
+                                                                        &lt;xs:sequence&gt;
+                                                                            &lt;xs:element type="xs:short" name="index" /&gt;
+                                                                            &lt;xs:element name="value"&gt;
+                                                                                &lt;xs:complexType&gt;
+                                                                                    &lt;xs:sequence&gt;
+                                                                                        &lt;xs:element type="xs:integer" name="id" /&gt;
+                                                                                        &lt;xs:element type="xs:string" name="name" /&gt;
+                                                                                    &lt;/xs:sequence&gt;
+                                                                                &lt;/xs:complexType&gt;
+                                                                            &lt;/xs:element&gt;
+                                                                        &lt;/xs:sequence&gt;
+                                                                    &lt;/xs:complexType&gt;
+                                                                &lt;/xs:element&gt;
+                                                            &lt;/xs:sequence&gt;
+                                                        &lt;/xs:complexType&gt;
+                                                    &lt;/xs:element&gt;
+                                                    &lt;xs:element name="earning"&gt;
+                                                        &lt;xs:complexType&gt;
+                                                            &lt;xs:sequence&gt;
+                                                                &lt;xs:element type="xs:string" name="name" /&gt;
+                                                                &lt;xs:element type="xs:string"
+                                                                    name="external_id" minOccurs="0" /&gt;
+                                                                &lt;xs:element type="xs:string" name="code" /&gt;
+                                                            &lt;/xs:sequence&gt;
+                                                        &lt;/xs:complexType&gt;
+                                                    &lt;/xs:element&gt;
+                                                    &lt;xs:element name="batch" minOccurs="0"&gt;
+                                                        &lt;xs:complexType&gt;
+                                                            &lt;xs:sequence&gt;
+                                                                &lt;xs:element type="xs:integer" name="id" minOccurs="0"/&gt;
+                                                                &lt;xs:element type="xs:string" name="display_name" minOccurs="0"/&gt;
+                                                            &lt;/xs:sequence&gt;
+                                                        &lt;/xs:complexType&gt;
+                                                    &lt;/xs:element&gt;
+                                                &lt;/xs:sequence&gt;
+                                            &lt;/xs:complexType&gt;
+                                        &lt;/xs:element&gt;
+                                    &lt;/xs:sequence&gt;
+                                &lt;/xs:complexType&gt;
+                            &lt;/xs:element&gt;
+                            &lt;xs:element name="deductions"&gt;
+                                &lt;xs:complexType&gt;
+                                    &lt;xs:sequence&gt;
+                                        &lt;xs:element name="deduction" maxOccurs="unbounded"
+                                            minOccurs="0"&gt;
+                                            &lt;xs:complexType&gt;
+                                                &lt;xs:sequence&gt;
+                                                    &lt;xs:element type="xs:date"
+                                                        name="date_range_from" minOccurs="0" /&gt;
+                                                    &lt;xs:element type="xs:date" name="date_range_to"
+                                                        minOccurs="0" /&gt;
+                                                    &lt;xs:element type="xs:float" name="quantity"
+                                                        minOccurs="0" /&gt;
+                                                    &lt;xs:element type="xs:float" name="base_rate"
+                                                        minOccurs="0" /&gt;
+                                                    &lt;xs:element type="xs:float" name="ee_amount"
+                                                        minOccurs="0" /&gt;
+                                                    &lt;xs:element type="xs:float" name="er_amount"
+                                                        minOccurs="0" /&gt;
+                                                    &lt;xs:element name="vendor" minOccurs="0"&gt;
+                                                        &lt;xs:complexType&gt;
+                                                            &lt;xs:sequence&gt;
+                                                                &lt;xs:element type="xs:integer" name="id" /&gt;
+                                                                &lt;xs:element type="xs:string" name="name" /&gt;
+                                                            &lt;/xs:sequence&gt;
+                                                        &lt;/xs:complexType&gt;
+                                                    &lt;/xs:element&gt;
+                                                    &lt;xs:element name="cost_centers" minOccurs="0"&gt;
+                                                        &lt;xs:complexType&gt;
+                                                            &lt;xs:sequence&gt;
+                                                                &lt;xs:element name="cost_center"&gt;
+                                                                    &lt;xs:complexType&gt;
+                                                                        &lt;xs:sequence&gt;
+                                                                            &lt;xs:element type="xs:short" name="index" /&gt;
+                                                                            &lt;xs:element name="value"&gt;
+                                                                                &lt;xs:complexType&gt;
+                                                                                    &lt;xs:sequence&gt;
+                                                                                        &lt;xs:element type="xs:integer" name="id" /&gt;
+                                                                                        &lt;xs:element type="xs:string"  name="name" /&gt;
+                                                                                    &lt;/xs:sequence&gt;
+                                                                                &lt;/xs:complexType&gt;
+                                                                            &lt;/xs:element&gt;
+                                                                        &lt;/xs:sequence&gt;
+                                                                    &lt;/xs:complexType&gt;
+                                                                &lt;/xs:element&gt;
+                                                            &lt;/xs:sequence&gt;
+                                                        &lt;/xs:complexType&gt;
+                                                    &lt;/xs:element&gt;
+                                                    &lt;xs:element name="workers_comp_code"
+                                                        minOccurs="0"&gt;
+                                                        &lt;xs:complexType&gt;
+                                                            &lt;xs:sequence&gt;
+                                                                &lt;xs:element type="xs:string" name="name" /&gt;
+                                                                &lt;xs:element type="xs:string"
+                                                                    name="external_id" /&gt;
+                                                                &lt;xs:element type="xs:string" name="code" /&gt;
+                                                            &lt;/xs:sequence&gt;
+                                                        &lt;/xs:complexType&gt;
+                                                    &lt;/xs:element&gt;
+                                                    &lt;xs:element name="deduction"&gt;
+                                                        &lt;xs:complexType&gt;
+                                                            &lt;xs:sequence&gt;
+                                                                &lt;xs:element type="xs:string" name="name" /&gt;
+                                                                &lt;xs:element type="xs:string"
+                                                                    name="external_id" minOccurs="0" /&gt;
+                                                                &lt;xs:element type="xs:string" name="code" /&gt;
+                                                            &lt;/xs:sequence&gt;
+                                                        &lt;/xs:complexType&gt;
+                                                    &lt;/xs:element&gt;
+                                                    &lt;xs:element name="batch" minOccurs="0"&gt;
+                                                        &lt;xs:complexType&gt;
+                                                            &lt;xs:sequence&gt;
+                                                                &lt;xs:element type="xs:integer" name="id"/&gt;
+                                                                &lt;xs:element type="xs:string" name="display_name" minOccurs="0"/&gt;
+                                                            &lt;/xs:sequence&gt;
+                                                        &lt;/xs:complexType&gt;
+                                                    &lt;/xs:element&gt;
+                                                &lt;/xs:sequence&gt;
+                                            &lt;/xs:complexType&gt;
+                                        &lt;/xs:element&gt;
+                                    &lt;/xs:sequence&gt;
+                                &lt;/xs:complexType&gt;
+                            &lt;/xs:element&gt;
+                            &lt;xs:element name="taxes" minOccurs="0"&gt;
+                                &lt;xs:complexType&gt;
+                                    &lt;xs:sequence&gt;
+                                        &lt;xs:element name="tax" maxOccurs="unbounded" minOccurs="0"&gt;
+                                            &lt;xs:complexType&gt;
+                                                &lt;xs:choice maxOccurs="unbounded" minOccurs="0"&gt;
+                                                    &lt;xs:element type="xs:float" name="ee_amount"/&gt;
+                                                    &lt;xs:element type="xs:float" name="er_amount"/&gt;
+                                                    &lt;xs:element type="xs:float" name="ee_gross_wage"/&gt;
+                                                    &lt;xs:element type="xs:float" name="ee_subject_wage"/&gt;
+                                                    &lt;xs:element type="xs:float" name="ee_gross_subject_wage"/&gt;
+                                                    &lt;xs:element type="xs:float" name="er_gross_wage"/&gt;
+                                                    &lt;xs:element type="xs:float" name="er_subject_wage"/&gt;
+                                                    &lt;xs:element type="xs:float" name="er_gross_subject_wage"/&gt;
+                                                    &lt;xs:element name="company_tax"&gt;
+                                                        &lt;xs:complexType&gt;
+                                                            &lt;xs:sequence&gt;
+                                                                &lt;xs:element type="xs:integer" name="id"/&gt;
+                                                                &lt;xs:element type="xs:string" name="code"/&gt;
+                                                                &lt;xs:element type="xs:string" name="name"/&gt;
+                                                                &lt;xs:element type="xs:string" name="abbrev"/&gt;
+                                                            &lt;/xs:sequence&gt;
+                                                        &lt;/xs:complexType&gt;
+                                                    &lt;/xs:element&gt;
+                                                &lt;/xs:choice&gt;
+                                            &lt;/xs:complexType&gt;
+                                        &lt;/xs:element&gt;
+                                    &lt;/xs:sequence&gt;
+                                &lt;/xs:complexType&gt;
+                            &lt;/xs:element&gt;
+                        &lt;/xs:sequence&gt;
+                    &lt;/xs:complexType&gt;
+                &lt;/xs:element&gt;
+            &lt;/xs:sequence&gt;
+        &lt;/xs:complexType&gt;
+    &lt;/xs:element&gt;
+&lt;/xs:schema&gt;</div>
+</div>
+</div>
+</div>
+<div class="req-tab-post" id="req-tab-id-post-2">
+<div class="example">
+
+<div class="post-example-tab-2 activeTab" id="post-tab-example-2">
+
+<pre class="highlightjs">&lt;pay_statements&gt;
+    &lt;pay_statement&gt;
+        &lt;employee&gt;
+            &lt;account_id&gt;3588&lt;/account_id&gt;
+        &lt;/employee&gt;
+        &lt;ein&gt;
+            &lt;id&gt;12134312&lt;/id&gt;
+            &lt;ein_name&gt;EIN1&lt;/ein_name&gt;
+        &lt;/ein&gt;
+        &lt;payroll&gt;
+            &lt;start_date&gt;2019-01-01&lt;/start_date&gt;
+            &lt;end_date&gt;2019-01-31&lt;/end_date&gt;
+        &lt;/payroll&gt;
+        &lt;type&gt;
+            &lt;id&gt;12134322&lt;/id&gt;
+            &lt;display_name&gt;Regular&lt;/display_name&gt;
+        &lt;/type&gt;
+        &lt;calculate_taxes&gt;false&lt;/calculate_taxes&gt;
+        &lt;process_delta_only&gt;false&lt;/process_delta_only&gt;
+        &lt;earnings&gt;
+            &lt;earning&gt;
+                &lt;date_range_from&gt;2019-01-01&lt;/date_range_from&gt;
+                &lt;date_range_to&gt;2019-01-31&lt;/date_range_to&gt;
+                &lt;ee_amount&gt;40&lt;/ee_amount&gt;
+                &lt;shift&gt;
+                    &lt;id&gt;33024&lt;/id&gt;
+                    &lt;name&gt;My Shift premium&lt;/name&gt;
+                &lt;/shift&gt;
+                &lt;cost_centers&gt;
+                    &lt;cost_center&gt;
+                        &lt;index&gt;0&lt;/index&gt;
+                        &lt;value&gt;
+                            &lt;id&gt;123456&lt;/id&gt;
+                            &lt;name&gt;Operations&lt;/name&gt;
+                        &lt;/value&gt;
+                    &lt;/cost_center&gt;
+                &lt;/cost_centers&gt;
+                &lt;earning&gt;
+                    &lt;name&gt;Regular&lt;/name&gt;
+                    &lt;code&gt;Regular&lt;/code&gt;
+                &lt;/earning&gt;
+                &lt;batch&gt;
+                    &lt;id&gt;12134345&lt;/id&gt;
+                    &lt;display_name&gt;Regular&lt;/display_name&gt;
+                &lt;/batch&gt;
+            &lt;/earning&gt;
+        &lt;/earnings&gt;
+        &lt;deductions&gt;
+            &lt;deduction&gt;
+                &lt;er_amount&gt;25&lt;/er_amount&gt;
+                &lt;deduction&gt;
+                    &lt;name&gt;401k&lt;/name&gt;
+                    &lt;code&gt;401k&lt;/code&gt;
+                &lt;/deduction&gt;
+            &lt;/deduction&gt;
+        &lt;/deductions&gt;
+    &lt;/pay_statement&gt;
+    &lt;pay_statement&gt;
+        &lt;employee&gt;
+            &lt;account_id&gt;3589&lt;/account_id&gt;
+        &lt;/employee&gt;
+        &lt;ein&gt;
+            &lt;ein_name&gt;EIN1&lt;/ein_name&gt;
+        &lt;/ein&gt;
+        &lt;payroll&gt;
+            &lt;start_date&gt;2019-01-01&lt;/start_date&gt;
+            &lt;end_date&gt;2019-01-31&lt;/end_date&gt;
+        &lt;/payroll&gt;
+        &lt;type&gt;
+            &lt;id&gt;1211213&lt;/id&gt;
+            &lt;display_name&gt;Regular&lt;/display_name&gt;
+        &lt;/type&gt;
+        &lt;calculate_taxes&gt;false&lt;/calculate_taxes&gt;
+        &lt;process_delta_only&gt;false&lt;/process_delta_only&gt;
+        &lt;earnings&gt;
+            &lt;earning&gt;
+                &lt;date_range_from&gt;2019-01-01&lt;/date_range_from&gt;
+                &lt;date_range_to&gt;2019-01-31&lt;/date_range_to&gt;
+                &lt;ee_amount&gt;40&lt;/ee_amount&gt;
+                &lt;shift&gt;
+                    &lt;id&gt;33024&lt;/id&gt;
+                    &lt;name&gt;My Shift premium&lt;/name&gt;
+                &lt;/shift&gt;
+                &lt;cost_centers&gt;
+                    &lt;cost_center&gt;
+                        &lt;index&gt;0&lt;/index&gt;
+                        &lt;value&gt;
+                            &lt;id&gt;123456&lt;/id&gt;
+                            &lt;name&gt;Operations&lt;/name&gt;
+                        &lt;/value&gt;
+                    &lt;/cost_center&gt;
+                &lt;/cost_centers&gt;
+                &lt;earning&gt;
+                    &lt;name&gt;Regular&lt;/name&gt;
+                    &lt;code&gt;Regular&lt;/code&gt;
+                &lt;/earning&gt;
+            &lt;/earning&gt;
+        &lt;/earnings&gt;
+        &lt;deductions&gt;
+            &lt;deduction&gt;
+                &lt;er_amount&gt;25&lt;/er_amount&gt;
+                &lt;deduction&gt;
+                    &lt;name&gt;401k&lt;/name&gt;
+                    &lt;code&gt;401k&lt;/code&gt;
+                &lt;/deduction&gt;
+            &lt;/deduction&gt;
+        &lt;/deductions&gt;
+    &lt;/pay_statement&gt;
+&lt;/pay_statements&gt;</pre>
+</div>
+<div class="post-example-tab-2" id="post-tab-schema-2">
+
+<div class="jsonschema" id="schema-2">&lt;xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" attributeFormDefault="unqualified" elementFormDefault="qualified"&gt;
+    &lt;xs:element name="pay_statements"&gt;
+        &lt;xs:complexType&gt;
+            &lt;xs:sequence&gt;
+                &lt;xs:element name="pay_statement" minOccurs="1" maxOccurs="unbounded"&gt;
+                    &lt;xs:complexType&gt;
+                        &lt;xs:sequence&gt;
+                            &lt;xs:element name="employee"&gt;
+                                &lt;xs:complexType&gt;
+                                    &lt;xs:sequence&gt;
+                                        &lt;xs:element type="xs:integer" name="account_id" /&gt;
+                                    &lt;/xs:sequence&gt;
+                                &lt;/xs:complexType&gt;
+                            &lt;/xs:element&gt;
+                            &lt;xs:element name="ein"&gt;
+                                &lt;xs:complexType&gt;
+                                    &lt;xs:sequence&gt;
+                                        &lt;xs:element type="xs:integer" name="id" minOccurs="0"/&gt;
+                                        &lt;xs:element type="xs:string" name="ein_name" minOccurs="0"/&gt;
+                                    &lt;/xs:sequence&gt;
+                                &lt;/xs:complexType&gt;
+                            &lt;/xs:element&gt;
+                            &lt;xs:element name="payroll"&gt;
+                                &lt;xs:complexType&gt;
+                                    &lt;xs:sequence&gt;
+                                        &lt;xs:element type="xs:string" name="start_date" /&gt;
+                                        &lt;xs:element type="xs:string" name="end_date" /&gt;
+                                    &lt;/xs:sequence&gt;
+                                &lt;/xs:complexType&gt;
+                            &lt;/xs:element&gt;
+                            &lt;xs:element name="type" minOccurs="0"&gt;
+                                &lt;xs:complexType&gt;
+                                    &lt;xs:sequence&gt;
+                                        &lt;xs:element type="xs:integer" name="id" minOccurs="0"/&gt;
+                                        &lt;xs:element type="xs:string" name="display_name" minOccurs="0"/&gt;
+                                    &lt;/xs:sequence&gt;
+                                &lt;/xs:complexType&gt;
+                            &lt;/xs:element&gt;
+                            &lt;xs:element type="xs:boolean" name="calculate_taxes"/&gt;
+                            &lt;xs:element type="xs:boolean" name="process_delta_only" /&gt;
+                            &lt;xs:element name="earnings"&gt;
+                                &lt;xs:complexType&gt;
+                                    &lt;xs:sequence&gt;
+                                        &lt;xs:element name="earning" maxOccurs="unbounded"
+                                            minOccurs="0"&gt;
+                                            &lt;xs:complexType&gt;
+                                                &lt;xs:sequence&gt;
+                                                    &lt;xs:element type="xs:date"
+                                                        name="date_range_from" minOccurs="0" /&gt;
+                                                    &lt;xs:element type="xs:date" name="date_range_to"
+                                                        minOccurs="0" /&gt;
+                                                    &lt;xs:element type="xs:long" name="hours"
+                                                        minOccurs="0" /&gt;
+                                                    &lt;xs:element type="xs:float" name="base_rate"
+                                                        minOccurs="0" /&gt;
+                                                    &lt;xs:element type="xs:float" name="quantity"
+                                                        minOccurs="0" /&gt;
+                                                    &lt;xs:element type="xs:float" name="ee_amount"
+                                                        minOccurs="0" /&gt;
+                                                    &lt;xs:element name="workers_comp_code"
+                                                        minOccurs="0"&gt;
+                                                        &lt;xs:complexType&gt;
+                                                            &lt;xs:sequence&gt;
+                                                                &lt;xs:element type="xs:string" name="name" /&gt;
+                                                                &lt;xs:element type="xs:string"
+                                                                    name="external_id" /&gt;
+                                                                &lt;xs:element type="xs:string" name="code" /&gt;
+                                                            &lt;/xs:sequence&gt;
+                                                        &lt;/xs:complexType&gt;
+                                                    &lt;/xs:element&gt;
+                                                    &lt;xs:element name="shift"&gt;
+                                                        &lt;xs:complexType&gt;
+                                                            &lt;xs:sequence&gt;
+                                                                &lt;xs:element name="id" type="xs:long" /&gt;
+                                                                &lt;xs:element name="name" type="xs:string" /&gt;
+                                                            &lt;/xs:sequence&gt;
+                                                        &lt;/xs:complexType&gt;
+                                                    &lt;/xs:element&gt;
+                                                    &lt;xs:element name="cost_centers" minOccurs="0"&gt;
+                                                        &lt;xs:complexType&gt;
+                                                            &lt;xs:sequence&gt;
+                                                                &lt;xs:element name="cost_center"&gt;
+                                                                    &lt;xs:complexType&gt;
+                                                                        &lt;xs:sequence&gt;
+                                                                            &lt;xs:element type="xs:short" name="index" /&gt;
+                                                                            &lt;xs:element name="value"&gt;
+                                                                                &lt;xs:complexType&gt;
+                                                                                    &lt;xs:sequence&gt;
+                                                                                        &lt;xs:element type="xs:integer" name="id" /&gt;
+                                                                                        &lt;xs:element type="xs:string" name="name" /&gt;
+                                                                                    &lt;/xs:sequence&gt;
+                                                                                &lt;/xs:complexType&gt;
+                                                                            &lt;/xs:element&gt;
+                                                                        &lt;/xs:sequence&gt;
+                                                                    &lt;/xs:complexType&gt;
+                                                                &lt;/xs:element&gt;
+                                                            &lt;/xs:sequence&gt;
+                                                        &lt;/xs:complexType&gt;
+                                                    &lt;/xs:element&gt;
+                                                    &lt;xs:element name="earning"&gt;
+                                                        &lt;xs:complexType&gt;
+                                                            &lt;xs:sequence&gt;
+                                                                &lt;xs:element type="xs:string" name="name" /&gt;
+                                                                &lt;xs:element type="xs:string"
+                                                                    name="external_id" minOccurs="0" /&gt;
+                                                                &lt;xs:element type="xs:string" name="code" /&gt;
+                                                            &lt;/xs:sequence&gt;
+                                                        &lt;/xs:complexType&gt;
+                                                    &lt;/xs:element&gt;
+                                                    &lt;xs:element name="batch" minOccurs="0"&gt;
+                                                        &lt;xs:complexType&gt;
+                                                            &lt;xs:sequence&gt;
+                                                                &lt;xs:element type="xs:integer" name="id" minOccurs="0"/&gt;
+                                                                &lt;xs:element type="xs:string" name="display_name" minOccurs="0"/&gt;
+                                                            &lt;/xs:sequence&gt;
+                                                        &lt;/xs:complexType&gt;
+                                                    &lt;/xs:element&gt;
+                                                &lt;/xs:sequence&gt;
+                                            &lt;/xs:complexType&gt;
+                                        &lt;/xs:element&gt;
+                                    &lt;/xs:sequence&gt;
+                                &lt;/xs:complexType&gt;
+                            &lt;/xs:element&gt;
+                            &lt;xs:element name="deductions"&gt;
+                                &lt;xs:complexType&gt;
+                                    &lt;xs:sequence&gt;
+                                        &lt;xs:element name="deduction" maxOccurs="unbounded"
+                                            minOccurs="0"&gt;
+                                            &lt;xs:complexType&gt;
+                                                &lt;xs:sequence&gt;
+                                                    &lt;xs:element type="xs:date"
+                                                        name="date_range_from" minOccurs="0" /&gt;
+                                                    &lt;xs:element type="xs:date" name="date_range_to"
+                                                        minOccurs="0" /&gt;
+                                                    &lt;xs:element type="xs:float" name="quantity"
+                                                        minOccurs="0" /&gt;
+                                                    &lt;xs:element type="xs:float" name="base_rate"
+                                                        minOccurs="0" /&gt;
+                                                    &lt;xs:element type="xs:float" name="ee_amount"
+                                                        minOccurs="0" /&gt;
+                                                    &lt;xs:element type="xs:float" name="er_amount"
+                                                        minOccurs="0" /&gt;
+                                                    &lt;xs:element name="vendor" minOccurs="0"&gt;
+                                                        &lt;xs:complexType&gt;
+                                                            &lt;xs:sequence&gt;
+                                                                &lt;xs:element type="xs:integer" name="id" /&gt;
+                                                                &lt;xs:element type="xs:string" name="name" /&gt;
+                                                            &lt;/xs:sequence&gt;
+                                                        &lt;/xs:complexType&gt;
+                                                    &lt;/xs:element&gt;
+                                                    &lt;xs:element name="cost_centers" minOccurs="0"&gt;
+                                                        &lt;xs:complexType&gt;
+                                                            &lt;xs:sequence&gt;
+                                                                &lt;xs:element name="cost_center"&gt;
+                                                                    &lt;xs:complexType&gt;
+                                                                        &lt;xs:sequence&gt;
+                                                                            &lt;xs:element type="xs:short" name="index" /&gt;
+                                                                            &lt;xs:element name="value"&gt;
+                                                                                &lt;xs:complexType&gt;
+                                                                                    &lt;xs:sequence&gt;
+                                                                                        &lt;xs:element type="xs:integer" name="id" /&gt;
+                                                                                        &lt;xs:element type="xs:string"  name="name" /&gt;
+                                                                                    &lt;/xs:sequence&gt;
+                                                                                &lt;/xs:complexType&gt;
+                                                                            &lt;/xs:element&gt;
+                                                                        &lt;/xs:sequence&gt;
+                                                                    &lt;/xs:complexType&gt;
+                                                                &lt;/xs:element&gt;
+                                                            &lt;/xs:sequence&gt;
+                                                        &lt;/xs:complexType&gt;
+                                                    &lt;/xs:element&gt;
+                                                    &lt;xs:element name="workers_comp_code"
+                                                        minOccurs="0"&gt;
+                                                        &lt;xs:complexType&gt;
+                                                            &lt;xs:sequence&gt;
+                                                                &lt;xs:element type="xs:string" name="name" /&gt;
+                                                                &lt;xs:element type="xs:string"
+                                                                    name="external_id" /&gt;
+                                                                &lt;xs:element type="xs:string" name="code" /&gt;
+                                                            &lt;/xs:sequence&gt;
+                                                        &lt;/xs:complexType&gt;
+                                                    &lt;/xs:element&gt;
+                                                    &lt;xs:element name="deduction"&gt;
+                                                        &lt;xs:complexType&gt;
+                                                            &lt;xs:sequence&gt;
+                                                                &lt;xs:element type="xs:string" name="name" /&gt;
+                                                                &lt;xs:element type="xs:string"
+                                                                    name="external_id" minOccurs="0" /&gt;
+                                                                &lt;xs:element type="xs:string" name="code" /&gt;
+                                                            &lt;/xs:sequence&gt;
+                                                        &lt;/xs:complexType&gt;
+                                                    &lt;/xs:element&gt;
+                                                    &lt;xs:element name="batch" minOccurs="0"&gt;
+                                                        &lt;xs:complexType&gt;
+                                                            &lt;xs:sequence&gt;
+                                                                &lt;xs:element type="xs:integer" name="id"/&gt;
+                                                                &lt;xs:element type="xs:string" name="display_name" minOccurs="0"/&gt;
+                                                            &lt;/xs:sequence&gt;
+                                                        &lt;/xs:complexType&gt;
+                                                    &lt;/xs:element&gt;
+                                                &lt;/xs:sequence&gt;
+                                            &lt;/xs:complexType&gt;
+                                        &lt;/xs:element&gt;
+                                    &lt;/xs:sequence&gt;
+                                &lt;/xs:complexType&gt;
+                            &lt;/xs:element&gt;
+                            &lt;xs:element name="taxes" minOccurs="0"&gt;
+                                &lt;xs:complexType&gt;
+                                    &lt;xs:sequence&gt;
+                                        &lt;xs:element name="tax" maxOccurs="unbounded" minOccurs="0"&gt;
+                                            &lt;xs:complexType&gt;
+                                                &lt;xs:choice maxOccurs="unbounded" minOccurs="0"&gt;
+                                                    &lt;xs:element type="xs:float" name="ee_amount"/&gt;
+                                                    &lt;xs:element type="xs:float" name="er_amount"/&gt;
+                                                    &lt;xs:element type="xs:float" name="ee_gross_wage"/&gt;
+                                                    &lt;xs:element type="xs:float" name="ee_subject_wage"/&gt;
+                                                    &lt;xs:element type="xs:float" name="ee_gross_subject_wage"/&gt;
+                                                    &lt;xs:element type="xs:float" name="er_gross_wage"/&gt;
+                                                    &lt;xs:element type="xs:float" name="er_subject_wage"/&gt;
+                                                    &lt;xs:element type="xs:float" name="er_gross_subject_wage"/&gt;
+                                                    &lt;xs:element name="company_tax"&gt;
+                                                        &lt;xs:complexType&gt;
+                                                            &lt;xs:sequence&gt;
+                                                                &lt;xs:element type="xs:integer" name="id"/&gt;
+                                                                &lt;xs:element type="xs:string" name="code"/&gt;
+                                                                &lt;xs:element type="xs:string" name="name"/&gt;
+                                                                &lt;xs:element type="xs:string" name="abbrev"/&gt;
+                                                            &lt;/xs:sequence&gt;
+                                                        &lt;/xs:complexType&gt;
+                                                    &lt;/xs:element&gt;
+                                                &lt;/xs:choice&gt;
+                                            &lt;/xs:complexType&gt;
+                                        &lt;/xs:element&gt;
+                                    &lt;/xs:sequence&gt;
+                                &lt;/xs:complexType&gt;
+                            &lt;/xs:element&gt;
+                        &lt;/xs:sequence&gt;
+                    &lt;/xs:complexType&gt;
+                &lt;/xs:element&gt;
+            &lt;/xs:sequence&gt;
+        &lt;/xs:complexType&gt;
+    &lt;/xs:element&gt;
+&lt;/xs:schema&gt;</div>
+</div>
+</div>
+</div>
+</div>
+<h4>Response Samples</h4>
+<div class="tab-title-group">
+<label>
+<input checked="checked" data-full-tab-id="resp-tab-id-post-0" data-tab-class="resp-tab-post" name="resp-tab-post" type="radio"/>
+<span class="tab-title">application/json</span>
+</label>
+<label>
+<input data-full-tab-id="resp-tab-id-post-1" data-tab-class="resp-tab-post" name="resp-tab-post" type="radio"/>
+<span class="tab-title">application/xml</span>
+</label>
+</div>
+<div>
+<div class="resp-tab-post" id="resp-tab-id-post-0">
+<div class="example">
+
+<div class="post-example-resp-tab-0 activeTab" id="post-tab-resp-example-0">
+
+<pre class="highlightjs">{
+  "items": [
+    {
+      "index": 1,
+      "employee":{
+        "account_id":12345679
+       },
+      "status": "FAILURE",
+      "errors": [
+        {
+          "code": 153652,
+          "message": "Cannot process entity because of ..."
+        }
+      ]
+    },
+    {
+      "index": 4,
+      "status": "FAILURE",
+      "errors": [
+        {
+          "code": 153652,
+          "message": "Cannot process entity because of ..."
+        }
+      ]
+    }
+  ]
+}</pre>
+</div>
+<div class="post-example-resp-tab-0" id="post-tab-resp-schema-0">
+
+<div class="jsonschema" id="schema-3">{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "type": "object",
+  "properties": {
+    "items": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "index": {
+            "type": [
+              "integer",
+              "null"
+            ]
+          },
+          "id": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "status": {
+            "type": "string",
+            "enum": [
+              "OK",
+              "FAILURE"
+            ]
+          },
+          "employee": {
+            "type": "object",
+            "properties": {
+              "account_id": {
+                "type": "number",
+                "format": "long"
+              }
+            }
+          },
+          "errors": {
+            "type": [
+              "array",
+              "null"
+            ],
+            "items": {
+              "type": "object",
+              "properties": {
+                "code": {
+                  "type": "integer"
+                },
+                "message": {
+                  "type": "string"
+                },
+                "key": {
+                  "type": "string"
+                }
+              },
+              "additionalProperties": false,
+              "required": [
+                "code",
+                "message"
+              ]
+            }
+          }
+        },
+        "additionalProperties": false
+      }
+    }
+  },
+  "additionalProperties": false
+}</div>
+</div>
+</div>
+</div>
+<div class="resp-tab-post" id="resp-tab-id-post-1">
+<div class="example">
+
+<div class="post-example-resp-tab-1 activeTab" id="post-tab-resp-example-1">
+
+<pre class="highlightjs">&lt;?xml version="1.0" encoding="UTF-8" ?&gt;
+&lt;result&gt;
+  &lt;item&gt;
+    &lt;index&gt;1&lt;/index&gt;
+    &lt;employee&gt;
+        &lt;account_id&gt;12345679&lt;/account_id&gt;
+    &lt;/employee&gt;
+    &lt;status&gt;FAILURE&lt;/status&gt;
+    &lt;errors&gt;
+      &lt;error&gt;
+        &lt;code&gt;153652&lt;/code&gt;
+        &lt;message&gt;Cannot process entity because of ...&lt;/message&gt;
+      &lt;/error&gt;
+    &lt;/errors&gt;
+  &lt;/item&gt;
+  &lt;item&gt;
+    &lt;index&gt;4&lt;/index&gt;
+    &lt;status&gt;FAILURE&lt;/status&gt;
+    &lt;errors&gt;
+      &lt;error&gt;
+        &lt;code&gt;153652&lt;/code&gt;
+        &lt;message&gt;Cannot process entity because of ...&lt;/message&gt;
+      &lt;/error&gt;
+    &lt;/errors&gt;
+  &lt;/item&gt;
+&lt;/result&gt;</pre>
+</div>
+<div class="post-example-resp-tab-1" id="post-tab-resp-schema-1">
+
+<div class="jsonschema" id="schema-4">&lt;xs:schema attributeFormDefault="unqualified" elementFormDefault="qualified"
+           xmlns:xs="http://www.w3.org/2001/XMLSchema"&gt;
+
+    &lt;xs:element name="result"&gt;
+        &lt;xs:complexType&gt;
+            &lt;xs:sequence maxOccurs="unbounded"&gt;
+                &lt;xs:element type="item" name="item"/&gt;
+            &lt;/xs:sequence&gt;
+        &lt;/xs:complexType&gt;
+    &lt;/xs:element&gt;
+
+    &lt;xs:complexType name="item"&gt;
+        &lt;xs:all&gt;
+            &lt;xs:element type="xs:nonNegativeInteger" name="index" minOccurs="1"/&gt;
+            &lt;xs:element name="employee"  minOccurs="0"&gt;
+                  &lt;xs:complexType&gt;
+                    &lt;xs:sequence&gt;
+                      &lt;xs:element type="xs:integer" name="account_id"/&gt;
+                    &lt;/xs:sequence&gt;
+                  &lt;/xs:complexType&gt;
+             &lt;/xs:element&gt;
+            &lt;xs:element type="xs:string" name="id" minOccurs="0"/&gt;
+            &lt;xs:element type="errors" name="errors" minOccurs="0"/&gt;
+            &lt;xs:element type="status" name="status" minOccurs="1" maxOccurs="1"/&gt;
+        &lt;/xs:all&gt;
+    &lt;/xs:complexType&gt;
+
+    &lt;xs:complexType name="errorType"&gt;
+        &lt;xs:all&gt;
+            &lt;xs:element type="xs:integer" name="code"/&gt;
+            &lt;xs:element type="xs:string" name="message"/&gt;
+            &lt;xs:element type="xs:string" name="key" minOccurs="0"/&gt;
+        &lt;/xs:all&gt;
+    &lt;/xs:complexType&gt;
+
+    &lt;xs:complexType name="errors"&gt;
+        &lt;xs:sequence minOccurs="0" maxOccurs="unbounded"&gt;
+            &lt;xs:element type="errorType" name="error"/&gt;
+        &lt;/xs:sequence&gt;
+    &lt;/xs:complexType&gt;
+
+    &lt;xs:simpleType name="status"&gt;
+        &lt;xs:restriction base="xs:string"&gt;
+            &lt;xs:enumeration value="OK"/&gt;
+            &lt;xs:enumeration value="FAILURE"/&gt;
+        &lt;/xs:restriction&gt;
+    &lt;/xs:simpleType&gt;
+&lt;/xs:schema&gt;</div>
+</div>
+</div>
+</div>
+</div>
+</article>
+</section>
+</div>
+</body></html>

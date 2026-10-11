@@ -1,0 +1,31 @@
+<!doctype html>
+<html><head><meta charset="utf-8"><title>OIDC Scopes</title><style>body{font:16px system-ui;max-width:1100px;margin:2rem auto;padding:0 1rem;line-height:1.5}aside{background:#fff3cc;padding:1rem}.jsonschema,pre{white-space:pre-wrap;font:13px monospace;overflow-wrap:anywhere;background:#f4f5f7;padding:1rem}.uri{font-family:monospace}h2,h3{margin-top:2rem}</style></head><body><aside><strong>Modified private reference — 2026-10-09.</strong> Provider-documented illustrative examples are included; authentication token examples are redacted. These are not customer exports or guaranteed production behavior. Candidate sharing is pending. This is not OpenAPI.</aside>
+<div class="group">
+<h2 class="docTitle">OIDC Scopes</h2>
+<section class="clearfix">
+<article class="documentation md">
+<pre># OIDC Scopes
+
+OIDC (OpenID Connect) scopes define the permissions and access levels granted to applications when accessing the Ready API on behalf of a user. Scopes determine what data and operations your integration can access within the system.
+
+## Default Behavior
+
+If no scope is defined in your OIDC implementation, the application defaults to the permissions enabled in the user account's security profile. This means the application will inherit the same access rights as the user who authorizes the request.
+
+## Available Scopes
+
+The following table lists all available OIDC scopes, their descriptions, access details, and the company types where they can be used.
+
+| Scope ID Name | Description | Claims Returned | Available Company Types |
+|---------------|-------------|-----------------|------------------------|
+| client-company-information-read | View company information | Can view basic information about the company. For example: Address, Name, and Company ID | Client |
+| admin-company-information-read | View company information for all companies | Can view basic information about all companies. For example: Address, Name, and Company ID | Admin/Holding |
+| client-account-information-read | View account information | Can view all information for all accounts | Client/Holding |
+| profile | OIDC standard scope ([spec](https://openid.net/specs/openid-connect-core-1_0.html#ScopeClaims)) | `name`, `given_name`, `family_name`, `middle_name`, `nickname`, `preferred_username`, `locale` | Admin/Client/Holding |
+| email | OIDC standard scope ([spec](https://openid.net/specs/openid-connect-core-1_0.html#ScopeClaims)) | `email` | Admin/Client/Holding |
+
+</pre>
+</article>
+</section>
+</div>
+</body></html>

@@ -1,0 +1,327 @@
+<!doctype html>
+<html><head><meta charset="utf-8"><title>Version 5</title><style>body{font:16px system-ui;max-width:1100px;margin:2rem auto;padding:0 1rem;line-height:1.5}aside{background:#fff3cc;padding:1rem}.jsonschema,pre{white-space:pre-wrap;font:13px monospace;overflow-wrap:anywhere;background:#f4f5f7;padding:1rem}.uri{font-family:monospace}h2,h3{margin-top:2rem}</style></head><body><aside><strong>Modified private reference — 2026-10-09.</strong> Provider-documented illustrative examples are included; authentication token examples are redacted. These are not customer exports or guaranteed production behavior. Candidate sharing is pending. This is not OpenAPI.</aside>
+<div class="group">
+<h2 class="anchored" id="item.anchor">
+<span>Version 5</span>
+<a class="fa fa-link link-anchor" data-url="r=__v2__companies__(cid)__psp__documents__direct-deposit-reject__v5#" data-web-id="__v2__companies__(cid)__psp__documents__direct-deposit-reject__v5"></a>
+</h2>
+<section class="clearfix">
+<article class="definition">
+<h3 class="anchored" id="post"><span>POST</span>
+<a class="fa fa-link link-anchor" data-url="r=__v2__companies__(cid)__psp__documents__direct-deposit-reject__v5#post" data-web-id="__v2__companies__(cid)__psp__documents__direct-deposit-reject__v5"></a>
+</h3>
+<div class="md"><p>Submits an Direct Deposit Reject/Return document from the payment processor.
+
+**General Behavior:**
+- Validates the request body according to the v5 direct-deposit-reject schema
+- Processes returned direct deposit transactions for employees
+- Creates a document upload record linked to the company
+- Returns the document upload name and ID upon successful storage
+
+**Security Requirements:**
+The authentication token must have the required security access:
+- "Modules &gt; REST API Resources &gt; PSP Documents &gt; Add checkbox"
+- "Distribution &gt; Distribution &gt; Upload Service Provider Documents checkbox"
+  - Requires "Integrated Document Storage" Marketplace Product
+
+**Document Access:**
+- Uploaded documents will be visible in "Distribution &gt; Tools &gt; Upload Service Provider Documents"
+</p></div>
+<div>
+<ul class="annotation-list">
+<li class="annotation">
+<span>v2</span>
+</li>
+</ul>
+</div>
+<h4>Parameters</h4>
+<h5>Path Parameters</h5>
+<ul class="param-list">
+<li>
+<div class="param-desc">
+<div class="param-name">cid</div>
+<div class="data-type">string</div>
+<div class="required">required</div>
+</div>
+<div class="param-content">
+<div>
+<p>Example: 123456</p>
+<div class="desc md">Company should be referenced via company id or company unique id or company short name using `|short_name` or `!short_name` format.
+</div>
+</div>
+</div>
+
+</li>
+</ul>
+<h4>Responses</h4>
+<div class="responses">
+<div>
+<label class="response response-success">
+<span class="fa fa-check"></span>
+<input data-full-tab-id="post-resp-code-tab-id-0" data-tab-class="resp-code-tab-post" name="resp-code-tab-post" type="radio"/>
+<span class="status">200 Ok</span>
+</label>
+<div class="response-desc resp-code-tab-post" id="post-resp-code-tab-id-0">
+<div class="md"><p>Document has been accepted and stored successfully.
+Returns the document upload ID.
+</p></div>
+</div>
+</div>
+<div>
+<label class="response response-error">
+<span class="fa fa-times"></span>
+<input data-full-tab-id="post-resp-code-tab-id-1" data-tab-class="resp-code-tab-post" name="resp-code-tab-post" type="radio"/>
+<span class="status">400 Bad Request</span>
+</label>
+<div class="response-desc resp-code-tab-post" id="post-resp-code-tab-id-1">
+<div class="md"><p>Bad request. Possible reasons:
+- Missing required fields (podId, tenantId, companyId, countryCode, payrollId, payDate, returnEmployees)
+- Invalid field values (e.g., countryCode must be in ['CAN'])
+- returnEmployees array is empty
+- payrollId is not convertible to long integer
+- payDate is not in ISO-8601 format (YYYY-MM-DD)
+</p></div>
+</div>
+</div>
+<div>
+<label class="response response-error">
+<span class="fa fa-times"></span>
+<input data-full-tab-id="post-resp-code-tab-id-2" data-tab-class="resp-code-tab-post" name="resp-code-tab-post" type="radio"/>
+<span class="status">403 Forbidden</span>
+</label>
+<div class="response-desc resp-code-tab-post" id="post-resp-code-tab-id-2">
+<div class="md"><p>Forbidden. User lacks required security permissions.
+</p></div>
+</div>
+</div>
+<div>
+<label class="response response-error">
+<span class="fa fa-times"></span>
+<input data-full-tab-id="post-resp-code-tab-id-3" data-tab-class="resp-code-tab-post" name="resp-code-tab-post" type="radio"/>
+<span class="status">500 Internal Server Error</span>
+</label>
+<div class="response-desc resp-code-tab-post" id="post-resp-code-tab-id-3">
+<div class="md"><p>Internal server error. Document upload creation or storage failed.
+</p></div>
+</div>
+</div>
+</div>
+</article>
+<article class="code">
+<h4>Definition</h4>
+<div class="uri">
+<code>
+<span class="method post">post</span>
+<span class="textUri"><span class="baseUri">{{ getUriPrefix() }}</span><span class="relativeUri">/v2/companies/{cid}/psp/documents/direct-deposit-reject/v5</span></span>
+</code>
+</div>
+<h4>Request Samples</h4>
+<div class="tab-title-group">
+<label>
+<input checked="checked" data-full-tab-id="req-tab-id-post-0" data-tab-class="req-tab-post" name="req-tab-post" type="radio"/>
+<span class="tab-title">application/json</span>
+</label>
+</div>
+<div>
+<div class="req-tab-post" id="req-tab-id-post-0">
+<div class="example">
+
+<div class="post-example-tab-0 activeTab" id="post-tab-example-0">
+
+<pre class="highlightjs">{
+  "podId": "POD123",
+  "tenantId": "TENANT456",
+  "companyId": "COMP789",
+  "countryCode": "CAN",
+  "payrollId": "100234567",
+  "payDate": "2025-01-15",
+  "returnEmployees": [
+    {
+      "employeeNumber": "EMP001",
+      "firstName": "John",
+      "lastName": "Smith",
+      "middleName": "A",
+      "suffix": "Jr.",
+      "returnEntries": [
+        {
+          "accountType": 1,
+          "accountNumber": "123456789",
+          "routingNumber": "987654321",
+          "amount": 1234.56,
+          "returnReason": "R01"
+        }
+      ]
+    }
+  ]
+}
+</pre>
+</div>
+<div class="post-example-tab-0" id="post-tab-schema-0">
+
+<div class="jsonschema" id="schema-0">{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "type": "object",
+  "title": "Direct Deposit Reject Request v5",
+  "description": "Request body for submitting direct deposit reject notifications from PSP",
+  "required": [
+    "podId",
+    "tenantId",
+    "companyId",
+    "countryCode",
+    "payrollId",
+    "payDate",
+    "returnEmployees"
+  ],
+  "properties": {
+    "podId": {
+      "type": "string",
+      "description": "The Pod identifier"
+    },
+    "tenantId": {
+      "type": "string",
+      "description": "Company Short Name"
+    },
+    "companyId": {
+      "type": "string",
+      "description": "MasterTax ID"
+    },
+    "countryCode": {
+      "type": "string",
+      "description": "Country code (must be 'CAN' for Canada)",
+      "enum": [
+        "CAN"
+      ]
+    },
+    "payrollId": {
+      "type": "string",
+      "description": "The Payroll identifier (must be convertible to long integer)"
+    },
+    "payDate": {
+      "type": "string",
+      "format": "date",
+      "description": "Pay date in ISO-8601 format (YYYY-MM-DD)"
+    },
+    "returnEmployees": {
+      "type": "array",
+      "description": "List of employees with returned payments",
+      "minItems": 1,
+      "items": {
+        "$ref": "#/definitions/ReturnEmployee"
+      }
+    }
+  },
+  "definitions": {
+    "ReturnEmployee": {
+      "type": "object",
+      "description": "Employee with returned payment entries",
+      "properties": {
+        "employeeNumber": {
+          "type": "string",
+          "description": "Employee identifier number"
+        },
+        "firstName": {
+          "type": "string",
+          "description": "Employee first name"
+        },
+        "lastName": {
+          "type": "string",
+          "description": "Employee last name"
+        },
+        "middleName": {
+          "type": "string",
+          "description": "Employee middle name"
+        },
+        "suffix": {
+          "type": "string",
+          "description": "Employee name suffix"
+        },
+        "returnEntries": {
+          "type": "array",
+          "description": "List of payment return entries for this employee",
+          "items": {
+            "$ref": "#/definitions/ReturnEntry"
+          }
+        }
+      }
+    },
+    "ReturnEntry": {
+      "type": "object",
+      "description": "Individual payment return entry",
+      "properties": {
+        "accountType": {
+          "type": "number",
+          "description": "Type of bank account, 1 for checking, 2 for savings"
+        },
+        "accountNumber": {
+          "type": "string",
+          "description": "Bank account number"
+        },
+        "routingNumber": {
+          "type": "string",
+          "description": "Bank routing number"
+        },
+        "amount": {
+          "type": "number",
+          "description": "Amount of the returned payment"
+        },
+        "returnReason": {
+          "type": "string",
+          "description": "Reason code for the payment return"
+        }
+      }
+    }
+  }
+}</div>
+</div>
+</div>
+</div>
+</div>
+<h4>Response Samples</h4>
+<div class="tab-title-group">
+<label>
+<input checked="checked" data-full-tab-id="resp-tab-id-post-0" data-tab-class="resp-tab-post" name="resp-tab-post" type="radio"/>
+<span class="tab-title">application/json</span>
+</label>
+</div>
+<div>
+<div class="resp-tab-post" id="resp-tab-id-post-0">
+<div class="example">
+
+<div class="post-example-resp-tab-0 activeTab" id="post-tab-resp-example-0">
+
+<pre class="highlightjs">{
+  "documentName": "AFT_Returns_20260126.json",
+  "documentId": "1234567890"
+}
+</pre>
+</div>
+<div class="post-example-resp-tab-0" id="post-tab-resp-schema-0">
+
+<div class="jsonschema" id="schema-1">{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "type": "object",
+  "title": "Direct Deposit Post Response",
+  "description": "Response body for PSP document upload",
+  "required": [
+    "documentName",
+    "documentId"
+  ],
+  "properties": {
+    "documentName": {
+      "type": "string",
+      "description": "The display name of the uploaded document"
+    },
+    "documentId": {
+      "type": "string",
+      "description": "The unique identifier of the created document upload"
+    }
+  }
+}</div>
+</div>
+</div>
+</div>
+</div>
+</article>
+</section>
+</div>
+</body></html>

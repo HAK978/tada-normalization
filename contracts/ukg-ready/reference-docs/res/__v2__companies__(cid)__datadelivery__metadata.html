@@ -1,0 +1,2661 @@
+<!doctype html>
+<html><head><meta charset="utf-8"><title>Metadata</title><style>body{font:16px system-ui;max-width:1100px;margin:2rem auto;padding:0 1rem;line-height:1.5}aside{background:#fff3cc;padding:1rem}.jsonschema,pre{white-space:pre-wrap;font:13px monospace;overflow-wrap:anywhere;background:#f4f5f7;padding:1rem}.uri{font-family:monospace}h2,h3{margin-top:2rem}</style></head><body><aside><strong>Modified private reference — 2026-10-09.</strong> Provider-documented illustrative examples are included; authentication token examples are redacted. These are not customer exports or guaranteed production behavior. Candidate sharing is pending. This is not OpenAPI.</aside>
+<div class="group">
+<h2 class="anchored" id="item.anchor">
+<span>Metadata</span>
+<a class="fa fa-link link-anchor" data-url="r=__v2__companies__(cid)__datadelivery__metadata#" data-web-id="__v2__companies__(cid)__datadelivery__metadata"></a>
+</h2>
+<section class="clearfix">
+<article class="definition">
+<h3 class="anchored" id="get"><span>GET</span>
+<a class="fa fa-link link-anchor" data-url="r=__v2__companies__(cid)__datadelivery__metadata#get" data-web-id="__v2__companies__(cid)__datadelivery__metadata"></a>
+</h3>
+<div class="md"><p>Retrieves all categories and fields for a company.</p></div>
+<div>
+<ul class="annotation-list">
+<li class="annotation">
+<span>dev</span>
+</li>
+</ul>
+</div>
+<h4>Parameters</h4>
+<h5>Path Parameters</h5>
+<ul class="param-list">
+<li>
+<div class="param-desc">
+<div class="param-name">cid</div>
+<div class="data-type">string</div>
+<div class="required">required</div>
+</div>
+<div class="param-content">
+<div>
+<p>Example: 123456</p>
+<div class="desc md">Company should be referenced via company id or company unique id or company short name using `|short_name` or `!short_name` format.
+</div>
+</div>
+</div>
+
+</li>
+</ul>
+<h5>Header Parameters</h5>
+<ul class="param-list">
+<li>
+<div class="param-desc">
+<div class="param-name">Accept</div>
+<div class="data-type">string</div>
+</div>
+<div class="param-content">
+<div>
+<p>Valid values: application/json, application/xml, text/xml</p>
+<p>Default: application/json</p>
+<p>Example: application/json</p>
+</div>
+</div>
+
+</li>
+</ul>
+<h4>Responses</h4>
+<div class="responses">
+<div>
+<label class="response response-success">
+<span class="fa fa-check"></span>
+<input data-full-tab-id="get-resp-code-tab-id-0" data-tab-class="resp-code-tab-get" name="resp-code-tab-get" type="radio"/>
+<span class="status">200 Ok</span>
+</label>
+<div class="response-desc resp-code-tab-get" id="get-resp-code-tab-id-0">
+</div>
+</div>
+<div>
+<label class="response response-error">
+<span class="fa fa-times"></span>
+<input data-full-tab-id="get-resp-code-tab-id-1" data-tab-class="resp-code-tab-get" name="resp-code-tab-get" type="radio"/>
+<span class="status">401 Unauthorized</span>
+</label>
+<div class="response-desc resp-code-tab-get" id="get-resp-code-tab-id-1">
+<div class="md"><p>Returned in case user is not authorized.</p></div>
+</div>
+</div>
+<div>
+<label class="response response-error">
+<span class="fa fa-times"></span>
+<input data-full-tab-id="get-resp-code-tab-id-2" data-tab-class="resp-code-tab-get" name="resp-code-tab-get" type="radio"/>
+<span class="status">403 Forbidden</span>
+</label>
+<div class="response-desc resp-code-tab-get" id="get-resp-code-tab-id-2">
+<div class="md"><p>Returned in case user has no access to the resource.</p></div>
+</div>
+</div>
+<div>
+<label class="response response-error">
+<span class="fa fa-times"></span>
+<input data-full-tab-id="get-resp-code-tab-id-3" data-tab-class="resp-code-tab-get" name="resp-code-tab-get" type="radio"/>
+<span class="status">503 Service Unavailable</span>
+</label>
+<div class="response-desc resp-code-tab-get" id="get-resp-code-tab-id-3">
+<div class="md"><p>Returned in the event that the call limit is exceeded. The application will be unavailable for subsequent calls for the duration specified by the X-CallLimit-TimeToWait header.</p></div>
+</div>
+</div>
+</div>
+</article>
+<article class="code">
+<h4>Definition</h4>
+<div class="uri">
+<code>
+<span class="method get">get</span>
+<span class="textUri"><span class="baseUri">{{ getUriPrefix() }}</span><span class="relativeUri">/v2/companies/{cid}/datadelivery/metadata</span></span>
+</code>
+</div>
+<h4>Response Samples</h4>
+<div class="tab-title-group">
+<label>
+<input checked="checked" data-full-tab-id="resp-tab-id-get-0" data-tab-class="resp-tab-get" name="resp-tab-get" type="radio"/>
+<span class="tab-title">application/json</span>
+</label>
+<label>
+<input data-full-tab-id="resp-tab-id-get-1" data-tab-class="resp-tab-get" name="resp-tab-get" type="radio"/>
+<span class="tab-title">application/xml</span>
+</label>
+</div>
+<div>
+<div class="resp-tab-get" id="resp-tab-id-get-0">
+<div class="example">
+
+<div class="get-example-resp-tab-0 activeTab" id="get-tab-resp-example-0">
+
+<pre class="highlightjs">{
+    "categories": [
+        {
+            "label": "Base Compensation",
+            "description": "Provides the details like salary, pay, pay periods, pay rate for an employee",
+            "externalId": "BASE_COMPENSATION",
+            "fields": [
+                {
+                    "fieldType": "Boolean",
+                    "fieldLabel": "Is Current",
+                    "format": "Default",
+                    "externalFieldId": "BASE_COMPENSATION_IS_CURRENT"
+                },
+                {
+                    "fieldType": "Number",
+                    "fieldLabel": "Monthly Pay",
+                    "format": "Currency",
+                    "externalFieldId": "BASE_COMPENSATION_MONTHLY_PAY"
+                },
+                {
+                    "fieldType": "String",
+                    "fieldLabel": "Notes",
+                    "format": "Default",
+                    "externalFieldId": "BASE_COMPENSATION_NOTES"
+                },
+                {
+                    "fieldType": "String",
+                    "fieldLabel": "Notes (200 Chars)",
+                    "format": "Default",
+                    "externalFieldId": "BASE_COMPENSATION_NOTES_200_CHARS"
+                },
+                {
+                    "fieldType": "Number",
+                    "fieldLabel": "PP In Year",
+                    "format": "Default",
+                    "externalFieldId": "BASE_COMPENSATION_NUM_PP_IN_A_YEAR"
+                },
+                {
+                    "fieldType": "Number",
+                    "fieldLabel": "Pay Period Pay",
+                    "format": "Currency",
+                    "externalFieldId": "BASE_COMPENSATION_PAY_PERIOD_PAY"
+                },
+                {
+                    "fieldType": "String",
+                    "fieldLabel": "Payroll Data Option",
+                    "format": "Default",
+                    "externalFieldId": "BASE_COMPENSATION_PAYROLL_DATA_OPTION"
+                },
+                {
+                    "fieldType": "Number",
+                    "fieldLabel": "% Increase",
+                    "format": "Percentage",
+                    "externalFieldId": "BASE_COMPENSATION_PERCENT_INCREASE"
+                },
+                {
+                    "fieldType": "String",
+                    "fieldLabel": "Reason Code",
+                    "format": "Default",
+                    "externalFieldId": "BASE_COMPENSATION_REASON_CODE"
+                },
+                {
+                    "fieldType": "Number",
+                    "fieldLabel": "Annual",
+                    "format": "Currency",
+                    "externalFieldId": "BASE_COMPENSATION_SALARY"
+                },
+                {
+                    "fieldType": "Number",
+                    "fieldLabel": "Amount",
+                    "format": "Currency",
+                    "externalFieldId": "BASE_COMPENSATION_AMOUNT"
+                },
+                {
+                    "fieldType": "String",
+                    "fieldLabel": "AutoPay Amount Earning",
+                    "format": "Default",
+                    "externalFieldId": "BASE_COMPENSATION_AMOUNT_EARNING_ID"
+                },
+                {
+                    "fieldType": "String",
+                    "fieldLabel": "Amount Per",
+                    "format": "Default",
+                    "externalFieldId": "BASE_COMPENSATION_AMOUNT_PER"
+                },
+                {
+                    "fieldType": "Date",
+                    "fieldLabel": "Date From",
+                    "format": "Default",
+                    "externalFieldId": "BASE_COMPENSATION_DATE_FROM"
+                },
+                {
+                    "fieldType": "Date",
+                    "fieldLabel": "Date To",
+                    "format": "Default",
+                    "externalFieldId": "BASE_COMPENSATION_DATE_TO"
+                },
+                {
+                    "fieldType": "Number",
+                    "fieldLabel": "Hourly",
+                    "format": "Currency",
+                    "externalFieldId": "BASE_COMPENSATION_HOURLY_PAY"
+                },
+                {
+                    "fieldType": "Number",
+                    "fieldLabel": "Hours",
+                    "format": "Default",
+                    "externalFieldId": "BASE_COMPENSATION_HOURS"
+                },
+                {
+                    "fieldType": "String",
+                    "fieldLabel": "Hours Per",
+                    "format": "Default",
+                    "externalFieldId": "BASE_COMPENSATION_HOURS_PER"
+                },
+                {
+                    "fieldType": "Number",
+                    "fieldLabel": "Hours Per Pay Period",
+                    "format": "Default",
+                    "externalFieldId": "BASE_COMPENSATION_HOURS_PER_PP"
+                },
+                {
+                    "fieldType": "Number",
+                    "fieldLabel": "Hours Per Year",
+                    "format": "Default",
+                    "externalFieldId": "BASE_COMPENSATION_HOURS_PER_YEAR"
+                },
+                {
+                    "fieldType": "Number",
+                    "fieldLabel": "Weekly Pay",
+                    "format": "Currency",
+                    "externalFieldId": "BASE_COMPENSATION_WEEKLY_PAY"
+                }
+            ]
+        },
+        {
+            "label": "Benefit Plan Summary",
+            "description": "Provides the number of benefit plans and the names for an employee",
+            "externalId": "BENEFIT_PLAN_SUMMARY",
+            "fields": [
+                {
+                    "fieldType": "String",
+                    "fieldLabel": "Benefit Plan Name",
+                    "format": "Default",
+                    "externalFieldId": "BENEFIT_PLAN_SUMMARY_BEN_PLAN_NAME",
+                    "parameter": [
+                        {
+                            "id": 26370,
+                            "name": "Vision"
+                        },
+                        {
+                            "id": 26373,
+                            "name": "Supplemental Life"
+                        },
+                        {
+                            "id": 26374,
+                            "name": "Supplemental AD&amp;D"
+                        },
+                        {
+                            "id": 26376,
+                            "name": "STD"
+                        },
+                        {
+                            "id": 26368,
+                            "name": "Medical"
+                        },
+                        {
+                            "id": 26375,
+                            "name": "LTD"
+                        },
+                        {
+                            "id": 26369,
+                            "name": "Dental"
+                        },
+                        {
+                            "id": 26371,
+                            "name": "Basic Life"
+                        },
+                        {
+                            "id": 26372,
+                            "name": "Basic AD&amp;D"
+                        }
+                    ]
+                },
+                {
+                    "fieldType": "Number",
+                    "fieldLabel": "Count of Benefit Plans",
+                    "format": "Default",
+                    "externalFieldId": "BENEFIT_PLAN_SUMMARY_COUNT_OF_BENEFIT_PLANS",
+                    "parameter": [
+                        {
+                            "id": 26370,
+                            "name": "Vision"
+                        },
+                        {
+                            "id": 26373,
+                            "name": "Supplemental Life"
+                        },
+                        {
+                            "id": 26374,
+                            "name": "Supplemental AD&amp;D"
+                        },
+                        {
+                            "id": 26376,
+                            "name": "STD"
+                        },
+                        {
+                            "id": 26368,
+                            "name": "Medical"
+                        },
+                        {
+                            "id": 26375,
+                            "name": "LTD"
+                        },
+                        {
+                            "id": 26369,
+                            "name": "Dental"
+                        },
+                        {
+                            "id": 26371,
+                            "name": "Basic Life"
+                        },
+                        {
+                            "id": 26372,
+                            "name": "Basic AD&amp;D"
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "label": "Perspective Score",
+            "description": "Provides the latest score for a given perspective",
+            "externalId": "PERSPECTIVE_SCORE",
+            "fields": [
+                {
+                    "fieldType": "Boolean",
+                    "fieldLabel": "Completed",
+                    "format": "Default",
+                    "externalFieldId": "PERSPECTIVE_SCORE_COMPLETED"
+                },
+                {
+                    "fieldType": "Date",
+                    "fieldLabel": "From",
+                    "format": "Default",
+                    "externalFieldId": "PERSPECTIVE_SCORE_DATE_FROM"
+                },
+                {
+                    "fieldType": "Date",
+                    "fieldLabel": "To",
+                    "format": "Default",
+                    "externalFieldId": "PERSPECTIVE_SCORE_DATE_TO"
+                },
+                {
+                    "fieldType": "Boolean",
+                    "fieldLabel": "Is Average",
+                    "format": "Default",
+                    "externalFieldId": "PERSPECTIVE_SCORE_IS_AVG"
+                },
+                {
+                    "fieldType": "String",
+                    "fieldLabel": "Perspective",
+                    "format": "Default",
+                    "externalFieldId": "PERSPECTIVE_SCORE_METRIC_NAME"
+                },
+                {
+                    "fieldType": "Number",
+                    "fieldLabel": "Score",
+                    "format": "Default",
+                    "externalFieldId": "PERSPECTIVE_SCORE_SCORE"
+                },
+                {
+                    "fieldType": "Date",
+                    "fieldLabel": "Updated To Date",
+                    "format": "Default",
+                    "externalFieldId": "PERSPECTIVE_SCORE_UPDATED_TO_DATE"
+                }
+            ]
+        },
+        {
+            "label": "Dates",
+            "description": "Provides the age, employment length, termination length, benefits date for an employee",
+            "externalId": "DATES",
+            "fields": [
+                {
+                    "fieldType": "Number",
+                    "fieldLabel": "Age",
+                    "format": "Default",
+                    "externalFieldId": "DATES_DAYS_EMPL_AGE"
+                },
+                {
+                    "fieldType": "Date",
+                    "fieldLabel": "Benefits Date",
+                    "format": "Default",
+                    "externalFieldId": "DATES_EMPL_DATE_BENEFITS"
+                },
+                {
+                    "fieldType": "Date",
+                    "fieldLabel": "Current Year Hired",
+                    "format": "Default",
+                    "externalFieldId": "DATES_EMPL_DATE_CURRENT_HIRED"
+                },
+                {
+                    "fieldType": "Date",
+                    "fieldLabel": "Current Year Started",
+                    "format": "Default",
+                    "externalFieldId": "DATES_EMPL_DATE_CURRENT_STARTED"
+                },
+                {
+                    "fieldType": "Date",
+                    "fieldLabel": "Date Deceased",
+                    "format": "Default",
+                    "externalFieldId": "DATES_EMPL_DATE_DECEASED"
+                },
+                {
+                    "fieldType": "Date",
+                    "fieldLabel": "Frozen Benefit Date",
+                    "format": "Default",
+                    "externalFieldId": "DATES_EMPL_DATE_FROZEN_BENEFIT"
+                },
+                {
+                    "fieldType": "String",
+                    "fieldLabel": "Frozen Benefit Month",
+                    "format": "Default",
+                    "externalFieldId": "DATES_EMPL_DATE_FROZEN_BENEFIT_MONTH"
+                },
+                {
+                    "fieldType": "String",
+                    "fieldLabel": "Hired Month",
+                    "format": "Default",
+                    "externalFieldId": "DATES_EMPL_DATE_HIRED_MONTH"
+                },
+                {
+                    "fieldType": "String",
+                    "fieldLabel": "PEO Hired Month",
+                    "format": "Default",
+                    "externalFieldId": "DATES_EMPL_DATE_PEO_HIRED_MONTH"
+                },
+                {
+                    "fieldType": "Date",
+                    "fieldLabel": "Date Re-Hired",
+                    "format": "Default",
+                    "externalFieldId": "DATES_EMPL_DATE_REHIRED"
+                },
+                {
+                    "fieldType": "String",
+                    "fieldLabel": "Re-Hired Month",
+                    "format": "Default",
+                    "externalFieldId": "DATES_EMPL_DATE_REHIRED_MONTH"
+                },
+                {
+                    "fieldType": "Date",
+                    "fieldLabel": "Date Retired",
+                    "format": "Default",
+                    "externalFieldId": "DATES_EMPL_DATE_RETIRED"
+                },
+                {
+                    "fieldType": "Date",
+                    "fieldLabel": "Date Review",
+                    "format": "Default",
+                    "externalFieldId": "DATES_EMPL_DATE_REVIEW"
+                },
+                {
+                    "fieldType": "Date",
+                    "fieldLabel": "Date Started",
+                    "format": "Default",
+                    "externalFieldId": "DATES_EMPL_DATE_STARTED"
+                },
+                {
+                    "fieldType": "String",
+                    "fieldLabel": "Started Month",
+                    "format": "Default",
+                    "externalFieldId": "DATES_EMPL_DATE_STARTED_MONTH"
+                },
+                {
+                    "fieldType": "String",
+                    "fieldLabel": "Terminated Month",
+                    "format": "Default",
+                    "externalFieldId": "DATES_EMPL_DATE_TERMINATED_MONTH"
+                },
+                {
+                    "fieldType": "Number",
+                    "fieldLabel": "Employment Length",
+                    "format": "Default",
+                    "externalFieldId": "DATES_EMPLOYMENT_LENGTH"
+                },
+                {
+                    "fieldType": "Number",
+                    "fieldLabel": "Employment Length (Rehired)",
+                    "format": "Default",
+                    "externalFieldId": "DATES_EMPLOYMENT_LENGTH_REHIRED"
+                },
+                {
+                    "fieldType": "Number",
+                    "fieldLabel": "Termination Length",
+                    "format": "Default",
+                    "externalFieldId": "DATES_TERMINATION_LENGTH"
+                },
+                {
+                    "fieldType": "Number",
+                    "fieldLabel": "Years Of Service",
+                    "format": "Default",
+                    "externalFieldId": "DATES_YEARS_OF_SERVICE"
+                }
+            ]
+        },
+        {
+            "label": "Termination Details",
+            "description": "Provides the latest termination reason, date, manager info for an employee",
+            "externalId": "TERMINATION_DETAILS",
+            "fields": [
+                {
+                    "fieldType": "String",
+                    "fieldLabel": "Terminated With Account Status",
+                    "format": "Default",
+                    "externalFieldId": "TERMINATION_DETAILS_ACCOUNT_STATUS_NAME"
+                },
+                {
+                    "fieldType": "Number",
+                    "fieldLabel": "Base Comp at Termination",
+                    "format": "Currency",
+                    "externalFieldId": "TERMINATION_DETAILS_BASE_COMP_AMOUNT"
+                },
+                {
+                    "fieldType": "Number",
+                    "fieldLabel": "Pay Period Hours",
+                    "format": "Default",
+                    "externalFieldId": "TERMINATION_DETAILS_BASE_COMP_PAY_PERIOD_HOURS"
+                },
+                {
+                    "fieldType": "String",
+                    "fieldLabel": "Description",
+                    "format": "Default",
+                    "externalFieldId": "TERMINATION_DETAILS_DESCRIPTION"
+                },
+                {
+                    "fieldType": "String",
+                    "fieldLabel": "Termination special manager",
+                    "format": "Default",
+                    "externalFieldId": "TERMINATION_DETAILS_MANAGER_1_NAME"
+                },
+                {
+                    "fieldType": "String",
+                    "fieldLabel": "Termination timeoff request handler",
+                    "format": "Default",
+                    "externalFieldId": "TERMINATION_DETAILS_MANAGER_2_NAME"
+                },
+                {
+                    "fieldType": "String",
+                    "fieldLabel": "Termination manager at termination",
+                    "format": "Default",
+                    "externalFieldId": "TERMINATION_DETAILS_MANAGER_3_NAME"
+                },
+                {
+                    "fieldType": "String",
+                    "fieldLabel": "Termination supervisor at termination",
+                    "format": "Default",
+                    "externalFieldId": "TERMINATION_DETAILS_MANAGER_4_NAME"
+                },
+                {
+                    "fieldType": "String",
+                    "fieldLabel": "Notes",
+                    "format": "Default",
+                    "externalFieldId": "TERMINATION_DETAILS_NOTES"
+                },
+                {
+                    "fieldType": "String",
+                    "fieldLabel": "Reason",
+                    "format": "Default",
+                    "externalFieldId": "TERMINATION_DETAILS_REASON"
+                },
+                {
+                    "fieldType": "Boolean",
+                    "fieldLabel": "Rehireable",
+                    "format": "Default",
+                    "externalFieldId": "TERMINATION_DETAILS_RE_HIREABLE"
+                },
+                {
+                    "fieldType": "Date",
+                    "fieldLabel": "Termination Date",
+                    "format": "Default",
+                    "externalFieldId": "TERMINATION_DETAILS_TERMINATION_DATE"
+                }
+            ]
+        },
+        {
+            "label": "Demographics",
+            "description": "Provides the demographic data for an employee like age, ethnicity, marital status, education etc",
+            "externalId": "DEMOGRAPHICS",
+            "fields": [
+                {
+                    "fieldType": "String",
+                    "fieldLabel": "Actual Marital Status",
+                    "format": "Default",
+                    "externalFieldId": "DEMOGRAPHICS_EMPL_ACTUAL_MARITAL_STATUS"
+                },
+                {
+                    "fieldType": "String",
+                    "fieldLabel": "Citizenship",
+                    "format": "Default",
+                    "externalFieldId": "DEMOGRAPHICS_EMPL_CITIZENSHIP"
+                },
+                {
+                    "fieldType": "String",
+                    "fieldLabel": "Citizenship (UK)",
+                    "format": "Default",
+                    "externalFieldId": "DEMOGRAPHICS_EMPL_CITIZENSHIP_GBR"
+                },
+                {
+                    "fieldType": "Boolean",
+                    "fieldLabel": "Is Corporate Officer",
+                    "format": "Default",
+                    "externalFieldId": "DEMOGRAPHICS_EMPL_CORPORATE_OFFICER"
+                },
+                {
+                    "fieldType": "Boolean",
+                    "fieldLabel": "Disability",
+                    "format": "Default",
+                    "externalFieldId": "DEMOGRAPHICS_EMPL_DISABILITY"
+                },
+                {
+                    "fieldType": "Date",
+                    "fieldLabel": "Discharge Date",
+                    "format": "Default",
+                    "externalFieldId": "DEMOGRAPHICS_EMPL_DISCHARGE_DATE"
+                },
+                {
+                    "fieldType": "String",
+                    "fieldLabel": "Ethnicity (UK)",
+                    "format": "Default",
+                    "externalFieldId": "DEMOGRAPHICS_EMPL_ETHNICITY_GBR"
+                },
+                {
+                    "fieldType": "String",
+                    "fieldLabel": "Ethnicity",
+                    "format": "Default",
+                    "externalFieldId": "DEMOGRAPHICS_EMPL_ETHNICITY_NAME"
+                },
+                {
+                    "fieldType": "String",
+                    "fieldLabel": "Eye Color",
+                    "format": "Default",
+                    "externalFieldId": "DEMOGRAPHICS_EMPL_EYE_COLOR"
+                },
+                {
+                    "fieldType": "String",
+                    "fieldLabel": "Gender",
+                    "format": "Default",
+                    "externalFieldId": "DEMOGRAPHICS_EMPL_GENDER"
+                },
+                {
+                    "fieldType": "String",
+                    "fieldLabel": "Height",
+                    "format": "Default",
+                    "externalFieldId": "DEMOGRAPHICS_EMPL_HEIGHT"
+                },
+                {
+                    "fieldType": "String",
+                    "fieldLabel": "Highest Education Completed",
+                    "format": "Default",
+                    "externalFieldId": "DEMOGRAPHICS_EMPL_HIGHEST_ED"
+                },
+                {
+                    "fieldType": "Boolean",
+                    "fieldLabel": "Is Highly Compensated",
+                    "format": "Default",
+                    "externalFieldId": "DEMOGRAPHICS_EMPL_HIGHLY_COMPENSATED"
+                },
+                {
+                    "fieldType": "Boolean",
+                    "fieldLabel": "Is Active Wartime Or Campaign Badge Veteran",
+                    "format": "Default",
+                    "externalFieldId": "DEMOGRAPHICS_EMPL_IS_ACTIVE_WARTIME_OR_CAMPAIGN_BADGE_VETERAN"
+                },
+                {
+                    "fieldType": "Boolean",
+                    "fieldLabel": "Is Disabled Veteran",
+                    "format": "Default",
+                    "externalFieldId": "DEMOGRAPHICS_EMPL_IS_DISABLED_VETERAN"
+                },
+                {
+                    "fieldType": "Boolean",
+                    "fieldLabel": "Is FT Student",
+                    "format": "Default",
+                    "externalFieldId": "DEMOGRAPHICS_EMPL_IS_FTSTUDENT"
+                },
+                {
+                    "fieldType": "Boolean",
+                    "fieldLabel": "Is Recently Separated Veteran",
+                    "format": "Default",
+                    "externalFieldId": "DEMOGRAPHICS_EMPL_IS_RECENTLY_SEPARATED_VETERAN"
+                },
+                {
+                    "fieldType": "Boolean",
+                    "fieldLabel": "Is Seasonal",
+                    "format": "Default",
+                    "externalFieldId": "DEMOGRAPHICS_EMPL_IS_SEASONAL"
+                },
+                {
+                    "fieldType": "Boolean",
+                    "fieldLabel": "Is Armed Forces Service Medal Veteran",
+                    "format": "Default",
+                    "externalFieldId": "DEMOGRAPHICS_EMPL_IS_SERVICE_MEDAL_VETERAN"
+                },
+                {
+                    "fieldType": "Boolean",
+                    "fieldLabel": "Is Smoker",
+                    "format": "Default",
+                    "externalFieldId": "DEMOGRAPHICS_EMPL_IS_SMOKER"
+                },
+                {
+                    "fieldType": "Boolean",
+                    "fieldLabel": "Is Veteran",
+                    "format": "Default",
+                    "externalFieldId": "DEMOGRAPHICS_EMPL_IS_VETERAN"
+                },
+                {
+                    "fieldType": "Boolean",
+                    "fieldLabel": "Is Key Employee",
+                    "format": "Default",
+                    "externalFieldId": "DEMOGRAPHICS_EMPL_KEY_EMPLOYEE"
+                },
+                {
+                    "fieldType": "Boolean",
+                    "fieldLabel": "Is Owner Related",
+                    "format": "Default",
+                    "externalFieldId": "DEMOGRAPHICS_EMPL_OWNER_RELATED"
+                },
+                {
+                    "fieldType": "Number",
+                    "fieldLabel": "Ownership Percentage",
+                    "format": "Percentage",
+                    "externalFieldId": "DEMOGRAPHICS_EMPL_OWNERSHIP_PERCENT"
+                },
+                {
+                    "fieldType": "String",
+                    "fieldLabel": "Primary Language",
+                    "format": "Default",
+                    "externalFieldId": "DEMOGRAPHICS_EMPL_PRIMARY_LANGUAGE"
+                },
+                {
+                    "fieldType": "String",
+                    "fieldLabel": "Recruiter",
+                    "format": "Default",
+                    "externalFieldId": "DEMOGRAPHICS_EMPL_RECRUITER"
+                },
+                {
+                    "fieldType": "Boolean",
+                    "fieldLabel": "Referral",
+                    "format": "Default",
+                    "externalFieldId": "DEMOGRAPHICS_EMPL_REFERRAL"
+                },
+                {
+                    "fieldType": "String",
+                    "fieldLabel": "Referral Code",
+                    "format": "Default",
+                    "externalFieldId": "DEMOGRAPHICS_EMPL_REFERRAL_CODE"
+                },
+                {
+                    "fieldType": "String",
+                    "fieldLabel": "Secondary Language",
+                    "format": "Default",
+                    "externalFieldId": "DEMOGRAPHICS_EMPL_SECONDARY_LANGUAGE"
+                },
+                {
+                    "fieldType": "Date",
+                    "fieldLabel": "Visa Expiration",
+                    "format": "Default",
+                    "externalFieldId": "DEMOGRAPHICS_EMPL_VISA_EXPIRATION"
+                },
+                {
+                    "fieldType": "String",
+                    "fieldLabel": "Visa Number",
+                    "format": "Default",
+                    "externalFieldId": "DEMOGRAPHICS_EMPL_VISA_NUMBER"
+                },
+                {
+                    "fieldType": "String",
+                    "fieldLabel": "Visa Type",
+                    "format": "Default",
+                    "externalFieldId": "DEMOGRAPHICS_EMPL_VISA_TYPE_NAME"
+                },
+                {
+                    "fieldType": "String",
+                    "fieldLabel": "Weight",
+                    "format": "Default",
+                    "externalFieldId": "DEMOGRAPHICS_EMPL_WEIGHT"
+                },
+                {
+                    "fieldType": "String",
+                    "fieldLabel": "Worker Type",
+                    "format": "Default",
+                    "externalFieldId": "DEMOGRAPHICS_EMPL_WORKER_TYPE"
+                }
+            ]
+        },
+        {
+            "label": "Incidents",
+            "description": "Provides the number of incidents and number of violations",
+            "externalId": "INCIDENTS",
+            "fields": [
+                {
+                    "fieldType": "Number",
+                    "fieldLabel": "Count of Incidents",
+                    "format": "Default",
+                    "externalFieldId": "INCIDENTS_COUNT_OF_INCIDENTS"
+                },
+                {
+                    "fieldType": "Number",
+                    "fieldLabel": "Count of Violations",
+                    "format": "Default",
+                    "externalFieldId": "INCIDENTS_COUNT_OF_VIOLATIONS"
+                }
+            ]
+        },
+        {
+            "label": "Workers Claims",
+            "description": "the count of claims made by a worker and count of injuries occurred to an employee",
+            "externalId": "WORKERS_CLAIMS",
+            "fields": [
+                {
+                    "fieldType": "Number",
+                    "fieldLabel": "Count of Injuries",
+                    "format": "Default",
+                    "externalFieldId": "INCIDENTS_WORKERS_CLAIMS_COUNT_OF_INJURIES"
+                },
+                {
+                    "fieldType": "Number",
+                    "fieldLabel": "Count of Workers Claims",
+                    "format": "Default",
+                    "externalFieldId": "INCIDENTS_WORKERS_CLAIMS_COUNT_OF_WORKERS_CLAIMS"
+                }
+            ]
+        },
+        {
+            "label": "Job Changes History",
+            "description": "Provides the number of job changes made by an employee",
+            "externalId": "JOB_CHANGES_HISTORY",
+            "fields": [
+                {
+                    "fieldType": "Number",
+                    "fieldLabel": "Count of Job Changes",
+                    "format": "Default",
+                    "externalFieldId": "JOB_CHANGES_HISTORY_COUNT_OF_JOB_CHANGES"
+                }
+            ]
+        },
+        {
+            "label": "Pay Information",
+            "description": "Provides the information related to pay grade, default job, pay type for an employee",
+            "externalId": "PAY_INFORMATION",
+            "fields": [
+                {
+                    "fieldType": "String",
+                    "fieldLabel": "Payroll Job Title",
+                    "format": "Default",
+                    "externalFieldId": "PAYINFORMATION_PAYROLL_JOB_TITLE"
+                },
+                {
+                    "fieldType": "String",
+                    "fieldLabel": "Workers Comp Code",
+                    "format": "Default",
+                    "externalFieldId": "PAYINFORMATION_WORKERS_COMP_CODE"
+                },
+                {
+                    "fieldType": "String",
+                    "fieldLabel": "Employee Benefits Auto-Enrollment Eligibility",
+                    "format": "Default",
+                    "externalFieldId": "PAY_INFORMATION_EMPL_BENEFIT_AUTO_ENROLLMENT_ELIGIBILITY"
+                },
+                {
+                    "fieldType": "String",
+                    "fieldLabel": "Employee Benefits Auto-Enrollment Eligibility Last Update",
+                    "format": "Default",
+                    "externalFieldId": "PAY_INFORMATION_EMPL_BENEFIT_AUTO_ENROLLMENT_ELIGIBILITY_LAST_UPDATE"
+                },
+                {
+                    "fieldType": "Number",
+                    "fieldLabel": "Compa Ratio",
+                    "format": "Default",
+                    "externalFieldId": "PAY_INFORMATION_EMPL_COMPA_RATIO"
+                },
+                {
+                    "fieldType": "String",
+                    "fieldLabel": "Default Jobs (HR) Abbrev.",
+                    "format": "Default",
+                    "externalFieldId": "PAY_INFORMATION_EMPL_DEFAULT_COST_CENTER_10_ABBREV"
+                },
+                {
+                    "fieldType": "String",
+                    "fieldLabel": "Default Jobs (HR) External Id",
+                    "format": "Default",
+                    "externalFieldId": "PAY_INFORMATION_EMPL_DEFAULT_COST_CENTER_10_EXTERNAL_ID"
+                },
+                {
+                    "fieldType": "String",
+                    "fieldLabel": "Default Jobs (HR) Abbrev. Path",
+                    "format": "Default",
+                    "externalFieldId": "PAY_INFORMATION_EMPL_DEFAULT_COST_CENTER_10_FULL_ABBREV_PATH"
+                },
+                {
+                    "fieldType": "String",
+                    "fieldLabel": "Default Jobs (HR) Full Path",
+                    "format": "Default",
+                    "externalFieldId": "PAY_INFORMATION_EMPL_DEFAULT_COST_CENTER_10_FULL_PATH"
+                },
+                {
+                    "fieldType": "String",
+                    "fieldLabel": "Default Jobs (HR)",
+                    "format": "Default",
+                    "externalFieldId": "PAY_INFORMATION_EMPL_DEFAULT_COST_CENTER_10_NAME"
+                },
+                {
+                    "fieldType": "String",
+                    "fieldLabel": "Default WC Code",
+                    "format": "Default",
+                    "externalFieldId": "PAY_INFORMATION_EMPL_DEFAULT_WORKERS_COMP_CODE"
+                },
+                {
+                    "fieldType": "String",
+                    "fieldLabel": "Default WC Code (Full)",
+                    "format": "Default",
+                    "externalFieldId": "PAY_INFORMATION_EMPL_DEFAULT_WORKERS_COMP_FULL_CODE"
+                },
+                {
+                    "fieldType": "String",
+                    "fieldLabel": "Employee Dependent Benefits Eligibility",
+                    "format": "Default",
+                    "externalFieldId": "PAY_INFORMATION_EMPL_DEPENDENT_BENEFITS_ELIGIBILITY"
+                },
+                {
+                    "fieldType": "String",
+                    "fieldLabel": "EEO Classification",
+                    "format": "Default",
+                    "externalFieldId": "PAY_INFORMATION_EMPL_EEO_CLASSIFICATION"
+                },
+                {
+                    "fieldType": "String",
+                    "fieldLabel": "GL Code",
+                    "format": "Default",
+                    "externalFieldId": "PAY_INFORMATION_EMPL_GL_CODE1"
+                },
+                {
+                    "fieldType": "Number",
+                    "fieldLabel": "Hourly Pay",
+                    "format": "Currency",
+                    "externalFieldId": "PAY_INFORMATION_EMPL_HOURLY_PAY"
+                },
+                {
+                    "fieldType": "String",
+                    "fieldLabel": "Employee Type",
+                    "format": "Default",
+                    "externalFieldId": "PAY_INFORMATION_EMPL_HR_EMPLOYEE_TYPE"
+                },
+                {
+                    "fieldType": "String",
+                    "fieldLabel": "Pay Type",
+                    "format": "Default",
+                    "externalFieldId": "PAY_INFORMATION_EMPL_HR_PAY_TYPE"
+                },
+                {
+                    "fieldType": "Date",
+                    "fieldLabel": "Job Last Changed",
+                    "format": "Default",
+                    "externalFieldId": "PAY_INFORMATION_EMPL_JOB_LAST_CHANGED"
+                },
+                {
+                    "fieldType": "String",
+                    "fieldLabel": "Employee Medical Eligibility",
+                    "format": "Default",
+                    "externalFieldId": "PAY_INFORMATION_EMPL_MEDICAL_ELIGIBILITY"
+                },
+                {
+                    "fieldType": "String",
+                    "fieldLabel": "Employee Pay Grade",
+                    "format": "Default",
+                    "externalFieldId": "PAY_INFORMATION_EMPL_PAY_GRADE"
+                },
+                {
+                    "fieldType": "String",
+                    "fieldLabel": "Standard Work Day",
+                    "format": "Default",
+                    "externalFieldId": "PAY_INFORMATION_EMPL_STANDARD_WORK_DAY"
+                },
+                {
+                    "fieldType": "String",
+                    "fieldLabel": "Employee Union",
+                    "format": "Default",
+                    "externalFieldId": "PAY_INFORMATION_EMPL_UNION"
+                },
+                {
+                    "fieldType": "Number",
+                    "fieldLabel": "Job Length",
+                    "format": "Default",
+                    "externalFieldId": "PAY_INFORMATION_JOB_LENGTH"
+                },
+                {
+                    "fieldType": "Number",
+                    "fieldLabel": "Pay Grade: Maximum",
+                    "format": "Currency",
+                    "externalFieldId": "PAY_INFORMATION_MAXIMUM"
+                },
+                {
+                    "fieldType": "Number",
+                    "fieldLabel": "Pay Grade: Mid",
+                    "format": "Currency",
+                    "externalFieldId": "PAY_INFORMATION_PAY_GRADE_MID"
+                },
+                {
+                    "fieldType": "Number",
+                    "fieldLabel": "Pay Grade: Minimum",
+                    "format": "Currency",
+                    "externalFieldId": "PAY_INFORMATION_MINIMUM"
+                },
+                {
+                    "fieldType": "String",
+                    "fieldLabel": "Pay Grade: Rate By",
+                    "format": "Default",
+                    "externalFieldId": "PAY_INFORMATION_RATE_BY"
+                },
+                {
+                    "fieldType": "String",
+                    "fieldLabel": "Payroll Classification",
+                    "format": "Default",
+                    "externalFieldId": "PAYINFORMATION_PAYROLL_CLASSIFICATION"
+                }
+            ]
+        },
+        {
+            "label": "Performance Review",
+            "description": "Provides the details around performance/competency profile, rating review start/end date",
+            "externalId": "PERFORMANCE_REVIEW",
+            "fields": [
+                {
+                    "fieldType": "String",
+                    "fieldLabel": "Approval Status",
+                    "format": "Default",
+                    "externalFieldId": "PERFORMANCE_REVIEW_APPROVAL_STATUS"
+                },
+                {
+                    "fieldType": "String",
+                    "fieldLabel": "Assigned To",
+                    "format": "Default",
+                    "externalFieldId": "PERFORMANCE_REVIEW_ASSIGNED_TO"
+                },
+                {
+                    "fieldType": "Date",
+                    "fieldLabel": "Created",
+                    "format": "Default",
+                    "externalFieldId": "PERFORMANCE_REVIEW_CREATED"
+                },
+                {
+                    "fieldType": "String",
+                    "fieldLabel": "Description",
+                    "format": "Default",
+                    "externalFieldId": "PERFORMANCE_REVIEW_DESCRIPTION"
+                },
+                {
+                    "fieldType": "String",
+                    "fieldLabel": "Competency Profile",
+                    "format": "Default",
+                    "externalFieldId": "PERFORMANCE_REVIEW_EMPL_COMPETENCY_PROFILE"
+                },
+                {
+                    "fieldType": "Date",
+                    "fieldLabel": "Employee Signed Date",
+                    "format": "Default",
+                    "externalFieldId": "PERFORMANCE_REVIEW_EMPLOYEE_SIGNED_DATE"
+                },
+                {
+                    "fieldType": "String",
+                    "fieldLabel": "Performance Review Profile",
+                    "format": "Default",
+                    "externalFieldId": "PERFORMANCE_REVIEW_EMPL_PERFORMANCE_REVIEW_PROFILE"
+                },
+                {
+                    "fieldType": "Date",
+                    "fieldLabel": "Finalized Date",
+                    "format": "Default",
+                    "externalFieldId": "PERFORMANCE_REVIEW_FINALIZED_DATE"
+                },
+                {
+                    "fieldType": "Boolean",
+                    "fieldLabel": "Is Sub-Review",
+                    "format": "Default",
+                    "externalFieldId": "PERFORMANCE_REVIEW_IS_MASTER"
+                },
+                {
+                    "fieldType": "String",
+                    "fieldLabel": "Review Name",
+                    "format": "Default",
+                    "externalFieldId": "PERFORMANCE_REVIEW_NAME"
+                },
+                {
+                    "fieldType": "Number",
+                    "fieldLabel": "New Base Comp",
+                    "format": "Currency",
+                    "externalFieldId": "PERFORMANCE_REVIEW_NEW_BASE_COMP_AMOUNT"
+                },
+                {
+                    "fieldType": "String",
+                    "fieldLabel": "New Job",
+                    "format": "Default",
+                    "externalFieldId": "PERFORMANCE_REVIEW_NEW_JOB"
+                },
+                {
+                    "fieldType": "Number",
+                    "fieldLabel": "# Attached Documents",
+                    "format": "Default",
+                    "externalFieldId": "PERFORMANCE_REVIEW_NUM_ATTACHED_DOCUMENT"
+                },
+                {
+                    "fieldType": "Number",
+                    "fieldLabel": "Previous Base Comp",
+                    "format": "Currency",
+                    "externalFieldId": "PERFORMANCE_REVIEW_OLD_BASE_COMP_AMOUNT"
+                },
+                {
+                    "fieldType": "String",
+                    "fieldLabel": "Previous Job",
+                    "format": "Default",
+                    "externalFieldId": "PERFORMANCE_REVIEW_OLD_JOB"
+                },
+                {
+                    "fieldType": "Date",
+                    "fieldLabel": "Period End Date",
+                    "format": "Default",
+                    "externalFieldId": "PERFORMANCE_REVIEW_PERIOD_END_DATE"
+                },
+                {
+                    "fieldType": "Date",
+                    "fieldLabel": "Period Start Date",
+                    "format": "Default",
+                    "externalFieldId": "PERFORMANCE_REVIEW_PERIOD_START_DATE"
+                },
+                {
+                    "fieldType": "String",
+                    "fieldLabel": "Rating",
+                    "format": "Default",
+                    "externalFieldId": "PERFORMANCE_REVIEW_RATING"
+                },
+                {
+                    "fieldType": "Number",
+                    "fieldLabel": "Rating Value",
+                    "format": "Default",
+                    "externalFieldId": "PERFORMANCE_REVIEW_VALUE"
+                },
+                {
+                    "fieldType": "String",
+                    "fieldLabel": "Reason",
+                    "format": "Default",
+                    "externalFieldId": "PERFORMANCE_REVIEW_REASON"
+                },
+                {
+                    "fieldType": "Date",
+                    "fieldLabel": "Reviewer Signed Date",
+                    "format": "Default",
+                    "externalFieldId": "PERFORMANCE_REVIEW_REVIEWER_SIGNED_DATE"
+                },
+                {
+                    "fieldType": "Date",
+                    "fieldLabel": "Scheduled Date",
+                    "format": "Default",
+                    "externalFieldId": "PERFORMANCE_REVIEW_SCHEDULED_DATE"
+                },
+                {
+                    "fieldType": "String",
+                    "fieldLabel": "Status",
+                    "format": "Default",
+                    "externalFieldId": "PERFORMANCE_REVIEW_STATUS"
+                }
+            ]
+        },
+        {
+            "label": "Personal Information",
+            "description": "Provides the address, tax type, manager, role details for an employee",
+            "externalId": "PERSONAL_INFORMATION",
+            "fields": [
+                {
+                    "fieldType": "String",
+                    "fieldLabel": "Position",
+                    "format": "Default",
+                    "externalFieldId": "PERSONAL_INFORMATION_EMPL_CONTRACT_POSITION"
+                },
+                {
+                    "fieldType": "String",
+                    "fieldLabel": "units label ",
+                    "format": "Default",
+                    "externalFieldId": "PERSONAL_INFORMATION_EMPL_CUSTOM_1"
+                },
+                {
+                    "fieldType": "Date",
+                    "fieldLabel": "units label  Effective Date From",
+                    "format": "Default",
+                    "externalFieldId": "PERSONAL_INFORMATION_EMPL_CUSTOM_1_EFF_DATE"
+                },
+                {
+                    "fieldType": "String",
+                    "fieldLabel": "Employee Id",
+                    "format": "Default",
+                    "externalFieldId": "PERSONAL_INFORMATION_EMPL_EMPLOYEE_ID"
+                },
+                {
+                    "fieldType": "Boolean",
+                    "fieldLabel": "In Payroll",
+                    "format": "Default",
+                    "externalFieldId": "PERSONAL_INFORMATION_EMPL_IN_PAYROLL"
+                },
+                {
+                    "fieldType": "Date",
+                    "fieldLabel": "Pay Statement Electronic Consent Given On",
+                    "format": "Default",
+                    "externalFieldId": "PERSONAL_INFORMATION_EMPL_PAY_STATEMENT_CONSENT_GIVEN_ON"
+                },
+                {
+                    "fieldType": "Boolean",
+                    "fieldLabel": "Pay Statement Electronic Consent Given",
+                    "format": "Default",
+                    "externalFieldId": "PERSONAL_INFORMATION_EMPL_PAY_STATEMENT_ELECTRONIC_CONSENT_GIVEN"
+                },
+                {
+                    "fieldType": "String",
+                    "fieldLabel": "Address 1",
+                    "format": "Default",
+                    "externalFieldId": "PERSONAL_INFORMATION_EMPL_PRIMARY_ADDR_ADDRESS_1"
+                },
+                {
+                    "fieldType": "String",
+                    "fieldLabel": "Address 2",
+                    "format": "Default",
+                    "externalFieldId": "PERSONAL_INFORMATION_EMPL_PRIMARY_ADDR_ADDRESS_2"
+                },
+                {
+                    "fieldType": "String",
+                    "fieldLabel": "City",
+                    "format": "Default",
+                    "externalFieldId": "PERSONAL_INFORMATION_EMPL_PRIMARY_ADDR_CITY"
+                },
+                {
+                    "fieldType": "String",
+                    "fieldLabel": "Country",
+                    "format": "Default",
+                    "externalFieldId": "PERSONAL_INFORMATION_EMPL_PRIMARY_ADDR_COUNTRY"
+                },
+                {
+                    "fieldType": "String",
+                    "fieldLabel": "Full Address",
+                    "format": "Default",
+                    "externalFieldId": "PERSONAL_INFORMATION_EMPL_PRIMARY_ADDR_FULL"
+                },
+                {
+                    "fieldType": "String",
+                    "fieldLabel": "Geo Accuracy",
+                    "format": "Default",
+                    "externalFieldId": "PERSONAL_INFORMATION_EMPL_PRIMARY_ADDR_GEO_ACCURACY"
+                },
+                {
+                    "fieldType": "String",
+                    "fieldLabel": "Geo Accuracy Name",
+                    "format": "Default",
+                    "externalFieldId": "PERSONAL_INFORMATION_EMPL_PRIMARY_ADDR_GEO_ACCURACY_NAME"
+                },
+                {
+                    "fieldType": "String",
+                    "fieldLabel": "State/Province",
+                    "format": "Default",
+                    "externalFieldId": "PERSONAL_INFORMATION_EMPL_PRIMARY_ADDR_STATE_ID"
+                },
+                {
+                    "fieldType": "String",
+                    "fieldLabel": "Postal/Zip Code",
+                    "format": "Default",
+                    "externalFieldId": "PERSONAL_INFORMATION_EMPL_PRIMARY_ADDR_ZIP"
+                },
+                {
+                    "fieldType": "String",
+                    "fieldLabel": "Employee Status",
+                    "format": "Default",
+                    "externalFieldId": "PERSONAL_INFORMATION_EMPL_STATUS_NAME"
+                },
+                {
+                    "fieldType": "String",
+                    "fieldLabel": "Employee Tax Type (1099)",
+                    "format": "Default",
+                    "externalFieldId": "PERSONAL_INFORMATION_EMPL_TAX_TYPE_1099"
+                },
+                {
+                    "fieldType": "String",
+                    "fieldLabel": "Employee Tax Type (Draw)",
+                    "format": "Default",
+                    "externalFieldId": "PERSONAL_INFORMATION_EMPL_TAX_TYPE_DRAW"
+                },
+                {
+                    "fieldType": "String",
+                    "fieldLabel": "Employee Tax Type (W2)",
+                    "format": "Default",
+                    "externalFieldId": "PERSONAL_INFORMATION_EMPL_TAX_TYPE_W2"
+                }
+            ]
+        }
+    ]
+}</pre>
+</div>
+<div class="get-example-resp-tab-0" id="get-tab-resp-schema-0">
+
+<div class="jsonschema" id="schema-0">{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "type": "object",
+  "properties": {
+    "categories": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "label": {
+            "type": "string"
+          },
+          "description": {
+            "type": "string"
+          },
+          "externalId": {
+            "type": "string"
+          },
+          "fields": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "fieldType": {
+                  "type": "string"
+                },
+                "fieldLabel": {
+                  "type": "string"
+                },
+                "format": {
+                  "type": "string"
+                },
+                "externalFieldId": {
+                  "type": "string"
+                },
+                "Parameter": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "id": {
+                        "type": "integer"
+                      },
+                      "name": {
+                        "type": "string"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}</div>
+</div>
+</div>
+</div>
+<div class="resp-tab-get" id="resp-tab-id-get-1">
+<div class="example">
+
+<div class="get-example-resp-tab-1 activeTab" id="get-tab-resp-example-1">
+
+<pre class="highlightjs">&lt;?xml version='1.0' encoding='UTF-8'?&gt;
+&lt;datadelivery&gt;
+    &lt;categories&gt;
+        &lt;category&gt;
+            &lt;label&gt;Base Compensation&lt;/label&gt;
+            &lt;description&gt;Provides the details like salary, pay, pay periods, pay rate for an employee&lt;/description&gt;
+            &lt;externalId&gt;BASE_COMPENSATION&lt;/externalId&gt;
+            &lt;fields&gt;
+                &lt;field&gt;
+                    &lt;fieldType&gt;Boolean&lt;/fieldType&gt;
+                    &lt;fieldLabel&gt;Is Current&lt;/fieldLabel&gt;
+                    &lt;format&gt;Default&lt;/format&gt;
+                    &lt;externalFieldId&gt;BASE_COMPENSATION_IS_CURRENT&lt;/externalFieldId&gt;
+                &lt;/field&gt;
+                &lt;field&gt;
+                    &lt;fieldType&gt;Number&lt;/fieldType&gt;
+                    &lt;fieldLabel&gt;Monthly Pay&lt;/fieldLabel&gt;
+                    &lt;format&gt;Currency&lt;/format&gt;
+                    &lt;externalFieldId&gt;BASE_COMPENSATION_MONTHLY_PAY&lt;/externalFieldId&gt;
+                &lt;/field&gt;
+                &lt;field&gt;
+                    &lt;fieldType&gt;String&lt;/fieldType&gt;
+                    &lt;fieldLabel&gt;Notes&lt;/fieldLabel&gt;
+                    &lt;format&gt;Default&lt;/format&gt;
+                    &lt;externalFieldId&gt;BASE_COMPENSATION_NOTES&lt;/externalFieldId&gt;
+                &lt;/field&gt;
+                &lt;field&gt;
+                    &lt;fieldType&gt;String&lt;/fieldType&gt;
+                    &lt;fieldLabel&gt;Notes (200 Chars)&lt;/fieldLabel&gt;
+                    &lt;format&gt;Default&lt;/format&gt;
+                    &lt;externalFieldId&gt;BASE_COMPENSATION_NOTES_200_CHARS&lt;/externalFieldId&gt;
+                &lt;/field&gt;
+                &lt;field&gt;
+                    &lt;fieldType&gt;Number&lt;/fieldType&gt;
+                    &lt;fieldLabel&gt;PP In Year&lt;/fieldLabel&gt;
+                    &lt;format&gt;Default&lt;/format&gt;
+                    &lt;externalFieldId&gt;BASE_COMPENSATION_NUM_PP_IN_A_YEAR&lt;/externalFieldId&gt;
+                &lt;/field&gt;
+                &lt;field&gt;
+                    &lt;fieldType&gt;Number&lt;/fieldType&gt;
+                    &lt;fieldLabel&gt;Pay Period Pay&lt;/fieldLabel&gt;
+                    &lt;format&gt;Currency&lt;/format&gt;
+                    &lt;externalFieldId&gt;BASE_COMPENSATION_PAY_PERIOD_PAY&lt;/externalFieldId&gt;
+                &lt;/field&gt;
+                &lt;field&gt;
+                    &lt;fieldType&gt;String&lt;/fieldType&gt;
+                    &lt;fieldLabel&gt;Payroll Data Option&lt;/fieldLabel&gt;
+                    &lt;format&gt;Default&lt;/format&gt;
+                    &lt;externalFieldId&gt;BASE_COMPENSATION_PAYROLL_DATA_OPTION&lt;/externalFieldId&gt;
+                &lt;/field&gt;
+                &lt;field&gt;
+                    &lt;fieldType&gt;Number&lt;/fieldType&gt;
+                    &lt;fieldLabel&gt;% Increase&lt;/fieldLabel&gt;
+                    &lt;format&gt;Percentage&lt;/format&gt;
+                    &lt;externalFieldId&gt;BASE_COMPENSATION_PERCENT_INCREASE&lt;/externalFieldId&gt;
+                &lt;/field&gt;
+                &lt;field&gt;
+                    &lt;fieldType&gt;String&lt;/fieldType&gt;
+                    &lt;fieldLabel&gt;Reason Code&lt;/fieldLabel&gt;
+                    &lt;format&gt;Default&lt;/format&gt;
+                    &lt;externalFieldId&gt;BASE_COMPENSATION_REASON_CODE&lt;/externalFieldId&gt;
+                &lt;/field&gt;
+                &lt;field&gt;
+                    &lt;fieldType&gt;Number&lt;/fieldType&gt;
+                    &lt;fieldLabel&gt;Annual&lt;/fieldLabel&gt;
+                    &lt;format&gt;Currency&lt;/format&gt;
+                    &lt;externalFieldId&gt;BASE_COMPENSATION_SALARY&lt;/externalFieldId&gt;
+                &lt;/field&gt;
+                &lt;field&gt;
+                    &lt;fieldType&gt;Number&lt;/fieldType&gt;
+                    &lt;fieldLabel&gt;Amount&lt;/fieldLabel&gt;
+                    &lt;format&gt;Currency&lt;/format&gt;
+                    &lt;externalFieldId&gt;BASE_COMPENSATION_AMOUNT&lt;/externalFieldId&gt;
+                &lt;/field&gt;
+                &lt;field&gt;
+                    &lt;fieldType&gt;String&lt;/fieldType&gt;
+                    &lt;fieldLabel&gt;AutoPay Amount Earning&lt;/fieldLabel&gt;
+                    &lt;format&gt;Default&lt;/format&gt;
+                    &lt;externalFieldId&gt;BASE_COMPENSATION_AMOUNT_EARNING_ID&lt;/externalFieldId&gt;
+                &lt;/field&gt;
+                &lt;field&gt;
+                    &lt;fieldType&gt;String&lt;/fieldType&gt;
+                    &lt;fieldLabel&gt;Amount Per&lt;/fieldLabel&gt;
+                    &lt;format&gt;Default&lt;/format&gt;
+                    &lt;externalFieldId&gt;BASE_COMPENSATION_AMOUNT_PER&lt;/externalFieldId&gt;
+                &lt;/field&gt;
+                &lt;field&gt;
+                    &lt;fieldType&gt;Date&lt;/fieldType&gt;
+                    &lt;fieldLabel&gt;Date From&lt;/fieldLabel&gt;
+                    &lt;format&gt;Default&lt;/format&gt;
+                    &lt;externalFieldId&gt;BASE_COMPENSATION_DATE_FROM&lt;/externalFieldId&gt;
+                &lt;/field&gt;
+                &lt;field&gt;
+                    &lt;fieldType&gt;Date&lt;/fieldType&gt;
+                    &lt;fieldLabel&gt;Date To&lt;/fieldLabel&gt;
+                    &lt;format&gt;Default&lt;/format&gt;
+                    &lt;externalFieldId&gt;BASE_COMPENSATION_DATE_TO&lt;/externalFieldId&gt;
+                &lt;/field&gt;
+                &lt;field&gt;
+                    &lt;fieldType&gt;Number&lt;/fieldType&gt;
+                    &lt;fieldLabel&gt;Hourly&lt;/fieldLabel&gt;
+                    &lt;format&gt;Currency&lt;/format&gt;
+                    &lt;externalFieldId&gt;BASE_COMPENSATION_HOURLY_PAY&lt;/externalFieldId&gt;
+                &lt;/field&gt;
+                &lt;field&gt;
+                    &lt;fieldType&gt;Number&lt;/fieldType&gt;
+                    &lt;fieldLabel&gt;Hours&lt;/fieldLabel&gt;
+                    &lt;format&gt;Default&lt;/format&gt;
+                    &lt;externalFieldId&gt;BASE_COMPENSATION_HOURS&lt;/externalFieldId&gt;
+                &lt;/field&gt;
+                &lt;field&gt;
+                    &lt;fieldType&gt;String&lt;/fieldType&gt;
+                    &lt;fieldLabel&gt;Hours Per&lt;/fieldLabel&gt;
+                    &lt;format&gt;Default&lt;/format&gt;
+                    &lt;externalFieldId&gt;BASE_COMPENSATION_HOURS_PER&lt;/externalFieldId&gt;
+                &lt;/field&gt;
+                &lt;field&gt;
+                    &lt;fieldType&gt;Number&lt;/fieldType&gt;
+                    &lt;fieldLabel&gt;Hours Per Pay Period&lt;/fieldLabel&gt;
+                    &lt;format&gt;Default&lt;/format&gt;
+                    &lt;externalFieldId&gt;BASE_COMPENSATION_HOURS_PER_PP&lt;/externalFieldId&gt;
+                &lt;/field&gt;
+                &lt;field&gt;
+                    &lt;fieldType&gt;Number&lt;/fieldType&gt;
+                    &lt;fieldLabel&gt;Hours Per Year&lt;/fieldLabel&gt;
+                    &lt;format&gt;Default&lt;/format&gt;
+                    &lt;externalFieldId&gt;BASE_COMPENSATION_HOURS_PER_YEAR&lt;/externalFieldId&gt;
+                &lt;/field&gt;
+                &lt;field&gt;
+                    &lt;fieldType&gt;Number&lt;/fieldType&gt;
+                    &lt;fieldLabel&gt;Weekly Pay&lt;/fieldLabel&gt;
+                    &lt;format&gt;Currency&lt;/format&gt;
+                    &lt;externalFieldId&gt;BASE_COMPENSATION_WEEKLY_PAY&lt;/externalFieldId&gt;
+                &lt;/field&gt;
+            &lt;/fields&gt;
+        &lt;/category&gt;
+        &lt;category&gt;
+            &lt;label&gt;Benefit Plan Summary&lt;/label&gt;
+            &lt;description&gt;Provides the number of benefit plans and the names for an employee&lt;/description&gt;
+            &lt;externalId&gt;BENEFIT_PLAN_SUMMARY&lt;/externalId&gt;
+            &lt;fields&gt;
+                &lt;field&gt;
+                    &lt;fieldType&gt;String&lt;/fieldType&gt;
+                    &lt;fieldLabel&gt;Benefit Plan Name&lt;/fieldLabel&gt;
+                    &lt;format&gt;Default&lt;/format&gt;
+                    &lt;externalFieldId&gt;BENEFIT_PLAN_SUMMARY_BEN_PLAN_NAME&lt;/externalFieldId&gt;
+                    &lt;parameter&gt;
+                        &lt;parameter&gt;
+                            &lt;id&gt;26370&lt;/id&gt;
+                            &lt;name&gt;Vision&lt;/name&gt;
+                        &lt;/parameter&gt;
+                        &lt;parameter&gt;
+                            &lt;id&gt;26373&lt;/id&gt;
+                            &lt;name&gt;Supplemental Life&lt;/name&gt;
+                        &lt;/parameter&gt;
+                        &lt;parameter&gt;
+                            &lt;id&gt;26374&lt;/id&gt;
+                            &lt;name&gt;Supplemental AD&amp;amp;D&lt;/name&gt;
+                        &lt;/parameter&gt;
+                        &lt;parameter&gt;
+                            &lt;id&gt;26376&lt;/id&gt;
+                            &lt;name&gt;STD&lt;/name&gt;
+                        &lt;/parameter&gt;
+                        &lt;parameter&gt;
+                            &lt;id&gt;26368&lt;/id&gt;
+                            &lt;name&gt;Medical&lt;/name&gt;
+                        &lt;/parameter&gt;
+                        &lt;parameter&gt;
+                            &lt;id&gt;26375&lt;/id&gt;
+                            &lt;name&gt;LTD&lt;/name&gt;
+                        &lt;/parameter&gt;
+                        &lt;parameter&gt;
+                            &lt;id&gt;26369&lt;/id&gt;
+                            &lt;name&gt;Dental&lt;/name&gt;
+                        &lt;/parameter&gt;
+                        &lt;parameter&gt;
+                            &lt;id&gt;26371&lt;/id&gt;
+                            &lt;name&gt;Basic Life&lt;/name&gt;
+                        &lt;/parameter&gt;
+                        &lt;parameter&gt;
+                            &lt;id&gt;26372&lt;/id&gt;
+                            &lt;name&gt;Basic AD&amp;amp;D&lt;/name&gt;
+                        &lt;/parameter&gt;
+                    &lt;/parameter&gt;
+                &lt;/field&gt;
+                &lt;field&gt;
+                    &lt;fieldType&gt;Number&lt;/fieldType&gt;
+                    &lt;fieldLabel&gt;Count of Benefit Plans&lt;/fieldLabel&gt;
+                    &lt;format&gt;Default&lt;/format&gt;
+                    &lt;externalFieldId&gt;BENEFIT_PLAN_SUMMARY_COUNT_OF_BENEFIT_PLANS&lt;/externalFieldId&gt;
+                    &lt;parameter&gt;
+                        &lt;parameter&gt;
+                            &lt;id&gt;26370&lt;/id&gt;
+                            &lt;name&gt;Vision&lt;/name&gt;
+                        &lt;/parameter&gt;
+                        &lt;parameter&gt;
+                            &lt;id&gt;26373&lt;/id&gt;
+                            &lt;name&gt;Supplemental Life&lt;/name&gt;
+                        &lt;/parameter&gt;
+                        &lt;parameter&gt;
+                            &lt;id&gt;26374&lt;/id&gt;
+                            &lt;name&gt;Supplemental AD&amp;amp;D&lt;/name&gt;
+                        &lt;/parameter&gt;
+                        &lt;parameter&gt;
+                            &lt;id&gt;26376&lt;/id&gt;
+                            &lt;name&gt;STD&lt;/name&gt;
+                        &lt;/parameter&gt;
+                        &lt;parameter&gt;
+                            &lt;id&gt;26368&lt;/id&gt;
+                            &lt;name&gt;Medical&lt;/name&gt;
+                        &lt;/parameter&gt;
+                        &lt;parameter&gt;
+                            &lt;id&gt;26375&lt;/id&gt;
+                            &lt;name&gt;LTD&lt;/name&gt;
+                        &lt;/parameter&gt;
+                        &lt;parameter&gt;
+                            &lt;id&gt;26369&lt;/id&gt;
+                            &lt;name&gt;Dental&lt;/name&gt;
+                        &lt;/parameter&gt;
+                        &lt;parameter&gt;
+                            &lt;id&gt;26371&lt;/id&gt;
+                            &lt;name&gt;Basic Life&lt;/name&gt;
+                        &lt;/parameter&gt;
+                        &lt;parameter&gt;
+                            &lt;id&gt;26372&lt;/id&gt;
+                            &lt;name&gt;Basic AD&amp;amp;D&lt;/name&gt;
+                        &lt;/parameter&gt;
+                    &lt;/parameter&gt;
+                &lt;/field&gt;
+            &lt;/fields&gt;
+        &lt;/category&gt;
+        &lt;category&gt;
+            &lt;label&gt;Perspective Score&lt;/label&gt;
+            &lt;description&gt;Provides the latest score for a given perspective&lt;/description&gt;
+            &lt;externalId&gt;PERSPECTIVE_SCORE&lt;/externalId&gt;
+            &lt;fields&gt;
+                &lt;field&gt;
+                    &lt;fieldType&gt;Boolean&lt;/fieldType&gt;
+                    &lt;fieldLabel&gt;Completed&lt;/fieldLabel&gt;
+                    &lt;format&gt;Default&lt;/format&gt;
+                    &lt;externalFieldId&gt;PERSPECTIVE_SCORE_COMPLETED&lt;/externalFieldId&gt;
+                &lt;/field&gt;
+                &lt;field&gt;
+                    &lt;fieldType&gt;Date&lt;/fieldType&gt;
+                    &lt;fieldLabel&gt;From&lt;/fieldLabel&gt;
+                    &lt;format&gt;Default&lt;/format&gt;
+                    &lt;externalFieldId&gt;PERSPECTIVE_SCORE_DATE_FROM&lt;/externalFieldId&gt;
+                &lt;/field&gt;
+                &lt;field&gt;
+                    &lt;fieldType&gt;Date&lt;/fieldType&gt;
+                    &lt;fieldLabel&gt;To&lt;/fieldLabel&gt;
+                    &lt;format&gt;Default&lt;/format&gt;
+                    &lt;externalFieldId&gt;PERSPECTIVE_SCORE_DATE_TO&lt;/externalFieldId&gt;
+                &lt;/field&gt;
+                &lt;field&gt;
+                    &lt;fieldType&gt;Boolean&lt;/fieldType&gt;
+                    &lt;fieldLabel&gt;Is Average&lt;/fieldLabel&gt;
+                    &lt;format&gt;Default&lt;/format&gt;
+                    &lt;externalFieldId&gt;PERSPECTIVE_SCORE_IS_AVG&lt;/externalFieldId&gt;
+                &lt;/field&gt;
+                &lt;field&gt;
+                    &lt;fieldType&gt;String&lt;/fieldType&gt;
+                    &lt;fieldLabel&gt;Perspective&lt;/fieldLabel&gt;
+                    &lt;format&gt;Default&lt;/format&gt;
+                    &lt;externalFieldId&gt;PERSPECTIVE_SCORE_METRIC_NAME&lt;/externalFieldId&gt;
+                &lt;/field&gt;
+                &lt;field&gt;
+                    &lt;fieldType&gt;Number&lt;/fieldType&gt;
+                    &lt;fieldLabel&gt;Score&lt;/fieldLabel&gt;
+                    &lt;format&gt;Default&lt;/format&gt;
+                    &lt;externalFieldId&gt;PERSPECTIVE_SCORE_SCORE&lt;/externalFieldId&gt;
+                &lt;/field&gt;
+                &lt;field&gt;
+                    &lt;fieldType&gt;Date&lt;/fieldType&gt;
+                    &lt;fieldLabel&gt;Updated To Date&lt;/fieldLabel&gt;
+                    &lt;format&gt;Default&lt;/format&gt;
+                    &lt;externalFieldId&gt;PERSPECTIVE_SCORE_UPDATED_TO_DATE&lt;/externalFieldId&gt;
+                &lt;/field&gt;
+            &lt;/fields&gt;
+        &lt;/category&gt;
+        &lt;category&gt;
+            &lt;label&gt;Dates&lt;/label&gt;
+            &lt;description&gt;Provides the age, employment length, termination length, benefits date for an employee&lt;/description&gt;
+            &lt;externalId&gt;DATES&lt;/externalId&gt;
+            &lt;fields&gt;
+                &lt;field&gt;
+                    &lt;fieldType&gt;Number&lt;/fieldType&gt;
+                    &lt;fieldLabel&gt;Age&lt;/fieldLabel&gt;
+                    &lt;format&gt;Default&lt;/format&gt;
+                    &lt;externalFieldId&gt;DATES_DAYS_EMPL_AGE&lt;/externalFieldId&gt;
+                &lt;/field&gt;
+                &lt;field&gt;
+                    &lt;fieldType&gt;Date&lt;/fieldType&gt;
+                    &lt;fieldLabel&gt;Benefits Date&lt;/fieldLabel&gt;
+                    &lt;format&gt;Default&lt;/format&gt;
+                    &lt;externalFieldId&gt;DATES_EMPL_DATE_BENEFITS&lt;/externalFieldId&gt;
+                &lt;/field&gt;
+                &lt;field&gt;
+                    &lt;fieldType&gt;Date&lt;/fieldType&gt;
+                    &lt;fieldLabel&gt;Current Year Hired&lt;/fieldLabel&gt;
+                    &lt;format&gt;Default&lt;/format&gt;
+                    &lt;externalFieldId&gt;DATES_EMPL_DATE_CURRENT_HIRED&lt;/externalFieldId&gt;
+                &lt;/field&gt;
+                &lt;field&gt;
+                    &lt;fieldType&gt;Date&lt;/fieldType&gt;
+                    &lt;fieldLabel&gt;Current Year Started&lt;/fieldLabel&gt;
+                    &lt;format&gt;Default&lt;/format&gt;
+                    &lt;externalFieldId&gt;DATES_EMPL_DATE_CURRENT_STARTED&lt;/externalFieldId&gt;
+                &lt;/field&gt;
+                &lt;field&gt;
+                    &lt;fieldType&gt;Date&lt;/fieldType&gt;
+                    &lt;fieldLabel&gt;Date Deceased&lt;/fieldLabel&gt;
+                    &lt;format&gt;Default&lt;/format&gt;
+                    &lt;externalFieldId&gt;DATES_EMPL_DATE_DECEASED&lt;/externalFieldId&gt;
+                &lt;/field&gt;
+                &lt;field&gt;
+                    &lt;fieldType&gt;Date&lt;/fieldType&gt;
+                    &lt;fieldLabel&gt;Frozen Benefit Date&lt;/fieldLabel&gt;
+                    &lt;format&gt;Default&lt;/format&gt;
+                    &lt;externalFieldId&gt;DATES_EMPL_DATE_FROZEN_BENEFIT&lt;/externalFieldId&gt;
+                &lt;/field&gt;
+                &lt;field&gt;
+                    &lt;fieldType&gt;String&lt;/fieldType&gt;
+                    &lt;fieldLabel&gt;Frozen Benefit Month&lt;/fieldLabel&gt;
+                    &lt;format&gt;Default&lt;/format&gt;
+                    &lt;externalFieldId&gt;DATES_EMPL_DATE_FROZEN_BENEFIT_MONTH&lt;/externalFieldId&gt;
+                &lt;/field&gt;
+                &lt;field&gt;
+                    &lt;fieldType&gt;String&lt;/fieldType&gt;
+                    &lt;fieldLabel&gt;Hired Month&lt;/fieldLabel&gt;
+                    &lt;format&gt;Default&lt;/format&gt;
+                    &lt;externalFieldId&gt;DATES_EMPL_DATE_HIRED_MONTH&lt;/externalFieldId&gt;
+                &lt;/field&gt;
+                &lt;field&gt;
+                    &lt;fieldType&gt;String&lt;/fieldType&gt;
+                    &lt;fieldLabel&gt;PEO Hired Month&lt;/fieldLabel&gt;
+                    &lt;format&gt;Default&lt;/format&gt;
+                    &lt;externalFieldId&gt;DATES_EMPL_DATE_PEO_HIRED_MONTH&lt;/externalFieldId&gt;
+                &lt;/field&gt;
+                &lt;field&gt;
+                    &lt;fieldType&gt;Date&lt;/fieldType&gt;
+                    &lt;fieldLabel&gt;Date Re-Hired&lt;/fieldLabel&gt;
+                    &lt;format&gt;Default&lt;/format&gt;
+                    &lt;externalFieldId&gt;DATES_EMPL_DATE_REHIRED&lt;/externalFieldId&gt;
+                &lt;/field&gt;
+                &lt;field&gt;
+                    &lt;fieldType&gt;String&lt;/fieldType&gt;
+                    &lt;fieldLabel&gt;Re-Hired Month&lt;/fieldLabel&gt;
+                    &lt;format&gt;Default&lt;/format&gt;
+                    &lt;externalFieldId&gt;DATES_EMPL_DATE_REHIRED_MONTH&lt;/externalFieldId&gt;
+                &lt;/field&gt;
+                &lt;field&gt;
+                    &lt;fieldType&gt;Date&lt;/fieldType&gt;
+                    &lt;fieldLabel&gt;Date Retired&lt;/fieldLabel&gt;
+                    &lt;format&gt;Default&lt;/format&gt;
+                    &lt;externalFieldId&gt;DATES_EMPL_DATE_RETIRED&lt;/externalFieldId&gt;
+                &lt;/field&gt;
+                &lt;field&gt;
+                    &lt;fieldType&gt;Date&lt;/fieldType&gt;
+                    &lt;fieldLabel&gt;Date Review&lt;/fieldLabel&gt;
+                    &lt;format&gt;Default&lt;/format&gt;
+                    &lt;externalFieldId&gt;DATES_EMPL_DATE_REVIEW&lt;/externalFieldId&gt;
+                &lt;/field&gt;
+                &lt;field&gt;
+                    &lt;fieldType&gt;Date&lt;/fieldType&gt;
+                    &lt;fieldLabel&gt;Date Started&lt;/fieldLabel&gt;
+                    &lt;format&gt;Default&lt;/format&gt;
+                    &lt;externalFieldId&gt;DATES_EMPL_DATE_STARTED&lt;/externalFieldId&gt;
+                &lt;/field&gt;
+                &lt;field&gt;
+                    &lt;fieldType&gt;String&lt;/fieldType&gt;
+                    &lt;fieldLabel&gt;Started Month&lt;/fieldLabel&gt;
+                    &lt;format&gt;Default&lt;/format&gt;
+                    &lt;externalFieldId&gt;DATES_EMPL_DATE_STARTED_MONTH&lt;/externalFieldId&gt;
+                &lt;/field&gt;
+                &lt;field&gt;
+                    &lt;fieldType&gt;String&lt;/fieldType&gt;
+                    &lt;fieldLabel&gt;Terminated Month&lt;/fieldLabel&gt;
+                    &lt;format&gt;Default&lt;/format&gt;
+                    &lt;externalFieldId&gt;DATES_EMPL_DATE_TERMINATED_MONTH&lt;/externalFieldId&gt;
+                &lt;/field&gt;
+                &lt;field&gt;
+                    &lt;fieldType&gt;Number&lt;/fieldType&gt;
+                    &lt;fieldLabel&gt;Employment Length&lt;/fieldLabel&gt;
+                    &lt;format&gt;Default&lt;/format&gt;
+                    &lt;externalFieldId&gt;DATES_EMPLOYMENT_LENGTH&lt;/externalFieldId&gt;
+                &lt;/field&gt;
+                &lt;field&gt;
+                    &lt;fieldType&gt;Number&lt;/fieldType&gt;
+                    &lt;fieldLabel&gt;Employment Length (Rehired)&lt;/fieldLabel&gt;
+                    &lt;format&gt;Default&lt;/format&gt;
+                    &lt;externalFieldId&gt;DATES_EMPLOYMENT_LENGTH_REHIRED&lt;/externalFieldId&gt;
+                &lt;/field&gt;
+                &lt;field&gt;
+                    &lt;fieldType&gt;Number&lt;/fieldType&gt;
+                    &lt;fieldLabel&gt;Termination Length&lt;/fieldLabel&gt;
+                    &lt;format&gt;Default&lt;/format&gt;
+                    &lt;externalFieldId&gt;DATES_TERMINATION_LENGTH&lt;/externalFieldId&gt;
+                &lt;/field&gt;
+                &lt;field&gt;
+                    &lt;fieldType&gt;Number&lt;/fieldType&gt;
+                    &lt;fieldLabel&gt;Years Of Service&lt;/fieldLabel&gt;
+                    &lt;format&gt;Default&lt;/format&gt;
+                    &lt;externalFieldId&gt;DATES_YEARS_OF_SERVICE&lt;/externalFieldId&gt;
+                &lt;/field&gt;
+            &lt;/fields&gt;
+        &lt;/category&gt;
+        &lt;category&gt;
+            &lt;label&gt;Termination Details&lt;/label&gt;
+            &lt;description&gt;Provides the latest termination reason, date, manager info for an employee&lt;/description&gt;
+            &lt;externalId&gt;TERMINATION_DETAILS&lt;/externalId&gt;
+            &lt;fields&gt;
+                &lt;field&gt;
+                    &lt;fieldType&gt;String&lt;/fieldType&gt;
+                    &lt;fieldLabel&gt;Terminated With Account Status&lt;/fieldLabel&gt;
+                    &lt;format&gt;Default&lt;/format&gt;
+                    &lt;externalFieldId&gt;TERMINATION_DETAILS_ACCOUNT_STATUS_NAME&lt;/externalFieldId&gt;
+                &lt;/field&gt;
+                &lt;field&gt;
+                    &lt;fieldType&gt;Number&lt;/fieldType&gt;
+                    &lt;fieldLabel&gt;Base Comp at Termination&lt;/fieldLabel&gt;
+                    &lt;format&gt;Currency&lt;/format&gt;
+                    &lt;externalFieldId&gt;TERMINATION_DETAILS_BASE_COMP_AMOUNT&lt;/externalFieldId&gt;
+                &lt;/field&gt;
+                &lt;field&gt;
+                    &lt;fieldType&gt;Number&lt;/fieldType&gt;
+                    &lt;fieldLabel&gt;Pay Period Hours&lt;/fieldLabel&gt;
+                    &lt;format&gt;Default&lt;/format&gt;
+                    &lt;externalFieldId&gt;TERMINATION_DETAILS_BASE_COMP_PAY_PERIOD_HOURS&lt;/externalFieldId&gt;
+                &lt;/field&gt;
+                &lt;field&gt;
+                    &lt;fieldType&gt;String&lt;/fieldType&gt;
+                    &lt;fieldLabel&gt;Description&lt;/fieldLabel&gt;
+                    &lt;format&gt;Default&lt;/format&gt;
+                    &lt;externalFieldId&gt;TERMINATION_DETAILS_DESCRIPTION&lt;/externalFieldId&gt;
+                &lt;/field&gt;
+                &lt;field&gt;
+                    &lt;fieldType&gt;String&lt;/fieldType&gt;
+                    &lt;fieldLabel&gt;Termination special manager&lt;/fieldLabel&gt;
+                    &lt;format&gt;Default&lt;/format&gt;
+                    &lt;externalFieldId&gt;TERMINATION_DETAILS_MANAGER_1_NAME&lt;/externalFieldId&gt;
+                &lt;/field&gt;
+                &lt;field&gt;
+                    &lt;fieldType&gt;String&lt;/fieldType&gt;
+                    &lt;fieldLabel&gt;Termination timeoff request handler&lt;/fieldLabel&gt;
+                    &lt;format&gt;Default&lt;/format&gt;
+                    &lt;externalFieldId&gt;TERMINATION_DETAILS_MANAGER_2_NAME&lt;/externalFieldId&gt;
+                &lt;/field&gt;
+                &lt;field&gt;
+                    &lt;fieldType&gt;String&lt;/fieldType&gt;
+                    &lt;fieldLabel&gt;Termination manager at termination&lt;/fieldLabel&gt;
+                    &lt;format&gt;Default&lt;/format&gt;
+                    &lt;externalFieldId&gt;TERMINATION_DETAILS_MANAGER_3_NAME&lt;/externalFieldId&gt;
+                &lt;/field&gt;
+                &lt;field&gt;
+                    &lt;fieldType&gt;String&lt;/fieldType&gt;
+                    &lt;fieldLabel&gt;Termination supervisor at termination&lt;/fieldLabel&gt;
+                    &lt;format&gt;Default&lt;/format&gt;
+                    &lt;externalFieldId&gt;TERMINATION_DETAILS_MANAGER_4_NAME&lt;/externalFieldId&gt;
+                &lt;/field&gt;
+                &lt;field&gt;
+                    &lt;fieldType&gt;String&lt;/fieldType&gt;
+                    &lt;fieldLabel&gt;Notes&lt;/fieldLabel&gt;
+                    &lt;format&gt;Default&lt;/format&gt;
+                    &lt;externalFieldId&gt;TERMINATION_DETAILS_NOTES&lt;/externalFieldId&gt;
+                &lt;/field&gt;
+                &lt;field&gt;
+                    &lt;fieldType&gt;String&lt;/fieldType&gt;
+                    &lt;fieldLabel&gt;Reason&lt;/fieldLabel&gt;
+                    &lt;format&gt;Default&lt;/format&gt;
+                    &lt;externalFieldId&gt;TERMINATION_DETAILS_REASON&lt;/externalFieldId&gt;
+                &lt;/field&gt;
+                &lt;field&gt;
+                    &lt;fieldType&gt;Boolean&lt;/fieldType&gt;
+                    &lt;fieldLabel&gt;Rehireable&lt;/fieldLabel&gt;
+                    &lt;format&gt;Default&lt;/format&gt;
+                    &lt;externalFieldId&gt;TERMINATION_DETAILS_RE_HIREABLE&lt;/externalFieldId&gt;
+                &lt;/field&gt;
+                &lt;field&gt;
+                    &lt;fieldType&gt;Date&lt;/fieldType&gt;
+                    &lt;fieldLabel&gt;Termination Date&lt;/fieldLabel&gt;
+                    &lt;format&gt;Default&lt;/format&gt;
+                    &lt;externalFieldId&gt;TERMINATION_DETAILS_TERMINATION_DATE&lt;/externalFieldId&gt;
+                &lt;/field&gt;
+            &lt;/fields&gt;
+        &lt;/category&gt;
+        &lt;category&gt;
+            &lt;label&gt;Demographics&lt;/label&gt;
+            &lt;description&gt;Provides the demographic data for an employee like age, ethnicity, marital status, education etc&lt;/description&gt;
+            &lt;externalId&gt;DEMOGRAPHICS&lt;/externalId&gt;
+            &lt;fields&gt;
+                &lt;field&gt;
+                    &lt;fieldType&gt;String&lt;/fieldType&gt;
+                    &lt;fieldLabel&gt;Actual Marital Status&lt;/fieldLabel&gt;
+                    &lt;format&gt;Default&lt;/format&gt;
+                    &lt;externalFieldId&gt;DEMOGRAPHICS_EMPL_ACTUAL_MARITAL_STATUS&lt;/externalFieldId&gt;
+                &lt;/field&gt;
+                &lt;field&gt;
+                    &lt;fieldType&gt;String&lt;/fieldType&gt;
+                    &lt;fieldLabel&gt;Citizenship&lt;/fieldLabel&gt;
+                    &lt;format&gt;Default&lt;/format&gt;
+                    &lt;externalFieldId&gt;DEMOGRAPHICS_EMPL_CITIZENSHIP&lt;/externalFieldId&gt;
+                &lt;/field&gt;
+                &lt;field&gt;
+                    &lt;fieldType&gt;String&lt;/fieldType&gt;
+                    &lt;fieldLabel&gt;Citizenship (UK)&lt;/fieldLabel&gt;
+                    &lt;format&gt;Default&lt;/format&gt;
+                    &lt;externalFieldId&gt;DEMOGRAPHICS_EMPL_CITIZENSHIP_GBR&lt;/externalFieldId&gt;
+                &lt;/field&gt;
+                &lt;field&gt;
+                    &lt;fieldType&gt;Boolean&lt;/fieldType&gt;
+                    &lt;fieldLabel&gt;Is Corporate Officer&lt;/fieldLabel&gt;
+                    &lt;format&gt;Default&lt;/format&gt;
+                    &lt;externalFieldId&gt;DEMOGRAPHICS_EMPL_CORPORATE_OFFICER&lt;/externalFieldId&gt;
+                &lt;/field&gt;
+                &lt;field&gt;
+                    &lt;fieldType&gt;Boolean&lt;/fieldType&gt;
+                    &lt;fieldLabel&gt;Disability&lt;/fieldLabel&gt;
+                    &lt;format&gt;Default&lt;/format&gt;
+                    &lt;externalFieldId&gt;DEMOGRAPHICS_EMPL_DISABILITY&lt;/externalFieldId&gt;
+                &lt;/field&gt;
+                &lt;field&gt;
+                    &lt;fieldType&gt;Date&lt;/fieldType&gt;
+                    &lt;fieldLabel&gt;Discharge Date&lt;/fieldLabel&gt;
+                    &lt;format&gt;Default&lt;/format&gt;
+                    &lt;externalFieldId&gt;DEMOGRAPHICS_EMPL_DISCHARGE_DATE&lt;/externalFieldId&gt;
+                &lt;/field&gt;
+                &lt;field&gt;
+                    &lt;fieldType&gt;String&lt;/fieldType&gt;
+                    &lt;fieldLabel&gt;Ethnicity (UK)&lt;/fieldLabel&gt;
+                    &lt;format&gt;Default&lt;/format&gt;
+                    &lt;externalFieldId&gt;DEMOGRAPHICS_EMPL_ETHNICITY_GBR&lt;/externalFieldId&gt;
+                &lt;/field&gt;
+                &lt;field&gt;
+                    &lt;fieldType&gt;String&lt;/fieldType&gt;
+                    &lt;fieldLabel&gt;Ethnicity&lt;/fieldLabel&gt;
+                    &lt;format&gt;Default&lt;/format&gt;
+                    &lt;externalFieldId&gt;DEMOGRAPHICS_EMPL_ETHNICITY_NAME&lt;/externalFieldId&gt;
+                &lt;/field&gt;
+                &lt;field&gt;
+                    &lt;fieldType&gt;String&lt;/fieldType&gt;
+                    &lt;fieldLabel&gt;Eye Color&lt;/fieldLabel&gt;
+                    &lt;format&gt;Default&lt;/format&gt;
+                    &lt;externalFieldId&gt;DEMOGRAPHICS_EMPL_EYE_COLOR&lt;/externalFieldId&gt;
+                &lt;/field&gt;
+                &lt;field&gt;
+                    &lt;fieldType&gt;String&lt;/fieldType&gt;
+                    &lt;fieldLabel&gt;Gender&lt;/fieldLabel&gt;
+                    &lt;format&gt;Default&lt;/format&gt;
+                    &lt;externalFieldId&gt;DEMOGRAPHICS_EMPL_GENDER&lt;/externalFieldId&gt;
+                &lt;/field&gt;
+                &lt;field&gt;
+                    &lt;fieldType&gt;String&lt;/fieldType&gt;
+                    &lt;fieldLabel&gt;Height&lt;/fieldLabel&gt;
+                    &lt;format&gt;Default&lt;/format&gt;
+                    &lt;externalFieldId&gt;DEMOGRAPHICS_EMPL_HEIGHT&lt;/externalFieldId&gt;
+                &lt;/field&gt;
+                &lt;field&gt;
+                    &lt;fieldType&gt;String&lt;/fieldType&gt;
+                    &lt;fieldLabel&gt;Highest Education Completed&lt;/fieldLabel&gt;
+                    &lt;format&gt;Default&lt;/format&gt;
+                    &lt;externalFieldId&gt;DEMOGRAPHICS_EMPL_HIGHEST_ED&lt;/externalFieldId&gt;
+                &lt;/field&gt;
+                &lt;field&gt;
+                    &lt;fieldType&gt;Boolean&lt;/fieldType&gt;
+                    &lt;fieldLabel&gt;Is Highly Compensated&lt;/fieldLabel&gt;
+                    &lt;format&gt;Default&lt;/format&gt;
+                    &lt;externalFieldId&gt;DEMOGRAPHICS_EMPL_HIGHLY_COMPENSATED&lt;/externalFieldId&gt;
+                &lt;/field&gt;
+                &lt;field&gt;
+                    &lt;fieldType&gt;Boolean&lt;/fieldType&gt;
+                    &lt;fieldLabel&gt;Is Active Wartime Or Campaign Badge Veteran&lt;/fieldLabel&gt;
+                    &lt;format&gt;Default&lt;/format&gt;
+                    &lt;externalFieldId&gt;DEMOGRAPHICS_EMPL_IS_ACTIVE_WARTIME_OR_CAMPAIGN_BADGE_VETERAN&lt;/externalFieldId&gt;
+                &lt;/field&gt;
+                &lt;field&gt;
+                    &lt;fieldType&gt;Boolean&lt;/fieldType&gt;
+                    &lt;fieldLabel&gt;Is Disabled Veteran&lt;/fieldLabel&gt;
+                    &lt;format&gt;Default&lt;/format&gt;
+                    &lt;externalFieldId&gt;DEMOGRAPHICS_EMPL_IS_DISABLED_VETERAN&lt;/externalFieldId&gt;
+                &lt;/field&gt;
+                &lt;field&gt;
+                    &lt;fieldType&gt;Boolean&lt;/fieldType&gt;
+                    &lt;fieldLabel&gt;Is FT Student&lt;/fieldLabel&gt;
+                    &lt;format&gt;Default&lt;/format&gt;
+                    &lt;externalFieldId&gt;DEMOGRAPHICS_EMPL_IS_FTSTUDENT&lt;/externalFieldId&gt;
+                &lt;/field&gt;
+                &lt;field&gt;
+                    &lt;fieldType&gt;Boolean&lt;/fieldType&gt;
+                    &lt;fieldLabel&gt;Is Recently Separated Veteran&lt;/fieldLabel&gt;
+                    &lt;format&gt;Default&lt;/format&gt;
+                    &lt;externalFieldId&gt;DEMOGRAPHICS_EMPL_IS_RECENTLY_SEPARATED_VETERAN&lt;/externalFieldId&gt;
+                &lt;/field&gt;
+                &lt;field&gt;
+                    &lt;fieldType&gt;Boolean&lt;/fieldType&gt;
+                    &lt;fieldLabel&gt;Is Seasonal&lt;/fieldLabel&gt;
+                    &lt;format&gt;Default&lt;/format&gt;
+                    &lt;externalFieldId&gt;DEMOGRAPHICS_EMPL_IS_SEASONAL&lt;/externalFieldId&gt;
+                &lt;/field&gt;
+                &lt;field&gt;
+                    &lt;fieldType&gt;Boolean&lt;/fieldType&gt;
+                    &lt;fieldLabel&gt;Is Armed Forces Service Medal Veteran&lt;/fieldLabel&gt;
+                    &lt;format&gt;Default&lt;/format&gt;
+                    &lt;externalFieldId&gt;DEMOGRAPHICS_EMPL_IS_SERVICE_MEDAL_VETERAN&lt;/externalFieldId&gt;
+                &lt;/field&gt;
+                &lt;field&gt;
+                    &lt;fieldType&gt;Boolean&lt;/fieldType&gt;
+                    &lt;fieldLabel&gt;Is Smoker&lt;/fieldLabel&gt;
+                    &lt;format&gt;Default&lt;/format&gt;
+                    &lt;externalFieldId&gt;DEMOGRAPHICS_EMPL_IS_SMOKER&lt;/externalFieldId&gt;
+                &lt;/field&gt;
+                &lt;field&gt;
+                    &lt;fieldType&gt;Boolean&lt;/fieldType&gt;
+                    &lt;fieldLabel&gt;Is Veteran&lt;/fieldLabel&gt;
+                    &lt;format&gt;Default&lt;/format&gt;
+                    &lt;externalFieldId&gt;DEMOGRAPHICS_EMPL_IS_VETERAN&lt;/externalFieldId&gt;
+                &lt;/field&gt;
+                &lt;field&gt;
+                    &lt;fieldType&gt;Boolean&lt;/fieldType&gt;
+                    &lt;fieldLabel&gt;Is Key Employee&lt;/fieldLabel&gt;
+                    &lt;format&gt;Default&lt;/format&gt;
+                    &lt;externalFieldId&gt;DEMOGRAPHICS_EMPL_KEY_EMPLOYEE&lt;/externalFieldId&gt;
+                &lt;/field&gt;
+                &lt;field&gt;
+                    &lt;fieldType&gt;Boolean&lt;/fieldType&gt;
+                    &lt;fieldLabel&gt;Is Owner Related&lt;/fieldLabel&gt;
+                    &lt;format&gt;Default&lt;/format&gt;
+                    &lt;externalFieldId&gt;DEMOGRAPHICS_EMPL_OWNER_RELATED&lt;/externalFieldId&gt;
+                &lt;/field&gt;
+                &lt;field&gt;
+                    &lt;fieldType&gt;Number&lt;/fieldType&gt;
+                    &lt;fieldLabel&gt;Ownership Percentage&lt;/fieldLabel&gt;
+                    &lt;format&gt;Percentage&lt;/format&gt;
+                    &lt;externalFieldId&gt;DEMOGRAPHICS_EMPL_OWNERSHIP_PERCENT&lt;/externalFieldId&gt;
+                &lt;/field&gt;
+                &lt;field&gt;
+                    &lt;fieldType&gt;String&lt;/fieldType&gt;
+                    &lt;fieldLabel&gt;Primary Language&lt;/fieldLabel&gt;
+                    &lt;format&gt;Default&lt;/format&gt;
+                    &lt;externalFieldId&gt;DEMOGRAPHICS_EMPL_PRIMARY_LANGUAGE&lt;/externalFieldId&gt;
+                &lt;/field&gt;
+                &lt;field&gt;
+                    &lt;fieldType&gt;String&lt;/fieldType&gt;
+                    &lt;fieldLabel&gt;Recruiter&lt;/fieldLabel&gt;
+                    &lt;format&gt;Default&lt;/format&gt;
+                    &lt;externalFieldId&gt;DEMOGRAPHICS_EMPL_RECRUITER&lt;/externalFieldId&gt;
+                &lt;/field&gt;
+                &lt;field&gt;
+                    &lt;fieldType&gt;Boolean&lt;/fieldType&gt;
+                    &lt;fieldLabel&gt;Referral&lt;/fieldLabel&gt;
+                    &lt;format&gt;Default&lt;/format&gt;
+                    &lt;externalFieldId&gt;DEMOGRAPHICS_EMPL_REFERRAL&lt;/externalFieldId&gt;
+                &lt;/field&gt;
+                &lt;field&gt;
+                    &lt;fieldType&gt;String&lt;/fieldType&gt;
+                    &lt;fieldLabel&gt;Referral Code&lt;/fieldLabel&gt;
+                    &lt;format&gt;Default&lt;/format&gt;
+                    &lt;externalFieldId&gt;DEMOGRAPHICS_EMPL_REFERRAL_CODE&lt;/externalFieldId&gt;
+                &lt;/field&gt;
+                &lt;field&gt;
+                    &lt;fieldType&gt;String&lt;/fieldType&gt;
+                    &lt;fieldLabel&gt;Secondary Language&lt;/fieldLabel&gt;
+                    &lt;format&gt;Default&lt;/format&gt;
+                    &lt;externalFieldId&gt;DEMOGRAPHICS_EMPL_SECONDARY_LANGUAGE&lt;/externalFieldId&gt;
+                &lt;/field&gt;
+                &lt;field&gt;
+                    &lt;fieldType&gt;Date&lt;/fieldType&gt;
+                    &lt;fieldLabel&gt;Visa Expiration&lt;/fieldLabel&gt;
+                    &lt;format&gt;Default&lt;/format&gt;
+                    &lt;externalFieldId&gt;DEMOGRAPHICS_EMPL_VISA_EXPIRATION&lt;/externalFieldId&gt;
+                &lt;/field&gt;
+                &lt;field&gt;
+                    &lt;fieldType&gt;String&lt;/fieldType&gt;
+                    &lt;fieldLabel&gt;Visa Number&lt;/fieldLabel&gt;
+                    &lt;format&gt;Default&lt;/format&gt;
+                    &lt;externalFieldId&gt;DEMOGRAPHICS_EMPL_VISA_NUMBER&lt;/externalFieldId&gt;
+                &lt;/field&gt;
+                &lt;field&gt;
+                    &lt;fieldType&gt;String&lt;/fieldType&gt;
+                    &lt;fieldLabel&gt;Visa Type&lt;/fieldLabel&gt;
+                    &lt;format&gt;Default&lt;/format&gt;
+                    &lt;externalFieldId&gt;DEMOGRAPHICS_EMPL_VISA_TYPE_NAME&lt;/externalFieldId&gt;
+                &lt;/field&gt;
+                &lt;field&gt;
+                    &lt;fieldType&gt;String&lt;/fieldType&gt;
+                    &lt;fieldLabel&gt;Weight&lt;/fieldLabel&gt;
+                    &lt;format&gt;Default&lt;/format&gt;
+                    &lt;externalFieldId&gt;DEMOGRAPHICS_EMPL_WEIGHT&lt;/externalFieldId&gt;
+                &lt;/field&gt;
+                &lt;field&gt;
+                    &lt;fieldType&gt;String&lt;/fieldType&gt;
+                    &lt;fieldLabel&gt;Worker Type&lt;/fieldLabel&gt;
+                    &lt;format&gt;Default&lt;/format&gt;
+                    &lt;externalFieldId&gt;DEMOGRAPHICS_EMPL_WORKER_TYPE&lt;/externalFieldId&gt;
+                &lt;/field&gt;
+            &lt;/fields&gt;
+        &lt;/category&gt;
+        &lt;category&gt;
+            &lt;label&gt;Incidents&lt;/label&gt;
+            &lt;description&gt;Provides the number of incidents and number of violations&lt;/description&gt;
+            &lt;externalId&gt;INCIDENTS&lt;/externalId&gt;
+            &lt;fields&gt;
+                &lt;field&gt;
+                    &lt;fieldType&gt;Number&lt;/fieldType&gt;
+                    &lt;fieldLabel&gt;Count of Incidents&lt;/fieldLabel&gt;
+                    &lt;format&gt;Default&lt;/format&gt;
+                    &lt;externalFieldId&gt;INCIDENTS_COUNT_OF_INCIDENTS&lt;/externalFieldId&gt;
+                &lt;/field&gt;
+                &lt;field&gt;
+                    &lt;fieldType&gt;Number&lt;/fieldType&gt;
+                    &lt;fieldLabel&gt;Count of Violations&lt;/fieldLabel&gt;
+                    &lt;format&gt;Default&lt;/format&gt;
+                    &lt;externalFieldId&gt;INCIDENTS_COUNT_OF_VIOLATIONS&lt;/externalFieldId&gt;
+                &lt;/field&gt;
+            &lt;/fields&gt;
+        &lt;/category&gt;
+        &lt;category&gt;
+            &lt;label&gt;Workers Claims&lt;/label&gt;
+            &lt;description&gt;the count of claims made by a worker and count of injuries occurred to an employee&lt;/description&gt;
+            &lt;externalId&gt;WORKERS_CLAIMS&lt;/externalId&gt;
+            &lt;fields&gt;
+                &lt;field&gt;
+                    &lt;fieldType&gt;Number&lt;/fieldType&gt;
+                    &lt;fieldLabel&gt;Count of Injuries&lt;/fieldLabel&gt;
+                    &lt;format&gt;Default&lt;/format&gt;
+                    &lt;externalFieldId&gt;INCIDENTS_WORKERS_CLAIMS_COUNT_OF_INJURIES&lt;/externalFieldId&gt;
+                &lt;/field&gt;
+                &lt;field&gt;
+                    &lt;fieldType&gt;Number&lt;/fieldType&gt;
+                    &lt;fieldLabel&gt;Count of Workers Claims&lt;/fieldLabel&gt;
+                    &lt;format&gt;Default&lt;/format&gt;
+                    &lt;externalFieldId&gt;INCIDENTS_WORKERS_CLAIMS_COUNT_OF_WORKERS_CLAIMS&lt;/externalFieldId&gt;
+                &lt;/field&gt;
+            &lt;/fields&gt;
+        &lt;/category&gt;
+        &lt;category&gt;
+            &lt;label&gt;Job Changes History&lt;/label&gt;
+            &lt;description&gt;Provides the number of job changes made by an employee&lt;/description&gt;
+            &lt;externalId&gt;JOB_CHANGES_HISTORY&lt;/externalId&gt;
+            &lt;fields&gt;
+                &lt;field&gt;
+                    &lt;fieldType&gt;Number&lt;/fieldType&gt;
+                    &lt;fieldLabel&gt;Count of Job Changes&lt;/fieldLabel&gt;
+                    &lt;format&gt;Default&lt;/format&gt;
+                    &lt;externalFieldId&gt;JOB_CHANGES_HISTORY_COUNT_OF_JOB_CHANGES&lt;/externalFieldId&gt;
+                &lt;/field&gt;
+            &lt;/fields&gt;
+        &lt;/category&gt;
+        &lt;category&gt;
+            &lt;label&gt;Pay Information&lt;/label&gt;
+            &lt;description&gt;Provides the information related to pay grade, default job, pay type for an employee&lt;/description&gt;
+            &lt;externalId&gt;PAY_INFORMATION&lt;/externalId&gt;
+            &lt;fields&gt;
+                &lt;field&gt;
+                    &lt;fieldType&gt;String&lt;/fieldType&gt;
+                    &lt;fieldLabel&gt;Payroll Job Title&lt;/fieldLabel&gt;
+                    &lt;format&gt;Default&lt;/format&gt;
+                    &lt;externalFieldId&gt;PAYINFORMATION_PAYROLL_JOB_TITLE&lt;/externalFieldId&gt;
+                &lt;/field&gt;
+                &lt;field&gt;
+                    &lt;fieldType&gt;String&lt;/fieldType&gt;
+                    &lt;fieldLabel&gt;Workers Comp Code&lt;/fieldLabel&gt;
+                    &lt;format&gt;Default&lt;/format&gt;
+                    &lt;externalFieldId&gt;PAYINFORMATION_WORKERS_COMP_CODE&lt;/externalFieldId&gt;
+                &lt;/field&gt;
+                &lt;field&gt;
+                    &lt;fieldType&gt;String&lt;/fieldType&gt;
+                    &lt;fieldLabel&gt;Employee Benefits Auto-Enrollment Eligibility&lt;/fieldLabel&gt;
+                    &lt;format&gt;Default&lt;/format&gt;
+                    &lt;externalFieldId&gt;PAY_INFORMATION_EMPL_BENEFIT_AUTO_ENROLLMENT_ELIGIBILITY&lt;/externalFieldId&gt;
+                &lt;/field&gt;
+                &lt;field&gt;
+                    &lt;fieldType&gt;String&lt;/fieldType&gt;
+                    &lt;fieldLabel&gt;Employee Benefits Auto-Enrollment Eligibility Last Update&lt;/fieldLabel&gt;
+                    &lt;format&gt;Default&lt;/format&gt;
+                    &lt;externalFieldId&gt;PAY_INFORMATION_EMPL_BENEFIT_AUTO_ENROLLMENT_ELIGIBILITY_LAST_UPDATE&lt;/externalFieldId&gt;
+                &lt;/field&gt;
+                &lt;field&gt;
+                    &lt;fieldType&gt;Number&lt;/fieldType&gt;
+                    &lt;fieldLabel&gt;Compa Ratio&lt;/fieldLabel&gt;
+                    &lt;format&gt;Default&lt;/format&gt;
+                    &lt;externalFieldId&gt;PAY_INFORMATION_EMPL_COMPA_RATIO&lt;/externalFieldId&gt;
+                &lt;/field&gt;
+                &lt;field&gt;
+                    &lt;fieldType&gt;String&lt;/fieldType&gt;
+                    &lt;fieldLabel&gt;Default Jobs (HR) Abbrev.&lt;/fieldLabel&gt;
+                    &lt;format&gt;Default&lt;/format&gt;
+                    &lt;externalFieldId&gt;PAY_INFORMATION_EMPL_DEFAULT_COST_CENTER_10_ABBREV&lt;/externalFieldId&gt;
+                &lt;/field&gt;
+                &lt;field&gt;
+                    &lt;fieldType&gt;String&lt;/fieldType&gt;
+                    &lt;fieldLabel&gt;Default Jobs (HR) External Id&lt;/fieldLabel&gt;
+                    &lt;format&gt;Default&lt;/format&gt;
+                    &lt;externalFieldId&gt;PAY_INFORMATION_EMPL_DEFAULT_COST_CENTER_10_EXTERNAL_ID&lt;/externalFieldId&gt;
+                &lt;/field&gt;
+                &lt;field&gt;
+                    &lt;fieldType&gt;String&lt;/fieldType&gt;
+                    &lt;fieldLabel&gt;Default Jobs (HR) Abbrev. Path&lt;/fieldLabel&gt;
+                    &lt;format&gt;Default&lt;/format&gt;
+                    &lt;externalFieldId&gt;PAY_INFORMATION_EMPL_DEFAULT_COST_CENTER_10_FULL_ABBREV_PATH&lt;/externalFieldId&gt;
+                &lt;/field&gt;
+                &lt;field&gt;
+                    &lt;fieldType&gt;String&lt;/fieldType&gt;
+                    &lt;fieldLabel&gt;Default Jobs (HR) Full Path&lt;/fieldLabel&gt;
+                    &lt;format&gt;Default&lt;/format&gt;
+                    &lt;externalFieldId&gt;PAY_INFORMATION_EMPL_DEFAULT_COST_CENTER_10_FULL_PATH&lt;/externalFieldId&gt;
+                &lt;/field&gt;
+                &lt;field&gt;
+                    &lt;fieldType&gt;String&lt;/fieldType&gt;
+                    &lt;fieldLabel&gt;Default Jobs (HR)&lt;/fieldLabel&gt;
+                    &lt;format&gt;Default&lt;/format&gt;
+                    &lt;externalFieldId&gt;PAY_INFORMATION_EMPL_DEFAULT_COST_CENTER_10_NAME&lt;/externalFieldId&gt;
+                &lt;/field&gt;
+                &lt;field&gt;
+                    &lt;fieldType&gt;String&lt;/fieldType&gt;
+                    &lt;fieldLabel&gt;Default WC Code&lt;/fieldLabel&gt;
+                    &lt;format&gt;Default&lt;/format&gt;
+                    &lt;externalFieldId&gt;PAY_INFORMATION_EMPL_DEFAULT_WORKERS_COMP_CODE&lt;/externalFieldId&gt;
+                &lt;/field&gt;
+                &lt;field&gt;
+                    &lt;fieldType&gt;String&lt;/fieldType&gt;
+                    &lt;fieldLabel&gt;Default WC Code (Full)&lt;/fieldLabel&gt;
+                    &lt;format&gt;Default&lt;/format&gt;
+                    &lt;externalFieldId&gt;PAY_INFORMATION_EMPL_DEFAULT_WORKERS_COMP_FULL_CODE&lt;/externalFieldId&gt;
+                &lt;/field&gt;
+                &lt;field&gt;
+                    &lt;fieldType&gt;String&lt;/fieldType&gt;
+                    &lt;fieldLabel&gt;Employee Dependent Benefits Eligibility&lt;/fieldLabel&gt;
+                    &lt;format&gt;Default&lt;/format&gt;
+                    &lt;externalFieldId&gt;PAY_INFORMATION_EMPL_DEPENDENT_BENEFITS_ELIGIBILITY&lt;/externalFieldId&gt;
+                &lt;/field&gt;
+                &lt;field&gt;
+                    &lt;fieldType&gt;String&lt;/fieldType&gt;
+                    &lt;fieldLabel&gt;EEO Classification&lt;/fieldLabel&gt;
+                    &lt;format&gt;Default&lt;/format&gt;
+                    &lt;externalFieldId&gt;PAY_INFORMATION_EMPL_EEO_CLASSIFICATION&lt;/externalFieldId&gt;
+                &lt;/field&gt;
+                &lt;field&gt;
+                    &lt;fieldType&gt;String&lt;/fieldType&gt;
+                    &lt;fieldLabel&gt;GL Code&lt;/fieldLabel&gt;
+                    &lt;format&gt;Default&lt;/format&gt;
+                    &lt;externalFieldId&gt;PAY_INFORMATION_EMPL_GL_CODE1&lt;/externalFieldId&gt;
+                &lt;/field&gt;
+                &lt;field&gt;
+                    &lt;fieldType&gt;Number&lt;/fieldType&gt;
+                    &lt;fieldLabel&gt;Hourly Pay&lt;/fieldLabel&gt;
+                    &lt;format&gt;Currency&lt;/format&gt;
+                    &lt;externalFieldId&gt;PAY_INFORMATION_EMPL_HOURLY_PAY&lt;/externalFieldId&gt;
+                &lt;/field&gt;
+                &lt;field&gt;
+                    &lt;fieldType&gt;String&lt;/fieldType&gt;
+                    &lt;fieldLabel&gt;Employee Type&lt;/fieldLabel&gt;
+                    &lt;format&gt;Default&lt;/format&gt;
+                    &lt;externalFieldId&gt;PAY_INFORMATION_EMPL_HR_EMPLOYEE_TYPE&lt;/externalFieldId&gt;
+                &lt;/field&gt;
+                &lt;field&gt;
+                    &lt;fieldType&gt;String&lt;/fieldType&gt;
+                    &lt;fieldLabel&gt;Pay Type&lt;/fieldLabel&gt;
+                    &lt;format&gt;Default&lt;/format&gt;
+                    &lt;externalFieldId&gt;PAY_INFORMATION_EMPL_HR_PAY_TYPE&lt;/externalFieldId&gt;
+                &lt;/field&gt;
+                &lt;field&gt;
+                    &lt;fieldType&gt;Date&lt;/fieldType&gt;
+                    &lt;fieldLabel&gt;Job Last Changed&lt;/fieldLabel&gt;
+                    &lt;format&gt;Default&lt;/format&gt;
+                    &lt;externalFieldId&gt;PAY_INFORMATION_EMPL_JOB_LAST_CHANGED&lt;/externalFieldId&gt;
+                &lt;/field&gt;
+                &lt;field&gt;
+                    &lt;fieldType&gt;String&lt;/fieldType&gt;
+                    &lt;fieldLabel&gt;Employee Medical Eligibility&lt;/fieldLabel&gt;
+                    &lt;format&gt;Default&lt;/format&gt;
+                    &lt;externalFieldId&gt;PAY_INFORMATION_EMPL_MEDICAL_ELIGIBILITY&lt;/externalFieldId&gt;
+                &lt;/field&gt;
+                &lt;field&gt;
+                    &lt;fieldType&gt;String&lt;/fieldType&gt;
+                    &lt;fieldLabel&gt;Employee Pay Grade&lt;/fieldLabel&gt;
+                    &lt;format&gt;Default&lt;/format&gt;
+                    &lt;externalFieldId&gt;PAY_INFORMATION_EMPL_PAY_GRADE&lt;/externalFieldId&gt;
+                &lt;/field&gt;
+                &lt;field&gt;
+                    &lt;fieldType&gt;String&lt;/fieldType&gt;
+                    &lt;fieldLabel&gt;Standard Work Day&lt;/fieldLabel&gt;
+                    &lt;format&gt;Default&lt;/format&gt;
+                    &lt;externalFieldId&gt;PAY_INFORMATION_EMPL_STANDARD_WORK_DAY&lt;/externalFieldId&gt;
+                &lt;/field&gt;
+                &lt;field&gt;
+                    &lt;fieldType&gt;String&lt;/fieldType&gt;
+                    &lt;fieldLabel&gt;Employee Union&lt;/fieldLabel&gt;
+                    &lt;format&gt;Default&lt;/format&gt;
+                    &lt;externalFieldId&gt;PAY_INFORMATION_EMPL_UNION&lt;/externalFieldId&gt;
+                &lt;/field&gt;
+                &lt;field&gt;
+                    &lt;fieldType&gt;Number&lt;/fieldType&gt;
+                    &lt;fieldLabel&gt;Job Length&lt;/fieldLabel&gt;
+                    &lt;format&gt;Default&lt;/format&gt;
+                    &lt;externalFieldId&gt;PAY_INFORMATION_JOB_LENGTH&lt;/externalFieldId&gt;
+                &lt;/field&gt;
+                &lt;field&gt;
+                    &lt;fieldType&gt;Number&lt;/fieldType&gt;
+                    &lt;fieldLabel&gt;Pay Grade: Maximum&lt;/fieldLabel&gt;
+                    &lt;format&gt;Currency&lt;/format&gt;
+                    &lt;externalFieldId&gt;PAY_INFORMATION_MAXIMUM&lt;/externalFieldId&gt;
+                &lt;/field&gt;
+                &lt;field&gt;
+                    &lt;fieldType&gt;Number&lt;/fieldType&gt;
+                    &lt;fieldLabel&gt;Pay Grade: Mid&lt;/fieldLabel&gt;
+                    &lt;format&gt;Currency&lt;/format&gt;
+                    &lt;externalFieldId&gt;PAY_INFORMATION_PAY_GRADE_MID&lt;/externalFieldId&gt;
+                &lt;/field&gt;
+                &lt;field&gt;
+                    &lt;fieldType&gt;Number&lt;/fieldType&gt;
+                    &lt;fieldLabel&gt;Pay Grade: Minimum&lt;/fieldLabel&gt;
+                    &lt;format&gt;Currency&lt;/format&gt;
+                    &lt;externalFieldId&gt;PAY_INFORMATION_MINIMUM&lt;/externalFieldId&gt;
+                &lt;/field&gt;
+                &lt;field&gt;
+                    &lt;fieldType&gt;String&lt;/fieldType&gt;
+                    &lt;fieldLabel&gt;Pay Grade: Rate By&lt;/fieldLabel&gt;
+                    &lt;format&gt;Default&lt;/format&gt;
+                    &lt;externalFieldId&gt;PAY_INFORMATION_RATE_BY&lt;/externalFieldId&gt;
+                &lt;/field&gt;
+                &lt;field&gt;
+                    &lt;fieldType&gt;String&lt;/fieldType&gt;
+                    &lt;fieldLabel&gt;Payroll Classification&lt;/fieldLabel&gt;
+                    &lt;format&gt;Default&lt;/format&gt;
+                    &lt;externalFieldId&gt;PAYINFORMATION_PAYROLL_CLASSIFICATION&lt;/externalFieldId&gt;
+                &lt;/field&gt;
+            &lt;/fields&gt;
+        &lt;/category&gt;
+        &lt;category&gt;
+            &lt;label&gt;Performance Review&lt;/label&gt;
+            &lt;description&gt;Provides the details around performance/competency profile, rating review start/end date&lt;/description&gt;
+            &lt;externalId&gt;PERFORMANCE_REVIEW&lt;/externalId&gt;
+            &lt;fields&gt;
+                &lt;field&gt;
+                    &lt;fieldType&gt;String&lt;/fieldType&gt;
+                    &lt;fieldLabel&gt;Approval Status&lt;/fieldLabel&gt;
+                    &lt;format&gt;Default&lt;/format&gt;
+                    &lt;externalFieldId&gt;PERFORMANCE_REVIEW_APPROVAL_STATUS&lt;/externalFieldId&gt;
+                &lt;/field&gt;
+                &lt;field&gt;
+                    &lt;fieldType&gt;String&lt;/fieldType&gt;
+                    &lt;fieldLabel&gt;Assigned To&lt;/fieldLabel&gt;
+                    &lt;format&gt;Default&lt;/format&gt;
+                    &lt;externalFieldId&gt;PERFORMANCE_REVIEW_ASSIGNED_TO&lt;/externalFieldId&gt;
+                &lt;/field&gt;
+                &lt;field&gt;
+                    &lt;fieldType&gt;Date&lt;/fieldType&gt;
+                    &lt;fieldLabel&gt;Created&lt;/fieldLabel&gt;
+                    &lt;format&gt;Default&lt;/format&gt;
+                    &lt;externalFieldId&gt;PERFORMANCE_REVIEW_CREATED&lt;/externalFieldId&gt;
+                &lt;/field&gt;
+                &lt;field&gt;
+                    &lt;fieldType&gt;String&lt;/fieldType&gt;
+                    &lt;fieldLabel&gt;Description&lt;/fieldLabel&gt;
+                    &lt;format&gt;Default&lt;/format&gt;
+                    &lt;externalFieldId&gt;PERFORMANCE_REVIEW_DESCRIPTION&lt;/externalFieldId&gt;
+                &lt;/field&gt;
+                &lt;field&gt;
+                    &lt;fieldType&gt;String&lt;/fieldType&gt;
+                    &lt;fieldLabel&gt;Competency Profile&lt;/fieldLabel&gt;
+                    &lt;format&gt;Default&lt;/format&gt;
+                    &lt;externalFieldId&gt;PERFORMANCE_REVIEW_EMPL_COMPETENCY_PROFILE&lt;/externalFieldId&gt;
+                &lt;/field&gt;
+                &lt;field&gt;
+                    &lt;fieldType&gt;Date&lt;/fieldType&gt;
+                    &lt;fieldLabel&gt;Employee Signed Date&lt;/fieldLabel&gt;
+                    &lt;format&gt;Default&lt;/format&gt;
+                    &lt;externalFieldId&gt;PERFORMANCE_REVIEW_EMPLOYEE_SIGNED_DATE&lt;/externalFieldId&gt;
+                &lt;/field&gt;
+                &lt;field&gt;
+                    &lt;fieldType&gt;String&lt;/fieldType&gt;
+                    &lt;fieldLabel&gt;Performance Review Profile&lt;/fieldLabel&gt;
+                    &lt;format&gt;Default&lt;/format&gt;
+                    &lt;externalFieldId&gt;PERFORMANCE_REVIEW_EMPL_PERFORMANCE_REVIEW_PROFILE&lt;/externalFieldId&gt;
+                &lt;/field&gt;
+                &lt;field&gt;
+                    &lt;fieldType&gt;Date&lt;/fieldType&gt;
+                    &lt;fieldLabel&gt;Finalized Date&lt;/fieldLabel&gt;
+                    &lt;format&gt;Default&lt;/format&gt;
+                    &lt;externalFieldId&gt;PERFORMANCE_REVIEW_FINALIZED_DATE&lt;/externalFieldId&gt;
+                &lt;/field&gt;
+                &lt;field&gt;
+                    &lt;fieldType&gt;Boolean&lt;/fieldType&gt;
+                    &lt;fieldLabel&gt;Is Sub-Review&lt;/fieldLabel&gt;
+                    &lt;format&gt;Default&lt;/format&gt;
+                    &lt;externalFieldId&gt;PERFORMANCE_REVIEW_IS_MASTER&lt;/externalFieldId&gt;
+                &lt;/field&gt;
+                &lt;field&gt;
+                    &lt;fieldType&gt;String&lt;/fieldType&gt;
+                    &lt;fieldLabel&gt;Review Name&lt;/fieldLabel&gt;
+                    &lt;format&gt;Default&lt;/format&gt;
+                    &lt;externalFieldId&gt;PERFORMANCE_REVIEW_NAME&lt;/externalFieldId&gt;
+                &lt;/field&gt;
+                &lt;field&gt;
+                    &lt;fieldType&gt;Number&lt;/fieldType&gt;
+                    &lt;fieldLabel&gt;New Base Comp&lt;/fieldLabel&gt;
+                    &lt;format&gt;Currency&lt;/format&gt;
+                    &lt;externalFieldId&gt;PERFORMANCE_REVIEW_NEW_BASE_COMP_AMOUNT&lt;/externalFieldId&gt;
+                &lt;/field&gt;
+                &lt;field&gt;
+                    &lt;fieldType&gt;String&lt;/fieldType&gt;
+                    &lt;fieldLabel&gt;New Job&lt;/fieldLabel&gt;
+                    &lt;format&gt;Default&lt;/format&gt;
+                    &lt;externalFieldId&gt;PERFORMANCE_REVIEW_NEW_JOB&lt;/externalFieldId&gt;
+                &lt;/field&gt;
+                &lt;field&gt;
+                    &lt;fieldType&gt;Number&lt;/fieldType&gt;
+                    &lt;fieldLabel&gt;# Attached Documents&lt;/fieldLabel&gt;
+                    &lt;format&gt;Default&lt;/format&gt;
+                    &lt;externalFieldId&gt;PERFORMANCE_REVIEW_NUM_ATTACHED_DOCUMENT&lt;/externalFieldId&gt;
+                &lt;/field&gt;
+                &lt;field&gt;
+                    &lt;fieldType&gt;Number&lt;/fieldType&gt;
+                    &lt;fieldLabel&gt;Previous Base Comp&lt;/fieldLabel&gt;
+                    &lt;format&gt;Currency&lt;/format&gt;
+                    &lt;externalFieldId&gt;PERFORMANCE_REVIEW_OLD_BASE_COMP_AMOUNT&lt;/externalFieldId&gt;
+                &lt;/field&gt;
+                &lt;field&gt;
+                    &lt;fieldType&gt;String&lt;/fieldType&gt;
+                    &lt;fieldLabel&gt;Previous Job&lt;/fieldLabel&gt;
+                    &lt;format&gt;Default&lt;/format&gt;
+                    &lt;externalFieldId&gt;PERFORMANCE_REVIEW_OLD_JOB&lt;/externalFieldId&gt;
+                &lt;/field&gt;
+                &lt;field&gt;
+                    &lt;fieldType&gt;Date&lt;/fieldType&gt;
+                    &lt;fieldLabel&gt;Period End Date&lt;/fieldLabel&gt;
+                    &lt;format&gt;Default&lt;/format&gt;
+                    &lt;externalFieldId&gt;PERFORMANCE_REVIEW_PERIOD_END_DATE&lt;/externalFieldId&gt;
+                &lt;/field&gt;
+                &lt;field&gt;
+                    &lt;fieldType&gt;Date&lt;/fieldType&gt;
+                    &lt;fieldLabel&gt;Period Start Date&lt;/fieldLabel&gt;
+                    &lt;format&gt;Default&lt;/format&gt;
+                    &lt;externalFieldId&gt;PERFORMANCE_REVIEW_PERIOD_START_DATE&lt;/externalFieldId&gt;
+                &lt;/field&gt;
+                &lt;field&gt;
+                    &lt;fieldType&gt;String&lt;/fieldType&gt;
+                    &lt;fieldLabel&gt;Rating&lt;/fieldLabel&gt;
+                    &lt;format&gt;Default&lt;/format&gt;
+                    &lt;externalFieldId&gt;PERFORMANCE_REVIEW_RATING&lt;/externalFieldId&gt;
+                &lt;/field&gt;
+                &lt;field&gt;
+                    &lt;fieldType&gt;Number&lt;/fieldType&gt;
+                    &lt;fieldLabel&gt;Rating Value&lt;/fieldLabel&gt;
+                    &lt;format&gt;Default&lt;/format&gt;
+                    &lt;externalFieldId&gt;PERFORMANCE_REVIEW_VALUE&lt;/externalFieldId&gt;
+                &lt;/field&gt;
+                &lt;field&gt;
+                    &lt;fieldType&gt;String&lt;/fieldType&gt;
+                    &lt;fieldLabel&gt;Reason&lt;/fieldLabel&gt;
+                    &lt;format&gt;Default&lt;/format&gt;
+                    &lt;externalFieldId&gt;PERFORMANCE_REVIEW_REASON&lt;/externalFieldId&gt;
+                &lt;/field&gt;
+                &lt;field&gt;
+                    &lt;fieldType&gt;Date&lt;/fieldType&gt;
+                    &lt;fieldLabel&gt;Reviewer Signed Date&lt;/fieldLabel&gt;
+                    &lt;format&gt;Default&lt;/format&gt;
+                    &lt;externalFieldId&gt;PERFORMANCE_REVIEW_REVIEWER_SIGNED_DATE&lt;/externalFieldId&gt;
+                &lt;/field&gt;
+                &lt;field&gt;
+                    &lt;fieldType&gt;Date&lt;/fieldType&gt;
+                    &lt;fieldLabel&gt;Scheduled Date&lt;/fieldLabel&gt;
+                    &lt;format&gt;Default&lt;/format&gt;
+                    &lt;externalFieldId&gt;PERFORMANCE_REVIEW_SCHEDULED_DATE&lt;/externalFieldId&gt;
+                &lt;/field&gt;
+                &lt;field&gt;
+                    &lt;fieldType&gt;String&lt;/fieldType&gt;
+                    &lt;fieldLabel&gt;Status&lt;/fieldLabel&gt;
+                    &lt;format&gt;Default&lt;/format&gt;
+                    &lt;externalFieldId&gt;PERFORMANCE_REVIEW_STATUS&lt;/externalFieldId&gt;
+                &lt;/field&gt;
+            &lt;/fields&gt;
+        &lt;/category&gt;
+        &lt;category&gt;
+            &lt;label&gt;Personal Information&lt;/label&gt;
+            &lt;description&gt;Provides the address, tax type, manager, role details for an employee&lt;/description&gt;
+            &lt;externalId&gt;PERSONAL_INFORMATION&lt;/externalId&gt;
+            &lt;fields&gt;
+                &lt;field&gt;
+                    &lt;fieldType&gt;String&lt;/fieldType&gt;
+                    &lt;fieldLabel&gt;Position&lt;/fieldLabel&gt;
+                    &lt;format&gt;Default&lt;/format&gt;
+                    &lt;externalFieldId&gt;PERSONAL_INFORMATION_EMPL_CONTRACT_POSITION&lt;/externalFieldId&gt;
+                &lt;/field&gt;
+                &lt;field&gt;
+                    &lt;fieldType&gt;String&lt;/fieldType&gt;
+                    &lt;fieldLabel&gt;units label &lt;/fieldLabel&gt;
+                    &lt;format&gt;Default&lt;/format&gt;
+                    &lt;externalFieldId&gt;PERSONAL_INFORMATION_EMPL_CUSTOM_1&lt;/externalFieldId&gt;
+                &lt;/field&gt;
+                &lt;field&gt;
+                    &lt;fieldType&gt;Date&lt;/fieldType&gt;
+                    &lt;fieldLabel&gt;units label  Effective Date From&lt;/fieldLabel&gt;
+                    &lt;format&gt;Default&lt;/format&gt;
+                    &lt;externalFieldId&gt;PERSONAL_INFORMATION_EMPL_CUSTOM_1_EFF_DATE&lt;/externalFieldId&gt;
+                &lt;/field&gt;
+                &lt;field&gt;
+                    &lt;fieldType&gt;String&lt;/fieldType&gt;
+                    &lt;fieldLabel&gt;Employee Id&lt;/fieldLabel&gt;
+                    &lt;format&gt;Default&lt;/format&gt;
+                    &lt;externalFieldId&gt;PERSONAL_INFORMATION_EMPL_EMPLOYEE_ID&lt;/externalFieldId&gt;
+                &lt;/field&gt;
+                &lt;field&gt;
+                    &lt;fieldType&gt;Boolean&lt;/fieldType&gt;
+                    &lt;fieldLabel&gt;In Payroll&lt;/fieldLabel&gt;
+                    &lt;format&gt;Default&lt;/format&gt;
+                    &lt;externalFieldId&gt;PERSONAL_INFORMATION_EMPL_IN_PAYROLL&lt;/externalFieldId&gt;
+                &lt;/field&gt;
+                &lt;field&gt;
+                    &lt;fieldType&gt;Date&lt;/fieldType&gt;
+                    &lt;fieldLabel&gt;Pay Statement Electronic Consent Given On&lt;/fieldLabel&gt;
+                    &lt;format&gt;Default&lt;/format&gt;
+                    &lt;externalFieldId&gt;PERSONAL_INFORMATION_EMPL_PAY_STATEMENT_CONSENT_GIVEN_ON&lt;/externalFieldId&gt;
+                &lt;/field&gt;
+                &lt;field&gt;
+                    &lt;fieldType&gt;Boolean&lt;/fieldType&gt;
+                    &lt;fieldLabel&gt;Pay Statement Electronic Consent Given&lt;/fieldLabel&gt;
+                    &lt;format&gt;Default&lt;/format&gt;
+                    &lt;externalFieldId&gt;PERSONAL_INFORMATION_EMPL_PAY_STATEMENT_ELECTRONIC_CONSENT_GIVEN&lt;/externalFieldId&gt;
+                &lt;/field&gt;
+                &lt;field&gt;
+                    &lt;fieldType&gt;String&lt;/fieldType&gt;
+                    &lt;fieldLabel&gt;Address 1&lt;/fieldLabel&gt;
+                    &lt;format&gt;Default&lt;/format&gt;
+                    &lt;externalFieldId&gt;PERSONAL_INFORMATION_EMPL_PRIMARY_ADDR_ADDRESS_1&lt;/externalFieldId&gt;
+                &lt;/field&gt;
+                &lt;field&gt;
+                    &lt;fieldType&gt;String&lt;/fieldType&gt;
+                    &lt;fieldLabel&gt;Address 2&lt;/fieldLabel&gt;
+                    &lt;format&gt;Default&lt;/format&gt;
+                    &lt;externalFieldId&gt;PERSONAL_INFORMATION_EMPL_PRIMARY_ADDR_ADDRESS_2&lt;/externalFieldId&gt;
+                &lt;/field&gt;
+                &lt;field&gt;
+                    &lt;fieldType&gt;String&lt;/fieldType&gt;
+                    &lt;fieldLabel&gt;City&lt;/fieldLabel&gt;
+                    &lt;format&gt;Default&lt;/format&gt;
+                    &lt;externalFieldId&gt;PERSONAL_INFORMATION_EMPL_PRIMARY_ADDR_CITY&lt;/externalFieldId&gt;
+                &lt;/field&gt;
+                &lt;field&gt;
+                    &lt;fieldType&gt;String&lt;/fieldType&gt;
+                    &lt;fieldLabel&gt;Country&lt;/fieldLabel&gt;
+                    &lt;format&gt;Default&lt;/format&gt;
+                    &lt;externalFieldId&gt;PERSONAL_INFORMATION_EMPL_PRIMARY_ADDR_COUNTRY&lt;/externalFieldId&gt;
+                &lt;/field&gt;
+                &lt;field&gt;
+                    &lt;fieldType&gt;String&lt;/fieldType&gt;
+                    &lt;fieldLabel&gt;Full Address&lt;/fieldLabel&gt;
+                    &lt;format&gt;Default&lt;/format&gt;
+                    &lt;externalFieldId&gt;PERSONAL_INFORMATION_EMPL_PRIMARY_ADDR_FULL&lt;/externalFieldId&gt;
+                &lt;/field&gt;
+                &lt;field&gt;
+                    &lt;fieldType&gt;String&lt;/fieldType&gt;
+                    &lt;fieldLabel&gt;Geo Accuracy&lt;/fieldLabel&gt;
+                    &lt;format&gt;Default&lt;/format&gt;
+                    &lt;externalFieldId&gt;PERSONAL_INFORMATION_EMPL_PRIMARY_ADDR_GEO_ACCURACY&lt;/externalFieldId&gt;
+                &lt;/field&gt;
+                &lt;field&gt;
+                    &lt;fieldType&gt;String&lt;/fieldType&gt;
+                    &lt;fieldLabel&gt;Geo Accuracy Name&lt;/fieldLabel&gt;
+                    &lt;format&gt;Default&lt;/format&gt;
+                    &lt;externalFieldId&gt;PERSONAL_INFORMATION_EMPL_PRIMARY_ADDR_GEO_ACCURACY_NAME&lt;/externalFieldId&gt;
+                &lt;/field&gt;
+                &lt;field&gt;
+                    &lt;fieldType&gt;String&lt;/fieldType&gt;
+                    &lt;fieldLabel&gt;State/Province&lt;/fieldLabel&gt;
+                    &lt;format&gt;Default&lt;/format&gt;
+                    &lt;externalFieldId&gt;PERSONAL_INFORMATION_EMPL_PRIMARY_ADDR_STATE_ID&lt;/externalFieldId&gt;
+                &lt;/field&gt;
+                &lt;field&gt;
+                    &lt;fieldType&gt;String&lt;/fieldType&gt;
+                    &lt;fieldLabel&gt;Postal/Zip Code&lt;/fieldLabel&gt;
+                    &lt;format&gt;Default&lt;/format&gt;
+                    &lt;externalFieldId&gt;PERSONAL_INFORMATION_EMPL_PRIMARY_ADDR_ZIP&lt;/externalFieldId&gt;
+                &lt;/field&gt;
+                &lt;field&gt;
+                    &lt;fieldType&gt;String&lt;/fieldType&gt;
+                    &lt;fieldLabel&gt;Employee Status&lt;/fieldLabel&gt;
+                    &lt;format&gt;Default&lt;/format&gt;
+                    &lt;externalFieldId&gt;PERSONAL_INFORMATION_EMPL_STATUS_NAME&lt;/externalFieldId&gt;
+                &lt;/field&gt;
+                &lt;field&gt;
+                    &lt;fieldType&gt;String&lt;/fieldType&gt;
+                    &lt;fieldLabel&gt;Employee Tax Type (1099)&lt;/fieldLabel&gt;
+                    &lt;format&gt;Default&lt;/format&gt;
+                    &lt;externalFieldId&gt;PERSONAL_INFORMATION_EMPL_TAX_TYPE_1099&lt;/externalFieldId&gt;
+                &lt;/field&gt;
+                &lt;field&gt;
+                    &lt;fieldType&gt;String&lt;/fieldType&gt;
+                    &lt;fieldLabel&gt;Employee Tax Type (Draw)&lt;/fieldLabel&gt;
+                    &lt;format&gt;Default&lt;/format&gt;
+                    &lt;externalFieldId&gt;PERSONAL_INFORMATION_EMPL_TAX_TYPE_DRAW&lt;/externalFieldId&gt;
+                &lt;/field&gt;
+                &lt;field&gt;
+                    &lt;fieldType&gt;String&lt;/fieldType&gt;
+                    &lt;fieldLabel&gt;Employee Tax Type (W2)&lt;/fieldLabel&gt;
+                    &lt;format&gt;Default&lt;/format&gt;
+                    &lt;externalFieldId&gt;PERSONAL_INFORMATION_EMPL_TAX_TYPE_W2&lt;/externalFieldId&gt;
+                &lt;/field&gt;
+            &lt;/fields&gt;
+        &lt;/category&gt;
+    &lt;/categories&gt;
+&lt;/datadelivery&gt;</pre>
+</div>
+<div class="get-example-resp-tab-1" id="get-tab-resp-schema-1">
+
+<div class="jsonschema" id="schema-1">&lt;xs:schema attributeFormDefault="unqualified" elementFormDefault="qualified" xmlns:xs="http://www.w3.org/2001/XMLSchema"&gt;
+  &lt;xs:element name="datadelivery"&gt;
+    &lt;xs:complexType&gt;
+      &lt;xs:sequence&gt;
+        &lt;xs:element name="categories"&gt;
+          &lt;xs:complexType&gt;
+            &lt;xs:sequence&gt;
+              &lt;xs:element name="category" maxOccurs="unbounded" minOccurs="0"&gt;
+                &lt;xs:complexType&gt;
+                  &lt;xs:sequence&gt;
+                    &lt;xs:element type="xs:string" name="label"/&gt;
+                    &lt;xs:element type="xs:string" name="description"/&gt;
+                    &lt;xs:element type="xs:string" name="externalId"/&gt;
+                    &lt;xs:element name="fields"&gt;
+                      &lt;xs:complexType&gt;
+                        &lt;xs:sequence&gt;
+                          &lt;xs:element name="field" maxOccurs="unbounded" minOccurs="0"&gt;
+                            &lt;xs:complexType&gt;
+                              &lt;xs:sequence&gt;
+                                &lt;xs:element type="xs:string" name="fieldType"/&gt;
+                                &lt;xs:element type="xs:string" name="fieldLabel"/&gt;
+                                &lt;xs:element type="xs:string" name="format"/&gt;
+                                &lt;xs:element type="xs:string" name="externalFieldId"/&gt;
+                                &lt;xs:element name="parameter" minOccurs="0"&gt;
+                                  &lt;xs:complexType&gt;
+                                    &lt;xs:sequence&gt;
+                                      &lt;xs:element name="parameter" maxOccurs="unbounded" minOccurs="0"&gt;
+                                        &lt;xs:complexType&gt;
+                                          &lt;xs:sequence&gt;
+                                            &lt;xs:element type="xs:short" name="id"/&gt;
+                                            &lt;xs:element type="xs:string" name="name"/&gt;
+                                          &lt;/xs:sequence&gt;
+                                        &lt;/xs:complexType&gt;
+                                      &lt;/xs:element&gt;
+                                    &lt;/xs:sequence&gt;
+                                  &lt;/xs:complexType&gt;
+                                &lt;/xs:element&gt;
+                              &lt;/xs:sequence&gt;
+                            &lt;/xs:complexType&gt;
+                          &lt;/xs:element&gt;
+                        &lt;/xs:sequence&gt;
+                      &lt;/xs:complexType&gt;
+                    &lt;/xs:element&gt;
+                  &lt;/xs:sequence&gt;
+                &lt;/xs:complexType&gt;
+              &lt;/xs:element&gt;
+            &lt;/xs:sequence&gt;
+          &lt;/xs:complexType&gt;
+        &lt;/xs:element&gt;
+      &lt;/xs:sequence&gt;
+    &lt;/xs:complexType&gt;
+  &lt;/xs:element&gt;
+&lt;/xs:schema&gt;</div>
+</div>
+</div>
+</div>
+</div>
+</article>
+</section>
+</div>
+</body></html>

@@ -1,0 +1,767 @@
+<!doctype html>
+<html><head><meta charset="utf-8"><title>Inventory Items</title><style>body{font:16px system-ui;max-width:1100px;margin:2rem auto;padding:0 1rem;line-height:1.5}aside{background:#fff3cc;padding:1rem}.jsonschema,pre{white-space:pre-wrap;font:13px monospace;overflow-wrap:anywhere;background:#f4f5f7;padding:1rem}.uri{font-family:monospace}h2,h3{margin-top:2rem}</style></head><body><aside><strong>Modified private reference — 2026-10-09.</strong> Provider-documented illustrative examples are included; authentication token examples are redacted. These are not customer exports or guaranteed production behavior. Candidate sharing is pending. This is not OpenAPI.</aside>
+<div class="group">
+<h2 class="anchored" id="item.anchor">
+<span>Inventory Items</span>
+<a class="fa fa-link link-anchor" data-url="r=__v2__companies__(cid)__inventory-profiles__(id)__inventory-items#" data-web-id="__v2__companies__(cid)__inventory-profiles__(id)__inventory-items"></a>
+</h2>
+<section class="clearfix">
+<article class="definition">
+<h3 class="anchored" id="get"><span>GET</span>
+<a class="fa fa-link link-anchor" data-url="r=__v2__companies__(cid)__inventory-profiles__(id)__inventory-items#get" data-web-id="__v2__companies__(cid)__inventory-profiles__(id)__inventory-items"></a>
+</h3>
+<div class="md"><p>Endpoint returns a list of all employee inventory items.
+
+Requires at least one of the following subsystems:
+  - HR
+  - HR (Small Business Edition)
+  - EverythingBenefits marketplace product
+</p></div>
+<div>
+<ul class="annotation-list">
+<li class="annotation">
+<span>v2</span>
+</li>
+</ul>
+</div>
+<h4>Parameters</h4>
+<h5>Path Parameters</h5>
+<ul class="param-list">
+<li>
+<div class="param-desc">
+<div class="param-name">cid</div>
+<div class="data-type">string</div>
+<div class="required">required</div>
+</div>
+<div class="param-content">
+<div>
+<p>Example: 123456</p>
+<div class="desc md">Company should be referenced via company id or company unique id or company short name using `|short_name` or `!short_name` format.
+</div>
+</div>
+</div>
+
+</li>
+<li>
+<div class="param-desc">
+<div class="param-name">id</div>
+<div class="data-type">integer</div>
+<div class="required">required</div>
+</div>
+<div class="param-content">
+<div>
+<div class="desc md">Id to locate the inventory profile.</div>
+</div>
+</div>
+
+</li>
+</ul>
+<h5>Query Parameters</h5>
+<ul class="param-list">
+<li>
+<div class="param-desc">
+<div class="param-name">page</div>
+<div class="data-type">integer</div>
+</div>
+<div class="param-content">
+<div>
+<p>Example: 1</p>
+<div class="desc md">Page query parameter for pagination.</div>
+</div>
+</div>
+
+</li>
+<li>
+<div class="param-desc">
+<div class="param-name">size</div>
+<div class="data-type">integer</div>
+</div>
+<div class="param-content">
+<div>
+<div class="desc md">Lot size query parameter for pagination.</div>
+</div>
+</div>
+
+</li>
+</ul>
+<h5>Header Parameters</h5>
+<ul class="param-list">
+<li>
+<div class="param-desc">
+<div class="param-name">Accept</div>
+<div class="data-type">string</div>
+</div>
+<div class="param-content">
+<div>
+<p>Valid values: application/json, application/xml, text/xml</p>
+<p>Default: application/json</p>
+<p>Example: application/json</p>
+</div>
+</div>
+
+</li>
+</ul>
+<h4>Responses</h4>
+<div class="responses">
+<div>
+<label class="response response-success">
+<span class="fa fa-check"></span>
+<input data-full-tab-id="get-resp-code-tab-id-0" data-tab-class="resp-code-tab-get" name="resp-code-tab-get" type="radio"/>
+<span class="status">200 Ok</span>
+</label>
+<div class="response-desc resp-code-tab-get" id="get-resp-code-tab-id-0">
+</div>
+</div>
+<div>
+<label class="response response-error">
+<span class="fa fa-times"></span>
+<input data-full-tab-id="get-resp-code-tab-id-1" data-tab-class="resp-code-tab-get" name="resp-code-tab-get" type="radio"/>
+<span class="status">401 Unauthorized</span>
+</label>
+<div class="response-desc resp-code-tab-get" id="get-resp-code-tab-id-1">
+<div class="md"><p>Returned in case user is not authorized.</p></div>
+</div>
+</div>
+<div>
+<label class="response response-error">
+<span class="fa fa-times"></span>
+<input data-full-tab-id="get-resp-code-tab-id-2" data-tab-class="resp-code-tab-get" name="resp-code-tab-get" type="radio"/>
+<span class="status">403 Forbidden</span>
+</label>
+<div class="response-desc resp-code-tab-get" id="get-resp-code-tab-id-2">
+<div class="md"><p>Returned in case user has no access to the resource.</p></div>
+</div>
+</div>
+<div>
+<label class="response response-error">
+<span class="fa fa-times"></span>
+<input data-full-tab-id="get-resp-code-tab-id-3" data-tab-class="resp-code-tab-get" name="resp-code-tab-get" type="radio"/>
+<span class="status">503 Service Unavailable</span>
+</label>
+<div class="response-desc resp-code-tab-get" id="get-resp-code-tab-id-3">
+<div class="md"><p>Returned in the event that the call limit is exceeded. The application will be unavailable for subsequent calls for the duration specified by the X-CallLimit-TimeToWait header.</p></div>
+</div>
+</div>
+</div>
+</article>
+<article class="code">
+<h4>Definition</h4>
+<div class="uri">
+<code>
+<span class="method get">get</span>
+<span class="textUri"><span class="baseUri">{{ getUriPrefix() }}</span><span class="relativeUri">/v2/companies/{cid}/inventory-profiles/{id}/inventory-items</span></span>
+</code>
+</div>
+<h4>Response Samples</h4>
+<div class="tab-title-group">
+<label>
+<input checked="checked" data-full-tab-id="resp-tab-id-get-0" data-tab-class="resp-tab-get" name="resp-tab-get" type="radio"/>
+<span class="tab-title">application/json</span>
+</label>
+<label>
+<input data-full-tab-id="resp-tab-id-get-1" data-tab-class="resp-tab-get" name="resp-tab-get" type="radio"/>
+<span class="tab-title">application/xml</span>
+</label>
+</div>
+<div>
+<div class="resp-tab-get" id="resp-tab-id-get-0">
+<div class="example">
+
+<div class="get-example-resp-tab-0 activeTab" id="get-tab-resp-example-0">
+
+<pre class="highlightjs">{
+  "employee_inventory_items": [
+    {
+      "id": 16960,
+      "employee": {
+        "account_id": 4727553,
+        "display_name": "Cynthia J. Scott",
+        "abbr": "CS",
+        "ein": {
+          "id": 1070464,
+          "display_name": "Default"
+        },
+        "employee_id": "employee1",
+        "_links": {
+          "photo_href": "https://example.com/ta/images/uploaded/616796/AccountPhoto4727553.jpg?v=1538075878350"
+        }
+      },
+      "profile": {
+        "id": 22912,
+        "display_name": "all 25 fields"
+      },
+      "_notes_count": 0,
+      "_attachments_count": 0,
+      "_links": {
+        "self": "https://example.com/ta/rest/v2/companies/616796/inventory-items/16960",
+        "edit": "https://example.com/ta/rest/v2/companies/616796/17024/16960",
+        "delete": "https://example.com/ta/rest/v2/companies/616796/inventory-items/16960",
+        "documents": "https://example.com/ta/rest/v2/companies/616796/ids?type=HR_EMPLOYEE_INVENTORY_ITEM&amp;linked_id=16960",
+        "add_document": "https://example.com/ta/rest/v2/companies/616796/ids"
+      }
+    }
+  ],
+  "_total_count": 12,
+  "_links": {
+    "create": "https://example.com/ta/rest/v2/companies/19950604/inventory-items"
+  }
+}</pre>
+</div>
+<div class="get-example-resp-tab-0" id="get-tab-resp-schema-0">
+
+<div class="jsonschema" id="schema-0">{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "type": "object",
+  "properties": {
+    "employee_inventory_items": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer"
+          },
+          "employee": {
+            "type": "object",
+            "properties": {
+              "account_id": {
+                "type": "number",
+                "format": "long"
+              },
+              "display_name": {
+                "type": "string"
+              },
+              "abbr": {
+                "type": "string"
+              },
+              "ein": {
+                "type": "object",
+                "properties": {
+                  "id": {
+                    "type": "integer"
+                  },
+                  "display_name": {
+                    "type": "string"
+                  }
+                },
+                "additionalProperties": false
+              },
+              "employee_id": {
+                "type": "string"
+              },
+              "_links": {
+                "type": "object"
+              }
+            },
+            "additionalProperties": false,
+            "required": [
+              "account_id",
+              "employee_id",
+              "display_name",
+              "abbr"
+            ]
+          },
+          "_notes_count": {
+            "type": "integer"
+          },
+          "_attachments_count": {
+            "type": "integer"
+          },
+          "profile": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "integer"
+              },
+              "display_name": {
+                "type": "string"
+              }
+            },
+            "additionalProperties": false,
+            "required": [
+              "id",
+              "display_name"
+            ]
+          },
+          "_links": {
+            "type": "object",
+            "properties": {
+              "self": {
+                "type": "string",
+                "format": "uri"
+              },
+              "edit": {
+                "type": "string",
+                "format": "uri"
+              },
+              "delete": {
+                "type": "string",
+                "format": "uri"
+              },
+              "notes": {
+                "type": "string",
+                "format": "uri"
+              },
+              "add_note": {
+                "type": "string",
+                "format": "uri"
+              },
+              "documents": {
+                "type": "string",
+                "format": "uri"
+              },
+              "add_document": {
+                "type": "string",
+                "format": "uri"
+              }
+            },
+            "additionalProperties": false,
+            "required": [
+              "self"
+            ]
+          }
+        },
+        "additionalProperties": false,
+        "required": [
+          "id",
+          "_notes_count",
+          "_attachments_count"
+        ]
+      }
+    },
+    "_total_count": {
+      "type": "integer"
+    },
+    "_links": {
+      "type": "object",
+      "properties": {
+        "create": {
+          "type": "string",
+          "format": "uri"
+        }
+      },
+      "additionalProperties": false
+    }
+  },
+  "additionalProperties": false,
+  "required": [
+    "employee_inventory_items",
+    "_total_count"
+  ]
+}</div>
+</div>
+</div>
+</div>
+<div class="resp-tab-get" id="resp-tab-id-get-1">
+<div class="example">
+
+<div class="get-example-resp-tab-1 activeTab" id="get-tab-resp-example-1">
+
+<pre class="highlightjs">&lt;?xml version='1.0' encoding='UTF-8'?&gt;
+&lt;employee_inventory_items&gt;
+  &lt;item&gt;
+    &lt;id&gt;18433&lt;/id&gt;
+    &lt;employee&gt;
+      &lt;account_id&gt;4727556&lt;/account_id&gt;
+      &lt;display_name&gt;Kevin M. Mayo&lt;/display_name&gt;
+      &lt;abbr&gt;KM&lt;/abbr&gt;
+      &lt;ein&gt;
+        &lt;id&gt;1070464&lt;/id&gt;
+        &lt;display_name&gt;Default&lt;/display_name&gt;
+      &lt;/ein&gt;
+      &lt;employee_id&gt;employee2&lt;/employee_id&gt;
+      &lt;_links/&gt;
+    &lt;/employee&gt;
+    &lt;profile&gt;
+      &lt;id&gt;22912&lt;/id&gt;
+      &lt;display_name&gt;all 25 fields&lt;/display_name&gt;
+    &lt;/profile&gt;
+    &lt;_notes_count&gt;0&lt;/_notes_count&gt;
+    &lt;_attachments_count&gt;0&lt;/_attachments_count&gt;
+    &lt;_links&gt;
+      &lt;self&gt;http://localhost:8080/ta/rest/v2/companies/616796/inventory-profiles/22912/inventory-items/18433&lt;/self&gt;
+      &lt;edit&gt;http://localhost:8080/ta/rest/v2/companies/616796/inventory-profiles/22912/inventory-items/18433&lt;/edit&gt;
+      &lt;notes&gt;http://localhost:8080/ta/rest/v2/companies/616796/notes?token=1bf6aaeb5ac6b3cb6434d3e2bdb8009f55d99543cb20ed44e4e68421e57b20da01b99ead873f393ad755abfc0f0817441aec0b01e92a687b4a5a6e894bd1577d510a584dc2fe1c4be52ac3593776b966b6ba2b06ad2cc0ea1b1044eb44ce5cd7f875d0688114174d45dd1de9ba7e505aa636e1ee56b60dcc2cf6947c2a74fba1&lt;/notes&gt;
+      &lt;add_note&gt;http://localhost:8080/ta/rest/v2/companies/616796/notes?token=1bf6aaeb5ac6b3cb6434d3e2bdb8009f55d99543cb20ed44e4e68421e57b20da01b99ead873f393ad755abfc0f0817441aec0b01e92a687b4a5a6e894bd1577d510a584dc2fe1c4be52ac3593776b966b6ba2b06ad2cc0ea1b1044eb44ce5cd7f875d0688114174d45dd1de9ba7e505aa636e1ee56b60dcc2cf6947c2a74fba1&lt;/add_note&gt;
+      &lt;documents&gt;http://localhost:8080/ta/rest/v2/companies/616796/ids?type=HR_EMPLOYEE_INVENTORY_ITEM|3&amp;amp;linked_id=18433&lt;/documents&gt;
+      &lt;add_document&gt;http://localhost:8080/ta/rest/v2/companies/616796/ids&lt;/add_document&gt;
+    &lt;/_links&gt;
+  &lt;/item&gt;
+  &lt;item&gt;
+    &lt;id&gt;18432&lt;/id&gt;
+    &lt;employee&gt;
+      &lt;account_id&gt;4727556&lt;/account_id&gt;
+      &lt;display_name&gt;Kevin M. Mayo&lt;/display_name&gt;
+      &lt;abbr&gt;KM&lt;/abbr&gt;
+      &lt;ein&gt;
+        &lt;id&gt;1070464&lt;/id&gt;
+        &lt;display_name&gt;Default&lt;/display_name&gt;
+      &lt;/ein&gt;
+      &lt;employee_id&gt;employee2&lt;/employee_id&gt;
+      &lt;_links/&gt;
+    &lt;/employee&gt;
+    &lt;profile&gt;
+      &lt;id&gt;22912&lt;/id&gt;
+      &lt;display_name&gt;all 25 fields&lt;/display_name&gt;
+    &lt;/profile&gt;
+    &lt;_notes_count&gt;0&lt;/_notes_count&gt;
+    &lt;_attachments_count&gt;0&lt;/_attachments_count&gt;
+    &lt;_links&gt;
+      &lt;self&gt;http://localhost:8080/ta/rest/v2/companies/616796/inventory-profiles/22912/inventory-items/18432&lt;/self&gt;
+      &lt;edit&gt;http://localhost:8080/ta/rest/v2/companies/616796/inventory-profiles/22912/inventory-items/18432&lt;/edit&gt;
+      &lt;notes&gt;http://localhost:8080/ta/rest/v2/companies/616796/notes?token=1bf6aaeb5ac6b3cb6434d3e2bdb8009f55d99543cb20ed44e4e68421e57b20da01b99ead873f393a5ee166b66128c4ef1aec0b01e92a687b4a5a6e894bd1577d510a584dc2fe1c4be52ac3593776b966b6ba2b06ad2cc0ea1b1044eb44ce5cd7f875d0688114174d45dd1de9ba7e505aa636e1ee56b60dcc2cf6947c2a74fba1&lt;/notes&gt;
+      &lt;add_note&gt;http://localhost:8080/ta/rest/v2/companies/616796/notes?token=1bf6aaeb5ac6b3cb6434d3e2bdb8009f55d99543cb20ed44e4e68421e57b20da01b99ead873f393a5ee166b66128c4ef1aec0b01e92a687b4a5a6e894bd1577d510a584dc2fe1c4be52ac3593776b966b6ba2b06ad2cc0ea1b1044eb44ce5cd7f875d0688114174d45dd1de9ba7e505aa636e1ee56b60dcc2cf6947c2a74fba1&lt;/add_note&gt;
+      &lt;documents&gt;http://localhost:8080/ta/rest/v2/companies/616796/ids?type=HR_EMPLOYEE_INVENTORY_ITEM|3&amp;amp;linked_id=18432&lt;/documents&gt;
+      &lt;add_document&gt;http://localhost:8080/ta/rest/v2/companies/616796/ids&lt;/add_document&gt;
+    &lt;/_links&gt;
+  &lt;/item&gt;
+  &lt;item&gt;
+    &lt;id&gt;18048&lt;/id&gt;
+    &lt;employee&gt;
+      &lt;account_id&gt;4727556&lt;/account_id&gt;
+      &lt;display_name&gt;Kevin M. Mayo&lt;/display_name&gt;
+      &lt;abbr&gt;KM&lt;/abbr&gt;
+      &lt;ein&gt;
+        &lt;id&gt;1070464&lt;/id&gt;
+        &lt;display_name&gt;Default&lt;/display_name&gt;
+      &lt;/ein&gt;
+      &lt;employee_id&gt;employee2&lt;/employee_id&gt;
+      &lt;_links/&gt;
+    &lt;/employee&gt;
+    &lt;profile&gt;
+      &lt;id&gt;22912&lt;/id&gt;
+      &lt;display_name&gt;all 25 fields&lt;/display_name&gt;
+    &lt;/profile&gt;
+    &lt;_notes_count&gt;0&lt;/_notes_count&gt;
+    &lt;_attachments_count&gt;0&lt;/_attachments_count&gt;
+    &lt;_links&gt;
+      &lt;self&gt;http://localhost:8080/ta/rest/v2/companies/616796/inventory-profiles/22912/inventory-items/18048&lt;/self&gt;
+      &lt;edit&gt;http://localhost:8080/ta/rest/v2/companies/616796/inventory-profiles/22912/inventory-items/18048&lt;/edit&gt;
+      &lt;notes&gt;http://localhost:8080/ta/rest/v2/companies/616796/notes?token=1bf6aaeb5ac6b3cb6434d3e2bdb8009f55d99543cb20ed44e4e68421e57b20da01b99ead873f393ad5efef37bf98c78e1aec0b01e92a687b4a5a6e894bd1577d510a584dc2fe1c4be52ac3593776b966b6ba2b06ad2cc0ea1b1044eb44ce5cd7f875d0688114174d45dd1de9ba7e505aa636e1ee56b60dcc2cf6947c2a74fba1&lt;/notes&gt;
+      &lt;add_note&gt;http://localhost:8080/ta/rest/v2/companies/616796/notes?token=1bf6aaeb5ac6b3cb6434d3e2bdb8009f55d99543cb20ed44e4e68421e57b20da01b99ead873f393ad5efef37bf98c78e1aec0b01e92a687b4a5a6e894bd1577d510a584dc2fe1c4be52ac3593776b966b6ba2b06ad2cc0ea1b1044eb44ce5cd7f875d0688114174d45dd1de9ba7e505aa636e1ee56b60dcc2cf6947c2a74fba1&lt;/add_note&gt;
+      &lt;documents&gt;http://localhost:8080/ta/rest/v2/companies/616796/ids?type=HR_EMPLOYEE_INVENTORY_ITEM|3&amp;amp;linked_id=18048&lt;/documents&gt;
+      &lt;add_document&gt;http://localhost:8080/ta/rest/v2/companies/616796/ids&lt;/add_document&gt;
+    &lt;/_links&gt;
+  &lt;/item&gt;
+  &lt;_total_count&gt;12&lt;/_total_count&gt;
+  &lt;_links&gt;
+    &lt;create&gt;http://localhost:8080/ta/rest/v2/companies/616796/inventory-profiles/22912/inventory-items&lt;/create&gt;
+  &lt;/_links&gt;
+&lt;/employee_inventory_items&gt;</pre>
+</div>
+<div class="get-example-resp-tab-1" id="get-tab-resp-schema-1">
+
+<div class="jsonschema" id="schema-1">&lt;xs:schema elementFormDefault="qualified" xmlns:xs="http://www.w3.org/2001/XMLSchema"&gt;
+    &lt;xs:element name="employee_inventory_items"&gt;
+        &lt;xs:complexType&gt;
+            &lt;xs:sequence&gt;
+                &lt;xs:element name="item" maxOccurs="unbounded" minOccurs="0"&gt;
+                    &lt;xs:complexType&gt;
+                        &lt;xs:all&gt;
+                            &lt;xs:element type="xs:long" name="id"/&gt;
+                            &lt;xs:element name="employee" minOccurs="0"&gt;
+                                &lt;xs:complexType&gt;
+                                    &lt;xs:sequence&gt;
+
+                                        &lt;xs:element type="xs:int" name="account_id"/&gt;
+                                        &lt;xs:element type="xs:string" name="display_name"/&gt;
+                                        &lt;xs:element type="xs:string" name="abbr"/&gt;
+                                        &lt;xs:element name="ein" minOccurs="0"&gt;
+                                            &lt;xs:complexType&gt;
+                                                &lt;xs:sequence&gt;
+                                                    &lt;xs:element type="xs:int" name="id"/&gt;
+                                                    &lt;xs:element type="xs:string" name="display_name"/&gt;
+                                                &lt;/xs:sequence&gt;
+                                            &lt;/xs:complexType&gt;
+                                        &lt;/xs:element&gt;
+                                        &lt;xs:element type="xs:string" name="employee_id"/&gt;
+                                        &lt;xs:element name="_links" minOccurs="0"&gt;
+                                            &lt;xs:complexType&gt;
+                                                &lt;xs:sequence&gt;
+                                                    &lt;xs:element type="xs:anyURI" name="photo_href" minOccurs="0"/&gt;
+                                                &lt;/xs:sequence&gt;
+                                            &lt;/xs:complexType&gt;
+                                        &lt;/xs:element&gt;
+                                    &lt;/xs:sequence&gt;
+                                &lt;/xs:complexType&gt;
+                            &lt;/xs:element&gt;
+                            &lt;xs:element name="profile" minOccurs="0"&gt;
+                                &lt;xs:complexType&gt;
+                                    &lt;xs:sequence&gt;
+                                        &lt;xs:element type="xs:long" name="id"/&gt;
+                                        &lt;xs:element type="xs:string" name="display_name"/&gt;
+                                    &lt;/xs:sequence&gt;
+                                &lt;/xs:complexType&gt;
+                            &lt;/xs:element&gt;
+
+                            &lt;xs:element type="xs:integer" name="_notes_count" minOccurs="0"/&gt;
+                            &lt;xs:element type="xs:integer" name="_attachments_count" minOccurs="0"/&gt;
+
+                            &lt;xs:element name="_links" minOccurs="0"&gt;
+                                &lt;xs:complexType&gt;
+                                    &lt;xs:all&gt;
+                                        &lt;xs:element type="xs:anyURI" name="self"/&gt;
+                                        &lt;xs:element type="xs:anyURI" name="edit" minOccurs="0"/&gt;
+                                        &lt;xs:element type="xs:anyURI" name="delete" minOccurs="0"/&gt;
+                                        &lt;xs:element type="xs:anyURI" name="notes" minOccurs="0"/&gt;
+                                        &lt;xs:element type="xs:anyURI" name="documents" minOccurs="0"/&gt;
+                                        &lt;xs:element type="xs:anyURI" name="add_note" minOccurs="0"/&gt;
+                                        &lt;xs:element type="xs:anyURI" name="add_document" minOccurs="0"/&gt;
+                                    &lt;/xs:all&gt;
+                                &lt;/xs:complexType&gt;
+                            &lt;/xs:element&gt;
+                        &lt;/xs:all&gt;
+                    &lt;/xs:complexType&gt;
+                &lt;/xs:element&gt;
+                &lt;xs:element type="xs:integer" name="_total_count"/&gt;
+                &lt;xs:element name="_links" minOccurs="0"&gt;
+                    &lt;xs:complexType&gt;
+                        &lt;xs:sequence&gt;
+                            &lt;xs:element type="xs:anyURI" name="create" minOccurs="0"/&gt;
+                        &lt;/xs:sequence&gt;
+                    &lt;/xs:complexType&gt;
+                &lt;/xs:element&gt;
+            &lt;/xs:sequence&gt;
+        &lt;/xs:complexType&gt;
+    &lt;/xs:element&gt;
+&lt;/xs:schema&gt;</div>
+</div>
+</div>
+</div>
+</div>
+</article>
+</section>
+<section class="clearfix">
+<article class="definition">
+<h3 class="anchored" id="post"><span>POST</span>
+<a class="fa fa-link link-anchor" data-url="r=__v2__companies__(cid)__inventory-profiles__(id)__inventory-items#post" data-web-id="__v2__companies__(cid)__inventory-profiles__(id)__inventory-items"></a>
+</h3>
+<div class="md"><p>Endpoint creates a new employee inventory item.
+
+Requires at least one of the following subsystems:
+  - HR
+  - HR (Small Business Edition)
+  - EverythingBenefits marketplace product
+</p></div>
+<div>
+<ul class="annotation-list">
+<li class="annotation">
+<span>v2</span>
+</li>
+</ul>
+</div>
+<h4>Parameters</h4>
+<h5>Path Parameters</h5>
+<ul class="param-list">
+<li>
+<div class="param-desc">
+<div class="param-name">cid</div>
+<div class="data-type">string</div>
+<div class="required">required</div>
+</div>
+<div class="param-content">
+<div>
+<p>Example: 123456</p>
+<div class="desc md">Company should be referenced via company id or company unique id or company short name using `|short_name` or `!short_name` format.
+</div>
+</div>
+</div>
+
+</li>
+<li>
+<div class="param-desc">
+<div class="param-name">id</div>
+<div class="data-type">integer</div>
+<div class="required">required</div>
+</div>
+<div class="param-content">
+<div>
+<div class="desc md">Id to locate the inventory profile.</div>
+</div>
+</div>
+
+</li>
+</ul>
+<h5>Header Parameters</h5>
+<ul class="param-list">
+<li>
+<div class="param-desc">
+<div class="param-name">Accept</div>
+<div class="data-type">string</div>
+</div>
+<div class="param-content">
+<div>
+<p>Valid values: application/json, application/xml, text/xml</p>
+<p>Default: application/json</p>
+<p>Example: application/json</p>
+</div>
+</div>
+
+</li>
+<li>
+<div class="param-desc">
+<div class="param-name">Content-Type</div>
+<div class="data-type">string</div>
+<div class="required">required</div>
+</div>
+<div class="param-content">
+<div>
+<p>Valid values: application/xml, text/xml, application/json</p>
+<p>Example: application/json</p>
+</div>
+</div>
+
+</li>
+<li>
+<div class="param-desc">
+<div class="param-name">Content-Length</div>
+<div class="data-type">integer</div>
+<div class="required">required</div>
+</div>
+<div class="param-content">
+<div>
+</div>
+</div>
+
+</li>
+</ul>
+<h4>Responses</h4>
+<div class="responses">
+<div>
+<label class="response response-success">
+<span class="fa fa-check"></span>
+<input data-full-tab-id="post-resp-code-tab-id-0" data-tab-class="resp-code-tab-post" name="resp-code-tab-post" type="radio"/>
+<span class="status">201 Created</span>
+</label>
+<div class="response-desc resp-code-tab-post" id="post-resp-code-tab-id-0">
+<div class="md"><p>Employee inventory item was successfully created.</p></div>
+</div>
+</div>
+<div>
+<label class="response response-error">
+<span class="fa fa-times"></span>
+<input data-full-tab-id="post-resp-code-tab-id-1" data-tab-class="resp-code-tab-post" name="resp-code-tab-post" type="radio"/>
+<span class="status">401 Unauthorized</span>
+</label>
+<div class="response-desc resp-code-tab-post" id="post-resp-code-tab-id-1">
+<div class="md"><p>Returned in case user is not authorized.</p></div>
+</div>
+</div>
+<div>
+<label class="response response-error">
+<span class="fa fa-times"></span>
+<input data-full-tab-id="post-resp-code-tab-id-2" data-tab-class="resp-code-tab-post" name="resp-code-tab-post" type="radio"/>
+<span class="status">403 Forbidden</span>
+</label>
+<div class="response-desc resp-code-tab-post" id="post-resp-code-tab-id-2">
+<div class="md"><p>Returned in case user has no access to the resource.</p></div>
+</div>
+</div>
+<div>
+<label class="response response-error">
+<span class="fa fa-times"></span>
+<input data-full-tab-id="post-resp-code-tab-id-3" data-tab-class="resp-code-tab-post" name="resp-code-tab-post" type="radio"/>
+<span class="status">503 Service Unavailable</span>
+</label>
+<div class="response-desc resp-code-tab-post" id="post-resp-code-tab-id-3">
+<div class="md"><p>Returned in the event that the call limit is exceeded. The application will be unavailable for subsequent calls for the duration specified by the X-CallLimit-TimeToWait header.</p></div>
+</div>
+</div>
+</div>
+</article>
+<article class="code">
+<h4>Definition</h4>
+<div class="uri">
+<code>
+<span class="method post">post</span>
+<span class="textUri"><span class="baseUri">{{ getUriPrefix() }}</span><span class="relativeUri">/v2/companies/{cid}/inventory-profiles/{id}/inventory-items</span></span>
+</code>
+</div>
+<h4>Request Samples</h4>
+<div class="tab-title-group">
+<label>
+<input checked="checked" data-full-tab-id="req-tab-id-post-0" data-tab-class="req-tab-post" name="req-tab-post" type="radio"/>
+<span class="tab-title">application/json</span>
+</label>
+<label>
+<input data-full-tab-id="req-tab-id-post-1" data-tab-class="req-tab-post" name="req-tab-post" type="radio"/>
+<span class="tab-title">application/xml</span>
+</label>
+</div>
+<div>
+<div class="req-tab-post" id="req-tab-id-post-0">
+<div class="example">
+
+<div class="post-example-tab-0 activeTab" id="post-tab-example-0">
+
+<pre class="highlightjs">{
+  "employee": {
+    "account_id": 4727556
+  }
+}</pre>
+</div>
+<div class="post-example-tab-0" id="post-tab-schema-0">
+
+<div class="jsonschema" id="schema-2">{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "type": "object",
+  "properties": {
+    "employee": {
+      "type": "object",
+      "properties": {
+        "account_id": {
+          "type": "number",
+          "format": "long"
+        }
+      },
+      "additionalProperties": false,
+      "required": [
+        "account_id"
+      ]
+    }
+  },
+  "additionalProperties": false,
+  "required": [
+    "employee"
+  ]
+}</div>
+</div>
+</div>
+</div>
+<div class="req-tab-post" id="req-tab-id-post-1">
+<div class="example">
+
+<div class="post-example-tab-1 activeTab" id="post-tab-example-1">
+
+<pre class="highlightjs">&lt;?xml version='1.0' encoding='UTF-8'?&gt;
+&lt;employee_inventory_item&gt;
+  &lt;employee&gt;
+    &lt;account_id&gt;4727556&lt;/account_id&gt;
+  &lt;/employee&gt;
+&lt;/employee_inventory_item&gt;</pre>
+</div>
+<div class="post-example-tab-1" id="post-tab-schema-1">
+
+<div class="jsonschema" id="schema-3">&lt;xs:schema elementFormDefault="qualified" xmlns:xs="http://www.w3.org/2001/XMLSchema"&gt;
+    &lt;xs:element name="employee_inventory_item"&gt;
+        &lt;xs:complexType&gt;
+            &lt;xs:all&gt;
+                &lt;xs:element name="employee" minOccurs="0"&gt;
+                    &lt;xs:complexType&gt;
+                        &lt;xs:sequence&gt;
+                            &lt;xs:element type="xs:long" name="account_id"/&gt;
+                        &lt;/xs:sequence&gt;
+                    &lt;/xs:complexType&gt;
+                &lt;/xs:element&gt;
+            &lt;/xs:all&gt;
+        &lt;/xs:complexType&gt;
+    &lt;/xs:element&gt;
+&lt;/xs:schema&gt;</div>
+</div>
+</div>
+</div>
+</div>
+</article>
+</section>
+</div>
+</body></html>

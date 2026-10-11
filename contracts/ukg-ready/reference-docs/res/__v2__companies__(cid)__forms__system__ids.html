@@ -1,0 +1,459 @@
+<!doctype html>
+<html><head><meta charset="utf-8"><title>System</title><style>body{font:16px system-ui;max-width:1100px;margin:2rem auto;padding:0 1rem;line-height:1.5}aside{background:#fff3cc;padding:1rem}.jsonschema,pre{white-space:pre-wrap;font:13px monospace;overflow-wrap:anywhere;background:#f4f5f7;padding:1rem}.uri{font-family:monospace}h2,h3{margin-top:2rem}</style></head><body><aside><strong>Modified private reference — 2026-10-09.</strong> Provider-documented illustrative examples are included; authentication token examples are redacted. These are not customer exports or guaranteed production behavior. Candidate sharing is pending. This is not OpenAPI.</aside>
+<div class="group">
+<h2 class="anchored" id="item.anchor">
+<span>System</span>
+<a class="fa fa-link link-anchor" data-url="r=__v2__companies__(cid)__forms__system__ids#" data-web-id="__v2__companies__(cid)__forms__system__ids"></a>
+</h2>
+<section class="clearfix">
+<article class="definition">
+<h3 class="anchored" id="get"><span>GET</span>
+<a class="fa fa-link link-anchor" data-url="r=__v2__companies__(cid)__forms__system__ids#get" data-web-id="__v2__companies__(cid)__forms__system__ids"></a>
+</h3>
+<div class="md"><p>Endpoint returns list of the companies system forms for a period of time.</p></div>
+<div>
+<ul class="annotation-list">
+<li class="annotation">
+<span>v2</span>
+</li>
+</ul>
+</div>
+<h4>Parameters</h4>
+<h5>Path Parameters</h5>
+<ul class="param-list">
+<li>
+<div class="param-desc">
+<div class="param-name">cid</div>
+<div class="data-type">string</div>
+<div class="required">required</div>
+</div>
+<div class="param-content">
+<div>
+<p>Example: 123456</p>
+<div class="desc md">Company should be referenced via company id or company unique id or company short name using `|short_name` or `!short_name` format.
+</div>
+</div>
+</div>
+
+</li>
+</ul>
+<h5>Query Parameters</h5>
+<ul class="param-list">
+<li>
+<div class="param-desc">
+<div class="param-name">form_types</div>
+<div class="data-type">string</div>
+</div>
+<div class="param-content">
+<div>
+<p>Valid values: W2, W4, 1099MISCPRE2020, 1099MISC, 1099NEC, I9, LC2810, WH380E, WH380F, WH381, WH382, WH384, WH385, WH385V, CC305, TFNDECLARATION, SUPERANNUATION, CUSTOMFORMITEM, HMRCSTARTERCHECKLIST, T4, TD1, RL1, ROE</p>
+<div class="desc md">Form types. If not specified, all types. Comma separated string for multiple types.
+   &lt;br&gt;&lt;b&gt;1099MISCPRE2020&lt;/b&gt; - Returns all 1099 MISC forms before year 2020.&lt;/br&gt;
+   &lt;br&gt;&lt;b&gt;1099MISC&lt;/b&gt;- Returns all 1099 MISC form after 2019.&lt;/br&gt;
+</div>
+</div>
+</div>
+
+</li>
+<li>
+<div class="param-desc">
+<div class="param-name">modified_from</div>
+<div class="data-type">date-only</div>
+</div>
+<div class="param-content">
+<div>
+<p>Example: 2016-03-14</p>
+<div class="desc md">Used for getting forms which have been created or modified from date lower bounded. Should be in `yyyy-mm-dd` format. If modified_to is supplied, modified_from is required.
+</div>
+</div>
+</div>
+
+</li>
+<li>
+<div class="param-desc">
+<div class="param-name">modified_to</div>
+<div class="data-type">date-only</div>
+</div>
+<div class="param-content">
+<div>
+<p>Example: 2016-10-31</p>
+<div class="desc md">Used for getting forms which have been created or modified to date upper bounded. Should be in `yyyy-mm-dd` format.
+Maximum difference between `from` and `to` dates can be 60 days.
+If modified_to is supplied, modified_from is required.
+</div>
+</div>
+</div>
+
+</li>
+</ul>
+<h5>Header Parameters</h5>
+<ul class="param-list">
+<li>
+<div class="param-desc">
+<div class="param-name">Accept</div>
+<div class="data-type">string</div>
+</div>
+<div class="param-content">
+<div>
+<p>Valid values: application/json, application/xml, text/xml</p>
+<p>Default: application/json</p>
+<p>Example: application/json</p>
+</div>
+</div>
+
+</li>
+</ul>
+<h4>Responses</h4>
+<div class="responses">
+<div>
+<label class="response response-success">
+<span class="fa fa-check"></span>
+<input data-full-tab-id="get-resp-code-tab-id-0" data-tab-class="resp-code-tab-get" name="resp-code-tab-get" type="radio"/>
+<span class="status">200 Ok</span>
+</label>
+<div class="response-desc resp-code-tab-get" id="get-resp-code-tab-id-0">
+</div>
+</div>
+<div>
+<label class="response response-error">
+<span class="fa fa-times"></span>
+<input data-full-tab-id="get-resp-code-tab-id-1" data-tab-class="resp-code-tab-get" name="resp-code-tab-get" type="radio"/>
+<span class="status">400 Bad Request</span>
+</label>
+<div class="response-desc resp-code-tab-get" id="get-resp-code-tab-id-1">
+<div class="md"><p>If date range is not valid or invalid form type.</p></div>
+</div>
+</div>
+<div>
+<label class="response response-error">
+<span class="fa fa-times"></span>
+<input data-full-tab-id="get-resp-code-tab-id-2" data-tab-class="resp-code-tab-get" name="resp-code-tab-get" type="radio"/>
+<span class="status">403 Forbidden</span>
+</label>
+<div class="response-desc resp-code-tab-get" id="get-resp-code-tab-id-2">
+<div class="md"><p>If there is any security violation.</p></div>
+</div>
+</div>
+<div>
+<label class="response response-error">
+<span class="fa fa-times"></span>
+<input data-full-tab-id="get-resp-code-tab-id-3" data-tab-class="resp-code-tab-get" name="resp-code-tab-get" type="radio"/>
+<span class="status">404 Not Found</span>
+</label>
+<div class="response-desc resp-code-tab-get" id="get-resp-code-tab-id-3">
+<div class="md"><p>If company or employee is not found.</p></div>
+</div>
+</div>
+<div>
+<label class="response response-error">
+<span class="fa fa-times"></span>
+<input data-full-tab-id="get-resp-code-tab-id-4" data-tab-class="resp-code-tab-get" name="resp-code-tab-get" type="radio"/>
+<span class="status">401 Unauthorized</span>
+</label>
+<div class="response-desc resp-code-tab-get" id="get-resp-code-tab-id-4">
+<div class="md"><p>Returned in case user is not authorized.</p></div>
+</div>
+</div>
+<div>
+<label class="response response-error">
+<span class="fa fa-times"></span>
+<input data-full-tab-id="get-resp-code-tab-id-5" data-tab-class="resp-code-tab-get" name="resp-code-tab-get" type="radio"/>
+<span class="status">503 Service Unavailable</span>
+</label>
+<div class="response-desc resp-code-tab-get" id="get-resp-code-tab-id-5">
+<div class="md"><p>Returned in the event that the call limit is exceeded. The application will be unavailable for subsequent calls for the duration specified by the X-CallLimit-TimeToWait header.</p></div>
+</div>
+</div>
+</div>
+</article>
+<article class="code">
+<h4>Definition</h4>
+<div class="uri">
+<code>
+<span class="method get">get</span>
+<span class="textUri"><span class="baseUri">{{ getUriPrefix() }}</span><span class="relativeUri">/v2/companies/{cid}/forms/system/ids</span></span>
+</code>
+</div>
+<h4>Response Samples</h4>
+<div class="tab-title-group">
+<label>
+<input checked="checked" data-full-tab-id="resp-tab-id-get-0" data-tab-class="resp-tab-get" name="resp-tab-get" type="radio"/>
+<span class="tab-title">application/json</span>
+</label>
+<label>
+<input data-full-tab-id="resp-tab-id-get-1" data-tab-class="resp-tab-get" name="resp-tab-get" type="radio"/>
+<span class="tab-title">application/xml</span>
+</label>
+</div>
+<div>
+<div class="resp-tab-get" id="resp-tab-id-get-0">
+<div class="example">
+
+<div class="get-example-resp-tab-0 activeTab" id="get-tab-resp-example-0">
+
+<pre class="highlightjs">{
+  "forms": [
+    {
+      "id": 10992241,
+      "name": "Tax form 1099 for year 2017",
+      "type": "1099",
+      "status": "1",
+      "created_at": "2017-08-04T15:03:00.000-04:00",
+      "created_by": {
+        "account_id": 2201923,
+        "display_name": "John Smith"
+      },
+      "_links": {
+        "download": "http://example.com/ta/fs?ticket=[REDACTED_DOCUMENTATION_TOKEN]"
+     }
+    },
+    {
+      "id": 3322249,
+      "name": "Tax form W2 for year 2017",
+      "type": "W2",
+      "status": "1",
+      "created_at": "2017-08-04T15:03:00.000-04:00",
+      "created_by": {
+        "account_id": 2201923,
+        "display_name": "John Smith"
+      },
+      "_links": {
+        "download": "http://example.com/ta/fs?ticket=[REDACTED_DOCUMENTATION_TOKEN]"
+      }
+    },
+    {
+      "id": 256,
+      "type": "CC305",
+      "name": "Form CC305",
+      "status": "1",
+      "created_at": "2022-10-04T15:08:00.000-04:00",
+      "created_by": {
+        "account_id": 2201923,
+        "display_name": "John Smith"
+      },
+      "_links": {
+        "download": "http://localhost:8080/ta/fs?ticket=[REDACTED_DOCUMENTATION_TOKEN]"
+      }
+    },
+    {
+      "id": 10992244,
+      "name": "FormI9_2020_V5",
+      "status": "1",
+      "type": "I9",
+      "created_at": "2014-08-04T15:03:00.000-04:00",
+      "created_by": {
+        "account_id": 2201923,
+        "display_name": "John Smith"
+      },
+      "_links": {
+        "download": "http://example.com/ta/fs?ticket=[REDACTED_DOCUMENTATION_TOKEN]"
+      }
+    }
+  ]
+}</pre>
+</div>
+<div class="get-example-resp-tab-0" id="get-tab-resp-schema-0">
+
+<div class="jsonschema" id="schema-0">{
+  "definitions": {},
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "type": "object",
+  "properties": {
+    "forms": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer"
+          },
+          "name": {
+            "type": "string"
+          },
+          "status": {
+            "type": "string"
+          },
+          "type": {
+            "enum": [
+              "W2",
+              "W4",
+              "1099",
+              "1099MISC",
+              "1099NEC",
+              "I9",
+              "LC2810",
+              "WH380E",
+              "WH380F",
+              "WH381",
+              "WH382",
+              "WH384",
+              "WH385",
+              "WH385V",
+              "CC305",
+              "TFNDECLARATION",
+              "SUPERANNUATION"
+            ]
+          },
+          "created_at": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "created_by": {
+            "type": "object",
+            "properties": {
+              "account_id": {
+                "type": "number",
+                "format": "long"
+              },
+              "display_name": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "account_id",
+              "display_name"
+            ]
+          },
+          "_links": {
+            "type": "object",
+            "properties": {
+              "download": {
+                "type": "string"
+              }
+            },
+            "additionalProperties": false
+          }
+        },
+        "required": [
+          "id",
+          "name",
+          "type",
+          "created_at",
+          "created_by"
+        ],
+        "additionalProperties": false
+      }
+    }
+  },
+  "additionalProperties": false
+}</div>
+</div>
+</div>
+</div>
+<div class="resp-tab-get" id="resp-tab-id-get-1">
+<div class="example">
+
+<div class="get-example-resp-tab-1 activeTab" id="get-tab-resp-example-1">
+
+<pre class="highlightjs">&lt;?xml version="1.0" encoding="UTF-8"?&gt;
+&lt;forms&gt;
+  &lt;form&gt;
+    &lt;_links&gt;
+      &lt;download&gt;http://example.com/ta/fs?ticket=[REDACTED_DOCUMENTATION_TOKEN]&lt;/download&gt;
+    &lt;/_links&gt;
+    &lt;id&gt;10992241&lt;/id&gt;
+    &lt;name&gt;Tax form 1099 for year 2017&lt;/name&gt;
+    &lt;status&gt;1&lt;/status&gt;
+    &lt;created_at&gt;2017-08-04T15:03:00.000-04:00&lt;/created_at&gt;
+    &lt;created_by&gt;
+      &lt;account_id&gt;2201923&lt;/account_id&gt;
+      &lt;display_name&gt;John Smith&lt;/display_name&gt;
+    &lt;/created_by&gt;
+    &lt;type&gt;1099&lt;/type&gt;
+  &lt;/form&gt;
+  &lt;form&gt;
+    &lt;_links&gt;
+      &lt;download&gt;http://example.com/ta/fs?ticket=[REDACTED_DOCUMENTATION_TOKEN]&lt;/download&gt;
+    &lt;/_links&gt;
+    &lt;id&gt;3322249&lt;/id&gt;
+    &lt;name&gt;Tax form W2 for year 2017&lt;/name&gt;
+    &lt;status&gt;1&lt;/status&gt;
+    &lt;created_at&gt;2017-08-04T15:03:00.000-04:00&lt;/created_at&gt;
+    &lt;created_by&gt;
+      &lt;account_id&gt;2201923&lt;/account_id&gt;
+      &lt;display_name&gt;John Smith&lt;/display_name&gt;
+    &lt;/created_by&gt;
+    &lt;type&gt;W2&lt;/type&gt;
+  &lt;/form&gt;
+  &lt;form&gt;
+    &lt;_links&gt;
+      &lt;download&gt;http://example.com/ta/fs?ticket=[REDACTED_DOCUMENTATION_TOKEN]&lt;/download&gt;
+    &lt;/_links&gt;
+    &lt;id&gt;10992244&lt;/id&gt;
+    &lt;name&gt;Tax form 1099 for year 2014&lt;/name&gt;
+    &lt;status&gt;1&lt;/status&gt;
+    &lt;created_at&gt;2014-08-04T15:03:00.000-04:00&lt;/created_at&gt;
+    &lt;created_by&gt;
+      &lt;account_id&gt;2201923&lt;/account_id&gt;
+      &lt;display_name&gt;John Smith&lt;/display_name&gt;
+    &lt;/created_by&gt;
+    &lt;type&gt;1099&lt;/type&gt;
+  &lt;/form&gt;
+&lt;/forms&gt;</pre>
+</div>
+<div class="get-example-resp-tab-1" id="get-tab-resp-schema-1">
+
+<div class="jsonschema" id="schema-1">&lt;xs:schema attributeFormDefault="unqualified" elementFormDefault="qualified" xmlns:xs="http://www.w3.org/2001/XMLSchema"&gt;
+  &lt;xs:element name="forms"&gt;
+    &lt;xs:complexType&gt;
+      &lt;xs:sequence&gt;
+        &lt;xs:element name="form" maxOccurs="unbounded" minOccurs="0"&gt;
+          &lt;xs:complexType&gt;
+            &lt;xs:sequence&gt;
+              &lt;xs:element name="_links"&gt;
+                &lt;xs:complexType&gt;
+                  &lt;xs:sequence&gt;
+                    &lt;xs:element type="xs:anyURI" name="download"/&gt;
+                  &lt;/xs:sequence&gt;
+                &lt;/xs:complexType&gt;
+              &lt;/xs:element&gt;
+              &lt;xs:element type="xs:integer" name="id"/&gt;
+              &lt;xs:element type="xs:string" name="name"/&gt;
+              &lt;xs:element type="xs:string" name="status"/&gt;
+              &lt;xs:element name="created_at" type="xs:dateTime"/&gt;
+              &lt;xs:element name="created_by" type="accountRef"/&gt;
+
+              &lt;xs:element name="type"&gt;
+                &lt;xs:simpleType&gt;
+                  &lt;xs:restriction base="xs:string"&gt;
+                    &lt;xs:enumeration value="W2"/&gt;
+                    &lt;xs:enumeration value="W4"/&gt;
+                    &lt;xs:enumeration value="1099"/&gt;
+                    &lt;xs:enumeration value="1099MISC"/&gt;
+                    &lt;xs:enumeration value="1099NEC"/&gt;
+                    &lt;xs:enumeration value="I9"/&gt;
+                    &lt;xs:enumeration value="LC2810"/&gt;
+                    &lt;xs:enumeration value="WH380E"/&gt;
+                    &lt;xs:enumeration value="WH380F"/&gt;
+                    &lt;xs:enumeration value="WH381"/&gt;
+                    &lt;xs:enumeration value="WH382"/&gt;
+                    &lt;xs:enumeration value="WH384"/&gt;
+                    &lt;xs:enumeration value="WH385"/&gt;
+                    &lt;xs:enumeration value="WH385V"/&gt;
+                    &lt;xs:enumeration value="CC305"/&gt;
+                    &lt;xs:enumeration value="TFNDECLARATION"/&gt;
+                    &lt;xs:enumeration value="SUPERANNUATION"/&gt;
+                  &lt;/xs:restriction&gt;
+                &lt;/xs:simpleType&gt;
+              &lt;/xs:element&gt;
+            &lt;/xs:sequence&gt;
+          &lt;/xs:complexType&gt;
+        &lt;/xs:element&gt;
+      &lt;/xs:sequence&gt;
+    &lt;/xs:complexType&gt;
+  &lt;/xs:element&gt;
+  &lt;xs:complexType name="accountRef"&gt;
+    &lt;xs:all&gt;
+      &lt;xs:element name="account_id" type="xs:long"/&gt;
+      &lt;xs:element name="display_name" type="xs:string"/&gt;
+    &lt;/xs:all&gt;
+  &lt;/xs:complexType&gt;
+&lt;/xs:schema&gt;</div>
+</div>
+</div>
+</div>
+</div>
+</article>
+</section>
+</div>
+</body></html>

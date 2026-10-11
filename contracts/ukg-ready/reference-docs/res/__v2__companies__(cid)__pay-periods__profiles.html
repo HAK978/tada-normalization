@@ -1,0 +1,1407 @@
+<!doctype html>
+<html><head><meta charset="utf-8"><title>Pay Period Profiles</title><style>body{font:16px system-ui;max-width:1100px;margin:2rem auto;padding:0 1rem;line-height:1.5}aside{background:#fff3cc;padding:1rem}.jsonschema,pre{white-space:pre-wrap;font:13px monospace;overflow-wrap:anywhere;background:#f4f5f7;padding:1rem}.uri{font-family:monospace}h2,h3{margin-top:2rem}</style></head><body><aside><strong>Modified private reference — 2026-10-09.</strong> Provider-documented illustrative examples are included; authentication token examples are redacted. These are not customer exports or guaranteed production behavior. Candidate sharing is pending. This is not OpenAPI.</aside>
+<div class="group">
+<h2 class="anchored" id="item.anchor">
+<span>Pay Period Profiles</span>
+<a class="fa fa-link link-anchor" data-url="r=__v2__companies__(cid)__pay-periods__profiles#" data-web-id="__v2__companies__(cid)__pay-periods__profiles"></a>
+</h2>
+<section class="clearfix">
+<article class="definition">
+<h3 class="anchored" id="post"><span>POST</span>
+<a class="fa fa-link link-anchor" data-url="r=__v2__companies__(cid)__pay-periods__profiles#post" data-web-id="__v2__companies__(cid)__pay-periods__profiles"></a>
+</h3>
+<div class="md"><p>Endpoint to manage Pay Period Profiles</p></div>
+<div>
+<ul class="annotation-list">
+<li class="annotation">
+<span>dev</span>
+</li>
+</ul>
+</div>
+<h4>Parameters</h4>
+<h5>Path Parameters</h5>
+<ul class="param-list">
+<li>
+<div class="param-desc">
+<div class="param-name">cid</div>
+<div class="data-type">string</div>
+<div class="required">required</div>
+</div>
+<div class="param-content">
+<div>
+<p>Example: 123456</p>
+<div class="desc md">Company should be referenced via company id or company unique id or company short name using `|short_name` or `!short_name` format.
+</div>
+</div>
+</div>
+
+</li>
+</ul>
+<h4>Responses</h4>
+<div class="responses">
+<div>
+<label class="response response-success">
+<span class="fa fa-check"></span>
+<input data-full-tab-id="post-resp-code-tab-id-0" data-tab-class="resp-code-tab-post" name="resp-code-tab-post" type="radio"/>
+<span class="status">201 Created</span>
+</label>
+<div class="response-desc resp-code-tab-post" id="post-resp-code-tab-id-0">
+<div class="md"><p>Returns the result of creating a Pay Period Profile.</p></div>
+</div>
+</div>
+<div>
+<label class="response response-error">
+<span class="fa fa-times"></span>
+<input data-full-tab-id="post-resp-code-tab-id-1" data-tab-class="resp-code-tab-post" name="resp-code-tab-post" type="radio"/>
+<span class="status">401 Unauthorized</span>
+</label>
+<div class="response-desc resp-code-tab-post" id="post-resp-code-tab-id-1">
+<div class="md"><p>Returned in case user is not authorized.</p></div>
+</div>
+</div>
+<div>
+<label class="response response-error">
+<span class="fa fa-times"></span>
+<input data-full-tab-id="post-resp-code-tab-id-2" data-tab-class="resp-code-tab-post" name="resp-code-tab-post" type="radio"/>
+<span class="status">403 Forbidden</span>
+</label>
+<div class="response-desc resp-code-tab-post" id="post-resp-code-tab-id-2">
+<div class="md"><p>Returned in case user has no access to the resource.</p></div>
+</div>
+</div>
+<div>
+<label class="response response-error">
+<span class="fa fa-times"></span>
+<input data-full-tab-id="post-resp-code-tab-id-3" data-tab-class="resp-code-tab-post" name="resp-code-tab-post" type="radio"/>
+<span class="status">404 Not Found</span>
+</label>
+<div class="response-desc resp-code-tab-post" id="post-resp-code-tab-id-3">
+<div class="md"><p>Returned in case resource does not exist.</p></div>
+</div>
+</div>
+</div>
+</article>
+<article class="code">
+<h4>Definition</h4>
+<div class="uri">
+<code>
+<span class="method post">post</span>
+<span class="textUri"><span class="baseUri">{{ getUriPrefix() }}</span><span class="relativeUri">/v2/companies/{cid}/pay-periods/profiles</span></span>
+</code>
+</div>
+<h4>Request Samples</h4>
+<div class="tab-title-group">
+<label>
+<input checked="checked" data-full-tab-id="req-tab-id-post-0" data-tab-class="req-tab-post" name="req-tab-post" type="radio"/>
+<span class="tab-title">application/json</span>
+</label>
+<label>
+<input data-full-tab-id="req-tab-id-post-1" data-tab-class="req-tab-post" name="req-tab-post" type="radio"/>
+<span class="tab-title">application/xml</span>
+</label>
+</div>
+<div>
+<div class="req-tab-post" id="req-tab-id-post-0">
+<div class="example">
+
+<div class="post-example-tab-0 activeTab" id="post-tab-example-0">
+
+<pre class="highlightjs">{
+  "name": "Weekly Payroll Profile",
+  "description": "Weekly pay periods starting on Sunday with Friday pay dates",
+  "pay_period_type": "WEEKLY",
+  "weekly_start_day": 1,
+  "active": true,
+  "auto_lock_enabled": true,
+  "auto_lock_days": 3,
+  "pay_date_calc_type": "DATE_BASED_PP_END",
+  "pay_date_days_from_end": 0,
+  "saturday_move_enabled": true,
+  "saturday_move_type": "PREV_FRIDAY",
+  "sunday_move_enabled": true,
+  "sunday_move_type": "NEXT_MONDAY"
+}</pre>
+</div>
+<div class="post-example-tab-0" id="post-tab-schema-0">
+
+<div class="jsonschema" id="schema-0">{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Create Pay Period Profile",
+  "description": "Schema for creating a new pay period profile that defines payroll frequency, pay dates, and business rules for payroll processing",
+  "type": "object",
+  "properties": {
+    "name": {
+      "type": "string",
+      "title": "Profile Name",
+      "description": "Unique name for the pay period profile within the company. Must be descriptive and cannot conflict with existing profiles.",
+      "minLength": 1,
+      "maxLength": 100
+    },
+    "external_id": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "title": "External ID",
+      "description": "Optional external identifier for integration purposes. Must be unique within the company if provided.",
+      "maxLength": 50
+    },
+    "description": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "title": "Description",
+      "description": "Optional detailed description explaining the purpose and configuration of this pay period profile for future reference.",
+      "maxLength": 500
+    },
+    "active": {
+      "type": [
+        "boolean",
+        "null"
+      ],
+      "title": "Active Status",
+      "description": "Whether this profile is active and available for assignment to employees. Inactive profiles cannot be used for payroll processing.",
+      "default": true
+    },
+    "effective_from": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "format": "date",
+      "title": "Effective From Date",
+      "description": "Start date when this profile becomes effective (YYYY-MM-DD). Profile will not be available before this date."
+    },
+    "effective_to": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "format": "date",
+      "title": "Effective To Date",
+      "description": "End date when this profile expires (YYYY-MM-DD). Must be after effective_from date. Profile becomes unavailable after this date."
+    },
+    "pay_period_type": {
+      "type": "string",
+      "title": "Pay Period Type",
+      "description": "The frequency type that determines how often employees are paid and how pay periods are calculated.",
+      "enum": [
+        "QUARTERLY",
+        "MONTHLY",
+        "WEEKLY",
+        "MONTHLY_WEEK",
+        "SEMI_MONTHLY",
+        "EVERY_N_WEEKS",
+        "EVERY_N_DAYS",
+        "USER_DEFINED"
+      ],
+      "enumDescriptions": {
+        "QUARTERLY": "4 pay periods per year (every 3 months)",
+        "MONTHLY": "12 pay periods per year (once per month)",
+        "WEEKLY": "52 pay periods per year (every 7 days)",
+        "MONTHLY_WEEK": "Pay periods based on specific week of each month (e.g., 2nd Friday)",
+        "SEMI_MONTHLY": "24 pay periods per year (twice per month on specific dates)",
+        "EVERY_N_WEEKS": "Custom intervals of N weeks (e.g., bi-weekly = 2 weeks)",
+        "EVERY_N_DAYS": "Custom intervals of N days",
+        "USER_DEFINED": "Completely custom configuration"
+      }
+    },
+    "monthly_day": {
+      "type": [
+        "integer",
+        "null"
+      ],
+      "title": "Monthly Start Day",
+      "description": "For MONTHLY type: Day of month when pay period starts. Use -1 for last day of month, 0-27 for specific day.",
+      "minimum": -1,
+      "maximum": 27,
+      "condition": {
+        "if": {
+          "properties": {
+            "pay_period_type": {
+              "const": "MONTHLY"
+            }
+          }
+        },
+        "then": {
+          "required": [
+            "monthly_day"
+          ]
+        }
+      }
+    },
+    "month_week_num": {
+      "type": [
+        "integer",
+        "null"
+      ],
+      "title": "Month Week Number",
+      "description": "For MONTHLY_WEEK type: Which week of the month (1-4 for first through fourth week, -1 for last week).",
+      "enum": [
+        1,
+        2,
+        3,
+        4,
+        -1
+      ],
+      "enumDescriptions": {
+        "1": "First week of month",
+        "2": "Second week of month",
+        "3": "Third week of month",
+        "4": "Fourth week of month",
+        "-1": "Last week of month"
+      },
+      "condition": {
+        "if": {
+          "properties": {
+            "pay_period_type": {
+              "const": "MONTHLY_WEEK"
+            }
+          }
+        },
+        "then": {
+          "required": [
+            "month_week_num"
+          ]
+        }
+      }
+    },
+    "month_week_day": {
+      "type": [
+        "integer",
+        "null"
+      ],
+      "title": "Month Week Day",
+      "description": "For MONTHLY_WEEK type: Day of the week (1=Sunday, 2=Monday, 3=Tuesday, 4=Wednesday, 5=Thursday, 6=Friday, 7=Saturday).",
+      "minimum": 1,
+      "maximum": 7,
+      "enumDescriptions": {
+        "1": "Sunday",
+        "2": "Monday",
+        "3": "Tuesday",
+        "4": "Wednesday",
+        "5": "Thursday",
+        "6": "Friday",
+        "7": "Saturday"
+      },
+      "condition": {
+        "if": {
+          "properties": {
+            "pay_period_type": {
+              "const": "MONTHLY_WEEK"
+            }
+          }
+        },
+        "then": {
+          "required": [
+            "month_week_day"
+          ]
+        }
+      }
+    },
+    "semi_monthly_start1": {
+      "type": [
+        "integer",
+        "null"
+      ],
+      "title": "Semi-Monthly Start Day 1",
+      "description": "For SEMI_MONTHLY type: First start day of the month (1-27). This creates the first pay period of each month.",
+      "minimum": 1,
+      "maximum": 27,
+      "condition": {
+        "if": {
+          "properties": {
+            "pay_period_type": {
+              "const": "SEMI_MONTHLY"
+            }
+          }
+        },
+        "then": {
+          "required": [
+            "semi_monthly_start1"
+          ]
+        }
+      }
+    },
+    "semi_monthly_start2": {
+      "type": [
+        "integer",
+        "null"
+      ],
+      "title": "Semi-Monthly Start Day 2",
+      "description": "For SEMI_MONTHLY type: Second start day of the month (2-31). Must be greater than semi_monthly_start1. Creates the second pay period of each month.",
+      "minimum": 2,
+      "maximum": 31,
+      "condition": {
+        "if": {
+          "properties": {
+            "pay_period_type": {
+              "const": "SEMI_MONTHLY"
+            }
+          }
+        },
+        "then": {
+          "required": [
+            "semi_monthly_start2"
+          ]
+        }
+      }
+    },
+    "weekly_start_day": {
+      "type": [
+        "integer",
+        "null"
+      ],
+      "title": "Weekly Start Day",
+      "description": "For WEEKLY type: Day of the week when pay period starts (1=Sunday through 7=Saturday).",
+      "minimum": 1,
+      "maximum": 7,
+      "enumDescriptions": {
+        "1": "Sunday",
+        "2": "Monday",
+        "3": "Tuesday",
+        "4": "Wednesday",
+        "5": "Thursday",
+        "6": "Friday",
+        "7": "Saturday"
+      },
+      "condition": {
+        "if": {
+          "properties": {
+            "pay_period_type": {
+              "const": "WEEKLY"
+            }
+          }
+        },
+        "then": {
+          "required": [
+            "weekly_start_day"
+          ]
+        }
+      }
+    },
+    "n_weeks_num": {
+      "type": [
+        "integer",
+        "null"
+      ],
+      "title": "Number of Weeks",
+      "description": "For EVERY_N_WEEKS type: Number of weeks in each pay period (e.g., 2 for bi-weekly, 3 for tri-weekly).",
+      "minimum": 1,
+      "maximum": 52,
+      "condition": {
+        "if": {
+          "properties": {
+            "pay_period_type": {
+              "const": "EVERY_N_WEEKS"
+            }
+          }
+        },
+        "then": {
+          "required": [
+            "n_weeks_num"
+          ]
+        }
+      }
+    },
+    "n_weeks_start_date": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "format": "date",
+      "title": "N Weeks Start Date",
+      "description": "For EVERY_N_WEEKS type: Reference start date for calculating pay periods (YYYY-MM-DD). All subsequent periods calculated from this anchor date.",
+      "condition": {
+        "if": {
+          "properties": {
+            "pay_period_type": {
+              "const": "EVERY_N_WEEKS"
+            }
+          }
+        },
+        "then": {
+          "required": [
+            "n_weeks_start_date"
+          ]
+        }
+      }
+    },
+    "n_days_num": {
+      "type": [
+        "integer",
+        "null"
+      ],
+      "title": "Number of Days",
+      "description": "For EVERY_N_DAYS type: Number of days in each pay period (e.g., 10 for every 10 days, 15 for every 15 days).",
+      "minimum": 1,
+      "maximum": 365,
+      "condition": {
+        "if": {
+          "properties": {
+            "pay_period_type": {
+              "const": "EVERY_N_DAYS"
+            }
+          }
+        },
+        "then": {
+          "required": [
+            "n_days_num"
+          ]
+        }
+      }
+    },
+    "n_days_start_date": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "format": "date",
+      "title": "N Days Start Date",
+      "description": "For EVERY_N_DAYS type: Reference start date for calculating pay periods (YYYY-MM-DD). All subsequent periods calculated from this anchor date.",
+      "condition": {
+        "if": {
+          "properties": {
+            "pay_period_type": {
+              "const": "EVERY_N_DAYS"
+            }
+          }
+        },
+        "then": {
+          "required": [
+            "n_days_start_date"
+          ]
+        }
+      }
+    },
+    "num_periods_in_year": {
+      "type": [
+        "integer",
+        "null"
+      ],
+      "title": "Number of Periods in Year",
+      "description": "Expected number of pay periods in a year based on frequency (e.g., 52 for weekly, 26 for bi-weekly, 24 for semi-monthly, 12 for monthly, 4 for quarterly). Used for validation and reporting.",
+      "minimum": 1,
+      "maximum": 365
+    },
+    "num_periods_override": {
+      "type": [
+        "boolean",
+        "null"
+      ],
+      "title": "Override Number of Periods",
+      "description": "Whether to override the calculated number of periods per year with a custom value. Useful for non-standard pay schedules.",
+      "default": false
+    },
+    "auto_lock_enabled": {
+      "type": [
+        "boolean",
+        "null"
+      ],
+      "title": "Auto Lock Enabled",
+      "description": "Whether to automatically lock pay periods after a specified number of days. Helps prevent accidental changes to processed payrolls and ensures data integrity.",
+      "default": false
+    },
+    "auto_lock_days": {
+      "type": [
+        "integer",
+        "null"
+      ],
+      "title": "Auto Lock Days",
+      "description": "Number of days after period end date when auto-lock occurs. Prevents modifications to payroll data after processing deadline. Required when auto_lock_enabled is true.",
+      "minimum": 0,
+      "maximum": 365,
+      "condition": {
+        "if": {
+          "properties": {
+            "auto_lock_enabled": {
+              "const": true
+            }
+          }
+        },
+        "then": {
+          "required": [
+            "auto_lock_days"
+          ]
+        }
+      }
+    },
+    "auto_remove_employees_not_in_payroll": {
+      "type": [
+        "boolean",
+        "null"
+      ],
+      "title": "Auto Remove Employees Not in Payroll",
+      "description": "Whether to automatically remove employees from pay periods when they are not included in payroll processing.",
+      "default": false
+    },
+    "enforce_pay_period_profile": {
+      "type": [
+        "boolean",
+        "null"
+      ],
+      "title": "Enforce Pay Period Profile",
+      "description": "Whether to strictly enforce this pay period profile's rules and prevent manual overrides.",
+      "default": false
+    },
+    "auto_create_payrolls": {
+      "type": [
+        "boolean",
+        "null"
+      ],
+      "title": "Auto Create Payrolls",
+      "description": "Whether to automatically create payroll records when new pay periods are generated.",
+      "default": false
+    },
+    "auto_initiate_payrolls": {
+      "type": [
+        "boolean",
+        "null"
+      ],
+      "title": "Auto Initiate Payrolls",
+      "description": "Whether to automatically initiate payrolls for this profile.",
+      "default": false
+    },
+    "auto_initiate_pst_type": {
+      "type": [
+        "integer",
+        "null"
+      ],
+      "title": "Auto Initiate PST Type",
+      "description": "The PST type to use when auto initiating payrolls for this profile.",
+      "default": null
+    },
+    "default_invoice_generator_id": {
+      "type": [
+        "integer",
+        "null"
+      ],
+      "title": "Default Invoice Generator ID",
+      "description": "ID of the default invoice generator to use for payroll processing with this profile.",
+      "minimum": 1
+    },
+    "pay_date_calc_type": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "title": "Pay Date Calculation Type",
+      "description": "Method for calculating pay dates relative to pay period dates.",
+      "enum": [
+        "DATE_BASED_PP_END",
+        "WEEK_DAY_BASED",
+        "DATE_BASED_PP_START",
+        "SEMI_MONTHLY"
+      ],
+      "enumDescriptions": {
+        "DATE_BASED_PP_END": "Pay date calculated as days offset from period end date",
+        "WEEK_DAY_BASED": "Pay date calculated as specific weekday relative to period end",
+        "DATE_BASED_PP_START": "Pay date calculated as days offset from period start date",
+        "SEMI_MONTHLY": "Pay date calculated using specific days of the month"
+      }
+    },
+    "pay_date_days_from_end": {
+      "type": [
+        "integer",
+        "null"
+      ],
+      "title": "Pay Date Days From End",
+      "description": "For DATE_BASED_PP_END type: Number of days after period end date for pay date. Positive values are after period end, negative values are before period end (e.g., -2 means 2 days before period end).",
+      "condition": {
+        "if": {
+          "properties": {
+            "pay_date_calc_type": {
+              "const": "DATE_BASED_PP_END"
+            }
+          }
+        },
+        "then": {
+          "properties": {
+            "pay_date_days_from_end": {
+              "type": "integer"
+            }
+          }
+        }
+      }
+    },
+    "pay_date_days_from_start": {
+      "type": [
+        "integer",
+        "null"
+      ],
+      "title": "Pay Date Days From Start",
+      "description": "For DATE_BASED_PP_START type: Number of days after period start date for pay date. Positive values are after period start, negative values are before period start (e.g., 7 means 7 days after period start).",
+      "condition": {
+        "if": {
+          "properties": {
+            "pay_date_calc_type": {
+              "const": "DATE_BASED_PP_START"
+            }
+          }
+        },
+        "then": {
+          "properties": {
+            "pay_date_days_from_start": {
+              "type": "integer"
+            }
+          }
+        }
+      }
+    },
+    "pay_date_week_day": {
+      "type": [
+        "integer",
+        "null"
+      ],
+      "title": "Pay Date Week Day",
+      "description": "For WEEK_DAY_BASED type: Day of the week for pay date (1=Sunday through 7=Saturday). Used with pay_date_week_day_type to determine exact pay date.",
+      "minimum": 1,
+      "maximum": 7,
+      "condition": {
+        "if": {
+          "properties": {
+            "pay_date_calc_type": {
+              "const": "WEEK_DAY_BASED"
+            }
+          }
+        },
+        "then": {
+          "properties": {
+            "pay_date_week_day": {
+              "type": "integer"
+            }
+          }
+        }
+      }
+    },
+    "pay_date_week_day_type": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "title": "Pay Date Week Day Type",
+      "description": "For WEEK_DAY_BASED type: Relationship of pay date weekday to period end.",
+      "enum": [
+        "PRIOR",
+        "CLOSEST",
+        "FOLLOWING"
+      ],
+      "enumDescriptions": {
+        "PRIOR": "Weekday occurring before period end date",
+        "CLOSEST": "Weekday nearest to period end date (before or after)",
+        "FOLLOWING": "Weekday occurring after period end date"
+      },
+      "condition": {
+        "if": {
+          "properties": {
+            "pay_date_calc_type": {
+              "const": "WEEK_DAY_BASED"
+            }
+          }
+        },
+        "then": {
+          "properties": {
+            "pay_date_week_day_type": {
+              "type": "string"
+            }
+          }
+        }
+      }
+    },
+    "pay_date_adjust_by_days": {
+      "type": [
+        "integer",
+        "null"
+      ],
+      "title": "Pay Date Adjust By Days",
+      "description": "For WEEK_DAY_BASED type: Additional days to adjust the calculated pay date. Can be positive (later) or negative (earlier). Applied after weekday calculation.",
+      "condition": {
+        "if": {
+          "properties": {
+            "pay_date_calc_type": {
+              "const": "WEEK_DAY_BASED"
+            }
+          }
+        },
+        "then": {
+          "properties": {
+            "pay_date_adjust_by_days": {
+              "type": "integer"
+            }
+          }
+        }
+      }
+    },
+    "pay_date_semi_monthly_day1": {
+      "type": [
+        "integer",
+        "null"
+      ],
+      "title": "Semi-Monthly Pay Date Day 1",
+      "description": "For SEMI_MONTHLY pay_date_calc_type: Day of month for first semi-monthly pay date (1-31). Typically corresponds to first pay period of the month.",
+      "minimum": 1,
+      "maximum": 31,
+      "condition": {
+        "if": {
+          "properties": {
+            "pay_date_calc_type": {
+              "const": "SEMI_MONTHLY"
+            }
+          }
+        },
+        "then": {
+          "properties": {
+            "pay_date_semi_monthly_day1": {
+              "type": "integer"
+            }
+          }
+        }
+      }
+    },
+    "pay_date_semi_monthly_day2": {
+      "type": [
+        "integer",
+        "null"
+      ],
+      "title": "Semi-Monthly Pay Date Day 2",
+      "description": "For SEMI_MONTHLY pay_date_calc_type: Day of month for second semi-monthly pay date (1-31). Typically corresponds to second pay period of the month.",
+      "minimum": 1,
+      "maximum": 31,
+      "condition": {
+        "if": {
+          "properties": {
+            "pay_date_calc_type": {
+              "const": "SEMI_MONTHLY"
+            }
+          }
+        },
+        "then": {
+          "properties": {
+            "pay_date_semi_monthly_day2": {
+              "type": "integer"
+            }
+          }
+        }
+      }
+    },
+    "pay_date_semi_monthly_direction": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "title": "Semi-Monthly Pay Date Direction",
+      "description": "For SEMI_MONTHLY pay_date_calc_type: Direction of pay date relative to period end when specified day doesn't exist in month.",
+      "enum": [
+        "NONE",
+        "FORWARD",
+        "BACK"
+      ],
+      "enumDescriptions": {
+        "NONE": "Use exact day specified, may cause errors if day doesn't exist",
+        "FORWARD": "Move forward to next available day if specified day doesn't exist",
+        "BACK": "Move backward to previous available day if specified day doesn't exist"
+      },
+      "condition": {
+        "if": {
+          "properties": {
+            "pay_date_calc_type": {
+              "const": "SEMI_MONTHLY"
+            }
+          }
+        },
+        "then": {
+          "properties": {
+            "pay_date_semi_monthly_direction": {
+              "type": "string"
+            }
+          }
+        }
+      }
+    },
+    "saturday_move_enabled": {
+      "type": [
+        "boolean",
+        "null"
+      ],
+      "title": "Saturday Move Enabled",
+      "description": "Whether to move pay dates that fall on Saturday to a different day. Important for ensuring employees receive pay on business days when banks are open.",
+      "default": false
+    },
+    "saturday_move_type": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "title": "Saturday Move Type",
+      "description": "How to move pay dates when they fall on Saturday. Only used when saturday_move_enabled is true.",
+      "enum": [
+        "PREV_FRIDAY",
+        "NEXT_MONDAY",
+        "PREV_BUSINESS_DAY",
+        "NEXT_BUSINESS_DAY",
+        "CLOSEST_BUSINESS_DAY",
+        "MONTH_END",
+        "MONTH_START"
+      ],
+      "enumDescriptions": {
+        "PREV_FRIDAY": "Move to previous Friday",
+        "NEXT_MONDAY": "Move to following Monday",
+        "PREV_BUSINESS_DAY": "Move to previous business day (skip weekends)",
+        "NEXT_BUSINESS_DAY": "Move to next business day (skip weekends)",
+        "CLOSEST_BUSINESS_DAY": "Move to closest business day (before or after)",
+        "MONTH_END": "Move to last business day of month",
+        "MONTH_START": "Move to first business day of month"
+      },
+      "condition": {
+        "if": {
+          "properties": {
+            "saturday_move_enabled": {
+              "const": true
+            }
+          }
+        },
+        "then": {
+          "required": [
+            "saturday_move_type"
+          ]
+        }
+      }
+    },
+    "sunday_move_enabled": {
+      "type": [
+        "boolean",
+        "null"
+      ],
+      "title": "Sunday Move Enabled",
+      "description": "Whether to move pay dates that fall on Sunday to a different day. Important for ensuring employees receive pay on business days when banks are open.",
+      "default": false
+    },
+    "sunday_move_type": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "title": "Sunday Move Type",
+      "description": "How to move pay dates when they fall on Sunday. Only used when sunday_move_enabled is true.",
+      "enum": [
+        "PREV_FRIDAY",
+        "NEXT_MONDAY",
+        "PREV_BUSINESS_DAY",
+        "NEXT_BUSINESS_DAY",
+        "CLOSEST_BUSINESS_DAY",
+        "MONTH_END",
+        "MONTH_START"
+      ],
+      "condition": {
+        "if": {
+          "properties": {
+            "sunday_move_enabled": {
+              "const": true
+            }
+          }
+        },
+        "then": {
+          "required": [
+            "sunday_move_type"
+          ]
+        }
+      }
+    },
+    "holiday_move_enabled": {
+      "type": [
+        "boolean",
+        "null"
+      ],
+      "title": "Holiday Move Enabled",
+      "description": "Whether to move pay dates that fall on company holidays to a different day. Ensures employees receive pay when banks and businesses are operational.",
+      "default": false
+    },
+    "holiday_move_type": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "title": "Holiday Move Type",
+      "description": "How to move pay dates when they fall on holidays. Only used when holiday_move_enabled is true.",
+      "enum": [
+        "PREV_FRIDAY",
+        "NEXT_MONDAY",
+        "PREV_BUSINESS_DAY",
+        "NEXT_BUSINESS_DAY",
+        "CLOSEST_BUSINESS_DAY",
+        "MONTH_END",
+        "MONTH_START"
+      ],
+      "condition": {
+        "if": {
+          "properties": {
+            "holiday_move_enabled": {
+              "const": true
+            }
+          }
+        },
+        "then": {
+          "required": [
+            "holiday_move_type"
+          ]
+        }
+      }
+    },
+    "holiday_profile_id": {
+      "type": [
+        "integer",
+        "null"
+      ],
+      "title": "Holiday Profile ID",
+      "description": "ID of the company holiday profile to use for determining which days are holidays. Required when holiday_move_enabled is true. References the company's defined holiday calendar.",
+      "minimum": 1,
+      "condition": {
+        "if": {
+          "properties": {
+            "holiday_move_enabled": {
+              "const": true
+            }
+          }
+        },
+        "then": {
+          "required": [
+            "holiday_profile_id"
+          ]
+        }
+      }
+    },
+    "within_month_end_enabled": {
+      "type": [
+        "boolean",
+        "null"
+      ],
+      "title": "Within Month End Enabled",
+      "description": "Whether to enable special handling for pay dates near month end boundaries. Useful for accounting periods and month-end processing requirements.",
+      "default": false
+    },
+    "within_month_end_move_type": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "title": "Within Month End Move Type",
+      "description": "How to adjust pay dates for month end boundaries. Only used when within_month_end_enabled is true.",
+      "enum": [
+        "PREV_FRIDAY",
+        "NEXT_MONDAY",
+        "PREV_BUSINESS_DAY",
+        "NEXT_BUSINESS_DAY",
+        "CLOSEST_BUSINESS_DAY",
+        "MONTH_END",
+        "MONTH_START"
+      ],
+      "condition": {
+        "if": {
+          "properties": {
+            "within_month_end_enabled": {
+              "const": true
+            }
+          }
+        },
+        "then": {
+          "required": [
+            "within_month_end_move_type"
+          ]
+        }
+      }
+    },
+    "within_month_end_num_days": {
+      "type": [
+        "integer",
+        "null"
+      ],
+      "title": "Within Month End Number of Days",
+      "description": "Number of days from month end to trigger special handling. For example, if set to 3, pay dates within 3 days of month end will be adjusted. Only used when within_month_end_enabled is true.",
+      "minimum": 1,
+      "maximum": 31,
+      "condition": {
+        "if": {
+          "properties": {
+            "within_month_end_enabled": {
+              "const": true
+            }
+          }
+        },
+        "then": {
+          "required": [
+            "within_month_end_num_days"
+          ]
+        }
+      }
+    },
+    "submit_date_days": {
+      "type": [
+        "integer",
+        "null"
+      ],
+      "title": "Submit Date Days",
+      "description": "Number of days before pay date when payroll must be submitted for processing. Ensures adequate time for payroll review and approval before payment.",
+      "minimum": 0,
+      "maximum": 365
+    },
+    "submit_before_time": {
+      "type": [
+        "integer",
+        "null"
+      ],
+      "title": "Submit Before Time",
+      "description": "Time of day (in seconds since midnight) when payroll submission deadline occurs. For example, 64800 = 6:00 PM (18:00). Used with submit_date_days to set precise submission deadlines.",
+      "minimum": 0,
+      "maximum": 86399
+    },
+    "process_date_days": {
+      "type": [
+        "integer",
+        "null"
+      ],
+      "title": "Process Date Days",
+      "description": "Number of days before pay date when payroll processing must be completed. Ensures adequate time for final payroll processing and bank file generation.",
+      "minimum": 0,
+      "maximum": 365
+    },
+    "process_before_time": {
+      "type": [
+        "integer",
+        "null"
+      ],
+      "title": "Process Before Time",
+      "description": "Time of day (in seconds since midnight) when payroll processing deadline occurs. For example, 43200 = 12:00 PM (noon). Used with process_date_days to set precise processing deadlines.",
+      "minimum": 0,
+      "maximum": 86399
+    },
+    "change_pay_periods_from_date": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "format": "date",
+      "title": "Change Pay Periods From Date",
+      "description": "Date from which pay period changes should take effect (YYYY-MM-DD). Used when modifying existing pay period configurations."
+    }
+  },
+  "required": [
+    "name",
+    "pay_period_type"
+  ],
+  "additionalProperties": false,
+  "allOf": [
+    {
+      "if": {
+        "properties": {
+          "pay_period_type": {
+            "const": "SEMI_MONTHLY"
+          }
+        }
+      },
+      "then": {
+        "properties": {
+          "semi_monthly_start2": {
+            "minimum": {
+              "$data": "1/semi_monthly_start1"
+            },
+            "exclusiveMinimum": true
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "effective_to": {
+            "type": "string"
+          },
+          "effective_from": {
+            "type": "string"
+          }
+        }
+      },
+      "then": {
+        "properties": {
+          "effective_to": {
+            "format": "date",
+            "formatMinimum": {
+              "$data": "1/effective_from"
+            }
+          }
+        }
+      }
+    }
+  ],
+  "examples": [
+    {
+      "name": "Weekly Payroll Profile",
+      "description": "Weekly pay periods starting on Sunday with Friday pay dates",
+      "pay_period_type": "WEEKLY",
+      "weekly_start_day": 1,
+      "active": true,
+      "auto_lock_enabled": true,
+      "auto_lock_days": 3,
+      "pay_date_calc_type": "DATE_BASED_PP_END",
+      "pay_date_days_from_end": 0,
+      "saturday_move_enabled": true,
+      "saturday_move_type": "PREV_FRIDAY",
+      "sunday_move_enabled": true,
+      "sunday_move_type": "NEXT_MONDAY"
+    },
+    {
+      "name": "Semi-Monthly Payroll Profile",
+      "description": "Semi-monthly pay periods on 1st and 16th of each month",
+      "pay_period_type": "SEMI_MONTHLY",
+      "semi_monthly_start1": 1,
+      "semi_monthly_start2": 16,
+      "active": true,
+      "pay_date_calc_type": "SEMI_MONTHLY",
+      "pay_date_semi_monthly_day1": 15,
+      "pay_date_semi_monthly_day2": 31,
+      "pay_date_semi_monthly_direction": "BACK"
+    }
+  ]
+}</div>
+</div>
+</div>
+</div>
+<div class="req-tab-post" id="req-tab-id-post-1">
+<div class="example">
+
+<div class="post-example-tab-1 activeTab" id="post-tab-example-1">
+
+<pre class="highlightjs">&lt;?xml version="1.0" encoding="UTF-8"?&gt;
+&lt;CreatePayPeriodProfile&gt;
+  &lt;name&gt;Weekly Payroll Profile&lt;/name&gt;
+  &lt;pay_period_type&gt;WEEKLY&lt;/pay_period_type&gt;
+
+  &lt;description&gt;Weekly pay periods starting on Sunday with Friday pay dates&lt;/description&gt;
+  &lt;active&gt;true&lt;/active&gt;
+
+  &lt;!-- Period config --&gt;
+  &lt;weekly_start_day&gt;1&lt;/weekly_start_day&gt;
+
+  &lt;!-- Auto lock / enforcement --&gt;
+  &lt;auto_lock_enabled&gt;true&lt;/auto_lock_enabled&gt;
+  &lt;auto_lock_days&gt;3&lt;/auto_lock_days&gt;
+
+  &lt;!-- Pay date calc --&gt;
+  &lt;pay_date_calc_type&gt;DATE_BASED_PP_END&lt;/pay_date_calc_type&gt;
+  &lt;pay_date_days_from_end&gt;0&lt;/pay_date_days_from_end&gt;
+
+  &lt;!-- Move rules --&gt;
+  &lt;saturday_move_enabled&gt;true&lt;/saturday_move_enabled&gt;
+  &lt;saturday_move_type&gt;PREV_FRIDAY&lt;/saturday_move_type&gt;
+  &lt;sunday_move_enabled&gt;true&lt;/sunday_move_enabled&gt;
+  &lt;sunday_move_type&gt;NEXT_MONDAY&lt;/sunday_move_type&gt;
+&lt;/CreatePayPeriodProfile&gt;</pre>
+</div>
+<div class="post-example-tab-1" id="post-tab-schema-1">
+
+<div class="jsonschema" id="schema-1">&lt;?xml version="1.0" encoding="UTF-8"?&gt;
+&lt;!-- XSD 1.1 is used for xs:assert-based conditional logic --&gt;
+&lt;xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema"
+           elementFormDefault="qualified"
+           attributeFormDefault="unqualified"
+           version="1.1"&gt;
+
+    &lt;!-- ######## Common Simple Types ######## --&gt;
+
+    &lt;xs:simpleType name="WeekdayInt"&gt;
+        &lt;xs:restriction base="xs:int"&gt;
+            &lt;xs:minInclusive value="1"/&gt;
+            &lt;xs:maxInclusive value="7"/&gt;
+        &lt;/xs:restriction&gt;
+    &lt;/xs:simpleType&gt;
+
+    &lt;xs:simpleType name="MoveType"&gt;
+        &lt;xs:restriction base="xs:string"&gt;
+            &lt;xs:enumeration value="PREV_FRIDAY"/&gt;
+            &lt;xs:enumeration value="NEXT_MONDAY"/&gt;
+            &lt;xs:enumeration value="PREV_BUSINESS_DAY"/&gt;
+            &lt;xs:enumeration value="NEXT_BUSINESS_DAY"/&gt;
+            &lt;xs:enumeration value="CLOSEST_BUSINESS_DAY"/&gt;
+            &lt;xs:enumeration value="MONTH_END"/&gt;
+            &lt;xs:enumeration value="MONTH_START"/&gt;
+        &lt;/xs:restriction&gt;
+    &lt;/xs:simpleType&gt;
+
+    &lt;xs:simpleType name="PayPeriodType"&gt;
+        &lt;xs:restriction base="xs:string"&gt;
+            &lt;xs:enumeration value="QUARTERLY"/&gt;
+            &lt;xs:enumeration value="MONTHLY"/&gt;
+            &lt;xs:enumeration value="WEEKLY"/&gt;
+            &lt;xs:enumeration value="MONTHLY_WEEK"/&gt;
+            &lt;xs:enumeration value="SEMI_MONTHLY"/&gt;
+            &lt;xs:enumeration value="EVERY_N_WEEKS"/&gt;
+            &lt;xs:enumeration value="EVERY_N_DAYS"/&gt;
+            &lt;xs:enumeration value="USER_DEFINED"/&gt;
+        &lt;/xs:restriction&gt;
+    &lt;/xs:simpleType&gt;
+
+    &lt;xs:simpleType name="PayDateCalcType"&gt;
+        &lt;xs:restriction base="xs:string"&gt;
+            &lt;xs:enumeration value="DATE_BASED_PP_END"/&gt;
+            &lt;xs:enumeration value="WEEK_DAY_BASED"/&gt;
+            &lt;xs:enumeration value="DATE_BASED_PP_START"/&gt;
+            &lt;xs:enumeration value="SEMI_MONTHLY"/&gt;
+        &lt;/xs:restriction&gt;
+    &lt;/xs:simpleType&gt;
+
+    &lt;xs:simpleType name="WeekDayRelationType"&gt;
+        &lt;xs:restriction base="xs:string"&gt;
+            &lt;xs:enumeration value="PRIOR"/&gt;
+            &lt;xs:enumeration value="CLOSEST"/&gt;
+            &lt;xs:enumeration value="FOLLOWING"/&gt;
+        &lt;/xs:restriction&gt;
+    &lt;/xs:simpleType&gt;
+
+    &lt;xs:simpleType name="MonthlyStartDay"&gt;
+        &lt;xs:restriction base="xs:int"&gt;
+            &lt;xs:minInclusive value="-1"/&gt;
+            &lt;xs:maxInclusive value="27"/&gt;
+        &lt;/xs:restriction&gt;
+    &lt;/xs:simpleType&gt;
+
+    &lt;xs:simpleType name="MonthWeekNum"&gt;
+        &lt;xs:restriction base="xs:int"&gt;
+            &lt;xs:enumeration value="1"/&gt;
+            &lt;xs:enumeration value="2"/&gt;
+            &lt;xs:enumeration value="3"/&gt;
+            &lt;xs:enumeration value="4"/&gt;
+            &lt;xs:enumeration value="-1"/&gt;
+        &lt;/xs:restriction&gt;
+    &lt;/xs:simpleType&gt;
+
+    &lt;xs:simpleType name="SemiMonthlyDay"&gt;
+        &lt;xs:restriction base="xs:int"&gt;
+            &lt;xs:minInclusive value="1"/&gt;
+            &lt;xs:maxInclusive value="31"/&gt;
+        &lt;/xs:restriction&gt;
+    &lt;/xs:simpleType&gt;
+
+    &lt;xs:simpleType name="SecondsSinceMidnight"&gt;
+        &lt;xs:restriction base="xs:int"&gt;
+            &lt;xs:minInclusive value="0"/&gt;
+            &lt;xs:maxInclusive value="86399"/&gt;
+        &lt;/xs:restriction&gt;
+    &lt;/xs:simpleType&gt;
+
+    &lt;xs:simpleType name="PositiveInt1to365"&gt;
+        &lt;xs:restriction base="xs:int"&gt;
+            &lt;xs:minInclusive value="1"/&gt;
+            &lt;xs:maxInclusive value="365"/&gt;
+        &lt;/xs:restriction&gt;
+    &lt;/xs:simpleType&gt;
+
+    &lt;xs:simpleType name="ZeroTo365"&gt;
+        &lt;xs:restriction base="xs:int"&gt;
+            &lt;xs:minInclusive value="0"/&gt;
+            &lt;xs:maxInclusive value="365"/&gt;
+        &lt;/xs:restriction&gt;
+    &lt;/xs:simpleType&gt;
+
+    &lt;!-- ######## Root Element ######## --&gt;
+
+    &lt;xs:element name="CreatePayPeriodProfile" type="CreatePayPeriodProfileType"/&gt;
+
+    &lt;xs:complexType name="CreatePayPeriodProfileType"&gt;
+        &lt;xs:annotation&gt;
+            &lt;xs:documentation&gt;
+                Schema for creating a new pay period profile that defines payroll frequency, pay dates,
+                and business rules for payroll processing.
+            &lt;/xs:documentation&gt;
+        &lt;/xs:annotation&gt;
+        &lt;xs:sequence&gt;
+            &lt;!-- Required --&gt;
+            &lt;xs:element name="name" type="xs:string"&gt;
+                &lt;xs:annotation&gt;&lt;xs:documentation&gt;Profile Name (1-100 chars)&lt;/xs:documentation&gt;&lt;/xs:annotation&gt;
+            &lt;/xs:element&gt;
+            &lt;xs:element name="pay_period_type" type="PayPeriodType"&gt;
+                &lt;xs:annotation&gt;&lt;xs:documentation&gt;Frequency type&lt;/xs:documentation&gt;&lt;/xs:annotation&gt;
+            &lt;/xs:element&gt;
+
+            &lt;!-- Optional / Nullable --&gt;
+            &lt;xs:element name="external_id" type="xs:string" minOccurs="0" nillable="true"&gt;
+                &lt;xs:annotation&gt;&lt;xs:documentation&gt;Optional unique external identifier (max 50)&lt;/xs:documentation&gt;&lt;/xs:annotation&gt;
+            &lt;/xs:element&gt;
+            &lt;xs:element name="description" type="xs:string" minOccurs="0" nillable="true"/&gt;
+            &lt;xs:element name="active" type="xs:boolean" minOccurs="0" nillable="true"/&gt;
+            &lt;xs:element name="effective_from" type="xs:date" minOccurs="0" nillable="true"/&gt;
+            &lt;xs:element name="effective_to" type="xs:date" minOccurs="0" nillable="true"/&gt;
+
+            &lt;!-- Period config --&gt;
+            &lt;xs:element name="monthly_day" type="MonthlyStartDay" minOccurs="0" nillable="true"/&gt;
+            &lt;xs:element name="month_week_num" type="MonthWeekNum" minOccurs="0" nillable="true"/&gt;
+            &lt;xs:element name="month_week_day" type="WeekdayInt" minOccurs="0" nillable="true"/&gt;
+            &lt;xs:element name="semi_monthly_start1" type="xs:int" minOccurs="0" nillable="true"/&gt;
+            &lt;xs:element name="semi_monthly_start2" type="xs:int" minOccurs="0" nillable="true"/&gt;
+            &lt;xs:element name="weekly_start_day" type="WeekdayInt" minOccurs="0" nillable="true"/&gt;
+            &lt;xs:element name="n_weeks_num" type="xs:int" minOccurs="0" nillable="true"/&gt;
+            &lt;xs:element name="n_weeks_start_date" type="xs:date" minOccurs="0" nillable="true"/&gt;
+            &lt;xs:element name="n_days_num" type="xs:int" minOccurs="0" nillable="true"/&gt;
+            &lt;xs:element name="n_days_start_date" type="xs:date" minOccurs="0" nillable="true"/&gt;
+            &lt;xs:element name="num_periods_in_year" type="PositiveInt1to365" minOccurs="0" nillable="true"/&gt;
+            &lt;xs:element name="num_periods_override" type="xs:boolean" minOccurs="0" nillable="true"/&gt;
+
+            &lt;!-- Auto lock / enforcement --&gt;
+            &lt;xs:element name="auto_lock_enabled" type="xs:boolean" minOccurs="0" nillable="true"/&gt;
+            &lt;xs:element name="auto_lock_days" type="ZeroTo365" minOccurs="0" nillable="true"/&gt;
+            &lt;xs:element name="auto_remove_employees_not_in_payroll" type="xs:boolean" minOccurs="0" nillable="true"/&gt;
+            &lt;xs:element name="enforce_pay_period_profile" type="xs:boolean" minOccurs="0" nillable="true"/&gt;
+            &lt;xs:element name="auto_create_payrolls" type="xs:boolean" minOccurs="0" nillable="true"/&gt;
+            &lt;xs:element name="auto_initiate_payrolls" type="xs:boolean" minOccurs="0" nillable="true"/&gt;
+            &lt;xs:element name="auto_initiate_pst_type" type="xs:int" minOccurs="0" nillable="true"/&gt;
+            &lt;xs:element name="default_invoice_generator_id" type="xs:int" minOccurs="0" nillable="true"/&gt;
+
+            &lt;!-- Pay date calc --&gt;
+            &lt;xs:element name="pay_date_calc_type" type="PayDateCalcType" minOccurs="0" nillable="true"/&gt;
+            &lt;xs:element name="pay_date_days_from_end" type="xs:int" minOccurs="0" nillable="true"/&gt;
+            &lt;xs:element name="pay_date_days_from_start" type="xs:int" minOccurs="0" nillable="true"/&gt;
+            &lt;xs:element name="pay_date_week_day" type="WeekdayInt" minOccurs="0" nillable="true"/&gt;
+            &lt;xs:element name="pay_date_week_day_type" type="WeekDayRelationType" minOccurs="0" nillable="true"/&gt;
+            &lt;xs:element name="pay_date_adjust_by_days" type="xs:int" minOccurs="0" nillable="true"/&gt;
+            &lt;xs:element name="pay_date_semi_monthly_day1" type="SemiMonthlyDay" minOccurs="0" nillable="true"/&gt;
+            &lt;xs:element name="pay_date_semi_monthly_day2" type="SemiMonthlyDay" minOccurs="0" nillable="true"/&gt;
+            &lt;xs:element name="pay_date_semi_monthly_direction" minOccurs="0" nillable="true"&gt;
+                &lt;xs:simpleType&gt;
+                    &lt;xs:restriction base="xs:string"&gt;
+                        &lt;xs:enumeration value="NONE"/&gt;
+                        &lt;xs:enumeration value="FORWARD"/&gt;
+                        &lt;xs:enumeration value="BACK"/&gt;
+                    &lt;/xs:restriction&gt;
+                &lt;/xs:simpleType&gt;
+            &lt;/xs:element&gt;
+
+            &lt;!-- Move rules --&gt;
+            &lt;xs:element name="saturday_move_enabled" type="xs:boolean" minOccurs="0" nillable="true"/&gt;
+            &lt;xs:element name="saturday_move_type" type="MoveType" minOccurs="0" nillable="true"/&gt;
+            &lt;xs:element name="sunday_move_enabled" type="xs:boolean" minOccurs="0" nillable="true"/&gt;
+            &lt;xs:element name="sunday_move_type" type="MoveType" minOccurs="0" nillable="true"/&gt;
+            &lt;xs:element name="holiday_move_enabled" type="xs:boolean" minOccurs="0" nillable="true"/&gt;
+            &lt;xs:element name="holiday_move_type" type="MoveType" minOccurs="0" nillable="true"/&gt;
+            &lt;xs:element name="holiday_profile_id" type="xs:int" minOccurs="0" nillable="true"/&gt;
+            &lt;xs:element name="within_month_end_enabled" type="xs:boolean" minOccurs="0" nillable="true"/&gt;
+            &lt;xs:element name="within_month_end_move_type" type="MoveType" minOccurs="0" nillable="true"/&gt;
+            &lt;xs:element name="within_month_end_num_days" type="SemiMonthlyDay" minOccurs="0" nillable="true"/&gt;
+
+            &lt;!-- Deadlines --&gt;
+            &lt;xs:element name="submit_date_days" type="ZeroTo365" minOccurs="0" nillable="true"/&gt;
+            &lt;xs:element name="submit_before_time" type="SecondsSinceMidnight" minOccurs="0" nillable="true"/&gt;
+            &lt;xs:element name="process_date_days" type="ZeroTo365" minOccurs="0" nillable="true"/&gt;
+            &lt;xs:element name="process_before_time" type="SecondsSinceMidnight" minOccurs="0" nillable="true"/&gt;
+
+            &lt;xs:element name="change_pay_periods_from_date" type="xs:date" minOccurs="0" nillable="true"/&gt;
+        &lt;/xs:sequence&gt;
+    &lt;/xs:complexType&gt;
+&lt;/xs:schema&gt;
+</div>
+</div>
+</div>
+</div>
+</div>
+</article>
+</section>
+</div>
+</body></html>

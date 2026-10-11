@@ -1,0 +1,682 @@
+<!doctype html>
+<html><head><meta charset="utf-8"><title>Benefit Plan</title><style>body{font:16px system-ui;max-width:1100px;margin:2rem auto;padding:0 1rem;line-height:1.5}aside{background:#fff3cc;padding:1rem}.jsonschema,pre{white-space:pre-wrap;font:13px monospace;overflow-wrap:anywhere;background:#f4f5f7;padding:1rem}.uri{font-family:monospace}h2,h3{margin-top:2rem}</style></head><body><aside><strong>Modified private reference — 2026-10-09.</strong> Provider-documented illustrative examples are included; authentication token examples are redacted. These are not customer exports or guaranteed production behavior. Candidate sharing is pending. This is not OpenAPI.</aside>
+<div class="group">
+<h2 class="anchored" id="item.anchor">
+<span>Benefit Plan</span>
+<a class="fa fa-link link-anchor" data-url="r=__v2__companies__(cid)__benefits__(id)#" data-web-id="__v2__companies__(cid)__benefits__(id)"></a>
+</h2>
+<section class="clearfix">
+<article class="definition">
+<h3 class="anchored" id="get"><span>GET</span>
+<a class="fa fa-link link-anchor" data-url="r=__v2__companies__(cid)__benefits__(id)#get" data-web-id="__v2__companies__(cid)__benefits__(id)"></a>
+</h3>
+<div class="md"><p>Retrieves an employee benefit plan by its ID.
+</p></div>
+<div>
+<ul class="annotation-list">
+<li class="annotation">
+<span>v2</span>
+</li>
+</ul>
+</div>
+<h4>Parameters</h4>
+<h5>Path Parameters</h5>
+<ul class="param-list">
+<li>
+<div class="param-desc">
+<div class="param-name">cid</div>
+<div class="data-type">string</div>
+<div class="required">required</div>
+</div>
+<div class="param-content">
+<div>
+<p>Example: 123456</p>
+<div class="desc md">Company should be referenced via company id or company unique id or company short name using `|short_name` or `!short_name` format.
+</div>
+</div>
+</div>
+
+</li>
+<li>
+<div class="param-desc">
+<div class="param-name">id</div>
+<div class="data-type">integer</div>
+<div class="required">required</div>
+</div>
+<div class="param-content">
+<div>
+<div class="desc md">Employee benefit plan id.</div>
+</div>
+</div>
+
+</li>
+</ul>
+<h5>Header Parameters</h5>
+<ul class="param-list">
+<li>
+<div class="param-desc">
+<div class="param-name">Accept</div>
+<div class="data-type">string</div>
+</div>
+<div class="param-content">
+<div>
+<p>Valid values: application/json, application/xml, text/xml</p>
+<p>Default: application/json</p>
+<p>Example: application/json</p>
+</div>
+</div>
+
+</li>
+</ul>
+<h4>Responses</h4>
+<div class="responses">
+<div>
+<label class="response response-success">
+<span class="fa fa-check"></span>
+<input data-full-tab-id="get-resp-code-tab-id-0" data-tab-class="resp-code-tab-get" name="resp-code-tab-get" type="radio"/>
+<span class="status">200 Ok</span>
+</label>
+<div class="response-desc resp-code-tab-get" id="get-resp-code-tab-id-0">
+</div>
+</div>
+<div>
+<label class="response response-error">
+<span class="fa fa-times"></span>
+<input data-full-tab-id="get-resp-code-tab-id-1" data-tab-class="resp-code-tab-get" name="resp-code-tab-get" type="radio"/>
+<span class="status">401 Unauthorized</span>
+</label>
+<div class="response-desc resp-code-tab-get" id="get-resp-code-tab-id-1">
+<div class="md"><p>Returned in case user is not authorized.</p></div>
+</div>
+</div>
+<div>
+<label class="response response-error">
+<span class="fa fa-times"></span>
+<input data-full-tab-id="get-resp-code-tab-id-2" data-tab-class="resp-code-tab-get" name="resp-code-tab-get" type="radio"/>
+<span class="status">403 Forbidden</span>
+</label>
+<div class="response-desc resp-code-tab-get" id="get-resp-code-tab-id-2">
+<div class="md"><p>Returned in case user has no access to the resource.</p></div>
+</div>
+</div>
+<div>
+<label class="response response-error">
+<span class="fa fa-times"></span>
+<input data-full-tab-id="get-resp-code-tab-id-3" data-tab-class="resp-code-tab-get" name="resp-code-tab-get" type="radio"/>
+<span class="status">404 Not Found</span>
+</label>
+<div class="response-desc resp-code-tab-get" id="get-resp-code-tab-id-3">
+<div class="md"><p>Returned in case resource does not exist.</p></div>
+</div>
+</div>
+<div>
+<label class="response response-error">
+<span class="fa fa-times"></span>
+<input data-full-tab-id="get-resp-code-tab-id-4" data-tab-class="resp-code-tab-get" name="resp-code-tab-get" type="radio"/>
+<span class="status">503 Service Unavailable</span>
+</label>
+<div class="response-desc resp-code-tab-get" id="get-resp-code-tab-id-4">
+<div class="md"><p>Returned in the event that the call limit is exceeded. The application will be unavailable for subsequent calls for the duration specified by the X-CallLimit-TimeToWait header.</p></div>
+</div>
+</div>
+</div>
+</article>
+<article class="code">
+<h4>Definition</h4>
+<div class="uri">
+<code>
+<span class="method get">get</span>
+<span class="textUri"><span class="baseUri">{{ getUriPrefix() }}</span><span class="relativeUri">/v2/companies/{cid}/benefits/{id}</span></span>
+</code>
+</div>
+<h4>Response Samples</h4>
+<div class="tab-title-group">
+<label>
+<input checked="checked" data-full-tab-id="resp-tab-id-get-0" data-tab-class="resp-tab-get" name="resp-tab-get" type="radio"/>
+<span class="tab-title">application/json</span>
+</label>
+<label>
+<input data-full-tab-id="resp-tab-id-get-1" data-tab-class="resp-tab-get" name="resp-tab-get" type="radio"/>
+<span class="tab-title">application/xml</span>
+</label>
+</div>
+<div>
+<div class="resp-tab-get" id="resp-tab-id-get-0">
+<div class="example">
+
+<div class="get-example-resp-tab-0 activeTab" id="get-tab-resp-example-0">
+
+<pre class="highlightjs">{
+    "id": 218164032,
+    "employee": {
+        "account_id": 3225537
+    },
+    "benefit_plan": {
+        "id": 18561,
+        "currency": "USD"
+    },
+    "coverage_effective_from": "2017-11-12",
+    "coverage_effective_to": "9999-12-31",
+    "custom_fields": [],
+    "earnings_deductions": [
+        {
+            "id": 225099776,
+            "index": 0,
+            "type": "EARNING",
+            "deduction_effective_from": "2017-11-12",
+            "deduction_effective_to": "9999-12-31",
+            "employee_amount": 2808,
+            "employee_frequency": {
+                "type": "ANNUAL",
+                "name": "Annual"
+            },
+            "employer_amount": 13456,
+            "employer_frequency": {
+                "type": "ANNUAL",
+                "name": "Annual"
+            },
+            "coverage_amount": 1300098,
+            "show_coverage": true,
+            "show_employer_contribution": true
+        }
+    ],
+    "coverage": {
+        "id": 16822209,
+        "name": "Salary 2x",
+        "brief_coverage_explanation": "&lt;p&gt;Basic Life -----&amp;nbsp;&amp;nbsp; G T L&amp;nbsp; 2X - employee 2x salary amount&lt;/p&gt;"
+    },
+    "dependents": [
+      {
+        "type": "CHILD",
+        "contact": {
+          "id": 77249,
+          "first_name": "Kevin",
+          "last_name": "Smith",
+          "relationship": "Child",
+          "birthdate": "2010-04-21"
+        },
+        "effective_from": "2017-01-01",
+        "effective_to": "2017-12-31",
+        "custom_fields": [
+          {
+            "index": 0,
+            "value": "2017-01-01"
+          },
+          {
+            "index": 1,
+            "value": "a.block@gmail.com"
+          }
+        ]
+      }
+    ]
+}</pre>
+</div>
+<div class="get-example-resp-tab-0" id="get-tab-resp-schema-0">
+
+<div class="jsonschema" id="schema-0">{
+  "type": "object",
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "properties": {
+    "id": {
+      "type": "integer"
+    },
+    "employee": {
+      "type": "object",
+      "properties": {
+        "account_id": {
+          "type": "number",
+          "format": "long"
+        }
+      },
+      "additionalProperties": false,
+      "required": [
+        "account_id"
+      ]
+    },
+    "benefit_plan": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer"
+        },
+        "currency": {
+          "enum": [
+            "USD",
+            "GBP",
+            "EUR",
+            "CAD",
+            "AUD",
+            "NZD",
+            "MXN",
+            "CNY",
+            "SEK",
+            "BRL",
+            "INR",
+            "SGD",
+            "HKD",
+            "CHF",
+            "CRC",
+            "UAH",
+            "MOP",
+            "DKK",
+            "XXX"
+          ]
+        }
+      },
+      "additionalProperties": false,
+      "required": [
+        "id"
+      ]
+    },
+    "coverage_effective_from": {
+      "type": "string"
+    },
+    "coverage_effective_to": {
+      "type": "string"
+    },
+    "custom_fields": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "index": {
+            "type": "integer"
+          },
+          "value": {
+            "type": "string"
+          }
+        },
+        "additionalProperties": false,
+        "required": [
+          "index",
+          "value"
+        ]
+      }
+    },
+    "earnings_deductions": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer"
+          },
+          "index": {
+            "type": "integer"
+          },
+          "type": {
+            "type": "string",
+            "enum": [
+              "EARNING",
+              "DEDUCTION"
+            ]
+          },
+          "name": {
+            "type": "string"
+          },
+          "deduction_effective_from": {
+            "type": "string"
+          },
+          "deduction_effective_to": {
+            "type": "string"
+          },
+          "employee_amount": {
+            "type": "number"
+          },
+          "employee_frequency": {
+            "type": "object",
+            "properties": {
+              "type": {
+                "type": "string"
+              },
+              "name": {
+                "type": "string"
+              }
+            },
+            "additionalProperties": false,
+            "required": [
+              "type",
+              "name"
+            ]
+          },
+          "employer_amount": {
+            "type": "number"
+          },
+          "employer_frequency": {
+            "type": "object",
+            "properties": {
+              "type": {
+                "type": "string"
+              },
+              "name": {
+                "type": "string"
+              }
+            },
+            "additionalProperties": false,
+            "required": [
+              "type",
+              "name"
+            ]
+          },
+          "coverage_amount": {
+            "type": "number"
+          },
+          "show_coverage": {
+            "type": "boolean"
+          },
+          "show_employer_contribution": {
+            "type": "boolean"
+          },
+          "error_message": {
+            "type": "string"
+          }
+        },
+        "additionalProperties": false,
+        "required": [
+          "id",
+          "index"
+        ]
+      }
+    },
+    "coverage": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer"
+        },
+        "name": {
+          "type": "string"
+        },
+        "brief_coverage_explanation": {
+          "type": "string"
+        }
+      },
+      "additionalProperties": false,
+      "required": [
+        "id",
+        "name"
+      ]
+    },
+    "dependents": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "type": {
+            "type": "string"
+          },
+          "contact": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "integer"
+              },
+              "first_name": {
+                "type": "string"
+              },
+              "last_name": {
+                "type": "string"
+              },
+              "relationship": {
+                "type": "string"
+              },
+              "birthdate": {
+                "type": "string"
+              }
+            },
+            "additionalProperties": false,
+            "required": [
+              "id",
+              "first_name",
+              "last_name",
+              "relationship"
+            ]
+          },
+          "effective_from": {
+            "type": "string"
+          },
+          "effective_to": {
+            "type": "string"
+          },
+          "percentage": {
+            "type": "integer"
+          },
+          "custom_fields": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "index": {
+                  "type": "integer"
+                },
+                "value": {
+                  "type": "string"
+                }
+              },
+              "additionalProperties": false,
+              "required": [
+                "index",
+                "value"
+              ]
+            }
+          }
+        },
+        "additionalProperties": false,
+        "required": [
+          "type",
+          "contact",
+          "effective_from",
+          "effective_to"
+        ]
+      }
+    }
+  },
+  "additionalProperties": false,
+  "required": [
+    "id",
+    "employee",
+    "benefit_plan",
+    "coverage_effective_from",
+    "coverage_effective_to",
+    "earnings_deductions",
+    "coverage"
+  ]
+}</div>
+</div>
+</div>
+</div>
+<div class="resp-tab-get" id="resp-tab-id-get-1">
+<div class="example">
+
+<div class="get-example-resp-tab-1 activeTab" id="get-tab-resp-example-1">
+
+<pre class="highlightjs">&lt;?xml version="1.0" encoding="UTF-8"?&gt;
+&lt;root&gt;
+   &lt;benefit_plan&gt;
+      &lt;id&gt;18561&lt;/id&gt;
+   &lt;/benefit_plan&gt;
+   &lt;coverage&gt;
+      &lt;brief_coverage_explanation&gt;&amp;lt;p&amp;gt;Basic Life -----&amp;amp;nbsp;&amp;amp;nbsp; G T L&amp;amp;nbsp; 2X - employee 2x salary amount&amp;lt;/p&amp;gt;&lt;/brief_coverage_explanation&gt;
+      &lt;id&gt;16822209&lt;/id&gt;
+      &lt;name&gt;Salary 2x&lt;/name&gt;
+   &lt;/coverage&gt;
+   &lt;coverage_effective_from&gt;2017-11-12&lt;/coverage_effective_from&gt;
+   &lt;coverage_effective_to&gt;9999-12-31&lt;/coverage_effective_to&gt;
+   &lt;custom_fields /&gt;
+   &lt;dependents&gt;
+      &lt;element&gt;
+         &lt;contact&gt;
+            &lt;birthdate&gt;2010-04-21&lt;/birthdate&gt;
+            &lt;first_name&gt;Kevin&lt;/first_name&gt;
+            &lt;id&gt;77249&lt;/id&gt;
+            &lt;last_name&gt;Smith&lt;/last_name&gt;
+            &lt;relationship&gt;Child&lt;/relationship&gt;
+         &lt;/contact&gt;
+         &lt;custom_fields&gt;
+            &lt;element&gt;
+               &lt;index&gt;0&lt;/index&gt;
+               &lt;value&gt;2017-01-01&lt;/value&gt;
+            &lt;/element&gt;
+            &lt;element&gt;
+               &lt;index&gt;1&lt;/index&gt;
+               &lt;value&gt;a.block@gmail.com&lt;/value&gt;
+            &lt;/element&gt;
+         &lt;/custom_fields&gt;
+         &lt;effective_from&gt;2017-01-01&lt;/effective_from&gt;
+         &lt;effective_to&gt;2017-12-31&lt;/effective_to&gt;
+         &lt;type&gt;CHILD&lt;/type&gt;
+      &lt;/element&gt;
+   &lt;/dependents&gt;
+   &lt;earnings_deductions&gt;
+      &lt;element&gt;
+         &lt;coverage_amount&gt;28000&lt;/coverage_amount&gt;
+         &lt;deduction_effective_from&gt;2017-11-12&lt;/deduction_effective_from&gt;
+         &lt;deduction_effective_to&gt;9999-12-31&lt;/deduction_effective_to&gt;
+         &lt;employee_amount&gt;0&lt;/employee_amount&gt;
+         &lt;employee_frequency&gt;
+            &lt;name&gt;Annual&lt;/name&gt;
+            &lt;type&gt;ANNUAL&lt;/type&gt;
+         &lt;/employee_frequency&gt;
+         &lt;employer_amount&gt;2808&lt;/employer_amount&gt;
+         &lt;employer_frequency&gt;
+            &lt;name&gt;Annual&lt;/name&gt;
+            &lt;type&gt;ANNUAL&lt;/type&gt;
+         &lt;/employer_frequency&gt;
+         &lt;id&gt;225099776&lt;/id&gt;
+         &lt;index&gt;0&lt;/index&gt;
+         &lt;show_coverage&gt;true&lt;/show_coverage&gt;
+         &lt;show_employer_contribution&gt;true&lt;/show_employer_contribution&gt;
+         &lt;type&gt;EARNING&lt;/type&gt;
+      &lt;/element&gt;
+   &lt;/earnings_deductions&gt;
+   &lt;employee&gt;
+      &lt;account_id&gt;3225537&lt;/account_id&gt;
+   &lt;/employee&gt;
+   &lt;id&gt;218164032&lt;/id&gt;
+&lt;/root&gt;</pre>
+</div>
+<div class="get-example-resp-tab-1" id="get-tab-resp-schema-1">
+
+<div class="jsonschema" id="schema-1">&lt;xs:schema attributeFormDefault="unqualified" elementFormDefault="qualified" xmlns:xs="http://www.w3.org/2001/XMLSchema"&gt;
+  &lt;xs:element name="root"&gt;
+    &lt;xs:complexType&gt;
+      &lt;xs:sequence&gt;
+        &lt;xs:element name="benefit_plan"&gt;
+          &lt;xs:complexType&gt;
+            &lt;xs:sequence&gt;
+              &lt;xs:element type="xs:short" name="id"/&gt;
+            &lt;/xs:sequence&gt;
+          &lt;/xs:complexType&gt;
+        &lt;/xs:element&gt;
+        &lt;xs:element name="coverage"&gt;
+          &lt;xs:complexType&gt;
+            &lt;xs:sequence&gt;
+              &lt;xs:element type="xs:string" name="brief_coverage_explanation"/&gt;
+              &lt;xs:element type="xs:int" name="id"/&gt;
+              &lt;xs:element type="xs:string" name="name"/&gt;
+            &lt;/xs:sequence&gt;
+          &lt;/xs:complexType&gt;
+        &lt;/xs:element&gt;
+        &lt;xs:element type="xs:date" name="coverage_effective_from"/&gt;
+        &lt;xs:element type="xs:date" name="coverage_effective_to"/&gt;
+        &lt;xs:element type="xs:string" name="custom_fields"/&gt;
+        &lt;xs:element name="dependents"&gt;
+          &lt;xs:complexType&gt;
+            &lt;xs:sequence&gt;
+              &lt;xs:element name="element"&gt;
+                &lt;xs:complexType&gt;
+                  &lt;xs:sequence&gt;
+                    &lt;xs:element name="contact"&gt;
+                      &lt;xs:complexType&gt;
+                        &lt;xs:sequence&gt;
+                          &lt;xs:element type="xs:date" name="birthdate"/&gt;
+                          &lt;xs:element type="xs:string" name="first_name"/&gt;
+                          &lt;xs:element type="xs:int" name="id"/&gt;
+                          &lt;xs:element type="xs:string" name="last_name"/&gt;
+                          &lt;xs:element type="xs:string" name="relationship"/&gt;
+                        &lt;/xs:sequence&gt;
+                      &lt;/xs:complexType&gt;
+                    &lt;/xs:element&gt;
+                    &lt;xs:element name="custom_fields"&gt;
+                      &lt;xs:complexType&gt;
+                        &lt;xs:sequence&gt;
+                          &lt;xs:element name="element" maxOccurs="unbounded" minOccurs="0"&gt;
+                            &lt;xs:complexType&gt;
+                              &lt;xs:sequence&gt;
+                                &lt;xs:element type="xs:byte" name="index"/&gt;
+                                &lt;xs:element type="xs:string" name="value"/&gt;
+                              &lt;/xs:sequence&gt;
+                            &lt;/xs:complexType&gt;
+                          &lt;/xs:element&gt;
+                        &lt;/xs:sequence&gt;
+                      &lt;/xs:complexType&gt;
+                    &lt;/xs:element&gt;
+                    &lt;xs:element type="xs:date" name="effective_from"/&gt;
+                    &lt;xs:element type="xs:date" name="effective_to"/&gt;
+                    &lt;xs:element type="xs:string" name="type"/&gt;
+                  &lt;/xs:sequence&gt;
+                &lt;/xs:complexType&gt;
+              &lt;/xs:element&gt;
+            &lt;/xs:sequence&gt;
+          &lt;/xs:complexType&gt;
+        &lt;/xs:element&gt;
+        &lt;xs:element name="earnings_deductions"&gt;
+          &lt;xs:complexType&gt;
+            &lt;xs:sequence&gt;
+              &lt;xs:element name="element"&gt;
+                &lt;xs:complexType&gt;
+                  &lt;xs:sequence&gt;
+                    &lt;xs:element type ="xs:decimal" name="coverage_amount"/&gt;
+                    &lt;xs:element type="xs:string" name="name" minOccurs="0"/&gt;
+                    &lt;xs:element type="xs:date" name="deduction_effective_from"/&gt;
+                    &lt;xs:element type="xs:date" name="deduction_effective_to"/&gt;
+                    &lt;xs:element type ="xs:decimal" name="employee_amount"/&gt;
+                    &lt;xs:element name="employee_frequency"&gt;
+                      &lt;xs:complexType&gt;
+                        &lt;xs:sequence&gt;
+                          &lt;xs:element type="xs:string" name="name"/&gt;
+                          &lt;xs:element type="xs:string" name="type"/&gt;
+                        &lt;/xs:sequence&gt;
+                      &lt;/xs:complexType&gt;
+                    &lt;/xs:element&gt;
+                    &lt;xs:element type ="xs:decimal" name="employer_amount"/&gt;
+                    &lt;xs:element name="employer_frequency"&gt;
+                      &lt;xs:complexType&gt;
+                        &lt;xs:sequence&gt;
+                          &lt;xs:element type="xs:string" name="name"/&gt;
+                          &lt;xs:element type="xs:string" name="type"/&gt;
+                        &lt;/xs:sequence&gt;
+                      &lt;/xs:complexType&gt;
+                    &lt;/xs:element&gt;
+                    &lt;xs:element type="xs:int" name="id"/&gt;
+                    &lt;xs:element type="xs:byte" name="index"/&gt;
+                    &lt;xs:element type="xs:string" name="show_coverage"/&gt;
+                    &lt;xs:element type="xs:string" name="show_employer_contribution"/&gt;
+                    &lt;xs:element type="xs:string" name="type"/&gt;
+                    &lt;xs:element type="xs:string" name="error_message" minOccurs="0"/&gt;
+                  &lt;/xs:sequence&gt;
+                &lt;/xs:complexType&gt;
+              &lt;/xs:element&gt;
+            &lt;/xs:sequence&gt;
+          &lt;/xs:complexType&gt;
+        &lt;/xs:element&gt;
+        &lt;xs:element name="employee"&gt;
+          &lt;xs:complexType&gt;
+            &lt;xs:sequence&gt;
+              &lt;xs:element type="xs:int" name="account_id"/&gt;
+            &lt;/xs:sequence&gt;
+          &lt;/xs:complexType&gt;
+        &lt;/xs:element&gt;
+        &lt;xs:element type="xs:int" name="id"/&gt;
+      &lt;/xs:sequence&gt;
+    &lt;/xs:complexType&gt;
+  &lt;/xs:element&gt;
+&lt;/xs:schema&gt;</div>
+</div>
+</div>
+</div>
+</div>
+</article>
+</section>
+</div>
+</body></html>

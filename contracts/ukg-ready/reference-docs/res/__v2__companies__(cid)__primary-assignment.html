@@ -1,0 +1,811 @@
+<!doctype html>
+<html><head><meta charset="utf-8"><title>Employee Primary Assignment</title><style>body{font:16px system-ui;max-width:1100px;margin:2rem auto;padding:0 1rem;line-height:1.5}aside{background:#fff3cc;padding:1rem}.jsonschema,pre{white-space:pre-wrap;font:13px monospace;overflow-wrap:anywhere;background:#f4f5f7;padding:1rem}.uri{font-family:monospace}h2,h3{margin-top:2rem}</style></head><body><aside><strong>Modified private reference — 2026-10-09.</strong> Provider-documented illustrative examples are included; authentication token examples are redacted. These are not customer exports or guaranteed production behavior. Candidate sharing is pending. This is not OpenAPI.</aside>
+<div class="group">
+<h2 class="anchored" id="item.anchor">
+<span>Employee Primary Assignment</span>
+<a class="fa fa-link link-anchor" data-url="r=__v2__companies__(cid)__primary-assignment#" data-web-id="__v2__companies__(cid)__primary-assignment"></a>
+</h2>
+<section class="clearfix">
+<article class="definition">
+<h3 class="anchored" id="get"><span>GET</span>
+<a class="fa fa-link link-anchor" data-url="r=__v2__companies__(cid)__primary-assignment#get" data-web-id="__v2__companies__(cid)__primary-assignment"></a>
+</h3>
+<div class="md"><p>Retrieves a list of Primary Assignments for all employees who have an active and effective primary assignment on a given date.
+</p></div>
+<div>
+<ul class="annotation-list">
+<li class="annotation">
+<span>v2</span>
+</li>
+</ul>
+</div>
+<h4>Parameters</h4>
+<h5>Path Parameters</h5>
+<ul class="param-list">
+<li>
+<div class="param-desc">
+<div class="param-name">cid</div>
+<div class="data-type">string</div>
+<div class="required">required</div>
+</div>
+<div class="param-content">
+<div>
+<p>Example: 123456</p>
+<div class="desc md">Company should be referenced via company id or company unique id or company short name using `|short_name` or `!short_name` format.
+</div>
+</div>
+</div>
+
+</li>
+</ul>
+<h5>Query Parameters</h5>
+<ul class="param-list">
+<li>
+<div class="param-desc">
+<div class="param-name">as_on_date</div>
+<div class="data-type">string</div>
+</div>
+<div class="param-content">
+<div>
+<div class="desc md">As Of Date. If not provided, current system date will be taken by default.</div>
+</div>
+</div>
+
+</li>
+<li>
+<div class="param-desc">
+<div class="param-name">req_details</div>
+<div class="data-type">string</div>
+</div>
+<div class="param-content">
+<div>
+<div class="desc md">A comma separated string of all the details that are required.
+&lt;br&gt;
+&lt;br&gt; all -&gt; Will fetch all the details for the assignment.
+&lt;br&gt; ccdetails -&gt; Will fetch basic details + cost center details.
+&lt;br&gt; directRepManager -&gt; Will fetch basic details + direct reporting manager details.
+&lt;br&gt; attributes -&gt; Will fetch basic details + extra attributes details.
+&lt;br&gt; rates -&gt; Will fetch rates for the assignment.
+
+&lt;br&gt;&lt;br&gt;If not specified, only the basic details will returned.
+</div>
+</div>
+</div>
+
+</li>
+</ul>
+<h5>Header Parameters</h5>
+<ul class="param-list">
+<li>
+<div class="param-desc">
+<div class="param-name">Accept</div>
+<div class="data-type">string</div>
+</div>
+<div class="param-content">
+<div>
+<p>Valid values: application/json, application/xml, text/xml</p>
+<p>Default: application/json</p>
+<p>Example: application/json</p>
+</div>
+</div>
+
+</li>
+</ul>
+<h4>Responses</h4>
+<div class="responses">
+<div>
+<label class="response response-success">
+<span class="fa fa-check"></span>
+<input data-full-tab-id="get-resp-code-tab-id-0" data-tab-class="resp-code-tab-get" name="resp-code-tab-get" type="radio"/>
+<span class="status">200 Ok</span>
+</label>
+<div class="response-desc resp-code-tab-get" id="get-resp-code-tab-id-0">
+</div>
+</div>
+<div>
+<label class="response response-error">
+<span class="fa fa-times"></span>
+<input data-full-tab-id="get-resp-code-tab-id-1" data-tab-class="resp-code-tab-get" name="resp-code-tab-get" type="radio"/>
+<span class="status">404 Not Found</span>
+</label>
+<div class="response-desc resp-code-tab-get" id="get-resp-code-tab-id-1">
+<div class="md"><p>Returned in case resource does not exist.</p></div>
+</div>
+</div>
+<div>
+<label class="response response-error">
+<span class="fa fa-times"></span>
+<input data-full-tab-id="get-resp-code-tab-id-2" data-tab-class="resp-code-tab-get" name="resp-code-tab-get" type="radio"/>
+<span class="status">401 Unauthorized</span>
+</label>
+<div class="response-desc resp-code-tab-get" id="get-resp-code-tab-id-2">
+<div class="md"><p>Returned in case user is not authorized.</p></div>
+</div>
+</div>
+<div>
+<label class="response response-error">
+<span class="fa fa-times"></span>
+<input data-full-tab-id="get-resp-code-tab-id-3" data-tab-class="resp-code-tab-get" name="resp-code-tab-get" type="radio"/>
+<span class="status">403 Forbidden</span>
+</label>
+<div class="response-desc resp-code-tab-get" id="get-resp-code-tab-id-3">
+<div class="md"><p>Returned in case user has no access to the resource.</p></div>
+</div>
+</div>
+<div>
+<label class="response response-error">
+<span class="fa fa-times"></span>
+<input data-full-tab-id="get-resp-code-tab-id-4" data-tab-class="resp-code-tab-get" name="resp-code-tab-get" type="radio"/>
+<span class="status">503 Service Unavailable</span>
+</label>
+<div class="response-desc resp-code-tab-get" id="get-resp-code-tab-id-4">
+<div class="md"><p>Returned in the event that the call limit is exceeded. The application will be unavailable for subsequent calls for the duration specified by the X-CallLimit-TimeToWait header.</p></div>
+</div>
+</div>
+</div>
+</article>
+<article class="code">
+<h4>Definition</h4>
+<div class="uri">
+<code>
+<span class="method get">get</span>
+<span class="textUri"><span class="baseUri">{{ getUriPrefix() }}</span><span class="relativeUri">/v2/companies/{cid}/primary-assignment</span></span>
+</code>
+</div>
+<h4>Response Samples</h4>
+<div class="tab-title-group">
+<label>
+<input checked="checked" data-full-tab-id="resp-tab-id-get-0" data-tab-class="resp-tab-get" name="resp-tab-get" type="radio"/>
+<span class="tab-title">application/json</span>
+</label>
+<label>
+<input data-full-tab-id="resp-tab-id-get-1" data-tab-class="resp-tab-get" name="resp-tab-get" type="radio"/>
+<span class="tab-title">application/xml</span>
+</label>
+</div>
+<div>
+<div class="resp-tab-get" id="resp-tab-id-get-0">
+<div class="example">
+
+<div class="get-example-resp-tab-0 activeTab" id="get-tab-resp-example-0">
+
+<pre class="highlightjs">{
+    "items": [{
+        "assignment_id": 425984,
+        "position_id": 1599938,
+        "account_id": 2202119,
+        "account_name": "neha kumar",
+        "assignee": {
+            "account_id": 2202119,
+            "primary_account_id": 2202119,
+            "display_name": "neha kumar",
+            "ein": {
+                "id": 912898,
+                "display_name": "Default"
+            },
+            "employee_id": "neha"
+        },
+        "position_name": "posSkill",
+        "start_date": "2017-10-01",
+        "end_date": "2019-06-27",
+        "assigned_fte": 0.19,
+        "annual_base_comp": 9090.000000,
+        "total_base_comp": 9090.000000,
+        "annual_work_hours": 435600000,
+        "is_primary_assignment": true,
+        "cost_center_list": [{
+            "id": 1572806,
+            "name": "test",
+            "tree_index": 0,
+            "value_id": 1573450,
+            "value_name": "john",
+            "allow_override": false
+        }, {
+            "id": 1572869,
+            "name": "Department",
+            "tree_index": 1,
+            "value_id": 1598919,
+            "value_name": "department HR/Dept HR Child 1",
+            "allow_override": true
+        }, {
+            "id": 1572870,
+            "name": "CC4",
+            "tree_index": 2,
+            "value_id": 1599233,
+            "value_name": "CC3_01",
+            "allow_override": true
+        }, {
+            "id": 1572871,
+            "name": "My CC34",
+            "tree_index": 3,
+            "allow_override": false
+        }, {
+            "id": 1572872,
+            "name": "Cost Center 5",
+            "tree_index": 4,
+            "allow_override": false
+        }],
+        "read_only": true,
+        "direct_reporting_assignment": {
+            "assignment_id": 2310144,
+            "position_id": 1599364,
+            "account_id": 2214912,
+            "account_name": "TESTein1 TESTein1",
+            "assignee": {
+                "account_id": 2214912,
+                "primary_account_id": 2214912,
+                "display_name": "TESTein1 TESTein1",
+                "ein": {
+                    "id": 912899,
+                    "display_name": "Costco EIN1"
+                },
+                "employee_id": "neha"
+            },
+            "position_name": "p1",
+            "start_date": "2018-10-01"
+        }
+    }, {
+        "assignment_id": 1605632,
+        "position_id": 1670336,
+        "account_id": 2213380,
+        "account_name": "emp4 four",
+        "assignee": {
+            "account_id": 2213380,
+            "primary_account_id": 2213380,
+            "display_name": "emp4 four",
+            "ein": {
+                "id": 912898,
+                "display_name": "Default"
+            },
+            "employee_id": "emp4"
+        },
+        "position_name": "POS11",
+        "start_date": "2018-01-01",
+        "annual_base_comp": 0.000000,
+        "total_base_comp": 0.000000,
+        "is_primary_assignment": true,
+        "cost_center_list": [{
+            "id": 1572806,
+            "name": "test",
+            "tree_index": 0,
+            "allow_override": true
+        }, {
+            "id": 1572869,
+            "name": "Department",
+            "tree_index": 1,
+            "allow_override": true
+        }, {
+            "id": 1572870,
+            "name": "CC4",
+            "tree_index": 2,
+            "allow_override": true
+        }, {
+            "id": 1572871,
+            "name": "My CC34",
+            "tree_index": 3,
+            "allow_override": true
+        }, {
+            "id": 1572872,
+            "name": "Cost Center 5",
+            "tree_index": 4,
+            "allow_override": true
+        }],
+        "read_only": true,
+        "direct_reporting_assignment": {
+            "position_id": 1670337,
+            "position_name": "POS12"
+        }
+    }]
+}</pre>
+</div>
+<div class="get-example-resp-tab-0" id="get-tab-resp-schema-0">
+
+<div class="jsonschema" id="schema-0">{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "type": "object",
+  "properties": {
+    "items": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "assignment_id": {
+            "type": "integer"
+          },
+          "position_id": {
+            "type": "integer"
+          },
+          "account_id": {
+            "type": "number",
+            "format": "long"
+          },
+          "account_name": {
+            "type": "string"
+          },
+          "assignee": {
+            "type": "object",
+            "properties": {
+              "account_id": {
+                "type": "number",
+                "format": "long"
+              },
+              "primary_account_id": {
+                "type": "number",
+                "format": "long"
+              },
+              "display_name": {
+                "type": "string"
+              },
+              "ein": {
+                "type": "object",
+                "properties": {
+                  "id": {
+                    "type": "integer"
+                  },
+                  "display_name": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "id",
+                  "display_name"
+                ]
+              },
+              "employee_id": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "account_id",
+              "display_name"
+            ]
+          },
+          "position_name": {
+            "type": "string"
+          },
+          "start_date": {
+            "type": "string"
+          },
+          "end_date": {
+            "type": "string"
+          },
+          "assigned_fte": {
+            "type": "number"
+          },
+          "annual_base_comp": {
+            "type": "number"
+          },
+          "total_base_comp": {
+            "type": "number"
+          },
+          "avg_annual_budgeted_total_comp": {
+            "type": "number"
+          },
+          "annual_work_hours": {
+            "type": "integer"
+          },
+          "is_primary_assignment": {
+            "type": "boolean"
+          },
+          "read_only": {
+            "type": "boolean"
+          },
+          "cost_center_list": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "id": {
+                  "type": "integer"
+                },
+                "name": {
+                  "type": "string"
+                },
+                "value_id": {
+                  "type": "integer"
+                },
+                "value_name": {
+                  "type": "string"
+                },
+                "tree_index": {
+                  "type": "integer"
+                },
+                "allow_override": {
+                  "type": "boolean"
+                }
+              },
+              "required": [
+                "id",
+                "name",
+                "tree_index",
+                "allow_override"
+              ]
+            }
+          },
+          "direct_reporting_assignment": {
+            "type": "object",
+            "properties": {
+              "assignment_id": {
+                "type": "integer"
+              },
+              "position_id": {
+                "type": "integer"
+              },
+              "account_id": {
+                "type": "number",
+                "format": "long"
+              },
+              "account_name": {
+                "type": "string"
+              },
+              "assignee": {
+                "type": "object",
+                "properties": {
+                  "account_id": {
+                    "type": "number",
+                    "format": "long"
+                  },
+                  "primary_account_id": {
+                    "type": "number",
+                    "format": "long"
+                  },
+                  "display_name": {
+                    "type": "string"
+                  },
+                  "ein": {
+                    "type": "object",
+                    "properties": {
+                      "id": {
+                        "type": "integer"
+                      },
+                      "display_name": {
+                        "type": "string"
+                      }
+                    },
+                    "required": [
+                      "id",
+                      "display_name"
+                    ]
+                  },
+                  "employee_id": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "account_id",
+                  "display_name"
+                ]
+              },
+              "position_name": {
+                "type": "string"
+              },
+              "start_date": {
+                "type": "string"
+              },
+              "end_date": {
+                "type": "string"
+              }
+            }
+          },
+          "attributes": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "index": {
+                  "type": "integer"
+                },
+                "label": {
+                  "type": "string"
+                },
+                "value": {
+                  "type": [
+                    "object",
+                    "string",
+                    "integer",
+                    "number"
+                  ]
+                },
+                "type": {
+                  "type": "string",
+                  "enum": [
+                    "ACCOUNT",
+                    "CHAR",
+                    "INT",
+                    "NUMERIC",
+                    "CURRENCY",
+                    "DATE",
+                    "TIME",
+                    "LINK",
+                    "EMAIL"
+                  ]
+                }
+              },
+              "required": [
+                "index",
+                "label",
+                "type"
+              ]
+            }
+          }
+        },
+        "required": [
+          "assignment_id",
+          "position_id",
+          "account_id",
+          "account_name",
+          "position_name",
+          "start_date",
+          "is_primary_assignment"
+        ]
+      }
+    }
+  },
+  "required": [
+    "items"
+  ]
+}</div>
+</div>
+</div>
+</div>
+<div class="resp-tab-get" id="resp-tab-id-get-1">
+<div class="example">
+
+<div class="get-example-resp-tab-1 activeTab" id="get-tab-resp-example-1">
+
+<pre class="highlightjs">&lt;?xml version="1.0" encoding="UTF-8"?&gt;
+&lt;LookupListDTO&gt;
+   &lt;items&gt;
+      &lt;items&gt;
+         &lt;assignment_id&gt;425984&lt;/assignment_id&gt;
+         &lt;position_id&gt;1599938&lt;/position_id&gt;
+         &lt;account_id&gt;2202119&lt;/account_id&gt;
+         &lt;account_name&gt;neha kumar&lt;/account_name&gt;
+         &lt;assignee&gt;
+            &lt;account_id&gt;2202119&lt;/account_id&gt;
+            &lt;primary_account_id&gt;2202119&lt;/primary_account_id&gt;
+            &lt;display_name&gt;neha kumar&lt;/display_name&gt;
+            &lt;ein&gt;
+               &lt;id&gt;912898&lt;/id&gt;
+               &lt;display_name&gt;Default&lt;/display_name&gt;
+            &lt;/ein&gt;
+            &lt;employee_id&gt;1209890&lt;/employee_id&gt;
+         &lt;/assignee&gt;
+         &lt;position_name&gt;posSkill&lt;/position_name&gt;
+         &lt;start_date&gt;2017-10-01&lt;/start_date&gt;
+         &lt;end_date&gt;2019-06-27&lt;/end_date&gt;
+         &lt;assigned_fte&gt;0.19&lt;/assigned_fte&gt;
+         &lt;annual_base_comp&gt;9090.000000&lt;/annual_base_comp&gt;
+         &lt;total_base_comp&gt;9090.000000&lt;/total_base_comp&gt;
+         &lt;annual_work_hours&gt;435600000&lt;/annual_work_hours&gt;
+         &lt;is_primary_assignment&gt;true&lt;/is_primary_assignment&gt;
+         &lt;cost_center_list&gt;
+            &lt;cost_center_list&gt;
+               &lt;id&gt;1572806&lt;/id&gt;
+               &lt;name&gt;test&lt;/name&gt;
+               &lt;tree_index&gt;0&lt;/tree_index&gt;
+               &lt;value_id&gt;1573450&lt;/value_id&gt;
+               &lt;value_name&gt;john&lt;/value_name&gt;
+               &lt;allow_override&gt;false&lt;/allow_override&gt;
+            &lt;/cost_center_list&gt;
+            &lt;cost_center_list&gt;
+               &lt;id&gt;1572869&lt;/id&gt;
+               &lt;name&gt;Department&lt;/name&gt;
+               &lt;tree_index&gt;1&lt;/tree_index&gt;
+               &lt;value_id&gt;1598919&lt;/value_id&gt;
+               &lt;value_name&gt;department HR/Dept HR Child 1&lt;/value_name&gt;
+               &lt;allow_override&gt;true&lt;/allow_override&gt;
+            &lt;/cost_center_list&gt;
+            &lt;cost_center_list&gt;
+               &lt;id&gt;1572870&lt;/id&gt;
+               &lt;name&gt;CC4&lt;/name&gt;
+               &lt;tree_index&gt;2&lt;/tree_index&gt;
+               &lt;value_id&gt;1599233&lt;/value_id&gt;
+               &lt;value_name&gt;CC3_01&lt;/value_name&gt;
+               &lt;allow_override&gt;true&lt;/allow_override&gt;
+            &lt;/cost_center_list&gt;
+            &lt;cost_center_list&gt;
+               &lt;id&gt;1572871&lt;/id&gt;
+               &lt;name&gt;My CC34&lt;/name&gt;
+               &lt;tree_index&gt;3&lt;/tree_index&gt;
+               &lt;allow_override&gt;false&lt;/allow_override&gt;
+            &lt;/cost_center_list&gt;
+            &lt;cost_center_list&gt;
+               &lt;id&gt;1572872&lt;/id&gt;
+               &lt;name&gt;Cost Center 5&lt;/name&gt;
+               &lt;tree_index&gt;4&lt;/tree_index&gt;
+               &lt;allow_override&gt;false&lt;/allow_override&gt;
+            &lt;/cost_center_list&gt;
+         &lt;/cost_center_list&gt;
+         &lt;read_only&gt;true&lt;/read_only&gt;
+         &lt;direct_reporting_assignment&gt;
+            &lt;assignment_id&gt;2310144&lt;/assignment_id&gt;
+            &lt;position_id&gt;1599364&lt;/position_id&gt;
+            &lt;account_id&gt;2214912&lt;/account_id&gt;
+            &lt;account_name&gt;TESTein1 TESTein1 (Costco EIN1)&lt;/account_name&gt;
+            &lt;assignee&gt;
+                &lt;account_id&gt;2214912&lt;/account_id&gt;
+              &lt;primary_account_id&gt;2214912&lt;/primary_account_id&gt;
+                &lt;display_name&gt;TESTein1 TESTein1&lt;/display_name&gt;
+                &lt;ein&gt;
+                   &lt;id&gt;912899&lt;/id&gt;
+                   &lt;display_name&gt;Costco EIN1&lt;/display_name&gt;
+                &lt;/ein&gt;
+                &lt;employee_id&gt;2202563&lt;/employee_id&gt;
+             &lt;/assignee&gt;
+            &lt;position_name&gt;p1&lt;/position_name&gt;
+            &lt;start_date&gt;2018-10-01&lt;/start_date&gt;
+         &lt;/direct_reporting_assignment&gt;
+      &lt;/items&gt;
+      &lt;items&gt;
+         &lt;assignment_id&gt;1605632&lt;/assignment_id&gt;
+         &lt;position_id&gt;1670336&lt;/position_id&gt;
+         &lt;account_id&gt;2213380&lt;/account_id&gt;
+         &lt;account_name&gt;emp4 four &lt;/account_name&gt;
+         &lt;assignee&gt;
+            &lt;account_id&gt;2213380&lt;/account_id&gt;
+            &lt;primary_account_id&gt;2213380&lt;/primary_account_id&gt;
+            &lt;display_name&gt;emp4 four&lt;/display_name&gt;
+            &lt;ein&gt;
+               &lt;id&gt;912898&lt;/id&gt;
+               &lt;display_name&gt;Default&lt;/display_name&gt;
+            &lt;/ein&gt;
+            &lt;employee_id&gt;2202563&lt;/employee_id&gt;
+         &lt;/assignee&gt;
+         &lt;position_name&gt;POS11&lt;/position_name&gt;
+         &lt;start_date&gt;2018-01-01&lt;/start_date&gt;
+         &lt;annual_base_comp&gt;0.000000&lt;/annual_base_comp&gt;
+         &lt;total_base_comp&gt;0.000000&lt;/total_base_comp&gt;
+         &lt;is_primary_assignment&gt;true&lt;/is_primary_assignment&gt;
+         &lt;cost_center_list&gt;
+            &lt;cost_center_list&gt;
+               &lt;id&gt;1572806&lt;/id&gt;
+               &lt;name&gt;test&lt;/name&gt;
+               &lt;tree_index&gt;0&lt;/tree_index&gt;
+               &lt;allow_override&gt;true&lt;/allow_override&gt;
+            &lt;/cost_center_list&gt;
+            &lt;cost_center_list&gt;
+               &lt;id&gt;1572869&lt;/id&gt;
+               &lt;name&gt;Department&lt;/name&gt;
+               &lt;tree_index&gt;1&lt;/tree_index&gt;
+               &lt;allow_override&gt;true&lt;/allow_override&gt;
+            &lt;/cost_center_list&gt;
+            &lt;cost_center_list&gt;
+               &lt;id&gt;1572870&lt;/id&gt;
+               &lt;name&gt;CC4&lt;/name&gt;
+               &lt;tree_index&gt;2&lt;/tree_index&gt;
+               &lt;allow_override&gt;true&lt;/allow_override&gt;
+            &lt;/cost_center_list&gt;
+            &lt;cost_center_list&gt;
+               &lt;id&gt;1572871&lt;/id&gt;
+               &lt;name&gt;My CC34&lt;/name&gt;
+               &lt;tree_index&gt;3&lt;/tree_index&gt;
+               &lt;allow_override&gt;true&lt;/allow_override&gt;
+            &lt;/cost_center_list&gt;
+            &lt;cost_center_list&gt;
+               &lt;id&gt;1572872&lt;/id&gt;
+               &lt;name&gt;Cost Center 5&lt;/name&gt;
+               &lt;tree_index&gt;4&lt;/tree_index&gt;
+               &lt;allow_override&gt;true&lt;/allow_override&gt;
+            &lt;/cost_center_list&gt;
+         &lt;/cost_center_list&gt;
+         &lt;read_only&gt;true&lt;/read_only&gt;
+         &lt;direct_reporting_assignment&gt;
+            &lt;position_id&gt;1670337&lt;/position_id&gt;
+            &lt;position_name&gt;POS12&lt;/position_name&gt;
+         &lt;/direct_reporting_assignment&gt;
+      &lt;/items&gt;
+   &lt;/items&gt;
+&lt;/LookupListDTO&gt;
+
+</pre>
+</div>
+<div class="get-example-resp-tab-1" id="get-tab-resp-schema-1">
+
+<div class="jsonschema" id="schema-1">&lt;xs:schema attributeFormDefault="unqualified" elementFormDefault="qualified" xmlns:xs="http://www.w3.org/2001/XMLSchema"&gt;
+  &lt;xs:element name="LookupListDTO"&gt;
+    &lt;xs:complexType&gt;
+      &lt;xs:sequence&gt;
+        &lt;xs:element name="items"&gt;
+          &lt;xs:complexType&gt;
+            &lt;xs:sequence&gt;
+              &lt;xs:element name="items" maxOccurs="unbounded" minOccurs="0"&gt;
+                &lt;xs:complexType&gt;
+                  &lt;xs:sequence&gt;
+                    &lt;xs:element type="xs:int" name="assignment_id"/&gt;
+                    &lt;xs:element type="xs:int" name="position_id"/&gt;
+                    &lt;xs:element type="xs:int" name="account_id"/&gt;
+                    &lt;xs:element type="xs:string" name="account_name"/&gt;
+                    &lt;xs:element name="assignee"&gt;
+                      &lt;xs:complexType&gt;
+                        &lt;xs:sequence&gt;
+                          &lt;xs:element type="xs:int" name="account_id"/&gt;
+                          &lt;xs:element type="xs:int" name="primary_account_id"/&gt;
+                          &lt;xs:element type="xs:string" name="display_name"/&gt;
+                          &lt;xs:element name="ein"&gt;
+                            &lt;xs:complexType&gt;
+                              &lt;xs:sequence&gt;
+                                &lt;xs:element type="xs:int" name="id"/&gt;
+                                &lt;xs:element type="xs:string" name="display_name"/&gt;
+                              &lt;/xs:sequence&gt;
+                            &lt;/xs:complexType&gt;
+                          &lt;/xs:element&gt;
+                          &lt;xs:element type="xs:int" name="employee_id"/&gt;
+                        &lt;/xs:sequence&gt;
+                      &lt;/xs:complexType&gt;
+                    &lt;/xs:element&gt;
+                    &lt;xs:element type="xs:string" name="position_name"/&gt;
+                    &lt;xs:element type="xs:date" name="start_date"/&gt;
+                    &lt;xs:element type="xs:date" name="end_date" minOccurs="0"/&gt;
+                    &lt;xs:element type="xs:float" name="assigned_fte" minOccurs="0"/&gt;
+                    &lt;xs:element type="xs:float" name="annual_base_comp"/&gt;
+                    &lt;xs:element type="xs:float" name="total_base_comp"/&gt;
+                    &lt;xs:element type="xs:int" name="annual_work_hours" minOccurs="0"/&gt;
+                    &lt;xs:element type="xs:string" name="is_primary_assignment"/&gt;
+                    &lt;xs:element name="cost_center_list"&gt;
+                      &lt;xs:complexType&gt;
+                        &lt;xs:sequence&gt;
+                          &lt;xs:element name="cost_center_list" maxOccurs="unbounded" minOccurs="0"&gt;
+                            &lt;xs:complexType&gt;
+                              &lt;xs:sequence&gt;
+                                &lt;xs:element type="xs:int" name="id"/&gt;
+                                &lt;xs:element type="xs:string" name="name"/&gt;
+                                &lt;xs:element type="xs:byte" name="tree_index"/&gt;
+                                &lt;xs:element type="xs:int" name="value_id" minOccurs="0"/&gt;
+                                &lt;xs:element type="xs:string" name="value_name" minOccurs="0"/&gt;
+                                &lt;xs:element type="xs:string" name="allow_override"/&gt;
+                              &lt;/xs:sequence&gt;
+                            &lt;/xs:complexType&gt;
+                          &lt;/xs:element&gt;
+                        &lt;/xs:sequence&gt;
+                      &lt;/xs:complexType&gt;
+                    &lt;/xs:element&gt;
+                    &lt;xs:element type="xs:string" name="read_only"/&gt;
+                    &lt;xs:element name="direct_reporting_assignment"&gt;
+                      &lt;xs:complexType&gt;
+                        &lt;xs:sequence&gt;
+                          &lt;xs:element type="xs:int" name="assignment_id" minOccurs="0"/&gt;
+                          &lt;xs:element type="xs:int" name="position_id"/&gt;
+                          &lt;xs:element type="xs:int" name="account_id" minOccurs="0"/&gt;
+                          &lt;xs:element type="xs:string" name="account_name" minOccurs="0"/&gt;
+                          &lt;xs:element name="assignee" minOccurs="0"&gt;
+                            &lt;xs:complexType&gt;
+                              &lt;xs:sequence&gt;
+                                &lt;xs:element type="xs:int" name="account_id"/&gt;
+                                &lt;xs:element type="xs:int" name="primary_account_id"/&gt;
+                                &lt;xs:element type="xs:string" name="display_name"/&gt;
+                                &lt;xs:element name="ein"&gt;
+                                  &lt;xs:complexType&gt;
+                                    &lt;xs:sequence&gt;
+                                      &lt;xs:element type="xs:int" name="id"/&gt;
+                                      &lt;xs:element type="xs:string" name="display_name"/&gt;
+                                    &lt;/xs:sequence&gt;
+                                  &lt;/xs:complexType&gt;
+                                &lt;/xs:element&gt;
+                                &lt;xs:element type="xs:int" name="employee_id"/&gt;
+                              &lt;/xs:sequence&gt;
+                            &lt;/xs:complexType&gt;
+                          &lt;/xs:element&gt;
+                          &lt;xs:element type="xs:string" name="position_name"/&gt;
+                          &lt;xs:element type="xs:date" name="start_date" minOccurs="0"/&gt;
+                        &lt;/xs:sequence&gt;
+                      &lt;/xs:complexType&gt;
+                    &lt;/xs:element&gt;
+                  &lt;/xs:sequence&gt;
+                &lt;/xs:complexType&gt;
+              &lt;/xs:element&gt;
+            &lt;/xs:sequence&gt;
+          &lt;/xs:complexType&gt;
+        &lt;/xs:element&gt;
+      &lt;/xs:sequence&gt;
+    &lt;/xs:complexType&gt;
+  &lt;/xs:element&gt;
+&lt;/xs:schema&gt;</div>
+</div>
+</div>
+</div>
+</div>
+</article>
+</section>
+</div>
+</body></html>

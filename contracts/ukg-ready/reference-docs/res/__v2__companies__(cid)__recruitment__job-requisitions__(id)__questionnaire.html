@@ -1,0 +1,471 @@
+<!doctype html>
+<html><head><meta charset="utf-8"><title>Job Requisition Questionniare questions</title><style>body{font:16px system-ui;max-width:1100px;margin:2rem auto;padding:0 1rem;line-height:1.5}aside{background:#fff3cc;padding:1rem}.jsonschema,pre{white-space:pre-wrap;font:13px monospace;overflow-wrap:anywhere;background:#f4f5f7;padding:1rem}.uri{font-family:monospace}h2,h3{margin-top:2rem}</style></head><body><aside><strong>Modified private reference — 2026-10-09.</strong> Provider-documented illustrative examples are included; authentication token examples are redacted. These are not customer exports or guaranteed production behavior. Candidate sharing is pending. This is not OpenAPI.</aside>
+<div class="group">
+<h2 class="anchored" id="item.anchor">
+<span>Job Requisition Questionniare questions</span>
+<a class="fa fa-link link-anchor" data-url="r=__v2__companies__(cid)__recruitment__job-requisitions__(id)__questionnaire#" data-web-id="__v2__companies__(cid)__recruitment__job-requisitions__(id)__questionnaire"></a>
+</h2>
+<section class="clearfix">
+<article class="definition">
+<h3 class="anchored" id="get"><span>GET</span>
+<a class="fa fa-link link-anchor" data-url="r=__v2__companies__(cid)__recruitment__job-requisitions__(id)__questionnaire#get" data-web-id="__v2__companies__(cid)__recruitment__job-requisitions__(id)__questionnaire"></a>
+</h3>
+<div class="md"><p>Endpoint returns Questionniare questions of a Job Requisition. This is going to work without authentication
+</p></div>
+<div>
+<ul class="annotation-list">
+<li class="annotation">
+<span>v2</span>
+</li>
+</ul>
+</div>
+<h4>Parameters</h4>
+<h5>Path Parameters</h5>
+<ul class="param-list">
+<li>
+<div class="param-desc">
+<div class="param-name">cid</div>
+<div class="data-type">string</div>
+<div class="required">required</div>
+</div>
+<div class="param-content">
+<div>
+<p>Example: 123456</p>
+<div class="desc md">Company should be referenced via company id or company unique id or company short name using `|short_name` or `!short_name` format.
+</div>
+</div>
+</div>
+
+</li>
+<li>
+<div class="param-desc">
+<div class="param-name">id</div>
+<div class="data-type">integer</div>
+<div class="required">required</div>
+</div>
+<div class="param-content">
+<div>
+<p>Example: 1234567</p>
+<div class="desc md">Job Requisition Id whose questionnaire is to be fetched.
+</div>
+</div>
+</div>
+
+</li>
+</ul>
+<h5>Query Parameters</h5>
+<ul class="param-list">
+<li>
+<div class="param-desc">
+<div class="param-name">job_board</div>
+<div class="data-type">integer</div>
+</div>
+<div class="param-content">
+<div>
+<p>Example: 1</p>
+<div class="desc md">Job Board. 1 for Indeed 2 for Seek 3 for LinkedIn</div>
+</div>
+</div>
+
+</li>
+</ul>
+<h4>Responses</h4>
+<div class="responses">
+<div>
+<label class="response response-success">
+<span class="fa fa-check"></span>
+<input data-full-tab-id="get-resp-code-tab-id-0" data-tab-class="resp-code-tab-get" name="resp-code-tab-get" type="radio"/>
+<span class="status">200 Ok</span>
+</label>
+<div class="response-desc resp-code-tab-get" id="get-resp-code-tab-id-0">
+</div>
+</div>
+</div>
+</article>
+<article class="code">
+<h4>Definition</h4>
+<div class="uri">
+<code>
+<span class="method get">get</span>
+<span class="textUri"><span class="baseUri">{{ getUriPrefix() }}</span><span class="relativeUri">/v2/companies/{cid}/recruitment/job-requisitions/{id}/questionnaire</span></span>
+</code>
+</div>
+<h4>Response Samples</h4>
+<div class="tab-title-group">
+<label>
+<input checked="checked" data-full-tab-id="resp-tab-id-get-0" data-tab-class="resp-tab-get" name="resp-tab-get" type="radio"/>
+<span class="tab-title">application/json</span>
+</label>
+</div>
+<div>
+<div class="resp-tab-get" id="resp-tab-id-get-0">
+<div class="example">
+
+<div class="get-example-resp-tab-0 activeTab" id="get-tab-resp-example-0">
+
+<pre class="highlightjs">[
+  {
+      "id": "Page 1_open",
+      "type": "pagebreak"
+  },
+  {
+      "id": "Page 1_1",
+      "type": "information",
+      "text": "&lt;p xmlns=\"http://www.w3.org/1999/xhtml\"&gt;page 1 screen message&lt;/p&gt;\n"
+  },
+  {
+      "id": "180992",
+      "type": "select",
+      "question": "character question with list items",
+      "options": [
+          {
+              "label": "ABC",
+              "value": "ABC"
+          },
+          {
+              "label": "XYZ",
+              "value": "XYZ"
+          }
+      ],
+      "required": false
+  },
+  {
+      "id": "180736",
+      "type": "text",
+      "question": "character question",
+      "required": false,
+      "limit": "5"
+  },
+  {
+      "id": "181248",
+      "type": "text",
+      "question": "integer question",
+      "required": false,
+      "format": "integer",
+      "limit": "2"
+  },
+  {
+      "id": "181504",
+      "type": "select",
+      "question": "integer question with list",
+      "options": [
+          {
+              "label": "item value 1",
+              "value": "item value 1"
+          }
+      ],
+      "required": false
+  },
+  {
+      "id": "181760",
+      "type": "date",
+      "question": "date question",
+      "required": false,
+      "format": "yyyy-MM-dd"
+  },
+  {
+      "id": "182016",
+      "type": "select",
+      "question": "date question with list",
+      "options": [
+          {
+              "label": "item value 1",
+              "value": "item value 1"
+          }
+      ],
+      "required": false
+  },
+  {
+      "id": "182272",
+      "type": "text",
+      "question": "time question",
+      "required": false
+  },
+  {
+      "id": "182528",
+      "type": "text",
+      "question": "Link question",
+      "required": false
+  },
+  {
+      "id": "182784",
+      "type": "select",
+      "question": "radiobutton question",
+      "options": [
+          {
+              "label": "radiobutton question",
+              "value": "182784"
+          }
+      ],
+      "required": false
+  },
+  {
+      "id": "183040",
+      "type": "multiselect",
+      "question": "checkbox question",
+      "options": [
+          {
+              "label": "checkbox question",
+              "value": "1"
+          }
+      ],
+      "required": false
+  },
+  {
+      "id": "183296",
+      "type": "textarea",
+      "question": "text area question",
+      "required": false,
+      "limit": "10"
+  },
+  {
+      "id": "183552",
+      "type": "multiselect",
+      "question": "muticheckbox question",
+      "options": [
+          {
+              "label": "12",
+              "value": "0"
+          },
+          {
+              "label": "15",
+              "value": "1"
+          }
+      ],
+      "required": true
+  },
+  {
+      "id": "183808",
+      "type": "select",
+      "question": "multiradio button question",
+      "options": [
+          {
+              "label": "12",
+              "value": "0"
+          },
+          {
+              "label": "15",
+              "value": "1"
+          }
+      ],
+      "required": false
+  },
+  {
+      "id": "184064",
+      "type": "select",
+      "question": "multi radio button with list view",
+      "options": [
+          {
+              "label": "iteam value1",
+              "value": "iteam value1"
+          }
+      ],
+      "required": false
+  },
+  {
+      "id": "184320",
+      "type": "text",
+      "question": "numeric",
+      "required": false,
+      "format": "decimal",
+      "limit": "2"
+  },
+  {
+      "id": "184576",
+      "type": "multiselect",
+      "question": "'Your question.'",
+      "options": [
+          {
+              "label": "12",
+              "value": "0"
+          }
+      ],
+      "required": false
+  },
+  {
+      "id": "185088",
+      "type": "multiselect",
+      "question": "Multi checkbox with conditional question",
+      "options": [
+          {
+              "label": "12",
+              "value": "0"
+          },
+          {
+              "label": "13",
+              "value": "1"
+          }
+      ],
+      "required": false
+  },
+  {
+      "id": "245760",
+      "type": "text",
+      "question": "currenlcy q",
+      "required": false
+  },
+  {
+      "id": "Page 1_close",
+      "type": "pagebreak"
+  },
+  {
+      "id": "Page 1_open",
+      "type": "pagebreak"
+  },
+  {
+      "id": "Page 1_1",
+      "type": "information",
+      "text": "&lt;p xmlns=\"http://www.w3.org/1999/xhtml\"&gt;page 1 screen message&lt;/p&gt;\n"
+  },
+  {
+      "id": "196608",
+      "type": "select",
+      "question": "'Your question.'",
+      "options": [
+          {
+              "label": "1",
+              "value": "1"
+          },
+          {
+              "label": "2",
+              "value": "2"
+          }
+      ],
+      "required": false
+  },
+  {
+      "id": "196864",
+      "type": "text",
+      "question": "'Additional Question'",
+      "required": false,
+      "condition": {
+          "id": "196608",
+          "value": "1"
+      }
+  },
+  {
+      "id": "246016",
+      "type": "text",
+      "question": "Email q wit no label",
+      "required": false
+  },
+  {
+      "id": "229888",
+      "type": "select",
+      "question": "radiobutton question with no label",
+      "options": [
+          {
+              "label": "radiobutton question with no label",
+              "value": "229888"
+          }
+      ],
+      "required": false
+  },
+  {
+      "id": "Page 1_close",
+      "type": "pagebreak"
+  },
+  {
+      "id": "Page 2_open",
+      "type": "pagebreak"
+  },
+  {
+      "id": "Page 2_2",
+      "type": "information",
+      "text": "&lt;p xmlns=\"http://www.w3.org/1999/xhtml\"&gt;&lt;a name=\"anchor1\"&gt;&lt;/a&gt;&lt;/p&gt;\n&lt;p xmlns=\"http://www.w3.org/1999/xhtml\"&gt;&lt;span style=\"text-decoration: underline;\"&gt;dsfdsf&lt;/span&gt;&lt;/p&gt;\n&lt;p xmlns=\"http://www.w3.org/1999/xhtml\"&gt;&lt;a title=\"google link\" href=\"http://google.com\" target=\"_self\"&gt;&lt;span style=\"text-decoration: underline; font-family: 'arial black', 'avant garde'; font-size: large;\"&gt;asd&lt;/span&gt;&lt;/a&gt;&lt;/p&gt;\n&lt;p xmlns=\"http://www.w3.org/1999/xhtml\"&gt;&lt;span style=\"text-decoration: underline; font-family: 'arial black', 'avant garde'; font-size: large;\"&gt;&lt;img src=\"https://www.google.com/imgres?imgurl=https%3A%2F%2Fimage.shutterstock.com%2Fimage-photo%2Fmountains-during-sunset-beautiful-natural-260nw-407021107.jpg&amp;amp;imgrefurl=https%3A%2F%2Fwww.shutterstock.com%2Fcategory%2Fnature&amp;amp;tbnid=wW5BhncqphFQ0M&amp;amp;vet=12ahUKEwi_v8GUqJPpAhXPW30KHcMWBp4QMygDegUIARCYAg..i&amp;amp;docid=LlgDpz1LoiuznM&amp;amp;w=435&amp;amp;h=280&amp;amp;q=images&amp;amp;ved=2ahUKEwi_v8GUqJPpAhXPW30KHcMWBp4QMygDegUIARCYAg\" alt=\"\"&gt;&lt;/img&gt;&lt;/span&gt;&lt;/p&gt;\n"
+  },
+  {
+      "id": "212992",
+      "type": "text",
+      "question": "'Your question.'",
+      "required": false
+  },
+  {
+      "id": "Page 2_close",
+      "type": "pagebreak"
+  }
+]</pre>
+</div>
+<div class="get-example-resp-tab-0" id="get-tab-resp-schema-0">
+
+<div class="jsonschema" id="schema-0">{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "type": "array",
+  "items": {
+    "type": "object",
+    "properties": {
+      "id": {
+        "type": "string",
+        "description": "Unique ID for this question"
+      },
+      "type": {
+        "type": "string",
+        "description": "Describes the type of question"
+      },
+      "question": {
+        "type": "string",
+        "description": "The question text that is displayed to applicants"
+      },
+      "text": {
+        "type": "string",
+        "description": "Text that is displayed to applicants"
+      },
+      "required": {
+        "type": "boolean",
+        "description": "Allows the setting of a question as required. When required:true is present, Indeed Apply forces a non-empty text field or a non-empty selection. When the required parameter is not present, questions are optional. If a question is optional, a possible answer value is “”"
+      },
+      "format": {
+        "type": "string",
+        "description": "The accepted format of the input.Can be paired with type:text to force integer, decimal, or numeric_text validation, or with type:date to indicate how to parse date input"
+      },
+      "limit": {
+        "type": "string",
+        "description": "For type=text and type=textarea, the character limit for the answer"
+      },
+      "min": {
+        "type": "string",
+        "description": "For format=integer or format=decimal, the minimum value for the answer. For type=date, the date that the answer must be on or after"
+      },
+      "max": {
+        "type": "string",
+        "description": "For format=integer or format=decimal the maximum value for the answer. For type=date, the date the answer must be on or before"
+      },
+      "condition": {
+        "type": "object",
+        "description": "Used to mark a question as conditional, depending on how a previous select question was answered. Specify the id of the previous question as well as the option value that activates this question.For example, you might ask the applicant if they served in the military. If they answer yes, you display a conditional question that asks what branch they served in",
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "value": {
+            "type": "string"
+          }
+        }
+      },
+      "options": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "properties": {
+            "label": {
+              "type": "string",
+              "description": "The text for options in any drop-down menus"
+            },
+            "value": {
+              "type": "string",
+              "description": "The value corresponding to each option that will be returned for questions with drop-down menus"
+            }
+          }
+        }
+      }
+    }
+  }
+}</div>
+</div>
+</div>
+</div>
+</div>
+</article>
+</section>
+</div>
+</body></html>

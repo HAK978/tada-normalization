@@ -1,0 +1,342 @@
+<!doctype html>
+<html><head><meta charset="utf-8"><title>Foundations</title><style>body{font:16px system-ui;max-width:1100px;margin:2rem auto;padding:0 1rem;line-height:1.5}aside{background:#fff3cc;padding:1rem}.jsonschema,pre{white-space:pre-wrap;font:13px monospace;overflow-wrap:anywhere;background:#f4f5f7;padding:1rem}.uri{font-family:monospace}h2,h3{margin-top:2rem}</style></head><body><aside><strong>Modified private reference — 2026-10-09.</strong> Provider-documented illustrative examples are included; authentication token examples are redacted. These are not customer exports or guaranteed production behavior. Candidate sharing is pending. This is not OpenAPI.</aside>
+<div class="group">
+<h2 class="docTitle">Foundations</h2>
+<section class="clearfix">
+<article class="documentation md">
+<pre>The REST API gives you direct access to the backend powering our array of cloud services, allowing you to extend the platform by building your own sophisticated applications.
+
+---
+
+# Basic concepts and organization
+If you are new to building web-based applications or need a refresher, be sure to familiarize yourself with basic representational state transfer (REST) and Hypertext transfer protocol (HTTP) concepts before continuing, starting with our Introduction to REST APIs.
+
+Each functional area within the API is divided into resources, each of which represents a business entity that is stored or computed.
+
+* Stored entities include punches, accrual balances, and shifts
+* Computed entities include the schedule and the Attendance processor
+Each resource is accessed using one or more operations, each of which consists of an HTTP method plus a URL. A complete list of operations is available in the API reference documentation.
+
+* HTTP methods include GET, POST, DELETE, and PUT
+* The URL consists of two parts: a root which is unique to your organization and an endpoint representing a resource
+* HTTP methods are often described as verbs and URLs as nouns. Like the basic action of an English sentence, the HTTP method, as a verb, represents an action upon an object, or noun, which is represented by the URL
+Our REST operations allow arguments to be passed in the URL or request body. Auxiliary data, such as authorization tokens and API version, is passed in HTTP headers. API operations always return the HTTP status, usually return a response body, and sometimes return response headers.
+
+## A word on CRUD
+REST emphasizes CRUD (Create/Read/Update/Delete) operations, mapping them to HTTP verbs:
+
+| CRUD operations | 	HTTP verbs |
+|----------------|-------------|
+| Create         | 	POST       |
+| Read           | 	GET/POST   |
+| Update         | 	PUT/POST   |
+| Delete         | 	DELETE |
+
+POST is a catch-all capable of representing any of the CRUD concepts.
+
+GET is read-only and most appropriate for read operations, but there are cases when POST is used for read operations containing very large arguments.
+
+For updates, PUT represents a total replacement of the resource.
+
+Non-CRUD operations are undefined in REST. Since any complex API must represent non-CRUD operations, API implementations improvise as needed.
+
+# Pragmatic REST
+Our REST implementation approaches the real-world challenges facing any large-scale API sensibly and realistically in a way that is based on practical rather than purely theoretical considerations.
+
+* Resources are business entities that are stored or computed
+* We provide clear URLs for resources
+* Versioning is built in to our architecture
+* We support Hypermedia as the Engine of Application State (HATEOAS)
+* Verbs in URLs are discouraged and only used when absolutely necessary
+* We support internationalization (I18N) and localization (L10N)
+* We support both JavaScript Object Notation (JSON) and XML content type
+* Our errors provide both the HTTP status and an error body, which allows for sophisticated error handling
+* We support asynchronous operations
+* We include a support mechanism via the request correlation ID
+* Refer to the Pragmatic REST topic for more information.
+
+# Anatomy of an API call
+1. Your application requests and receives an OAuth token from the authentication server.
+2. Your application invokes the API by making a properly-formatted call consisting of a verb (HTTP method) and a noun (API resource in the form of a URL) along with all necessary HTTP headers, parameters, and any required JSON body.
+3. Your authorization token is validated.
+4. If valid, the suite ecosystem receives and processes your application's API request.
+5. The system returns an API response to your application.
+
+# Operations
+API operations act on resources, which are business entities that are stored or computed. Each operation consists of an HTTP method plus a URL. A complete list of operations is available in the API reference documentation.
+
+## Syntax and URL form
+The API's syntax is elegant in its simplicity:
+
+HTTP method + URL
+
+`GET /v2/companies/12345/employees/210` returns data associated with person number 210 for company 12345
+
+Our URLs are likewise constructed according to a consistent format:
+
+`https://{POD}/ta/rest/{major version}/{resource}/{resource_id}[/{subresource}]`
+
+**note:** The individual Company Resource within the URL is referenced by default using the numeric identifier of a company within the system. For ease of use the APIs also allow the use of the company shortname, when used with this identifier the shortname **must** be preceeded by either a | or !.
+
+
+## Granularity
+We support operations that access single or multiple entities in one call. We also support different levels of data aggregation.
+
+### Single entity
+For operations on a single entity, the standard and most RESTful format is used:
+
+#### Format
+HTTP method + URL
+
+#### Example
+`GET /v2/companies/COMPANY_ID/employees/EMPLOYEE_ID` returns the details for a single employee identified by the EMPLOYEE_ID
+
+### Multiple entities
+For operations on a set of entities omit the resource identifier:
+
+#### Format
+HTTP method + URL
+
+#### Example
+`GET /v2/companies/COMPANY_ID/employees` returns the details for multiple employees
+
+Note that:
+
+* The HTTP method is usually GET
+* The response body consists of a list of individual data items
+
+Refer to the Pragmatic REST topic for more information.
+
+## Object references
+Our API uses object references to encapsulate a reference to an object. An object represents an instance of a business entity.
+
+Object references contain one or at the most two keys identifying the referenced object. This format helps ensure solid API composition, which allows the output of one operation to serve as part or all of the input for another operation without any further processing.
+
+The JSON structure for object reference keys takes the following forms:
+
+{"id": "…"}
+Refer to the Object references topic for more information.
+
+## Resources
+Resources are business entities that are stored or computed.
+
+Resources in the URL appear in lower kebab case: counter-adjustments, tax-info.
+
+Subresources are used :
+
+* To group related business entities
+* As action names for operations that are not defined in CRUD
+    * GET is used for operations with no effect on the server, such as a computation
+    * POST is used for operations that change data or when arguments are large or complex
+
+Resources are normally part of collections that represent multiple instances of the same business entity.
+
+* The name is plural: Accrual Balances, Employees, Time Entries
+ * Individual members are accessed by ID:
+
+    `/v2/companies/COMPANY_ID/employees/EMPLOYEE_ID`
+
+
+## HTTP headers
+Our API supports a variety of HTTP headers.
+
+Refer to the &lt;a onclick="loadResourcePartial(event, 'HTTP Headers.html', 'HTTP headers')"&gt;HTTP headers&lt;/a&gt; topic for more information.
+
+## Authentication and Security
+Requests against the API must be authenticated and made over HTTPS. If these requirements are not met, the request fails.
+
+Our API's authentication is built on the OAuth 2.0 standard. Each API request must include an HTTP Authorization header containing an OAuth 2.0 access token.
+
+Successful token requests generate an access token and a refresh token. The access token is usable from the moment it is generated until the number of seconds defined by expires_in elapses. The refresh token can be used to generate new access tokens and refresh tokens until the session expires. Refresh tokens expire after a much longer period of time.
+
+
+Refer to the &lt;a onclick="loadResourcePartial(event, 'Authentication and security.html', 'Authentication and security')"&gt;Authentication and security&lt;/a&gt; topic for more information.
+
+## Client ID and client secret
+Requests against the API require a valid client ID and client secret passed in the HTTP client_id and client_secret headers.
+
+Refer to the &lt;a onclick="loadResourcePartial(event, 'Client id and secret.html', 'Client ID and client secret')"&gt;Client ID and client secret&lt;/a&gt; topic for more information.
+
+## Versioning
+When we make backwards-incompatible changes to the API, we release a new version. When new versions are released, older versions may still be accessed for as long as they are supported.
+
+Any plans to eliminate support for older versions of the API are communicated well in advance to provide ample opportunity to bring your application in line with a supported release.
+
+* Major versions are large, backwards-incompatible departures from previous releases of the API and represent signficant steps forward. Such major changes are rare and are communicated well before each release.
+    * The major version is specified in the URL:
+
+    `/v1/reports/`
+
+Refer to the &lt;a onclick="loadResourcePartial(event, 'Limits.html', 'Limits')"&gt;Limits&lt;/a&gt; topic for more information.
+
+## HTTP status codes and error handling
+When the API returns an error, it consists of an HTTP status code plus a JSON/XML body.
+
+The HTTP status maps to client errors (4XX) and server errors (5XX) per IETF standards.
+
+The body of the error includes the following fields:
+
+* code: a fixed-length code associated with the error
+* message: a description of the error
+* detail: an optional JSON object with specific data about the error. This field enables sophisticated error handling, including multiple errors and partial results
+
+
+Refer to the &lt;a onclick="loadResourcePartial(event, 'HTTP Status Codes.html', 'HTTP status codes')"&gt;HTTP status codes&lt;/a&gt; and the &lt;a onclick="loadResourcePartial(event, 'Error handling.html', 'Error handling')"&gt;Error handling&lt;/a&gt; topics for more information.
+
+## Asynchronous requests
+We support asynchronous requests that follow the polling paradigm. According to this method, the client submits a request and receives a ticket. The client then checks back at regular intervals to determine if the server is ready to return the result of the request.
+
+For current APIs that support asynchronous POST requests refer to the resource documentation. For example:
+
+POST /v1/import/TYPE_ID
+GET /v1/export/EXPORT_ID
+
+
+### Asynchronous request flow
+1. A POST or GET request returns HTTP 202 (Accepted) and a URL in a Content-Location header that allows retrieval of the status.
+2. Subsequent requests poll the URL for status
+3. When the state is returned as SUCCESSFUL, the Content-Location header contains the URI of the result.
+
+The URI returned in the Content-Location header represents the status of the operation. The caller issues GET operations using the next-ping header values to retrieve the status and the URI of the result.
+
+## Response Formats
+The API can respond to your requests with various formats.
+The most common are detailed below. For special cases and extra formats see the documentation for each resource.
+
+**JSON**
+
+The default response format of all APIs is Application/JSON. For example, here is the default json representation of the list of available reports:
+
+`GET /v1/repoorts?type=All`
+
+```json
+{
+  "ReportIds": [
+    "REPORT_APPLICANT_CUSTOM_FORM_ITEMS",
+    "REPORT_APPLICANT_MY_CUSTOM_FORM_ITEMS",
+    "REPORT_EMPLOYEE_CUSTOM_FORM_ITEMS",
+    "REPORT_EMPLOYEE_MY_CUSTOM_FORM_ITEMS",
+    "REPORT_EMPLOYEE_TIMESHEETS",
+    "REPORT_EMPLOYEES_POINTS_BALANCES",
+    "REPORT_FIND_CC_1",
+    "REPORT_FIND_CC_2",
+    "REPORT_FIND_CC_3",
+    "REPORT_FIND_CC_4",
+    "REPORT_FIND_CC_5"
+  ]
+}
+```
+
+**XML**
+
+The API also supports returning resource representations as XML. Here is the above resource represented as XML:
+
+`GET /v1/reports?type=All`
+
+```xml
+&lt;?xml version='1.0' encoding='UTF-8'?&gt;
+&lt;Reports&gt;
+    &lt;ReportId&gt;REPORT_APPLICANT_CUSTOM_FORM_ITEMS&lt;/ReportId&gt;
+    &lt;ReportId&gt;REPORT_APPLICANT_MY_CUSTOM_FORM_ITEMS&lt;/ReportId&gt;
+    &lt;ReportId&gt;REPORT_EMPLOYEE_CUSTOM_FORM_ITEMS&lt;/ReportId&gt;
+    &lt;ReportId&gt;REPORT_EMPLOYEE_MY_CUSTOM_FORM_ITEMS&lt;/ReportId&gt;
+    &lt;ReportId&gt;REPORT_EMPLOYEE_TIMESHEETS&lt;/ReportId&gt;
+    &lt;ReportId&gt;REPORT_EMPLOYEES_POINTS_BALANCES&lt;/ReportId&gt;
+    &lt;ReportId&gt;REPORT_FIND_CC_1&lt;/ReportId&gt;
+    &lt;ReportId&gt;REPORT_FIND_CC_2&lt;/ReportId&gt;
+    &lt;ReportId&gt;REPORT_FIND_CC_3&lt;/ReportId&gt;
+    &lt;ReportId&gt;REPORT_FIND_CC_4&lt;/ReportId&gt;
+    &lt;ReportId&gt;REPORT_FIND_CC_5&lt;/ReportId&gt;
+&lt;/Reports&gt;
+```
+
+**Other**
+
+The API can also return CSV, HTML and other response types, for specific resources such as /reports.
+
+
+## Internationalization and Localization (I18N and L10N)
+Our I18N/L10N support is built on common standards for languages, currencies, numbers, and dates.
+
+### Standards
+Requests and responses contain neutrally formatted data according to the following standards:
+
+* ISO 639: Language codes
+* ISO 31661alpha2: Country codes
+* ISO 4217: Currency codes
+
+### Currency
+Currency support defaults are based on context, but can be overridden via the custom header X-Currency with supported ISO 4217 codes.
+
+### Numbers
+Numbers are supported as fixed point according to the decimal standard described here.
+
+Floating point and doubles are supported according to the IEEE 754-1985 standard.
+
+### Date and time
+Our date and time support conforms to the ISO-8601 standard's 24-hour format:
+* Date (2016-09-15)
+* Time (08:55:00)
+* Time with timezone (08:55:00Z)
+* Datetime (2016-09-15T20:55:00Z)
+* Time of day (18:00)
+* Weekday (MONDAY, TUESDAY, WEDNESDAY, ...)
+
+## Conventions related to time
+Beginning and end of time
+The assumed values for the earliest possible date (also known as the "beginning of time") and the latest possible date (also known as the "end of time") are 1900-01-01 and 3000-01-01, respectively.
+
+
+
+### Effective and expiration dates
+The following rules define the use of effective and expiration dates:
+
+* Effective dates are inclusive of the date provided. The effectiveness includes the specified date. For example, when the effective date is 01/01/2025, the 1st is included in the span.
+* Expiration dates are exclusive of the date provided. The effectiveness expires when this date begins. For example, when the expiration date is 01/31/2025, the 31st is not included in the span.
+* Naming:
+    * effective_from
+
+## Service limits
+Service limits establish sensible, safe constraints on data returned by the API. These limits play an important role in preserving the health of our ecosystem and help ensure all users experience consistently high performance.
+
+Generally, service limits constrain the number of employees and the time range that can be returned by a single request to ensure each request does not exceed reasonable limits. You cannot retrieve more data than the limits specified by these constraints in a single call.
+
+The HTTP status code for service limits is 413. Refer to the Limits topic for more information.
+
+## Throttling
+Throttling mechanisms work alongside service limits to preserve the health of the suite ecosystem and help ensure all users experience consistently high performance.
+
+Throttling avoids service failures and severe slowdowns by ensuring usage of a resource does not exceed the load capacity of backend services.
+
+The HTTP status code for throttling is 503. Refer to the HTTP status codes topic for more information.
+
+### Rate limits
+If you exceed a rate limit, the API returns a header informing the caller of the amount of time it must wait before attempting the call again.
+
+## Tracking, logging, and support
+Every API response will have up to five HTTP headers that give you additional information about the status of the call.
+
+* RequestId: 14265657
+* X-CallLimit-Threshold: 300
+* X-CallLimit-CurrentCalls: 13
+* X-CallLimit-TimeToWait: 1500
+* Deprecated: expirationDate=2017-12-13;docLink=http://example.com/ta/docs/rest/
+
+
+The `RequestId` header provides a unique identifier for your request. Should you require assistance with diagnosing unexplained issues with a particular request you can provide this ID for further investigation.
+
+The `X-CallLimit-Threshold` header provides the limit to the number of calls that can be made to the API in the context of the current Company.
+
+The `X-CallLimit-CurrentCalls` header specifies the number of API calls currently executed in the context of the current company.
+
+The `X-CallLimit-TimeToWait` header specifies the duration in milliseconds that a client must wait to submit the next request.
+This header is only returned if the client has exceeded the call limit.
+
+The RequestId is attached to all logs associated with the call and subsequent response.
+
+## Next steps
+If you're ready to put these principles into practice and make an API call against your environment, proceed to the Authentication and security topic or the Quick Start topic.</pre>
+</article>
+</section>
+</div>
+</body></html>

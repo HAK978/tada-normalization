@@ -1,0 +1,38 @@
+<!doctype html>
+<html><head><meta charset="utf-8"><title>Best Practices</title><style>body{font:16px system-ui;max-width:1100px;margin:2rem auto;padding:0 1rem;line-height:1.5}aside{background:#fff3cc;padding:1rem}.jsonschema,pre{white-space:pre-wrap;font:13px monospace;overflow-wrap:anywhere;background:#f4f5f7;padding:1rem}.uri{font-family:monospace}h2,h3{margin-top:2rem}</style></head><body><aside><strong>Modified private reference — 2026-10-09.</strong> Provider-documented illustrative examples are included; authentication token examples are redacted. These are not customer exports or guaranteed production behavior. Candidate sharing is pending. This is not OpenAPI.</aside>
+<div class="group">
+<h2 class="docTitle">Best Practices</h2>
+<section class="clearfix">
+<article class="documentation md">
+<pre>Follow these best practices when using the RESTS API.
+
+---
+
+## Handle rate limits
+If you receive a Throttling limit error, stop making requests:
+
+If the X-CallLimit-TimeToWait response header is present on your API response do not retry the request until the number of milliseconds defined by the header value has elasped.
+Otherwise, wait for at least 60 seconds before retrying.
+Continuing to make requests while you are rate limited may result in additional limits being imposed or API access being revoked.
+
+## Follow redirects
+The REST API uses standard HTTP redirection where appropriate. You must assume that any API response may result in a redirection. An HTTP redirection response from the API is not an error, you must follow the redirect.
+
+- HTTP 301 status code is a permanent redirection. Your integration must repeat the request to the URL indicated in the location header. Additionally, update your code to use the redirect URL for future requests.
+- HTTP 302 or 307 status code are temporary redirections. Your integration must repeat the request to the URL indicated in the location header.
+
+
+## Do not ignore errors
+If your integration returns an HTTP 4xx or 5xx error code do not ignore them. Ensure that your API call was valid according to the API specification for the endpoint you are interacting with.
+
+## Limit the amount of data requested
+When using the Report APIs ensure that you are limiting the amount of data returned by specifying date ranges, using the Global Report POST Endpoint is advised to ensure that you are controlling the data returned.
+
+**Note:** The REST APIs are versioned to ensure that breaking changes do not occur. However, the content of the Report API is dependant upon the availability and definition of reports within the system. Such reports offer no versioning or guarentee against breaking changes when consumed programmatically.
+
+## Do not build integrations using the Report API
+You should build integrations using Resource APIs not the Report API to avoid issues with breaking changes.</pre>
+</article>
+</section>
+</div>
+</body></html>

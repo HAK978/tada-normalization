@@ -1,0 +1,660 @@
+<!doctype html>
+<html><head><meta charset="utf-8"><title>Job Requisition Details</title><style>body{font:16px system-ui;max-width:1100px;margin:2rem auto;padding:0 1rem;line-height:1.5}aside{background:#fff3cc;padding:1rem}.jsonschema,pre{white-space:pre-wrap;font:13px monospace;overflow-wrap:anywhere;background:#f4f5f7;padding:1rem}.uri{font-family:monospace}h2,h3{margin-top:2rem}</style></head><body><aside><strong>Modified private reference — 2026-10-09.</strong> Provider-documented illustrative examples are included; authentication token examples are redacted. These are not customer exports or guaranteed production behavior. Candidate sharing is pending. This is not OpenAPI.</aside>
+<div class="group">
+<h2 class="anchored" id="item.anchor">
+<span>Job Requisition Details</span>
+<a class="fa fa-link link-anchor" data-url="r=__v2__companies__(cid)__recruitment__job-requisitions__(id)#" data-web-id="__v2__companies__(cid)__recruitment__job-requisitions__(id)"></a>
+</h2>
+<section class="clearfix">
+<article class="definition">
+<h3 class="anchored" id="get"><span>GET</span>
+<a class="fa fa-link link-anchor" data-url="r=__v2__companies__(cid)__recruitment__job-requisitions__(id)#get" data-web-id="__v2__companies__(cid)__recruitment__job-requisitions__(id)"></a>
+</h3>
+<div class="md"><p>Endpoint returns details of specific Job Requisition.
+</p></div>
+<div>
+<ul class="annotation-list">
+<li class="annotation">
+<span>v2</span>
+</li>
+</ul>
+</div>
+<h4>Parameters</h4>
+<h5>Path Parameters</h5>
+<ul class="param-list">
+<li>
+<div class="param-desc">
+<div class="param-name">cid</div>
+<div class="data-type">string</div>
+<div class="required">required</div>
+</div>
+<div class="param-content">
+<div>
+<p>Example: 123456</p>
+<div class="desc md">Company should be referenced via company id or company unique id or company short name using `|short_name` or `!short_name` format.
+</div>
+</div>
+</div>
+
+</li>
+<li>
+<div class="param-desc">
+<div class="param-name">id</div>
+<div class="data-type">integer</div>
+<div class="required">required</div>
+</div>
+<div class="param-content">
+<div>
+<p>Example: 1234567</p>
+<div class="desc md">Job Requisition Id whose details are to be fetched. This is going to work with authentication.
+</div>
+</div>
+</div>
+
+</li>
+</ul>
+<h4>Responses</h4>
+<div class="responses">
+<div>
+<label class="response response-success">
+<span class="fa fa-check"></span>
+<input data-full-tab-id="get-resp-code-tab-id-0" data-tab-class="resp-code-tab-get" name="resp-code-tab-get" type="radio"/>
+<span class="status">200 Ok</span>
+</label>
+<div class="response-desc resp-code-tab-get" id="get-resp-code-tab-id-0">
+</div>
+</div>
+</div>
+</article>
+<article class="code">
+<h4>Definition</h4>
+<div class="uri">
+<code>
+<span class="method get">get</span>
+<span class="textUri"><span class="baseUri">{{ getUriPrefix() }}</span><span class="relativeUri">/v2/companies/{cid}/recruitment/job-requisitions/{id}</span></span>
+</code>
+</div>
+<h4>Response Samples</h4>
+<div class="tab-title-group">
+<label>
+<input checked="checked" data-full-tab-id="resp-tab-id-get-0" data-tab-class="resp-tab-get" name="resp-tab-get" type="radio"/>
+<span class="tab-title">application/json</span>
+</label>
+<label>
+<input data-full-tab-id="resp-tab-id-get-1" data-tab-class="resp-tab-get" name="resp-tab-get" type="radio"/>
+<span class="tab-title">application/xml</span>
+</label>
+</div>
+<div>
+<div class="resp-tab-get" id="resp-tab-id-get-0">
+<div class="example">
+
+<div class="get-example-resp-tab-0 activeTab" id="get-tab-resp-example-0">
+
+<pre class="highlightjs">{
+    "id": 3778,
+    "ein_id": 123456,
+    "has_questionnaire" : true,
+    "job_title": "Job 4",
+    "location": {
+        "country": "USA",
+        "city": "Schenectady",
+        "state": "NY",
+        "zip": "12345"
+    },
+    "job_cc_id": {
+        "id": 1416321,
+        "display_name": "Receptionist"
+    },
+    "base_pay_from": 1000,
+    "base_pay_to": 70000,
+    "base_pay_frequency": "YEAR",
+    "average_bonus": 1000,
+    "average_commission": 500,
+    "other_compensation": "none",
+    "job_categories": [
+        "Job Category 1",
+        "Job Category 2",
+        "Job Category 3"
+    ],
+    "job_industries": [
+        "Job Industry 1",
+        "Job Industry 2",
+        "Job Industry 3"
+    ],
+    "relocation_expense_covered": true,
+    "employee_type": {
+        "id": 129795,
+        "name": "Consultant"
+    },
+    "required_degree": "4_YEAR_DEGREE",
+    "travel_percent": 40,
+    "manage_others": false,
+    "contact_name": "Jason",
+    "contact_phone": "1234567892",
+    "contact_email": "jason@bourne.com",
+    "job_description": "&lt;p&gt;job description&lt;/p&gt;",
+    "job_preview": "&lt;p&gt;job preview&lt;/p&gt;",
+    "job_requirement": "&lt;p&gt;job requirement&lt;/p&gt;",
+    "min_experience": 0,
+    "max_experience": 10,
+    "custom_field_configs": [
+        {
+            "index": 0,
+            "label": "Job Field 1",
+            "type": "CHAR",
+            "max_length": 10,
+            "default_value": "abcd",
+            "allow_new": false,
+            "sort_ascending": false
+        }
+    ],
+    "custom_fields": [
+        {
+            "index": 0,
+            "value": "abcd1"
+        }
+    ],
+    "knockout_msg": "Thanks for applying. We will contact you after assessment.",
+    "reapply_msg": "You have already applied for this job. Please try after 30 days."
+
+}</pre>
+</div>
+<div class="get-example-resp-tab-0" id="get-tab-resp-schema-0">
+
+<div class="jsonschema" id="schema-0">{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "type": "object",
+  "properties": {
+    "id": {
+      "type": "integer"
+    },
+    "ein_id": {
+      "type": "integer"
+    },
+    "has_questionnaire": {
+      "type": "boolean"
+    },
+    "average_bonus": {
+      "type": "number"
+    },
+    "average_commission": {
+      "type": "number"
+    },
+    "base_pay_frequency": {
+      "type": "string",
+      "enum": [
+        "YEAR",
+        "MONTH",
+        "WEEK",
+        "HOUR",
+        "PAY_PERIOD"
+      ]
+    },
+    "base_pay_from": {
+      "type": "integer"
+    },
+    "base_pay_to": {
+      "type": "integer"
+    },
+    "contact_email": {
+      "type": "string"
+    },
+    "contact_name": {
+      "type": "string"
+    },
+    "contact_phone": {
+      "type": "string"
+    },
+    "employee_type": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "number",
+          "format": "long"
+        },
+        "name": {
+          "type": "string"
+        }
+      },
+      "additionalProperties": false,
+      "required": [
+        "id",
+        "name"
+      ]
+    },
+    "job_categories": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "job_description": {
+      "type": "string"
+    },
+    "job_industries": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "job_preview": {
+      "type": "string"
+    },
+    "job_requirement": {
+      "type": "string"
+    },
+    "location": {
+      "type": "object",
+      "properties": {
+        "address_line_1": {
+          "type": "string"
+        },
+        "address_line_2": {
+          "type": "string"
+        },
+        "address_line_3": {
+          "type": "string"
+        },
+        "city": {
+          "type": "string"
+        },
+        "country": {
+          "type": "string"
+        },
+        "number": {
+          "type": "string"
+        },
+        "number_addition": {
+          "type": "string"
+        },
+        "state": {
+          "type": "string"
+        },
+        "zip": {
+          "type": "string"
+        }
+      },
+      "additionalProperties": false
+    },
+    "job_cc_id": {
+      "type ": "object ",
+      "properties": {
+        "id": {
+          "type": "integer"
+        },
+        "display_name": {
+          "type": "string"
+        }
+      }
+    },
+    "manage_others": {
+      "type": "boolean"
+    },
+    "max_experience": {
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 99
+    },
+    "min_experience": {
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 99
+    },
+    "other_compensation": {
+      "type": "string"
+    },
+    "relocation_expense_covered": {
+      "type": "boolean"
+    },
+    "required_degree": {
+      "type": "string",
+      "enum": [
+        "NONE",
+        "HIGH_SCHOOL",
+        "2_YEAR_DEGREE",
+        "4_YEAR_DEGREE",
+        "MASTER",
+        "DOCTORATE",
+        "BACHELOR",
+        "MARTERS",
+        "DOCTOR_OF_PHILOSOPHY",
+        "DOCTOR_OF_MEDICINE"
+      ]
+    },
+    "job_title": {
+      "type": "string"
+    },
+    "travel_percent": {
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 100
+    },
+    "custom_field_configs": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "index": {
+            "type": "integer"
+          },
+          "label": {
+            "type": "string"
+          },
+          "label_height": {
+            "type": "integer"
+          },
+          "label_width": {
+            "type": "integer"
+          },
+          "type": {
+            "type": "string",
+            "enum": [
+              "CHAR",
+              "INT",
+              "NUMERIC",
+              "CURRENCY",
+              "DATE",
+              "TIME",
+              "LINK",
+              "EMAIL",
+              "ACCOUNT",
+              "TEXT_AREA"
+            ]
+          },
+          "max_length": {
+            "type": "integer"
+          },
+          "default_value": {
+            "type": "string"
+          },
+          "allow_new": {
+            "type": "boolean"
+          },
+          "sort_ascending": {
+            "type": "boolean"
+          },
+          "items": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "index": {
+                  "type": "integer"
+                },
+                "value": {
+                  "type": "string"
+                }
+              },
+              "required": [
+                "index",
+                "value"
+              ]
+            }
+          }
+        },
+        "required": [
+          "index",
+          "label"
+        ]
+      }
+    },
+    "custom_fields": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "index": {
+            "type": "integer"
+          },
+          "value": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "index",
+          "value"
+        ]
+      }
+    },
+    "knockout_msg": {
+      "type": "string",
+      "description": "Message for applicant if he/she gets knocked out on submitting the job application for this job req."
+    },
+    "reapply_msg": {
+      "type": "string",
+      "description": "Message to be displayed on Find Jobs and My job application screen if applicant is already knocked out for that job req."
+    }
+  },
+  "additionalProperties": false,
+  "required": [
+    "id",
+    "job_title"
+  ]
+}</div>
+</div>
+</div>
+</div>
+<div class="resp-tab-get" id="resp-tab-id-get-1">
+<div class="example">
+
+<div class="get-example-resp-tab-1 activeTab" id="get-tab-resp-example-1">
+
+<pre class="highlightjs">&lt;job_requisition&gt;
+    &lt;id&gt;3778&lt;/id&gt;
+    &lt;ein_id&gt;123456&lt;/ein_id&gt;
+    &lt;has_questionnaire&gt;true&lt;/has_questionnaire&gt;
+    &lt;job_title&gt;Job 4&lt;/job_title&gt;
+    &lt;location&gt;
+        &lt;address_line_1&gt;4008 Gaelic Lane&lt;/address_line_1&gt;
+        &lt;address_line_2&gt;Gaelic Lane&lt;/address_line_2&gt;
+        &lt;address_line_3&gt;4008 Gaelic Lane&lt;/address_line_3&gt;
+        &lt;country&gt;USA&lt;/country&gt;
+        &lt;city&gt;Schenectady&lt;/city&gt;
+        &lt;state&gt;NY&lt;/state&gt;
+        &lt;zip&gt;12345&lt;/zip&gt;
+    &lt;/location&gt;
+    &lt;base_pay_from&gt;1000&lt;/base_pay_from&gt;
+    &lt;base_pay_to&gt;70000&lt;/base_pay_to&gt;
+    &lt;base_pay_frequency&gt;YEAR&lt;/base_pay_frequency&gt;
+    &lt;average_bonus&gt;1000&lt;/average_bonus&gt;
+    &lt;average_commission&gt;500&lt;/average_commission&gt;
+    &lt;other_compensation&gt;none&lt;/other_compensation&gt;
+    &lt;job_categories&gt;
+        &lt;job_category&gt;job cat1&lt;/job_category&gt;
+        &lt;job_category&gt;job cat2&lt;/job_category&gt;
+        &lt;job_category&gt;job cat3&lt;/job_category&gt;
+    &lt;/job_categories&gt;
+    &lt;job_industries&gt;
+        &lt;job_industry&gt;job ind1&lt;/job_industry&gt;
+        &lt;job_industry&gt;job ind2&lt;/job_industry&gt;
+        &lt;job_industry&gt;job ind3&lt;/job_industry&gt;
+    &lt;/job_industries&gt;
+    &lt;relocation_expense_covered&gt;true&lt;/relocation_expense_covered&gt;
+    &lt;employee_type&gt;
+        &lt;id&gt;129795&lt;/id&gt;
+        &lt;name&gt;Consultant&lt;/name&gt;
+    &lt;/employee_type&gt;
+    &lt;required_degree&gt;4_YEAR_DEGREE&lt;/required_degree&gt;
+    &lt;travel_percent&gt;40&lt;/travel_percent&gt;
+    &lt;manage_others&gt;false&lt;/manage_others&gt;
+    &lt;contact_name&gt;Jason&lt;/contact_name&gt;
+    &lt;contact_phone&gt;1234567892&lt;/contact_phone&gt;
+    &lt;contact_email&gt;jason@bourne.com&lt;/contact_email&gt;
+    &lt;job_description&gt;&amp;lt;p&amp;gt;job description&amp;lt;/p&amp;gt;&lt;/job_description&gt;
+    &lt;job_preview&gt;&amp;lt;p&amp;gt;job preview&amp;lt;/p&amp;gt;&lt;/job_preview&gt;
+    &lt;job_requirement&gt;&amp;lt;p&amp;gt;job requirement&amp;lt;/p&amp;gt;&lt;/job_requirement&gt;
+    &lt;min_experience&gt;0&lt;/min_experience&gt;
+    &lt;max_experience&gt;10&lt;/max_experience&gt;
+    &lt;custom_field_configs&gt;
+        &lt;custom_field_config&gt;
+            &lt;index&gt;0&lt;/index&gt;
+            &lt;label&gt;Job Field 1&lt;/label&gt;
+            &lt;type&gt;CHAR&lt;/type&gt;
+            &lt;max_length&gt;10&lt;/max_length&gt;
+            &lt;default_value&gt;abcd&lt;/default_value&gt;
+            &lt;allow_new&gt;false&lt;/allow_new&gt;
+            &lt;sort_ascending&gt;false&lt;/sort_ascending&gt;
+        &lt;/custom_field_config&gt;&gt;
+    &lt;/custom_field_configs&gt;
+    &lt;custom_fields&gt;
+        &lt;custom_field&gt;
+            &lt;index&gt;0&lt;/index&gt;
+            &lt;value&gt;abcd1&lt;/value&gt;
+        &lt;/custom_field&gt;
+    &lt;/custom_fields&gt;
+    &lt;knockout_msg&gt;Thanks for applying. We will contact you after assessment.&lt;/knockout_msg&gt;
+    &lt;reapply_msg&gt;You have already applied for this job. Please try after 30 days.&lt;/reapply_msg&gt;
+&lt;/job_requisition&gt;</pre>
+</div>
+<div class="get-example-resp-tab-1" id="get-tab-resp-schema-1">
+
+<div class="jsonschema" id="schema-1">&lt;xs:schema attributeFormDefault="unqualified" elementFormDefault="qualified" xmlns:xs="http://www.w3.org/2001/XMLSchema"&gt;
+  &lt;xs:element name="job_requisition"&gt;
+    &lt;xs:complexType&gt;
+      &lt;xs:sequence&gt;
+        &lt;xs:element type="xs:int" name="id" minOccurs="1"/&gt;
+        &lt;xs:element type="xs:int" name="ein_id" minOccurs="1"/&gt;
+        &lt;xs:element type="xs:boolean" name="has_questionnaire" minOccurs="0"/&gt;
+        &lt;xs:element type="xs:string" name="job_title" minOccurs="1"/&gt;
+        &lt;xs:element name="location"&gt;
+          &lt;xs:complexType&gt;
+            &lt;xs:sequence&gt;
+              &lt;xs:element type="xs:string" name="address_line_1" minOccurs="0"/&gt;
+              &lt;xs:element type="xs:string" name="address_line_2" minOccurs="0"/&gt;
+              &lt;xs:element type="xs:string" name="address_line_3" minOccurs="0"/&gt;
+              &lt;xs:element type="xs:string" name="country" minOccurs="0"/&gt;
+              &lt;xs:element type="xs:string" name="city" minOccurs="0"/&gt;
+              &lt;xs:element type="xs:string" name="state" minOccurs="0"/&gt;
+              &lt;xs:element type="xs:string" name="zip" minOccurs="0"/&gt;
+              &lt;xs:element type="xs:string" name="number" minOccurs="0"/&gt;
+              &lt;xs:element type="xs:string" name="number_addition" minOccurs="0"/&gt;
+            &lt;/xs:sequence&gt;
+          &lt;/xs:complexType&gt;
+        &lt;/xs:element&gt;
+        &lt;xs:element type="xs:float" name="base_pay_from" minOccurs="0"/&gt;
+        &lt;xs:element type="xs:float" name="base_pay_to" minOccurs="0"/&gt;
+        &lt;xs:element name="base_pay_frequency" minOccurs="0"&gt;
+            &lt;xs:simpleType&gt;
+                &lt;xs:restriction base="xs:string"&gt;
+                    &lt;xs:enumeration value="YEAR"/&gt;
+                    &lt;xs:enumeration value="MONTH"/&gt;
+                    &lt;xs:enumeration value="WEEK"/&gt;
+                    &lt;xs:enumeration value="HOUR"/&gt;
+                    &lt;xs:enumeration value="PAY_PERIOD"/&gt;
+                &lt;/xs:restriction&gt;
+            &lt;/xs:simpleType&gt;
+        &lt;/xs:element&gt;
+        &lt;xs:element type="xs:float" name="average_bonus" minOccurs="0"/&gt;
+        &lt;xs:element type="xs:float" name="average_commission" minOccurs="0"/&gt;
+        &lt;xs:element type="xs:string" name="other_compensation" minOccurs="0"/&gt;
+        &lt;xs:element name="job_categories" minOccurs="0"&gt;
+          &lt;xs:complexType&gt;
+            &lt;xs:sequence&gt;
+              &lt;xs:element type="xs:string" name="job_category" minOccurs="0" maxOccurs="3"/&gt;
+            &lt;/xs:sequence&gt;
+          &lt;/xs:complexType&gt;
+        &lt;/xs:element&gt;
+        &lt;xs:element name="job_industries" minOccurs="0"&gt;
+          &lt;xs:complexType&gt;
+            &lt;xs:sequence&gt;
+              &lt;xs:element type="xs:string" name="job_industry" minOccurs="0" maxOccurs="3"/&gt;
+            &lt;/xs:sequence&gt;
+          &lt;/xs:complexType&gt;
+        &lt;/xs:element&gt;
+        &lt;xs:element type="xs:boolean" name="relocation_expense_covered" minOccurs="0"/&gt;
+        &lt;xs:element name="employee_type" minOccurs="0"&gt;
+          &lt;xs:complexType&gt;
+            &lt;xs:sequence&gt;
+              &lt;xs:element type="xs:int" name="id" minOccurs="0"/&gt;
+              &lt;xs:element type="xs:string" name="name" minOccurs="0"/&gt;
+            &lt;/xs:sequence&gt;
+          &lt;/xs:complexType&gt;
+        &lt;/xs:element&gt;
+        &lt;xs:element name="required_degree" minOccurs="0"&gt;
+            &lt;xs:simpleType&gt;
+                &lt;xs:restriction base="xs:string"&gt;
+                    &lt;xs:enumeration value="NONE"/&gt;
+                    &lt;xs:enumeration value="HIGH_SCHOOL"/&gt;
+                    &lt;xs:enumeration value="2_YEAR_DEGREE"/&gt;
+                    &lt;xs:enumeration value="4_YEAR_DEGREE"/&gt;
+                    &lt;xs:enumeration value="MASTER"/&gt;
+                    &lt;xs:enumeration value="DOCTORATE"/&gt;
+                    &lt;xs:enumeration value="BACHELOR"/&gt;
+                    &lt;xs:enumeration value="MARTERS"/&gt;
+                    &lt;xs:enumeration value="DOCTOR_OF_PHILOSOPHY"/&gt;
+                    &lt;xs:enumeration value="DOCTOR_OF_MEDICINE"/&gt;
+                &lt;/xs:restriction&gt;
+            &lt;/xs:simpleType&gt;
+         &lt;/xs:element&gt;
+        &lt;xs:element type="xs:byte" name="travel_percent" minOccurs="0"/&gt;
+        &lt;xs:element type="xs:string" name="manage_others" minOccurs="0"/&gt;
+        &lt;xs:element type="xs:string" name="contact_name" minOccurs="0"/&gt;
+        &lt;xs:element type="xs:string" name="contact_phone" minOccurs="0"/&gt;
+        &lt;xs:element type="xs:string" name="contact_email" minOccurs="0"/&gt;
+        &lt;xs:element type="xs:string" name="job_description" minOccurs="0"/&gt;
+        &lt;xs:element type="xs:string" name="job_preview" minOccurs="0"/&gt;
+        &lt;xs:element type="xs:string" name="job_requirement" minOccurs="0"/&gt;
+        &lt;xs:element name="min_experience" minOccurs="0"&gt;
+          &lt;xs:simpleType&gt;
+            &lt;xs:restriction base="xs:integer"&gt;
+              &lt;xs:minInclusive value="0"/&gt;
+              &lt;xs:maxInclusive value="99"/&gt;
+            &lt;/xs:restriction&gt;
+          &lt;/xs:simpleType&gt;
+        &lt;/xs:element&gt;
+        &lt;xs:element name="max_experience" minOccurs="0"&gt;
+          &lt;xs:simpleType&gt;
+            &lt;xs:restriction base="xs:integer"&gt;
+              &lt;xs:minInclusive value="0"/&gt;
+              &lt;xs:maxInclusive value="99"/&gt;
+            &lt;/xs:restriction&gt;
+          &lt;/xs:simpleType&gt;
+        &lt;/xs:element&gt;
+        &lt;xs:element name="custom_field_configs" minOccurs="0"&gt;
+          &lt;xs:complexType mixed="true"&gt;
+            &lt;xs:sequence&gt;
+              &lt;xs:element name="custom_field_config" minOccurs="0"&gt;
+                &lt;xs:complexType&gt;
+                  &lt;xs:sequence&gt;
+                    &lt;xs:element type="xs:byte" name="index" minOccurs="0"/&gt;
+                    &lt;xs:element type="xs:string" name="label" minOccurs="0"/&gt;
+                    &lt;xs:element type="xs:string" name="type" minOccurs="0"/&gt;
+                    &lt;xs:element type="xs:byte" name="max_length" minOccurs="0"/&gt;
+                    &lt;xs:element type="xs:string" name="default_value" minOccurs="0"/&gt;
+                    &lt;xs:element type="xs:string" name="allow_new" minOccurs="0"/&gt;
+                    &lt;xs:element type="xs:string" name="sort_ascending" minOccurs="0"/&gt;
+                  &lt;/xs:sequence&gt;
+                &lt;/xs:complexType&gt;
+              &lt;/xs:element&gt;
+            &lt;/xs:sequence&gt;
+          &lt;/xs:complexType&gt;
+        &lt;/xs:element&gt;
+        &lt;xs:element name="custom_fields" minOccurs="0"&gt;
+          &lt;xs:complexType&gt;
+            &lt;xs:sequence&gt;
+              &lt;xs:element name="custom_field" minOccurs="0"&gt;
+                &lt;xs:complexType&gt;
+                  &lt;xs:sequence&gt;
+                    &lt;xs:element type="xs:byte" name="index" minOccurs="0"/&gt;
+                    &lt;xs:element type="xs:string" name="value" minOccurs="0"/&gt;
+                  &lt;/xs:sequence&gt;
+                &lt;/xs:complexType&gt;
+              &lt;/xs:element&gt;
+            &lt;/xs:sequence&gt;
+          &lt;/xs:complexType&gt;
+        &lt;/xs:element&gt;
+        &lt;xs:element type="xs:string" name="knockout_msg" minOccurs="0"/&gt;
+        &lt;xs:element type="xs:string" name="reapply_msg" minOccurs="0"/&gt;
+      &lt;/xs:sequence&gt;
+    &lt;/xs:complexType&gt;
+  &lt;/xs:element&gt;
+&lt;/xs:schema&gt;</div>
+</div>
+</div>
+</div>
+</div>
+</article>
+</section>
+</div>
+</body></html>

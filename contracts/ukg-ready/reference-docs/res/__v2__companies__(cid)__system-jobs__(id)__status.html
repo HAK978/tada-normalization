@@ -1,0 +1,312 @@
+<!doctype html>
+<html><head><meta charset="utf-8"><title>Job Processing Status</title><style>body{font:16px system-ui;max-width:1100px;margin:2rem auto;padding:0 1rem;line-height:1.5}aside{background:#fff3cc;padding:1rem}.jsonschema,pre{white-space:pre-wrap;font:13px monospace;overflow-wrap:anywhere;background:#f4f5f7;padding:1rem}.uri{font-family:monospace}h2,h3{margin-top:2rem}</style></head><body><aside><strong>Modified private reference — 2026-10-09.</strong> Provider-documented illustrative examples are included; authentication token examples are redacted. These are not customer exports or guaranteed production behavior. Candidate sharing is pending. This is not OpenAPI.</aside>
+<div class="group">
+<h2 class="anchored" id="item.anchor">
+<span>Job Processing Status</span>
+<a class="fa fa-link link-anchor" data-url="r=__v2__companies__(cid)__system-jobs__(id)__status#" data-web-id="__v2__companies__(cid)__system-jobs__(id)__status"></a>
+</h2>
+<section class="clearfix">
+<article class="definition">
+<h3 class="anchored" id="get"><span>GET</span>
+<a class="fa fa-link link-anchor" data-url="r=__v2__companies__(cid)__system-jobs__(id)__status#get" data-web-id="__v2__companies__(cid)__system-jobs__(id)__status"></a>
+</h3>
+<div class="md"><p>Endpoint for retrieving a job processing status</p></div>
+<h4>Parameters</h4>
+<h5>Path Parameters</h5>
+<ul class="param-list">
+<li>
+<div class="param-desc">
+<div class="param-name">cid</div>
+<div class="data-type">string</div>
+<div class="required">required</div>
+</div>
+<div class="param-content">
+<div>
+<p>Example: 123456</p>
+<div class="desc md">Company should be referenced via company id or company unique id or company short name using `|short_name` or `!short_name` format.
+</div>
+</div>
+</div>
+
+</li>
+<li>
+<div class="param-desc">
+<div class="param-name">id</div>
+<div class="data-type">integer</div>
+<div class="required">required</div>
+</div>
+<div class="param-content">
+<div>
+<div class="desc md">Job ID</div>
+</div>
+</div>
+
+</li>
+</ul>
+<h5>Query Parameters</h5>
+<ul class="param-list">
+<li>
+<div class="param-desc">
+<div class="param-name">token</div>
+<div class="data-type">string</div>
+</div>
+<div class="param-content">
+<div>
+<div class="desc md">Token is used to resolve user permissions.
+It is not required for jobs started by the current user.
+</div>
+</div>
+</div>
+
+</li>
+<li>
+<div class="param-desc">
+<div class="param-name">parallel_master</div>
+<div class="data-type">boolean</div>
+</div>
+<div class="param-content">
+<div>
+<div class="desc md">Indicates that value of `Job ID` parameter is Parallel Master ID.</div>
+</div>
+</div>
+
+</li>
+</ul>
+<h5>Header Parameters</h5>
+<ul class="param-list">
+<li>
+<div class="param-desc">
+<div class="param-name">Accept</div>
+<div class="data-type">string</div>
+</div>
+<div class="param-content">
+<div>
+<p>Valid values: application/json, application/xml, text/xml</p>
+<p>Default: application/json</p>
+<p>Example: application/json</p>
+</div>
+</div>
+
+</li>
+</ul>
+<h4>Responses</h4>
+<div class="responses">
+<div>
+<label class="response response-success">
+<span class="fa fa-check"></span>
+<input data-full-tab-id="get-resp-code-tab-id-0" data-tab-class="resp-code-tab-get" name="resp-code-tab-get" type="radio"/>
+<span class="status">200 Ok</span>
+</label>
+<div class="response-desc resp-code-tab-get" id="get-resp-code-tab-id-0">
+</div>
+</div>
+<div>
+<label class="response response-error">
+<span class="fa fa-times"></span>
+<input data-full-tab-id="get-resp-code-tab-id-1" data-tab-class="resp-code-tab-get" name="resp-code-tab-get" type="radio"/>
+<span class="status">401 Unauthorized</span>
+</label>
+<div class="response-desc resp-code-tab-get" id="get-resp-code-tab-id-1">
+<div class="md"><p>Returned in case user is not authorized.</p></div>
+</div>
+</div>
+<div>
+<label class="response response-error">
+<span class="fa fa-times"></span>
+<input data-full-tab-id="get-resp-code-tab-id-2" data-tab-class="resp-code-tab-get" name="resp-code-tab-get" type="radio"/>
+<span class="status">403 Forbidden</span>
+</label>
+<div class="response-desc resp-code-tab-get" id="get-resp-code-tab-id-2">
+<div class="md"><p>Returned in case user has no access to the resource.</p></div>
+</div>
+</div>
+<div>
+<label class="response response-error">
+<span class="fa fa-times"></span>
+<input data-full-tab-id="get-resp-code-tab-id-3" data-tab-class="resp-code-tab-get" name="resp-code-tab-get" type="radio"/>
+<span class="status">404 Not Found</span>
+</label>
+<div class="response-desc resp-code-tab-get" id="get-resp-code-tab-id-3">
+<div class="md"><p>Returned in case resource does not exist.</p></div>
+</div>
+</div>
+<div>
+<label class="response response-error">
+<span class="fa fa-times"></span>
+<input data-full-tab-id="get-resp-code-tab-id-4" data-tab-class="resp-code-tab-get" name="resp-code-tab-get" type="radio"/>
+<span class="status">503 Service Unavailable</span>
+</label>
+<div class="response-desc resp-code-tab-get" id="get-resp-code-tab-id-4">
+<div class="md"><p>Returned in the event that the call limit is exceeded. The application will be unavailable for subsequent calls for the duration specified by the X-CallLimit-TimeToWait header.</p></div>
+</div>
+</div>
+</div>
+</article>
+<article class="code">
+<h4>Definition</h4>
+<div class="uri">
+<code>
+<span class="method get">get</span>
+<span class="textUri"><span class="baseUri">{{ getUriPrefix() }}</span><span class="relativeUri">/v2/companies/{cid}/system-jobs/{id}/status</span></span>
+</code>
+</div>
+<h4>Response Samples</h4>
+<div class="tab-title-group">
+<label>
+<input checked="checked" data-full-tab-id="resp-tab-id-get-0" data-tab-class="resp-tab-get" name="resp-tab-get" type="radio"/>
+<span class="tab-title">application/json</span>
+</label>
+<label>
+<input data-full-tab-id="resp-tab-id-get-1" data-tab-class="resp-tab-get" name="resp-tab-get" type="radio"/>
+<span class="tab-title">application/xml</span>
+</label>
+</div>
+<div>
+<div class="resp-tab-get" id="resp-tab-id-get-0">
+<div class="example">
+
+<div class="get-example-resp-tab-0 activeTab" id="get-tab-resp-example-0">
+
+<pre class="highlightjs">{
+  "id": 1,
+  "status": "DONE",
+  "to_be_cancelled": false,
+  "result_summary": "Info: Updated ACA for 1 employee(s)",
+  "error": "No finalized W-2 forms found.",
+  "progress": {
+    "line_num": 0,
+    "message": "progress message",
+    "num_to_do": 2,
+    "num_done": 2,
+    "num_skipped": 0
+  }
+}</pre>
+</div>
+<div class="get-example-resp-tab-0" id="get-tab-resp-schema-0">
+
+<div class="jsonschema" id="schema-0">{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "type": "object",
+  "properties": {
+    "id": {
+      "type": "integer"
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "NONE",
+        "NEW",
+        "RUNNING",
+        "MAX_ACTIVE",
+        "DONE",
+        "CANCELED",
+        "FAILED"
+      ]
+    },
+    "to_be_cancelled": {
+      "type": "boolean"
+    },
+    "result_summary": {
+      "type": "string"
+    },
+    "error": {
+      "type": "string"
+    },
+    "progress": {
+      "type": "object",
+      "properties": {
+        "line_num": {
+          "type": "integer"
+        },
+        "message": {
+          "type": "string"
+        },
+        "num_to_do": {
+          "type": "integer"
+        },
+        "num_done": {
+          "type": "integer"
+        },
+        "num_skipped": {
+          "type": "integer"
+        }
+      },
+      "additionalProperties": false
+    }
+  },
+  "additionalProperties": false,
+  "required": [
+    "id",
+    "status"
+  ]
+}</div>
+</div>
+</div>
+</div>
+<div class="resp-tab-get" id="resp-tab-id-get-1">
+<div class="example">
+
+<div class="get-example-resp-tab-1 activeTab" id="get-tab-resp-example-1">
+
+<pre class="highlightjs">&lt;?xml version='1.0' encoding='UTF-8'?&gt;
+&lt;job_processing_status&gt;
+  &lt;id&gt;1&lt;/id&gt;
+  &lt;status&gt;DONE&lt;/status&gt;
+  &lt;to_be_cancelled&gt;false&lt;/to_be_cancelled&gt;
+  &lt;result_summary&gt;Info: Updated ACA for 1 employee(s)&lt;/result_summary&gt;
+  &lt;error&gt;No finalized W-2 forms found.&lt;/error&gt;
+  &lt;progress&gt;
+    &lt;line_num&gt;0&lt;/line_num&gt;
+    &lt;message&gt;progress message&lt;/message&gt;
+    &lt;num_to_do&gt;2&lt;/num_to_do&gt;
+    &lt;num_done&gt;2&lt;/num_done&gt;
+    &lt;num_skipped&gt;0&lt;/num_skipped&gt;
+  &lt;/progress&gt;
+&lt;/job_processing_status&gt;</pre>
+</div>
+<div class="get-example-resp-tab-1" id="get-tab-resp-schema-1">
+
+<div class="jsonschema" id="schema-1">&lt;?xml version="1.0" encoding="UTF-8"?&gt;
+&lt;xs:schema attributeFormDefault="unqualified" elementFormDefault="qualified"
+           xmlns:xs="http://www.w3.org/2001/XMLSchema"&gt;
+    &lt;xs:element name="job_processing_status" type="job_processing_statusType"/&gt;
+    &lt;xs:complexType name="progressType"&gt;
+        &lt;xs:sequence&gt;
+            &lt;xs:element type="xs:string" name="line_num"/&gt;
+            &lt;xs:element type="xs:string" name="message" minOccurs="0" /&gt;
+            &lt;xs:element type="xs:string" name="num_to_do"/&gt;
+            &lt;xs:element type="xs:string" name="num_done"/&gt;
+            &lt;xs:element type="xs:string" name="num_skipped" minOccurs="0"/&gt;
+        &lt;/xs:sequence&gt;
+    &lt;/xs:complexType&gt;
+    &lt;xs:complexType name="job_processing_statusType"&gt;
+        &lt;xs:sequence&gt;
+            &lt;xs:element type="xs:string" name="id"/&gt;
+            &lt;xs:element name="status"&gt;
+                &lt;xs:simpleType&gt;
+                    &lt;xs:restriction base="xs:string"&gt;
+                        &lt;xs:enumeration value="NONE"/&gt;
+                        &lt;xs:enumeration value="NEW"/&gt;
+                        &lt;xs:enumeration value="RUNNING"/&gt;
+                        &lt;xs:enumeration value="MAX_ACTIVE"/&gt;
+                        &lt;xs:enumeration value="DONE"/&gt;
+                        &lt;xs:enumeration value="CANCELED"/&gt;
+                        &lt;xs:enumeration value="FAILED"/&gt;
+                    &lt;/xs:restriction&gt;
+                &lt;/xs:simpleType&gt;
+            &lt;/xs:element&gt;
+            &lt;xs:element type="xs:boolean" name="to_be_cancelled" minOccurs="0"/&gt;
+            &lt;xs:element type="xs:string" name="result_summary" minOccurs="0"/&gt;
+            &lt;xs:element type="xs:string" name="error" minOccurs="0" /&gt;
+            &lt;xs:element type="progressType" name="progress" minOccurs="0"/&gt;
+        &lt;/xs:sequence&gt;
+    &lt;/xs:complexType&gt;
+&lt;/xs:schema&gt;</div>
+</div>
+</div>
+</div>
+</div>
+</article>
+</section>
+</div>
+</body></html>

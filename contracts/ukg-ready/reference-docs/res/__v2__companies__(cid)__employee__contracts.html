@@ -1,0 +1,1893 @@
+<!doctype html>
+<html><head><meta charset="utf-8"><title>Contracts</title><style>body{font:16px system-ui;max-width:1100px;margin:2rem auto;padding:0 1rem;line-height:1.5}aside{background:#fff3cc;padding:1rem}.jsonschema,pre{white-space:pre-wrap;font:13px monospace;overflow-wrap:anywhere;background:#f4f5f7;padding:1rem}.uri{font-family:monospace}h2,h3{margin-top:2rem}</style></head><body><aside><strong>Modified private reference — 2026-10-09.</strong> Provider-documented illustrative examples are included; authentication token examples are redacted. These are not customer exports or guaranteed production behavior. Candidate sharing is pending. This is not OpenAPI.</aside>
+<div class="group">
+<h2 class="anchored" id="item.anchor">
+<span>Contracts</span>
+<a class="fa fa-link link-anchor" data-url="r=__v2__companies__(cid)__employee__contracts#" data-web-id="__v2__companies__(cid)__employee__contracts"></a>
+</h2>
+<section class="clearfix">
+<article class="definition">
+<h3 class="anchored" id="post"><span>POST</span>
+<a class="fa fa-link link-anchor" data-url="r=__v2__companies__(cid)__employee__contracts#post" data-web-id="__v2__companies__(cid)__employee__contracts"></a>
+</h3>
+<div class="md"><p>Creates employee contracts.
+If `working_days` is not specified, all days are marked as working.
+If `working_days` is an empty array, all days are marked as not working.
+`days_per_week` cannot be more than 7.
+`days_per_month` cannot be more than 31.
+`days_per_year` cannot be more than 366.
+The `fte` field is available for companies where the HR subsystem is not enabled. The value must be positive or zero.
+</p></div>
+<div>
+<ul class="annotation-list">
+<li class="annotation">
+<span>v2</span>
+</li>
+</ul>
+</div>
+<h4>Parameters</h4>
+<h5>Path Parameters</h5>
+<ul class="param-list">
+<li>
+<div class="param-desc">
+<div class="param-name">cid</div>
+<div class="data-type">string</div>
+<div class="required">required</div>
+</div>
+<div class="param-content">
+<div>
+<p>Example: 123456</p>
+<div class="desc md">Company should be referenced via company id or company unique id or company short name using `|short_name` or `!short_name` format.
+</div>
+</div>
+</div>
+
+</li>
+</ul>
+<h5>Header Parameters</h5>
+<ul class="param-list">
+<li>
+<div class="param-desc">
+<div class="param-name">Accept</div>
+<div class="data-type">string</div>
+</div>
+<div class="param-content">
+<div>
+<p>Valid values: application/xml, text/xml, */xml, application/json</p>
+<p>Example: application/xml</p>
+</div>
+</div>
+
+</li>
+<li>
+<div class="param-desc">
+<div class="param-name">Content-Type</div>
+<div class="data-type">string</div>
+<div class="required">required</div>
+</div>
+<div class="param-content">
+<div>
+<p>Valid values: application/xml, text/xml, application/json</p>
+<p>Example: application/xml</p>
+</div>
+</div>
+
+</li>
+<li>
+<div class="param-desc">
+<div class="param-name">Content-Length</div>
+<div class="data-type">integer</div>
+<div class="required">required</div>
+</div>
+<div class="param-content">
+<div>
+</div>
+</div>
+
+</li>
+</ul>
+<h4>Responses</h4>
+<div class="responses">
+<div>
+<label class="response response-success">
+<span class="fa fa-check"></span>
+<input data-full-tab-id="post-resp-code-tab-id-0" data-tab-class="resp-code-tab-post" name="resp-code-tab-post" type="radio"/>
+<span class="status">200 Ok</span>
+</label>
+<div class="response-desc resp-code-tab-post" id="post-resp-code-tab-id-0">
+<div class="md"><p>Employee contract has been created successfully.</p></div>
+</div>
+</div>
+<div>
+<label class="response response-error">
+<span class="fa fa-times"></span>
+<input data-full-tab-id="post-resp-code-tab-id-1" data-tab-class="resp-code-tab-post" name="resp-code-tab-post" type="radio"/>
+<span class="status">400 Bad Request</span>
+</label>
+<div class="response-desc resp-code-tab-post" id="post-resp-code-tab-id-1">
+<div class="md"><p>Indicates that the server cannot process the request due to a client error (e.g., malformed request syntax, invalid request).</p></div>
+</div>
+</div>
+<div>
+<label class="response response-error">
+<span class="fa fa-times"></span>
+<input data-full-tab-id="post-resp-code-tab-id-2" data-tab-class="resp-code-tab-post" name="resp-code-tab-post" type="radio"/>
+<span class="status">406 Not Acceptable</span>
+</label>
+<div class="response-desc resp-code-tab-post" id="post-resp-code-tab-id-2">
+<div class="md"><p>Returned in case the `Accept` header contains media type unsupported by end point</p></div>
+</div>
+</div>
+<div>
+<label class="response response-error">
+<span class="fa fa-times"></span>
+<input data-full-tab-id="post-resp-code-tab-id-3" data-tab-class="resp-code-tab-post" name="resp-code-tab-post" type="radio"/>
+<span class="status">413 Request Entity Too Large</span>
+</label>
+<div class="response-desc resp-code-tab-post" id="post-resp-code-tab-id-3">
+<div class="md"><p>Returned in the event that the size of the payload exceeds defined limits. Refer to the Restrictions section for details.</p></div>
+</div>
+</div>
+<div>
+<label class="response response-error">
+<span class="fa fa-times"></span>
+<input data-full-tab-id="post-resp-code-tab-id-4" data-tab-class="resp-code-tab-post" name="resp-code-tab-post" type="radio"/>
+<span class="status">415 Unsupported Media Type</span>
+</label>
+<div class="response-desc resp-code-tab-post" id="post-resp-code-tab-id-4">
+<div class="md"><p>Returned in the event that the end point doesn't support the media-type specified in the `Content-Type` header.</p></div>
+</div>
+</div>
+<div>
+<label class="response response-error">
+<span class="fa fa-times"></span>
+<input data-full-tab-id="post-resp-code-tab-id-5" data-tab-class="resp-code-tab-post" name="resp-code-tab-post" type="radio"/>
+<span class="status">500 Internal Server Error</span>
+</label>
+<div class="response-desc resp-code-tab-post" id="post-resp-code-tab-id-5">
+<div class="md"><p>Returned in the event an internal server error occurred while processing the request.</p></div>
+</div>
+</div>
+</div>
+</article>
+<article class="code">
+<h4>Definition</h4>
+<div class="uri">
+<code>
+<span class="method post">post</span>
+<span class="textUri"><span class="baseUri">{{ getUriPrefix() }}</span><span class="relativeUri">/v2/companies/{cid}/employee/contracts</span></span>
+</code>
+</div>
+<h4>Request Samples</h4>
+<div class="tab-title-group">
+<label>
+<input checked="checked" data-full-tab-id="req-tab-id-post-0" data-tab-class="req-tab-post" name="req-tab-post" type="radio"/>
+<span class="tab-title">application/json</span>
+</label>
+<label>
+<input data-full-tab-id="req-tab-id-post-1" data-tab-class="req-tab-post" name="req-tab-post" type="radio"/>
+<span class="tab-title">application/xml</span>
+</label>
+</div>
+<div>
+<div class="req-tab-post" id="req-tab-id-post-0">
+<div class="example">
+
+<div class="post-example-tab-0 activeTab" id="post-tab-example-0">
+
+<pre class="highlightjs">{
+  "contracts": [
+    {
+      "id": {
+        "external_id": "123456"
+      },
+      "company": {
+        "short_name": "company_short_name"
+      },
+      "employee": {
+        "account_id": "654321"
+      },
+      "hours_per_day": "08:00",
+      "hours_per_week": "040:00",
+      "hours_per_month": "0160:00",
+      "hours_per_pay_period": "160:00",
+      "hours_per_year": "1760:00",
+      "days_per_week": 4.50,
+      "days_per_month": 30.00,
+      "days_per_pay_period": 5.00,
+      "days_per_year": 288.69,
+      "working_days": [
+        "MONDAY",
+        "TUESDAY",
+        "WEDNESDAY",
+        "THURSDAY",
+        "FRIDAY"
+      ],
+      "start_date": "2016-11-30",
+      "end_date": null,
+      "standard_work_week": null,
+      "hourly_cost": 1.00,
+      "contract_type": null,
+      "probation_period": false,
+      "probation_period_end_date": null,
+      "expected_end_date": "2029-01-01",
+      "fte": 0.95
+    }
+  ]
+}</pre>
+</div>
+<div class="post-example-tab-0" id="post-tab-schema-0">
+
+<div class="jsonschema" id="schema-0">{
+  "$schema": "http://json-schema.org/draft-06/schema#",
+  "type": "object",
+  "properties": {
+    "contracts": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "object",
+            "properties": {
+              "contract_id": {
+                "type": [
+                  "integer",
+                  "null"
+                ]
+              },
+              "external_id": {
+                "type": [
+                  "string",
+                  "null"
+                ]
+              }
+            },
+            "minProperties": 1,
+            "maxProperties": 1
+          },
+          "company": {
+            "type": "object",
+            "properties": {
+              "external_id": {
+                "type": "string"
+              },
+              "short_name": {
+                "type": "string"
+              },
+              "system_id": {
+                "type": "string"
+              }
+            },
+            "minProperties": 1,
+            "maxProperties": 1
+          },
+          "employee": {
+            "type": "object",
+            "properties": {
+              "account_id": {
+                "type": "string"
+              },
+              "external_id": {
+                "type": "string"
+              },
+              "username": {
+                "type": "string"
+              },
+              "employee_id": {
+                "type": "string"
+              },
+              "ein_name": {
+                "type": "string"
+              },
+              "ein_tax_id": {
+                "type": "string"
+              }
+            },
+            "minProperties": 1,
+            "maxProperties": 2
+          },
+          "hours_per_day": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "pattern": "^-?([0-9]+([.][0-9]{2}|:[0-5][0-9]))$"
+          },
+          "hours_per_week": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "pattern": "^-?([0-9]+([.][0-9]{2}|:[0-5][0-9]))$"
+          },
+          "hours_per_month": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "pattern": "^-?([0-9]+([.][0-9]{2}|:[0-5][0-9]))$"
+          },
+          "hours_per_pay_period": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "pattern": "^-?([0-9]+([.][0-9]{2}|:[0-5][0-9]))$"
+          },
+          "hours_per_year": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "pattern": "^-?([0-9]+([.][0-9]{2}|:[0-5][0-9]))$"
+          },
+          "days_per_week": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 7,
+            "multipleOf": 0.01
+          },
+          "days_per_month": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 31,
+            "multipleOf": 0.01
+          },
+          "days_per_pay_period": {
+            "type": "number",
+            "minimum": 0,
+            "multipleOf": 0.01
+          },
+          "days_per_pay_year": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 366,
+            "multipleOf": 0.01
+          },
+          "working_days": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "enum": [
+                "MONDAY",
+                "TUESDAY",
+                "WEDNESDAY",
+                "THURSDAY",
+                "FRIDAY",
+                "SATURDAY",
+                "SUNDAY"
+              ]
+            },
+            "maxItems": 7
+          },
+          "start_date": {
+            "type": "string"
+          },
+          "end_date": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "standard_work_week": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "pattern": "^-?([0-9]+([.][0-9]{2}|:[0-5][0-9]))$"
+          },
+          "hourly_cost": {
+            "type": [
+              "number",
+              "null"
+            ],
+            "minimum": 0.01
+          },
+          "contract_type": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "probation_period": {
+            "type": [
+              "boolean",
+              "null"
+            ]
+          },
+          "probation_period_end_date": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "expected_end_date": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "fte": {
+            "type": [
+              "number",
+              "null"
+            ],
+            "minimum": 0,
+            "multipleOf": 0.01
+          }
+        },
+        "required": [
+          "company",
+          "employee",
+          "start_date"
+        ]
+      }
+    }
+  },
+  "required": [
+    "contracts"
+  ]
+}</div>
+</div>
+</div>
+</div>
+<div class="req-tab-post" id="req-tab-id-post-1">
+<div class="example">
+
+<div class="post-example-tab-1 activeTab" id="post-tab-example-1">
+
+<pre class="highlightjs">&lt;?xml version="1.0" encoding="UTF-8" ?&gt;
+&lt;contracts&gt;
+  &lt;contract&gt;
+    &lt;id&gt;
+      &lt;external_id&gt;123456&lt;/external_id&gt;
+    &lt;/id&gt;
+    &lt;company&gt;
+      &lt;short_name&gt;
+        company_short_name
+      &lt;/short_name&gt;
+    &lt;/company&gt;
+    &lt;employee&gt;
+      &lt;external_id&gt;654321&lt;/external_id&gt;
+    &lt;/employee&gt;
+    &lt;hours_per_day&gt;08:00&lt;/hours_per_day&gt;
+    &lt;hours_per_week&gt;040:00&lt;/hours_per_week&gt;
+    &lt;hours_per_month&gt;0160:00&lt;/hours_per_month&gt;
+    &lt;hours_per_pay_period&gt;160:00&lt;/hours_per_pay_period&gt;
+    &lt;hours_per_year&gt;1760:00&lt;/hours_per_year&gt;
+    &lt;days_per_week&gt;4.50&lt;/days_per_week&gt;
+    &lt;days_per_month&gt;30.00&lt;/days_per_month&gt;
+    &lt;days_per_pay_period&gt;5.00&lt;/days_per_pay_period&gt;
+    &lt;days_per_year&gt;288.69&lt;/days_per_year&gt;
+    &lt;working_days&gt;
+      &lt;working_day&gt;MONDAY&lt;/working_day&gt;
+      &lt;working_day&gt;TUESDAY&lt;/working_day&gt;
+      &lt;working_day&gt;WEDNESDAY&lt;/working_day&gt;
+      &lt;working_day&gt;THURSDAY&lt;/working_day&gt;
+      &lt;working_day&gt;FRIDAY&lt;/working_day&gt;
+    &lt;/working_days&gt;
+    &lt;start_date&gt;2014-01-01&lt;/start_date&gt;
+    &lt;hourly_cost&gt;12.00&lt;/hourly_cost&gt;
+    &lt;contract_type/&gt;
+    &lt;probation_period&gt;false&lt;/probation_period&gt;
+    &lt;probation_period_end_date&gt;2014-03-01&lt;/probation_period_end_date&gt;
+    &lt;expected_end_date&gt;2016-01-01&lt;/expected_end_date&gt;
+    &lt;fte&gt;0.95&lt;/fte&gt;
+  &lt;/contract&gt;
+&lt;/contracts&gt;
+</pre>
+</div>
+<div class="post-example-tab-1" id="post-tab-schema-1">
+
+<div class="jsonschema" id="schema-1">&lt;xs:schema attributeFormDefault="unqualified" elementFormDefault="qualified"
+           xmlns:xs="http://www.w3.org/2001/XMLSchema"&gt;
+  &lt;xs:element name="contracts"&gt;
+    &lt;xs:complexType&gt;
+      &lt;xs:sequence maxOccurs="unbounded"&gt;
+        &lt;xs:element name="contract"&gt;
+          &lt;xs:complexType&gt;
+            &lt;xs:choice maxOccurs="unbounded"&gt;
+              &lt;xs:element name="id" minOccurs="0"&gt;
+                &lt;xs:complexType&gt;
+                  &lt;xs:choice&gt;
+                    &lt;xs:element type="xs:integer" name="contract_id"/&gt;
+                    &lt;xs:element type="xs:string" name="external_id"/&gt;
+                  &lt;/xs:choice&gt;
+                &lt;/xs:complexType&gt;
+              &lt;/xs:element&gt;
+              &lt;xs:element name="company"&gt;
+                &lt;xs:complexType&gt;
+                  &lt;xs:choice&gt;
+                    &lt;xs:element name="short_name" type="xs:string"/&gt;
+                    &lt;xs:element name="external_id" type="xs:string"/&gt;
+                    &lt;xs:element name="system_id" type="xs:string"/&gt;
+                  &lt;/xs:choice&gt;
+                &lt;/xs:complexType&gt;
+              &lt;/xs:element&gt;
+              &lt;xs:element name="employee"&gt;
+                &lt;xs:complexType&gt;
+                  &lt;xs:sequence&gt;
+                    &lt;xs:choice&gt;
+                      &lt;xs:element type="xs:string" name="account_id"/&gt;
+                      &lt;xs:element type="xs:string" name="external_id"/&gt;
+                      &lt;xs:element type="xs:string" name="username"/&gt;
+                      &lt;xs:element type="xs:string" name="employee_id"/&gt;
+                    &lt;/xs:choice&gt;
+                    &lt;xs:element type="xs:string" name="ein_name" minOccurs="0"/&gt;
+                    &lt;xs:element type="xs:string" name="ein_tax_id" minOccurs="0"/&gt;
+                  &lt;/xs:sequence&gt;
+                &lt;/xs:complexType&gt;
+              &lt;/xs:element&gt;
+              &lt;xs:element type="sys_date" name="start_date"/&gt;
+              &lt;xs:element type="sys_date" name="end_date" minOccurs="0"/&gt;
+              &lt;xs:element name="hours_per_day" minOccurs="0"&gt;
+                &lt;xs:simpleType&gt;
+                  &lt;xs:restriction base="xs:string"&gt;
+                    &lt;xs:pattern value="-?([0-9]+([.][0-9]{2}|:[0-5][0-9]))"/&gt;
+                  &lt;/xs:restriction&gt;
+                &lt;/xs:simpleType&gt;
+              &lt;/xs:element&gt;
+              &lt;xs:element name="hours_per_week" minOccurs="0"&gt;
+                &lt;xs:simpleType&gt;
+                  &lt;xs:restriction base="xs:string"&gt;
+                    &lt;xs:pattern value="-?([0-9]+([.][0-9]{2}|:[0-5][0-9]))"/&gt;
+                  &lt;/xs:restriction&gt;
+                &lt;/xs:simpleType&gt;
+              &lt;/xs:element&gt;
+              &lt;xs:element name="hours_per_month" minOccurs="0"&gt;
+                &lt;xs:simpleType&gt;
+                  &lt;xs:restriction base="xs:string"&gt;
+                    &lt;xs:pattern value="-?([0-9]+([.][0-9]{2}|:[0-5][0-9]))"/&gt;
+                  &lt;/xs:restriction&gt;
+                &lt;/xs:simpleType&gt;
+              &lt;/xs:element&gt;
+              &lt;xs:element name="hours_per_pay_period" minOccurs="0"&gt;
+                &lt;xs:simpleType&gt;
+                  &lt;xs:restriction base="xs:string"&gt;
+                    &lt;xs:pattern value="-?([0-9]+([.][0-9]{2}|:[0-5][0-9]))"/&gt;
+                  &lt;/xs:restriction&gt;
+                &lt;/xs:simpleType&gt;
+              &lt;/xs:element&gt;
+              &lt;xs:element name="hours_per_year" minOccurs="0"&gt;
+                &lt;xs:simpleType&gt;
+                  &lt;xs:restriction base="xs:string"&gt;
+                    &lt;xs:pattern value="-?([0-9]+([.][0-9]{2}|:[0-5][0-9]))"/&gt;
+                  &lt;/xs:restriction&gt;
+                &lt;/xs:simpleType&gt;
+              &lt;/xs:element&gt;
+              &lt;xs:element name="days_per_week" minOccurs="0"&gt;
+                &lt;xs:simpleType&gt;
+                  &lt;xs:restriction base="xs:decimal"&gt;
+                    &lt;xs:minInclusive value="0"/&gt;
+                    &lt;xs:maxInclusive value="7"/&gt;
+                    &lt;xs:fractionDigits value="2"/&gt;
+                  &lt;/xs:restriction&gt;
+                &lt;/xs:simpleType&gt;
+              &lt;/xs:element&gt;
+              &lt;xs:element name="days_per_month" minOccurs="0"&gt;
+                &lt;xs:simpleType&gt;
+                  &lt;xs:restriction base="xs:decimal"&gt;
+                    &lt;xs:minInclusive value="0"/&gt;
+                    &lt;xs:maxInclusive value="31"/&gt;
+                    &lt;xs:fractionDigits value="2"/&gt;
+                  &lt;/xs:restriction&gt;
+                &lt;/xs:simpleType&gt;
+              &lt;/xs:element&gt;
+              &lt;xs:element name="days_per_pay_period" minOccurs="0"&gt;
+                &lt;xs:simpleType&gt;
+                  &lt;xs:restriction base="xs:decimal"&gt;
+                    &lt;xs:minInclusive value="0"/&gt;
+                    &lt;xs:fractionDigits value="2"/&gt;
+                  &lt;/xs:restriction&gt;
+                &lt;/xs:simpleType&gt;
+              &lt;/xs:element&gt;
+              &lt;xs:element name="days_per_year" minOccurs="0"&gt;
+                &lt;xs:simpleType&gt;
+                  &lt;xs:restriction base="xs:decimal"&gt;
+                    &lt;xs:minInclusive value="0"/&gt;
+                    &lt;xs:maxInclusive value="366"/&gt;
+                    &lt;xs:fractionDigits value="2"/&gt;
+                  &lt;/xs:restriction&gt;
+                &lt;/xs:simpleType&gt;
+              &lt;/xs:element&gt;
+              &lt;xs:element name="working_days"&gt;
+                &lt;xs:complexType&gt;
+                  &lt;xs:sequence&gt;
+                    &lt;xs:element name="working_day" minOccurs="0" maxOccurs="7"&gt;
+                      &lt;xs:simpleType&gt;
+                        &lt;xs:restriction base="xs:string"&gt;
+                          &lt;xs:enumeration value="MONDAY"/&gt;
+                          &lt;xs:enumeration value="TUESDAY"/&gt;
+                          &lt;xs:enumeration value="WEDNESDAY"/&gt;
+                          &lt;xs:enumeration value="THURSDAY"/&gt;
+                          &lt;xs:enumeration value="FRIDAY"/&gt;
+                          &lt;xs:enumeration value="SATURDAY"/&gt;
+                          &lt;xs:enumeration value="SUNDAY"/&gt;
+                        &lt;/xs:restriction&gt;
+                      &lt;/xs:simpleType&gt;
+                    &lt;/xs:element&gt;
+                  &lt;/xs:sequence&gt;
+                &lt;/xs:complexType&gt;
+              &lt;/xs:element&gt;
+              &lt;xs:element name="standard_work_week" minOccurs="0"&gt;
+                &lt;xs:simpleType&gt;
+                  &lt;xs:restriction base="xs:string"&gt;
+                    &lt;xs:pattern value="-?([0-9]+([.][0-9]{2}|:[0-5][0-9]))"/&gt;
+                  &lt;/xs:restriction&gt;
+                &lt;/xs:simpleType&gt;
+              &lt;/xs:element&gt;
+              &lt;xs:element name="hourly_cost" minOccurs="0"&gt;
+                &lt;xs:simpleType&gt;
+                  &lt;xs:restriction base="xs:string"&gt;
+                    &lt;xs:pattern value="[0-9]+.[0-9]{2}"/&gt;
+                  &lt;/xs:restriction&gt;
+                &lt;/xs:simpleType&gt;
+              &lt;/xs:element&gt;
+              &lt;xs:element type="xs:string" name="contract_type" minOccurs="0"/&gt;
+              &lt;xs:element type="xs:boolean" name="probation_period" minOccurs="0"/&gt;
+              &lt;xs:element type="sys_date" name="probation_period_end_date" minOccurs="0"/&gt;
+              &lt;xs:element type="sys_date" name="expected_end_date" minOccurs="0"/&gt;
+              &lt;xs:element name="fte" minOccurs="0"&gt;
+                &lt;xs:simpleType&gt;
+                  &lt;xs:restriction base="xs:decimal"&gt;
+                    &lt;xs:minInclusive value="0"/&gt;
+                    &lt;xs:fractionDigits value="2"/&gt;
+                  &lt;/xs:restriction&gt;
+                &lt;/xs:simpleType&gt;
+              &lt;/xs:element&gt;
+            &lt;/xs:choice&gt;
+          &lt;/xs:complexType&gt;
+        &lt;/xs:element&gt;
+      &lt;/xs:sequence&gt;
+    &lt;/xs:complexType&gt;
+  &lt;/xs:element&gt;
+
+  &lt;xs:simpleType name="sys_date"&gt;
+    &lt;xs:restriction base="xs:date"&gt;
+      &lt;xs:pattern value="(19[0-9]{2}|20[0-6][0-9]|2070)-(0[1-9]|1[0-2])-(0[1-9]|[1-2][0-9]|3[0-1])"/&gt;
+    &lt;/xs:restriction&gt;
+  &lt;/xs:simpleType&gt;
+&lt;/xs:schema&gt;</div>
+</div>
+</div>
+</div>
+</div>
+<h4>Response Samples</h4>
+<div class="tab-title-group">
+<label>
+<input checked="checked" data-full-tab-id="resp-tab-id-post-0" data-tab-class="resp-tab-post" name="resp-tab-post" type="radio"/>
+<span class="tab-title">application/json</span>
+</label>
+<label>
+<input data-full-tab-id="resp-tab-id-post-1" data-tab-class="resp-tab-post" name="resp-tab-post" type="radio"/>
+<span class="tab-title">application/xml</span>
+</label>
+<label>
+<input data-full-tab-id="resp-tab-id-post-2" data-tab-class="resp-tab-post" name="resp-tab-post" type="radio"/>
+<span class="tab-title">text/xml</span>
+</label>
+</div>
+<div>
+<div class="resp-tab-post" id="resp-tab-id-post-0">
+<div class="example">
+
+<div class="post-example-resp-tab-0 activeTab" id="post-tab-resp-example-0">
+
+<pre class="highlightjs">{
+  "items": [
+    {
+      "index": 0,
+      "id": "153467",
+      "status": "OK"
+    },
+    {
+      "index": 1,
+      "status": "FAILURE",
+      "errors": [
+        {
+          "code": 153652,
+          "message": "Cannot process entity because of ..."
+        }
+      ]
+    }
+  ]
+}</pre>
+</div>
+<div class="post-example-resp-tab-0" id="post-tab-resp-schema-0">
+
+<div class="jsonschema" id="schema-2">{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "type": "object",
+  "properties": {
+    "items": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "index": {
+            "type": [
+              "integer",
+              "null"
+            ]
+          },
+          "id": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "status": {
+            "type": "string",
+            "enum": [
+              "OK",
+              "FAILURE"
+            ]
+          },
+          "errors": {
+            "type": [
+              "array",
+              "null"
+            ],
+            "items": {
+              "type": "object",
+              "properties": {
+                "code": {
+                  "type": "integer"
+                },
+                "message": {
+                  "type": "string"
+                },
+                "key": {
+                  "type": "string"
+                }
+              },
+              "additionalProperties": false,
+              "required": [
+                "code",
+                "message"
+              ]
+            }
+          }
+        },
+        "additionalProperties": false
+      }
+    }
+  },
+  "additionalProperties": false
+}</div>
+</div>
+</div>
+</div>
+<div class="resp-tab-post" id="resp-tab-id-post-1">
+<div class="example">
+
+<div class="post-example-resp-tab-1 activeTab" id="post-tab-resp-example-1">
+
+<pre class="highlightjs">&lt;?xml version="1.0" encoding="UTF-8" ?&gt;
+&lt;result&gt;
+  &lt;item&gt;
+    &lt;index&gt;0&lt;/index&gt;
+    &lt;id&gt;153467&lt;/id&gt;
+    &lt;status&gt;OK&lt;/status&gt;
+  &lt;/item&gt;
+  &lt;item&gt;
+    &lt;index&gt;0&lt;/index&gt;
+    &lt;status&gt;FAILURE&lt;/status&gt;
+    &lt;errors&gt;
+      &lt;error&gt;
+        &lt;code&gt;153652&lt;/code&gt;
+        &lt;message&gt;Cannot process entity because of ...&lt;/message&gt;
+      &lt;/error&gt;
+    &lt;/errors&gt;
+  &lt;/item&gt;
+&lt;/result&gt;</pre>
+</div>
+<div class="post-example-resp-tab-1" id="post-tab-resp-schema-1">
+
+<div class="jsonschema" id="schema-3">&lt;xs:schema attributeFormDefault="unqualified" elementFormDefault="qualified"
+           xmlns:xs="http://www.w3.org/2001/XMLSchema"&gt;
+
+    &lt;xs:element name="result"&gt;
+        &lt;xs:complexType&gt;
+            &lt;xs:sequence maxOccurs="unbounded"&gt;
+                &lt;xs:element type="item" name="item"/&gt;
+            &lt;/xs:sequence&gt;
+        &lt;/xs:complexType&gt;
+    &lt;/xs:element&gt;
+
+    &lt;xs:complexType name="item"&gt;
+        &lt;xs:all&gt;
+            &lt;xs:element type="xs:nonNegativeInteger" name="index" minOccurs="1"/&gt;
+            &lt;xs:element type="xs:string" name="id" minOccurs="0"/&gt;
+            &lt;xs:element type="errors" name="errors" minOccurs="0"/&gt;
+            &lt;xs:element type="status" name="status" minOccurs="1" maxOccurs="1"/&gt;
+        &lt;/xs:all&gt;
+    &lt;/xs:complexType&gt;
+
+    &lt;xs:complexType name="errorType"&gt;
+        &lt;xs:all&gt;
+            &lt;xs:element type="xs:integer" name="code"/&gt;
+            &lt;xs:element type="xs:string" name="message"/&gt;
+            &lt;xs:element type="xs:string" name="key" minOccurs="0"/&gt;
+        &lt;/xs:all&gt;
+    &lt;/xs:complexType&gt;
+
+    &lt;xs:complexType name="errors"&gt;
+        &lt;xs:sequence minOccurs="0" maxOccurs="unbounded"&gt;
+            &lt;xs:element type="errorType" name="error"/&gt;
+        &lt;/xs:sequence&gt;
+    &lt;/xs:complexType&gt;
+
+    &lt;xs:simpleType name="status"&gt;
+        &lt;xs:restriction base="xs:string"&gt;
+            &lt;xs:enumeration value="OK"/&gt;
+            &lt;xs:enumeration value="FAILURE"/&gt;
+        &lt;/xs:restriction&gt;
+    &lt;/xs:simpleType&gt;
+&lt;/xs:schema&gt;</div>
+</div>
+</div>
+</div>
+<div class="resp-tab-post" id="resp-tab-id-post-2">
+<div class="example">
+
+<div class="post-example-resp-tab-2 activeTab" id="post-tab-resp-example-2">
+
+<pre class="highlightjs">&lt;?xml version="1.0" encoding="UTF-8" ?&gt;
+&lt;result&gt;
+  &lt;item&gt;
+    &lt;index&gt;0&lt;/index&gt;
+    &lt;id&gt;153467&lt;/id&gt;
+    &lt;status&gt;OK&lt;/status&gt;
+  &lt;/item&gt;
+  &lt;item&gt;
+    &lt;index&gt;0&lt;/index&gt;
+    &lt;status&gt;FAILURE&lt;/status&gt;
+    &lt;errors&gt;
+      &lt;error&gt;
+        &lt;code&gt;153652&lt;/code&gt;
+        &lt;message&gt;Cannot process entity because of ...&lt;/message&gt;
+      &lt;/error&gt;
+    &lt;/errors&gt;
+  &lt;/item&gt;
+&lt;/result&gt;</pre>
+</div>
+<div class="post-example-resp-tab-2" id="post-tab-resp-schema-2">
+
+<div class="jsonschema" id="schema-4">&lt;xs:schema attributeFormDefault="unqualified" elementFormDefault="qualified"
+           xmlns:xs="http://www.w3.org/2001/XMLSchema"&gt;
+
+    &lt;xs:element name="result"&gt;
+        &lt;xs:complexType&gt;
+            &lt;xs:sequence maxOccurs="unbounded"&gt;
+                &lt;xs:element type="item" name="item"/&gt;
+            &lt;/xs:sequence&gt;
+        &lt;/xs:complexType&gt;
+    &lt;/xs:element&gt;
+
+    &lt;xs:complexType name="item"&gt;
+        &lt;xs:all&gt;
+            &lt;xs:element type="xs:nonNegativeInteger" name="index" minOccurs="1"/&gt;
+            &lt;xs:element type="xs:string" name="id" minOccurs="0"/&gt;
+            &lt;xs:element type="errors" name="errors" minOccurs="0"/&gt;
+            &lt;xs:element type="status" name="status" minOccurs="1" maxOccurs="1"/&gt;
+        &lt;/xs:all&gt;
+    &lt;/xs:complexType&gt;
+
+    &lt;xs:complexType name="errorType"&gt;
+        &lt;xs:all&gt;
+            &lt;xs:element type="xs:integer" name="code"/&gt;
+            &lt;xs:element type="xs:string" name="message"/&gt;
+            &lt;xs:element type="xs:string" name="key" minOccurs="0"/&gt;
+        &lt;/xs:all&gt;
+    &lt;/xs:complexType&gt;
+
+    &lt;xs:complexType name="errors"&gt;
+        &lt;xs:sequence minOccurs="0" maxOccurs="unbounded"&gt;
+            &lt;xs:element type="errorType" name="error"/&gt;
+        &lt;/xs:sequence&gt;
+    &lt;/xs:complexType&gt;
+
+    &lt;xs:simpleType name="status"&gt;
+        &lt;xs:restriction base="xs:string"&gt;
+            &lt;xs:enumeration value="OK"/&gt;
+            &lt;xs:enumeration value="FAILURE"/&gt;
+        &lt;/xs:restriction&gt;
+    &lt;/xs:simpleType&gt;
+&lt;/xs:schema&gt;</div>
+</div>
+</div>
+</div>
+</div>
+</article>
+</section>
+<section class="clearfix">
+<article class="definition">
+<h3 class="anchored" id="put"><span>PUT</span>
+<a class="fa fa-link link-anchor" data-url="r=__v2__companies__(cid)__employee__contracts#put" data-web-id="__v2__companies__(cid)__employee__contracts"></a>
+</h3>
+<div class="md"><p>Updates existing employee contracts.
+The operation uses the following fields to look up existing contracts:
+  * id (contract_id or external_id)
+  * start_date and end_date
+
+If a contract cannot be found using the provided fields, error code _13004_ is returned for the payload.
+`days_per_week` cannot be more than 7.
+`days_per_month` cannot be more than 31.
+`days_per_year` cannot be more than 366.
+The `fte` field is available for companies where the HR subsystem is not enabled. The value must be positive or zero.
+</p></div>
+<div>
+<ul class="annotation-list">
+<li class="annotation">
+<span>v2</span>
+</li>
+</ul>
+</div>
+<h4>Parameters</h4>
+<h5>Path Parameters</h5>
+<ul class="param-list">
+<li>
+<div class="param-desc">
+<div class="param-name">cid</div>
+<div class="data-type">string</div>
+<div class="required">required</div>
+</div>
+<div class="param-content">
+<div>
+<p>Example: 123456</p>
+<div class="desc md">Company should be referenced via company id or company unique id or company short name using `|short_name` or `!short_name` format.
+</div>
+</div>
+</div>
+
+</li>
+</ul>
+<h5>Header Parameters</h5>
+<ul class="param-list">
+<li>
+<div class="param-desc">
+<div class="param-name">Accept</div>
+<div class="data-type">string</div>
+</div>
+<div class="param-content">
+<div>
+<p>Valid values: application/xml, text/xml, */xml, application/json</p>
+<p>Example: application/xml</p>
+</div>
+</div>
+
+</li>
+<li>
+<div class="param-desc">
+<div class="param-name">Content-Type</div>
+<div class="data-type">string</div>
+<div class="required">required</div>
+</div>
+<div class="param-content">
+<div>
+<p>Valid values: application/xml, text/xml, application/json</p>
+<p>Example: application/xml</p>
+</div>
+</div>
+
+</li>
+<li>
+<div class="param-desc">
+<div class="param-name">Content-Length</div>
+<div class="data-type">integer</div>
+<div class="required">required</div>
+</div>
+<div class="param-content">
+<div>
+</div>
+</div>
+
+</li>
+</ul>
+<h4>Responses</h4>
+<div class="responses">
+<div>
+<label class="response response-success">
+<span class="fa fa-check"></span>
+<input data-full-tab-id="put-resp-code-tab-id-0" data-tab-class="resp-code-tab-put" name="resp-code-tab-put" type="radio"/>
+<span class="status">200 Ok</span>
+</label>
+<div class="response-desc resp-code-tab-put" id="put-resp-code-tab-id-0">
+<div class="md"><p>Returned in case payload was successfully processed.
+Note: each separate item in the payload may contain errors.
+Refer to the corresponding error code table and response schema.
+</p></div>
+</div>
+</div>
+<div>
+<label class="response response-error">
+<span class="fa fa-times"></span>
+<input data-full-tab-id="put-resp-code-tab-id-1" data-tab-class="resp-code-tab-put" name="resp-code-tab-put" type="radio"/>
+<span class="status">400 Bad Request</span>
+</label>
+<div class="response-desc resp-code-tab-put" id="put-resp-code-tab-id-1">
+<div class="md"><p>Indicates that the server cannot process the request due to a client error (e.g., malformed request syntax, invalid request).</p></div>
+</div>
+</div>
+<div>
+<label class="response response-error">
+<span class="fa fa-times"></span>
+<input data-full-tab-id="put-resp-code-tab-id-2" data-tab-class="resp-code-tab-put" name="resp-code-tab-put" type="radio"/>
+<span class="status">406 Not Acceptable</span>
+</label>
+<div class="response-desc resp-code-tab-put" id="put-resp-code-tab-id-2">
+<div class="md"><p>Returned in case the `Accept` header contains media type unsupported by end point</p></div>
+</div>
+</div>
+<div>
+<label class="response response-error">
+<span class="fa fa-times"></span>
+<input data-full-tab-id="put-resp-code-tab-id-3" data-tab-class="resp-code-tab-put" name="resp-code-tab-put" type="radio"/>
+<span class="status">413 Request Entity Too Large</span>
+</label>
+<div class="response-desc resp-code-tab-put" id="put-resp-code-tab-id-3">
+<div class="md"><p>Returned in the event that the size of the payload exceeds defined limits. Refer to the Restrictions section for details.</p></div>
+</div>
+</div>
+<div>
+<label class="response response-error">
+<span class="fa fa-times"></span>
+<input data-full-tab-id="put-resp-code-tab-id-4" data-tab-class="resp-code-tab-put" name="resp-code-tab-put" type="radio"/>
+<span class="status">415 Unsupported Media Type</span>
+</label>
+<div class="response-desc resp-code-tab-put" id="put-resp-code-tab-id-4">
+<div class="md"><p>Returned in the event that the end point doesn't support the media-type specified in the `Content-Type` header.</p></div>
+</div>
+</div>
+<div>
+<label class="response response-error">
+<span class="fa fa-times"></span>
+<input data-full-tab-id="put-resp-code-tab-id-5" data-tab-class="resp-code-tab-put" name="resp-code-tab-put" type="radio"/>
+<span class="status">500 Internal Server Error</span>
+</label>
+<div class="response-desc resp-code-tab-put" id="put-resp-code-tab-id-5">
+<div class="md"><p>Returned in the event an internal server error occurred while processing the request.</p></div>
+</div>
+</div>
+</div>
+</article>
+<article class="code">
+<h4>Definition</h4>
+<div class="uri">
+<code>
+<span class="method put">put</span>
+<span class="textUri"><span class="baseUri">{{ getUriPrefix() }}</span><span class="relativeUri">/v2/companies/{cid}/employee/contracts</span></span>
+</code>
+</div>
+<h4>Request Samples</h4>
+<div class="tab-title-group">
+<label>
+<input checked="checked" data-full-tab-id="req-tab-id-put-0" data-tab-class="req-tab-put" name="req-tab-put" type="radio"/>
+<span class="tab-title">application/json</span>
+</label>
+<label>
+<input data-full-tab-id="req-tab-id-put-1" data-tab-class="req-tab-put" name="req-tab-put" type="radio"/>
+<span class="tab-title">application/xml</span>
+</label>
+</div>
+<div>
+<div class="req-tab-put" id="req-tab-id-put-0">
+<div class="example">
+
+<div class="put-example-tab-0 activeTab" id="put-tab-example-0">
+
+<pre class="highlightjs">{
+  "contracts": [
+    {
+      "id": {
+        "contract_id": 123456
+      },
+      "company": {
+        "short_name": "company_short_name"
+      },
+      "employee": {
+        "account_id": "654321"
+      },
+      "hours_per_day": "08:00",
+      "hours_per_week": "040:00",
+      "hours_per_month": "0160:00",
+      "hours_per_pay_period": "160:00",
+      "hours_per_year": "1760:00",
+      "days_per_week": 4.50,
+      "days_per_month": 30.00,
+      "days_per_pay_period": 5.00,
+      "days_per_year": 288.69,
+      "working_days": [
+        "MONDAY",
+        "TUESDAY",
+        "WEDNESDAY",
+        "THURSDAY",
+        "FRIDAY"
+      ],
+      "start_date": "2016-11-30",
+      "end_date": null,
+      "standard_work_week": null,
+      "hourly_cost": 1.00,
+      "contract_type": null,
+      "probation_period": false,
+      "probation_period_end_date": null,
+      "expected_end_date": "2029-01-01",
+      "fte": 0.95
+    }
+  ]
+}</pre>
+</div>
+<div class="put-example-tab-0" id="put-tab-schema-0">
+
+<div class="jsonschema" id="schema-5">{
+  "$schema": "http://json-schema.org/draft-06/schema#",
+  "type": "object",
+  "properties": {
+    "contracts": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "object",
+            "properties": {
+              "contract_id": {
+                "type": [
+                  "integer",
+                  "null"
+                ]
+              },
+              "external_id": {
+                "type": [
+                  "string",
+                  "null"
+                ]
+              }
+            },
+            "minProperties": 1,
+            "maxProperties": 1
+          },
+          "company": {
+            "type": "object",
+            "properties": {
+              "external_id": {
+                "type": "string"
+              },
+              "short_name": {
+                "type": "string"
+              },
+              "system_id": {
+                "type": "string"
+              }
+            },
+            "minProperties": 1,
+            "maxProperties": 1
+          },
+          "employee": {
+            "type": "object",
+            "properties": {
+              "account_id": {
+                "type": "string"
+              },
+              "external_id": {
+                "type": "string"
+              },
+              "username": {
+                "type": "string"
+              },
+              "employee_id": {
+                "type": "string"
+              },
+              "ein_name": {
+                "type": "string"
+              },
+              "ein_tax_id": {
+                "type": "string"
+              }
+            },
+            "minProperties": 1,
+            "maxProperties": 2
+          },
+          "hours_per_day": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "pattern": "^-?([0-9]+([.][0-9]{2}|:[0-5][0-9]))$"
+          },
+          "hours_per_week": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "pattern": "^-?([0-9]+([.][0-9]{2}|:[0-5][0-9]))$"
+          },
+          "hours_per_month": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "pattern": "^-?([0-9]+([.][0-9]{2}|:[0-5][0-9]))$"
+          },
+          "hours_per_pay_period": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "pattern": "^-?([0-9]+([.][0-9]{2}|:[0-5][0-9]))$"
+          },
+          "hours_per_year": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "pattern": "^-?([0-9]+([.][0-9]{2}|:[0-5][0-9]))$"
+          },
+          "days_per_week": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 7,
+            "multipleOf": 0.01
+          },
+          "days_per_month": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 31,
+            "multipleOf": 0.01
+          },
+          "days_per_pay_period": {
+            "type": "number",
+            "minimum": 0,
+            "multipleOf": 0.01
+          },
+          "days_per_pay_year": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 366,
+            "multipleOf": 0.01
+          },
+          "working_days": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "enum": [
+                "MONDAY",
+                "TUESDAY",
+                "WEDNESDAY",
+                "THURSDAY",
+                "FRIDAY",
+                "SATURDAY",
+                "SUNDAY"
+              ]
+            },
+            "maxItems": 7
+          },
+          "start_date": {
+            "type": "string"
+          },
+          "end_date": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "standard_work_week": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "pattern": "^-?([0-9]+([.][0-9]{2}|:[0-5][0-9]))$"
+          },
+          "hourly_cost": {
+            "type": [
+              "number",
+              "null"
+            ],
+            "minimum": 0.01
+          },
+          "contract_type": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "probation_period": {
+            "type": [
+              "boolean",
+              "null"
+            ]
+          },
+          "probation_period_end_date": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "expected_end_date": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "fte": {
+            "type": [
+              "number",
+              "null"
+            ],
+            "minimum": 0,
+            "multipleOf": 0.01
+          }
+        },
+        "required": [
+          "company",
+          "employee",
+          "start_date"
+        ]
+      }
+    }
+  },
+  "required": [
+    "contracts"
+  ]
+}</div>
+</div>
+</div>
+</div>
+<div class="req-tab-put" id="req-tab-id-put-1">
+<div class="example">
+
+<div class="put-example-tab-1 activeTab" id="put-tab-example-1">
+
+<pre class="highlightjs">&lt;?xml version="1.0" encoding="UTF-8" ?&gt;
+&lt;contracts&gt;
+  &lt;contract&gt;
+    &lt;id&gt;
+      &lt;external_id&gt;123456&lt;/external_id&gt;
+    &lt;/id&gt;
+    &lt;company&gt;
+      &lt;short_name&gt;
+        company_short_name
+      &lt;/short_name&gt;
+    &lt;/company&gt;
+    &lt;employee&gt;
+      &lt;external_id&gt;654321&lt;/external_id&gt;
+    &lt;/employee&gt;
+    &lt;hours_per_day&gt;08:00&lt;/hours_per_day&gt;
+    &lt;hours_per_week&gt;040:00&lt;/hours_per_week&gt;
+    &lt;hours_per_month&gt;0160:00&lt;/hours_per_month&gt;
+    &lt;hours_per_pay_period&gt;160:00&lt;/hours_per_pay_period&gt;
+    &lt;hours_per_year&gt;1760:00&lt;/hours_per_year&gt;
+    &lt;days_per_week&gt;4.50&lt;/days_per_week&gt;
+    &lt;days_per_month&gt;30.00&lt;/days_per_month&gt;
+    &lt;days_per_pay_period&gt;5.00&lt;/days_per_pay_period&gt;
+    &lt;days_per_year&gt;288.69&lt;/days_per_year&gt;
+    &lt;working_days&gt;
+      &lt;working_day&gt;MONDAY&lt;/working_day&gt;
+      &lt;working_day&gt;TUESDAY&lt;/working_day&gt;
+      &lt;working_day&gt;WEDNESDAY&lt;/working_day&gt;
+      &lt;working_day&gt;THURSDAY&lt;/working_day&gt;
+      &lt;working_day&gt;FRIDAY&lt;/working_day&gt;
+    &lt;/working_days&gt;
+    &lt;start_date&gt;2014-01-01&lt;/start_date&gt;
+    &lt;hourly_cost&gt;12.00&lt;/hourly_cost&gt;
+    &lt;contract_type/&gt;
+    &lt;probation_period&gt;false&lt;/probation_period&gt;
+    &lt;probation_period_end_date&gt;2014-03-01&lt;/probation_period_end_date&gt;
+    &lt;expected_end_date&gt;2016-01-01&lt;/expected_end_date&gt;
+    &lt;fte&gt;0.95&lt;/fte&gt;
+  &lt;/contract&gt;
+&lt;/contracts&gt;
+</pre>
+</div>
+<div class="put-example-tab-1" id="put-tab-schema-1">
+
+<div class="jsonschema" id="schema-6">&lt;xs:schema attributeFormDefault="unqualified" elementFormDefault="qualified"
+           xmlns:xs="http://www.w3.org/2001/XMLSchema"&gt;
+  &lt;xs:element name="contracts"&gt;
+    &lt;xs:complexType&gt;
+      &lt;xs:sequence maxOccurs="unbounded"&gt;
+        &lt;xs:element name="contract"&gt;
+          &lt;xs:complexType&gt;
+            &lt;xs:choice maxOccurs="unbounded"&gt;
+              &lt;xs:element name="id" minOccurs="0"&gt;
+                &lt;xs:complexType&gt;
+                  &lt;xs:choice&gt;
+                    &lt;xs:element type="xs:integer" name="contract_id"/&gt;
+                    &lt;xs:element type="xs:string" name="external_id"/&gt;
+                  &lt;/xs:choice&gt;
+                &lt;/xs:complexType&gt;
+              &lt;/xs:element&gt;
+              &lt;xs:element name="company"&gt;
+                &lt;xs:complexType&gt;
+                  &lt;xs:choice&gt;
+                    &lt;xs:element name="short_name" type="xs:string"/&gt;
+                    &lt;xs:element name="external_id" type="xs:string"/&gt;
+                    &lt;xs:element name="system_id" type="xs:string"/&gt;
+                  &lt;/xs:choice&gt;
+                &lt;/xs:complexType&gt;
+              &lt;/xs:element&gt;
+              &lt;xs:element name="employee"&gt;
+                &lt;xs:complexType&gt;
+                  &lt;xs:sequence&gt;
+                    &lt;xs:choice&gt;
+                      &lt;xs:element type="xs:string" name="account_id"/&gt;
+                      &lt;xs:element type="xs:string" name="external_id"/&gt;
+                      &lt;xs:element type="xs:string" name="username"/&gt;
+                      &lt;xs:element type="xs:string" name="employee_id"/&gt;
+                    &lt;/xs:choice&gt;
+                    &lt;xs:element type="xs:string" name="ein_name" minOccurs="0"/&gt;
+                    &lt;xs:element type="xs:string" name="ein_tax_id" minOccurs="0"/&gt;
+                  &lt;/xs:sequence&gt;
+                &lt;/xs:complexType&gt;
+              &lt;/xs:element&gt;
+              &lt;xs:element type="sys_date" name="start_date"/&gt;
+              &lt;xs:element type="sys_date" name="end_date" minOccurs="0"/&gt;
+              &lt;xs:element name="hours_per_day" minOccurs="0"&gt;
+                &lt;xs:simpleType&gt;
+                  &lt;xs:restriction base="xs:string"&gt;
+                    &lt;xs:pattern value="-?([0-9]+([.][0-9]{2}|:[0-5][0-9]))"/&gt;
+                  &lt;/xs:restriction&gt;
+                &lt;/xs:simpleType&gt;
+              &lt;/xs:element&gt;
+              &lt;xs:element name="hours_per_week" minOccurs="0"&gt;
+                &lt;xs:simpleType&gt;
+                  &lt;xs:restriction base="xs:string"&gt;
+                    &lt;xs:pattern value="-?([0-9]+([.][0-9]{2}|:[0-5][0-9]))"/&gt;
+                  &lt;/xs:restriction&gt;
+                &lt;/xs:simpleType&gt;
+              &lt;/xs:element&gt;
+              &lt;xs:element name="hours_per_month" minOccurs="0"&gt;
+                &lt;xs:simpleType&gt;
+                  &lt;xs:restriction base="xs:string"&gt;
+                    &lt;xs:pattern value="-?([0-9]+([.][0-9]{2}|:[0-5][0-9]))"/&gt;
+                  &lt;/xs:restriction&gt;
+                &lt;/xs:simpleType&gt;
+              &lt;/xs:element&gt;
+              &lt;xs:element name="hours_per_pay_period" minOccurs="0"&gt;
+                &lt;xs:simpleType&gt;
+                  &lt;xs:restriction base="xs:string"&gt;
+                    &lt;xs:pattern value="-?([0-9]+([.][0-9]{2}|:[0-5][0-9]))"/&gt;
+                  &lt;/xs:restriction&gt;
+                &lt;/xs:simpleType&gt;
+              &lt;/xs:element&gt;
+              &lt;xs:element name="hours_per_year" minOccurs="0"&gt;
+                &lt;xs:simpleType&gt;
+                  &lt;xs:restriction base="xs:string"&gt;
+                    &lt;xs:pattern value="-?([0-9]+([.][0-9]{2}|:[0-5][0-9]))"/&gt;
+                  &lt;/xs:restriction&gt;
+                &lt;/xs:simpleType&gt;
+              &lt;/xs:element&gt;
+              &lt;xs:element name="days_per_week" minOccurs="0"&gt;
+                &lt;xs:simpleType&gt;
+                  &lt;xs:restriction base="xs:decimal"&gt;
+                    &lt;xs:minInclusive value="0"/&gt;
+                    &lt;xs:maxInclusive value="7"/&gt;
+                    &lt;xs:fractionDigits value="2"/&gt;
+                  &lt;/xs:restriction&gt;
+                &lt;/xs:simpleType&gt;
+              &lt;/xs:element&gt;
+              &lt;xs:element name="days_per_month" minOccurs="0"&gt;
+                &lt;xs:simpleType&gt;
+                  &lt;xs:restriction base="xs:decimal"&gt;
+                    &lt;xs:minInclusive value="0"/&gt;
+                    &lt;xs:maxInclusive value="31"/&gt;
+                    &lt;xs:fractionDigits value="2"/&gt;
+                  &lt;/xs:restriction&gt;
+                &lt;/xs:simpleType&gt;
+              &lt;/xs:element&gt;
+              &lt;xs:element name="days_per_pay_period" minOccurs="0"&gt;
+                &lt;xs:simpleType&gt;
+                  &lt;xs:restriction base="xs:decimal"&gt;
+                    &lt;xs:minInclusive value="0"/&gt;
+                    &lt;xs:fractionDigits value="2"/&gt;
+                  &lt;/xs:restriction&gt;
+                &lt;/xs:simpleType&gt;
+              &lt;/xs:element&gt;
+              &lt;xs:element name="days_per_year" minOccurs="0"&gt;
+                &lt;xs:simpleType&gt;
+                  &lt;xs:restriction base="xs:decimal"&gt;
+                    &lt;xs:minInclusive value="0"/&gt;
+                    &lt;xs:maxInclusive value="366"/&gt;
+                    &lt;xs:fractionDigits value="2"/&gt;
+                  &lt;/xs:restriction&gt;
+                &lt;/xs:simpleType&gt;
+              &lt;/xs:element&gt;
+              &lt;xs:element name="working_days"&gt;
+                &lt;xs:complexType&gt;
+                  &lt;xs:sequence&gt;
+                    &lt;xs:element name="working_day" minOccurs="0" maxOccurs="7"&gt;
+                      &lt;xs:simpleType&gt;
+                        &lt;xs:restriction base="xs:string"&gt;
+                          &lt;xs:enumeration value="MONDAY"/&gt;
+                          &lt;xs:enumeration value="TUESDAY"/&gt;
+                          &lt;xs:enumeration value="WEDNESDAY"/&gt;
+                          &lt;xs:enumeration value="THURSDAY"/&gt;
+                          &lt;xs:enumeration value="FRIDAY"/&gt;
+                          &lt;xs:enumeration value="SATURDAY"/&gt;
+                          &lt;xs:enumeration value="SUNDAY"/&gt;
+                        &lt;/xs:restriction&gt;
+                      &lt;/xs:simpleType&gt;
+                    &lt;/xs:element&gt;
+                  &lt;/xs:sequence&gt;
+                &lt;/xs:complexType&gt;
+              &lt;/xs:element&gt;
+              &lt;xs:element name="standard_work_week" minOccurs="0"&gt;
+                &lt;xs:simpleType&gt;
+                  &lt;xs:restriction base="xs:string"&gt;
+                    &lt;xs:pattern value="-?([0-9]+([.][0-9]{2}|:[0-5][0-9]))"/&gt;
+                  &lt;/xs:restriction&gt;
+                &lt;/xs:simpleType&gt;
+              &lt;/xs:element&gt;
+              &lt;xs:element name="hourly_cost" minOccurs="0"&gt;
+                &lt;xs:simpleType&gt;
+                  &lt;xs:restriction base="xs:string"&gt;
+                    &lt;xs:pattern value="[0-9]+.[0-9]{2}"/&gt;
+                  &lt;/xs:restriction&gt;
+                &lt;/xs:simpleType&gt;
+              &lt;/xs:element&gt;
+              &lt;xs:element type="xs:string" name="contract_type" minOccurs="0"/&gt;
+              &lt;xs:element type="xs:boolean" name="probation_period" minOccurs="0"/&gt;
+              &lt;xs:element type="sys_date" name="probation_period_end_date" minOccurs="0"/&gt;
+              &lt;xs:element type="sys_date" name="expected_end_date" minOccurs="0"/&gt;
+              &lt;xs:element name="fte" minOccurs="0"&gt;
+                &lt;xs:simpleType&gt;
+                  &lt;xs:restriction base="xs:decimal"&gt;
+                    &lt;xs:minInclusive value="0"/&gt;
+                    &lt;xs:fractionDigits value="2"/&gt;
+                  &lt;/xs:restriction&gt;
+                &lt;/xs:simpleType&gt;
+              &lt;/xs:element&gt;
+            &lt;/xs:choice&gt;
+          &lt;/xs:complexType&gt;
+        &lt;/xs:element&gt;
+      &lt;/xs:sequence&gt;
+    &lt;/xs:complexType&gt;
+  &lt;/xs:element&gt;
+
+  &lt;xs:simpleType name="sys_date"&gt;
+    &lt;xs:restriction base="xs:date"&gt;
+      &lt;xs:pattern value="(19[0-9]{2}|20[0-6][0-9]|2070)-(0[1-9]|1[0-2])-(0[1-9]|[1-2][0-9]|3[0-1])"/&gt;
+    &lt;/xs:restriction&gt;
+  &lt;/xs:simpleType&gt;
+&lt;/xs:schema&gt;</div>
+</div>
+</div>
+</div>
+</div>
+<h4>Response Samples</h4>
+<div class="tab-title-group">
+<label>
+<input checked="checked" data-full-tab-id="resp-tab-id-put-0" data-tab-class="resp-tab-put" name="resp-tab-put" type="radio"/>
+<span class="tab-title">application/json</span>
+</label>
+<label>
+<input data-full-tab-id="resp-tab-id-put-1" data-tab-class="resp-tab-put" name="resp-tab-put" type="radio"/>
+<span class="tab-title">application/xml</span>
+</label>
+<label>
+<input data-full-tab-id="resp-tab-id-put-2" data-tab-class="resp-tab-put" name="resp-tab-put" type="radio"/>
+<span class="tab-title">text/xml</span>
+</label>
+</div>
+<div>
+<div class="resp-tab-put" id="resp-tab-id-put-0">
+<div class="example">
+
+<div class="put-example-resp-tab-0 activeTab" id="put-tab-resp-example-0">
+
+<pre class="highlightjs">{
+  "items": [
+    {
+      "index": 0,
+      "id": "153467",
+      "status": "OK"
+    },
+    {
+      "index": 1,
+      "status": "FAILURE",
+      "errors": [
+        {
+          "code": 153652,
+          "message": "Cannot process entity because of ..."
+        }
+      ]
+    }
+  ]
+}</pre>
+</div>
+<div class="put-example-resp-tab-0" id="put-tab-resp-schema-0">
+
+<div class="jsonschema" id="schema-7">{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "type": "object",
+  "properties": {
+    "items": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "index": {
+            "type": [
+              "integer",
+              "null"
+            ]
+          },
+          "id": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "status": {
+            "type": "string",
+            "enum": [
+              "OK",
+              "FAILURE"
+            ]
+          },
+          "errors": {
+            "type": [
+              "array",
+              "null"
+            ],
+            "items": {
+              "type": "object",
+              "properties": {
+                "code": {
+                  "type": "integer"
+                },
+                "message": {
+                  "type": "string"
+                },
+                "key": {
+                  "type": "string"
+                }
+              },
+              "additionalProperties": false,
+              "required": [
+                "code",
+                "message"
+              ]
+            }
+          }
+        },
+        "additionalProperties": false
+      }
+    }
+  },
+  "additionalProperties": false
+}</div>
+</div>
+</div>
+</div>
+<div class="resp-tab-put" id="resp-tab-id-put-1">
+<div class="example">
+
+<div class="put-example-resp-tab-1 activeTab" id="put-tab-resp-example-1">
+
+<pre class="highlightjs">&lt;?xml version="1.0" encoding="UTF-8" ?&gt;
+&lt;result&gt;
+  &lt;item&gt;
+    &lt;index&gt;0&lt;/index&gt;
+    &lt;id&gt;153467&lt;/id&gt;
+    &lt;status&gt;OK&lt;/status&gt;
+  &lt;/item&gt;
+  &lt;item&gt;
+    &lt;index&gt;0&lt;/index&gt;
+    &lt;status&gt;FAILURE&lt;/status&gt;
+    &lt;errors&gt;
+      &lt;error&gt;
+        &lt;code&gt;153652&lt;/code&gt;
+        &lt;message&gt;Cannot process entity because of ...&lt;/message&gt;
+      &lt;/error&gt;
+    &lt;/errors&gt;
+  &lt;/item&gt;
+&lt;/result&gt;</pre>
+</div>
+<div class="put-example-resp-tab-1" id="put-tab-resp-schema-1">
+
+<div class="jsonschema" id="schema-8">&lt;xs:schema attributeFormDefault="unqualified" elementFormDefault="qualified"
+           xmlns:xs="http://www.w3.org/2001/XMLSchema"&gt;
+
+    &lt;xs:element name="result"&gt;
+        &lt;xs:complexType&gt;
+            &lt;xs:sequence maxOccurs="unbounded"&gt;
+                &lt;xs:element type="item" name="item"/&gt;
+            &lt;/xs:sequence&gt;
+        &lt;/xs:complexType&gt;
+    &lt;/xs:element&gt;
+
+    &lt;xs:complexType name="item"&gt;
+        &lt;xs:all&gt;
+            &lt;xs:element type="xs:nonNegativeInteger" name="index" minOccurs="1"/&gt;
+            &lt;xs:element type="xs:string" name="id" minOccurs="0"/&gt;
+            &lt;xs:element type="errors" name="errors" minOccurs="0"/&gt;
+            &lt;xs:element type="status" name="status" minOccurs="1" maxOccurs="1"/&gt;
+        &lt;/xs:all&gt;
+    &lt;/xs:complexType&gt;
+
+    &lt;xs:complexType name="errorType"&gt;
+        &lt;xs:all&gt;
+            &lt;xs:element type="xs:integer" name="code"/&gt;
+            &lt;xs:element type="xs:string" name="message"/&gt;
+            &lt;xs:element type="xs:string" name="key" minOccurs="0"/&gt;
+        &lt;/xs:all&gt;
+    &lt;/xs:complexType&gt;
+
+    &lt;xs:complexType name="errors"&gt;
+        &lt;xs:sequence minOccurs="0" maxOccurs="unbounded"&gt;
+            &lt;xs:element type="errorType" name="error"/&gt;
+        &lt;/xs:sequence&gt;
+    &lt;/xs:complexType&gt;
+
+    &lt;xs:simpleType name="status"&gt;
+        &lt;xs:restriction base="xs:string"&gt;
+            &lt;xs:enumeration value="OK"/&gt;
+            &lt;xs:enumeration value="FAILURE"/&gt;
+        &lt;/xs:restriction&gt;
+    &lt;/xs:simpleType&gt;
+&lt;/xs:schema&gt;</div>
+</div>
+</div>
+</div>
+<div class="resp-tab-put" id="resp-tab-id-put-2">
+<div class="example">
+
+<div class="put-example-resp-tab-2 activeTab" id="put-tab-resp-example-2">
+
+<pre class="highlightjs">&lt;?xml version="1.0" encoding="UTF-8" ?&gt;
+&lt;result&gt;
+  &lt;item&gt;
+    &lt;index&gt;0&lt;/index&gt;
+    &lt;id&gt;153467&lt;/id&gt;
+    &lt;status&gt;OK&lt;/status&gt;
+  &lt;/item&gt;
+  &lt;item&gt;
+    &lt;index&gt;0&lt;/index&gt;
+    &lt;status&gt;FAILURE&lt;/status&gt;
+    &lt;errors&gt;
+      &lt;error&gt;
+        &lt;code&gt;153652&lt;/code&gt;
+        &lt;message&gt;Cannot process entity because of ...&lt;/message&gt;
+      &lt;/error&gt;
+    &lt;/errors&gt;
+  &lt;/item&gt;
+&lt;/result&gt;</pre>
+</div>
+<div class="put-example-resp-tab-2" id="put-tab-resp-schema-2">
+
+<div class="jsonschema" id="schema-9">&lt;xs:schema attributeFormDefault="unqualified" elementFormDefault="qualified"
+           xmlns:xs="http://www.w3.org/2001/XMLSchema"&gt;
+
+    &lt;xs:element name="result"&gt;
+        &lt;xs:complexType&gt;
+            &lt;xs:sequence maxOccurs="unbounded"&gt;
+                &lt;xs:element type="item" name="item"/&gt;
+            &lt;/xs:sequence&gt;
+        &lt;/xs:complexType&gt;
+    &lt;/xs:element&gt;
+
+    &lt;xs:complexType name="item"&gt;
+        &lt;xs:all&gt;
+            &lt;xs:element type="xs:nonNegativeInteger" name="index" minOccurs="1"/&gt;
+            &lt;xs:element type="xs:string" name="id" minOccurs="0"/&gt;
+            &lt;xs:element type="errors" name="errors" minOccurs="0"/&gt;
+            &lt;xs:element type="status" name="status" minOccurs="1" maxOccurs="1"/&gt;
+        &lt;/xs:all&gt;
+    &lt;/xs:complexType&gt;
+
+    &lt;xs:complexType name="errorType"&gt;
+        &lt;xs:all&gt;
+            &lt;xs:element type="xs:integer" name="code"/&gt;
+            &lt;xs:element type="xs:string" name="message"/&gt;
+            &lt;xs:element type="xs:string" name="key" minOccurs="0"/&gt;
+        &lt;/xs:all&gt;
+    &lt;/xs:complexType&gt;
+
+    &lt;xs:complexType name="errors"&gt;
+        &lt;xs:sequence minOccurs="0" maxOccurs="unbounded"&gt;
+            &lt;xs:element type="errorType" name="error"/&gt;
+        &lt;/xs:sequence&gt;
+    &lt;/xs:complexType&gt;
+
+    &lt;xs:simpleType name="status"&gt;
+        &lt;xs:restriction base="xs:string"&gt;
+            &lt;xs:enumeration value="OK"/&gt;
+            &lt;xs:enumeration value="FAILURE"/&gt;
+        &lt;/xs:restriction&gt;
+    &lt;/xs:simpleType&gt;
+&lt;/xs:schema&gt;</div>
+</div>
+</div>
+</div>
+</div>
+</article>
+</section>
+<section class="clearfix">
+<article class="definition">
+<h3 class="anchored" id="delete"><span>DELETE</span>
+<a class="fa fa-link link-anchor" data-url="r=__v2__companies__(cid)__employee__contracts#delete" data-web-id="__v2__companies__(cid)__employee__contracts"></a>
+</h3>
+<div class="md"><p>Deletes multiple employee contracts by their IDs.
+</p></div>
+<div>
+<ul class="annotation-list">
+<li class="annotation">
+<span>v2</span>
+</li>
+</ul>
+</div>
+<h4>Parameters</h4>
+<h5>Path Parameters</h5>
+<ul class="param-list">
+<li>
+<div class="param-desc">
+<div class="param-name">cid</div>
+<div class="data-type">string</div>
+<div class="required">required</div>
+</div>
+<div class="param-content">
+<div>
+<p>Example: 123456</p>
+<div class="desc md">Company should be referenced via company id or company unique id or company short name using `|short_name` or `!short_name` format.
+</div>
+</div>
+</div>
+
+</li>
+</ul>
+<h5>Query Parameters</h5>
+<ul class="param-list">
+<li>
+<div class="param-desc">
+<div class="param-name">contract_ids</div>
+<div class="data-type">string</div>
+<div class="required">required</div>
+</div>
+<div class="param-content">
+<div>
+<p>Example: 123,432,5366,22145</p>
+<div class="desc md">IDs of the notes to be deleted</div>
+</div>
+</div>
+
+</li>
+</ul>
+<h4>Responses</h4>
+<div class="responses">
+<div>
+<label class="response response-success">
+<span class="fa fa-check"></span>
+<input data-full-tab-id="delete-resp-code-tab-id-0" data-tab-class="resp-code-tab-delete" name="resp-code-tab-delete" type="radio"/>
+<span class="status">200 Ok</span>
+</label>
+<div class="response-desc resp-code-tab-delete" id="delete-resp-code-tab-id-0">
+<div class="md"><p>Employee contract was successfully deleted.</p></div>
+</div>
+</div>
+<div>
+<label class="response response-error">
+<span class="fa fa-times"></span>
+<input data-full-tab-id="delete-resp-code-tab-id-1" data-tab-class="resp-code-tab-delete" name="resp-code-tab-delete" type="radio"/>
+<span class="status">400 Bad Request</span>
+</label>
+<div class="response-desc resp-code-tab-delete" id="delete-resp-code-tab-id-1">
+<div class="md"><p>Contract cannot be found using provided fields.</p></div>
+</div>
+</div>
+</div>
+</article>
+<article class="code">
+<h4>Definition</h4>
+<div class="uri">
+<code>
+<span class="method delete">delete</span>
+<span class="textUri"><span class="baseUri">{{ getUriPrefix() }}</span><span class="relativeUri">/v2/companies/{cid}/employee/contracts</span></span>
+</code>
+</div>
+</article>
+</section>
+</div>
+</body></html>

@@ -1,0 +1,347 @@
+<!doctype html>
+<html><head><meta charset="utf-8"><title>Ready Learning Status</title><style>body{font:16px system-ui;max-width:1100px;margin:2rem auto;padding:0 1rem;line-height:1.5}aside{background:#fff3cc;padding:1rem}.jsonschema,pre{white-space:pre-wrap;font:13px monospace;overflow-wrap:anywhere;background:#f4f5f7;padding:1rem}.uri{font-family:monospace}h2,h3{margin-top:2rem}</style></head><body><aside><strong>Modified private reference — 2026-10-09.</strong> Provider-documented illustrative examples are included; authentication token examples are redacted. These are not customer exports or guaranteed production behavior. Candidate sharing is pending. This is not OpenAPI.</aside>
+<div class="group">
+<h2 class="anchored" id="item.anchor">
+<span>Ready Learning Status</span>
+<a class="fa fa-link link-anchor" data-url="r=__v2__companies__(cid)__learning#" data-web-id="__v2__companies__(cid)__learning"></a>
+</h2>
+<section class="clearfix">
+<article class="definition">
+<h3 class="anchored" id="post"><span>POST</span>
+<a class="fa fa-link link-anchor" data-url="r=__v2__companies__(cid)__learning#post" data-web-id="__v2__companies__(cid)__learning"></a>
+</h3>
+<div class="md"><p>Allows ready learning item assignments to be created and updated.</p></div>
+<div>
+<ul class="annotation-list">
+<li class="annotation">
+<span>v2</span>
+</li>
+</ul>
+</div>
+<h4>Parameters</h4>
+<h5>Path Parameters</h5>
+<ul class="param-list">
+<li>
+<div class="param-desc">
+<div class="param-name">cid</div>
+<div class="data-type">string</div>
+<div class="required">required</div>
+</div>
+<div class="param-content">
+<div>
+<p>Example: 123456</p>
+<div class="desc md">Company should be referenced via company id or company unique id or company short name using `|short_name` or `!short_name` format.
+</div>
+</div>
+</div>
+
+</li>
+</ul>
+<h5>Header Parameters</h5>
+<ul class="param-list">
+<li>
+<div class="param-desc">
+<div class="param-name">Accept</div>
+<div class="data-type">string</div>
+</div>
+<div class="param-content">
+<div>
+<p>Valid values: application/json, application/xml, text/xml</p>
+<p>Default: application/json</p>
+<p>Example: application/json</p>
+</div>
+</div>
+
+</li>
+<li>
+<div class="param-desc">
+<div class="param-name">Content-Type</div>
+<div class="data-type">string</div>
+<div class="required">required</div>
+</div>
+<div class="param-content">
+<div>
+<p>Valid values: application/xml, text/xml, application/json</p>
+<p>Example: application/json</p>
+</div>
+</div>
+
+</li>
+<li>
+<div class="param-desc">
+<div class="param-name">Content-Length</div>
+<div class="data-type">integer</div>
+<div class="required">required</div>
+</div>
+<div class="param-content">
+<div>
+</div>
+</div>
+
+</li>
+</ul>
+<h4>Responses</h4>
+<div class="responses">
+<div>
+<label class="response response-success">
+<span class="fa fa-check"></span>
+<input data-full-tab-id="post-resp-code-tab-id-0" data-tab-class="resp-code-tab-post" name="resp-code-tab-post" type="radio"/>
+<span class="status">200 Ok</span>
+</label>
+<div class="response-desc resp-code-tab-post" id="post-resp-code-tab-id-0">
+<div class="md"><p>Learning assignment feed(create/update) successful.</p></div>
+</div>
+</div>
+<div>
+<label class="response response-error">
+<span class="fa fa-times"></span>
+<input data-full-tab-id="post-resp-code-tab-id-1" data-tab-class="resp-code-tab-post" name="resp-code-tab-post" type="radio"/>
+<span class="status">404 Not Found</span>
+</label>
+<div class="response-desc resp-code-tab-post" id="post-resp-code-tab-id-1">
+<div class="md"><p>Incorrect Endpoint URL.</p></div>
+</div>
+</div>
+<div>
+<label class="response response-error">
+<span class="fa fa-times"></span>
+<input data-full-tab-id="post-resp-code-tab-id-2" data-tab-class="resp-code-tab-post" name="resp-code-tab-post" type="radio"/>
+<span class="status">401 Unauthorized</span>
+</label>
+<div class="response-desc resp-code-tab-post" id="post-resp-code-tab-id-2">
+<div class="md"><p>Unauthorized.</p></div>
+</div>
+</div>
+<div>
+<label class="response response-error">
+<span class="fa fa-times"></span>
+<input data-full-tab-id="post-resp-code-tab-id-3" data-tab-class="resp-code-tab-post" name="resp-code-tab-post" type="radio"/>
+<span class="status">403 Forbidden</span>
+</label>
+<div class="response-desc resp-code-tab-post" id="post-resp-code-tab-id-3">
+<div class="md"><p>Forbidden, In case of any security issues.</p></div>
+</div>
+</div>
+<div>
+<label class="response response-error">
+<span class="fa fa-times"></span>
+<input data-full-tab-id="post-resp-code-tab-id-4" data-tab-class="resp-code-tab-post" name="resp-code-tab-post" type="radio"/>
+<span class="status">400 Bad Request</span>
+</label>
+<div class="response-desc resp-code-tab-post" id="post-resp-code-tab-id-4">
+<div class="md"><p>Bad Request, In case any error occurs during validation.</p></div>
+</div>
+</div>
+<div>
+<label class="response response-error">
+<span class="fa fa-times"></span>
+<input data-full-tab-id="post-resp-code-tab-id-5" data-tab-class="resp-code-tab-post" name="resp-code-tab-post" type="radio"/>
+<span class="status">500 Internal Server Error</span>
+</label>
+<div class="response-desc resp-code-tab-post" id="post-resp-code-tab-id-5">
+<div class="md"><p>Internal Server Error.</p></div>
+</div>
+</div>
+<div>
+<label class="response response-success">
+<span class="fa fa-check"></span>
+<input data-full-tab-id="post-resp-code-tab-id-6" data-tab-class="resp-code-tab-post" name="resp-code-tab-post" type="radio"/>
+<span class="status">201 Created</span>
+</label>
+<div class="response-desc resp-code-tab-post" id="post-resp-code-tab-id-6">
+</div>
+</div>
+<div>
+<label class="response response-error">
+<span class="fa fa-times"></span>
+<input data-full-tab-id="post-resp-code-tab-id-7" data-tab-class="resp-code-tab-post" name="resp-code-tab-post" type="radio"/>
+<span class="status">503 Service Unavailable</span>
+</label>
+<div class="response-desc resp-code-tab-post" id="post-resp-code-tab-id-7">
+<div class="md"><p>Returned in the event that the call limit is exceeded. The application will be unavailable for subsequent calls for the duration specified by the X-CallLimit-TimeToWait header.</p></div>
+</div>
+</div>
+</div>
+</article>
+<article class="code">
+<h4>Definition</h4>
+<div class="uri">
+<code>
+<span class="method post">post</span>
+<span class="textUri"><span class="baseUri">{{ getUriPrefix() }}</span><span class="relativeUri">/v2/companies/{cid}/learning</span></span>
+</code>
+</div>
+<h4>Request Samples</h4>
+<div class="tab-title-group">
+<label>
+<input checked="checked" data-full-tab-id="req-tab-id-post-0" data-tab-class="req-tab-post" name="req-tab-post" type="radio"/>
+<span class="tab-title">application/json</span>
+</label>
+</div>
+<div>
+<div class="req-tab-post" id="req-tab-id-post-0">
+<div class="example">
+
+<div class="post-example-tab-0 activeTab" id="post-tab-example-0">
+
+<pre class="highlightjs">{
+  "company_short_name": "IntegrationCompany",
+  "academy_id":"abc",
+  "learning_statuses": [
+    {
+      "account_id":1,
+      "learning_status_list": [
+        {
+          "item_id":123,
+          "enrollment_date": "1630927642930",
+          "status": "COURSE_ENROLLMENT",
+          "name": "UKG Video",
+          "description": "This Course is recommended. Description can be applied later.",
+          "last_updated": "2021-10-11 00:00:00.000",
+          "item_url": "https://www.schoox.com/844182/server-training-102",
+          "image": "https://content-cdn3.schoox.com/content/adaptive_resize-175-175/users/13392/13611263901201807635.jpg",
+          "due_date": "2021-10-11 00:00:00.000",
+          "completion_date": "2021-10-11 00:00:00.000",
+          "item_type": "COURSE"
+        },
+        {
+          "item_id":12345,
+          "enrollment_date": "1990927642976",
+          "status": "COURSE_ASSIGNMENT",
+          "name": "Celebrating diversity",
+          "description": "This Course is recommended. Description can be applied later ON.",
+          "last_updated": "2021-10-11 00:00:00.000",
+          "item_url": "https://www.schoox.com/844182/server-training-101",
+          "image": "https://content-cdn3.schoox.com/content/adaptive_resize-175-175/users/13392/13611263901201807635.jpg",
+          "due_date": "2021-10-11 00:00:00.000",
+          "completion_date": "2021-10-11 00:00:00.000",
+          "item_type": "COURSE"
+        },
+        {
+          "item_id":1234,
+          "enrollment_date": "1630927642930",
+          "status": "CURRICULA_ENROLLMENT",
+          "name": "UKG Video",
+          "description": "This Curricula is recommended. Description can be applied later.",
+          "last_updated": "2021-10-11 00:00:00.000",
+          "item_url": "https://www.schoox.com/844182/server-training-102",
+          "image": "https://content-cdn3.schoox.com/content/adaptive_resize-175-175/users/13392/13611263901201807635.jpg",
+          "due_date": "2021-10-11 00:00:00.000",
+          "completion_date": "2021-10-11 00:00:00.000",
+          "item_type": "CURRICULA"
+        },
+        {
+          "item_id":1236,
+          "enrollment_date": "1990927642976",
+          "status": "CURRICULA_ASSIGNMENT",
+          "name": "Celebrating diversity",
+          "description": "This Curricula is recommended. Description can be applied later ON.",
+          "last_updated": "2021-10-11 00:00:00.000",
+          "item_url": "https://www.schoox.com/844182/server-training-101",
+          "image": "https://content-cdn3.schoox.com/content/adaptive_resize-175-175/users/13392/13611263901201807635.jpg",
+          "due_date": "2021-10-11 00:00:00.000",
+          "completion_date": "2021-10-11 00:00:00.000",
+          "item_type": "CURRICULA"
+        }
+      ]
+    }
+  ]
+}</pre>
+</div>
+<div class="post-example-tab-0" id="post-tab-schema-0">
+
+<div class="jsonschema" id="schema-0">{
+  "$schema": "http://json-schema.org/draft-04/schema",
+  "type": "object",
+  "required": [
+    "company_short_name",
+    "academy_id",
+    "learning_statuses"
+  ],
+  "properties": {
+    "company_short_name": {
+      "type": "string"
+    },
+    "academy_id": {
+      "type": "string"
+    },
+    "learning_statuses": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "account_id": {
+            "type": "number",
+            "format": "long"
+          },
+          "learning_status_list": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "item_id": {
+                  "type": "integer"
+                },
+                "status": {
+                  "type": "string",
+                  "enum": [
+                    "COURSE_ENROLLMENT",
+                    "COURSE_ASSIGNMENT",
+                    "COURSE_DROPOUT",
+                    "COURSE_UNASSIGNMENT",
+                    "COURSE_COMPLETION",
+                    "OBLIGE_TO_RETAKE",
+                    "CURRICULA_ENROLLMENT",
+                    "CURRICULA_ASSIGNMENT",
+                    "CURRICULA_DROPOUT",
+                    "CURRICULA_UNASSIGNMENT",
+                    "CURRICULA_COMPLETION"
+                  ]
+                },
+                "name": {
+                  "type": "string"
+                },
+                "description": {
+                  "type": "string"
+                },
+                "last_updated": {
+                  "type": "string"
+                },
+                "item_url": {
+                  "type": "string"
+                },
+                "enrollment_date": {
+                  "type": "string"
+                },
+                "image": {
+                  "type": "string"
+                },
+                "due_date": {
+                  "type": "string"
+                },
+                "completion_date": {
+                  "type": "string"
+                }
+              },
+              "required": [
+                "item_id",
+                "enrollment_date"
+              ]
+            }
+          }
+        },
+        "required": [
+          "account_id"
+        ]
+      }
+    }
+  }
+}</div>
+</div>
+</div>
+</div>
+</div>
+</article>
+</section>
+</div>
+</body></html>
