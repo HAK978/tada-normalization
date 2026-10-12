@@ -114,7 +114,9 @@ def _prismhr(c: ReadOnlyClient, limits: Limits) -> None:
                 vouchers = c.get("payroll/v1/getPayrollVoucherForBatch", {
                     **base, "batchId": batch_id, "count": "25", "startpage": str(page),
                     "options": PRISM_VOUCHER_OPTIONS})["body"]
-                new_ids = set(_ids(_dig(vouchers, "payrollVouchers"), "voucherId")) - seen
+                # Live responses use "payrollVoucher"; the 2025.09 spec documents "payrollVouchers".
+                listed = _dig(vouchers, "payrollVoucher") or _dig(vouchers, "payrollVouchers")
+                new_ids = set(_ids(listed, "voucherId")) - seen
                 seen |= new_ids
                 total = _dig(vouchers, "total")
                 if not new_ids or (isinstance(total, int) and len(seen) >= total) or len(seen) >= limits.max_paychecks:
