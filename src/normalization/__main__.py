@@ -5,6 +5,7 @@
     python -m normalization fetch --provider P    read-only fetch from the live demo tenants
     python -m normalization schema                write the canonical model's JSON Schemas
     python -m normalization coverage [BUNDLE ...]  report what happens to every source field
+    python -m normalization write EMPLOYEES_JSON   dry run: the UKG Ready requests that would create them
 
 Normalized output goes under out/ (gitignored): one JSON file per record type, summary.json,
 and canonical.sqlite. Only `fetch` uses the network; it needs DEMO_SIGNIN_API_KEY (A-04).
@@ -13,10 +14,13 @@ and canonical.sqlite. Only `fetch` uses the network; it needs DEMO_SIGNIN_API_KE
 from __future__ import annotations
 
 import argparse
+import json
+import re
 import sys
 from datetime import date
 from pathlib import Path
 
+from . import exactjson
 from .bundle import Bundle
 from .canonical.schema import write_schemas
 from .coverage import measure, render
@@ -71,8 +75,23 @@ def main(argv: list[str] | None = None) -> int:
     coverage.add_argument("bundles", type=Path, nargs="*", help="raw bundles (default: every synthetic scenario)")
     coverage.add_argument("--out", type=Path, default=ROOT / "docs" / "FIELD_COVERAGE.md")
 
+    write = commands.add_parser("write", help="dry run: the UKG Ready requests that would create these employees")
+    write.add_argument("employees", type=Path, help="an employees.json written by `demo` or `normalize`")
+    write.add_argument("--to", choices=("ukg-ready",), default="ukg-ready", help="destination provider")
+    write.add_argument("--employee", help="only this canonical employee ID (or a unique ending of it)")
+    write.add_argument("--company", default="{cid}", help="destination UKG company ID")
+    write.add_argument("--ein-id", type=int, help="destination EIN ID, for multi-EIN companies")
+    write.add_argument("--out", type=Path, default=ROOT / "out" / "write")
+
     args = parser.parse_args(argv)
-    handlers = {"demo": _demo, "normalize": _normalize, "fetch": _fetch, "schema": _schema, "coverage": _coverage}
+    handlers = {
+        "demo": _demo,
+        "normalize": _normalize,
+        "fetch": _fetch,
+        "schema": _schema,
+        "coverage": _coverage,
+        "write": _write_dry_run,
+    }
     return handlers[args.command](args)
 
 
@@ -150,6 +169,29 @@ def _coverage(args: argparse.Namespace) -> int:
         print(f"[{provider}] {path} is both mapped and kept in provider_extensions", file=sys.stderr)
     print(f"written to {args.out}")
     return 1 if twice else 0
+
+
+def _write_dry_run(args: argparse.Namespace) -> int:
+    """Nothing is sent: there is deliberately no way to execute a plan from here (A-63)."""
+    from .write.ukg_ready import plan
+
+    employees = json.loads(args.employees.read_text(encoding="utf-8"))
+    if args.employee:
+        employees = [e for e in employees if e["id"] == args.employee or e["id"].endswith(f":{args.employee}")]
+        if len(employees) != 1:
+            print(f"{args.employee}: {len(employees)} matching employees", file=sys.stderr)
+            return 1
+    out = args.out / args.to
+    out.mkdir(parents=True, exist_ok=True)
+    for employee in employees:
+        result = plan(employee, company=args.company, ein_id=args.ein_id)
+        path = out / (re.sub(r"[^A-Za-z0-9_.-]+", "_", employee["id"]) + ".json")
+        path.write_text(exactjson.dumps(result.to_dict(), indent=1) + "\n", encoding="utf-8")
+        verdict = "valid" if result.valid else "rejected by the schema"
+        gaps = ", ".join(g["field"] for g in result.gaps) or "none"
+        print(f"{employee['id']}: {len(result.requests)} requests, {verdict}; gaps: {gaps}")
+    print(f"\ndry run only, nothing sent. Plans: {out}")
+    return 0
 
 
 def _write(output: Output, out: Path, *, sqlite: bool) -> None:

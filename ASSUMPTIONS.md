@@ -763,3 +763,39 @@ entries below are new.
   - request echoes and paging envelopes.
 - **Why:** "preserve what the source data means" includes not losing it. The report makes every
   field's fate checkable.
+
+## Optional extension: writing an employee (2026-10-13)
+
+### A-63 Write path: a dry run into UKG Ready
+- **Issue:** the README invites an optional write path from canonical employee data to a destination
+  tenant, done for real or as a dry run. The demo tokens are write-capable and the tenants are real
+  provider UAT systems (A-04).
+- **Decision:**
+  - The write path is a dry run only (`python -m normalization write`). There is deliberately no way
+    to send a plan, and no write request exists anywhere in the code.
+  - The destination is UKG Ready, the one provider whose request schemas are machine-readable in the
+    reference pack. UKG documents that creating an employee "covers the core fields of the employee"
+    and that related data needs more calls. So a plan is two requests:
+    1. `POST /v2/companies/{cid}/employees` (`#/schemas/105`);
+    2. `POST /v2/companies/{cid}/compensation/history` (`#/schemas/32`), whose account ID comes from
+       step 1.
+  - Each request body is validated against UKG's own request schema, and the plan says whether UKG
+    would accept it.
+  - A value the canonical record can't supply is a **gap** with its reason, never invented:
+    - the full SSN, because only the last 4 digits are kept (A-23);
+    - a username when the source has none (isolved);
+    - a manager's destination account ID;
+    - a county, which UKG addresses don't have;
+    - an effective date that was invalid at the source (A-46).
+  - A destination default is listed separately. The only one is the address country "USA" when the
+    source sends none, because UKG requires an ISO country and all three sources are US payroll
+    systems.
+  - Pay is taken on the employee's own basis: annual pay for salaried employees, the hourly rate for
+    hourly ones, otherwise the first rate whose period UKG supports. Standard hours become UKG's
+    milliseconds, and pay periods per year come from the canonical pay frequency.
+  - `external_id` carries the canonical ID, so a created employee can be traced back to its source.
+  - A non-active source status becomes a note, because UKG's `status` is read-only on create.
+- **Results on the synthetic scenarios:**
+  - UKG employees round-trip into valid requests.
+  - PrismHR employees are valid, except one whose effective date was invalid at the source.
+  - isolved employees are rejected for the missing username. That is the honest answer.
