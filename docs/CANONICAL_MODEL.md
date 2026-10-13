@@ -1,170 +1,217 @@
 # Canonical model (draft for review)
 
-Status: **draft, 2026-10-12; review decisions added 2026-10-13 (§5)**. It is built from the provider specs in `contracts/` and a read-only
-sample of the live demo tenants (see [ASSUMPTIONS.md](../ASSUMPTIONS.md) for every piece of
-evidence). Nothing below is implemented yet.
+Status: **draft v2, 2026-10-13.**
+- v1 had review decisions (§10).
+- An independent design audit raised 15 findings. All were verified against the specs and folded
+  in here and in [ASSUMPTIONS.md](../ASSUMPTIONS.md).
+
+Nothing below is implemented yet.
 
 ## 1. Principles
 
 1. **A company is the business the employees work for.** Employer and tax identity are separate
-   fields, recorded in each provider's own terms. Under PrismHR PEO and ASO arrangements, "company
-   = legal employer" would be wrong (A-30).
+   fields, recorded in each provider's own terms (A-30).
 2. **Never lose the original.** Every coded value keeps the provider's raw value, its source field
-   and the provider's own label. Any source field not mapped to a canonical field is kept verbatim in
-   `provider_extensions`, except for a short drop list where each entry has a stated reason (§4).
-3. **Map meaning only with evidence.** A code is translated only when one of these supports it:
-   - the provider documents it;
-   - the provider supplies its own label or classification for it;
-   - arithmetic on live data proves it.
+   and the provider's own label. Source fields with no canonical home are kept in
+   `provider_extensions`. Two exceptions apply: sensitive values are sanitized (principle 6), and a
+   short drop list exists (§9). §9 also gives every relevant field an explicit disposition.
+3. **Map meaning only with evidence.** Acceptable evidence:
+   - the provider's documentation;
+   - a provider-supplied label or classification (for example a UKG `display_name`, an isolved system
+     benefit type, or a Prism code-table description);
+   - arithmetic on live data.
 
-   Otherwise it becomes `UNMAPPED` with a diagnostic. Customer-configured codes (Prism status codes,
-   UKG employee types) are mapped through the provider's own classification field when one exists,
-   and are never mapped from their names.
-4. **Units are explicit.** Money carries a currency. Every rate says what period it covers. Hours
-   are hours. Percentages are percentage points (`"3"` means 3%).
+   Enum *names* alone are not evidence. Customer-configured labels stay `UNMAPPED`.
+4. **Units and bases are explicit.**
+   - Money carries a currency, and every rate says what period it covers.
+   - Quantities say whether they are hours or units.
+   - Percentages say what they are a percentage *of*, and whether their scale is verified.
 5. **Derived values say so.** Anything we calculate carries `derived: true` and its formula.
-6. **Sensitive identifiers are reduced.** SSNs and bank account numbers keep only their last 4
-   digits in our output, whatever the provider sent.
-7. **Output is deterministic.** Anything time-dependent, such as "is this deposit active?", is
-   evaluated against an explicit `as_of` date, never the clock.
+6. **Sensitive values are sanitized everywhere.** SSNs and bank account numbers keep at most their
+   last 4 digits. This applies to canonical fields, `provider_extensions`, raw values and diagnostics
+   alike. A value the provider already masked yields no last 4: we never invent digits.
+7. **Output is deterministic and exact.**
+   - Time-dependent values are evaluated at an explicit `as_of` date.
+   - Numbers are parsed as decimals from the original JSON text, never through floats.
 
 ## 2. Building blocks
 
-**Coded value.** Every enum-like field uses this shape:
+**Coded value:**
 
 ```json
 {"value": "ON_LEAVE", "raw": "L", "label": "Leave of Absence", "source_field": "client.employeeStatus"}
 ```
 
-- `value`: a canonical code, or `UNMAPPED`.
-- `raw`: exactly what the provider sent.
-- `label`: the provider's own description, when one exists. Sources include the Prism client code
-  tables, UKG `display_name` and isolved descriptions.
+`value` is a canonical code or `UNMAPPED`. The meaning of a raw code is always looked up by
+**provider + full source field**, never by the code alone. Prism's `V` means Void in a batch type,
+Vacation in a voucher type, and Reversal in payroll history.
 
-**Money, rate, hours and percent:**
+**Money, rates and quantities:**
 
 ```json
 {"amount": "2375.00", "currency": "USD"}
 {"amount": "59.375", "currency": "USD", "per": "HOUR"}
-{"hours": "8", "per": "DAY"}
-{"percent": "3"}
+{"value": "8", "unit": "HOURS"}
+{"value": "12", "unit": "UNKNOWN", "raw": "12"}
 ```
 
-- Decimals are serialized as strings, so float rounding never changes a value.
-- The currency is taken from the provider when it states one (UKG). Otherwise it is USD (A-31).
+- Decimals are strings.
+- Currency comes from the provider when it states one (UKG); otherwise it is USD (A-31).
+- `per` is one of `HOUR` `DAY` `WEEK` `BIWEEK` `SEMIMONTH` `MONTH` `QUARTER` `YEAR` `PAY_PERIOD`.
 
-**A derived value:**
+**Percentages** carry their basis and whether the scale is proven:
 
 ```json
-{"amount": "1880.00", "currency": "USD", "derived": true, "formula": "sum(earnings[].amount)"}
+{"percent": "5", "basis": "GROSS_PAY", "scale": "VERIFIED_POINTS", "raw": "5.0"}
+{"percent": null, "basis": "UNSPECIFIED", "scale": "UNVERIFIED", "raw": "5.0"}
 ```
 
-**Fields on every record:**
+When the scale is unverified, `percent` stays null and only `raw` is given, so no consumer can
+mistake a possible 500% for 5% (A-29).
 
-```json
-"id": "prismhr:970592:employee:102:E1001",
-"source": {"provider": "prismhr", "tenant_id": "970592",
-           "endpoints": ["employee/v1/getEmployee"], "ids": {"clientId": "102", "employeeId": "E1001"}},
-"provider_extensions": {"person.vehicleDetails": []},
-"diagnostics": [{"code": "UNMAPPED_CODE", "severity": "warning",
-                 "field": "compensation.hourlyPayPeriod", "raw": "Q", "message": "..."}]
-```
+**A derived value:** `{"amount": "1880.00", "currency": "USD", "derived": true, "formula": "sum(earnings[].amount)"}`
 
-IDs have the form `{provider}:{tenant}:{entity}:{source ids}`. They are stable across runs, so
-records can be linked and diffed.
+**Fields on every record:** `id`, the relationship keys (§2.1), `source` (provider, tenant, endpoints,
+source IDs), `provider_extensions` and `diagnostics` (each with code, severity, field, message and a
+sanitized raw value).
 
-## 3. Entities
+### 2.1 IDs and relationships
 
-```
-Company ──< Employee ──< DirectDeposit
-   │            ├─────< DeductionElection
-   │            └─────< PayStatement >── PayrollRun
-   └──────────────────────────────────────────┘
-```
+Canonical IDs have the form `{provider}:{tenant}:{entity}:{source ids}`. Each record carries the
+canonical IDs of the records it belongs to.
 
-### 3.1 Company
+| Record | Relationship keys | Rule |
+|---|---|---|
+| Company | (none) | none |
+| Employee | `company_id`; `legal_entity_id` (nullable) | required; legal entity = UKG EIN, or null |
+| DirectDeposit | `employee_id`, `company_id` | required |
+| DeductionElection | `employee_id`, `company_id` | required |
+| PayrollRun | `company_id` | required |
+| PayStatement | `employee_id`, `company_id`; `payroll_run_id` (nullable) | null, with a diagnostic, when the run can't be matched uniquely |
 
-| Field | Meaning | PrismHR | isolved | UKG Ready |
-|---|---|---|---|---|
-| `name`, `legal_name` | Trading and legal names | `clientName`, `legalName` | `dbaName`, `legalName` | none; no company endpoint (A-15) |
-| `parent` | Grouping above the company | none | the isolved client (id, name) | none |
-| `status` | `ACTIVE` `PENDING` `INACTIVE` `TERMINATING` `TERMINATED` | `statusClass` A/P/I/C/T (documented) | `status` text | none |
-| `own_tax_id` | The company's own FEIN as returned (last 4 if visible) | `federalIdNumber`, fully masked live | `federalEIN` | none |
-| `service_arrangement` | `PEO` `ASO` `PAYROLL_ONLY` `ASO_ALT_BILLING` `CORPORATE_PAYROLL` `HR_ONLY` | `serviceType` (documented) | none | none |
-| `employers[]` | Employers or EINs the employees are assigned to, in provider terms | `employerId` + `altEmployer[]`; names and EINs not retrievable (403, A-09) | the legal company itself | `lookup/eins` |
-| `pay_groups[]` | id, name, frequency | `getClientCodes` PGroups + `getPayrollSchedule` | legal company `payGroups` | not fetched |
-| `address`, `phone`, `email` | Main contact details | client master | `legalAddress` | none |
+| Entity | PrismHR source IDs | isolved source IDs | UKG Ready source IDs |
+|---|---|---|---|
+| Company | `clientId` | `clientId` + `legalId` | company id |
+| Employee | `clientId` + employee `id` | employee `id` | account `id` |
+| DirectDeposit | employee + position in `achVoucher[]` / `hsaDepositSettings[]` (no deposit ID; accounts fully masked) | deposit `id` | deposit `id` |
+| DeductionElection | employee + `deductionCode` + `startDate`; loans by `loanId` | pay item `id`; garnishment `id` | deduction `id` |
+| PayrollRun | `batchId` | pay group + run history `id` | payroll `id` |
+| PayStatement | `voucherId` | check `id` | pay statement `id` |
 
-### 3.2 Employee
+**Joining a paycheck to its payroll run:**
+- **PrismHR:** the voucher's `batchId` points at the run directly.
+- **UKG:** pay statements are read under their payroll, so the link comes from the request path.
+- **isolved:** a check carries `payrollRunNumber`, `checkDate` and its period, while run history
+  carries a separate `id` and `runNumber`. We match on legal company + pay date + run number (+ pay
+  group when known). A run number is never treated as a run ID. Zero or several matches mean
+  `payroll_run_id = null`, with a diagnostic.
+
+## 3. Company
+
+| Field | PrismHR | isolved | UKG Ready |
+|---|---|---|---|
+| `name`, `legal_name` | `clientName`, `legalName` | `dbaName`, `legalName` | none: no company endpoint (A-15) |
+| `parent` | none | the isolved client (id, name) | none |
+| `status` (`ACTIVE` `PENDING` `INACTIVE` `TERMINATING` `TERMINATED`) | `statusClass` A/P/I/C/T (documented) | `status` text | none |
+| `own_tax_id` (last 4 if visible) | `federalIdNumber` (fully masked live) | `federalEIN` | none |
+| `service_arrangement` | `serviceType` PEO/ASO/PAY/ASA/COR/HRN (documented) | none | none |
+| `employers[]` (provider terms) | `employerId` + `altEmployer[]`; name and EIN refused (A-09) | the legal company itself | `lookup/eins` |
+| `pay_groups[]` | `getClientCodes` PGroups + `getPayrollSchedule` | `payGroups` (frequency via §6) | not available |
+
+## 4. Employee
 
 | Group | Fields |
 |---|---|
-| Identity | `identifiers[]` of {type, value}: `PROVIDER_ID`, `EMPLOYEE_NUMBER`, `EXTERNAL_ID`, `CLOCK_NUMBER`. Also `national_id`: {type, last4, masked_at_source}. |
+| Identity | `identifiers[]` of {type, value}; `national_id` as {type, last4, masked_at_source} |
 | Name | `first`, `middle`, `last`, `preferred`, `prefix`, `suffix` |
-| Personal | `birth_date`, `gender`, `marital_status` and `ethnicity` (all coded, label kept), plus veteran and disability flags |
-| Contact | `addresses[]` (HOME, MAILING, ...), `phones[]` (HOME, MOBILE, WORK, ...), `emails[]` (PERSONAL, WORK) |
-| Employment | `status` (`ACTIVE` `ON_LEAVE` `TERMINATED`) with its date, `employment_type` (`FULL_TIME` `PART_TIME`), hire / rehire / start / seniority / termination dates, `termination_reason`, `flsa_exempt` |
-| Job | `title`, `job_code`, `department`, `division`, `location`, `manager`, `supervisor`, `union` |
-| Compensation | `pay_type` (`SALARY` `HOURLY` `COMMISSION` `DRIVER` `CONTRACTOR_1099`), `pay_frequency` with `periods_per_year`, `rates[]` (every rate the provider gives, each with its own `per`), `annual_pay` (as provided, or derived and flagged), `standard_hours`, `effective_date`, `history[]` |
-| Tax setup | Federal and state withholding settings are kept verbatim in `provider_extensions` for v1 (§5) |
+| Personal | `birth_date`; `gender`, `marital_status` and `ethnicity` (coded, label kept); veteran and disability statuses (including "declined"/"not specified"); `citizenship`; `preferred_language`; `emergency_contacts[]` |
+| Contact | `addresses[]`, `phones[]`, `emails[]`, each typed |
+| Employment | `status` (`ACTIVE` `ON_LEAVE` `TERMINATED`) and its date; `employment_type` (`FULL_TIME` `PART_TIME`); `worker_classification` (`EMPLOYEE` `CONTRACTOR_1099`); hire / rehire / start / seniority / termination dates; `termination_reason`; `flsa_exempt`; `employer_ids[]` |
+| Job | `title`, `job_code`, `department`, `division`, `location`, `manager`, `supervisor`, `union`, `cost_centers[]` |
+| Compensation | `pay_type` (`SALARY` `HOURLY` `COMMISSION` `DRIVER`); `pay_frequency` with `periods_per_year`; `rates[]`, each with its own `per`; `annual_pay` (as provided, or derived and flagged); `standard_hours`; `effective_date`; `history[]`, each entry with its own source ID |
+| Tax setup | kept in `provider_extensions` for v1 (§10) |
 
 | | PrismHR | isolved | UKG Ready |
 |---|---|---|---|
-| IDs | `employeeId`; `client.clientEmployeeId`; `client.clockNum` | `id`; `employeeNumber` | `id` (account), `employee_id`, `external_id` |
-| SSN | `compensation.ssn`, fully masked live (no last 4) | not returned by this endpoint | returned in full live; reduced to last 4 |
-| Status | `client.statusClass` A/L/T (documented); the client status code and its label from `getClientCodes` | `employmentStatus` text, mapped via the client's status table | `status` "Active"/"Terminated": undocumented, but matches `dates.terminated` on 15/15 live |
-| Type | `client.typeClass` F/P (documented as the `getEmployeeList` filter), plus the client type code and label | `employmentCategoryCode` (client-configured): `UNMAPPED` + label | pay-info `employee_type`, a tenant lookup name: `UNMAPPED` + label |
-| Pay | `payMethod` S/H/C/D. `salary` is per pay period (proven, A-20). `hourlyPay` is per hour. `hourlyPayRate` is per `hourlyPayPeriod`, where live `A` = annual (proven, A-19). | `payType`; `hourlyRate` per hour; `perPaySalary` per pay period; `annualSalary`; `payFrequency` via Frequencies (A-27) | compensation history: `amount` per `amount_period`, `hourly_pay` per hour, `time` in ms per `time_period`, `num_pp_in_year`; pay-info `standard_work_day` in ms |
+| IDs | response `id` (the request parameter is `employeeId`); `client.clientEmployeeId`; `client.clockNum` | `id`; `employeeNumber`; `timeclockId`; `uniqueId` | `id` (account); `employee_id`; `external_id` |
+| SSN | `compensation.ssn` (masked live); `person.cobraSSN` is also sanitized | not returned | `social_security` and `national_id_numbers[]`, returned in full live and reduced to last 4 |
+| Status | `client.statusClass` A/L/T (documented), plus the client status code and label | `employmentStatus`, via the client's status table | `status`: undocumented, but consistent with `dates.terminated` live |
+| Type | `client.typeClass` F/P (documented filter values) | `employmentCategoryCode`: customer code, `UNMAPPED` | pay-info `employee_type`: tenant label, `UNMAPPED` |
+| Worker class | `client.employee1099` (independent of `payMethod`) | `payType` "1099" gives `CONTRACTOR_1099` and pay type `UNMAPPED` | none |
+| Pay | `payMethod` S/H/C/D. `salary` is per pay period (A-20). `hourlyPay` is per hour. `hourlyPayRate` is per `hourlyPayPeriod` (live `A` = annual, A-19). | `payType`; `hourlyRate` per hour; `perPaySalary` per pay period; `annualSalary` | compensation `amount` per `amount_period`; `hourly_pay`; `time` in ms per `time_period`; `num_pp_in_year` |
 
-### 3.3 DirectDeposit
+## 5. DirectDeposit
 
 **Fields:**
-- `account`: `type`, `routing_number`, `account_last4` and `bank_name`.
-- Allocation: `method`, `amount`, `percent` and `limit`.
-- `sequence` and `is_remainder`.
-- `status` and `prenote_status`.
-- `effective_from` and `effective_to`.
-- `applies_to`: the pay types the deposit applies to (Prism only).
+- `purpose`: `NET_PAY` or `HSA`.
+- `funding`: `EMPLOYEE` or `EMPLOYER`, for HSA only.
+- `account`: type, routing number, last 4, bank name and routing type.
+- Allocation: `method`, `amount`, `percent` (§2), `limit`.
+- `sequence`, `is_remainder`, `status`.
+- `prenote`: status, sent date and expiration date.
+- `effective_from` and `effective_to` (§6).
+- `frequency`, `applies_to_pay_types` and `currency`.
 
-| Canonical method | PrismHR `method` (documented) | isolved | UKG `calc_method.type` |
-|---|---|---|---|
-| `FIXED_AMOUNT` | F | `amount` set | FLAT_AMOUNT |
-| `FIXED_AMOUNT_SKIP_IF_INSUFFICIENT` | FS | none | none |
-| `PERCENT_BASE_UNSPECIFIED` | P (no base stated) | `percent` set (no base stated) | none |
-| `PERCENT_OF_GROSS` | none | none | GROSS_EARNING |
-| `PERCENT_OF_NET` | none | none | NET_PAY |
-| `PERCENT_OF_NET_AFTER_FIXED` | PN | none | none |
-| `PERCENT_OF_REMAINDER` | none | none | DIRECT_DEPOSIT_PER_OF_REMAINDER |
-| `REMAINDER` | B | `sequenceNumber` 0 ("0 = Net Pay") | FULL ("Entire/Remainder" live) |
+Methods are mapped per **full source field**:
 
-Prism `PN` and UKG's percent-of-remainder look alike but are kept apart: neither provider documents
-that they are the same. For UKG percent methods the meaning comes from the enum name alone, since live
-data only showed `FULL`, so the converter checks `display_name` whenever it is present (A-26).
+| Canonical method | Prism `achVoucher.method` | Prism `hsaDepositSettings.method` | isolved | UKG `calc_method.type` |
+|---|---|---|---|---|
+| `FIXED_AMOUNT` | F | F | `amount` set | FLAT_AMOUNT ("Flat Amount") |
+| `FIXED_AMOUNT_SKIP_IF_INSUFFICIENT` | FS | FS | none | none |
+| `PERCENT_BASE_UNSPECIFIED` | P | P | `percent` set | none |
+| `PERCENT_OF_GROSS` | none | none | none | GROSS_EARNING ("% Of Gross Earnings", from a docs sample) |
+| `PERCENT_OF_NET_AFTER_FIXED` | PN | none | none | none |
+| `PERCENT_OF_NET_AFTER_TAXES` | none | PN | none | none |
+| `REMAINDER` | B | B | `sequenceNumber` 0 ("0 = Net Pay") | FULL ("Entire/Remainder") |
+| `UNMAPPED` | other | other | none | NET_PAY and DIRECT_DEPOSIT_PER_OF_REMAINDER: no documented meaning, unless the record's `display_name` states one (A-26) |
 
 | Canonical account type | Source |
 |---|---|
-| `CHECKING`, `SAVINGS` | Prism C/S; isolved "Checking"/"Savings"; UKG CHECKING/SAVINGS |
-| `CHECKING_OR_PAY_CARD` | Prism C: documented as "checking account or pay card", so it can't be called plain checking |
+| `CHECKING` | isolved "Checking"; UKG CHECKING; Prism HSA HE/HC ("to Checking") |
+| `SAVINGS` | Prism S; isolved "Savings"; UKG SAVINGS; Prism HSA HES/HCS ("to Savings") |
+| `CHECKING_OR_PAY_CARD` | Prism C only: documented as "checking account or pay card" |
 | `INSTANT_PAY` | Prism IP |
 | `PAPER_CHECK` | UKG RESERVE_LIVE_CHECK, which reserves a paper check rather than naming an account |
 
-`status` is `ACTIVE`, `INACTIVE` or `PRENOTE`. It comes from Prism D/I/P or isolved "Active"/"Inactive".
-For UKG it is derived from the `active` flag together with `active_from`/`active_to` at `as_of`.
+- **Prism HSA funding:** HE/HES are employee-funded and HC/HCS are company-funded (documented).
+- **Status:** Prism D/I/P and isolved "Active"/"Inactive" map directly. UKG status is derived from
+  `active` plus the date span at `as_of` (§6).
 
-### 3.4 DeductionElection (setup)
+## 6. Dates, spans and frequencies
+
+- **Format:** dates are ISO `YYYY-MM-DD`. isolved date-times become dates; any non-midnight time is
+  kept in the raw value, with a diagnostic.
+- **UKG span convention (`Foundations.html`):**
+  - "beginning of time" = 1900-01-01 and "end of time" = 3000-01-01;
+  - effective dates are **inclusive** and expiration dates **exclusive**.
+
+  Only those two documented dates become `null` (open-ended), with the raw value kept. Other
+  far-off dates are kept as real dates with an info diagnostic: 9999-12-31 and 1900-12-31 in doc
+  samples, and 2099-12-31 live (A-25). A UKG record is active at `as_of` when
+  `from <= as_of < to`.
+- **Prism and isolved** don't document span semantics. Their end dates are treated as inclusive,
+  and that assumption is noted (A-25).
+- **Pay frequency:** isolved resolves it through the Frequencies lookup by *description*, using a
+  fixed table: Weekly = 52, Bi-Weekly = 26, Semi-Monthly = 24, Monthly = 12, Quarterly = 4,
+  Annually = 1, and "N Pay Periods Per Year" = N. The lookup ID is never used as a count (A-27).
+  Prism uses `payPeriod` codes; UKG uses `num_pp_in_year`.
+
+## 7. DeductionElection (setup)
 
 **Fields:**
 - `code`, `label`, `category`, `tax_treatment` and `catch_up`.
-- `calculation`: method, amount, percent and rate.
-- `limits`: per-period limit, maximum, and the maximum's basis.
+- `calculation`: {`method`, `basis`, `value`, `rounding`, `raw`}.
+- `limits`: per period, maximum, and the maximum's basis.
 - `frequency`, `effective_from` and `effective_to`.
-- `employer_match`.
-- Garnishment details: case number, type and payee.
-- Loan details: principal, payback amount and amount paid.
+- `employer_match`, `arrears_tracking` and `mandatory`.
+- `benefit_plan_id` and `loan_or_garnishment_id`.
+- Garnishment details and loan details.
 
-| Category / tax treatment | PrismHR `deductionType` (documented) | isolved `systemBenefitType` (provider classification) |
+**Category and tax treatment:**
+
+| Category / tax treatment | PrismHR `deductionType` (documented) | isolved `systemBenefitType` |
 |---|---|---|
-| `RETIREMENT` / `PRE_TAX` | K; KC with `catch_up` | 401(k), tax treatment `UNSPECIFIED` |
+| `RETIREMENT` / `PRE_TAX` | K; KC with `catch_up` | 401(k), treatment `UNSPECIFIED` |
 | `RETIREMENT` / `POST_TAX` | KE | none |
 | `RETIREMENT` / `ROTH` | KR; KCR with `catch_up` | none |
 | `RETIREMENT_LOAN` | KL | none |
@@ -173,72 +220,124 @@ For UKG it is derived from the `active` flag together with `active_from`/`active
 | `HSA` | none | Health Savings Account |
 | `POST_TAX_BENEFIT` / `POST_TAX` | P | none |
 | `VOLUNTARY` | V | system pay item "Voluntary Deduction" |
-| `GARNISHMENT` | G (details: 403, A-08) | `/garnishments` |
-| `LOAN` | L (`getEmployeeLoans`) | none |
+| `GARNISHMENT` | G | `/garnishments` |
+| `LOAN` | L | none |
 
-UKG exposes no deduction setup on this tenant (A-12). UKG deductions appear only as pay-statement
-lines, which carry names only, so their category stays `UNMAPPED` with the label kept.
+**Calculation methods.** Prism documents 29 calculation methods in
+`DeductionCodeDetail.calculationMethod`. Each one keeps its basis:
 
-### 3.5 PayrollRun
+| Canonical method / basis | Prism codes |
+|---|---|
+| `FIXED_AMOUNT` | F |
+| `PERCENT` / `GROSS_PAY`, `GROSS_EARNINGS`, `STRAIGHT_PAY`, `PAY_RATE`, `RETIREMENT_EARNINGS`, `EARNINGS`, `GROSS_EARNINGS_LESS_DEDUCTIONS`, `CERTIFIED_JOB_EARNINGS` | PG, PE, PS, PPR, PR, PET, PGD, PCE |
+| `PERCENT` / `PAY_RATE` or `PRIOR_MONTH_PAY_RATE`, rounded to the dollar | PPRD, PPRM |
+| `PER_TEN_THOUSAND` / `GROSS_PAY`, `GROSS_EARNINGS`, `STRAIGHT_PAY`, `RETIREMENT_EARNINGS` | PXG, PXE, PXS, PXR |
+| `RATE_PER_HOUR` / `HOURS_WORKED`, `HOURS_PAID`, `HOURS_PAID_SELECTED_CODES`, `CERTIFIED_JOB_HOURS`, `UNION_JOB_HOURS`, `UNION_PROJECT_HOURS` | R, RP, RPS, RC, RUJ, RUP |
+| `RATE_TABLE` | RT |
+| `PROVIDER_RULE` (garnishment, retirement plan, union dues, Ohio taxes, in/out) | G, K, U, UF, OH, OHSERS, IO |
 
-**Fields:** `pay_date`, `period_start`, `period_end`, run and processed dates, `type`, `status`, the
-pay groups, and the employer or EIN.
+**Other providers:**
+- **isolved** pay items give `Amount`, `Percent` or `Rate` with no basis, so the basis is
+  `UNSPECIFIED` and the percent scale is unverified.
+- **UKG** `ee_calc_method.method.type` is an open string, so it stays `UNMAPPED`, with its
+  `display_name` kept as the label.
 
-- **Types:** `REGULAR` `SPECIAL` `MANUAL` `VOID` `ADJUSTMENT` `CORRECTION` `HISTORICAL_IMPORT`.
-  - Prism `batchType` R/M/S/V is documented. The empty string seen live is `UNMAPPED`.
-  - isolved run types are text ("Regular Payroll", "Data Conversion").
-  - UKG types come from the `payroll-types` lookup.
-- **Status:** `OPEN` `CLOSED` `SUBMITTED` `COMPLETED` `NOT_PROCESSED` `FAILED`, always with the raw value.
-  - Prism status codes are undocumented. `COMP` maps to `COMPLETED` on evidence; the rest stay
-    `UNMAPPED` (A-21).
+**UKG support.** The converter supports UKG's documented setup endpoints (`#/schemas/132`, `#/schemas/133`)
+and is tested on synthetic data. Only the live demo tenant returns 404 (A-12). That's a tenant gap,
+not a provider one.
 
-### 3.6 PayStatement (paycheck)
+## 8. PayrollRun and PayStatement
 
-**Header:** pay date, period, check number, `type`, status, void details, run, employee.
+**PayrollRun:**
+- `pay_date`, run and processed dates, `type`, `status`.
+- `pay_groups[]`, each with its own period start and end, weeks worked and deduction period. Prism
+  gives periods per pay group (`BatchByDateResponse-BatchList-PayGroup`).
+- Types are `REGULAR` `SPECIAL` `MANUAL` `VOID` `ADJUSTMENT` `CORRECTION` `HISTORICAL_IMPORT`.
+- Statuses are `OPEN` `CLOSED` `SUBMITTED` `COMPLETED` `NOT_PROCESSED` `FAILED`, always with the raw
+  value (A-21).
 
-**Totals:** `gross_pay`, `gross_wages` (isolved only), `net_pay`, employee taxes, employer taxes,
-deductions and employer contributions. Each total is either provided by the source or derived and
-flagged.
-
-**Lines:**
-- `earnings[]`: code, label, `kind`, hours, units, rate, amount, plus department, job and location.
-  `kind` is one of `EARNINGS` `REIMBURSEMENT` `NON_CASH_FRINGE` `REPORTED_TIPS` `MEMO`.
-- `taxes[]`: code, label, `paid_by` (`EMPLOYEE`/`EMPLOYER`), amount, taxable wages.
-- `deductions[]`: code, label, category, employee amount, employer amount.
-- `employer_contributions[]`: code, label, amount.
-- `payments[]`: `DIRECT_DEPOSIT` or `CHECK`, amount, account last 4.
+**PayStatement:**
+- **Header:** pay date, period, check number, type, status, plus void and reissue details.
+- **Totals:** `gross_pay`, `gross_wages` (isolved only), `net_pay`, employee and employer taxes,
+  deductions, and employer contributions. Each is either provided or derived and flagged.
+- **`earnings[]`:**
+  - code, label and `kind` (`EARNINGS` `REIMBURSEMENT` `NON_CASH_FRINGE` `REPORTED_TIPS` `MEMO`);
+  - `quantity` (value with unit `HOURS`/`UNITS`/`UNKNOWN`) and `hours_worked`;
+  - rate, amount, line date range and allocations.
+- **`taxes[]`:** code, label, `paid_by`, amount, and employee and employer wage bases kept separate.
+- **`deductions[]`:** code, external ID, label, category, and employee and employer amounts.
+- **`employer_contributions[]`.**
+- **`benefit_details[]`:** premium, employee and employer amounts, coverage period. These are
+  informational and never added into totals.
+- **`retirement`:** pre-tax, catch-up, Roth, post-tax, employer match, non-elective, safe-harbor and
+  loan amounts (Prism).
+- **`payments[]`:** `DIRECT_DEPOSIT` or `CHECK`, amount, last 4.
 
 | | PrismHR voucher | isolved check | UKG pay statement |
 |---|---|---|---|
-| Gross | `totalEarnings` | `grossPay` (reconciles to net), plus `grossWages` = sum of non-memo earnings (A-28) | **derived**: the API has no total |
-| Net | `netPay` | `netPay` | **derived** from payments: the API has no total |
-| Hours | `hoursUnits` | `checkHours` | `hours` is in **milliseconds**, divided by 3,600,000 (proven, A-24) |
-| Line amount | `payAmount` = hours × `unitRate` (proven; the doc says "per hour", A-18) | `checkDollars` (equals `currentDollars` live) | `ee_amount` |
-| Earning kind | `payClass` E/R/F/RT/M (documented) | `isMemoEarning` | none: `UNMAPPED` |
-| Taxes | `employeeTax[]` (employee), `companyTax[]` (employer) | `taxes[]` with `isEmployeeTax` | `taxes[]` with `ee_amount` and `er_amount` |
-| Deductions | `deduction[]` (documented `deductType`), `otherDeduction[]` | `deductions[]`, `garnishments[]` | `deductions[]` (`ee_amount`) |
+| Gross | `totalEarnings` | `grossPay` (reconciles to net), plus `grossWages` (A-28) | **derived**: no total in the API |
+| Net | `netPay` | `netPay` | **derived** from payments |
+| Earning lines | `earning[]` **and** `otherEarningsDetail[]` (gross = earn + other) | `earnings[]` (`check*` bucket, A-28) | `earnings[]` |
+| Quantity | `hoursUnits`, which is "hours or units paid": the unit comes from the pay code's documented `payReason` H/U, else `UNKNOWN`. Plus `hoursWorked` (A-38). | `checkHours` and `checkUnits` | `hours` in ms, converted to hours (A-24); `quantity` unit `UNKNOWN` |
+| Line amount | `payAmount` = quantity × `unitRate` (A-18) | `checkDollars` | `ee_amount` |
+| Earning kind | `payClass` E/R/F/RT/M (documented) | `isMemoEarning` only | `UNMAPPED` |
+| Taxes | `employeeTax[]`, `companyTax[]` | `taxes[]` + `isEmployeeTax` | `taxes[]` with `ee_*` and `er_*` amounts and wage bases |
+| Deductions | `deduction[]` (`deductType`), `otherDeduction[]` | `deductions[]`, `garnishments[]` | `deductions[]`: code, external ID, name |
 | Employer contributions | `employerContributions[]` | `benefits[].checkEmployerContribution` | `deductions[].er_amount` |
-| Payments | `checkAmt` + `directDeposit[]` | `checkAmount` + `directDeposits[]` | `payments[]` |
+| Payments | `checkAmt` + `directDeposit[]` | `checkAmount` + `directDeposits[]` | `payments[]` (`type_name` "Check" / "Direct Deposit"; others `UNMAPPED`) |
 
-**Built-in checks, which are reported and never "fixed":**
+**Checks, reported and never "fixed":**
 - gross − employee taxes − deductions = net;
 - payments = net;
-- provided total = sum of its lines.
+- each provided total = the sum of its lines.
 
-## 4. What is deliberately not requested or not mapped
+## 9. Field dispositions, sensitive data, drops and testing
 
-- **Prism `Health` option:** never requested, because it is medical data.
-- **isolved profile pictures, document contents and I-9 documents:** never requested (images and
-  identity documents).
-- **Year-to-date and other accumulator buckets, workers' comp and GL distributions:** kept in
-  `provider_extensions`, not mapped.
-- **Provider checksums (update tokens):** kept in `provider_extensions`. The dry-run write path may use them.
+**Explicit dispositions for fields the audit raised:**
 
-## 5. Decisions from review (2026-10-13)
+| Field | Disposition |
+|---|---|
+| Prism emergency contacts, citizenship status (Z01–Z04, documented), preferred language | mapped (§4 Personal) |
+| Prism and isolved veteran / disability answers, including declined and not specified | mapped as coded values, label kept |
+| Prism skills/education, transfer history, events, property; isolved organizations, labor and misc datasets | `provider_extensions` |
+| Prism deduction arrears, mandatory flag, benefit plan, loan/garnishment reference | mapped (§7) |
+| Prism deduction rate table/tier and linked ACH account | `provider_extensions` |
+| Prism batch per-group periods, weeks worked, deduction period | mapped (§8 `pay_groups[]`) |
+| Prism voucher `otherEarningsDetail`, retirement breakdown, benefit lines | mapped (§8) |
+| isolved deposit `frequency` (required), pay item schedule override and calc parameters | mapped |
+| isolved check benefit lines, labor allocations, reissue details | mapped (§8) |
+| UKG multiple national IDs and managers, EIN and primary-account links, cost centers | mapped (sanitized) |
+| UKG deposit frequency, prenote dates, routing type, currency | mapped (§5) |
+| UKG deposit arrearage behavior | `provider_extensions` (enum values without documented meanings) |
+| UKG pay-info pay grade, shift premium, job change, benefit eligibility | `provider_extensions` (eligibility codes are kept raw) |
+| UKG pay-statement line dates, batches, allocations, wage bases, payment types | mapped (§8) |
+| Year-to-date and accumulator buckets; workers' comp; GL distributions | `provider_extensions` |
 
-1. **Tax withholding setup** stays in `provider_extensions` for v1 and is not mapped to canonical
-   fields (A-34).
-2. **Customer-configured labels**, such as UKG "FT Exempt" or the isolved category "FT", stay
-   `UNMAPPED` with the label kept. There is no per-tenant mapping file (A-35).
-3. **Output** is required in two forms: JSON files per entity, and a SQLite database with the same
-   records linked by ID (A-36).
+A generated `docs/FIELD_COVERAGE.md` will list every response field's disposition.
+
+**Sensitive data.** A registry of sensitive source fields, plus a pattern sweep over everything
+else, sanitizes these:
+- SSNs: Prism `ssn` and `cobraSSN`; UKG `social_security`, `national_id_numbers[]`,
+  `social_insurance`, `national_insurance` and `bsn`;
+- bank account numbers: Prism `accountNum` (deposits, HSA, vouchers); isolved `accountNumber` and
+  check `account`; UKG `account_number` and pay-info `bank_account_number`.
+
+Sanitizing keeps at most the last 4 digits, and never invents digits for values that arrived masked.
+
+**Dropped (never requested or not kept):**
+- the Prism `Health` option (medical data);
+- isolved profile pictures, document contents and I-9 documents;
+- UKG `photo_href`, a signed link that works as a credential.
+
+**Testing notes:**
+- Fixtures are generated from known facts and validated against the provider schema. Live aliases
+  such as Prism's `payrollVoucher` are first translated back to the documented name, so the
+  contents get validated too, not just accepted as extra properties. The converter receives the
+  live alias form (A-43).
+- All inputs are parsed with exact decimals.
+
+## 10. Decisions from review (2026-10-13)
+
+1. **Tax withholding setup** stays in `provider_extensions` for v1 (A-34).
+2. **Customer-configured labels** stay `UNMAPPED`, with the label kept (A-35).
+3. **Output** is JSON per entity plus a SQLite database with the same records linked by ID (A-36).

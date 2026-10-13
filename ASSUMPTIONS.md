@@ -45,12 +45,18 @@ Status: first draft, written during discovery. Entries are added as mapping deci
 - **Decision:** every live request passes `src/normalization/live/scope.py` before it is sent:
   - GET only, on the `/signin` base URL host;
   - allowlisted endpoints only;
-  - only the demo company IDs that `/signin` returned;
-  - redirects are re-checked on every hop.
+  - only the demo company IDs that `/signin` returned.
+- **Hardening after the audit:**
+  - Redirects are never followed automatically: each request sets `follow_redirects=False`, and our
+    own redirect loop re-checks every hop.
+  - A redirect from the sign-in service is refused outright, because following it would resend the
+    API key.
+  - Saved captures, the index and log lines are scrubbed of the API key, the session's tokens and
+    embedded signed tokens. Credential-bearing headers are dropped.
+  - Numbers are kept exactly as the provider wrote them (`normalization.exactjson`).
 
-  Tokens stay in memory, are never written to disk, and appear in no log. Offline tests cover each rule.
+  Offline tests reproduce each attack and fail if the matching fix is removed.
 - **Why:** these are real provider UAT systems, so the code must make a mistake impossible, not merely unlikely.
-
 ### A-05 One exception: Prism employer lookups
 - **Issue:** `system/v1/getEmployerDetails` is not keyed by client. Called without an `employerId`,
   it lists every employer in the tenant.
@@ -104,12 +110,15 @@ Status: first draft, written during discovery. Entries are added as mapping deci
 - **Decision:** normalize these as they are, with run type `HISTORICAL_IMPORT`. Synthetic fixtures
   cover regular runs.
 
-### A-12 UKG has no deduction setup endpoint on this tenant
-- **Evidence:** `/employees/{aid}/deductions` (UKG `#/schemas/132`) returns 404 "Unresolvable URL"
-  for all 15 employees.
-- **Decision:** there are no UKG `DeductionElection` records. UKG deductions appear only as
-  pay-statement lines. This is a documented gap.
-
+### A-12 UKG deduction setup: this tenant returns 404; the provider documents it
+- **Evidence:** UKG documents employee deduction setup in `#/schemas/132` (list) and `#/schemas/133`
+  (detail): frequencies, annual limits, calculation methods and dates. The live demo tenant returns
+  404 "Unresolvable URL" for all 15 employees.
+- **Decision:** the UKG converter supports the documented endpoints and is tested on synthetic data.
+  For this tenant, no UKG `DeductionElection` records are produced, and the gap is reported.
+  Deductions still appear on pay statements.
+- **Why:** a tenant's missing endpoint is a fact about the tenant, not about UKG. The converter
+  shouldn't be limited by one demo account.
 ### A-13 UKG payroll runs are all OPEN
 - **Evidence:**
   - All 89 payrolls from 2025-09-12 to 2027-06-04 have status `OPEN`.
@@ -177,16 +186,21 @@ Status: first draft, written during discovery. Entries are added as mapping deci
   `PayrollVoucher` schema.
 - **Decision:** keep both in `provider_extensions`.
 
-### A-23 Masking differs by provider
+### A-23 Masking differs by provider; our output sanitizes everywhere
 - **Evidence:**
-  - Prism SSNs come back fully masked (`***-**-****`). Birth dates come back **unmasked**, although
+  - Prism SSNs come back fully masked (`***-**-****`), and so do its bank account numbers (all
+    asterisks, no last 4). Birth dates come back **unmasked**, although
     `#/paths/~1employee~1v1~1getEmployee/get/description` says they are masked by default.
   - isolved returns full direct-deposit account numbers, and no SSN from this endpoint.
-  - UKG returns full SSNs.
-- **Decision:** our output keeps only the last 4 digits of SSNs and account numbers, whatever was
-  received, and records whether the provider had already masked them. Birth dates are kept as
-  employee data.
-
+  - UKG returns full SSNs. Its employee `photo_href` links each carry a signed token.
+- **Decision:**
+  - SSNs and bank account numbers keep at most their last 4 digits **everywhere** in the output:
+    canonical fields, `provider_extensions`, raw values and diagnostics. Values the provider already
+    masked yield no last 4 (nothing is invented).
+  - A registry of sensitive source fields, plus a pattern sweep, enforces this. The registry includes
+    Prism `cobraSSN` and UKG pay-info `bank_account_number`.
+  - `photo_href` is dropped. Birth dates are kept as employee data.
+- **Why:** keeping fields "verbatim" in `provider_extensions` would otherwise undo the masking.
 ### A-24 UKG pay-statement hours are milliseconds
 - **Evidence:** UKG `#/schemas/364` types earnings `hours` as an integer with no unit. Live, **all 23**
   earning lines that have both hours and a rate satisfy `(hours ÷ 3,600,000) × base_rate = ee_amount`,
@@ -194,27 +208,43 @@ Status: first draft, written during discovery. Entries are added as mapping deci
   (compensation `time`, pay-info `standard_work_day`).
 - **Decision:** convert to hours, keep the raw value, and record the formula.
 
-### A-25 UKG uses 2099-12-31 as an end date
-- **Evidence:** all live deposits have `active_to` = 2099-12-31. The documented open-ended sentinels
-  are 9999-12-31 and 1900-12-31.
-- **Decision:** keep 2099-12-31 as a real date, with an info diagnostic. Only documented sentinels
-  become null.
-
-### A-26 UKG direct-deposit percent methods have no documented meaning
-- **Evidence:** UKG `#/schemas/137` lists the `calc_method.type` enum values with no descriptions.
-  Live, only `FULL` appeared, with `display_name` "Entire/Remainder".
-- **Decision:** map GROSS_EARNING, NET_PAY and DIRECT_DEPOSIT_PER_OF_REMAINDER by their enum names,
-  but check `display_name` whenever it is present and add a diagnostic if they disagree.
-- **Why:** these are the provider's own enum values, not customer labels, but they are unverified.
-
-### A-27 isolved `payFrequency` is a Frequencies lookup ID
-- **Evidence:** the spec types it only as an integer
-  (`#/definitions/AOS.PayrollOffice.RestAPI.Models.PayGroupModel/properties/payFrequency`). Live
-  `/api/lookup/Frequencies` maps 12 = Monthly, 24 = Semi-Monthly, 26 = Bi-Weekly and 52 = Weekly. The
-  pay groups match their names: "Biweekly" is 26 and "Monthly" is 12.
-- **Decision:** resolve it through the lookup. The lookup's description becomes the label, and the ID
-  gives `periods_per_year`.
-
+### A-25 Open-ended dates and span boundaries
+- **Evidence:** UKG `reference-docs/Foundations.html` ("Conventions related to time") documents
+  "beginning of time" = **1900-01-01** and "end of time" = **3000-01-01**. It also says effective
+  dates are inclusive and expiration dates exclusive. 9999-12-31 and 1900-12-31 appear only in doc
+  samples, and 2099-12-31 appears live (every UKG deposit).
+- **Correction:** an earlier draft (and the project brief) called 9999-12-31 and 1900-12-31
+  "documented sentinels". They are not.
+- **Decision:**
+  - Only 1900-01-01 and 3000-01-01 become `null` (open-ended), with the raw value kept, and only on
+    UKG span fields.
+  - Other far-off dates are kept as real dates with an info diagnostic.
+  - UKG spans are evaluated as `from <= as_of < to`.
+  - Prism and isolved document no span semantics, so their end dates are treated as inclusive. This
+    is an assumption, noted in diagnostics.
+### A-26 UKG direct-deposit methods: map only what is labeled
+- **Evidence:** UKG `#/schemas/137` lists the `calc_method.type` values with no descriptions. The
+  cached response samples label `FULL` "Entire/Remainder", `FLAT_AMOUNT` "Flat Amount" and
+  `GROSS_EARNING` "% Of Gross Earnings". Live data showed only `FULL` ("Entire/Remainder").
+  `NET_PAY` and `DIRECT_DEPOSIT_PER_OF_REMAINDER` have no label anywhere.
+- **Decision:**
+  - `FULL`, `FLAT_AMOUNT` and `GROSS_EARNING` map to `REMAINDER`, `FIXED_AMOUNT` and
+    `PERCENT_OF_GROSS`.
+  - `NET_PAY` and `DIRECT_DEPOSIT_PER_OF_REMAINDER` map to `UNMAPPED`, unless the record's own
+    `display_name` states the basis.
+- **Why:** enum names are the provider's words but carry no definition. Labels are evidence; names
+  alone are not.
+### A-27 isolved pay frequency: resolve by description, not by ID
+- **Evidence:**
+  `#/definitions/AOS.PayrollOffice.RestAPI.Models.LookupFrequencyModel/properties/id` defines the ID
+  only as a "Unique Object Id".
+  - Live `/api/lookup/Frequencies` has descriptions such as Monthly, Semi-Monthly, Bi-Weekly, Weekly
+    and "N Pay Periods Per Year".
+  - The live IDs happen to equal those counts (12, 24, 26, 52), but nothing promises that.
+- **Decision:** `payFrequency` is resolved through the lookup, and the *description* maps through a
+  fixed table: Weekly = 52, Bi-Weekly = 26, Semi-Monthly = 24, Monthly = 12, Quarterly = 4,
+  Annually = 1, "N Pay Periods Per Year" = N. The ID is never used as a count. Unknown descriptions
+  map to `UNMAPPED`.
 ### A-28 isolved check buckets and its two gross figures
 - **Evidence:** for each check, the spec gives `check*`, `current*`, `ptd`, `mtd`, `qtd`, `ytd` and
   `ftd` amounts without explaining them. On all 15 live checks:
@@ -237,11 +267,12 @@ Status: first draft, written during discovery. Entries are added as mapping deci
   - Prism deductions with `usePercent = true` have amounts 3.0 and 12.0. A fraction scale would mean
     300% and 1200% of pay, which is impossible.
 - **Decision:**
-  - Prism deduction percents are percentage points.
-  - Percentages without evidence are treated as points too, but get a `PERCENT_SCALE_UNVERIFIED`
-    diagnostic.
-  - Synthetic fixtures exercise percent allocations.
-
+  - Prism deduction percents are verified percentage points: `scale: VERIFIED_POINTS`.
+  - Every other percent keeps its raw value with `scale: UNVERIFIED` and `percent: null`. No
+    converted number is published.
+  - Synthetic fixtures cover percent allocations.
+- **Why:** a warning next to a possibly wrong number still lets a consumer use the wrong number.
+  Withholding the conversion makes the uncertainty impossible to miss.
 ### A-30 Company is the business, not the legal employer
 - **Evidence:** Prism `#/components/schemas/ClientMaster/properties/serviceType` (PEO, ASO, ...) and
   `.../employerId` ("employer ID to which to assign this client's employees") are documented
@@ -290,4 +321,63 @@ Status: first draft, written during discovery. Entries are added as mapping deci
 - **Decision:** every run writes one JSON file per entity and a SQLite database. In the database the
   same records are linked by ID: company, then employee, then deposits, deductions and paychecks.
 - **Why:** JSON is easy to read and diff, and SQLite lets anyone query the linked records with plain SQL.
+
+## Corrections and additions from the design audit (2026-10-13)
+
+An independent design audit raised 15 findings. Each was checked against the specs; all held. The
+entries above were updated where they were wrong (A-04, A-12, A-23, A-25, A-26, A-27, A-29), and the
+entries below are new.
+
+### A-37 HSA deposits are a different kind of deposit
+- **Evidence:** in Prism `#/components/schemas/EmployeeDirectDeposit-HsaDepositSettings`, `method` PN
+  means "Percent of Net after Taxes", while in ordinary `AchVoucher` it means "percentage of net
+  after fixed". HSA account types HE/HES/HC/HCS also encode who funds the deposit (employee or
+  company) and the destination (checking or savings).
+- **Decision:** deposits carry `purpose` (`NET_PAY` or `HSA`) and, for HSA, `funding`. Methods are
+  mapped per full source field, so the two `PN` values get different canonical methods.
+
+### A-38 Prism earning quantity is hours *or* units
+- **Evidence:** `#/components/schemas/Earning/properties/hoursUnits` is "hours or units paid", and
+  `hoursWorked` is a separate field. The pay code's `payReason`
+  (`#/components/schemas/ClientCodes-PayCode/properties/payReason`) is documented as "hours (H) or
+  units (U)".
+- **Decision:** each earning line has `quantity` with a unit (`HOURS`/`UNITS`/`UNKNOWN`), taken from
+  the pay code's `payReason` via the client code table, plus a separate `hours_worked`. If the pay
+  code isn't in the table, the unit is `UNKNOWN`.
+
+### A-39 Contractor status is not a pay type
+- **Evidence:** Prism `#/components/schemas/Client/properties/employee1099` is independent of
+  `#/components/schemas/Compensation/properties/payMethod`. isolved puts "1099" inside `payType`.
+- **Decision:** employees get a separate `worker_classification` (`EMPLOYEE`/`CONTRACTOR_1099`).
+  isolved "1099" sets it, and leaves `pay_type` as `UNMAPPED`.
+
+### A-40 Record links and paycheck-to-run joins
+- **Evidence:** isolved checks carry `payrollRunNumber`, while run history has both `id` and
+  `runNumber` (`#/definitions/AOS.PayrollOffice.RestAPI.Models.PayrollRunHistoryModel`). Prism batch
+  lists carry periods per pay group (`#/components/schemas/BatchByDateResponse-BatchList-PayGroup`).
+- **Decision:** every record carries explicit relationship keys (model §2.1). An isolved check
+  joins its run on legal company + pay date + run number, and never by treating the run number as
+  a run ID. An ambiguous or missing match leaves `payroll_run_id` null, with a diagnostic. Payroll
+  runs keep periods per pay group.
+
+### A-41 Deduction calculations keep their basis
+- **Evidence:** Prism `#/components/schemas/DeductionCodeDetail/properties/calculationMethod`
+  documents 29 methods. They distinguish gross pay from gross earnings, hours worked from hours
+  paid, and percent from per-ten-thousand, and some round to the dollar.
+- **Decision:** a calculation is {method, basis, value, rounding}, mapped code by code (model §7).
+  Providers that give no basis (isolved, UKG) get `UNSPECIFIED`.
+
+### A-42 Prism "other earnings" lines belong in the paycheck
+- **Evidence:** `PayrollVoucher` has `earning[]` and `otherEarningsDetail[]`. `totalEarnings` equals
+  `earnAmount + otherEarnAmount` on 333 of 420 live vouchers (A-32).
+- **Decision:** both lists become earning lines, otherwise gross can't reconcile.
+
+### A-43 Fixtures with live key aliases are validated on their contents
+- **Evidence:** `#/components/schemas/PayrollResponseWithPagination` documents `payrollVouchers`
+  and permits additional properties. A fixture using the live alias `payrollVoucher` would therefore
+  pass validation with *any* contents.
+- **Decision:** before schema validation, the fixture checker translates known live aliases back to
+  their documented names (`payrollVoucher` → `payrollVouchers`, `clientPayrollSchedule` →
+  `clientPayrollSchedules`), so the contents are validated against the real schema. Converters still
+  receive the alias form, as live data has it.
 
