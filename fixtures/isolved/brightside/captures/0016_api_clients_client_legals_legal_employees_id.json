@@ -21,6 +21,11 @@
     "disabled": false,
     "employmentStatus": "Active",
     "statusDate": "2023-06-01T00:00:00",
+    "terminationDate": null,
+    "terminationReason": null,
+    "terminationType": null,
+    "workLocation": "NC1",
+    "workLocationDashDescription": "NC1 - CHARLOTTE, NC",
     "employmentCategoryCode": "PT",
     "hireDate": "2021-03-15T00:00:00",
     "originalHireDate": "2021-03-15T00:00:00",
@@ -80,7 +85,6 @@
         "rel": "self"
       }
     ],
-    "legalCode": null,
-    "workLocation": null
+    "legalCode": null
   }
 }

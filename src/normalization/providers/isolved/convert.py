@@ -251,7 +251,9 @@ class _Legal:
         if capture is None:
             notes.warn("SOURCE_MISSING", None, "legal company details are not in the bundle")
         client = next(self._captures("api/clients/{client}", legal=False), None)
-        client_name = text((client.body or {}).get("clientName")) if client else None
+        client_src = Src(client.body if client else {}, "client")
+        client_src.get("id")
+        client_name = text(client_src.get("clientName"))
         s.mark("client", "links", "logoData")  # client: the parent below; logoData: an image (model §9)
         fein = text(s.get("federalEIN"))
         pay_groups = []
@@ -307,7 +309,7 @@ class _Legal:
                 pay_groups=pay_groups,
                 addresses=[addr] if any([addr.line1, addr.city, addr.postal_code]) else [],
                 phones=[Phone(type=C.PhoneType.MAIN, number=phone)] if phone else [],
-                provider_extensions=without_links(sanitize_extensions(s.leftovers())),
+                provider_extensions=without_links(sanitize_extensions({**s.leftovers(), **client_src.leftovers()})),
                 diagnostics=notes.items,
             ),
         )
@@ -369,9 +371,23 @@ class _Legal:
 
         status_text = text(s.get("employmentStatus"))
         status_date = iso_date(s.get("statusDate"), "statusDate", notes)
+        # "If terminated, indicates the effective date of the employee termination"; the status date stands in.
+        termination_date = iso_date(s.get("terminationDate"), "terminationDate", notes)
+        # "The employee's current employment work location code", and "'location id' - 'location description'".
+        location_code = text(s.get("workLocation"))
+        location_text = text(s.get("workLocationDashDescription"))
+        prefix = f"{location_code} - " if location_code else None
+        location_name = (
+            location_text[len(prefix) :]
+            if prefix and location_text and location_text.startswith(prefix)
+            else location_text
+        )
+        statuses = [
+            Src(row, f"statuses[{i}]") for i, row in enumerate(self._body_list(E + "/statuses", employee=employee_id))
+        ]
         implied = any(
             flag(row.get("isImpliedStatus")) and text(row.get("clientEmploymentStatusDescription")) == status_text
-            for row in self._body_list(E + "/statuses", employee=employee_id)
+            for row in statuses
         )
         if status_text and implied and status_text in I.IMPLIED_STATUS:
             status = Coded[C.EmploymentStatus](
@@ -515,7 +531,12 @@ class _Legal:
                 original_hire_date=iso_date(s.get("originalHireDate"), "originalHireDate", notes),
                 hire_date=iso_date(s.get("hireDate"), "hireDate", notes),
                 rehire_date=iso_date(s.get("rehireDate"), "rehireDate", notes),
-                termination_date=status_date if status and status.value is C.EmploymentStatus.TERMINATED else None,
+                termination_date=termination_date
+                or (status_date if status and status.value is C.EmploymentStatus.TERMINATED else None),
+                # Reasons are text the customer can configure: kept with their label, not translated (A-35).
+                termination_reason=unmapped_label(
+                    s.get("terminationReason"), text(s.data.get("terminationReason")), "terminationReason"
+                ),
                 flsa_exempt=flag(s.get("jobFLSAExempt")),
             ),
             job=dict(
@@ -523,6 +544,9 @@ class _Legal:
                 job_code=text(s.get("jobCode")),
                 manager_employee_id=self._id("employee", manager) if manager else None,
                 supervisor_employee_id=self._id("employee", supervisor) if supervisor else None,
+                location=OrgUnit(code=location_code or "", name=location_name)
+                if location_code or location_name
+                else None,
                 pay_group=text(s.get("payGroup")),
             ),
             compensation=Compensation(
@@ -548,6 +572,11 @@ class _Legal:
                 item = Src(row, f"payItems[{i}]")
                 item.mark("firstName", "lastName", "employeeId", "employeeNumber")
                 extensions.update(without_links(sanitize_extensions(item.leftovers())))
+        # Status history and alternate pay rates have no canonical field of their own; they are kept too.
+        for row in statuses:
+            extensions.update(without_links(sanitize_extensions(row.leftovers())))
+        for i, row in enumerate(self._body_list(E + "/payRates", employee=employee_id)):
+            extensions.update(without_links(sanitize_extensions(Src(row, f"payRates[{i}]").leftovers())))
         employee.provider_extensions = extensions
         self.out.add("employees", employee)
 
@@ -826,6 +855,7 @@ class _Legal:
     def _payroll_runs(self) -> None:
         runs: dict[tuple[str, str], tuple[dict, list[str]]] = {}
         history = "api/clients/{client}/legals/{legal}/paygroupId/{id}/payrollRunHistory"
+        # The run history list first, then the detail, which replaces its list row when fetched.
         for endpoint in (history, history + "/{id}"):
             for capture in self._captures(endpoint):
                 group = path_ids(capture).get("group", "")
@@ -833,8 +863,8 @@ class _Legal:
                 for row in body if isinstance(body, list) else [body]:
                     run_id = text((row or {}).get("id"))
                     if run_id:
-                        merged, endpoints = runs.get((group, run_id), ({}, []))
-                        runs[(group, run_id)] = ({**merged, **row}, endpoints + [endpoint])
+                        _, endpoints = runs.get((group, run_id), ({}, []))
+                        runs[(group, run_id)] = (row, endpoints + [endpoint])
         for (group, run_id), (row, endpoints) in sorted(runs.items()):
             notes = Notes()
             s = Src(row)

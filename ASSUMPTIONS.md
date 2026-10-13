@@ -713,3 +713,40 @@ entries below are new.
     those two (`DEVIATIONS` in `fixtures/validate.py`), and reports any other additional property.
   - Each UKG schema block is validated as its own document, with its own `$schema` version, because its
     `$ref`s point at its own definitions.
+
+## Field coverage (2026-10-13)
+
+### A-62 Every source field is mapped, kept or dropped for a stated reason
+- **Method:** `python -m normalization coverage` runs the converters with tracing on and walks every
+  saved response leaf by leaf ([docs/FIELD_COVERAGE.md](docs/FIELD_COVERAGE.md), generated from the
+  live fetches). Each field is labeled:
+  - mapped into a canonical record;
+  - kept in `provider_extensions`;
+  - dropped, with a reason;
+  - a reference table read by code;
+  - or unused.
+  
+  The tracing also catches any field that is both mapped and kept, which means it was read after the
+  leftovers were taken.
+- **What it found, and the fixes:**
+  - Some responses reached no record at all. These are now kept with the record they describe:
+    - PrismHR active benefit plans, on the employee (there is no benefit plan record, model §7);
+    - isolved status history and alternate pay rates, on the employee;
+    - the isolved client record, on the company;
+    - the fields a PrismHR voluntary deduction adds to the matching election.
+  - Some mapped fields were also copied into `provider_extensions`:
+    - PrismHR deposit bank name, routing number and status;
+    - PrismHR run pay date, status and description;
+    - earlier, isolved and UKG employee names and dates.
+
+    Leftovers are now always taken after the record is built, and a test keeps that count at zero.
+  - isolved's documented `terminationDate`, `terminationReason` and `workLocation` (with
+    `workLocationDashDescription`, "'location id' - 'location description'") are now mapped. They had
+    only been kept.
+- **What stays unread:**
+  - crawl indexes (employee lists), since each record is read from its own response;
+  - list rows whose detail response was used instead;
+  - lookups the converters don't need, because lines carry their own codes and names;
+  - request echoes and paging envelopes.
+- **Why:** "preserve what the source data means" includes not losing it. The report makes every
+  field's fate checkable.

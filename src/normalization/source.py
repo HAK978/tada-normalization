@@ -7,6 +7,8 @@ returned by leftovers() and kept in provider_extensions, so nothing is lost sile
 from __future__ import annotations
 
 import re
+from contextlib import contextmanager
+from dataclasses import dataclass, field
 from datetime import date
 from decimal import Decimal, InvalidOperation
 from enum import Enum
@@ -19,12 +21,29 @@ _MISSING = object()
 _EMPTY = (None, "", [], {})
 
 
+@dataclass
+class Trace:
+    """What converters read while trace() is active, for the field coverage report."""
+
+    roots: list[Src] = field(default_factory=list)  # every Src with its own read record
+    # (read record, paths returned as leftovers): a path read after that is both mapped and kept
+    given: list[tuple[set[str], set[str]]] = field(default_factory=list)
+
+    def read_after_kept(self) -> set[str]:
+        return {path for used, paths in self.given for path in paths if _covered(path, used)}
+
+
+_TRACE: Trace | None = None
+
+
 class Src:
     """One source object plus the shared record of which paths a converter has read."""
 
     def __init__(self, data: Any, path: str = "", used: set[str] | None = None):
         self.data = data if isinstance(data, dict) else {}
         self.path = path
+        if used is None and _TRACE is not None:
+            _TRACE.roots.append(self)
         self.used = used if used is not None else set()
 
     def _full(self, key: str) -> str:
@@ -73,7 +92,26 @@ class Src:
 
     def leftovers(self) -> dict[str, Any]:
         """Every non-empty leaf under this object that no converter read."""
-        return {path: value for path, value in _leaves(self.data, self.path) if not _covered(path, self.used)}
+        left = {path: value for path, value in _leaves(self.data, self.path) if not _covered(path, self.used)}
+        if _TRACE is not None:
+            _TRACE.given.append((self.used, set(left)))
+        return left
+
+
+def covered(src: Src, relative: str) -> bool:
+    """Whether the converter read this path (relative to the Src's own data) or a parent of it."""
+    return _covered(src._full(relative) if relative else src.path, src.used)
+
+
+@contextmanager
+def trace() -> Iterator[Trace]:
+    """Record what converters read inside the block, for the field coverage report."""
+    global _TRACE
+    previous, _TRACE = _TRACE, Trace()
+    try:
+        yield _TRACE
+    finally:
+        _TRACE = previous
 
 
 def _leaves(node: Any, path: str) -> Iterator[tuple[str, Any]]:

@@ -8,6 +8,8 @@ import pytest
 from jsonschema import Draft202012Validator
 
 from normalization.__main__ import main
+from normalization.bundle import Bundle
+from normalization.coverage import measure
 from normalization.live.signin import API_KEY_VARIABLE
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -103,3 +105,51 @@ def test_every_golden_record_matches_its_exported_schema(provider):
         validator = Draft202012Validator(json.loads((ROOT / f"schemas/{kind}.schema.json").read_text(encoding="utf-8")))
         for record in records:
             assert not list(validator.iter_errors(record)), record["id"]
+
+
+@pytest.fixture(scope="module")
+def coverage():
+    return {p: measure(Bundle.load(ROOT / f"fixtures/{p}/brightside"), "fixture") for p in PROVIDERS}
+
+
+@pytest.mark.parametrize("provider", PROVIDERS)
+def test_no_field_is_both_mapped_and_kept(coverage, provider):
+    assert coverage[provider].read_after_kept == []
+
+
+def test_coverage_labels_dropped_kept_and_mapped_fields(coverage):
+    ukg = coverage["ukg-ready"]
+    assert ukg.label(("rest/v2/companies/{company}/employees/{id}", "photo_href")).startswith("dropped: a signed link")
+    assert ukg.label(("rest/v2/companies/{company}/employees/{id}", "social_security")) == "mapped"
+    isolved = coverage["isolved"]
+    # Status history has no canonical field; the record keeps what it doesn't map.
+    assert isolved.label(("api/clients/{client}/legals/{legal}/employees/{id}/statuses", "[].effectiveDate")) == "kept"
+    assert (
+        isolved.label(("api/clients/{client}/legals/{legal}/employees/{id}/statuses", "[].isImpliedStatus")) == "mapped"
+    )
+
+
+def test_only_crawl_indexes_duplicates_and_unneeded_lookups_go_unread(coverage):
+    unread = {(r.provider, e) for r in coverage.values() for (e, _), c in r.fields.items() if set(c) == {"unused"}}
+    assert unread <= {
+        # Crawl indexes: the converters read each record's own response instead.
+        ("prismhr", "employee/v1/getEmployeeList"),
+        ("isolved", "api/clients/{client}/legals/{legal}/employees"),
+        ("ukg-ready", "rest/v2/companies/{company}/employees"),
+        # List rows whose detail response was used instead.
+        ("isolved", "api/clients/{client}/legals/{legal}/paygroupId/{id}/payrollRunHistory"),
+        ("ukg-ready", "rest/v2/companies/{company}/payrolls"),
+        # Lookups the converters don't need: the lines carry their own codes and names.
+        ("isolved", "api/system/payTypes"),
+        ("ukg-ready", "rest/v2/companies/{company}/lookup/earning-codes"),
+        ("ukg-ready", "rest/v2/companies/{company}/lookup/deduction-codes"),
+        ("ukg-ready", "rest/v2/companies/{company}/lookup/payroll-types"),
+        ("ukg-ready", "rest/v2/companies/{company}/lookup/pay-statement-types"),
+    }, unread
+
+
+def test_coverage_command_writes_the_report(tmp_path):
+    out = tmp_path / "FIELD_COVERAGE.md"
+    assert main(["coverage", "--out", str(out)]) == 0
+    report = out.read_text(encoding="utf-8")
+    assert report.startswith("# Field coverage") and "| `photo_href` | dropped: a signed link" in report

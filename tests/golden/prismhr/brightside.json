@@ -1884,10 +1884,7 @@
      }
     },
     "provider_extensions": {
-     "hsa.achChecksum": "h-1",
-     "transitNum": "123456780",
-     "status": "D",
-     "bankName": "Example HSA Bank"
+     "hsa.achChecksum": "h-1"
     },
     "diagnostics": [
      {
@@ -1953,10 +1950,7 @@
     "provider_extensions": {
      "directDeposit.achStatus": "A",
      "directDeposit.suppressAccountPrint": false,
-     "directDeposit.directDepositChecksum": "c-1",
-     "transitNum": "123456780",
-     "status": "D",
-     "bankName": "Example Bank"
+     "directDeposit.directDepositChecksum": "c-1"
     },
     "diagnostics": [],
     "employee_id": "prismhr:synthetic:employee:201:E1001",
@@ -2020,10 +2014,7 @@
     "provider_extensions": {
      "directDeposit.achStatus": "A",
      "directDeposit.suppressAccountPrint": false,
-     "directDeposit.directDepositChecksum": "c-1",
-     "transitNum": "123456780",
-     "status": "D",
-     "bankName": "Example Bank"
+     "directDeposit.directDepositChecksum": "c-1"
     },
     "diagnostics": [],
     "employee_id": "prismhr:synthetic:employee:201:E1001",
@@ -2081,11 +2072,7 @@
     "provider_extensions": {
      "directDeposit.achStatus": "A",
      "directDeposit.suppressAccountPrint": false,
-     "directDeposit.directDepositChecksum": "c-1",
-     "transitNum": "123456780",
-     "status": "D",
-     "bankName": "Example Bank",
-     "limit": "500.0"
+     "directDeposit.directDepositChecksum": "c-1"
     },
     "diagnostics": [
      {
@@ -2163,10 +2150,7 @@
     "provider_extensions": {
      "directDeposit.achStatus": "A",
      "directDeposit.suppressAccountPrint": false,
-     "directDeposit.directDepositChecksum": "c-1",
-     "transitNum": "123456780",
-     "status": "D",
-     "bankName": "Example Bank"
+     "directDeposit.directDepositChecksum": "c-1"
     },
     "diagnostics": [
      {
@@ -2238,10 +2222,7 @@
     "provider_extensions": {
      "directDeposit.achStatus": "A",
      "directDeposit.suppressAccountPrint": false,
-     "directDeposit.directDepositChecksum": "c-1",
-     "transitNum": "123456780",
-     "status": "D",
-     "bankName": "Example Bank"
+     "directDeposit.directDepositChecksum": "c-1"
     },
     "diagnostics": [],
     "employee_id": "prismhr:synthetic:employee:201:E1002",
@@ -2299,10 +2280,7 @@
     "provider_extensions": {
      "directDeposit.achStatus": "A",
      "directDeposit.suppressAccountPrint": false,
-     "directDeposit.directDepositChecksum": "c-1",
-     "transitNum": "123456780",
-     "status": "D",
-     "bankName": "Example Bank"
+     "directDeposit.directDepositChecksum": "c-1"
     },
     "diagnostics": [],
     "employee_id": "prismhr:synthetic:employee:201:E1003",
@@ -2360,10 +2338,7 @@
     "provider_extensions": {
      "directDeposit.achStatus": "A",
      "directDeposit.suppressAccountPrint": false,
-     "directDeposit.directDepositChecksum": "c-1",
-     "transitNum": "123456780",
-     "status": "D",
-     "bankName": "Example Bank"
+     "directDeposit.directDepositChecksum": "c-1"
     },
     "diagnostics": [],
     "employee_id": "prismhr:synthetic:employee:202:E2001",
@@ -2766,12 +2741,9 @@
     },
     "provider_extensions": {
      "batchId": "30115",
-     "payDate": "2026-10-02",
-     "batchStatus": "COMP",
      "batchInfo.batchStatus": "COMP",
      "batchInfo.batchId": "30115",
      "batchInfo.payDate": "2026-10-02",
-     "batchInfo.batchDescription": "30115 - 2026-10-02",
      "batchInfo.batchType": "R",
      "batchInfo.processor": "synthetic",
      "batchInfo.deliveryMethod": "ELEC",
@@ -2839,12 +2811,9 @@
     },
     "provider_extensions": {
      "batchId": "30116",
-     "payDate": "2026-10-02",
-     "batchStatus": "COMP",
      "batchInfo.batchStatus": "COMP",
      "batchInfo.batchId": "30116",
      "batchInfo.payDate": "2026-10-02",
-     "batchInfo.batchDescription": "30116 - 2026-10-02",
      "batchInfo.batchType": "V",
      "batchInfo.processor": "synthetic",
      "batchInfo.deliveryMethod": "ELEC",
@@ -2897,12 +2866,9 @@
     },
     "provider_extensions": {
      "batchId": "30117",
-     "payDate": "2026-10-09",
-     "batchStatus": "COMP",
      "batchInfo.batchStatus": "COMP",
      "batchInfo.batchId": "30117",
      "batchInfo.payDate": "2026-10-09",
-     "batchInfo.batchDescription": "30117 - 2026-10-09",
      "batchInfo.batchType": "S",
      "batchInfo.processor": "synthetic",
      "batchInfo.deliveryMethod": "ELEC",
@@ -2955,12 +2921,9 @@
     },
     "provider_extensions": {
      "batchId": "30118",
-     "payDate": "2026-10-09",
-     "batchStatus": "COMP",
      "batchInfo.batchStatus": "COMP",
      "batchInfo.batchId": "30118",
      "batchInfo.payDate": "2026-10-09",
-     "batchInfo.batchDescription": "30118 - 2026-10-09",
      "batchInfo.processor": "synthetic",
      "batchInfo.deliveryMethod": "ELEC",
      "batchInfo.voucher[0].payGroupId": "W",
@@ -3020,12 +2983,9 @@
     },
     "provider_extensions": {
      "batchId": "30119",
-     "payDate": "2026-10-16",
-     "batchStatus": "TS.READY",
      "batchInfo.batchStatus": "TS.READY",
      "batchInfo.batchId": "30119",
      "batchInfo.payDate": "2026-10-16",
-     "batchInfo.batchDescription": "30119 - 2026-10-16",
      "batchInfo.batchType": "R",
      "batchInfo.processor": "synthetic",
      "batchInfo.deliveryMethod": "ELEC",
@@ -3086,12 +3046,9 @@
     },
     "provider_extensions": {
      "batchId": "40101",
-     "payDate": "2026-10-02",
-     "batchStatus": "COMP",
      "batchInfo.batchStatus": "COMP",
      "batchInfo.batchId": "40101",
      "batchInfo.payDate": "2026-10-02",
-     "batchInfo.batchDescription": "40101 - 2026-10-02",
      "batchInfo.batchType": "R",
      "batchInfo.processor": "synthetic",
      "batchInfo.deliveryMethod": "ELEC",

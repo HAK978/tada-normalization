@@ -44,7 +44,8 @@
      "payGroups[0].normalHours": "80.0",
      "payGroups[1].payrollType": "Regular Payroll",
      "payGroups[1].isInactive": false,
-     "payGroups[1].normalHours": "40.0"
+     "payGroups[1].normalHours": "40.0",
+     "client.clientCode": "BRT"
     },
     "diagnostics": [],
     "name": "Brightside Bakery LLC",
@@ -148,7 +149,11 @@
      "payItems[2].payItemType": "Earning",
      "payItems[2].startDate": "2025-01-01T00:00:00",
      "payItems[2].calcParams[0].paramType": "Amount",
-     "payItems[2].calcParams[0].paramValue": "0.0"
+     "payItems[2].calcParams[0].paramValue": "0.0",
+     "statuses[0].statusId": -1,
+     "statuses[0].clientEmploymentStatusId": -1,
+     "statuses[0].effectiveDate": "2021-03-15T00:00:00",
+     "statuses[0].employeeEmploymentId": 90010
     },
     "diagnostics": [],
     "company_id": "isolved:synthetic:company:501:601",
@@ -263,6 +268,10 @@
     "job": {
      "title": "Baker",
      "job_code": "BAKER",
+     "location": {
+      "code": "NC1",
+      "name": "CHARLOTTE, NC"
+     },
      "pay_group": "Biweekly"
     },
     "compensation": {
@@ -374,7 +383,11 @@
      "payItems[2].payItemType": "Earning",
      "payItems[2].startDate": "2025-01-01T00:00:00",
      "payItems[2].calcParams[0].paramType": "Amount",
-     "payItems[2].calcParams[0].paramValue": "0.0"
+     "payItems[2].calcParams[0].paramValue": "0.0",
+     "statuses[0].statusId": -1,
+     "statuses[0].clientEmploymentStatusId": -1,
+     "statuses[0].effectiveDate": "2023-06-01T00:00:00",
+     "statuses[0].employeeEmploymentId": 90020
     },
     "diagnostics": [],
     "company_id": "isolved:synthetic:company:501:601",
@@ -483,6 +496,10 @@
     "job": {
      "title": "Baker",
      "job_code": "BAKER",
+     "location": {
+      "code": "NC1",
+      "name": "CHARLOTTE, NC"
+     },
      "manager_employee_id": "isolved:synthetic:employee:9001",
      "pay_group": "Weekly"
     },
@@ -572,6 +589,7 @@
      }
     },
     "provider_extensions": {
+     "terminationType": "Voluntary Termination",
      "assignedManager.employeeName": "Maria",
      "taxes.federal.filingStatus": "Single",
      "taxes.federal.primaryExemptions": 0,
@@ -581,7 +599,11 @@
      "payItems[0].payItemType": "Earning",
      "payItems[0].startDate": "2025-01-01T00:00:00",
      "payItems[0].calcParams[0].paramType": "Amount",
-     "payItems[0].calcParams[0].paramValue": "0.0"
+     "payItems[0].calcParams[0].paramValue": "0.0",
+     "statuses[0].statusId": -1,
+     "statuses[0].clientEmploymentStatusId": -1,
+     "statuses[0].effectiveDate": "2026-09-30T00:00:00",
+     "statuses[0].employeeEmploymentId": 90030
     },
     "diagnostics": [],
     "company_id": "isolved:synthetic:company:501:601",
@@ -685,12 +707,22 @@
      "original_hire_date": "2021-03-15",
      "hire_date": "2021-03-15",
      "termination_date": "2026-09-30",
+     "termination_reason": {
+      "value": "UNMAPPED",
+      "raw": "Relocation",
+      "label": "Relocation",
+      "source_field": "terminationReason"
+     },
      "flsa_exempt": false,
      "employer_ids": []
     },
     "job": {
      "title": "Baker",
      "job_code": "BAKER",
+     "location": {
+      "code": "NC1",
+      "name": "CHARLOTTE, NC"
+     },
      "manager_employee_id": "isolved:synthetic:employee:9001",
      "pay_group": "Biweekly"
     },
@@ -789,7 +821,12 @@
      "payItems[0].payItemType": "Earning",
      "payItems[0].startDate": "2025-01-01T00:00:00",
      "payItems[0].calcParams[0].paramType": "Amount",
-     "payItems[0].calcParams[0].paramValue": "0.0"
+     "payItems[0].calcParams[0].paramValue": "0.0",
+     "statuses[0].statusId": 55,
+     "statuses[0].clientEmploymentStatusId": 55,
+     "statuses[0].clientEmploymentStatusDescription": "Leave - FMLA",
+     "statuses[0].effectiveDate": "2026-08-01T00:00:00",
+     "statuses[0].employeeEmploymentId": 90040
     },
     "diagnostics": [
      {
@@ -900,6 +937,10 @@
     "job": {
      "title": "Baker",
      "job_code": "BAKER",
+     "location": {
+      "code": "NC1",
+      "name": "CHARLOTTE, NC"
+     },
      "manager_employee_id": "isolved:synthetic:employee:9001",
      "pay_group": "Biweekly"
     },
@@ -1010,7 +1051,11 @@
      "payItems[0].payItemType": "Earning",
      "payItems[0].startDate": "2025-01-01T00:00:00",
      "payItems[0].calcParams[0].paramType": "Amount",
-     "payItems[0].calcParams[0].paramValue": "0.0"
+     "payItems[0].calcParams[0].paramValue": "0.0",
+     "statuses[0].statusId": -1,
+     "statuses[0].clientEmploymentStatusId": -1,
+     "statuses[0].effectiveDate": "2026-05-01T00:00:00",
+     "statuses[0].employeeEmploymentId": 90050
     },
     "diagnostics": [],
     "company_id": "isolved:synthetic:company:501:601",
@@ -1124,6 +1169,10 @@
     "job": {
      "title": "Baker",
      "job_code": "BAKER",
+     "location": {
+      "code": "NC1",
+      "name": "CHARLOTTE, NC"
+     },
      "manager_employee_id": "isolved:synthetic:employee:9001",
      "pay_group": "Weekly"
     },

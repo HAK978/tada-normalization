@@ -96,6 +96,16 @@ def test_status_maps_only_when_it_is_an_implied_system_status(out):
     assert "CUSTOMER_STATUS" in codes(devon)
 
 
+def test_termination_and_location_come_from_their_documented_fields(out):
+    ana = one(out, "employees", ":9003")
+    assert (ana.employment.termination_reason.value, ana.employment.termination_reason.label) == (
+        "UNMAPPED",
+        "Relocation",
+    )
+    assert ana.provider_extensions["terminationType"] == "Voluntary Termination"
+    assert (ana.job.location.code, ana.job.location.name) == ("NC1", "CHARLOTTE, NC")
+
+
 def test_lookup_code_and_description_both_map_and_raw_is_what_was_sent(out):
     james, maria = one(out, "employees", ":9002"), one(out, "employees", ":9001")
     assert (

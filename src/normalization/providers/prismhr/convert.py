@@ -322,6 +322,16 @@ class _Client:
 
     # -------------------------------------------------------------- employees
 
+    def _benefit_plans(self, employee_id: str) -> dict[str, Any]:
+        """Active benefit plans have no canonical record (model §7); they are kept with the employee."""
+        kept: dict[str, Any] = {}
+        for capture in self.bundle.ok(
+            "benefits/v1/getActiveBenefitPlans", clientId=self.client_id, employeeId=employee_id
+        ):
+            for i, plan in enumerate(capture.body.get("benefitPlan") or []):
+                kept.update(Src(plan, f"benefitPlans[{i}]").leftovers())
+        return kept
+
     def _employees(self) -> set[str]:
         seen: set[str] = set()
         for capture in self.bundle.ok("employee/v1/getEmployee", clientId=self.client_id):
@@ -557,7 +567,7 @@ class _Client:
                 employment=employment,
                 job=job,
                 compensation=compensation,
-                provider_extensions=sanitize_extensions(s.leftovers()),
+                provider_extensions=sanitize_extensions({**s.leftovers(), **self._benefit_plans(employee_id)}),
                 diagnostics=notes.items,
             ),
         )
@@ -752,7 +762,6 @@ class _Client:
             )
             for letter in (overrides or "")
         ]
-        extensions = sanitize_extensions({**shared, **s.leftovers()})
         self.out.add(
             "direct_deposits",
             DirectDeposit(
@@ -785,7 +794,8 @@ class _Client:
                 is_remainder=method.value is C.DepositMethod.REMAINDER,
                 status=coded(P.DD_STATUS, s.get("status"), f"{prefix}.status", notes, C.DepositStatus.UNMAPPED),
                 applies_to_pay_types=[a for a in applies if a],
-                provider_extensions=extensions,
+                # Last, so every field read above is already marked.
+                provider_extensions=sanitize_extensions({**shared, **s.leftovers()}),
                 diagnostics=notes.items,
             ),
         )
@@ -794,6 +804,7 @@ class _Client:
 
     def _deductions(self, employee_id: str) -> None:
         seen: dict[tuple, DeductionElection] = {}
+        first: dict[tuple, dict] = {}
         for endpoint, body_key in (
             ("deductions/v1/getDeductions", "employeeDeductions"),
             ("deductions/v1/getVoluntaryRecurringDeductions", "voluntaryDeduction"),
@@ -807,8 +818,13 @@ class _Client:
                         str(row.get("amount")),
                     )
                     if key in seen:
+                        # The same election from a second endpoint: keep only the fields that differ.
+                        repeat = Src(row, f"{body_key}.deduction[{i}]")
+                        repeat.mark(*(k for k, v in row.items() if first[key].get(k) == v))
+                        seen[key].provider_extensions.update(sanitize_extensions(repeat.leftovers()))
                         seen[key].source.endpoints = sorted(set(seen[key].source.endpoints) | {endpoint})
                         continue
+                    first[key] = row
                     seen[key] = self._election(Src(row, f"{body_key}.deduction[{i}]"), employee_id, endpoint)
         for election in seen.values():
             self.out.add("deduction_elections", election)
@@ -1004,23 +1020,24 @@ class _Client:
     # -------------------------------------------------------------- payroll runs
 
     def _payroll_runs(self) -> dict[str, str]:
-        batches: dict[str, tuple[dict, list[str]]] = {}
+        # batch ID -> (batch list row, batch info, endpoints); each response keeps its own read record.
+        batches: dict[str, tuple[dict, dict, list[str]]] = {}
         for capture in self.bundle.ok("payroll/v1/getBatchListByDate", clientId=self.client_id):
             for row in capture.body.get("batchList") or []:
                 batch_id = text((row or {}).get("batchId"))
                 if batch_id and batch_id not in batches:
-                    batches[batch_id] = (row, ["payroll/v1/getBatchListByDate"])
+                    batches[batch_id] = (row, {}, ["payroll/v1/getBatchListByDate"])
         for capture in self.bundle.ok("payroll/v1/getBatchInfo", clientId=self.client_id):
             control = capture.body.get("batchControl") or {}
             batch_id = text(control.get("batchId"))
             if batch_id:
-                row, endpoints = batches.get(batch_id, ({}, []))
-                batches[batch_id] = ({**row, "_batchInfo": control}, endpoints + ["payroll/v1/getBatchInfo"])
+                row, _, endpoints = batches.get(batch_id, ({}, {}, []))
+                batches[batch_id] = (row, control, endpoints + ["payroll/v1/getBatchInfo"])
         runs = {}
-        for batch_id, (row, endpoints) in sorted(batches.items()):
+        for batch_id, (row, control, endpoints) in sorted(batches.items()):
             notes = Notes()
             s = Src(row)
-            info = s.child("_batchInfo") or Src({})
+            info = Src(control, "batchInfo")
             groups = []
             for g in s.children("payGroup"):
                 groups.append(
@@ -1050,7 +1067,6 @@ class _Client:
             run_id = self._id("payroll_run", self.client_id, batch_id)
             runs[batch_id] = run_id
             batch_type = s.get("batchType") if "batchType" in row else info.get("batchType")
-            extensions = s.leftovers()
             self.out.add(
                 "payroll_runs",
                 PayrollRun(
@@ -1075,9 +1091,8 @@ class _Client:
                         C.PayrollRunStatus.UNMAPPED,
                     ),
                     pay_groups=groups,
-                    provider_extensions=sanitize_extensions(
-                        {k.replace("_batchInfo.", "batchInfo."): v for k, v in extensions.items()}
-                    ),
+                    # Last, so every field read above is already marked.
+                    provider_extensions=sanitize_extensions({**s.leftovers(), **info.leftovers()}),
                     diagnostics=notes.items,
                 ),
             )

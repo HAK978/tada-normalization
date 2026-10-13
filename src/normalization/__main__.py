@@ -4,6 +4,7 @@
     python -m normalization normalize BUNDLE      normalize one raw bundle: a fixture or a live fetch
     python -m normalization fetch --provider P    read-only fetch from the live demo tenants
     python -m normalization schema                write the canonical model's JSON Schemas
+    python -m normalization coverage [BUNDLE ...]  report what happens to every source field
 
 Normalized output goes under out/ (gitignored): one JSON file per record type, summary.json,
 and canonical.sqlite. Only `fetch` uses the network; it needs DEMO_SIGNIN_API_KEY (A-04).
@@ -18,6 +19,7 @@ from pathlib import Path
 
 from .bundle import Bundle
 from .canonical.schema import write_schemas
+from .coverage import measure, render
 from .export import write_json, write_sqlite
 from .output import Output
 from .providers import PROVIDERS, normalize
@@ -65,8 +67,13 @@ def main(argv: list[str] | None = None) -> int:
     schema = commands.add_parser("schema", help="write the JSON Schema of every canonical record type")
     schema.add_argument("--out", type=Path, default=ROOT / "schemas")
 
+    coverage = commands.add_parser("coverage", help="report what the converters do with every source field")
+    coverage.add_argument("bundles", type=Path, nargs="*", help="raw bundles (default: every synthetic scenario)")
+    coverage.add_argument("--out", type=Path, default=ROOT / "docs" / "FIELD_COVERAGE.md")
+
     args = parser.parse_args(argv)
-    return {"demo": _demo, "normalize": _normalize, "fetch": _fetch, "schema": _schema}[args.command](args)
+    handlers = {"demo": _demo, "normalize": _normalize, "fetch": _fetch, "schema": _schema, "coverage": _coverage}
+    return handlers[args.command](args)
 
 
 def _demo(args: argparse.Namespace) -> int:
@@ -126,6 +133,23 @@ def _schema(args: argparse.Namespace) -> int:
     for path in write_schemas(args.out):
         print(path)
     return 0
+
+
+def _coverage(args: argparse.Namespace) -> int:
+    folders = args.bundles or [ROOT / "fixtures" / provider / SCENARIO for provider in PROVIDERS]
+    results = []
+    for folder in folders:
+        bundle = Bundle.load(folder)
+        synthetic = folder.resolve().is_relative_to(ROOT / "fixtures")
+        source = f"`{folder.resolve().relative_to(ROOT)}`" if synthetic else f"a live fetch (`{folder.name}`)"
+        results.append(measure(bundle, source))
+    args.out.parent.mkdir(parents=True, exist_ok=True)
+    args.out.write_text(render(results), encoding="utf-8")
+    twice = [(r.provider, path) for r in results for path in r.read_after_kept]
+    for provider, path in twice:
+        print(f"[{provider}] {path} is both mapped and kept in provider_extensions", file=sys.stderr)
+    print(f"written to {args.out}")
+    return 1 if twice else 0
 
 
 def _write(output: Output, out: Path, *, sqlite: bool) -> None:
