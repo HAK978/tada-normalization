@@ -1,0 +1,1171 @@
+{
+ "$defs": {
+  "Calculation": {
+   "additionalProperties": false,
+   "properties": {
+    "amount": {
+     "anyOf": [
+      {
+       "$ref": "#/$defs/Money"
+      },
+      {
+       "type": "null"
+      }
+     ],
+     "default": null
+    },
+    "basis": {
+     "$ref": "#/$defs/CalculationBasis",
+     "default": "UNSPECIFIED"
+    },
+    "method": {
+     "$ref": "#/$defs/Coded_CalculationMethod_"
+    },
+    "percent": {
+     "anyOf": [
+      {
+       "$ref": "#/$defs/Percent"
+      },
+      {
+       "type": "null"
+      }
+     ],
+     "default": null
+    },
+    "rate": {
+     "anyOf": [
+      {
+       "$ref": "#/$defs/Rate"
+      },
+      {
+       "type": "null"
+      }
+     ],
+     "default": null
+    },
+    "rounding": {
+     "anyOf": [
+      {
+       "$ref": "#/$defs/Rounding"
+      },
+      {
+       "type": "null"
+      }
+     ],
+     "default": null
+    }
+   },
+   "required": [
+    "method"
+   ],
+   "title": "Calculation",
+   "type": "object"
+  },
+  "CalculationBasis": {
+   "enum": [
+    "GROSS_PAY",
+    "GROSS_EARNINGS",
+    "GROSS_EARNINGS_LESS_DEDUCTIONS",
+    "STRAIGHT_PAY",
+    "PAY_RATE",
+    "PRIOR_MONTH_PAY_RATE",
+    "RETIREMENT_EARNINGS",
+    "EARNINGS",
+    "CERTIFIED_JOB_EARNINGS",
+    "HOURS_WORKED",
+    "HOURS_PAID",
+    "HOURS_PAID_SELECTED_CODES",
+    "CERTIFIED_JOB_HOURS",
+    "UNION_JOB_HOURS",
+    "UNION_PROJECT_HOURS",
+    "NET_PAY",
+    "GROSS_WAGES",
+    "DISPOSABLE_INCOME",
+    "UNSPECIFIED"
+   ],
+   "title": "CalculationBasis",
+   "type": "string"
+  },
+  "CalculationMethod": {
+   "enum": [
+    "FIXED_AMOUNT",
+    "PERCENT",
+    "PER_TEN_THOUSAND",
+    "RATE_PER_HOUR",
+    "RATE_TABLE",
+    "PROVIDER_RULE",
+    "UNMAPPED"
+   ],
+   "title": "CalculationMethod",
+   "type": "string"
+  },
+  "Coded_CalculationMethod_": {
+   "additionalProperties": false,
+   "properties": {
+    "label": {
+     "anyOf": [
+      {
+       "type": "string"
+      },
+      {
+       "type": "null"
+      }
+     ],
+     "default": null,
+     "title": "Label"
+    },
+    "raw": {
+     "anyOf": [
+      {
+       "type": "string"
+      },
+      {
+       "type": "integer"
+      },
+      {
+       "type": "boolean"
+      },
+      {
+       "type": "null"
+      }
+     ],
+     "default": null,
+     "title": "Raw"
+    },
+    "source_field": {
+     "title": "Source Field",
+     "type": "string"
+    },
+    "value": {
+     "$ref": "#/$defs/CalculationMethod"
+    }
+   },
+   "required": [
+    "value",
+    "source_field"
+   ],
+   "title": "Coded[CalculationMethod]",
+   "type": "object"
+  },
+  "Coded_DeductionCategory_": {
+   "additionalProperties": false,
+   "properties": {
+    "label": {
+     "anyOf": [
+      {
+       "type": "string"
+      },
+      {
+       "type": "null"
+      }
+     ],
+     "default": null,
+     "title": "Label"
+    },
+    "raw": {
+     "anyOf": [
+      {
+       "type": "string"
+      },
+      {
+       "type": "integer"
+      },
+      {
+       "type": "boolean"
+      },
+      {
+       "type": "null"
+      }
+     ],
+     "default": null,
+     "title": "Raw"
+    },
+    "source_field": {
+     "title": "Source Field",
+     "type": "string"
+    },
+    "value": {
+     "$ref": "#/$defs/DeductionCategory"
+    }
+   },
+   "required": [
+    "value",
+    "source_field"
+   ],
+   "title": "Coded[DeductionCategory]",
+   "type": "object"
+  },
+  "Coded_ElectionStatus_": {
+   "additionalProperties": false,
+   "properties": {
+    "label": {
+     "anyOf": [
+      {
+       "type": "string"
+      },
+      {
+       "type": "null"
+      }
+     ],
+     "default": null,
+     "title": "Label"
+    },
+    "raw": {
+     "anyOf": [
+      {
+       "type": "string"
+      },
+      {
+       "type": "integer"
+      },
+      {
+       "type": "boolean"
+      },
+      {
+       "type": "null"
+      }
+     ],
+     "default": null,
+     "title": "Raw"
+    },
+    "source_field": {
+     "title": "Source Field",
+     "type": "string"
+    },
+    "value": {
+     "$ref": "#/$defs/ElectionStatus"
+    }
+   },
+   "required": [
+    "value",
+    "source_field"
+   ],
+   "title": "Coded[ElectionStatus]",
+   "type": "object"
+  },
+  "Coded_LimitBasis_": {
+   "additionalProperties": false,
+   "properties": {
+    "label": {
+     "anyOf": [
+      {
+       "type": "string"
+      },
+      {
+       "type": "null"
+      }
+     ],
+     "default": null,
+     "title": "Label"
+    },
+    "raw": {
+     "anyOf": [
+      {
+       "type": "string"
+      },
+      {
+       "type": "integer"
+      },
+      {
+       "type": "boolean"
+      },
+      {
+       "type": "null"
+      }
+     ],
+     "default": null,
+     "title": "Raw"
+    },
+    "source_field": {
+     "title": "Source Field",
+     "type": "string"
+    },
+    "value": {
+     "$ref": "#/$defs/LimitBasis"
+    }
+   },
+   "required": [
+    "value",
+    "source_field"
+   ],
+   "title": "Coded[LimitBasis]",
+   "type": "object"
+  },
+  "Coded_str_": {
+   "additionalProperties": false,
+   "properties": {
+    "label": {
+     "anyOf": [
+      {
+       "type": "string"
+      },
+      {
+       "type": "null"
+      }
+     ],
+     "default": null,
+     "title": "Label"
+    },
+    "raw": {
+     "anyOf": [
+      {
+       "type": "string"
+      },
+      {
+       "type": "integer"
+      },
+      {
+       "type": "boolean"
+      },
+      {
+       "type": "null"
+      }
+     ],
+     "default": null,
+     "title": "Raw"
+    },
+    "source_field": {
+     "title": "Source Field",
+     "type": "string"
+    },
+    "value": {
+     "title": "Value",
+     "type": "string"
+    }
+   },
+   "required": [
+    "value",
+    "source_field"
+   ],
+   "title": "Coded[str]",
+   "type": "object"
+  },
+  "DeductionCategory": {
+   "enum": [
+    "RETIREMENT",
+    "RETIREMENT_LOAN",
+    "SECTION_125",
+    "FSA",
+    "HSA",
+    "POST_TAX_BENEFIT",
+    "VOLUNTARY",
+    "GARNISHMENT",
+    "LOAN",
+    "UNMAPPED"
+   ],
+   "title": "DeductionCategory",
+   "type": "string"
+  },
+  "DeductionLimits": {
+   "additionalProperties": false,
+   "properties": {
+    "maximum": {
+     "anyOf": [
+      {
+       "$ref": "#/$defs/Money"
+      },
+      {
+       "type": "null"
+      }
+     ],
+     "default": null
+    },
+    "maximum_basis": {
+     "anyOf": [
+      {
+       "$ref": "#/$defs/Coded_LimitBasis_"
+      },
+      {
+       "type": "null"
+      }
+     ],
+     "default": null
+    },
+    "per_period": {
+     "anyOf": [
+      {
+       "$ref": "#/$defs/Money"
+      },
+      {
+       "type": "null"
+      }
+     ],
+     "default": null
+    }
+   },
+   "title": "DeductionLimits",
+   "type": "object"
+  },
+  "Diagnostic": {
+   "additionalProperties": false,
+   "properties": {
+    "code": {
+     "title": "Code",
+     "type": "string"
+    },
+    "field": {
+     "anyOf": [
+      {
+       "type": "string"
+      },
+      {
+       "type": "null"
+      }
+     ],
+     "default": null,
+     "title": "Field"
+    },
+    "message": {
+     "title": "Message",
+     "type": "string"
+    },
+    "raw": {
+     "anyOf": [
+      {
+       "type": "string"
+      },
+      {
+       "type": "integer"
+      },
+      {
+       "type": "boolean"
+      },
+      {
+       "type": "null"
+      }
+     ],
+     "default": null,
+     "title": "Raw"
+    },
+    "severity": {
+     "$ref": "#/$defs/Severity"
+    }
+   },
+   "required": [
+    "code",
+    "severity",
+    "message"
+   ],
+   "title": "Diagnostic",
+   "type": "object"
+  },
+  "ElectionStatus": {
+   "enum": [
+    "ACTIVE",
+    "INACTIVE",
+    "ONE_TIME",
+    "UNMAPPED"
+   ],
+   "title": "ElectionStatus",
+   "type": "string"
+  },
+  "EmployerMatch": {
+   "additionalProperties": false,
+   "properties": {
+    "amount": {
+     "anyOf": [
+      {
+       "$ref": "#/$defs/Money"
+      },
+      {
+       "type": "null"
+      }
+     ],
+     "default": null
+    },
+    "description": {
+     "anyOf": [
+      {
+       "type": "string"
+      },
+      {
+       "type": "null"
+      }
+     ],
+     "default": null,
+     "title": "Description"
+    },
+    "method": {
+     "$ref": "#/$defs/Coded_CalculationMethod_"
+    },
+    "percent": {
+     "anyOf": [
+      {
+       "$ref": "#/$defs/Percent"
+      },
+      {
+       "type": "null"
+      }
+     ],
+     "default": null
+    }
+   },
+   "required": [
+    "method"
+   ],
+   "title": "EmployerMatch",
+   "type": "object"
+  },
+  "GarnishmentDetails": {
+   "additionalProperties": false,
+   "properties": {
+    "arrears_balance": {
+     "anyOf": [
+      {
+       "$ref": "#/$defs/Money"
+      },
+      {
+       "type": "null"
+      }
+     ],
+     "default": null
+    },
+    "case_number": {
+     "anyOf": [
+      {
+       "type": "string"
+      },
+      {
+       "type": "null"
+      }
+     ],
+     "default": null,
+     "title": "Case Number"
+    },
+    "fee": {
+     "anyOf": [
+      {
+       "$ref": "#/$defs/Money"
+      },
+      {
+       "type": "null"
+      }
+     ],
+     "default": null
+    },
+    "garnishment_type": {
+     "anyOf": [
+      {
+       "$ref": "#/$defs/Coded_str_"
+      },
+      {
+       "type": "null"
+      }
+     ],
+     "default": null
+    },
+    "issuing_state": {
+     "anyOf": [
+      {
+       "type": "string"
+      },
+      {
+       "type": "null"
+      }
+     ],
+     "default": null,
+     "title": "Issuing State"
+    },
+    "payee": {
+     "anyOf": [
+      {
+       "type": "string"
+      },
+      {
+       "type": "null"
+      }
+     ],
+     "default": null,
+     "title": "Payee"
+    },
+    "remaining_balance": {
+     "anyOf": [
+      {
+       "$ref": "#/$defs/Money"
+      },
+      {
+       "type": "null"
+      }
+     ],
+     "default": null
+    }
+   },
+   "title": "GarnishmentDetails",
+   "type": "object"
+  },
+  "LimitBasis": {
+   "enum": [
+    "PAY_PERIOD",
+    "MONTH",
+    "QUARTER",
+    "YEAR",
+    "LIFETIME",
+    "UNMAPPED"
+   ],
+   "title": "LimitBasis",
+   "type": "string"
+  },
+  "LoanDetails": {
+   "additionalProperties": false,
+   "properties": {
+    "loan_date": {
+     "anyOf": [
+      {
+       "format": "date",
+       "type": "string"
+      },
+      {
+       "type": "null"
+      }
+     ],
+     "default": null,
+     "title": "Loan Date"
+    },
+    "paid_to_date": {
+     "anyOf": [
+      {
+       "$ref": "#/$defs/Money"
+      },
+      {
+       "type": "null"
+      }
+     ],
+     "default": null
+    },
+    "payback_amount": {
+     "anyOf": [
+      {
+       "$ref": "#/$defs/Money"
+      },
+      {
+       "type": "null"
+      }
+     ],
+     "default": null
+    },
+    "payment_amount": {
+     "anyOf": [
+      {
+       "$ref": "#/$defs/Money"
+      },
+      {
+       "type": "null"
+      }
+     ],
+     "default": null
+    },
+    "payment_frequency": {
+     "anyOf": [
+      {
+       "$ref": "#/$defs/Coded_str_"
+      },
+      {
+       "type": "null"
+      }
+     ],
+     "default": null
+    },
+    "principal": {
+     "anyOf": [
+      {
+       "$ref": "#/$defs/Money"
+      },
+      {
+       "type": "null"
+      }
+     ],
+     "default": null
+    },
+    "reason": {
+     "anyOf": [
+      {
+       "type": "string"
+      },
+      {
+       "type": "null"
+      }
+     ],
+     "default": null,
+     "title": "Reason"
+    }
+   },
+   "title": "LoanDetails",
+   "type": "object"
+  },
+  "Money": {
+   "additionalProperties": false,
+   "properties": {
+    "amount": {
+     "pattern": "^-?\\d+(\\.\\d+)?$",
+     "title": "Amount",
+     "type": "string"
+    },
+    "currency": {
+     "default": "USD",
+     "title": "Currency",
+     "type": "string"
+    },
+    "derived": {
+     "default": false,
+     "title": "Derived",
+     "type": "boolean"
+    },
+    "formula": {
+     "anyOf": [
+      {
+       "type": "string"
+      },
+      {
+       "type": "null"
+      }
+     ],
+     "default": null,
+     "title": "Formula"
+    },
+    "source_field": {
+     "anyOf": [
+      {
+       "type": "string"
+      },
+      {
+       "type": "null"
+      }
+     ],
+     "default": null,
+     "title": "Source Field"
+    }
+   },
+   "required": [
+    "amount"
+   ],
+   "title": "Money",
+   "type": "object"
+  },
+  "Percent": {
+   "additionalProperties": false,
+   "description": "percent is null (and left out of the output) whenever the provider's scale (5 vs 0.05) is not proven (A-29).",
+   "properties": {
+    "basis": {
+     "$ref": "#/$defs/CalculationBasis",
+     "default": "UNSPECIFIED"
+    },
+    "percent": {
+     "anyOf": [
+      {
+       "pattern": "^-?\\d+(\\.\\d+)?$",
+       "type": "string"
+      },
+      {
+       "type": "null"
+      }
+     ],
+     "default": null,
+     "title": "Percent"
+    },
+    "raw": {
+     "anyOf": [
+      {
+       "type": "string"
+      },
+      {
+       "type": "integer"
+      },
+      {
+       "type": "boolean"
+      },
+      {
+       "type": "null"
+      }
+     ],
+     "default": null,
+     "title": "Raw"
+    },
+    "scale": {
+     "$ref": "#/$defs/PercentScale"
+    },
+    "source_field": {
+     "anyOf": [
+      {
+       "type": "string"
+      },
+      {
+       "type": "null"
+      }
+     ],
+     "default": null,
+     "title": "Source Field"
+    }
+   },
+   "required": [
+    "scale"
+   ],
+   "title": "Percent",
+   "type": "object"
+  },
+  "PercentScale": {
+   "enum": [
+    "VERIFIED_POINTS",
+    "UNVERIFIED"
+   ],
+   "title": "PercentScale",
+   "type": "string"
+  },
+  "Rate": {
+   "additionalProperties": false,
+   "description": "An amount that only means something together with the period it covers.",
+   "properties": {
+    "amount": {
+     "pattern": "^-?\\d+(\\.\\d+)?$",
+     "title": "Amount",
+     "type": "string"
+    },
+    "currency": {
+     "default": "USD",
+     "title": "Currency",
+     "type": "string"
+    },
+    "derived": {
+     "default": false,
+     "title": "Derived",
+     "type": "boolean"
+    },
+    "formula": {
+     "anyOf": [
+      {
+       "type": "string"
+      },
+      {
+       "type": "null"
+      }
+     ],
+     "default": null,
+     "title": "Formula"
+    },
+    "per": {
+     "$ref": "#/$defs/RatePeriod"
+    },
+    "source_field": {
+     "anyOf": [
+      {
+       "type": "string"
+      },
+      {
+       "type": "null"
+      }
+     ],
+     "default": null,
+     "title": "Source Field"
+    }
+   },
+   "required": [
+    "amount",
+    "per"
+   ],
+   "title": "Rate",
+   "type": "object"
+  },
+  "RatePeriod": {
+   "enum": [
+    "HOUR",
+    "DAY",
+    "WEEK",
+    "BIWEEK",
+    "SEMIMONTH",
+    "MONTH",
+    "QUARTER",
+    "YEAR",
+    "PAY_PERIOD",
+    "UNIT",
+    "UNMAPPED"
+   ],
+   "title": "RatePeriod",
+   "type": "string"
+  },
+  "Rounding": {
+   "enum": [
+    "NEAREST_DOLLAR"
+   ],
+   "title": "Rounding",
+   "type": "string"
+  },
+  "Severity": {
+   "enum": [
+    "info",
+    "warning",
+    "error"
+   ],
+   "title": "Severity",
+   "type": "string"
+  },
+  "Source": {
+   "additionalProperties": false,
+   "properties": {
+    "endpoints": {
+     "items": {
+      "type": "string"
+     },
+     "title": "Endpoints",
+     "type": "array"
+    },
+    "ids": {
+     "additionalProperties": {
+      "type": "string"
+     },
+     "title": "Ids",
+     "type": "object"
+    },
+    "provider": {
+     "title": "Provider",
+     "type": "string"
+    },
+    "tenant_id": {
+     "title": "Tenant Id",
+     "type": "string"
+    }
+   },
+   "required": [
+    "provider",
+    "tenant_id"
+   ],
+   "title": "Source",
+   "type": "object"
+  },
+  "TaxTreatment": {
+   "enum": [
+    "PRE_TAX",
+    "POST_TAX",
+    "ROTH",
+    "UNSPECIFIED"
+   ],
+   "title": "TaxTreatment",
+   "type": "string"
+  }
+ },
+ "$schema": "https://json-schema.org/draft/2020-12/schema",
+ "additionalProperties": false,
+ "properties": {
+  "arrears_tracking": {
+   "anyOf": [
+    {
+     "type": "boolean"
+    },
+    {
+     "type": "null"
+    }
+   ],
+   "default": null,
+   "title": "Arrears Tracking"
+  },
+  "benefit_plan_id": {
+   "anyOf": [
+    {
+     "type": "string"
+    },
+    {
+     "type": "null"
+    }
+   ],
+   "default": null,
+   "title": "Benefit Plan Id"
+  },
+  "calculation": {
+   "anyOf": [
+    {
+     "$ref": "#/$defs/Calculation"
+    },
+    {
+     "type": "null"
+    }
+   ],
+   "default": null
+  },
+  "catch_up": {
+   "anyOf": [
+    {
+     "type": "boolean"
+    },
+    {
+     "type": "null"
+    }
+   ],
+   "default": null,
+   "title": "Catch Up"
+  },
+  "category": {
+   "$ref": "#/$defs/Coded_DeductionCategory_"
+  },
+  "code": {
+   "title": "Code",
+   "type": "string"
+  },
+  "company_id": {
+   "title": "Company Id",
+   "type": "string"
+  },
+  "diagnostics": {
+   "items": {
+    "$ref": "#/$defs/Diagnostic"
+   },
+   "title": "Diagnostics",
+   "type": "array"
+  },
+  "effective_from": {
+   "anyOf": [
+    {
+     "format": "date",
+     "type": "string"
+    },
+    {
+     "type": "null"
+    }
+   ],
+   "default": null,
+   "title": "Effective From"
+  },
+  "effective_to": {
+   "anyOf": [
+    {
+     "format": "date",
+     "type": "string"
+    },
+    {
+     "type": "null"
+    }
+   ],
+   "default": null,
+   "title": "Effective To"
+  },
+  "employee_id": {
+   "title": "Employee Id",
+   "type": "string"
+  },
+  "employer_match": {
+   "anyOf": [
+    {
+     "$ref": "#/$defs/EmployerMatch"
+    },
+    {
+     "type": "null"
+    }
+   ],
+   "default": null
+  },
+  "frequency": {
+   "anyOf": [
+    {
+     "$ref": "#/$defs/Coded_str_"
+    },
+    {
+     "type": "null"
+    }
+   ],
+   "default": null
+  },
+  "garnishment": {
+   "anyOf": [
+    {
+     "$ref": "#/$defs/GarnishmentDetails"
+    },
+    {
+     "type": "null"
+    }
+   ],
+   "default": null
+  },
+  "id": {
+   "title": "Id",
+   "type": "string"
+  },
+  "label": {
+   "anyOf": [
+    {
+     "type": "string"
+    },
+    {
+     "type": "null"
+    }
+   ],
+   "default": null,
+   "title": "Label"
+  },
+  "limits": {
+   "anyOf": [
+    {
+     "$ref": "#/$defs/DeductionLimits"
+    },
+    {
+     "type": "null"
+    }
+   ],
+   "default": null
+  },
+  "loan": {
+   "anyOf": [
+    {
+     "$ref": "#/$defs/LoanDetails"
+    },
+    {
+     "type": "null"
+    }
+   ],
+   "default": null
+  },
+  "loan_or_garnishment_id": {
+   "anyOf": [
+    {
+     "type": "string"
+    },
+    {
+     "type": "null"
+    }
+   ],
+   "default": null,
+   "title": "Loan Or Garnishment Id"
+  },
+  "mandatory": {
+   "anyOf": [
+    {
+     "type": "boolean"
+    },
+    {
+     "type": "null"
+    }
+   ],
+   "default": null,
+   "title": "Mandatory"
+  },
+  "provider_extensions": {
+   "additionalProperties": true,
+   "title": "Provider Extensions",
+   "type": "object"
+  },
+  "source": {
+   "$ref": "#/$defs/Source"
+  },
+  "status": {
+   "anyOf": [
+    {
+     "$ref": "#/$defs/Coded_ElectionStatus_"
+    },
+    {
+     "type": "null"
+    }
+   ],
+   "default": null
+  },
+  "tax_treatment": {
+   "$ref": "#/$defs/TaxTreatment",
+   "default": "UNSPECIFIED"
+  }
+ },
+ "required": [
+  "id",
+  "source",
+  "employee_id",
+  "company_id",
+  "code",
+  "category"
+ ],
+ "title": "DeductionElection",
+ "type": "object"
+}

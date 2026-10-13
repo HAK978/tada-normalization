@@ -15,3 +15,5 @@ dist/
 build/
 .discovery/
 *.egg-info/
+# Normalized output from the CLI (demo runs and live data alike)
+out/

@@ -15,7 +15,10 @@ dependencies = [
 ]
 
 [project.optional-dependencies]
-dev = ["pytest>=8"]
+dev = ["pytest>=8", "ruff>=0.6"]
+
+[project.scripts]
+tada-normalize = "normalization.__main__:main"
 
 [tool.setuptools.packages.find]
 where = ["src"]
@@ -26,13 +29,10 @@ pythonpath = ["src"]
 
 [tool.ruff]
 line-length = 120
-# The organizer's files stay byte-identical: contracts/ always, the starter scaffold until replaced (A-02).
+# The organizer's files keep their own formatting: contracts/, and the starter files we kept (A-02).
 extend-exclude = [
     "contracts",
-    "src/normalization/__main__.py",
-    "src/normalization/adapters",
     "src/normalization/references.py",
-    "tests/test_starter.py",
     "tests/test_reference_integrity.py",
 ]
 

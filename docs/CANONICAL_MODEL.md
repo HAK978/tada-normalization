@@ -6,7 +6,8 @@ Status: **draft v2, 2026-10-13.**
   in here and in [ASSUMPTIONS.md](../ASSUMPTIONS.md).
 
 Implemented: the model itself (`src/normalization/canonical/`) and the PrismHR, isolved and UKG Ready
-converters.
+converters. The model is exported as JSON Schema, one file per record type, under `schemas/`
+(`python -m normalization schema`). Output is JSON per record type plus SQLite (A-36).
 
 ## 1. Principles
 

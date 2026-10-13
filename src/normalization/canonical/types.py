@@ -82,9 +82,9 @@ class Quantity(Model):
 
 
 class Percent(Model):
-    """percent is null whenever the provider's scale (5 vs 0.05) is not proven (A-29)."""
+    """percent is null (and left out of the output) whenever the provider's scale (5 vs 0.05) is not proven (A-29)."""
 
-    percent: DecimalText | None
+    percent: DecimalText | None = None
     basis: CalculationBasis = CalculationBasis.UNSPECIFIED
     scale: PercentScale
     raw: Raw = None

@@ -1,0 +1,783 @@
+{
+ "$defs": {
+  "Address": {
+   "additionalProperties": false,
+   "properties": {
+    "city": {
+     "anyOf": [
+      {
+       "type": "string"
+      },
+      {
+       "type": "null"
+      }
+     ],
+     "default": null,
+     "title": "City"
+    },
+    "country": {
+     "anyOf": [
+      {
+       "type": "string"
+      },
+      {
+       "type": "null"
+      }
+     ],
+     "default": null,
+     "title": "Country"
+    },
+    "county": {
+     "anyOf": [
+      {
+       "type": "string"
+      },
+      {
+       "type": "null"
+      }
+     ],
+     "default": null,
+     "title": "County"
+    },
+    "line1": {
+     "anyOf": [
+      {
+       "type": "string"
+      },
+      {
+       "type": "null"
+      }
+     ],
+     "default": null,
+     "title": "Line1"
+    },
+    "line2": {
+     "anyOf": [
+      {
+       "type": "string"
+      },
+      {
+       "type": "null"
+      }
+     ],
+     "default": null,
+     "title": "Line2"
+    },
+    "line3": {
+     "anyOf": [
+      {
+       "type": "string"
+      },
+      {
+       "type": "null"
+      }
+     ],
+     "default": null,
+     "title": "Line3"
+    },
+    "postal_code": {
+     "anyOf": [
+      {
+       "type": "string"
+      },
+      {
+       "type": "null"
+      }
+     ],
+     "default": null,
+     "title": "Postal Code"
+    },
+    "state": {
+     "anyOf": [
+      {
+       "type": "string"
+      },
+      {
+       "type": "null"
+      }
+     ],
+     "default": null,
+     "title": "State"
+    },
+    "type": {
+     "$ref": "#/$defs/AddressType"
+    }
+   },
+   "required": [
+    "type"
+   ],
+   "title": "Address",
+   "type": "object"
+  },
+  "AddressType": {
+   "enum": [
+    "HOME",
+    "MAILING",
+    "W2",
+    "COMPANY",
+    "BILLING"
+   ],
+   "title": "AddressType",
+   "type": "string"
+  },
+  "Coded_CompanyStatus_": {
+   "additionalProperties": false,
+   "properties": {
+    "label": {
+     "anyOf": [
+      {
+       "type": "string"
+      },
+      {
+       "type": "null"
+      }
+     ],
+     "default": null,
+     "title": "Label"
+    },
+    "raw": {
+     "anyOf": [
+      {
+       "type": "string"
+      },
+      {
+       "type": "integer"
+      },
+      {
+       "type": "boolean"
+      },
+      {
+       "type": "null"
+      }
+     ],
+     "default": null,
+     "title": "Raw"
+    },
+    "source_field": {
+     "title": "Source Field",
+     "type": "string"
+    },
+    "value": {
+     "$ref": "#/$defs/CompanyStatus"
+    }
+   },
+   "required": [
+    "value",
+    "source_field"
+   ],
+   "title": "Coded[CompanyStatus]",
+   "type": "object"
+  },
+  "Coded_PayFrequency_": {
+   "additionalProperties": false,
+   "properties": {
+    "label": {
+     "anyOf": [
+      {
+       "type": "string"
+      },
+      {
+       "type": "null"
+      }
+     ],
+     "default": null,
+     "title": "Label"
+    },
+    "raw": {
+     "anyOf": [
+      {
+       "type": "string"
+      },
+      {
+       "type": "integer"
+      },
+      {
+       "type": "boolean"
+      },
+      {
+       "type": "null"
+      }
+     ],
+     "default": null,
+     "title": "Raw"
+    },
+    "source_field": {
+     "title": "Source Field",
+     "type": "string"
+    },
+    "value": {
+     "$ref": "#/$defs/PayFrequency"
+    }
+   },
+   "required": [
+    "value",
+    "source_field"
+   ],
+   "title": "Coded[PayFrequency]",
+   "type": "object"
+  },
+  "Coded_ServiceArrangement_": {
+   "additionalProperties": false,
+   "properties": {
+    "label": {
+     "anyOf": [
+      {
+       "type": "string"
+      },
+      {
+       "type": "null"
+      }
+     ],
+     "default": null,
+     "title": "Label"
+    },
+    "raw": {
+     "anyOf": [
+      {
+       "type": "string"
+      },
+      {
+       "type": "integer"
+      },
+      {
+       "type": "boolean"
+      },
+      {
+       "type": "null"
+      }
+     ],
+     "default": null,
+     "title": "Raw"
+    },
+    "source_field": {
+     "title": "Source Field",
+     "type": "string"
+    },
+    "value": {
+     "$ref": "#/$defs/ServiceArrangement"
+    }
+   },
+   "required": [
+    "value",
+    "source_field"
+   ],
+   "title": "Coded[ServiceArrangement]",
+   "type": "object"
+  },
+  "CompanyStatus": {
+   "enum": [
+    "ACTIVE",
+    "PENDING",
+    "INACTIVE",
+    "TERMINATING",
+    "TERMINATED",
+    "UNMAPPED"
+   ],
+   "title": "CompanyStatus",
+   "type": "string"
+  },
+  "Diagnostic": {
+   "additionalProperties": false,
+   "properties": {
+    "code": {
+     "title": "Code",
+     "type": "string"
+    },
+    "field": {
+     "anyOf": [
+      {
+       "type": "string"
+      },
+      {
+       "type": "null"
+      }
+     ],
+     "default": null,
+     "title": "Field"
+    },
+    "message": {
+     "title": "Message",
+     "type": "string"
+    },
+    "raw": {
+     "anyOf": [
+      {
+       "type": "string"
+      },
+      {
+       "type": "integer"
+      },
+      {
+       "type": "boolean"
+      },
+      {
+       "type": "null"
+      }
+     ],
+     "default": null,
+     "title": "Raw"
+    },
+    "severity": {
+     "$ref": "#/$defs/Severity"
+    }
+   },
+   "required": [
+    "code",
+    "severity",
+    "message"
+   ],
+   "title": "Diagnostic",
+   "type": "object"
+  },
+  "Email": {
+   "additionalProperties": false,
+   "properties": {
+    "address": {
+     "title": "Address",
+     "type": "string"
+    },
+    "type": {
+     "$ref": "#/$defs/EmailType"
+    }
+   },
+   "required": [
+    "type",
+    "address"
+   ],
+   "title": "Email",
+   "type": "object"
+  },
+  "EmailType": {
+   "enum": [
+    "PERSONAL",
+    "WORK",
+    "BENEFITS",
+    "MAIN"
+   ],
+   "title": "EmailType",
+   "type": "string"
+  },
+  "EmployerKind": {
+   "enum": [
+    "ASSIGNED",
+    "ALTERNATE",
+    "LEGAL_COMPANY",
+    "EIN"
+   ],
+   "title": "EmployerKind",
+   "type": "string"
+  },
+  "EmployerRef": {
+   "additionalProperties": false,
+   "properties": {
+    "kind": {
+     "$ref": "#/$defs/EmployerKind"
+    },
+    "name": {
+     "anyOf": [
+      {
+       "type": "string"
+      },
+      {
+       "type": "null"
+      }
+     ],
+     "default": null,
+     "title": "Name"
+    },
+    "provider_id": {
+     "anyOf": [
+      {
+       "type": "string"
+      },
+      {
+       "type": "null"
+      }
+     ],
+     "default": null,
+     "title": "Provider Id"
+    },
+    "tax_id": {
+     "anyOf": [
+      {
+       "$ref": "#/$defs/TaxIdentifier"
+      },
+      {
+       "type": "null"
+      }
+     ],
+     "default": null
+    }
+   },
+   "required": [
+    "kind"
+   ],
+   "title": "EmployerRef",
+   "type": "object"
+  },
+  "FrequencyInfo": {
+   "additionalProperties": false,
+   "properties": {
+    "frequency": {
+     "$ref": "#/$defs/Coded_PayFrequency_"
+    },
+    "periods_per_year": {
+     "anyOf": [
+      {
+       "type": "integer"
+      },
+      {
+       "type": "null"
+      }
+     ],
+     "default": null,
+     "title": "Periods Per Year"
+    }
+   },
+   "required": [
+    "frequency"
+   ],
+   "title": "FrequencyInfo",
+   "type": "object"
+  },
+  "OrgUnit": {
+   "additionalProperties": false,
+   "properties": {
+    "code": {
+     "title": "Code",
+     "type": "string"
+    },
+    "name": {
+     "anyOf": [
+      {
+       "type": "string"
+      },
+      {
+       "type": "null"
+      }
+     ],
+     "default": null,
+     "title": "Name"
+    }
+   },
+   "required": [
+    "code"
+   ],
+   "title": "OrgUnit",
+   "type": "object"
+  },
+  "PayFrequency": {
+   "enum": [
+    "DAILY",
+    "WEEKLY",
+    "BIWEEKLY",
+    "SEMIMONTHLY",
+    "MONTHLY",
+    "QUARTERLY",
+    "SEMIANNUALLY",
+    "ANNUALLY",
+    "OTHER",
+    "UNMAPPED"
+   ],
+   "title": "PayFrequency",
+   "type": "string"
+  },
+  "PayGroup": {
+   "additionalProperties": false,
+   "properties": {
+    "code": {
+     "title": "Code",
+     "type": "string"
+    },
+    "frequency": {
+     "anyOf": [
+      {
+       "$ref": "#/$defs/FrequencyInfo"
+      },
+      {
+       "type": "null"
+      }
+     ],
+     "default": null
+    },
+    "name": {
+     "anyOf": [
+      {
+       "type": "string"
+      },
+      {
+       "type": "null"
+      }
+     ],
+     "default": null,
+     "title": "Name"
+    }
+   },
+   "required": [
+    "code"
+   ],
+   "title": "PayGroup",
+   "type": "object"
+  },
+  "Phone": {
+   "additionalProperties": false,
+   "properties": {
+    "extension": {
+     "anyOf": [
+      {
+       "type": "string"
+      },
+      {
+       "type": "null"
+      }
+     ],
+     "default": null,
+     "title": "Extension"
+    },
+    "number": {
+     "title": "Number",
+     "type": "string"
+    },
+    "type": {
+     "$ref": "#/$defs/PhoneType"
+    }
+   },
+   "required": [
+    "type",
+    "number"
+   ],
+   "title": "Phone",
+   "type": "object"
+  },
+  "PhoneType": {
+   "enum": [
+    "HOME",
+    "MOBILE",
+    "WORK",
+    "FAX",
+    "MAIN"
+   ],
+   "title": "PhoneType",
+   "type": "string"
+  },
+  "ServiceArrangement": {
+   "enum": [
+    "PEO",
+    "ASO",
+    "PAYROLL_ONLY",
+    "ASO_ALT_BILLING",
+    "CORPORATE_PAYROLL",
+    "HR_ONLY",
+    "UNMAPPED"
+   ],
+   "title": "ServiceArrangement",
+   "type": "string"
+  },
+  "Severity": {
+   "enum": [
+    "info",
+    "warning",
+    "error"
+   ],
+   "title": "Severity",
+   "type": "string"
+  },
+  "Source": {
+   "additionalProperties": false,
+   "properties": {
+    "endpoints": {
+     "items": {
+      "type": "string"
+     },
+     "title": "Endpoints",
+     "type": "array"
+    },
+    "ids": {
+     "additionalProperties": {
+      "type": "string"
+     },
+     "title": "Ids",
+     "type": "object"
+    },
+    "provider": {
+     "title": "Provider",
+     "type": "string"
+    },
+    "tenant_id": {
+     "title": "Tenant Id",
+     "type": "string"
+    }
+   },
+   "required": [
+    "provider",
+    "tenant_id"
+   ],
+   "title": "Source",
+   "type": "object"
+  },
+  "TaxIdentifier": {
+   "additionalProperties": false,
+   "description": "A business tax ID (FEIN). Not personal data, so it is kept as returned; masked values stay masked.",
+   "properties": {
+    "masked_at_source": {
+     "default": false,
+     "title": "Masked At Source",
+     "type": "boolean"
+    },
+    "source_field": {
+     "title": "Source Field",
+     "type": "string"
+    },
+    "value": {
+     "anyOf": [
+      {
+       "type": "string"
+      },
+      {
+       "type": "null"
+      }
+     ],
+     "default": null,
+     "title": "Value"
+    }
+   },
+   "required": [
+    "source_field"
+   ],
+   "title": "TaxIdentifier",
+   "type": "object"
+  }
+ },
+ "$schema": "https://json-schema.org/draft/2020-12/schema",
+ "additionalProperties": false,
+ "properties": {
+  "addresses": {
+   "items": {
+    "$ref": "#/$defs/Address"
+   },
+   "title": "Addresses",
+   "type": "array"
+  },
+  "diagnostics": {
+   "items": {
+    "$ref": "#/$defs/Diagnostic"
+   },
+   "title": "Diagnostics",
+   "type": "array"
+  },
+  "emails": {
+   "items": {
+    "$ref": "#/$defs/Email"
+   },
+   "title": "Emails",
+   "type": "array"
+  },
+  "employers": {
+   "items": {
+    "$ref": "#/$defs/EmployerRef"
+   },
+   "title": "Employers",
+   "type": "array"
+  },
+  "id": {
+   "title": "Id",
+   "type": "string"
+  },
+  "legal_name": {
+   "anyOf": [
+    {
+     "type": "string"
+    },
+    {
+     "type": "null"
+    }
+   ],
+   "default": null,
+   "title": "Legal Name"
+  },
+  "name": {
+   "anyOf": [
+    {
+     "type": "string"
+    },
+    {
+     "type": "null"
+    }
+   ],
+   "default": null,
+   "title": "Name"
+  },
+  "own_tax_id": {
+   "anyOf": [
+    {
+     "$ref": "#/$defs/TaxIdentifier"
+    },
+    {
+     "type": "null"
+    }
+   ],
+   "default": null
+  },
+  "parent": {
+   "anyOf": [
+    {
+     "$ref": "#/$defs/OrgUnit"
+    },
+    {
+     "type": "null"
+    }
+   ],
+   "default": null
+  },
+  "pay_groups": {
+   "items": {
+    "$ref": "#/$defs/PayGroup"
+   },
+   "title": "Pay Groups",
+   "type": "array"
+  },
+  "phones": {
+   "items": {
+    "$ref": "#/$defs/Phone"
+   },
+   "title": "Phones",
+   "type": "array"
+  },
+  "provider_extensions": {
+   "additionalProperties": true,
+   "title": "Provider Extensions",
+   "type": "object"
+  },
+  "service_arrangement": {
+   "anyOf": [
+    {
+     "$ref": "#/$defs/Coded_ServiceArrangement_"
+    },
+    {
+     "type": "null"
+    }
+   ],
+   "default": null
+  },
+  "source": {
+   "$ref": "#/$defs/Source"
+  },
+  "status": {
+   "anyOf": [
+    {
+     "$ref": "#/$defs/Coded_CompanyStatus_"
+    },
+    {
+     "type": "null"
+    }
+   ],
+   "default": null
+  }
+ },
+ "required": [
+  "id",
+  "source"
+ ],
+ "title": "Company",
+ "type": "object"
+}

@@ -1,0 +1,903 @@
+{
+ "$defs": {
+  "AccountType": {
+   "enum": [
+    "CHECKING",
+    "SAVINGS",
+    "CHECKING_OR_PAY_CARD",
+    "INSTANT_PAY",
+    "PAPER_CHECK",
+    "UNMAPPED"
+   ],
+   "title": "AccountType",
+   "type": "string"
+  },
+  "BankAccount": {
+   "additionalProperties": false,
+   "properties": {
+    "account_last4": {
+     "anyOf": [
+      {
+       "type": "string"
+      },
+      {
+       "type": "null"
+      }
+     ],
+     "default": null,
+     "title": "Account Last4"
+    },
+    "bank_name": {
+     "anyOf": [
+      {
+       "type": "string"
+      },
+      {
+       "type": "null"
+      }
+     ],
+     "default": null,
+     "title": "Bank Name"
+    },
+    "masked_at_source": {
+     "anyOf": [
+      {
+       "type": "boolean"
+      },
+      {
+       "type": "null"
+      }
+     ],
+     "default": null,
+     "title": "Masked At Source"
+    },
+    "routing_number": {
+     "anyOf": [
+      {
+       "type": "string"
+      },
+      {
+       "type": "null"
+      }
+     ],
+     "default": null,
+     "title": "Routing Number"
+    },
+    "routing_type": {
+     "anyOf": [
+      {
+       "type": "string"
+      },
+      {
+       "type": "null"
+      }
+     ],
+     "default": null,
+     "title": "Routing Type"
+    },
+    "type": {
+     "$ref": "#/$defs/Coded_AccountType_"
+    }
+   },
+   "required": [
+    "type"
+   ],
+   "title": "BankAccount",
+   "type": "object"
+  },
+  "CalculationBasis": {
+   "enum": [
+    "GROSS_PAY",
+    "GROSS_EARNINGS",
+    "GROSS_EARNINGS_LESS_DEDUCTIONS",
+    "STRAIGHT_PAY",
+    "PAY_RATE",
+    "PRIOR_MONTH_PAY_RATE",
+    "RETIREMENT_EARNINGS",
+    "EARNINGS",
+    "CERTIFIED_JOB_EARNINGS",
+    "HOURS_WORKED",
+    "HOURS_PAID",
+    "HOURS_PAID_SELECTED_CODES",
+    "CERTIFIED_JOB_HOURS",
+    "UNION_JOB_HOURS",
+    "UNION_PROJECT_HOURS",
+    "NET_PAY",
+    "GROSS_WAGES",
+    "DISPOSABLE_INCOME",
+    "UNSPECIFIED"
+   ],
+   "title": "CalculationBasis",
+   "type": "string"
+  },
+  "Coded_AccountType_": {
+   "additionalProperties": false,
+   "properties": {
+    "label": {
+     "anyOf": [
+      {
+       "type": "string"
+      },
+      {
+       "type": "null"
+      }
+     ],
+     "default": null,
+     "title": "Label"
+    },
+    "raw": {
+     "anyOf": [
+      {
+       "type": "string"
+      },
+      {
+       "type": "integer"
+      },
+      {
+       "type": "boolean"
+      },
+      {
+       "type": "null"
+      }
+     ],
+     "default": null,
+     "title": "Raw"
+    },
+    "source_field": {
+     "title": "Source Field",
+     "type": "string"
+    },
+    "value": {
+     "$ref": "#/$defs/AccountType"
+    }
+   },
+   "required": [
+    "value",
+    "source_field"
+   ],
+   "title": "Coded[AccountType]",
+   "type": "object"
+  },
+  "Coded_DepositMethod_": {
+   "additionalProperties": false,
+   "properties": {
+    "label": {
+     "anyOf": [
+      {
+       "type": "string"
+      },
+      {
+       "type": "null"
+      }
+     ],
+     "default": null,
+     "title": "Label"
+    },
+    "raw": {
+     "anyOf": [
+      {
+       "type": "string"
+      },
+      {
+       "type": "integer"
+      },
+      {
+       "type": "boolean"
+      },
+      {
+       "type": "null"
+      }
+     ],
+     "default": null,
+     "title": "Raw"
+    },
+    "source_field": {
+     "title": "Source Field",
+     "type": "string"
+    },
+    "value": {
+     "$ref": "#/$defs/DepositMethod"
+    }
+   },
+   "required": [
+    "value",
+    "source_field"
+   ],
+   "title": "Coded[DepositMethod]",
+   "type": "object"
+  },
+  "Coded_DepositStatus_": {
+   "additionalProperties": false,
+   "properties": {
+    "label": {
+     "anyOf": [
+      {
+       "type": "string"
+      },
+      {
+       "type": "null"
+      }
+     ],
+     "default": null,
+     "title": "Label"
+    },
+    "raw": {
+     "anyOf": [
+      {
+       "type": "string"
+      },
+      {
+       "type": "integer"
+      },
+      {
+       "type": "boolean"
+      },
+      {
+       "type": "null"
+      }
+     ],
+     "default": null,
+     "title": "Raw"
+    },
+    "source_field": {
+     "title": "Source Field",
+     "type": "string"
+    },
+    "value": {
+     "$ref": "#/$defs/DepositStatus"
+    }
+   },
+   "required": [
+    "value",
+    "source_field"
+   ],
+   "title": "Coded[DepositStatus]",
+   "type": "object"
+  },
+  "Coded_FundingParty_": {
+   "additionalProperties": false,
+   "properties": {
+    "label": {
+     "anyOf": [
+      {
+       "type": "string"
+      },
+      {
+       "type": "null"
+      }
+     ],
+     "default": null,
+     "title": "Label"
+    },
+    "raw": {
+     "anyOf": [
+      {
+       "type": "string"
+      },
+      {
+       "type": "integer"
+      },
+      {
+       "type": "boolean"
+      },
+      {
+       "type": "null"
+      }
+     ],
+     "default": null,
+     "title": "Raw"
+    },
+    "source_field": {
+     "title": "Source Field",
+     "type": "string"
+    },
+    "value": {
+     "$ref": "#/$defs/FundingParty"
+    }
+   },
+   "required": [
+    "value",
+    "source_field"
+   ],
+   "title": "Coded[FundingParty]",
+   "type": "object"
+  },
+  "Coded_PayKindScope_": {
+   "additionalProperties": false,
+   "properties": {
+    "label": {
+     "anyOf": [
+      {
+       "type": "string"
+      },
+      {
+       "type": "null"
+      }
+     ],
+     "default": null,
+     "title": "Label"
+    },
+    "raw": {
+     "anyOf": [
+      {
+       "type": "string"
+      },
+      {
+       "type": "integer"
+      },
+      {
+       "type": "boolean"
+      },
+      {
+       "type": "null"
+      }
+     ],
+     "default": null,
+     "title": "Raw"
+    },
+    "source_field": {
+     "title": "Source Field",
+     "type": "string"
+    },
+    "value": {
+     "$ref": "#/$defs/PayKindScope"
+    }
+   },
+   "required": [
+    "value",
+    "source_field"
+   ],
+   "title": "Coded[PayKindScope]",
+   "type": "object"
+  },
+  "Coded_str_": {
+   "additionalProperties": false,
+   "properties": {
+    "label": {
+     "anyOf": [
+      {
+       "type": "string"
+      },
+      {
+       "type": "null"
+      }
+     ],
+     "default": null,
+     "title": "Label"
+    },
+    "raw": {
+     "anyOf": [
+      {
+       "type": "string"
+      },
+      {
+       "type": "integer"
+      },
+      {
+       "type": "boolean"
+      },
+      {
+       "type": "null"
+      }
+     ],
+     "default": null,
+     "title": "Raw"
+    },
+    "source_field": {
+     "title": "Source Field",
+     "type": "string"
+    },
+    "value": {
+     "title": "Value",
+     "type": "string"
+    }
+   },
+   "required": [
+    "value",
+    "source_field"
+   ],
+   "title": "Coded[str]",
+   "type": "object"
+  },
+  "DepositMethod": {
+   "enum": [
+    "FIXED_AMOUNT",
+    "FIXED_AMOUNT_SKIP_IF_INSUFFICIENT",
+    "PERCENT_BASE_UNSPECIFIED",
+    "PERCENT_OF_GROSS",
+    "PERCENT_OF_NET",
+    "PERCENT_OF_NET_AFTER_FIXED",
+    "PERCENT_OF_NET_AFTER_TAXES",
+    "PERCENT_OF_REMAINDER",
+    "REMAINDER",
+    "UNMAPPED"
+   ],
+   "title": "DepositMethod",
+   "type": "string"
+  },
+  "DepositPurpose": {
+   "enum": [
+    "NET_PAY",
+    "HSA"
+   ],
+   "title": "DepositPurpose",
+   "type": "string"
+  },
+  "DepositStatus": {
+   "enum": [
+    "ACTIVE",
+    "INACTIVE",
+    "PRENOTE",
+    "UNMAPPED"
+   ],
+   "title": "DepositStatus",
+   "type": "string"
+  },
+  "Diagnostic": {
+   "additionalProperties": false,
+   "properties": {
+    "code": {
+     "title": "Code",
+     "type": "string"
+    },
+    "field": {
+     "anyOf": [
+      {
+       "type": "string"
+      },
+      {
+       "type": "null"
+      }
+     ],
+     "default": null,
+     "title": "Field"
+    },
+    "message": {
+     "title": "Message",
+     "type": "string"
+    },
+    "raw": {
+     "anyOf": [
+      {
+       "type": "string"
+      },
+      {
+       "type": "integer"
+      },
+      {
+       "type": "boolean"
+      },
+      {
+       "type": "null"
+      }
+     ],
+     "default": null,
+     "title": "Raw"
+    },
+    "severity": {
+     "$ref": "#/$defs/Severity"
+    }
+   },
+   "required": [
+    "code",
+    "severity",
+    "message"
+   ],
+   "title": "Diagnostic",
+   "type": "object"
+  },
+  "FundingParty": {
+   "enum": [
+    "EMPLOYEE",
+    "EMPLOYER",
+    "UNMAPPED"
+   ],
+   "title": "FundingParty",
+   "type": "string"
+  },
+  "Money": {
+   "additionalProperties": false,
+   "properties": {
+    "amount": {
+     "pattern": "^-?\\d+(\\.\\d+)?$",
+     "title": "Amount",
+     "type": "string"
+    },
+    "currency": {
+     "default": "USD",
+     "title": "Currency",
+     "type": "string"
+    },
+    "derived": {
+     "default": false,
+     "title": "Derived",
+     "type": "boolean"
+    },
+    "formula": {
+     "anyOf": [
+      {
+       "type": "string"
+      },
+      {
+       "type": "null"
+      }
+     ],
+     "default": null,
+     "title": "Formula"
+    },
+    "source_field": {
+     "anyOf": [
+      {
+       "type": "string"
+      },
+      {
+       "type": "null"
+      }
+     ],
+     "default": null,
+     "title": "Source Field"
+    }
+   },
+   "required": [
+    "amount"
+   ],
+   "title": "Money",
+   "type": "object"
+  },
+  "PayKindScope": {
+   "enum": [
+    "REGULAR",
+    "SUPPLEMENTAL",
+    "VACATION",
+    "UNMAPPED"
+   ],
+   "title": "PayKindScope",
+   "type": "string"
+  },
+  "Percent": {
+   "additionalProperties": false,
+   "description": "percent is null (and left out of the output) whenever the provider's scale (5 vs 0.05) is not proven (A-29).",
+   "properties": {
+    "basis": {
+     "$ref": "#/$defs/CalculationBasis",
+     "default": "UNSPECIFIED"
+    },
+    "percent": {
+     "anyOf": [
+      {
+       "pattern": "^-?\\d+(\\.\\d+)?$",
+       "type": "string"
+      },
+      {
+       "type": "null"
+      }
+     ],
+     "default": null,
+     "title": "Percent"
+    },
+    "raw": {
+     "anyOf": [
+      {
+       "type": "string"
+      },
+      {
+       "type": "integer"
+      },
+      {
+       "type": "boolean"
+      },
+      {
+       "type": "null"
+      }
+     ],
+     "default": null,
+     "title": "Raw"
+    },
+    "scale": {
+     "$ref": "#/$defs/PercentScale"
+    },
+    "source_field": {
+     "anyOf": [
+      {
+       "type": "string"
+      },
+      {
+       "type": "null"
+      }
+     ],
+     "default": null,
+     "title": "Source Field"
+    }
+   },
+   "required": [
+    "scale"
+   ],
+   "title": "Percent",
+   "type": "object"
+  },
+  "PercentScale": {
+   "enum": [
+    "VERIFIED_POINTS",
+    "UNVERIFIED"
+   ],
+   "title": "PercentScale",
+   "type": "string"
+  },
+  "Prenote": {
+   "additionalProperties": false,
+   "properties": {
+    "expiration_date": {
+     "anyOf": [
+      {
+       "format": "date",
+       "type": "string"
+      },
+      {
+       "type": "null"
+      }
+     ],
+     "default": null,
+     "title": "Expiration Date"
+    },
+    "sent_date": {
+     "anyOf": [
+      {
+       "format": "date",
+       "type": "string"
+      },
+      {
+       "type": "null"
+      }
+     ],
+     "default": null,
+     "title": "Sent Date"
+    },
+    "status": {
+     "anyOf": [
+      {
+       "$ref": "#/$defs/Coded_str_"
+      },
+      {
+       "type": "null"
+      }
+     ],
+     "default": null
+    }
+   },
+   "title": "Prenote",
+   "type": "object"
+  },
+  "Severity": {
+   "enum": [
+    "info",
+    "warning",
+    "error"
+   ],
+   "title": "Severity",
+   "type": "string"
+  },
+  "Source": {
+   "additionalProperties": false,
+   "properties": {
+    "endpoints": {
+     "items": {
+      "type": "string"
+     },
+     "title": "Endpoints",
+     "type": "array"
+    },
+    "ids": {
+     "additionalProperties": {
+      "type": "string"
+     },
+     "title": "Ids",
+     "type": "object"
+    },
+    "provider": {
+     "title": "Provider",
+     "type": "string"
+    },
+    "tenant_id": {
+     "title": "Tenant Id",
+     "type": "string"
+    }
+   },
+   "required": [
+    "provider",
+    "tenant_id"
+   ],
+   "title": "Source",
+   "type": "object"
+  }
+ },
+ "$schema": "https://json-schema.org/draft/2020-12/schema",
+ "additionalProperties": false,
+ "properties": {
+  "account": {
+   "$ref": "#/$defs/BankAccount"
+  },
+  "amount": {
+   "anyOf": [
+    {
+     "$ref": "#/$defs/Money"
+    },
+    {
+     "type": "null"
+    }
+   ],
+   "default": null
+  },
+  "applies_to_pay_types": {
+   "items": {
+    "$ref": "#/$defs/Coded_PayKindScope_"
+   },
+   "title": "Applies To Pay Types",
+   "type": "array"
+  },
+  "company_id": {
+   "title": "Company Id",
+   "type": "string"
+  },
+  "currency": {
+   "anyOf": [
+    {
+     "type": "string"
+    },
+    {
+     "type": "null"
+    }
+   ],
+   "default": null,
+   "title": "Currency"
+  },
+  "diagnostics": {
+   "items": {
+    "$ref": "#/$defs/Diagnostic"
+   },
+   "title": "Diagnostics",
+   "type": "array"
+  },
+  "effective_from": {
+   "anyOf": [
+    {
+     "format": "date",
+     "type": "string"
+    },
+    {
+     "type": "null"
+    }
+   ],
+   "default": null,
+   "title": "Effective From"
+  },
+  "effective_to": {
+   "anyOf": [
+    {
+     "format": "date",
+     "type": "string"
+    },
+    {
+     "type": "null"
+    }
+   ],
+   "default": null,
+   "title": "Effective To"
+  },
+  "employee_id": {
+   "title": "Employee Id",
+   "type": "string"
+  },
+  "frequency": {
+   "anyOf": [
+    {
+     "$ref": "#/$defs/Coded_str_"
+    },
+    {
+     "type": "null"
+    }
+   ],
+   "default": null
+  },
+  "funding": {
+   "anyOf": [
+    {
+     "$ref": "#/$defs/Coded_FundingParty_"
+    },
+    {
+     "type": "null"
+    }
+   ],
+   "default": null
+  },
+  "id": {
+   "title": "Id",
+   "type": "string"
+  },
+  "is_remainder": {
+   "title": "Is Remainder",
+   "type": "boolean"
+  },
+  "limit": {
+   "anyOf": [
+    {
+     "$ref": "#/$defs/Money"
+    },
+    {
+     "type": "null"
+    }
+   ],
+   "default": null
+  },
+  "method": {
+   "$ref": "#/$defs/Coded_DepositMethod_"
+  },
+  "percent": {
+   "anyOf": [
+    {
+     "$ref": "#/$defs/Percent"
+    },
+    {
+     "type": "null"
+    }
+   ],
+   "default": null
+  },
+  "prenote": {
+   "anyOf": [
+    {
+     "$ref": "#/$defs/Prenote"
+    },
+    {
+     "type": "null"
+    }
+   ],
+   "default": null
+  },
+  "provider_extensions": {
+   "additionalProperties": true,
+   "title": "Provider Extensions",
+   "type": "object"
+  },
+  "purpose": {
+   "$ref": "#/$defs/DepositPurpose"
+  },
+  "sequence": {
+   "anyOf": [
+    {
+     "type": "integer"
+    },
+    {
+     "type": "null"
+    }
+   ],
+   "default": null,
+   "title": "Sequence"
+  },
+  "source": {
+   "$ref": "#/$defs/Source"
+  },
+  "status": {
+   "anyOf": [
+    {
+     "$ref": "#/$defs/Coded_DepositStatus_"
+    },
+    {
+     "type": "null"
+    }
+   ],
+   "default": null
+  }
+ },
+ "required": [
+  "id",
+  "source",
+  "employee_id",
+  "company_id",
+  "purpose",
+  "account",
+  "method",
+  "is_remainder"
+ ],
+ "title": "DirectDeposit",
+ "type": "object"
+}

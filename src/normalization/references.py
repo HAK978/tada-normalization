@@ -2,7 +2,7 @@
 import json
 from pathlib import Path
 
-from .adapters import ADAPTERS
+from .providers import PROVIDERS as ADAPTERS  # the starter's adapters were replaced by the converters (A-02)
 
 ROOT = Path(__file__).resolve().parents[2]
 

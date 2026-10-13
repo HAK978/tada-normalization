@@ -1,0 +1,2015 @@
+{
+ "$defs": {
+  "Address": {
+   "additionalProperties": false,
+   "properties": {
+    "city": {
+     "anyOf": [
+      {
+       "type": "string"
+      },
+      {
+       "type": "null"
+      }
+     ],
+     "default": null,
+     "title": "City"
+    },
+    "country": {
+     "anyOf": [
+      {
+       "type": "string"
+      },
+      {
+       "type": "null"
+      }
+     ],
+     "default": null,
+     "title": "Country"
+    },
+    "county": {
+     "anyOf": [
+      {
+       "type": "string"
+      },
+      {
+       "type": "null"
+      }
+     ],
+     "default": null,
+     "title": "County"
+    },
+    "line1": {
+     "anyOf": [
+      {
+       "type": "string"
+      },
+      {
+       "type": "null"
+      }
+     ],
+     "default": null,
+     "title": "Line1"
+    },
+    "line2": {
+     "anyOf": [
+      {
+       "type": "string"
+      },
+      {
+       "type": "null"
+      }
+     ],
+     "default": null,
+     "title": "Line2"
+    },
+    "line3": {
+     "anyOf": [
+      {
+       "type": "string"
+      },
+      {
+       "type": "null"
+      }
+     ],
+     "default": null,
+     "title": "Line3"
+    },
+    "postal_code": {
+     "anyOf": [
+      {
+       "type": "string"
+      },
+      {
+       "type": "null"
+      }
+     ],
+     "default": null,
+     "title": "Postal Code"
+    },
+    "state": {
+     "anyOf": [
+      {
+       "type": "string"
+      },
+      {
+       "type": "null"
+      }
+     ],
+     "default": null,
+     "title": "State"
+    },
+    "type": {
+     "$ref": "#/$defs/AddressType"
+    }
+   },
+   "required": [
+    "type"
+   ],
+   "title": "Address",
+   "type": "object"
+  },
+  "AddressType": {
+   "enum": [
+    "HOME",
+    "MAILING",
+    "W2",
+    "COMPANY",
+    "BILLING"
+   ],
+   "title": "AddressType",
+   "type": "string"
+  },
+  "Citizenship": {
+   "enum": [
+    "US_CITIZEN",
+    "US_NONCITIZEN_NATIONAL",
+    "LAWFUL_PERMANENT_RESIDENT",
+    "AUTHORIZED_ALIEN",
+    "UNMAPPED"
+   ],
+   "title": "Citizenship",
+   "type": "string"
+  },
+  "Coded_Citizenship_": {
+   "additionalProperties": false,
+   "properties": {
+    "label": {
+     "anyOf": [
+      {
+       "type": "string"
+      },
+      {
+       "type": "null"
+      }
+     ],
+     "default": null,
+     "title": "Label"
+    },
+    "raw": {
+     "anyOf": [
+      {
+       "type": "string"
+      },
+      {
+       "type": "integer"
+      },
+      {
+       "type": "boolean"
+      },
+      {
+       "type": "null"
+      }
+     ],
+     "default": null,
+     "title": "Raw"
+    },
+    "source_field": {
+     "title": "Source Field",
+     "type": "string"
+    },
+    "value": {
+     "$ref": "#/$defs/Citizenship"
+    }
+   },
+   "required": [
+    "value",
+    "source_field"
+   ],
+   "title": "Coded[Citizenship]",
+   "type": "object"
+  },
+  "Coded_EmploymentStatus_": {
+   "additionalProperties": false,
+   "properties": {
+    "label": {
+     "anyOf": [
+      {
+       "type": "string"
+      },
+      {
+       "type": "null"
+      }
+     ],
+     "default": null,
+     "title": "Label"
+    },
+    "raw": {
+     "anyOf": [
+      {
+       "type": "string"
+      },
+      {
+       "type": "integer"
+      },
+      {
+       "type": "boolean"
+      },
+      {
+       "type": "null"
+      }
+     ],
+     "default": null,
+     "title": "Raw"
+    },
+    "source_field": {
+     "title": "Source Field",
+     "type": "string"
+    },
+    "value": {
+     "$ref": "#/$defs/EmploymentStatus"
+    }
+   },
+   "required": [
+    "value",
+    "source_field"
+   ],
+   "title": "Coded[EmploymentStatus]",
+   "type": "object"
+  },
+  "Coded_EmploymentType_": {
+   "additionalProperties": false,
+   "properties": {
+    "label": {
+     "anyOf": [
+      {
+       "type": "string"
+      },
+      {
+       "type": "null"
+      }
+     ],
+     "default": null,
+     "title": "Label"
+    },
+    "raw": {
+     "anyOf": [
+      {
+       "type": "string"
+      },
+      {
+       "type": "integer"
+      },
+      {
+       "type": "boolean"
+      },
+      {
+       "type": "null"
+      }
+     ],
+     "default": null,
+     "title": "Raw"
+    },
+    "source_field": {
+     "title": "Source Field",
+     "type": "string"
+    },
+    "value": {
+     "$ref": "#/$defs/EmploymentType"
+    }
+   },
+   "required": [
+    "value",
+    "source_field"
+   ],
+   "title": "Coded[EmploymentType]",
+   "type": "object"
+  },
+  "Coded_Gender_": {
+   "additionalProperties": false,
+   "properties": {
+    "label": {
+     "anyOf": [
+      {
+       "type": "string"
+      },
+      {
+       "type": "null"
+      }
+     ],
+     "default": null,
+     "title": "Label"
+    },
+    "raw": {
+     "anyOf": [
+      {
+       "type": "string"
+      },
+      {
+       "type": "integer"
+      },
+      {
+       "type": "boolean"
+      },
+      {
+       "type": "null"
+      }
+     ],
+     "default": null,
+     "title": "Raw"
+    },
+    "source_field": {
+     "title": "Source Field",
+     "type": "string"
+    },
+    "value": {
+     "$ref": "#/$defs/Gender"
+    }
+   },
+   "required": [
+    "value",
+    "source_field"
+   ],
+   "title": "Coded[Gender]",
+   "type": "object"
+  },
+  "Coded_MaritalStatus_": {
+   "additionalProperties": false,
+   "properties": {
+    "label": {
+     "anyOf": [
+      {
+       "type": "string"
+      },
+      {
+       "type": "null"
+      }
+     ],
+     "default": null,
+     "title": "Label"
+    },
+    "raw": {
+     "anyOf": [
+      {
+       "type": "string"
+      },
+      {
+       "type": "integer"
+      },
+      {
+       "type": "boolean"
+      },
+      {
+       "type": "null"
+      }
+     ],
+     "default": null,
+     "title": "Raw"
+    },
+    "source_field": {
+     "title": "Source Field",
+     "type": "string"
+    },
+    "value": {
+     "$ref": "#/$defs/MaritalStatus"
+    }
+   },
+   "required": [
+    "value",
+    "source_field"
+   ],
+   "title": "Coded[MaritalStatus]",
+   "type": "object"
+  },
+  "Coded_PayFrequency_": {
+   "additionalProperties": false,
+   "properties": {
+    "label": {
+     "anyOf": [
+      {
+       "type": "string"
+      },
+      {
+       "type": "null"
+      }
+     ],
+     "default": null,
+     "title": "Label"
+    },
+    "raw": {
+     "anyOf": [
+      {
+       "type": "string"
+      },
+      {
+       "type": "integer"
+      },
+      {
+       "type": "boolean"
+      },
+      {
+       "type": "null"
+      }
+     ],
+     "default": null,
+     "title": "Raw"
+    },
+    "source_field": {
+     "title": "Source Field",
+     "type": "string"
+    },
+    "value": {
+     "$ref": "#/$defs/PayFrequency"
+    }
+   },
+   "required": [
+    "value",
+    "source_field"
+   ],
+   "title": "Coded[PayFrequency]",
+   "type": "object"
+  },
+  "Coded_PayType_": {
+   "additionalProperties": false,
+   "properties": {
+    "label": {
+     "anyOf": [
+      {
+       "type": "string"
+      },
+      {
+       "type": "null"
+      }
+     ],
+     "default": null,
+     "title": "Label"
+    },
+    "raw": {
+     "anyOf": [
+      {
+       "type": "string"
+      },
+      {
+       "type": "integer"
+      },
+      {
+       "type": "boolean"
+      },
+      {
+       "type": "null"
+      }
+     ],
+     "default": null,
+     "title": "Raw"
+    },
+    "source_field": {
+     "title": "Source Field",
+     "type": "string"
+    },
+    "value": {
+     "$ref": "#/$defs/PayType"
+    }
+   },
+   "required": [
+    "value",
+    "source_field"
+   ],
+   "title": "Coded[PayType]",
+   "type": "object"
+  },
+  "Coded_WorkerClassification_": {
+   "additionalProperties": false,
+   "properties": {
+    "label": {
+     "anyOf": [
+      {
+       "type": "string"
+      },
+      {
+       "type": "null"
+      }
+     ],
+     "default": null,
+     "title": "Label"
+    },
+    "raw": {
+     "anyOf": [
+      {
+       "type": "string"
+      },
+      {
+       "type": "integer"
+      },
+      {
+       "type": "boolean"
+      },
+      {
+       "type": "null"
+      }
+     ],
+     "default": null,
+     "title": "Raw"
+    },
+    "source_field": {
+     "title": "Source Field",
+     "type": "string"
+    },
+    "value": {
+     "$ref": "#/$defs/WorkerClassification"
+    }
+   },
+   "required": [
+    "value",
+    "source_field"
+   ],
+   "title": "Coded[WorkerClassification]",
+   "type": "object"
+  },
+  "Coded_YesNoDeclined_": {
+   "additionalProperties": false,
+   "properties": {
+    "label": {
+     "anyOf": [
+      {
+       "type": "string"
+      },
+      {
+       "type": "null"
+      }
+     ],
+     "default": null,
+     "title": "Label"
+    },
+    "raw": {
+     "anyOf": [
+      {
+       "type": "string"
+      },
+      {
+       "type": "integer"
+      },
+      {
+       "type": "boolean"
+      },
+      {
+       "type": "null"
+      }
+     ],
+     "default": null,
+     "title": "Raw"
+    },
+    "source_field": {
+     "title": "Source Field",
+     "type": "string"
+    },
+    "value": {
+     "$ref": "#/$defs/YesNoDeclined"
+    }
+   },
+   "required": [
+    "value",
+    "source_field"
+   ],
+   "title": "Coded[YesNoDeclined]",
+   "type": "object"
+  },
+  "Coded_str_": {
+   "additionalProperties": false,
+   "properties": {
+    "label": {
+     "anyOf": [
+      {
+       "type": "string"
+      },
+      {
+       "type": "null"
+      }
+     ],
+     "default": null,
+     "title": "Label"
+    },
+    "raw": {
+     "anyOf": [
+      {
+       "type": "string"
+      },
+      {
+       "type": "integer"
+      },
+      {
+       "type": "boolean"
+      },
+      {
+       "type": "null"
+      }
+     ],
+     "default": null,
+     "title": "Raw"
+    },
+    "source_field": {
+     "title": "Source Field",
+     "type": "string"
+    },
+    "value": {
+     "title": "Value",
+     "type": "string"
+    }
+   },
+   "required": [
+    "value",
+    "source_field"
+   ],
+   "title": "Coded[str]",
+   "type": "object"
+  },
+  "Compensation": {
+   "additionalProperties": false,
+   "properties": {
+    "annual_pay": {
+     "anyOf": [
+      {
+       "$ref": "#/$defs/Money"
+      },
+      {
+       "type": "null"
+      }
+     ],
+     "default": null
+    },
+    "effective_date": {
+     "anyOf": [
+      {
+       "format": "date",
+       "type": "string"
+      },
+      {
+       "type": "null"
+      }
+     ],
+     "default": null,
+     "title": "Effective Date"
+    },
+    "history": {
+     "items": {
+      "$ref": "#/$defs/CompensationChange"
+     },
+     "title": "History",
+     "type": "array"
+    },
+    "pay_frequency": {
+     "anyOf": [
+      {
+       "$ref": "#/$defs/FrequencyInfo"
+      },
+      {
+       "type": "null"
+      }
+     ],
+     "default": null
+    },
+    "pay_type": {
+     "anyOf": [
+      {
+       "$ref": "#/$defs/Coded_PayType_"
+      },
+      {
+       "type": "null"
+      }
+     ],
+     "default": null
+    },
+    "rates": {
+     "items": {
+      "$ref": "#/$defs/Rate"
+     },
+     "title": "Rates",
+     "type": "array"
+    },
+    "standard_hours": {
+     "anyOf": [
+      {
+       "$ref": "#/$defs/Quantity"
+      },
+      {
+       "type": "null"
+      }
+     ],
+     "default": null
+    },
+    "standard_hours_per": {
+     "anyOf": [
+      {
+       "type": "string"
+      },
+      {
+       "type": "null"
+      }
+     ],
+     "default": null,
+     "title": "Standard Hours Per"
+    }
+   },
+   "title": "Compensation",
+   "type": "object"
+  },
+  "CompensationChange": {
+   "additionalProperties": false,
+   "properties": {
+    "annual_pay": {
+     "anyOf": [
+      {
+       "$ref": "#/$defs/Money"
+      },
+      {
+       "type": "null"
+      }
+     ],
+     "default": null
+    },
+    "effective_date": {
+     "anyOf": [
+      {
+       "format": "date",
+       "type": "string"
+      },
+      {
+       "type": "null"
+      }
+     ],
+     "default": null,
+     "title": "Effective Date"
+    },
+    "pay_type": {
+     "anyOf": [
+      {
+       "$ref": "#/$defs/Coded_PayType_"
+      },
+      {
+       "type": "null"
+      }
+     ],
+     "default": null
+    },
+    "rates": {
+     "items": {
+      "$ref": "#/$defs/Rate"
+     },
+     "title": "Rates",
+     "type": "array"
+    },
+    "reason": {
+     "anyOf": [
+      {
+       "type": "string"
+      },
+      {
+       "type": "null"
+      }
+     ],
+     "default": null,
+     "title": "Reason"
+    },
+    "source_id": {
+     "anyOf": [
+      {
+       "type": "string"
+      },
+      {
+       "type": "null"
+      }
+     ],
+     "default": null,
+     "title": "Source Id"
+    },
+    "standard_hours": {
+     "anyOf": [
+      {
+       "$ref": "#/$defs/Quantity"
+      },
+      {
+       "type": "null"
+      }
+     ],
+     "default": null
+    }
+   },
+   "title": "CompensationChange",
+   "type": "object"
+  },
+  "Diagnostic": {
+   "additionalProperties": false,
+   "properties": {
+    "code": {
+     "title": "Code",
+     "type": "string"
+    },
+    "field": {
+     "anyOf": [
+      {
+       "type": "string"
+      },
+      {
+       "type": "null"
+      }
+     ],
+     "default": null,
+     "title": "Field"
+    },
+    "message": {
+     "title": "Message",
+     "type": "string"
+    },
+    "raw": {
+     "anyOf": [
+      {
+       "type": "string"
+      },
+      {
+       "type": "integer"
+      },
+      {
+       "type": "boolean"
+      },
+      {
+       "type": "null"
+      }
+     ],
+     "default": null,
+     "title": "Raw"
+    },
+    "severity": {
+     "$ref": "#/$defs/Severity"
+    }
+   },
+   "required": [
+    "code",
+    "severity",
+    "message"
+   ],
+   "title": "Diagnostic",
+   "type": "object"
+  },
+  "Email": {
+   "additionalProperties": false,
+   "properties": {
+    "address": {
+     "title": "Address",
+     "type": "string"
+    },
+    "type": {
+     "$ref": "#/$defs/EmailType"
+    }
+   },
+   "required": [
+    "type",
+    "address"
+   ],
+   "title": "Email",
+   "type": "object"
+  },
+  "EmailType": {
+   "enum": [
+    "PERSONAL",
+    "WORK",
+    "BENEFITS",
+    "MAIN"
+   ],
+   "title": "EmailType",
+   "type": "string"
+  },
+  "EmergencyContact": {
+   "additionalProperties": false,
+   "properties": {
+    "contact_info": {
+     "anyOf": [
+      {
+       "type": "string"
+      },
+      {
+       "type": "null"
+      }
+     ],
+     "default": null,
+     "title": "Contact Info"
+    },
+    "contact_type": {
+     "anyOf": [
+      {
+       "type": "string"
+      },
+      {
+       "type": "null"
+      }
+     ],
+     "default": null,
+     "title": "Contact Type"
+    },
+    "name": {
+     "anyOf": [
+      {
+       "type": "string"
+      },
+      {
+       "type": "null"
+      }
+     ],
+     "default": null,
+     "title": "Name"
+    },
+    "relationship": {
+     "anyOf": [
+      {
+       "type": "string"
+      },
+      {
+       "type": "null"
+      }
+     ],
+     "default": null,
+     "title": "Relationship"
+    }
+   },
+   "title": "EmergencyContact",
+   "type": "object"
+  },
+  "Employment": {
+   "additionalProperties": false,
+   "properties": {
+    "employer_ids": {
+     "items": {
+      "type": "string"
+     },
+     "title": "Employer Ids",
+     "type": "array"
+    },
+    "employment_type": {
+     "anyOf": [
+      {
+       "$ref": "#/$defs/Coded_EmploymentType_"
+      },
+      {
+       "type": "null"
+      }
+     ],
+     "default": null
+    },
+    "flsa_exempt": {
+     "anyOf": [
+      {
+       "type": "boolean"
+      },
+      {
+       "type": "null"
+      }
+     ],
+     "default": null,
+     "title": "Flsa Exempt"
+    },
+    "hire_date": {
+     "anyOf": [
+      {
+       "format": "date",
+       "type": "string"
+      },
+      {
+       "type": "null"
+      }
+     ],
+     "default": null,
+     "title": "Hire Date"
+    },
+    "last_worked_date": {
+     "anyOf": [
+      {
+       "format": "date",
+       "type": "string"
+      },
+      {
+       "type": "null"
+      }
+     ],
+     "default": null,
+     "title": "Last Worked Date"
+    },
+    "original_hire_date": {
+     "anyOf": [
+      {
+       "format": "date",
+       "type": "string"
+      },
+      {
+       "type": "null"
+      }
+     ],
+     "default": null,
+     "title": "Original Hire Date"
+    },
+    "rehire_date": {
+     "anyOf": [
+      {
+       "format": "date",
+       "type": "string"
+      },
+      {
+       "type": "null"
+      }
+     ],
+     "default": null,
+     "title": "Rehire Date"
+    },
+    "seniority_date": {
+     "anyOf": [
+      {
+       "format": "date",
+       "type": "string"
+      },
+      {
+       "type": "null"
+      }
+     ],
+     "default": null,
+     "title": "Seniority Date"
+    },
+    "start_date": {
+     "anyOf": [
+      {
+       "format": "date",
+       "type": "string"
+      },
+      {
+       "type": "null"
+      }
+     ],
+     "default": null,
+     "title": "Start Date"
+    },
+    "status": {
+     "anyOf": [
+      {
+       "$ref": "#/$defs/Coded_EmploymentStatus_"
+      },
+      {
+       "type": "null"
+      }
+     ],
+     "default": null
+    },
+    "status_date": {
+     "anyOf": [
+      {
+       "format": "date",
+       "type": "string"
+      },
+      {
+       "type": "null"
+      }
+     ],
+     "default": null,
+     "title": "Status Date"
+    },
+    "termination_date": {
+     "anyOf": [
+      {
+       "format": "date",
+       "type": "string"
+      },
+      {
+       "type": "null"
+      }
+     ],
+     "default": null,
+     "title": "Termination Date"
+    },
+    "termination_reason": {
+     "anyOf": [
+      {
+       "$ref": "#/$defs/Coded_str_"
+      },
+      {
+       "type": "null"
+      }
+     ],
+     "default": null
+    },
+    "worker_classification": {
+     "anyOf": [
+      {
+       "$ref": "#/$defs/Coded_WorkerClassification_"
+      },
+      {
+       "type": "null"
+      }
+     ],
+     "default": null
+    }
+   },
+   "title": "Employment",
+   "type": "object"
+  },
+  "EmploymentStatus": {
+   "enum": [
+    "ACTIVE",
+    "ON_LEAVE",
+    "TERMINATED",
+    "UNMAPPED"
+   ],
+   "title": "EmploymentStatus",
+   "type": "string"
+  },
+  "EmploymentType": {
+   "enum": [
+    "FULL_TIME",
+    "PART_TIME",
+    "UNMAPPED"
+   ],
+   "title": "EmploymentType",
+   "type": "string"
+  },
+  "FrequencyInfo": {
+   "additionalProperties": false,
+   "properties": {
+    "frequency": {
+     "$ref": "#/$defs/Coded_PayFrequency_"
+    },
+    "periods_per_year": {
+     "anyOf": [
+      {
+       "type": "integer"
+      },
+      {
+       "type": "null"
+      }
+     ],
+     "default": null,
+     "title": "Periods Per Year"
+    }
+   },
+   "required": [
+    "frequency"
+   ],
+   "title": "FrequencyInfo",
+   "type": "object"
+  },
+  "Gender": {
+   "enum": [
+    "MALE",
+    "FEMALE",
+    "NON_BINARY",
+    "DECLINED",
+    "UNMAPPED"
+   ],
+   "title": "Gender",
+   "type": "string"
+  },
+  "Identifier": {
+   "additionalProperties": false,
+   "properties": {
+    "source_field": {
+     "title": "Source Field",
+     "type": "string"
+    },
+    "type": {
+     "$ref": "#/$defs/IdentifierType"
+    },
+    "value": {
+     "title": "Value",
+     "type": "string"
+    }
+   },
+   "required": [
+    "type",
+    "value",
+    "source_field"
+   ],
+   "title": "Identifier",
+   "type": "object"
+  },
+  "IdentifierType": {
+   "enum": [
+    "PROVIDER_ID",
+    "EMPLOYEE_NUMBER",
+    "EXTERNAL_ID",
+    "CLOCK_NUMBER",
+    "UNIQUE_ID",
+    "USERNAME"
+   ],
+   "title": "IdentifierType",
+   "type": "string"
+  },
+  "Job": {
+   "additionalProperties": false,
+   "properties": {
+    "department": {
+     "anyOf": [
+      {
+       "$ref": "#/$defs/OrgUnit"
+      },
+      {
+       "type": "null"
+      }
+     ],
+     "default": null
+    },
+    "division": {
+     "anyOf": [
+      {
+       "$ref": "#/$defs/OrgUnit"
+      },
+      {
+       "type": "null"
+      }
+     ],
+     "default": null
+    },
+    "job_code": {
+     "anyOf": [
+      {
+       "type": "string"
+      },
+      {
+       "type": "null"
+      }
+     ],
+     "default": null,
+     "title": "Job Code"
+    },
+    "location": {
+     "anyOf": [
+      {
+       "$ref": "#/$defs/OrgUnit"
+      },
+      {
+       "type": "null"
+      }
+     ],
+     "default": null
+    },
+    "manager_employee_id": {
+     "anyOf": [
+      {
+       "type": "string"
+      },
+      {
+       "type": "null"
+      }
+     ],
+     "default": null,
+     "title": "Manager Employee Id"
+    },
+    "pay_group": {
+     "anyOf": [
+      {
+       "type": "string"
+      },
+      {
+       "type": "null"
+      }
+     ],
+     "default": null,
+     "title": "Pay Group"
+    },
+    "supervisor_employee_id": {
+     "anyOf": [
+      {
+       "type": "string"
+      },
+      {
+       "type": "null"
+      }
+     ],
+     "default": null,
+     "title": "Supervisor Employee Id"
+    },
+    "title": {
+     "anyOf": [
+      {
+       "type": "string"
+      },
+      {
+       "type": "null"
+      }
+     ],
+     "default": null,
+     "title": "Title"
+    },
+    "union": {
+     "anyOf": [
+      {
+       "$ref": "#/$defs/OrgUnit"
+      },
+      {
+       "type": "null"
+      }
+     ],
+     "default": null
+    }
+   },
+   "title": "Job",
+   "type": "object"
+  },
+  "MaritalStatus": {
+   "enum": [
+    "SINGLE",
+    "MARRIED",
+    "DIVORCED",
+    "WIDOWED",
+    "CIVIL_UNION",
+    "SEPARATED",
+    "LEGALLY_SEPARATED",
+    "DOMESTIC_PARTNER",
+    "DECLINED",
+    "OTHER",
+    "UNMAPPED"
+   ],
+   "title": "MaritalStatus",
+   "type": "string"
+  },
+  "Money": {
+   "additionalProperties": false,
+   "properties": {
+    "amount": {
+     "pattern": "^-?\\d+(\\.\\d+)?$",
+     "title": "Amount",
+     "type": "string"
+    },
+    "currency": {
+     "default": "USD",
+     "title": "Currency",
+     "type": "string"
+    },
+    "derived": {
+     "default": false,
+     "title": "Derived",
+     "type": "boolean"
+    },
+    "formula": {
+     "anyOf": [
+      {
+       "type": "string"
+      },
+      {
+       "type": "null"
+      }
+     ],
+     "default": null,
+     "title": "Formula"
+    },
+    "source_field": {
+     "anyOf": [
+      {
+       "type": "string"
+      },
+      {
+       "type": "null"
+      }
+     ],
+     "default": null,
+     "title": "Source Field"
+    }
+   },
+   "required": [
+    "amount"
+   ],
+   "title": "Money",
+   "type": "object"
+  },
+  "NationalId": {
+   "additionalProperties": false,
+   "properties": {
+    "last4": {
+     "anyOf": [
+      {
+       "type": "string"
+      },
+      {
+       "type": "null"
+      }
+     ],
+     "default": null,
+     "title": "Last4"
+    },
+    "masked_at_source": {
+     "anyOf": [
+      {
+       "type": "boolean"
+      },
+      {
+       "type": "null"
+      }
+     ],
+     "default": null,
+     "title": "Masked At Source"
+    },
+    "source_field": {
+     "title": "Source Field",
+     "type": "string"
+    },
+    "type": {
+     "$ref": "#/$defs/NationalIdType"
+    }
+   },
+   "required": [
+    "type",
+    "source_field"
+   ],
+   "title": "NationalId",
+   "type": "object"
+  },
+  "NationalIdType": {
+   "enum": [
+    "SSN",
+    "OTHER"
+   ],
+   "title": "NationalIdType",
+   "type": "string"
+  },
+  "OrgUnit": {
+   "additionalProperties": false,
+   "properties": {
+    "code": {
+     "title": "Code",
+     "type": "string"
+    },
+    "name": {
+     "anyOf": [
+      {
+       "type": "string"
+      },
+      {
+       "type": "null"
+      }
+     ],
+     "default": null,
+     "title": "Name"
+    }
+   },
+   "required": [
+    "code"
+   ],
+   "title": "OrgUnit",
+   "type": "object"
+  },
+  "PayFrequency": {
+   "enum": [
+    "DAILY",
+    "WEEKLY",
+    "BIWEEKLY",
+    "SEMIMONTHLY",
+    "MONTHLY",
+    "QUARTERLY",
+    "SEMIANNUALLY",
+    "ANNUALLY",
+    "OTHER",
+    "UNMAPPED"
+   ],
+   "title": "PayFrequency",
+   "type": "string"
+  },
+  "PayType": {
+   "enum": [
+    "SALARY",
+    "HOURLY",
+    "COMMISSION",
+    "DRIVER",
+    "UNMAPPED"
+   ],
+   "title": "PayType",
+   "type": "string"
+  },
+  "PersonName": {
+   "additionalProperties": false,
+   "properties": {
+    "first": {
+     "anyOf": [
+      {
+       "type": "string"
+      },
+      {
+       "type": "null"
+      }
+     ],
+     "default": null,
+     "title": "First"
+    },
+    "last": {
+     "anyOf": [
+      {
+       "type": "string"
+      },
+      {
+       "type": "null"
+      }
+     ],
+     "default": null,
+     "title": "Last"
+    },
+    "middle": {
+     "anyOf": [
+      {
+       "type": "string"
+      },
+      {
+       "type": "null"
+      }
+     ],
+     "default": null,
+     "title": "Middle"
+    },
+    "nickname": {
+     "anyOf": [
+      {
+       "type": "string"
+      },
+      {
+       "type": "null"
+      }
+     ],
+     "default": null,
+     "title": "Nickname"
+    },
+    "preferred": {
+     "anyOf": [
+      {
+       "type": "string"
+      },
+      {
+       "type": "null"
+      }
+     ],
+     "default": null,
+     "title": "Preferred"
+    },
+    "prefix": {
+     "anyOf": [
+      {
+       "type": "string"
+      },
+      {
+       "type": "null"
+      }
+     ],
+     "default": null,
+     "title": "Prefix"
+    },
+    "suffix": {
+     "anyOf": [
+      {
+       "type": "string"
+      },
+      {
+       "type": "null"
+      }
+     ],
+     "default": null,
+     "title": "Suffix"
+    }
+   },
+   "title": "PersonName",
+   "type": "object"
+  },
+  "Personal": {
+   "additionalProperties": false,
+   "properties": {
+    "birth_date": {
+     "anyOf": [
+      {
+       "format": "date",
+       "type": "string"
+      },
+      {
+       "type": "null"
+      }
+     ],
+     "default": null,
+     "title": "Birth Date"
+    },
+    "citizenship": {
+     "anyOf": [
+      {
+       "$ref": "#/$defs/Coded_Citizenship_"
+      },
+      {
+       "type": "null"
+      }
+     ],
+     "default": null
+    },
+    "disabled": {
+     "anyOf": [
+      {
+       "$ref": "#/$defs/Coded_YesNoDeclined_"
+      },
+      {
+       "type": "null"
+      }
+     ],
+     "default": null
+    },
+    "emergency_contacts": {
+     "items": {
+      "$ref": "#/$defs/EmergencyContact"
+     },
+     "title": "Emergency Contacts",
+     "type": "array"
+    },
+    "ethnicity": {
+     "anyOf": [
+      {
+       "$ref": "#/$defs/Coded_str_"
+      },
+      {
+       "type": "null"
+      }
+     ],
+     "default": null
+    },
+    "gender": {
+     "anyOf": [
+      {
+       "$ref": "#/$defs/Coded_Gender_"
+      },
+      {
+       "type": "null"
+      }
+     ],
+     "default": null
+    },
+    "marital_status": {
+     "anyOf": [
+      {
+       "$ref": "#/$defs/Coded_MaritalStatus_"
+      },
+      {
+       "type": "null"
+      }
+     ],
+     "default": null
+    },
+    "preferred_language": {
+     "anyOf": [
+      {
+       "type": "string"
+      },
+      {
+       "type": "null"
+      }
+     ],
+     "default": null,
+     "title": "Preferred Language"
+    },
+    "veteran": {
+     "anyOf": [
+      {
+       "$ref": "#/$defs/Coded_YesNoDeclined_"
+      },
+      {
+       "type": "null"
+      }
+     ],
+     "default": null
+    }
+   },
+   "title": "Personal",
+   "type": "object"
+  },
+  "Phone": {
+   "additionalProperties": false,
+   "properties": {
+    "extension": {
+     "anyOf": [
+      {
+       "type": "string"
+      },
+      {
+       "type": "null"
+      }
+     ],
+     "default": null,
+     "title": "Extension"
+    },
+    "number": {
+     "title": "Number",
+     "type": "string"
+    },
+    "type": {
+     "$ref": "#/$defs/PhoneType"
+    }
+   },
+   "required": [
+    "type",
+    "number"
+   ],
+   "title": "Phone",
+   "type": "object"
+  },
+  "PhoneType": {
+   "enum": [
+    "HOME",
+    "MOBILE",
+    "WORK",
+    "FAX",
+    "MAIN"
+   ],
+   "title": "PhoneType",
+   "type": "string"
+  },
+  "Quantity": {
+   "additionalProperties": false,
+   "properties": {
+    "derived": {
+     "default": false,
+     "title": "Derived",
+     "type": "boolean"
+    },
+    "formula": {
+     "anyOf": [
+      {
+       "type": "string"
+      },
+      {
+       "type": "null"
+      }
+     ],
+     "default": null,
+     "title": "Formula"
+    },
+    "raw": {
+     "anyOf": [
+      {
+       "type": "string"
+      },
+      {
+       "type": "integer"
+      },
+      {
+       "type": "boolean"
+      },
+      {
+       "type": "null"
+      }
+     ],
+     "default": null,
+     "title": "Raw"
+    },
+    "source_field": {
+     "anyOf": [
+      {
+       "type": "string"
+      },
+      {
+       "type": "null"
+      }
+     ],
+     "default": null,
+     "title": "Source Field"
+    },
+    "unit": {
+     "$ref": "#/$defs/QuantityUnit"
+    },
+    "value": {
+     "pattern": "^-?\\d+(\\.\\d+)?$",
+     "title": "Value",
+     "type": "string"
+    }
+   },
+   "required": [
+    "value",
+    "unit"
+   ],
+   "title": "Quantity",
+   "type": "object"
+  },
+  "QuantityUnit": {
+   "enum": [
+    "HOURS",
+    "UNITS",
+    "UNKNOWN"
+   ],
+   "title": "QuantityUnit",
+   "type": "string"
+  },
+  "Rate": {
+   "additionalProperties": false,
+   "description": "An amount that only means something together with the period it covers.",
+   "properties": {
+    "amount": {
+     "pattern": "^-?\\d+(\\.\\d+)?$",
+     "title": "Amount",
+     "type": "string"
+    },
+    "currency": {
+     "default": "USD",
+     "title": "Currency",
+     "type": "string"
+    },
+    "derived": {
+     "default": false,
+     "title": "Derived",
+     "type": "boolean"
+    },
+    "formula": {
+     "anyOf": [
+      {
+       "type": "string"
+      },
+      {
+       "type": "null"
+      }
+     ],
+     "default": null,
+     "title": "Formula"
+    },
+    "per": {
+     "$ref": "#/$defs/RatePeriod"
+    },
+    "source_field": {
+     "anyOf": [
+      {
+       "type": "string"
+      },
+      {
+       "type": "null"
+      }
+     ],
+     "default": null,
+     "title": "Source Field"
+    }
+   },
+   "required": [
+    "amount",
+    "per"
+   ],
+   "title": "Rate",
+   "type": "object"
+  },
+  "RatePeriod": {
+   "enum": [
+    "HOUR",
+    "DAY",
+    "WEEK",
+    "BIWEEK",
+    "SEMIMONTH",
+    "MONTH",
+    "QUARTER",
+    "YEAR",
+    "PAY_PERIOD",
+    "UNIT",
+    "UNMAPPED"
+   ],
+   "title": "RatePeriod",
+   "type": "string"
+  },
+  "Severity": {
+   "enum": [
+    "info",
+    "warning",
+    "error"
+   ],
+   "title": "Severity",
+   "type": "string"
+  },
+  "Source": {
+   "additionalProperties": false,
+   "properties": {
+    "endpoints": {
+     "items": {
+      "type": "string"
+     },
+     "title": "Endpoints",
+     "type": "array"
+    },
+    "ids": {
+     "additionalProperties": {
+      "type": "string"
+     },
+     "title": "Ids",
+     "type": "object"
+    },
+    "provider": {
+     "title": "Provider",
+     "type": "string"
+    },
+    "tenant_id": {
+     "title": "Tenant Id",
+     "type": "string"
+    }
+   },
+   "required": [
+    "provider",
+    "tenant_id"
+   ],
+   "title": "Source",
+   "type": "object"
+  },
+  "WorkerClassification": {
+   "enum": [
+    "EMPLOYEE",
+    "CONTRACTOR_1099",
+    "UNMAPPED"
+   ],
+   "title": "WorkerClassification",
+   "type": "string"
+  },
+  "YesNoDeclined": {
+   "enum": [
+    "YES",
+    "NO",
+    "DECLINED",
+    "NOT_SPECIFIED",
+    "UNMAPPED"
+   ],
+   "title": "YesNoDeclined",
+   "type": "string"
+  }
+ },
+ "$schema": "https://json-schema.org/draft/2020-12/schema",
+ "additionalProperties": false,
+ "properties": {
+  "addresses": {
+   "items": {
+    "$ref": "#/$defs/Address"
+   },
+   "title": "Addresses",
+   "type": "array"
+  },
+  "company_id": {
+   "title": "Company Id",
+   "type": "string"
+  },
+  "compensation": {
+   "$ref": "#/$defs/Compensation"
+  },
+  "diagnostics": {
+   "items": {
+    "$ref": "#/$defs/Diagnostic"
+   },
+   "title": "Diagnostics",
+   "type": "array"
+  },
+  "emails": {
+   "items": {
+    "$ref": "#/$defs/Email"
+   },
+   "title": "Emails",
+   "type": "array"
+  },
+  "employment": {
+   "$ref": "#/$defs/Employment"
+  },
+  "id": {
+   "title": "Id",
+   "type": "string"
+  },
+  "identifiers": {
+   "items": {
+    "$ref": "#/$defs/Identifier"
+   },
+   "title": "Identifiers",
+   "type": "array"
+  },
+  "job": {
+   "$ref": "#/$defs/Job"
+  },
+  "legal_entity_id": {
+   "anyOf": [
+    {
+     "type": "string"
+    },
+    {
+     "type": "null"
+    }
+   ],
+   "default": null,
+   "title": "Legal Entity Id"
+  },
+  "name": {
+   "$ref": "#/$defs/PersonName"
+  },
+  "national_id": {
+   "anyOf": [
+    {
+     "$ref": "#/$defs/NationalId"
+    },
+    {
+     "type": "null"
+    }
+   ],
+   "default": null
+  },
+  "personal": {
+   "$ref": "#/$defs/Personal"
+  },
+  "phones": {
+   "items": {
+    "$ref": "#/$defs/Phone"
+   },
+   "title": "Phones",
+   "type": "array"
+  },
+  "provider_extensions": {
+   "additionalProperties": true,
+   "title": "Provider Extensions",
+   "type": "object"
+  },
+  "source": {
+   "$ref": "#/$defs/Source"
+  }
+ },
+ "required": [
+  "id",
+  "source",
+  "company_id"
+ ],
+ "title": "Employee",
+ "type": "object"
+}

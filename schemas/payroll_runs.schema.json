@@ -1,0 +1,420 @@
+{
+ "$defs": {
+  "Coded_PayrollRunStatus_": {
+   "additionalProperties": false,
+   "properties": {
+    "label": {
+     "anyOf": [
+      {
+       "type": "string"
+      },
+      {
+       "type": "null"
+      }
+     ],
+     "default": null,
+     "title": "Label"
+    },
+    "raw": {
+     "anyOf": [
+      {
+       "type": "string"
+      },
+      {
+       "type": "integer"
+      },
+      {
+       "type": "boolean"
+      },
+      {
+       "type": "null"
+      }
+     ],
+     "default": null,
+     "title": "Raw"
+    },
+    "source_field": {
+     "title": "Source Field",
+     "type": "string"
+    },
+    "value": {
+     "$ref": "#/$defs/PayrollRunStatus"
+    }
+   },
+   "required": [
+    "value",
+    "source_field"
+   ],
+   "title": "Coded[PayrollRunStatus]",
+   "type": "object"
+  },
+  "Coded_PayrollRunType_": {
+   "additionalProperties": false,
+   "properties": {
+    "label": {
+     "anyOf": [
+      {
+       "type": "string"
+      },
+      {
+       "type": "null"
+      }
+     ],
+     "default": null,
+     "title": "Label"
+    },
+    "raw": {
+     "anyOf": [
+      {
+       "type": "string"
+      },
+      {
+       "type": "integer"
+      },
+      {
+       "type": "boolean"
+      },
+      {
+       "type": "null"
+      }
+     ],
+     "default": null,
+     "title": "Raw"
+    },
+    "source_field": {
+     "title": "Source Field",
+     "type": "string"
+    },
+    "value": {
+     "$ref": "#/$defs/PayrollRunType"
+    }
+   },
+   "required": [
+    "value",
+    "source_field"
+   ],
+   "title": "Coded[PayrollRunType]",
+   "type": "object"
+  },
+  "DateRange": {
+   "additionalProperties": false,
+   "properties": {
+    "end": {
+     "anyOf": [
+      {
+       "format": "date",
+       "type": "string"
+      },
+      {
+       "type": "null"
+      }
+     ],
+     "default": null,
+     "title": "End"
+    },
+    "start": {
+     "anyOf": [
+      {
+       "format": "date",
+       "type": "string"
+      },
+      {
+       "type": "null"
+      }
+     ],
+     "default": null,
+     "title": "Start"
+    }
+   },
+   "title": "DateRange",
+   "type": "object"
+  },
+  "Diagnostic": {
+   "additionalProperties": false,
+   "properties": {
+    "code": {
+     "title": "Code",
+     "type": "string"
+    },
+    "field": {
+     "anyOf": [
+      {
+       "type": "string"
+      },
+      {
+       "type": "null"
+      }
+     ],
+     "default": null,
+     "title": "Field"
+    },
+    "message": {
+     "title": "Message",
+     "type": "string"
+    },
+    "raw": {
+     "anyOf": [
+      {
+       "type": "string"
+      },
+      {
+       "type": "integer"
+      },
+      {
+       "type": "boolean"
+      },
+      {
+       "type": "null"
+      }
+     ],
+     "default": null,
+     "title": "Raw"
+    },
+    "severity": {
+     "$ref": "#/$defs/Severity"
+    }
+   },
+   "required": [
+    "code",
+    "severity",
+    "message"
+   ],
+   "title": "Diagnostic",
+   "type": "object"
+  },
+  "PayrollRunStatus": {
+   "enum": [
+    "OPEN",
+    "CLOSED",
+    "SUBMITTED",
+    "COMPLETED",
+    "NOT_PROCESSED",
+    "FAILED",
+    "UNMAPPED"
+   ],
+   "title": "PayrollRunStatus",
+   "type": "string"
+  },
+  "PayrollRunType": {
+   "enum": [
+    "REGULAR",
+    "SPECIAL",
+    "MANUAL",
+    "VOID",
+    "ADJUSTMENT",
+    "CORRECTION",
+    "HISTORICAL_IMPORT",
+    "UNMAPPED"
+   ],
+   "title": "PayrollRunType",
+   "type": "string"
+  },
+  "RunPayGroup": {
+   "additionalProperties": false,
+   "properties": {
+    "deduction_period": {
+     "anyOf": [
+      {
+       "type": "string"
+      },
+      {
+       "type": "null"
+      }
+     ],
+     "default": null,
+     "title": "Deduction Period"
+    },
+    "pay_group": {
+     "title": "Pay Group",
+     "type": "string"
+    },
+    "period": {
+     "$ref": "#/$defs/DateRange"
+    },
+    "weeks_worked": {
+     "anyOf": [
+      {
+       "type": "string"
+      },
+      {
+       "type": "integer"
+      },
+      {
+       "type": "boolean"
+      },
+      {
+       "type": "null"
+      }
+     ],
+     "default": null,
+     "title": "Weeks Worked"
+    }
+   },
+   "required": [
+    "pay_group",
+    "period"
+   ],
+   "title": "RunPayGroup",
+   "type": "object"
+  },
+  "Severity": {
+   "enum": [
+    "info",
+    "warning",
+    "error"
+   ],
+   "title": "Severity",
+   "type": "string"
+  },
+  "Source": {
+   "additionalProperties": false,
+   "properties": {
+    "endpoints": {
+     "items": {
+      "type": "string"
+     },
+     "title": "Endpoints",
+     "type": "array"
+    },
+    "ids": {
+     "additionalProperties": {
+      "type": "string"
+     },
+     "title": "Ids",
+     "type": "object"
+    },
+    "provider": {
+     "title": "Provider",
+     "type": "string"
+    },
+    "tenant_id": {
+     "title": "Tenant Id",
+     "type": "string"
+    }
+   },
+   "required": [
+    "provider",
+    "tenant_id"
+   ],
+   "title": "Source",
+   "type": "object"
+  }
+ },
+ "$schema": "https://json-schema.org/draft/2020-12/schema",
+ "additionalProperties": false,
+ "properties": {
+  "company_id": {
+   "title": "Company Id",
+   "type": "string"
+  },
+  "description": {
+   "anyOf": [
+    {
+     "type": "string"
+    },
+    {
+     "type": "null"
+    }
+   ],
+   "default": null,
+   "title": "Description"
+  },
+  "diagnostics": {
+   "items": {
+    "$ref": "#/$defs/Diagnostic"
+   },
+   "title": "Diagnostics",
+   "type": "array"
+  },
+  "id": {
+   "title": "Id",
+   "type": "string"
+  },
+  "legal_entity_id": {
+   "anyOf": [
+    {
+     "type": "string"
+    },
+    {
+     "type": "null"
+    }
+   ],
+   "default": null,
+   "title": "Legal Entity Id"
+  },
+  "pay_date": {
+   "anyOf": [
+    {
+     "format": "date",
+     "type": "string"
+    },
+    {
+     "type": "null"
+    }
+   ],
+   "default": null,
+   "title": "Pay Date"
+  },
+  "pay_groups": {
+   "items": {
+    "$ref": "#/$defs/RunPayGroup"
+   },
+   "title": "Pay Groups",
+   "type": "array"
+  },
+  "period": {
+   "anyOf": [
+    {
+     "$ref": "#/$defs/DateRange"
+    },
+    {
+     "type": "null"
+    }
+   ],
+   "default": null
+  },
+  "processed_date": {
+   "anyOf": [
+    {
+     "format": "date",
+     "type": "string"
+    },
+    {
+     "type": "null"
+    }
+   ],
+   "default": null,
+   "title": "Processed Date"
+  },
+  "provider_extensions": {
+   "additionalProperties": true,
+   "title": "Provider Extensions",
+   "type": "object"
+  },
+  "source": {
+   "$ref": "#/$defs/Source"
+  },
+  "status": {
+   "anyOf": [
+    {
+     "$ref": "#/$defs/Coded_PayrollRunStatus_"
+    },
+    {
+     "type": "null"
+    }
+   ],
+   "default": null
+  },
+  "type": {
+   "$ref": "#/$defs/Coded_PayrollRunType_"
+  }
+ },
+ "required": [
+  "id",
+  "source",
+  "company_id",
+  "type"
+ ],
+ "title": "PayrollRun",
+ "type": "object"
+}

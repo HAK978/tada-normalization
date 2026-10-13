@@ -22,13 +22,19 @@ Status: first draft, written during discovery. Entries are added as mapping deci
   repository by mistake. `tests/test_reference_integrity.py` still passes, which proves `contracts/`
   is byte-identical.
 
-### A-02 Replacing the starter scaffold (planned)
+### A-02 Replacing the starter scaffold (done)
 - **Issue:** the optional starter does three things that get in the way:
   - it refuses isolved and UKG through a distribution "readiness" gate;
   - `ENTITIES` has no deposits or deductions;
   - `tests/test_starter.py` asserts that the adapters stay unimplemented.
-- **Decision:** replace the CLI and the adapters, and replace `test_starter.py` with real tests.
-  `contracts/` and `test_reference_integrity.py` stay untouched.
+- **Decision:**
+  - `src/normalization/__main__.py` is now the project's CLI (`demo`, `normalize`, `fetch`,
+    `schema`).
+  - The stub `adapters/` became the converters under `providers/`, and `test_starter.py` became the
+    real tests.
+  - `references.py` stays, because `test_reference_integrity.py` imports it. Its one changed line
+    imports the provider list from `providers/` instead of the removed adapters.
+  - `contracts/` and `test_reference_integrity.py` are untouched.
 - **Why:** the gate checks *distribution metadata*, not data correctness. The organizer approved
   sharing the reference pack with candidates (README, "Reference status").
 
@@ -344,8 +350,18 @@ Status: first draft, written during discovery. Entries are added as mapping deci
 - **Why:** reading "full-time" out of a customer's naming is a guess, not evidence (model principle 3).
 
 ### A-36 Output: JSON and SQLite
-- **Decision:** every run writes one JSON file per entity and a SQLite database. In the database the
-  same records are linked by ID: company, then employee, then deposits, deductions and paychecks.
+- **Decision:**
+  - Every run writes `<record type>.json` (records sorted by ID), `summary.json` and
+    `canonical.sqlite` (`src/normalization/export.py`).
+  - In SQLite the records are linked by canonical ID: company, then employee, then deposits,
+    deductions and paychecks. Paycheck lines, reconciliation checks and diagnostics have their own
+    tables, and a `pay_statement_overview` view joins paychecks to employees and checks.
+  - Every row also keeps the full canonical record as JSON in `record`, so nothing is lost.
+  - Money stays exact TEXT, as in the JSON, because SQLite's REAL would round it.
+  - Foreign keys are declared but not enforced. A paycheck may name an employee whose record wasn't
+    fetched (`EMPLOYEE_NOT_IN_BUNDLE`), and `PRAGMA foreign_key_check` lists exactly those.
+  - The canonical model is also exported as JSON Schema, one file per record type under `schemas/`.
+    Tests check that every golden record validates against it.
 - **Why:** JSON is easy to read and diff, and SQLite lets anyone query the linked records with plain SQL.
 
 ## Corrections and additions from the design audit (2026-10-13)
