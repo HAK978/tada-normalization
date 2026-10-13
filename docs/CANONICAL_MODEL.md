@@ -1,6 +1,6 @@
 # Canonical model (draft for review)
 
-Status: **draft, 2026-10-12**. It is built from the provider specs in `contracts/` and a read-only
+Status: **draft, 2026-10-12; review decisions added 2026-10-13 (§5)**. It is built from the provider specs in `contracts/` and a read-only
 sample of the live demo tenants (see [ASSUMPTIONS.md](../ASSUMPTIONS.md) for every piece of
 evidence). Nothing below is implemented yet.
 
@@ -106,7 +106,7 @@ Company ──< Employee ──< DirectDeposit
 | Employment | `status` (`ACTIVE` `ON_LEAVE` `TERMINATED`) with its date, `employment_type` (`FULL_TIME` `PART_TIME`), hire / rehire / start / seniority / termination dates, `termination_reason`, `flsa_exempt` |
 | Job | `title`, `job_code`, `department`, `division`, `location`, `manager`, `supervisor`, `union` |
 | Compensation | `pay_type` (`SALARY` `HOURLY` `COMMISSION` `DRIVER` `CONTRACTOR_1099`), `pay_frequency` with `periods_per_year`, `rates[]` (every rate the provider gives, each with its own `per`), `annual_pay` (as provided, or derived and flagged), `standard_hours`, `effective_date`, `history[]` |
-| Tax setup | Federal and state withholding settings: mapped if time allows, otherwise kept in `provider_extensions` |
+| Tax setup | Federal and state withholding settings are kept verbatim in `provider_extensions` for v1 (§5) |
 
 | | PrismHR | isolved | UKG Ready |
 |---|---|---|---|
@@ -234,9 +234,11 @@ flagged.
   `provider_extensions`, not mapped.
 - **Provider checksums (update tokens):** kept in `provider_extensions`. The dry-run write path may use them.
 
-## 5. Open questions for review
+## 5. Decisions from review (2026-10-13)
 
-1. **Tax withholding setup:** map it into canonical fields, or keep it in `provider_extensions` for v1?
-2. **Customer-configured labels** such as UKG "FT Exempt": keep them `UNMAPPED` with the label (strict),
-   or add an optional per-tenant mapping file later?
-3. **Output:** JSON per entity first, with SQLite as a stretch goal. Is that OK?
+1. **Tax withholding setup** stays in `provider_extensions` for v1 and is not mapped to canonical
+   fields (A-34).
+2. **Customer-configured labels**, such as UKG "FT Exempt" or the isolved category "FT", stay
+   `UNMAPPED` with the label kept. There is no per-tenant mapping file (A-35).
+3. **Output** is required in two forms: JSON files per entity, and a SQLite database with the same
+   records linked by ID (A-36).

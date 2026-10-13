@@ -271,3 +271,23 @@ Status: first draft, written during discovery. Entries are added as mapping deci
 - **Decision:** values like "is this deposit active?" (UKG `active` plus dates) are evaluated
   against `as_of`. That date defaults to the fetch date for live data and is fixed for fixtures.
 - **Why:** the output must be reproducible, so tests can't depend on today's date.
+
+## Scope decisions from the model review (2026-10-13)
+
+### A-34 Tax withholding setup is kept, not mapped
+- **Issue:** each provider exposes federal and state withholding settings (filing status, allowances,
+  extra withholding) in a different shape. Mapping them is a sizable extra model.
+- **Decision:** v1 keeps them verbatim in `provider_extensions` and adds no canonical tax-setup fields.
+- **Why:** nothing is lost, and the time goes to the four required data types first.
+
+### A-35 Customer-configured labels stay unmapped
+- **Issue:** some values are names a customer chose, for example UKG employee type "FT Exempt" or the
+  isolved category code "FT". No provider documents what they mean.
+- **Decision:** they map to `UNMAPPED`, keeping the label and raw value. There is no per-tenant mapping file.
+- **Why:** reading "full-time" out of a customer's naming is a guess, not evidence (model principle 3).
+
+### A-36 Output: JSON and SQLite
+- **Decision:** every run writes one JSON file per entity and a SQLite database. In the database the
+  same records are linked by ID: company, then employee, then deposits, deductions and paychecks.
+- **Why:** JSON is easy to read and diff, and SQLite lets anyone query the linked records with plain SQL.
+
