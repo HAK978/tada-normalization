@@ -9,6 +9,7 @@ from normalization.canonical.codes import (
     Citizenship,
     DeductionCategory as Cat,
     DepositStatus,
+    EarningKind,
     EmploymentStatus,
     Gender,
     MaritalStatus,
@@ -102,6 +103,24 @@ DEDUCTION_CLASS = {
 }
 # A system pay item type that says "post-tax" overrides an unspecified treatment (e.g. "FSA Medical post-tax").
 POST_TAX_MARKERS = ("post-tax", "after-tax")
+
+# Earning kind of a non-memo check line, from its client pay item's system classification (A-53).
+# Evidence per entry: the /api/system/earnings description of that system earning, quoted in A-53,
+# or live arithmetic (grossWages - grossPay = the Group Term Life lines on 15 of 15 checks).
+EARNING_BENEFIT_CLASS = {"Group Term Life": EarningKind.NON_CASH_FRINGE}
+EARNING_CLASS = {
+    "Regular": EarningKind.EARNINGS,
+    "Overtime - Blended Rate": EarningKind.EARNINGS,
+    "Overtime @ Flat 1.5": EarningKind.EARNINGS,
+    "Vacation": EarningKind.EARNINGS,
+    "Sick": EarningKind.EARNINGS,
+    "Holiday": EarningKind.EARNINGS,
+    "Bonus": EarningKind.EARNINGS,
+    "Commission": EarningKind.EARNINGS,
+    "Other Hrs or Dollars": EarningKind.EARNINGS,
+    "ShiftDiff": EarningKind.EARNINGS,
+    "Misc Non Taxable": EarningKind.REIMBURSEMENT,
+}
 
 # PayrollRunHistoryModel/payrollRunType and /status descriptions (live values)
 RUN_TYPE = {"Regular Payroll": PayrollRunType.REGULAR, "Data Conversion": PayrollRunType.HISTORICAL_IMPORT}

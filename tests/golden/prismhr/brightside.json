@@ -3216,6 +3216,12 @@
     "voided": false,
     "totals": {
      "gross_pay": {
+      "amount": "2000.00",
+      "currency": "USD",
+      "derived": true,
+      "formula": "totalEarnings - sum(non-cash earning lines)"
+     },
+     "gross_wages": {
       "amount": "2003.25",
       "currency": "USD",
       "derived": false,
@@ -3592,14 +3598,14 @@
     ],
     "checks": [
      {
-      "rule": "gross = sum of earning lines counted in gross",
+      "rule": "gross wages = sum of earning lines counted in gross",
       "result": "pass",
       "detail": "2003.25 vs 2003.25"
      },
      {
-      "rule": "gross - non-cash earnings - employee taxes - deductions = net",
+      "rule": "gross pay - employee taxes - deductions = net",
       "result": "pass",
-      "detail": "2003.25 - 3.25 - 417.01 - 112.5 = 1470.49; net 1470.49"
+      "detail": "2000.00 - 417.01 - 112.5 = 1470.49; net 1470.49"
      },
      {
       "rule": "payments = net",
@@ -3697,6 +3703,12 @@
     "voided": false,
     "totals": {
      "gross_pay": {
+      "amount": "663.60",
+      "currency": "USD",
+      "derived": true,
+      "formula": "totalEarnings - sum(non-cash earning lines)"
+     },
+     "gross_wages": {
       "amount": "708.60",
       "currency": "USD",
       "derived": false,
@@ -4152,14 +4164,14 @@
     ],
     "checks": [
      {
-      "rule": "gross = sum of earning lines counted in gross",
+      "rule": "gross wages = sum of earning lines counted in gross",
       "result": "pass",
       "detail": "708.6 vs 708.6"
      },
      {
-      "rule": "gross - non-cash earnings - employee taxes - deductions = net",
+      "rule": "gross pay - employee taxes - deductions = net",
       "result": "pass",
-      "detail": "708.6 - 45.0 - 153.40 - 48.0 = 462.20; net 462.2"
+      "detail": "663.6 - 153.40 - 48.0 = 462.20; net 462.2"
      },
      {
       "rule": "payments = net",
@@ -4250,6 +4262,12 @@
     "voided": false,
     "totals": {
      "gross_pay": {
+      "amount": "1920.00",
+      "currency": "USD",
+      "derived": true,
+      "formula": "totalEarnings - sum(non-cash earning lines)"
+     },
+     "gross_wages": {
       "amount": "1920.00",
       "currency": "USD",
       "derived": false,
@@ -4483,14 +4501,14 @@
     ],
     "checks": [
      {
-      "rule": "gross = sum of earning lines counted in gross",
+      "rule": "gross wages = sum of earning lines counted in gross",
       "result": "pass",
       "detail": "1920.0 vs 1920.0"
      },
      {
-      "rule": "gross - non-cash earnings - employee taxes - deductions = net",
+      "rule": "gross pay - employee taxes - deductions = net",
       "result": "pass",
-      "detail": "1920.0 - 0 - 415.68 - 0 = 1504.32; net 1504.32"
+      "detail": "1920.0 - 415.68 - 0 = 1504.32; net 1504.32"
      },
      {
       "rule": "payments = net",
@@ -4554,6 +4572,12 @@
     "voided": false,
     "totals": {
      "gross_pay": {
+      "amount": "1200.00",
+      "currency": "USD",
+      "derived": true,
+      "formula": "totalEarnings - sum(non-cash earning lines)"
+     },
+     "gross_wages": {
       "amount": "1200.00",
       "currency": "USD",
       "derived": false,
@@ -4655,14 +4679,14 @@
     ],
     "checks": [
      {
-      "rule": "gross = sum of earning lines counted in gross",
+      "rule": "gross wages = sum of earning lines counted in gross",
       "result": "pass",
       "detail": "1200.0 vs 1200.0"
      },
      {
-      "rule": "gross - non-cash earnings - employee taxes - deductions = net",
+      "rule": "gross pay - employee taxes - deductions = net",
       "result": "pass",
-      "detail": "1200.0 - 0 - 0 - 0 = 1200.0; net 1200.0"
+      "detail": "1200.0 - 0 - 0 = 1200.0; net 1200.0"
      },
      {
       "rule": "payments = net",
@@ -4729,6 +4753,12 @@
      "gross_pay": {
       "amount": "80.00",
       "currency": "USD",
+      "derived": true,
+      "formula": "totalEarnings - sum(non-cash earning lines)"
+     },
+     "gross_wages": {
+      "amount": "80.00",
+      "currency": "USD",
       "derived": false,
       "source_field": "totalEarnings"
      },
@@ -4828,14 +4858,14 @@
     ],
     "checks": [
      {
-      "rule": "gross = sum of earning lines counted in gross",
+      "rule": "gross wages = sum of earning lines counted in gross",
       "result": "pass",
       "detail": "80.0 vs 80.0"
      },
      {
-      "rule": "gross - non-cash earnings - employee taxes - deductions = net",
+      "rule": "gross pay - employee taxes - deductions = net",
       "result": "pass",
-      "detail": "80.0 - 0 - 0 - 0 = 80.0; net 80.0"
+      "detail": "80.0 - 0 - 0 = 80.0; net 80.0"
      },
      {
       "rule": "payments = net",
@@ -4928,6 +4958,12 @@
     "voided": false,
     "totals": {
      "gross_pay": {
+      "amount": "1000.00",
+      "currency": "USD",
+      "derived": true,
+      "formula": "totalEarnings - sum(non-cash earning lines)"
+     },
+     "gross_wages": {
       "amount": "1000.00",
       "currency": "USD",
       "derived": false,
@@ -5227,14 +5263,14 @@
     ],
     "checks": [
      {
-      "rule": "gross = sum of earning lines counted in gross",
+      "rule": "gross wages = sum of earning lines counted in gross",
       "result": "pass",
       "detail": "1000.0 vs 1000.0"
      },
      {
-      "rule": "gross - non-cash earnings - employee taxes - deductions = net",
+      "rule": "gross pay - employee taxes - deductions = net",
       "result": "pass",
-      "detail": "1000.0 - 0 - 209.5 - 50.0 = 740.5; net 740.5"
+      "detail": "1000.0 - 209.5 - 50.0 = 740.5; net 740.5"
      },
      {
       "rule": "payments = net",
@@ -5325,6 +5361,12 @@
     "voided": false,
     "totals": {
      "gross_pay": {
+      "amount": "20.00",
+      "currency": "USD",
+      "derived": true,
+      "formula": "totalEarnings - sum(non-cash earning lines)"
+     },
+     "gross_wages": {
       "amount": "20.00",
       "currency": "USD",
       "derived": false,
@@ -5582,14 +5624,14 @@
     ],
     "checks": [
      {
-      "rule": "gross = sum of earning lines counted in gross",
+      "rule": "gross wages = sum of earning lines counted in gross",
       "result": "pass",
       "detail": "20.0 vs 20.0"
      },
      {
-      "rule": "gross - non-cash earnings - employee taxes - deductions = net",
+      "rule": "gross pay - employee taxes - deductions = net",
       "result": "pass",
-      "detail": "20.0 - 0 - 4.33 - 0 = 15.67; net 15.67"
+      "detail": "20.0 - 4.33 - 0 = 15.67; net 15.67"
      },
      {
       "rule": "payments = net",
@@ -5680,6 +5722,12 @@
     "voided": false,
     "totals": {
      "gross_pay": {
+      "amount": "2240.00",
+      "currency": "USD",
+      "derived": true,
+      "formula": "totalEarnings - sum(non-cash earning lines)"
+     },
+     "gross_wages": {
       "amount": "2240.00",
       "currency": "USD",
       "derived": false,
@@ -5913,14 +5961,14 @@
     ],
     "checks": [
      {
-      "rule": "gross = sum of earning lines counted in gross",
+      "rule": "gross wages = sum of earning lines counted in gross",
       "result": "pass",
       "detail": "2240.0 vs 2240.0"
      },
      {
-      "rule": "gross - non-cash earnings - employee taxes - deductions = net",
+      "rule": "gross pay - employee taxes - deductions = net",
       "result": "pass",
-      "detail": "2240.0 - 0 - 484.96 - 0 = 1755.04; net 1755.04"
+      "detail": "2240.0 - 484.96 - 0 = 1755.04; net 1755.04"
      },
      {
       "rule": "payments = net",

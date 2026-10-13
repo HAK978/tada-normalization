@@ -210,6 +210,22 @@ class _Legal:
             treatment,
         )
 
+    def _earning_kind(self, title: str | None, memo: bool, notes: Notes) -> Coded[C.EarningKind]:
+        """Memo lines by their flag; the rest from the client pay item's system classification (A-53)."""
+        if memo:
+            return Coded[C.EarningKind](value=C.EarningKind.MEMO, raw=True, source_field="earnings[].isMemoEarning")
+        item = self.pay_items.get(title or "") or {}
+        benefit, kind = text(item.get("systemBenefitType")), text(item.get("systemPayItemType"))
+        value = I.EARNING_BENEFIT_CLASS.get(benefit or "") or I.EARNING_CLASS.get(kind or "")
+        if value is None:
+            notes.warn("UNMAPPED_CODE", "earnings[].itemDescription", "no system earning classification", title)
+        return Coded[C.EarningKind](
+            value=value or C.EarningKind.UNMAPPED,
+            raw=" / ".join(v for v in (benefit, kind) if v) or None,
+            label=kind,
+            source_field="clientPayItems[].systemBenefitType+systemPayItemType",
+        )
+
     # -------------------------------------------------------------- run
 
     def run(self) -> None:
@@ -911,15 +927,13 @@ class _Legal:
                 if units not in (None, ZERO)
                 else None
             )
+            title = text(line.get("itemDescription"))
             earnings.append(
                 EarningLine(
                     code=text(line.get("itemCode")),
-                    label=text(line.get("itemDescription")),
-                    kind=Coded[C.EarningKind](
-                        value=C.EarningKind.MEMO if memo else C.EarningKind.UNMAPPED,
-                        raw=memo,
-                        source_field="earnings[].isMemoEarning",
-                    ),
+                    label=title,
+                    kind=self._earning_kind(title, memo, notes),
+                    # grossWages is the sum of the non-memo lines (A-28)
                     in_gross=not memo,
                     quantity=quantity,
                     amount=Money(
@@ -1003,6 +1017,16 @@ class _Legal:
                     source_field="directDeposits[]",
                 )
             )
+        # The check list has no deposit lines (A-51); its deposit total stands in for them.
+        deposited = decimal(s.get("directDepositAmount")) if s.get("directDeposits") is None else None
+        if deposited not in (None, ZERO):
+            payments.append(
+                PaymentLine(
+                    kind=Coded[C.PaymentKind](value=C.PaymentKind.DIRECT_DEPOSIT, source_field="directDepositAmount"),
+                    amount=Money(amount=deposited),
+                    source_field="directDepositAmount",
+                )
+            )
         check_amount = decimal(s.get("checkAmount"))
         if check_amount not in (None, ZERO):
             payments.append(
@@ -1012,13 +1036,8 @@ class _Legal:
                     source_field="checkAmount",
                 )
             )
+        # grossWages - non-cash earnings = grossPay (A-28); the checks verify it per paycheck.
         gross, wages, net = decimal(s.get("grossPay")), decimal(s.get("grossWages")), decimal(s.get("netPay"))
-        if gross is not None and wages is not None and gross != wages:
-            notes.info(
-                "GROSS_PAY_DIFFERS_FROM_GROSS_WAGES",
-                "grossPay",
-                f"grossPay {gross} vs grossWages {wages}; the difference is undocumented (A-28)",
-            )
         has_lines = bool(earnings or taxes or deductions)
         type_raw = text(s.get("checkTypeDescription"))
         statement = PayStatement(

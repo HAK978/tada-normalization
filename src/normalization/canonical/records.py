@@ -350,7 +350,7 @@ class EarningLine(Model):
     code: str | None = None
     label: str | None = None
     kind: Coded[EarningKind]
-    # Whether the provider counts this line in its gross figure (Prism: all lines, A-32; isolved: not memo, A-28).
+    # Whether the provider counts this line in gross wages (Prism: all lines, A-32; isolved: not memo, A-28).
     in_gross: bool | None = None
     quantity: Quantity | None = None
     hours_worked: Quantity | None = None
@@ -418,7 +418,9 @@ class PaymentLine(Model):
 
 
 class PayStatementTotals(Model):
+    # The part of gross actually paid: gross wages minus non-cash earnings (A-54).
     gross_pay: Money | None = None
+    # Every earning counted in gross, non-cash ones included (A-54).
     gross_wages: Money | None = None
     net_pay: Money | None = None
     employee_taxes: Money | None = None

@@ -79,12 +79,12 @@
     },
     {
       "id": 904,
-      "title": "401K",
+      "title": "GTL",
       "code": null,
       "description": null,
-      "payItemType": "Deduction",
-      "systemBenefitType": "401(k)",
-      "systemPayItemType": "401K",
+      "payItemType": "Earning",
+      "systemBenefitType": "Group Term Life",
+      "systemPayItemType": "GTL",
       "scheduleDefault": "Every Pay",
       "isInactive": false,
       "hasDecliningBalance": false,
@@ -97,12 +97,12 @@
     },
     {
       "id": 905,
-      "title": "401K Loan",
+      "title": "1099 Comp",
       "code": null,
       "description": null,
-      "payItemType": "Deduction",
-      "systemBenefitType": "401(k)",
-      "systemPayItemType": "401K Loan",
+      "payItemType": "Earning",
+      "systemBenefitType": null,
+      "systemPayItemType": "1099M Non EE Comp",
       "scheduleDefault": "Every Pay",
       "isInactive": false,
       "hasDecliningBalance": false,
@@ -115,12 +115,12 @@
     },
     {
       "id": 906,
-      "title": "Dental Pre-tax",
+      "title": "401K",
       "code": null,
       "description": null,
       "payItemType": "Deduction",
-      "systemBenefitType": "Dental Pre-Tax 125",
-      "systemPayItemType": "Dental Pre-tax",
+      "systemBenefitType": "401(k)",
+      "systemPayItemType": "401K",
       "scheduleDefault": "Every Pay",
       "isInactive": false,
       "hasDecliningBalance": false,
@@ -133,12 +133,12 @@
     },
     {
       "id": 907,
-      "title": "HSA After-tax",
+      "title": "401K Loan",
       "code": null,
       "description": null,
       "payItemType": "Deduction",
-      "systemBenefitType": "Health Savings Account",
-      "systemPayItemType": "HSA After-tax",
+      "systemBenefitType": "401(k)",
+      "systemPayItemType": "401K Loan",
       "scheduleDefault": "Every Pay",
       "isInactive": false,
       "hasDecliningBalance": false,
@@ -151,12 +151,12 @@
     },
     {
       "id": 908,
-      "title": "Voluntary Life",
+      "title": "Dental Pre-tax",
       "code": null,
       "description": null,
       "payItemType": "Deduction",
-      "systemBenefitType": null,
-      "systemPayItemType": "Voluntary Deduction",
+      "systemBenefitType": "Dental Pre-Tax 125",
+      "systemPayItemType": "Dental Pre-tax",
       "scheduleDefault": "Every Pay",
       "isInactive": false,
       "hasDecliningBalance": false,
@@ -169,6 +169,42 @@
     },
     {
       "id": 909,
+      "title": "HSA After-tax",
+      "code": null,
+      "description": null,
+      "payItemType": "Deduction",
+      "systemBenefitType": "Health Savings Account",
+      "systemPayItemType": "HSA After-tax",
+      "scheduleDefault": "Every Pay",
+      "isInactive": false,
+      "hasDecliningBalance": false,
+      "sequenceNumber": 9,
+      "calcParams": [
+        {
+          "paramType": "Amount"
+        }
+      ]
+    },
+    {
+      "id": 910,
+      "title": "Voluntary Life",
+      "code": null,
+      "description": null,
+      "payItemType": "Deduction",
+      "systemBenefitType": null,
+      "systemPayItemType": "Voluntary Deduction",
+      "scheduleDefault": "Every Pay",
+      "isInactive": false,
+      "hasDecliningBalance": false,
+      "sequenceNumber": 10,
+      "calcParams": [
+        {
+          "paramType": "Amount"
+        }
+      ]
+    },
+    {
+      "id": 911,
       "title": "401(k) Match",
       "code": null,
       "description": null,
@@ -178,7 +214,7 @@
       "scheduleDefault": "Every Pay",
       "isInactive": false,
       "hasDecliningBalance": false,
-      "sequenceNumber": 9,
+      "sequenceNumber": 11,
       "calcParams": [
         {
           "paramType": "Amount"

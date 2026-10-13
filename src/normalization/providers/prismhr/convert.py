@@ -60,7 +60,7 @@ from normalization.output import Output
 from normalization.sanitize import last4, sanitize_extensions
 from normalization.source import Notes, Src, coded, decimal, flag, iso_date, text, unmapped_label
 
-from ..common import ZERO, attach_checks, derived_sum, masked, money
+from ..common import ZERO, attach_checks, derived_sum, masked, money, paid_gross
 from . import codes as P
 
 PROVIDER = "prismhr"
@@ -1308,10 +1308,12 @@ class _Client:
                 )
             )
 
-        gross = decimal(s.get("totalEarnings"))
+        # totalEarnings includes non-cash pay classes (A-32), so it is gross wages; gross pay is derived (A-54).
+        wages = money(s.get("totalEarnings"), "totalEarnings")
         net = decimal(s.get("netPay"))
         totals = PayStatementTotals(
-            gross_pay=Money(amount=gross, source_field="totalEarnings") if gross is not None else None,
+            gross_wages=wages,
+            gross_pay=paid_gross(wages, earnings, "totalEarnings", notes),
             net_pay=Money(amount=net, source_field="netPay") if net is not None else None,
             employee_taxes=derived_sum(
                 [t.amount.amount for t in taxes if t.paid_by is C.TaxPaidBy.EMPLOYEE], "sum(employeeTax[].empTaxAmount)"

@@ -1,9 +1,10 @@
 """isolved fixtures: the "brightside" scenario, as isolved's API would return it.
 
 Same people and facts as the PrismHR scenario, in isolved's shape, with isolved's traps: sequence
-0 is the net-pay account, memo earnings sit outside gross wages, grossPay differs from grossWages,
-a 1-character lookup code where live sends text, a customer-defined status, a garnishment, a
-paycheck whose run is ambiguous, a year-to-date-only line, and a check seen only in the list.
+0 is the net-pay account, memo earnings sit outside gross wages, group-term life is in gross wages
+but not gross pay, a 1-character lookup code where live sends text, a customer-defined status, a
+contractor pay item with no documented cash treatment, a garnishment, a paycheck whose run is
+ambiguous, a year-to-date-only line, and a check seen only in the list.
 """
 
 from __future__ import annotations
@@ -27,6 +28,8 @@ PAY_ITEMS = {
     "Overtime": ("Earning", None, "Overtime @ Flat 1.5"),
     "Holiday": ("Earning", "Leave Accrual", "Holiday"),
     "Bonus": ("Earning", None, "Bonus"),
+    "GTL": ("Earning", "Group Term Life", "GTL"),
+    "1099 Comp": ("Earning", None, "1099M Non EE Comp"),
     "401K": ("Deduction", "401(k)", "401K"),
     "401K Loan": ("Deduction", "401(k)", "401K Loan"),
     "Dental Pre-tax": ("Deduction", "Dental Pre-Tax 125", "Dental Pre-tax"),
@@ -471,21 +474,22 @@ def _check(
     deductions: list[tuple[str, D]],
     garnishments: list[tuple[str, D]],
     memo: list[tuple[str, D]] = (),
-    unexplained_gap: D = D("0"),
+    non_cash: list[tuple[str, D]] = (),
     ytd_only: bool = False,
 ) -> dict:
-    wages = sum((amount for _, amount, _ in earnings), D("0"))
-    gross_pay = wages - unexplained_gap
+    # Live: grossWages - grossPay = the group-term life lines, which are taxed but not paid (A-28).
+    gross_pay = sum((amount for _, amount, _ in earnings), D("0"))
+    wages = gross_pay + sum((amount for _, amount in non_cash), D("0"))
     contractor = w.pay_type == "1099"
     pre_tax = sum((a for t, a in deductions if PAY_ITEMS[t][1] in ("401(k)", "Dental Pre-Tax 125")), D("0"))
-    taxable = gross_pay - pre_tax
+    taxable = wages - pre_tax
     ee = (
         []
         if contractor
         else [
             ("FIT", "Federal Withholding", taxable * D("0.10")),
-            ("SS", "Social Security", gross_pay * D("0.062")),
-            ("MED", "Medicare", gross_pay * D("0.0145")),
+            ("SS", "Social Security", wages * D("0.062")),
+            ("MED", "Medicare", wages * D("0.0145")),
             ("NCSIT", "NC Withholding", taxable * D("0.04")),
         ]
     )
@@ -493,9 +497,9 @@ def _check(
         []
         if contractor
         else [
-            ("SS-ER", "Social Security Employer", gross_pay * D("0.062")),
-            ("MED-ER", "Medicare Employer", gross_pay * D("0.0145")),
-            ("FUTA", "FUTA", gross_pay * D("0.006")),
+            ("SS-ER", "Social Security Employer", wages * D("0.062")),
+            ("MED-ER", "Medicare Employer", wages * D("0.0145")),
+            ("FUTA", "FUTA", wages * D("0.006")),
         ]
     )
     ee_total = sum((cents(a) for _, _, a in ee), D("0"))
@@ -523,6 +527,17 @@ def _check(
             **_bucket(amount, amount * 20),
         }
         for code, amount, hours in earnings
+    ]
+    lines += [
+        {
+            "itemCode": code,
+            "itemDescription": code,
+            "isMemoEarning": False,
+            "checkHours": None,
+            "checkUnits": None,
+            **_bucket(amount, amount * 20),
+        }
+        for code, amount in non_cash
     ]
     lines += [
         {
@@ -583,7 +598,7 @@ def _check(
                 "itemCode": c,
                 "itemDescription": d,
                 "isEmployeeTax": False,
-                "checkTaxableWages": _money(gross_pay),
+                "checkTaxableWages": _money(wages),
                 **_bucket(a, a * 20),
             }
             for c, d, a in er
@@ -651,7 +666,7 @@ def _payroll(bundle: FixtureBundle, staff: dict[str, Worker]) -> None:
             [("401K", D("100.00")), ("Dental Pre-tax", D("12.50"))],
             [],
             memo=[("401(k) Match", D("60.00"))],
-            unexplained_gap=D("3.10"),
+            non_cash=[("GTL", D("3.10"))],
             ytd_only=True,
         ),
         _check(
@@ -666,7 +681,7 @@ def _payroll(bundle: FixtureBundle, staff: dict[str, Worker]) -> None:
             [("Child Support", D("50.00"))],
         ),
         _check(70003, ana, "2026-10-02", bw, 1, "Regular", [("Regular", D("1920.00"), D("64"))], [], []),
-        _check(70004, priya, "2026-10-02", wk, 2, "Regular", [("Regular", D("1200.00"), D("30"))], [], []),
+        _check(70004, priya, "2026-10-02", wk, 2, "Regular", [("1099 Comp", D("1200.00"), None)], [], []),
         _check(
             70005, maria, "2026-10-09", bw, 3, "Regular", [("Bonus", D("500.00"), None)], [("401K", D("25.00"))], []
         ),

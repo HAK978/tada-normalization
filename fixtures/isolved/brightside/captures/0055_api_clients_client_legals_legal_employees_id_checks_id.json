@@ -26,10 +26,10 @@
     "directDepositAmount": 0.0,
     "earnings": [
       {
-        "itemCode": "Regular",
-        "itemDescription": "Regular",
+        "itemCode": "1099 Comp",
+        "itemDescription": "1099 Comp",
         "isMemoEarning": false,
-        "checkHours": 30.0,
+        "checkHours": null,
         "checkUnits": null,
         "checkDollars": 1200.0,
         "currentDollars": 1200.0,

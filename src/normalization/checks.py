@@ -1,4 +1,9 @@
-"""Paycheck reconciliation. Results are reported on the record; amounts are never adjusted."""
+"""Paycheck reconciliation. Results are reported on the record; amounts are never adjusted.
+
+Gross wages are every earning counted in gross, non-cash ones included; gross pay is the part
+actually paid, gross wages minus non-cash earnings (A-54). A derived total is never checked
+against the lines it was derived from.
+"""
 
 from __future__ import annotations
 
@@ -15,50 +20,54 @@ def _sum(amounts) -> Decimal:
     return sum((a for a in amounts if a is not None), Decimal("0"))
 
 
+def _outcome(rule: str, expected: Decimal, actual: Decimal, detail: str) -> CheckOutcome:
+    ok = abs(expected - actual) <= TOLERANCE
+    return CheckOutcome(rule=rule, result=CheckResult.PASS if ok else CheckResult.FAIL, detail=detail)
+
+
 def reconcile(statement: PayStatement) -> list[CheckOutcome]:
     totals, out = statement.totals, []
-    gross = totals.gross_pay.amount if totals.gross_pay else None
-    net = totals.net_pay.amount if totals.net_pay else None
+    wages, gross, net = totals.gross_wages, totals.gross_pay, totals.net_pay
     counted = [line for line in statement.earnings if line.in_gross is not False]
+    non_cash = _sum(line.amount.amount for line in counted if EarningKind(line.kind.value) in NON_CASH_EARNING_KINDS)
     has_lines = bool(statement.earnings or statement.taxes or statement.deductions)
 
-    # The provider's own gross-of-lines figure: gross wages when it reports one (isolved), else gross pay.
-    lines_total = totals.gross_wages or totals.gross_pay
-    if lines_total is not None and counted and not lines_total.derived:
+    if wages is not None and counted and not wages.derived:
         earnings = _sum(line.amount.amount for line in counted)
-        ok = abs(lines_total.amount - earnings) <= TOLERANCE
         out.append(
-            CheckOutcome(
-                rule=f"{'gross wages' if totals.gross_wages else 'gross'} = sum of earning lines counted in gross",
-                result=CheckResult.PASS if ok else CheckResult.FAIL,
-                detail=f"{lines_total.amount} vs {earnings}",
+            _outcome(
+                "gross wages = sum of earning lines counted in gross",
+                wages.amount,
+                earnings,
+                f"{wages.amount} vs {earnings}",
+            )
+        )
+
+    if wages is not None and gross is not None and counted and not (wages.derived or gross.derived):
+        expected = wages.amount - non_cash
+        out.append(
+            _outcome(
+                "gross wages - non-cash earnings = gross pay",
+                expected,
+                gross.amount,
+                f"{wages.amount} - {non_cash} = {expected}; gross pay {gross.amount}",
             )
         )
 
     if gross is not None and net is not None and has_lines:
-        non_cash = _sum(
-            line.amount.amount for line in counted if EarningKind(line.kind.value) in NON_CASH_EARNING_KINDS
-        )
         ee_taxes = _sum(line.amount.amount for line in statement.taxes if line.paid_by == "EMPLOYEE")
         deductions = _sum(line.employee_amount.amount for line in statement.deductions if line.employee_amount)
-        expected = gross - non_cash - ee_taxes - deductions
-        ok = abs(expected - net) <= TOLERANCE
+        expected = gross.amount - ee_taxes - deductions
         out.append(
-            CheckOutcome(
-                rule="gross - non-cash earnings - employee taxes - deductions = net",
-                result=CheckResult.PASS if ok else CheckResult.FAIL,
-                detail=f"{gross} - {non_cash} - {ee_taxes} - {deductions} = {expected}; net {net}",
+            _outcome(
+                "gross pay - employee taxes - deductions = net",
+                expected,
+                net.amount,
+                f"{gross.amount} - {ee_taxes} - {deductions} = {expected}; net {net.amount}",
             )
         )
 
-    if net is not None and statement.payments and not totals.net_pay.derived:
+    if net is not None and statement.payments and not net.derived:
         paid = _sum(p.amount.amount for p in statement.payments)
-        ok = abs(paid - net) <= TOLERANCE
-        out.append(
-            CheckOutcome(
-                rule="payments = net",
-                result=CheckResult.PASS if ok else CheckResult.FAIL,
-                detail=f"{paid} vs {net}",
-            )
-        )
+        out.append(_outcome("payments = net", paid, net.amount, f"{paid} vs {net.amount}"))
     return out

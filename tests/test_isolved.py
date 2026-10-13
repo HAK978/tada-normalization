@@ -54,15 +54,29 @@ def test_percent_deposit_scale_is_not_guessed(out):
     assert (deposit.percent.percent, deposit.percent.scale.value, deposit.percent.raw) == (None, "UNVERIFIED", "30.0")
 
 
-def test_memo_earnings_sit_outside_gross_wages_and_gross_pay_differs(out):
+def test_memo_is_outside_gross_and_group_term_life_is_in_wages_but_not_pay(out):
     check = one(out, "pay_statements", ":70001")
-    memo = next(e for e in check.earnings if e.code == "401(k) Match")
-    assert (memo.kind.value.value, memo.in_gross) == ("MEMO", False)
+    lines = {e.code: e for e in check.earnings}
+    assert (lines["401(k) Match"].kind.value.value, lines["401(k) Match"].in_gross) == ("MEMO", False)
+    gtl = lines["GTL"]
+    assert (gtl.kind.value.value, gtl.kind.raw, gtl.in_gross) == ("NON_CASH_FRINGE", "Group Term Life / GTL", True)
+    assert {lines[c].kind.value.value for c in ("Regular", "Holiday")} == {"EARNINGS"}
     counted = sum(e.amount.amount for e in check.earnings if e.in_gross)
-    assert check.totals.gross_wages.amount == counted == Decimal("2000.0")
-    assert check.totals.gross_pay.amount == Decimal("1996.9")
-    assert "GROSS_PAY_DIFFERS_FROM_GROSS_WAGES" in codes(check)
-    assert {c.result.value for c in check.checks} == {"pass"} and len(check.checks) == 3
+    assert check.totals.gross_wages.amount == counted == Decimal("2003.1")
+    assert check.totals.gross_pay.amount == check.totals.gross_wages.amount - gtl.amount.amount == Decimal("2000.0")
+    assert [c.rule for c in check.checks] == [
+        "gross wages = sum of earning lines counted in gross",
+        "gross wages - non-cash earnings = gross pay",
+        "gross pay - employee taxes - deductions = net",
+        "payments = net",
+    ]
+    assert {c.result.value for c in check.checks} == {"pass"}
+
+
+def test_an_earning_without_a_documented_cash_treatment_stays_unmapped(out):
+    check = one(out, "pay_statements", ":70004")
+    assert [(e.kind.value.value, e.kind.raw) for e in check.earnings] == [("UNMAPPED", "1099M Non EE Comp")]
+    assert "UNMAPPED_CODE" in codes(check)
 
 
 def test_year_to_date_only_lines_are_not_part_of_this_paycheck(out):
@@ -141,7 +155,12 @@ def test_paychecks_link_to_runs_only_when_the_match_is_unique(out):
     ambiguous = one(out, "pay_statements", ":70005")
     assert ambiguous.payroll_run_id is None and "RUN_NOT_MATCHED" in codes(ambiguous)
     list_only = one(out, "pay_statements", ":70009")
-    assert {"DETAIL_NOT_FETCHED", "RUN_NOT_MATCHED"} <= codes(list_only) and not list_only.checks
+    assert {"DETAIL_NOT_FETCHED", "RUN_NOT_MATCHED"} <= codes(list_only) and not list_only.earnings
+    # Without deposit lines, the list's deposit total stands in for them; only payments = net can be checked.
+    assert [(p.kind.value.value, p.source_field) for p in list_only.payments] == [
+        ("DIRECT_DEPOSIT", "directDepositAmount")
+    ]
+    assert [(c.rule, c.result.value) for c in list_only.checks] == [("payments = net", "pass")]
     imported = one(out, "pay_statements", ":60001")
     assert imported.type.value.value == "ADJUSTMENT"
     run = one(out, "payroll_runs", ":701:8800")

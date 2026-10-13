@@ -71,19 +71,20 @@ def test_non_cash_pay_counts_toward_gross_but_not_net(out):
     james = one(out, "pay_statements", ":201:077002")
     kinds = {e.code: e.kind.value.value for e in james.earnings}
     assert kinds == {"REG": "EARNINGS", "OT": "EARNINGS", "TIPS": "REPORTED_TIPS", "MILE": "REIMBURSEMENT"}
-    gross = james.totals.gross_pay.amount
-    assert gross == sum(e.amount.amount for e in james.earnings)
+    wages, gross = james.totals.gross_wages, james.totals.gross_pay
+    assert (wages.amount, wages.source_field) == (sum(e.amount.amount for e in james.earnings), "totalEarnings")
     non_cash = sum(e.amount.amount for e in james.earnings if e.kind.value in NON_CASH_EARNING_KINDS)
+    assert non_cash == Decimal("45") and (gross.amount, gross.derived) == (wages.amount - non_cash, True)
     taxes = sum(t.amount.amount for t in james.taxes if t.paid_by.value == "EMPLOYEE")
     deductions = sum(d.employee_amount.amount for d in james.deductions)
-    assert non_cash == Decimal("45") and gross - non_cash - taxes - deductions == james.totals.net_pay.amount
+    assert gross.amount - taxes - deductions == james.totals.net_pay.amount
 
 
 def test_other_earnings_lines_are_part_of_gross(out):
     maria = one(out, "pay_statements", ":201:077001")
     fringe = next(e for e in maria.earnings if e.code == "FRINGE")
     assert fringe.kind.value.value == "NON_CASH_FRINGE" and fringe.source_field == "otherEarningsDetail[]"
-    assert maria.totals.gross_pay.amount == Decimal("2003.25")
+    assert (maria.totals.gross_wages.amount, maria.totals.gross_pay.amount) == (Decimal("2003.25"), Decimal("2000.00"))
     # The voucher's own otherEarnAmount leaves Fringe out (as live data does); it is kept, not used.
     assert maria.provider_extensions["otherEarnAmount"] == Decimal("0.0")
 

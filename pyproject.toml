@@ -26,7 +26,15 @@ pythonpath = ["src"]
 
 [tool.ruff]
 line-length = 120
-extend-exclude = ["contracts"]
+# The organizer's files stay byte-identical: contracts/ always, the starter scaffold until replaced (A-02).
+extend-exclude = [
+    "contracts",
+    "src/normalization/__main__.py",
+    "src/normalization/adapters",
+    "src/normalization/references.py",
+    "tests/test_starter.py",
+    "tests/test_reference_integrity.py",
+]
 
 [tool.ruff.lint]
 select = ["E", "F", "W", "B", "I"]

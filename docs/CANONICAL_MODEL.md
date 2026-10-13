@@ -259,11 +259,15 @@ not a provider one.
 
 **PayStatement:**
 - **Header:** pay date, period, check number, type, status, plus void and reissue details.
-- **Totals:** `gross_pay`, `gross_wages` (isolved only), `net_pay`, employee and employer taxes,
-  deductions, and employer contributions. Each is either provided or derived and flagged.
+- **Totals:** `gross_wages`, `gross_pay`, `net_pay`, employee and employer taxes, deductions, and
+  employer contributions. Each is either provided or derived and flagged. The two gross figures mean
+  the same thing for every provider (A-54):
+  - `gross_wages` is every earning counted in gross, non-cash ones included;
+  - `gross_pay` is the part actually paid: gross wages minus non-cash earnings (`NON_CASH_FRINGE`,
+    `REPORTED_TIPS`, and `MEMO` lines counted in gross).
 - **`earnings[]`:**
   - code, label and `kind` (`EARNINGS` `REIMBURSEMENT` `NON_CASH_FRINGE` `REPORTED_TIPS` `MEMO`);
-  - `in_gross`: whether the provider counts the line in its gross figure (Prism: every line, A-32;
+  - `in_gross`: whether the provider counts the line in gross wages (Prism: every line, A-32;
     isolved: every non-memo line, A-28);
   - `quantity` (value with unit `HOURS`/`UNITS`/`UNKNOWN`) and `hours_worked`;
   - rate, amount, line date range and allocations.
@@ -278,23 +282,25 @@ not a provider one.
 
 | | PrismHR voucher | isolved check | UKG pay statement |
 |---|---|---|---|
-| Gross | `totalEarnings` | `grossPay` (reconciles to net), plus `grossWages` (A-28) | **derived**: no total in the API |
+| Gross wages | `totalEarnings` (it includes non-cash classes, A-32) | `grossWages` | **derived** from the lines: no total in the API |
+| Gross pay | **derived**: `totalEarnings` − non-cash lines (A-54) | `grossPay` (= `grossWages` − group-term life, A-28) | **derived** only when every line's kind is known |
 | Net | `netPay` | `netPay` | **derived** from payments |
 | Earning lines | `earning[]` **and** `otherEarningsDetail[]` (gross = earn + other) | `earnings[]` (`check*` bucket, A-28) | `earnings[]` |
 | Quantity | `hoursUnits`, which is "hours or units paid": the unit comes from the pay code's documented `payReason` H/U, else `UNKNOWN`. Plus `hoursWorked` (A-38). | `checkHours` and `checkUnits` | `hours` in ms, converted to hours (A-24); `quantity` unit `UNKNOWN` |
 | Line amount | `payAmount` = quantity × `unitRate` (A-18) | `checkDollars` | `ee_amount` |
-| Earning kind | `payClass` E/R/F/RT/M (documented) | `isMemoEarning` only | `UNMAPPED` |
+| Earning kind | `payClass` E/R/F/RT/M (documented) | `isMemoEarning`, else the client pay item's system earning (A-53) | `UNMAPPED` |
 | Taxes | `employeeTax[]`, `companyTax[]` | `taxes[]` + `isEmployeeTax` | `taxes[]` with `ee_*` and `er_*` amounts and wage bases |
 | Deductions | `deduction[]` (`deductType`), `otherDeduction[]` | `deductions[]`, `garnishments[]` | `deductions[]`: code, external ID, name |
 | Employer contributions | `employerContributions[]` | `benefits[].checkEmployerContribution` | `deductions[].er_amount` |
 | Payments | `checkAmt` + `directDeposit[]` | `checkAmount` + `directDeposits[]` | `payments[]` (`type_name` "Check" / "Direct Deposit"; others `UNMAPPED`) |
 
 **Checks, reported and never "fixed":**
-- the provider's gross of lines (gross wages when reported, else gross pay) = the sum of earning lines
-  counted in gross;
-- gross pay − non-cash earnings counted in gross − employee taxes − deductions = net, when the
-  statement has line items;
+- gross wages = the sum of earning lines counted in gross;
+- gross wages − non-cash earnings = gross pay, when both are provided;
+- gross pay − employee taxes − deductions = net, when the statement has line items;
 - payments = net.
+
+A derived total is never checked against the lines it was derived from.
 
 A failed check becomes a `RECONCILIATION_MISMATCH` warning; the totals stay as the provider sent them.
 

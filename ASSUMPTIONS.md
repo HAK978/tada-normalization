@@ -74,8 +74,8 @@ Status: first draft, written during discovery. Entries are added as mapping deci
 ### A-07 What was sampled
 - **PrismHR:** 4 of 25 clients, 51 employees, 420 vouchers from 33 payroll batches (2015–2026), and
   the master records of all 25 clients.
-- **isolved:** client 4046, both legal companies (5797 and 5806), 30 employees, 15 checks and 8
-  payroll runs.
+- **isolved:** client 4046, both legal companies (5797 and 5806), 30 employees, 430 checks from the
+  check list (15 also fetched in detail), and 231 payroll runs from run history (8 fetched in detail).
 - **UKG Ready:** company 33704016, 15 employees, 10 payroll runs and 22 pay statements.
 - **Limitation:** codes that never appeared in these samples are mapped from the documentation only.
 
@@ -248,17 +248,22 @@ Status: first draft, written during discovery. Entries are added as mapping deci
   fixed table: Weekly = 52, Bi-Weekly = 26, Semi-Monthly = 24, Monthly = 12, Quarterly = 4,
   Annually = 1, "N Pay Periods Per Year" = N. The ID is never used as a count. Unknown descriptions
   map to `UNMAPPED`.
-### A-28 isolved check buckets and its two gross figures
+### A-28 isolved check buckets and its two gross figures (resolved)
 - **Evidence:** for each check, the spec gives `check*`, `current*`, `ptd`, `mtd`, `qtd`, `ytd` and
-  `ftd` amounts without explaining them. On all 15 live checks:
+  `ftd` amounts without explaining them. On all 15 live check details:
   - `checkDollars` equals `currentDollars` on every line;
   - `grossWages` equals the sum of non-memo earnings;
   - `grossPay` − employee taxes − deductions − garnishments = `netPay`;
-  - `checkAmount + directDepositAmount = netPay`.
+  - `checkAmount + directDepositAmount = netPay` (also on all 430 rows of the check list).
 
-  `grossPay` is a little below `grossWages` on all 15 (by $0.37 to $9.92), and nothing documents why.
-- **Decision:** `check*` is "this paycheck". `gross_pay = grossPay`, because it reconciles to net,
-  and `gross_wages = grossWages` is kept as a separate figure. The difference is a documented open question.
+  `grossPay` is a little below `grossWages` (by $0.37 to $9.92). The gap is exactly the check's
+  group-term life lines on **15 of 15**: earnings whose client pay item has system benefit type
+  "Group Term Life". isolved's own system earning describes that item as "Group Term Life - taxable
+  amount over $50K": imputed income that is taxed but never paid. All 420 listed checks with a gap
+  have `grossPay` below `grossWages`; the other 10 have none.
+- **Decision:** `check*` is "this paycheck". `gross_wages = grossWages` and `gross_pay = grossPay`,
+  which match the canonical meanings exactly (A-54). Each paycheck is checked for
+  `gross wages − non-cash earnings = gross pay`.
 
 ## Unresolved, and how we handle it
 
@@ -305,9 +310,10 @@ Status: first draft, written during discovery. Entries are added as mapping deci
     F (non-cash fringe), M (memo) and RT (reported tips), documented in
     `#/components/schemas/ClientCodes-PayCode/properties/payClass`. Such pay is taxed (it sits inside
     federal taxable wages) but not paid out.
-- **Decision:** gross is `totalEarnings`. Earning lines come from both lists, and their kind comes
-  from `payClass` (or the client pay-code table for "other" lines). The paycheck check excludes
-  non-cash kinds. `earnAmount` and `otherEarnAmount` are kept in `provider_extensions`, not used.
+- **Decision:** `totalEarnings` is gross *wages*, since it includes the non-cash classes. Gross pay
+  is derived as `totalEarnings` minus the non-cash lines, and flagged as derived (A-54). Earning lines
+  come from both lists, and their kind comes from `payClass` (or the client pay-code table for "other"
+  lines). `earnAmount` and `otherEarnAmount` are kept in `provider_extensions`, not used.
 ### A-33 Time-dependent fields use an explicit `as_of` date
 - **Decision:** values like "is this deposit active?" (UKG `active` plus dates) are evaluated
   against `as_of`. That date defaults to the fetch date for live data and is fixed for fixtures.
@@ -494,6 +500,9 @@ entries below are new.
   - A list-only check becomes a pay statement with its header and totals, and no lines. Its type is
     `UNMAPPED` (missing, so no warning), it gets a `DETAIL_NOT_FETCHED` info diagnostic, and the
     line-based checks are skipped.
+  - The list has no deposit lines (`directDeposits` is null on all 430 rows), so its
+    `directDepositAmount` becomes one direct-deposit payment without an account. `payments = net`
+    can then still be checked.
   - Checks link to employees by `employeeId` only, never by name.
   - Only lines with a `check*` value are this paycheck's lines. The others stay in
     `provider_extensions`.
@@ -519,3 +528,53 @@ entries below are new.
     (A-47).
 - **Why:** as in A-47, fixtures should look like live data while staying checkable against the
   published contract.
+
+### A-53 isolved earning kinds come from the system earning each pay item is built on
+- **Evidence:**
+  - A check's earning line has only `isMemoEarning` to say what kind of pay it is. Its client pay item
+    (linked by title, A-49) names the system earning it is built on (`systemPayItemType`), and
+    `/api/system/earnings` describes each system earning in isolved's own words:
+    - "Regular": "Earnings paid based on the employee hourly rate or per pay Salary";
+    - "Vacation", "Sick" and "Holiday": "Earnings paid based on hours input times the employee
+      normal hourly rate";
+    - "Bonus": "Earnings paid based on hours or dollar input"; "Commission": "Earnings paid based
+      on dollar input only";
+    - "Overtime @ Flat 1.5": "Overtime paid at 1.5 ee hourly rate"; "Overtime - Blended Rate":
+      "Blended rate used to pay OT hours";
+    - "Other Hrs or Dollars": "… Fully taxable. Paid.";
+    - "Misc Non Taxable": "Non-taxable earning. Paid to ee. … reimbursement earning.";
+    - Group Term Life items: "Group Term Life - taxable amount over $50K" (and, for one variant,
+      "Not Paid").
+  - "ShiftDiff" is described only as "Shift Diff", but live it sits inside `grossPay` on both checks
+    where it appears, so it is paid.
+- **Decision:**
+  - Memo lines are `MEMO`, from the flag.
+  - Otherwise, system benefit type "Group Term Life" is `NON_CASH_FRINGE`, "Misc Non Taxable" is
+    `REIMBURSEMENT`, and the paid earnings above are `EARNINGS` (`EARNING_CLASS` in
+    `providers/isolved/codes.py`).
+  - Any other system earning, for example "1099M Non EE Comp", stays `UNMAPPED` with an
+    `UNMAPPED_CODE` warning. Its description doesn't say whether it is paid.
+  - The kind keeps the system benefit type and pay item type as its raw value.
+- **Why:** these are isolved's own definitions, not the customer's titles. Live, all 42 non-memo
+  earning lines on the 15 detailed checks get a kind this way.
+
+### A-54 Gross pay and gross wages mean the same thing for every provider
+- **Issue:** the providers' headline gross figures differ. Prism's `totalEarnings` includes non-cash
+  pay (A-32). isolved reports both `grossWages`, which includes group-term life, and `grossPay`,
+  which doesn't (A-28). Mapping each provider's headline figure to one field would make that field
+  mean different things.
+- **Decision:**
+  - `gross_wages` is every earning counted in gross, non-cash ones included: Prism `totalEarnings`,
+    isolved `grossWages`.
+  - `gross_pay` is the part actually paid: gross wages minus non-cash earnings (`NON_CASH_FRINGE`,
+    `REPORTED_TIPS`, and `MEMO` lines counted in gross). isolved `grossPay` is exactly that. For Prism
+    it is derived, flagged `derived` with its formula, and only when every counted line has a known
+    kind. Otherwise it is left null with a `GROSS_PAY_NOT_DERIVED` info diagnostic.
+  - Each earning line's `in_gross` says whether the provider counts it in gross wages.
+  - Checks (reported, never adjusted):
+    - gross wages = sum of the lines counted in gross;
+    - gross wages − non-cash earnings = gross pay, when both are provided;
+    - gross pay − employee taxes − deductions = net;
+    - payments = net.
+- **Live result:** Prism 1175 of 1175 checks pass, with gross pay derived on every voucher that has
+  lines. isolved 468 of 468 pass, including the new gross check on all 15 detailed checks.

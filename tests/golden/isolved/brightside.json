@@ -9,10 +9,11 @@
    "pay_statements": 7
   },
   "diagnostics": {
-   "info": 6
+   "info": 5,
+   "warning": 1
   },
   "checks": {
-   "pass": 18
+   "pass": 25
   }
  },
  "records": {
@@ -2239,8 +2240,7 @@
      "taxes[6].mtdDollars": "9.0",
      "taxes[6].qtdDollars": "45.0",
      "taxes[6].ytdDollars": "180.0",
-     "taxes[6].ftdDollars": "180.0",
-     "directDeposits[0].itemDescription": "Savings"
+     "taxes[6].ftdDollars": "180.0"
     },
     "diagnostics": [],
     "company_id": "isolved:synthetic:company:501:601",
@@ -2308,9 +2308,10 @@
       "code": "Regular",
       "label": "Regular",
       "kind": {
-       "value": "UNMAPPED",
-       "raw": false,
-       "source_field": "earnings[].isMemoEarning"
+       "value": "EARNINGS",
+       "raw": "Regular",
+       "label": "Regular",
+       "source_field": "clientPayItems[].systemBenefitType+systemPayItemType"
       },
       "in_gross": true,
       "quantity": {
@@ -2469,9 +2470,14 @@
       "detail": "1500.0 vs 1500.0"
      },
      {
-      "rule": "gross - non-cash earnings - employee taxes - deductions = net",
+      "rule": "gross wages - non-cash earnings = gross pay",
       "result": "pass",
-      "detail": "1500.0 - 0 - 324.75 - 0 = 1175.25; net 1175.25"
+      "detail": "1500.0 - 0 = 1500.0; gross pay 1500.0"
+     },
+     {
+      "rule": "gross pay - employee taxes - deductions = net",
+      "result": "pass",
+      "detail": "1500.0 - 324.75 - 0 = 1175.25; net 1175.25"
      },
      {
       "rule": "payments = net",
@@ -2503,7 +2509,7 @@
      "employeeName": "Maria Chen",
      "employeeSSN": "***6788",
      "legalCompanyName": "Brightside Bakery LLC",
-     "directDepositAmount": "1467.81",
+     "directDepositAmount": "1469.59",
      "earnings[0].currentDollars": "1800.0",
      "earnings[0].ptdDollars": "1800.0",
      "earnings[0].mtdDollars": "1800.0",
@@ -2516,60 +2522,66 @@
      "earnings[1].qtdDollars": "1000.0",
      "earnings[1].ytdDollars": "4000.0",
      "earnings[1].ftdDollars": "4000.0",
-     "earnings[2].currentDollars": "60.0",
-     "earnings[2].ptdDollars": "60.0",
-     "earnings[2].mtdDollars": "60.0",
-     "earnings[2].qtdDollars": "300.0",
-     "earnings[2].ytdDollars": "1200.0",
-     "earnings[2].ftdDollars": "1200.0",
-     "earnings[3].itemCode": "Bonus",
-     "earnings[3].itemDescription": "Bonus",
-     "earnings[3].isMemoEarning": false,
-     "earnings[3].qtdDollars": "125.0",
-     "earnings[3].ytdDollars": "500.0",
-     "earnings[3].ftdDollars": "500.0",
-     "taxes[0].currentDollars": "188.44",
-     "taxes[0].ptdDollars": "188.44",
-     "taxes[0].mtdDollars": "188.44",
-     "taxes[0].qtdDollars": "942.2",
-     "taxes[0].ytdDollars": "3768.8",
-     "taxes[0].ftdDollars": "3768.8",
-     "taxes[1].currentDollars": "123.81",
-     "taxes[1].ptdDollars": "123.81",
-     "taxes[1].mtdDollars": "123.81",
-     "taxes[1].qtdDollars": "619.04",
-     "taxes[1].ytdDollars": "2476.16",
-     "taxes[1].ftdDollars": "2476.16",
-     "taxes[2].currentDollars": "28.96",
-     "taxes[2].ptdDollars": "28.96",
-     "taxes[2].mtdDollars": "28.96",
-     "taxes[2].qtdDollars": "144.78",
-     "taxes[2].ytdDollars": "579.1",
-     "taxes[2].ftdDollars": "579.1",
-     "taxes[3].currentDollars": "75.38",
-     "taxes[3].ptdDollars": "75.38",
-     "taxes[3].mtdDollars": "75.38",
-     "taxes[3].qtdDollars": "376.88",
-     "taxes[3].ytdDollars": "1507.52",
-     "taxes[3].ftdDollars": "1507.52",
-     "taxes[4].currentDollars": "123.81",
-     "taxes[4].ptdDollars": "123.81",
-     "taxes[4].mtdDollars": "123.81",
-     "taxes[4].qtdDollars": "619.04",
-     "taxes[4].ytdDollars": "2476.16",
-     "taxes[4].ftdDollars": "2476.16",
-     "taxes[5].currentDollars": "28.96",
-     "taxes[5].ptdDollars": "28.96",
-     "taxes[5].mtdDollars": "28.96",
-     "taxes[5].qtdDollars": "144.78",
-     "taxes[5].ytdDollars": "579.1",
-     "taxes[5].ftdDollars": "579.1",
-     "taxes[6].currentDollars": "11.98",
-     "taxes[6].ptdDollars": "11.98",
-     "taxes[6].mtdDollars": "11.98",
-     "taxes[6].qtdDollars": "59.91",
-     "taxes[6].ytdDollars": "239.63",
-     "taxes[6].ftdDollars": "239.63",
+     "earnings[2].currentDollars": "3.1",
+     "earnings[2].ptdDollars": "3.1",
+     "earnings[2].mtdDollars": "3.1",
+     "earnings[2].qtdDollars": "15.5",
+     "earnings[2].ytdDollars": "62.0",
+     "earnings[2].ftdDollars": "62.0",
+     "earnings[3].currentDollars": "60.0",
+     "earnings[3].ptdDollars": "60.0",
+     "earnings[3].mtdDollars": "60.0",
+     "earnings[3].qtdDollars": "300.0",
+     "earnings[3].ytdDollars": "1200.0",
+     "earnings[3].ftdDollars": "1200.0",
+     "earnings[4].itemCode": "Bonus",
+     "earnings[4].itemDescription": "Bonus",
+     "earnings[4].isMemoEarning": false,
+     "earnings[4].qtdDollars": "125.0",
+     "earnings[4].ytdDollars": "500.0",
+     "earnings[4].ftdDollars": "500.0",
+     "taxes[0].currentDollars": "189.06",
+     "taxes[0].ptdDollars": "189.06",
+     "taxes[0].mtdDollars": "189.06",
+     "taxes[0].qtdDollars": "945.3",
+     "taxes[0].ytdDollars": "3781.2",
+     "taxes[0].ftdDollars": "3781.2",
+     "taxes[1].currentDollars": "124.19",
+     "taxes[1].ptdDollars": "124.19",
+     "taxes[1].mtdDollars": "124.19",
+     "taxes[1].qtdDollars": "620.96",
+     "taxes[1].ytdDollars": "2483.84",
+     "taxes[1].ftdDollars": "2483.84",
+     "taxes[2].currentDollars": "29.04",
+     "taxes[2].ptdDollars": "29.04",
+     "taxes[2].mtdDollars": "29.04",
+     "taxes[2].qtdDollars": "145.22",
+     "taxes[2].ytdDollars": "580.9",
+     "taxes[2].ftdDollars": "580.9",
+     "taxes[3].currentDollars": "75.62",
+     "taxes[3].ptdDollars": "75.62",
+     "taxes[3].mtdDollars": "75.62",
+     "taxes[3].qtdDollars": "378.12",
+     "taxes[3].ytdDollars": "1512.48",
+     "taxes[3].ftdDollars": "1512.48",
+     "taxes[4].currentDollars": "124.19",
+     "taxes[4].ptdDollars": "124.19",
+     "taxes[4].mtdDollars": "124.19",
+     "taxes[4].qtdDollars": "620.96",
+     "taxes[4].ytdDollars": "2483.84",
+     "taxes[4].ftdDollars": "2483.84",
+     "taxes[5].currentDollars": "29.04",
+     "taxes[5].ptdDollars": "29.04",
+     "taxes[5].mtdDollars": "29.04",
+     "taxes[5].qtdDollars": "145.22",
+     "taxes[5].ytdDollars": "580.9",
+     "taxes[5].ftdDollars": "580.9",
+     "taxes[6].currentDollars": "12.02",
+     "taxes[6].ptdDollars": "12.02",
+     "taxes[6].mtdDollars": "12.02",
+     "taxes[6].qtdDollars": "60.09",
+     "taxes[6].ytdDollars": "240.37",
+     "taxes[6].ftdDollars": "240.37",
      "deductions[0].currentDollars": "100.0",
      "deductions[0].ptdDollars": "100.0",
      "deductions[0].mtdDollars": "100.0",
@@ -2581,18 +2593,9 @@
      "deductions[1].mtdDollars": "12.5",
      "deductions[1].qtdDollars": "62.5",
      "deductions[1].ytdDollars": "250.0",
-     "deductions[1].ftdDollars": "250.0",
-     "directDeposits[0].itemDescription": "Savings",
-     "directDeposits[1].itemDescription": "Checking"
+     "deductions[1].ftdDollars": "250.0"
     },
-    "diagnostics": [
-     {
-      "code": "GROSS_PAY_DIFFERS_FROM_GROSS_WAGES",
-      "severity": "info",
-      "field": "grossPay",
-      "message": "grossPay 1996.9 vs grossWages 2000.0; the difference is undocumented (A-28)"
-     }
-    ],
+    "diagnostics": [],
     "company_id": "isolved:synthetic:company:501:601",
     "employee_id": "isolved:synthetic:employee:9001",
     "payroll_run_id": "isolved:synthetic:payroll_run:501:601:701:8801",
@@ -2611,31 +2614,31 @@
     "voided": false,
     "totals": {
      "gross_pay": {
-      "amount": "1996.90",
+      "amount": "2000.00",
       "currency": "USD",
       "derived": false,
       "source_field": "grossPay"
      },
      "gross_wages": {
-      "amount": "2000.00",
+      "amount": "2003.10",
       "currency": "USD",
       "derived": false,
       "source_field": "grossWages"
      },
      "net_pay": {
-      "amount": "1467.81",
+      "amount": "1469.59",
       "currency": "USD",
       "derived": false,
       "source_field": "netPay"
      },
      "employee_taxes": {
-      "amount": "416.59",
+      "amount": "417.91",
       "currency": "USD",
       "derived": true,
       "formula": "sum(taxes[isEmployeeTax].checkDollars)"
      },
      "employer_taxes": {
-      "amount": "164.75",
+      "amount": "165.25",
       "currency": "USD",
       "derived": true,
       "formula": "sum(taxes[not isEmployeeTax].checkDollars)"
@@ -2658,9 +2661,10 @@
       "code": "Regular",
       "label": "Regular",
       "kind": {
-       "value": "UNMAPPED",
-       "raw": false,
-       "source_field": "earnings[].isMemoEarning"
+       "value": "EARNINGS",
+       "raw": "Regular",
+       "label": "Regular",
+       "source_field": "clientPayItems[].systemBenefitType+systemPayItemType"
       },
       "in_gross": true,
       "quantity": {
@@ -2682,9 +2686,10 @@
       "code": "Holiday",
       "label": "Holiday",
       "kind": {
-       "value": "UNMAPPED",
-       "raw": false,
-       "source_field": "earnings[].isMemoEarning"
+       "value": "EARNINGS",
+       "raw": "Leave Accrual / Holiday",
+       "label": "Holiday",
+       "source_field": "clientPayItems[].systemBenefitType+systemPayItemType"
       },
       "in_gross": true,
       "quantity": {
@@ -2695,6 +2700,25 @@
       },
       "amount": {
        "amount": "200.00",
+       "currency": "USD",
+       "derived": false,
+       "source_field": "earnings[].checkDollars"
+      },
+      "allocation": {},
+      "source_field": "earnings[]"
+     },
+     {
+      "code": "GTL",
+      "label": "GTL",
+      "kind": {
+       "value": "NON_CASH_FRINGE",
+       "raw": "Group Term Life / GTL",
+       "label": "GTL",
+       "source_field": "clientPayItems[].systemBenefitType+systemPayItemType"
+      },
+      "in_gross": true,
+      "amount": {
+       "amount": "3.10",
        "currency": "USD",
        "derived": false,
        "source_field": "earnings[].checkDollars"
@@ -2727,12 +2751,12 @@
       "label": "Federal Withholding",
       "paid_by": "EMPLOYEE",
       "amount": {
-       "amount": "188.44",
+       "amount": "189.06",
        "currency": "USD",
        "derived": false
       },
       "taxable_wages": {
-       "amount": "1884.40",
+       "amount": "1890.60",
        "currency": "USD",
        "derived": false
       },
@@ -2743,12 +2767,12 @@
       "label": "Social Security",
       "paid_by": "EMPLOYEE",
       "amount": {
-       "amount": "123.81",
+       "amount": "124.19",
        "currency": "USD",
        "derived": false
       },
       "taxable_wages": {
-       "amount": "1884.40",
+       "amount": "1890.60",
        "currency": "USD",
        "derived": false
       },
@@ -2759,12 +2783,12 @@
       "label": "Medicare",
       "paid_by": "EMPLOYEE",
       "amount": {
-       "amount": "28.96",
+       "amount": "29.04",
        "currency": "USD",
        "derived": false
       },
       "taxable_wages": {
-       "amount": "1884.40",
+       "amount": "1890.60",
        "currency": "USD",
        "derived": false
       },
@@ -2775,12 +2799,12 @@
       "label": "NC Withholding",
       "paid_by": "EMPLOYEE",
       "amount": {
-       "amount": "75.38",
+       "amount": "75.62",
        "currency": "USD",
        "derived": false
       },
       "taxable_wages": {
-       "amount": "1884.40",
+       "amount": "1890.60",
        "currency": "USD",
        "derived": false
       },
@@ -2791,12 +2815,12 @@
       "label": "Social Security Employer",
       "paid_by": "EMPLOYER",
       "amount": {
-       "amount": "123.81",
+       "amount": "124.19",
        "currency": "USD",
        "derived": false
       },
       "taxable_wages": {
-       "amount": "1996.90",
+       "amount": "2003.10",
        "currency": "USD",
        "derived": false
       },
@@ -2807,12 +2831,12 @@
       "label": "Medicare Employer",
       "paid_by": "EMPLOYER",
       "amount": {
-       "amount": "28.96",
+       "amount": "29.04",
        "currency": "USD",
        "derived": false
       },
       "taxable_wages": {
-       "amount": "1996.90",
+       "amount": "2003.10",
        "currency": "USD",
        "derived": false
       },
@@ -2823,12 +2847,12 @@
       "label": "FUTA",
       "paid_by": "EMPLOYER",
       "amount": {
-       "amount": "11.98",
+       "amount": "12.02",
        "currency": "USD",
        "derived": false
       },
       "taxable_wages": {
-       "amount": "1996.90",
+       "amount": "2003.10",
        "currency": "USD",
        "derived": false
       },
@@ -2920,7 +2944,7 @@
        "source_field": "directDeposits[]"
       },
       "amount": {
-       "amount": "1267.81",
+       "amount": "1269.59",
        "currency": "USD",
        "derived": false
       },
@@ -2933,17 +2957,22 @@
      {
       "rule": "gross wages = sum of earning lines counted in gross",
       "result": "pass",
-      "detail": "2000.0 vs 2000.0"
+      "detail": "2003.1 vs 2003.1"
      },
      {
-      "rule": "gross - non-cash earnings - employee taxes - deductions = net",
+      "rule": "gross wages - non-cash earnings = gross pay",
       "result": "pass",
-      "detail": "1996.9 - 0 - 416.59 - 112.5 = 1467.81; net 1467.81"
+      "detail": "2003.1 - 3.1 = 2000.0; gross pay 2000.0"
+     },
+     {
+      "rule": "gross pay - employee taxes - deductions = net",
+      "result": "pass",
+      "detail": "2000.0 - 417.91 - 112.5 = 1469.59; net 1469.59"
      },
      {
       "rule": "payments = net",
       "result": "pass",
-      "detail": "1467.81 vs 1467.81"
+      "detail": "1469.59 vs 1469.59"
      }
     ]
    },
@@ -3042,9 +3071,7 @@
      "garnishments[0].mtdDollars": "50.0",
      "garnishments[0].qtdDollars": "250.0",
      "garnishments[0].ytdDollars": "1000.0",
-     "garnishments[0].ftdDollars": "1000.0",
-     "directDeposits[0].itemDescription": "Checking",
-     "directDeposits[1].itemDescription": "Savings"
+     "garnishments[0].ftdDollars": "1000.0"
     },
     "diagnostics": [],
     "company_id": "isolved:synthetic:company:501:601",
@@ -3112,9 +3139,10 @@
       "code": "Regular",
       "label": "Regular",
       "kind": {
-       "value": "UNMAPPED",
-       "raw": false,
-       "source_field": "earnings[].isMemoEarning"
+       "value": "EARNINGS",
+       "raw": "Regular",
+       "label": "Regular",
+       "source_field": "clientPayItems[].systemBenefitType+systemPayItemType"
       },
       "in_gross": true,
       "quantity": {
@@ -3136,9 +3164,10 @@
       "code": "Overtime",
       "label": "Overtime",
       "kind": {
-       "value": "UNMAPPED",
-       "raw": false,
-       "source_field": "earnings[].isMemoEarning"
+       "value": "EARNINGS",
+       "raw": "Overtime @ Flat 1.5",
+       "label": "Overtime @ Flat 1.5",
+       "source_field": "clientPayItems[].systemBenefitType+systemPayItemType"
       },
       "in_gross": true,
       "quantity": {
@@ -3361,9 +3390,14 @@
       "detail": "585.0 vs 585.0"
      },
      {
-      "rule": "gross - non-cash earnings - employee taxes - deductions = net",
+      "rule": "gross wages - non-cash earnings = gross pay",
       "result": "pass",
-      "detail": "585.0 - 0 - 123.15 - 83.0 = 378.85; net 378.85"
+      "detail": "585.0 - 0 = 585.0; gross pay 585.0"
+     },
+     {
+      "rule": "gross pay - employee taxes - deductions = net",
+      "result": "pass",
+      "detail": "585.0 - 123.15 - 83.0 = 378.85; net 378.85"
      },
      {
       "rule": "payments = net",
@@ -3443,8 +3477,7 @@
      "taxes[6].mtdDollars": "11.52",
      "taxes[6].qtdDollars": "57.6",
      "taxes[6].ytdDollars": "230.4",
-     "taxes[6].ftdDollars": "230.4",
-     "directDeposits[0].itemDescription": "Savings"
+     "taxes[6].ftdDollars": "230.4"
     },
     "diagnostics": [],
     "company_id": "isolved:synthetic:company:501:601",
@@ -3512,9 +3545,10 @@
       "code": "Regular",
       "label": "Regular",
       "kind": {
-       "value": "UNMAPPED",
-       "raw": false,
-       "source_field": "earnings[].isMemoEarning"
+       "value": "EARNINGS",
+       "raw": "Regular",
+       "label": "Regular",
+       "source_field": "clientPayItems[].systemBenefitType+systemPayItemType"
       },
       "in_gross": true,
       "quantity": {
@@ -3673,9 +3707,14 @@
       "detail": "1920.0 vs 1920.0"
      },
      {
-      "rule": "gross - non-cash earnings - employee taxes - deductions = net",
+      "rule": "gross wages - non-cash earnings = gross pay",
       "result": "pass",
-      "detail": "1920.0 - 0 - 415.68 - 0 = 1504.32; net 1504.32"
+      "detail": "1920.0 - 0 = 1920.0; gross pay 1920.0"
+     },
+     {
+      "rule": "gross pay - employee taxes - deductions = net",
+      "result": "pass",
+      "detail": "1920.0 - 415.68 - 0 = 1504.32; net 1504.32"
      },
      {
       "rule": "payments = net",
@@ -3715,7 +3754,15 @@
      "earnings[0].ytdDollars": "24000.0",
      "earnings[0].ftdDollars": "24000.0"
     },
-    "diagnostics": [],
+    "diagnostics": [
+     {
+      "code": "UNMAPPED_CODE",
+      "severity": "warning",
+      "field": "earnings[].itemDescription",
+      "message": "no system earning classification",
+      "raw": "1099 Comp"
+     }
+    ],
     "company_id": "isolved:synthetic:company:501:601",
     "employee_id": "isolved:synthetic:employee:9005",
     "payroll_run_id": "isolved:synthetic:payroll_run:501:601:702:8811",
@@ -3778,20 +3825,15 @@
     },
     "earnings": [
      {
-      "code": "Regular",
-      "label": "Regular",
+      "code": "1099 Comp",
+      "label": "1099 Comp",
       "kind": {
        "value": "UNMAPPED",
-       "raw": false,
-       "source_field": "earnings[].isMemoEarning"
+       "raw": "1099M Non EE Comp",
+       "label": "1099M Non EE Comp",
+       "source_field": "clientPayItems[].systemBenefitType+systemPayItemType"
       },
       "in_gross": true,
-      "quantity": {
-       "value": "30.0",
-       "unit": "HOURS",
-       "derived": false,
-       "source_field": "earnings[].checkHours"
-      },
       "amount": {
        "amount": "1200.00",
        "currency": "USD",
@@ -3827,9 +3869,14 @@
       "detail": "1200.0 vs 1200.0"
      },
      {
-      "rule": "gross - non-cash earnings - employee taxes - deductions = net",
+      "rule": "gross wages - non-cash earnings = gross pay",
       "result": "pass",
-      "detail": "1200.0 - 0 - 0 - 0 = 1200.0; net 1200.0"
+      "detail": "1200.0 - 0 = 1200.0; gross pay 1200.0"
+     },
+     {
+      "rule": "gross pay - employee taxes - deductions = net",
+      "result": "pass",
+      "detail": "1200.0 - 0 - 0 = 1200.0; net 1200.0"
      },
      {
       "rule": "payments = net",
@@ -3915,9 +3962,7 @@
      "deductions[0].mtdDollars": "25.0",
      "deductions[0].qtdDollars": "125.0",
      "deductions[0].ytdDollars": "500.0",
-     "deductions[0].ftdDollars": "500.0",
-     "directDeposits[0].itemDescription": "Savings",
-     "directDeposits[1].itemDescription": "Checking"
+     "deductions[0].ftdDollars": "500.0"
     },
     "diagnostics": [
      {
@@ -3992,9 +4037,10 @@
       "code": "Bonus",
       "label": "Bonus",
       "kind": {
-       "value": "UNMAPPED",
-       "raw": false,
-       "source_field": "earnings[].isMemoEarning"
+       "value": "EARNINGS",
+       "raw": "Bonus",
+       "label": "Bonus",
+       "source_field": "clientPayItems[].systemBenefitType+systemPayItemType"
       },
       "in_gross": true,
       "amount": {
@@ -4179,9 +4225,14 @@
       "detail": "500.0 vs 500.0"
      },
      {
-      "rule": "gross - non-cash earnings - employee taxes - deductions = net",
+      "rule": "gross wages - non-cash earnings = gross pay",
       "result": "pass",
-      "detail": "500.0 - 0 - 104.75 - 25.0 = 370.25; net 370.25"
+      "detail": "500.0 - 0 = 500.0; gross pay 500.0"
+     },
+     {
+      "rule": "gross pay - employee taxes - deductions = net",
+      "result": "pass",
+      "detail": "500.0 - 104.75 - 25.0 = 370.25; net 370.25"
      },
      {
       "rule": "payments = net",
@@ -4212,8 +4263,7 @@
      "employeeNumber": "1002",
      "employeeName": "James Nair",
      "employeeSSN": "***6787",
-     "legalCompanyName": "Brightside Bakery LLC",
-     "directDepositAmount": "313.4"
+     "legalCompanyName": "Brightside Bakery LLC"
     },
     "diagnostics": [
      {
@@ -4267,8 +4317,27 @@
     "deductions": [],
     "employer_contributions": [],
     "benefit_details": [],
-    "payments": [],
-    "checks": []
+    "payments": [
+     {
+      "kind": {
+       "value": "DIRECT_DEPOSIT",
+       "source_field": "directDepositAmount"
+      },
+      "amount": {
+       "amount": "313.40",
+       "currency": "USD",
+       "derived": false
+      },
+      "source_field": "directDepositAmount"
+     }
+    ],
+    "checks": [
+     {
+      "rule": "payments = net",
+      "result": "pass",
+      "detail": "313.4 vs 313.4"
+     }
+    ]
    }
   ]
  }
