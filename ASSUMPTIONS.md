@@ -11,7 +11,9 @@ Each entry has four parts: **issue**, **evidence**, **decision** and **why**.
   responses stay on the machine that fetched them and are never committed, so this file quotes counts
   and code values only.
 
-Status: first draft, written during discovery. Entries are added as mapping decisions are made.
+Entries were written as each decision was made, from discovery through the three converters. They are
+grouped by when they arose, so a later entry can refine an earlier one; where it does, the earlier
+entry says so.
 
 ## Repository and process
 

@@ -1,9 +1,11 @@
-# Canonical model (draft for review)
+# Canonical model
 
-Status: **draft v2, 2026-10-13.**
+Status: **implemented, 2026-10-13.**
 - v1 had review decisions (§10).
 - An independent design audit raised 15 findings. All were verified against the specs and folded
   in here and in [ASSUMPTIONS.md](../ASSUMPTIONS.md).
+- Building the three converters refined it further, each change recorded in ASSUMPTIONS.md (A-44
+  onward).
 
 Implemented: the model itself (`src/normalization/canonical/`) and the PrismHR, isolved and UKG Ready
 converters. The model is exported as JSON Schema, one file per record type, under `schemas/`
