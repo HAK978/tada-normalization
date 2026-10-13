@@ -410,3 +410,18 @@ entries below are new.
 - **Decision:** `0000-01-01` becomes null with an `INVALID_DATE` warning. `9999-12-31` is kept as a
   date with an info diagnostic, consistent with A-25. Nothing is guessed.
 
+### A-47 Live PrismHR responses don't match their own schema, in three specific ways
+- **Evidence:** of 428 live 200 responses, 422 validate against the spec once `null` is allowed in
+  typed fields. The remaining six deviations are:
+  - `extension` is `null` where an object is declared;
+  - every employee lacks the "required" `client.hawaiiMedWaivers`;
+  - `clientMaster.regRebuild[].regRebuildDate` arrives as epoch milliseconds (e.g. `1550080171000`)
+    where a string is declared.
+- **Decision:**
+  - Converters accept null or missing for every field. `regRebuildDate` is not mapped, so it stays
+    raw in extensions.
+  - The fixture generator fills every required property the scenario doesn't set with `null`, as
+    live data does. Fixture validation allows `null` and nothing else (`fixtures/validate.py`).
+- **Why:** the fixtures should look like what PrismHR actually sends, while staying checkable
+  against the published contract.
+

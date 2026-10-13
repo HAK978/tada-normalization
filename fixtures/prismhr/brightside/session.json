@@ -1,0 +1,13 @@
+{
+  "provider": "prismhr",
+  "tenant_id": "synthetic",
+  "companies": [
+    {
+      "client_id": "201"
+    },
+    {
+      "client_id": "202"
+    }
+  ],
+  "synthetic": true
+}

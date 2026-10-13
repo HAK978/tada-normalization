@@ -5,7 +5,8 @@ from __future__ import annotations
 from collections import Counter
 from dataclasses import dataclass, field
 
-from .canonical.records import RECORD_TYPES
+from . import exactjson
+from .canonical.records import RECORD_TYPES, dump
 from .canonical.types import Record
 
 
@@ -31,3 +32,8 @@ class Output:
             "diagnostics": dict(severities),
             "checks": dict(checks),
         }
+
+    def to_json(self) -> str:
+        """Deterministic JSON of everything: records sorted by id within each type, plus the summary."""
+        records = {kind: [dump(r) for r in sorted(items, key=lambda r: r.id)] for kind, items in self.records.items()}
+        return exactjson.dumps({"summary": self.summary(), "records": records}, indent=1) + "\n"

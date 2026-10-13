@@ -1,0 +1,5921 @@
+{
+ "summary": {
+  "counts": {
+   "companies": 2,
+   "employees": 6,
+   "direct_deposits": 8,
+   "deduction_elections": 5,
+   "payroll_runs": 6,
+   "pay_statements": 8
+  },
+  "diagnostics": {
+   "info": 17,
+   "warning": 3
+  },
+  "checks": {
+   "pass": 24
+  }
+ },
+ "records": {
+  "companies": [
+   {
+    "id": "prismhr:synthetic:company:201",
+    "source": {
+     "provider": "prismhr",
+     "tenant_id": "synthetic",
+     "endpoints": [
+      "clientMaster/v1/getClientCodes",
+      "clientMaster/v1/getClientMaster",
+      "clientMaster/v1/getPayrollSchedule"
+     ],
+     "ids": {
+      "clientId": "201"
+     }
+    },
+    "provider_extensions": {
+     "id": "201",
+     "status": "A",
+     "statusDate": "2020-01-01",
+     "altEmployer[0].suppressClientAccess": "Y",
+     "regRebuild[0].regRebuildDate": "2025-02-13T18:29:31Z",
+     "categoryCode": "BAKERY",
+     "clientPayrollSchedule[0].scheduleId": "BW",
+     "clientPayrollSchedule[0].scheduleDesc": "Biweekly",
+     "clientPayrollSchedule[0].weekEndOnDay": "6",
+     "clientPayrollSchedule[0].printFaxBack": false,
+     "clientPayrollSchedule[0].payDay": "5",
+     "clientPayrollSchedule[0].skipWeekends": true,
+     "clientPayrollSchedule[1].scheduleId": "W",
+     "clientPayrollSchedule[1].scheduleDesc": "Weekly",
+     "clientPayrollSchedule[1].weekEndOnDay": "6",
+     "clientPayrollSchedule[1].printFaxBack": false,
+     "clientPayrollSchedule[1].payDay": "5",
+     "clientPayrollSchedule[1].skipWeekends": true,
+     "clientPayrollSchedule[2].scheduleId": "M",
+     "clientPayrollSchedule[2].scheduleDesc": "Monthly",
+     "clientPayrollSchedule[2].weekEndOnDay": "6",
+     "clientPayrollSchedule[2].printFaxBack": false,
+     "clientPayrollSchedule[2].payDay": "5",
+     "clientPayrollSchedule[2].skipWeekends": true
+    },
+    "diagnostics": [
+     {
+      "code": "EMPLOYER_DETAILS_REFUSED",
+      "severity": "info",
+      "field": "employers",
+      "message": "employer names and EINs were refused (A-09)"
+     },
+     {
+      "code": "GARNISHMENT_DETAILS_REFUSED",
+      "severity": "info",
+      "message": "garnishment details were refused (A-08)"
+     }
+    ],
+    "name": "Brightside Bakery",
+    "legal_name": "Brightside Bakery LLC",
+    "status": {
+     "value": "ACTIVE",
+     "raw": "A",
+     "source_field": "clientMaster.statusClass"
+    },
+    "own_tax_id": {
+     "masked_at_source": true,
+     "source_field": "clientMaster.federalIdNumber"
+    },
+    "service_arrangement": {
+     "value": "PEO",
+     "raw": "PEO",
+     "source_field": "clientMaster.serviceType"
+    },
+    "employers": [
+     {
+      "kind": "ASSIGNED",
+      "provider_id": "5"
+     },
+     {
+      "kind": "ALTERNATE",
+      "provider_id": "20",
+      "name": "Alternate employer 20"
+     }
+    ],
+    "pay_groups": [
+     {
+      "code": "BW",
+      "name": "Biweekly",
+      "frequency": {
+       "frequency": {
+        "value": "BIWEEKLY",
+        "raw": "B",
+        "label": "Biweekly",
+        "source_field": "clientPayrollSchedule[].payPeriod"
+       },
+       "periods_per_year": 26
+      }
+     },
+     {
+      "code": "M",
+      "name": "Monthly",
+      "frequency": {
+       "frequency": {
+        "value": "MONTHLY",
+        "raw": "M",
+        "label": "Monthly",
+        "source_field": "clientPayrollSchedule[].payPeriod"
+       },
+       "periods_per_year": 12
+      }
+     },
+     {
+      "code": "W",
+      "name": "Weekly",
+      "frequency": {
+       "frequency": {
+        "value": "WEEKLY",
+        "raw": "W",
+        "label": "Weekly",
+        "source_field": "clientPayrollSchedule[].payPeriod"
+       },
+       "periods_per_year": 52
+      }
+     }
+    ],
+    "addresses": [
+     {
+      "type": "COMPANY",
+      "line1": "100 Main St",
+      "city": "Charlotte",
+      "state": "NC",
+      "postal_code": "28202"
+     }
+    ],
+    "phones": [
+     {
+      "type": "MAIN",
+      "number": "7045550100"
+     }
+    ],
+    "emails": [
+     {
+      "type": "MAIN",
+      "address": "payroll@201.example"
+     }
+    ]
+   },
+   {
+    "id": "prismhr:synthetic:company:202",
+    "source": {
+     "provider": "prismhr",
+     "tenant_id": "synthetic",
+     "endpoints": [
+      "clientMaster/v1/getClientCodes",
+      "clientMaster/v1/getClientMaster",
+      "clientMaster/v1/getPayrollSchedule"
+     ],
+     "ids": {
+      "clientId": "202"
+     }
+    },
+    "provider_extensions": {
+     "id": "202",
+     "status": "A",
+     "statusDate": "2020-01-01",
+     "regRebuild[0].regRebuildDate": "2025-02-13T18:29:31Z",
+     "categoryCode": "FREIGHT"
+    },
+    "diagnostics": [
+     {
+      "code": "GARNISHMENT_DETAILS_REFUSED",
+      "severity": "info",
+      "message": "garnishment details were refused (A-08)"
+     }
+    ],
+    "name": "Harborview Logistics",
+    "legal_name": "Harborview Logistics LLC",
+    "status": {
+     "value": "ACTIVE",
+     "raw": "A",
+     "source_field": "clientMaster.statusClass"
+    },
+    "service_arrangement": {
+     "value": "ASO",
+     "raw": "ASO",
+     "source_field": "clientMaster.serviceType"
+    },
+    "employers": [
+     {
+      "kind": "ASSIGNED",
+      "provider_id": "202"
+     }
+    ],
+    "pay_groups": [
+     {
+      "code": "BW",
+      "name": "Biweekly"
+     },
+     {
+      "code": "M",
+      "name": "Monthly"
+     },
+     {
+      "code": "W",
+      "name": "Weekly"
+     }
+    ],
+    "addresses": [
+     {
+      "type": "COMPANY",
+      "line1": "100 Main St",
+      "city": "Charlotte",
+      "state": "NC",
+      "postal_code": "28202"
+     }
+    ],
+    "phones": [
+     {
+      "type": "MAIN",
+      "number": "7045550100"
+     }
+    ],
+    "emails": [
+     {
+      "type": "MAIN",
+      "address": "payroll@202.example"
+     }
+    ]
+   }
+  ],
+  "employees": [
+   {
+    "id": "prismhr:synthetic:employee:201:E1001",
+    "source": {
+     "provider": "prismhr",
+     "tenant_id": "synthetic",
+     "endpoints": [
+      "employee/v1/getEmployee",
+      "employee/v1/getPayRateHistory"
+     ],
+     "ids": {
+      "clientId": "201",
+      "employeeId": "E1001"
+     }
+    },
+    "provider_extensions": {
+     "person.vehicleDetails[0].vehicleMake": "Example",
+     "person.vehicleDetails[0].vehicleModel": "Van",
+     "person.vehicleDetails[0].vehicleYear": "2020",
+     "person.cobraSSN": "***3456",
+     "client.typeDate": "2021-03-15",
+     "compensation.fedFilingStatus": "SS",
+     "compensation.stateTax[0].stateCode": "NC",
+     "compensation.stateTax[0].filingStatus": "S",
+     "compensation.stateTax[0].primaryAllowance": "0"
+    },
+    "diagnostics": [
+     {
+      "code": "UNDOCUMENTED_CODE_EVIDENCED",
+      "severity": "info",
+      "field": "compensation.hourlyPayPeriod",
+      "message": "'A' is not in this field's documented list; treated as YEAR (documented 'annually' in PayRate.payPeriod; equals annualPay live, A-19)",
+      "raw": "A"
+     },
+     {
+      "code": "UNDOCUMENTED_SENTINEL_DATE",
+      "severity": "info",
+      "field": "payRateHistory.payRate[0].effectiveDate",
+      "message": "kept as a date; no documented meaning (A-25)",
+      "raw": "9999-12-31"
+     }
+    ],
+    "company_id": "prismhr:synthetic:company:201",
+    "identifiers": [
+     {
+      "type": "PROVIDER_ID",
+      "value": "E1001",
+      "source_field": "id"
+     },
+     {
+      "type": "EMPLOYEE_NUMBER",
+      "value": "1001",
+      "source_field": "client.clientEmployeeId"
+     },
+     {
+      "type": "USERNAME",
+      "value": "mnair",
+      "source_field": "person.userId"
+     }
+    ],
+    "national_id": {
+     "type": "SSN",
+     "masked_at_source": true,
+     "source_field": "compensation.ssn"
+    },
+    "name": {
+     "first": "Maria",
+     "last": "Nair"
+    },
+    "personal": {
+     "birth_date": "1990-04-02",
+     "gender": {
+      "value": "FEMALE",
+      "raw": "F",
+      "source_field": "person.gender"
+     },
+     "marital_status": {
+      "value": "SINGLE",
+      "raw": "S",
+      "source_field": "person.maritalStatus"
+     },
+     "ethnicity": {
+      "value": "UNMAPPED",
+      "raw": "H",
+      "label": "Hispanic or Latino",
+      "source_field": "person.ethnicCode"
+     },
+     "veteran": {
+      "value": "NO",
+      "raw": "N",
+      "source_field": "person.veteran"
+     },
+     "disabled": {
+      "value": "NOT_SPECIFIED",
+      "raw": "",
+      "source_field": "person.handicapped"
+     },
+     "citizenship": {
+      "value": "US_CITIZEN",
+      "raw": "A citizen of the United States",
+      "source_field": "compensation.citizenshipStatus"
+     },
+     "preferred_language": "EN",
+     "emergency_contacts": [
+      {
+       "name": "Pat Example",
+       "relationship": "Sibling",
+       "contact_type": "PHONE",
+       "contact_info": "7045550199"
+      }
+     ]
+    },
+    "addresses": [
+     {
+      "type": "HOME",
+      "line1": "872 Oak Ave",
+      "city": "Charlotte",
+      "county": "Mecklenburg",
+      "state": "NC",
+      "postal_code": "28202"
+     }
+    ],
+    "phones": [
+     {
+      "type": "HOME",
+      "number": "7045550100"
+     }
+    ],
+    "emails": [
+     {
+      "type": "PERSONAL",
+      "address": "maria@example.com"
+     },
+     {
+      "type": "WORK",
+      "address": "maria.nair@work.example"
+     }
+    ],
+    "employment": {
+     "status": {
+      "value": "ACTIVE",
+      "raw": "A",
+      "label": "Active",
+      "source_field": "client.statusClass"
+     },
+     "status_date": "2021-03-15",
+     "employment_type": {
+      "value": "FULL_TIME",
+      "raw": "F",
+      "label": "Full Time",
+      "source_field": "client.typeClass"
+     },
+     "worker_classification": {
+      "value": "EMPLOYEE",
+      "raw": false,
+      "source_field": "client.employee1099"
+     },
+     "original_hire_date": "2021-03-15",
+     "hire_date": "2021-03-15",
+     "start_date": "2021-03-15",
+     "seniority_date": "2021-03-15",
+     "flsa_exempt": true,
+     "employer_ids": []
+    },
+    "job": {
+     "title": "Baker",
+     "job_code": "BAKER",
+     "department": {
+      "code": "PROD",
+      "name": "Production"
+     },
+     "division": {
+      "code": "MAIN",
+      "name": "Main"
+     },
+     "location": {
+      "code": "CLT",
+      "name": "Charlotte"
+     },
+     "pay_group": "BW"
+    },
+    "compensation": {
+     "pay_type": {
+      "value": "SALARY",
+      "raw": "S",
+      "source_field": "compensation.payMethod"
+     },
+     "pay_frequency": {
+      "frequency": {
+       "value": "BIWEEKLY",
+       "raw": "B",
+       "source_field": "compensation.payPeriod"
+      },
+      "periods_per_year": 26
+     },
+     "rates": [
+      {
+       "amount": "2000.00",
+       "currency": "USD",
+       "per": "PAY_PERIOD",
+       "derived": false,
+       "source_field": "compensation.salary"
+      },
+      {
+       "amount": "25.00",
+       "currency": "USD",
+       "per": "HOUR",
+       "derived": false,
+       "source_field": "compensation.hourlyPay"
+      },
+      {
+       "amount": "52000.00",
+       "currency": "USD",
+       "per": "YEAR",
+       "derived": false,
+       "source_field": "compensation.hourlyPayRate"
+      }
+     ],
+     "annual_pay": {
+      "amount": "52000.00",
+      "currency": "USD",
+      "derived": false,
+      "source_field": "compensation.annualPay"
+     },
+     "standard_hours": {
+      "value": "80.00",
+      "unit": "HOURS",
+      "derived": false,
+      "source_field": "compensation.standardHours"
+     },
+     "standard_hours_per": "PAY_PERIOD",
+     "effective_date": "2025-01-01",
+     "history": [
+      {
+       "source_id": "9999-12-31#0",
+       "effective_date": "9999-12-31",
+       "pay_type": {
+        "value": "SALARY",
+        "raw": "S",
+        "source_field": "payRateHistory.payRate[0].payMethod"
+       },
+       "rates": [
+        {
+         "amount": "2000.00",
+         "currency": "USD",
+         "per": "BIWEEK",
+         "derived": false,
+         "source_field": "payRateHistory.payRate[0].payRate"
+        },
+        {
+         "amount": "25.00",
+         "currency": "USD",
+         "per": "HOUR",
+         "derived": false,
+         "source_field": "payRateHistory.payRate[0].hourlyRate"
+        }
+       ],
+       "annual_pay": {
+        "amount": "52000.00",
+        "currency": "USD",
+        "derived": false,
+        "source_field": "payRateHistory.payRate[0].annualPay"
+       },
+       "standard_hours": {
+        "value": "80.00",
+        "unit": "HOURS",
+        "derived": false,
+        "source_field": "payRateHistory.payRate[0].standardHours"
+       },
+       "reason": "Promo"
+      },
+      {
+       "source_id": "2024-01-01#1",
+       "effective_date": "2024-01-01",
+       "pay_type": {
+        "value": "SALARY",
+        "raw": "S",
+        "source_field": "payRateHistory.payRate[1].payMethod"
+       },
+       "rates": [
+        {
+         "amount": "1900.00",
+         "currency": "USD",
+         "per": "BIWEEK",
+         "derived": false,
+         "source_field": "payRateHistory.payRate[1].payRate"
+        },
+        {
+         "amount": "23.75",
+         "currency": "USD",
+         "per": "HOUR",
+         "derived": false,
+         "source_field": "payRateHistory.payRate[1].hourlyRate"
+        }
+       ],
+       "annual_pay": {
+        "amount": "49400.00",
+        "currency": "USD",
+        "derived": false,
+        "source_field": "payRateHistory.payRate[1].annualPay"
+       },
+       "standard_hours": {
+        "value": "80.00",
+        "unit": "HOURS",
+        "derived": false,
+        "source_field": "payRateHistory.payRate[1].standardHours"
+       },
+       "reason": "Hire"
+      }
+     ]
+    }
+   },
+   {
+    "id": "prismhr:synthetic:employee:201:E1002",
+    "source": {
+     "provider": "prismhr",
+     "tenant_id": "synthetic",
+     "endpoints": [
+      "employee/v1/getEmployee",
+      "employee/v1/getPayRateHistory"
+     ],
+     "ids": {
+      "clientId": "201",
+      "employeeId": "E1002"
+     }
+    },
+    "provider_extensions": {
+     "person.vehicleDetails[0].vehicleMake": "Example",
+     "person.vehicleDetails[0].vehicleModel": "Van",
+     "person.vehicleDetails[0].vehicleYear": "2020",
+     "client.typeDate": "2023-06-01",
+     "compensation.fedFilingStatus": "SS",
+     "compensation.stateTax[0].stateCode": "NC",
+     "compensation.stateTax[0].filingStatus": "S",
+     "compensation.stateTax[0].primaryAllowance": "0"
+    },
+    "diagnostics": [
+     {
+      "code": "PROVIDER_ANNUALIZED",
+      "severity": "info",
+      "field": "compensation.annualPay",
+      "message": "annualPay equals hourlyPay x 2080 for this hourly employee (A-20)"
+     },
+     {
+      "code": "UNDOCUMENTED_SENTINEL_DATE",
+      "severity": "info",
+      "field": "payRateHistory.payRate[0].effectiveDate",
+      "message": "kept as a date; no documented meaning (A-25)",
+      "raw": "9999-12-31"
+     }
+    ],
+    "company_id": "prismhr:synthetic:company:201",
+    "identifiers": [
+     {
+      "type": "PROVIDER_ID",
+      "value": "E1002",
+      "source_field": "id"
+     },
+     {
+      "type": "EMPLOYEE_NUMBER",
+      "value": "1002",
+      "source_field": "client.clientEmployeeId"
+     },
+     {
+      "type": "USERNAME",
+      "value": "jchen",
+      "source_field": "person.userId"
+     }
+    ],
+    "national_id": {
+     "type": "SSN",
+     "masked_at_source": true,
+     "source_field": "compensation.ssn"
+    },
+    "name": {
+     "first": "James",
+     "last": "Chen"
+    },
+    "personal": {
+     "birth_date": "1990-04-02",
+     "gender": {
+      "value": "MALE",
+      "raw": "M",
+      "source_field": "person.gender"
+     },
+     "marital_status": {
+      "value": "SINGLE",
+      "raw": "S",
+      "source_field": "person.maritalStatus"
+     },
+     "veteran": {
+      "value": "NO",
+      "raw": "N",
+      "source_field": "person.veteran"
+     },
+     "disabled": {
+      "value": "NOT_SPECIFIED",
+      "raw": "",
+      "source_field": "person.handicapped"
+     },
+     "citizenship": {
+      "value": "US_CITIZEN",
+      "raw": "A citizen of the United States",
+      "source_field": "compensation.citizenshipStatus"
+     },
+     "preferred_language": "EN",
+     "emergency_contacts": [
+      {
+       "name": "Pat Example",
+       "relationship": "Sibling",
+       "contact_type": "PHONE",
+       "contact_info": "7045550199"
+      }
+     ]
+    },
+    "addresses": [
+     {
+      "type": "HOME",
+      "line1": "255 Oak Ave",
+      "city": "Charlotte",
+      "county": "Mecklenburg",
+      "state": "NC",
+      "postal_code": "28202"
+     }
+    ],
+    "phones": [
+     {
+      "type": "HOME",
+      "number": "7045550100"
+     }
+    ],
+    "emails": [
+     {
+      "type": "PERSONAL",
+      "address": "james@example.com"
+     },
+     {
+      "type": "WORK",
+      "address": "james.chen@work.example"
+     }
+    ],
+    "employment": {
+     "status": {
+      "value": "ACTIVE",
+      "raw": "A",
+      "label": "Active",
+      "source_field": "client.statusClass"
+     },
+     "status_date": "2023-06-01",
+     "employment_type": {
+      "value": "PART_TIME",
+      "raw": "P",
+      "label": "Part Time",
+      "source_field": "client.typeClass"
+     },
+     "worker_classification": {
+      "value": "EMPLOYEE",
+      "raw": false,
+      "source_field": "client.employee1099"
+     },
+     "original_hire_date": "2021-03-15",
+     "hire_date": "2021-03-15",
+     "start_date": "2021-03-15",
+     "seniority_date": "2021-03-15",
+     "flsa_exempt": false,
+     "employer_ids": []
+    },
+    "job": {
+     "title": "Delivery Driver",
+     "job_code": "DRIVER",
+     "department": {
+      "code": "LOG",
+      "name": "Logistics"
+     },
+     "division": {
+      "code": "MAIN",
+      "name": "Main"
+     },
+     "location": {
+      "code": "CLT",
+      "name": "Charlotte"
+     },
+     "manager_employee_id": "prismhr:synthetic:employee:201:E1001",
+     "pay_group": "W"
+    },
+    "compensation": {
+     "pay_type": {
+      "value": "HOURLY",
+      "raw": "H",
+      "source_field": "compensation.payMethod"
+     },
+     "pay_frequency": {
+      "frequency": {
+       "value": "WEEKLY",
+       "raw": "W",
+       "source_field": "compensation.payPeriod"
+      },
+      "periods_per_year": 52
+     },
+     "rates": [
+      {
+       "amount": "22.50",
+       "currency": "USD",
+       "per": "HOUR",
+       "derived": false,
+       "source_field": "compensation.hourlyPay"
+      },
+      {
+       "amount": "22.50",
+       "currency": "USD",
+       "per": "HOUR",
+       "derived": false,
+       "source_field": "compensation.hourlyPayRate"
+      }
+     ],
+     "annual_pay": {
+      "amount": "46800.00",
+      "currency": "USD",
+      "derived": false,
+      "source_field": "compensation.annualPay"
+     },
+     "standard_hours": {
+      "value": "80.00",
+      "unit": "HOURS",
+      "derived": false,
+      "source_field": "compensation.standardHours"
+     },
+     "standard_hours_per": "PAY_PERIOD",
+     "effective_date": "2025-01-01",
+     "history": [
+      {
+       "source_id": "9999-12-31#0",
+       "effective_date": "9999-12-31",
+       "pay_type": {
+        "value": "HOURLY",
+        "raw": "H",
+        "source_field": "payRateHistory.payRate[0].payMethod"
+       },
+       "rates": [
+        {
+         "amount": "22.50",
+         "currency": "USD",
+         "per": "HOUR",
+         "derived": false,
+         "source_field": "payRateHistory.payRate[0].payRate"
+        },
+        {
+         "amount": "22.50",
+         "currency": "USD",
+         "per": "HOUR",
+         "derived": false,
+         "source_field": "payRateHistory.payRate[0].hourlyRate"
+        }
+       ],
+       "annual_pay": {
+        "amount": "46800.00",
+        "currency": "USD",
+        "derived": false,
+        "source_field": "payRateHistory.payRate[0].annualPay"
+       },
+       "standard_hours": {
+        "value": "80.00",
+        "unit": "HOURS",
+        "derived": false,
+        "source_field": "payRateHistory.payRate[0].standardHours"
+       },
+       "reason": "Promo"
+      }
+     ]
+    }
+   },
+   {
+    "id": "prismhr:synthetic:employee:201:E1003",
+    "source": {
+     "provider": "prismhr",
+     "tenant_id": "synthetic",
+     "endpoints": [
+      "employee/v1/getEmployee",
+      "employee/v1/getPayRateHistory"
+     ],
+     "ids": {
+      "clientId": "201",
+      "employeeId": "E1003"
+     }
+    },
+    "provider_extensions": {
+     "person.vehicleDetails[0].vehicleMake": "Example",
+     "person.vehicleDetails[0].vehicleModel": "Van",
+     "person.vehicleDetails[0].vehicleYear": "2020",
+     "client.typeDate": "2026-09-30",
+     "compensation.fedFilingStatus": "SS",
+     "compensation.stateTax[0].stateCode": "NC",
+     "compensation.stateTax[0].filingStatus": "S",
+     "compensation.stateTax[0].primaryAllowance": "0"
+    },
+    "diagnostics": [
+     {
+      "code": "PROVIDER_ANNUALIZED",
+      "severity": "info",
+      "field": "compensation.annualPay",
+      "message": "annualPay equals hourlyPay x 2080 for this hourly employee (A-20)"
+     },
+     {
+      "code": "UNDOCUMENTED_SENTINEL_DATE",
+      "severity": "info",
+      "field": "payRateHistory.payRate[0].effectiveDate",
+      "message": "kept as a date; no documented meaning (A-25)",
+      "raw": "9999-12-31"
+     }
+    ],
+    "company_id": "prismhr:synthetic:company:201",
+    "identifiers": [
+     {
+      "type": "PROVIDER_ID",
+      "value": "E1003",
+      "source_field": "id"
+     },
+     {
+      "type": "EMPLOYEE_NUMBER",
+      "value": "1003",
+      "source_field": "client.clientEmployeeId"
+     },
+     {
+      "type": "USERNAME",
+      "value": "aprice",
+      "source_field": "person.userId"
+     }
+    ],
+    "national_id": {
+     "type": "SSN",
+     "masked_at_source": true,
+     "source_field": "compensation.ssn"
+    },
+    "name": {
+     "first": "Ana",
+     "last": "Price"
+    },
+    "personal": {
+     "birth_date": "1990-04-02",
+     "gender": {
+      "value": "FEMALE",
+      "raw": "F",
+      "source_field": "person.gender"
+     },
+     "marital_status": {
+      "value": "SINGLE",
+      "raw": "S",
+      "source_field": "person.maritalStatus"
+     },
+     "veteran": {
+      "value": "NO",
+      "raw": "N",
+      "source_field": "person.veteran"
+     },
+     "disabled": {
+      "value": "NOT_SPECIFIED",
+      "raw": "",
+      "source_field": "person.handicapped"
+     },
+     "citizenship": {
+      "value": "US_CITIZEN",
+      "raw": "A citizen of the United States",
+      "source_field": "compensation.citizenshipStatus"
+     },
+     "preferred_language": "EN",
+     "emergency_contacts": [
+      {
+       "name": "Pat Example",
+       "relationship": "Sibling",
+       "contact_type": "PHONE",
+       "contact_info": "7045550199"
+      }
+     ]
+    },
+    "addresses": [
+     {
+      "type": "HOME",
+      "line1": "638 Oak Ave",
+      "city": "Charlotte",
+      "county": "Mecklenburg",
+      "state": "NC",
+      "postal_code": "28202"
+     }
+    ],
+    "phones": [
+     {
+      "type": "HOME",
+      "number": "7045550100"
+     }
+    ],
+    "emails": [
+     {
+      "type": "PERSONAL",
+      "address": "ana@example.com"
+     },
+     {
+      "type": "WORK",
+      "address": "ana.price@work.example"
+     }
+    ],
+    "employment": {
+     "status": {
+      "value": "TERMINATED",
+      "raw": "T",
+      "label": "Terminated",
+      "source_field": "client.statusClass"
+     },
+     "status_date": "2026-09-30",
+     "employment_type": {
+      "value": "FULL_TIME",
+      "raw": "F",
+      "label": "Full Time",
+      "source_field": "client.typeClass"
+     },
+     "worker_classification": {
+      "value": "EMPLOYEE",
+      "raw": false,
+      "source_field": "client.employee1099"
+     },
+     "original_hire_date": "2021-03-15",
+     "hire_date": "2021-03-15",
+     "start_date": "2021-03-15",
+     "seniority_date": "2021-03-15",
+     "termination_date": "2026-09-30",
+     "last_worked_date": "2026-09-30",
+     "termination_reason": {
+      "value": "UNMAPPED",
+      "raw": "VOL",
+      "label": "Voluntary resignation",
+      "source_field": "client.termReasonCode"
+     },
+     "flsa_exempt": false,
+     "employer_ids": []
+    },
+    "job": {
+     "title": "Baker",
+     "job_code": "BAKER",
+     "department": {
+      "code": "PROD",
+      "name": "Production"
+     },
+     "division": {
+      "code": "MAIN",
+      "name": "Main"
+     },
+     "location": {
+      "code": "CLT",
+      "name": "Charlotte"
+     },
+     "manager_employee_id": "prismhr:synthetic:employee:201:E1001",
+     "pay_group": "BW"
+    },
+    "compensation": {
+     "pay_type": {
+      "value": "HOURLY",
+      "raw": "H",
+      "source_field": "compensation.payMethod"
+     },
+     "pay_frequency": {
+      "frequency": {
+       "value": "BIWEEKLY",
+       "raw": "B",
+       "source_field": "compensation.payPeriod"
+      },
+      "periods_per_year": 26
+     },
+     "rates": [
+      {
+       "amount": "30.00",
+       "currency": "USD",
+       "per": "HOUR",
+       "derived": false,
+       "source_field": "compensation.hourlyPay"
+      },
+      {
+       "amount": "30.00",
+       "currency": "USD",
+       "per": "HOUR",
+       "derived": false,
+       "source_field": "compensation.hourlyPayRate"
+      }
+     ],
+     "annual_pay": {
+      "amount": "62400.00",
+      "currency": "USD",
+      "derived": false,
+      "source_field": "compensation.annualPay"
+     },
+     "standard_hours": {
+      "value": "80.00",
+      "unit": "HOURS",
+      "derived": false,
+      "source_field": "compensation.standardHours"
+     },
+     "standard_hours_per": "PAY_PERIOD",
+     "effective_date": "2025-01-01",
+     "history": [
+      {
+       "source_id": "9999-12-31#0",
+       "effective_date": "9999-12-31",
+       "pay_type": {
+        "value": "HOURLY",
+        "raw": "H",
+        "source_field": "payRateHistory.payRate[0].payMethod"
+       },
+       "rates": [
+        {
+         "amount": "30.00",
+         "currency": "USD",
+         "per": "HOUR",
+         "derived": false,
+         "source_field": "payRateHistory.payRate[0].payRate"
+        },
+        {
+         "amount": "30.00",
+         "currency": "USD",
+         "per": "HOUR",
+         "derived": false,
+         "source_field": "payRateHistory.payRate[0].hourlyRate"
+        }
+       ],
+       "annual_pay": {
+        "amount": "62400.00",
+        "currency": "USD",
+        "derived": false,
+        "source_field": "payRateHistory.payRate[0].annualPay"
+       },
+       "standard_hours": {
+        "value": "80.00",
+        "unit": "HOURS",
+        "derived": false,
+        "source_field": "payRateHistory.payRate[0].standardHours"
+       },
+       "reason": "Promo"
+      }
+     ]
+    }
+   },
+   {
+    "id": "prismhr:synthetic:employee:201:E1004",
+    "source": {
+     "provider": "prismhr",
+     "tenant_id": "synthetic",
+     "endpoints": [
+      "employee/v1/getEmployee",
+      "employee/v1/getPayRateHistory"
+     ],
+     "ids": {
+      "clientId": "201",
+      "employeeId": "E1004"
+     }
+    },
+    "provider_extensions": {
+     "person.vehicleDetails[0].vehicleMake": "Example",
+     "person.vehicleDetails[0].vehicleModel": "Van",
+     "person.vehicleDetails[0].vehicleYear": "2020",
+     "client.typeDate": "2026-08-01",
+     "client.returnDate": "2026-11-01",
+     "compensation.fedFilingStatus": "SS",
+     "compensation.stateTax[0].stateCode": "NC",
+     "compensation.stateTax[0].filingStatus": "S",
+     "compensation.stateTax[0].primaryAllowance": "0"
+    },
+    "diagnostics": [
+     {
+      "code": "INVALID_DATE",
+      "severity": "warning",
+      "field": "compensation.effectiveDate",
+      "message": "date components are out of range",
+      "raw": "0000-01-01"
+     },
+     {
+      "code": "UNDOCUMENTED_SENTINEL_DATE",
+      "severity": "info",
+      "field": "payRateHistory.payRate[0].effectiveDate",
+      "message": "kept as a date; no documented meaning (A-25)",
+      "raw": "9999-12-31"
+     }
+    ],
+    "company_id": "prismhr:synthetic:company:201",
+    "identifiers": [
+     {
+      "type": "PROVIDER_ID",
+      "value": "E1004",
+      "source_field": "id"
+     },
+     {
+      "type": "EMPLOYEE_NUMBER",
+      "value": "1004",
+      "source_field": "client.clientEmployeeId"
+     },
+     {
+      "type": "USERNAME",
+      "value": "dhaddad",
+      "source_field": "person.userId"
+     }
+    ],
+    "national_id": {
+     "type": "SSN",
+     "masked_at_source": true,
+     "source_field": "compensation.ssn"
+    },
+    "name": {
+     "first": "Devon",
+     "last": "Haddad"
+    },
+    "personal": {
+     "birth_date": "1990-04-02",
+     "gender": {
+      "value": "MALE",
+      "raw": "M",
+      "source_field": "person.gender"
+     },
+     "marital_status": {
+      "value": "SINGLE",
+      "raw": "S",
+      "source_field": "person.maritalStatus"
+     },
+     "veteran": {
+      "value": "NO",
+      "raw": "N",
+      "source_field": "person.veteran"
+     },
+     "disabled": {
+      "value": "NOT_SPECIFIED",
+      "raw": "",
+      "source_field": "person.handicapped"
+     },
+     "citizenship": {
+      "value": "US_CITIZEN",
+      "raw": "A citizen of the United States",
+      "source_field": "compensation.citizenshipStatus"
+     },
+     "preferred_language": "EN",
+     "emergency_contacts": [
+      {
+       "name": "Pat Example",
+       "relationship": "Sibling",
+       "contact_type": "PHONE",
+       "contact_info": "7045550199"
+      }
+     ]
+    },
+    "addresses": [
+     {
+      "type": "HOME",
+      "line1": "92 Oak Ave",
+      "city": "Charlotte",
+      "county": "Mecklenburg",
+      "state": "NC",
+      "postal_code": "28202"
+     }
+    ],
+    "phones": [
+     {
+      "type": "HOME",
+      "number": "7045550100"
+     }
+    ],
+    "emails": [
+     {
+      "type": "PERSONAL",
+      "address": "devon@example.com"
+     },
+     {
+      "type": "WORK",
+      "address": "devon.haddad@work.example"
+     }
+    ],
+    "employment": {
+     "status": {
+      "value": "ON_LEAVE",
+      "raw": "L",
+      "label": "Leave of Absence",
+      "source_field": "client.statusClass"
+     },
+     "status_date": "2026-08-01",
+     "employment_type": {
+      "value": "FULL_TIME",
+      "raw": "F",
+      "label": "Full Time",
+      "source_field": "client.typeClass"
+     },
+     "worker_classification": {
+      "value": "EMPLOYEE",
+      "raw": false,
+      "source_field": "client.employee1099"
+     },
+     "original_hire_date": "2021-03-15",
+     "hire_date": "2021-03-15",
+     "start_date": "2021-03-15",
+     "seniority_date": "2021-03-15",
+     "flsa_exempt": true,
+     "employer_ids": []
+    },
+    "job": {
+     "title": "Baker",
+     "job_code": "BAKER",
+     "department": {
+      "code": "PROD",
+      "name": "Production"
+     },
+     "division": {
+      "code": "MAIN",
+      "name": "Main"
+     },
+     "location": {
+      "code": "CLT",
+      "name": "Charlotte"
+     },
+     "manager_employee_id": "prismhr:synthetic:employee:201:E1001",
+     "pay_group": "M"
+    },
+    "compensation": {
+     "pay_type": {
+      "value": "SALARY",
+      "raw": "S",
+      "source_field": "compensation.payMethod"
+     },
+     "pay_frequency": {
+      "frequency": {
+       "value": "MONTHLY",
+       "raw": "M",
+       "source_field": "compensation.payPeriod"
+      },
+      "periods_per_year": 12
+     },
+     "rates": [
+      {
+       "amount": "5000.00",
+       "currency": "USD",
+       "per": "PAY_PERIOD",
+       "derived": false,
+       "source_field": "compensation.salary"
+      },
+      {
+       "amount": "28.85",
+       "currency": "USD",
+       "per": "HOUR",
+       "derived": false,
+       "source_field": "compensation.hourlyPay"
+      },
+      {
+       "amount": "60000.00",
+       "currency": "USD",
+       "per": "YEAR",
+       "derived": false,
+       "source_field": "compensation.hourlyPayRate"
+      }
+     ],
+     "annual_pay": {
+      "amount": "60000.00",
+      "currency": "USD",
+      "derived": false,
+      "source_field": "compensation.annualPay"
+     },
+     "standard_hours": {
+      "value": "80.00",
+      "unit": "HOURS",
+      "derived": false,
+      "source_field": "compensation.standardHours"
+     },
+     "standard_hours_per": "PAY_PERIOD",
+     "history": [
+      {
+       "source_id": "9999-12-31#0",
+       "effective_date": "9999-12-31",
+       "pay_type": {
+        "value": "SALARY",
+        "raw": "S",
+        "source_field": "payRateHistory.payRate[0].payMethod"
+       },
+       "rates": [
+        {
+         "amount": "5000.00",
+         "currency": "USD",
+         "per": "MONTH",
+         "derived": false,
+         "source_field": "payRateHistory.payRate[0].payRate"
+        },
+        {
+         "amount": "28.85",
+         "currency": "USD",
+         "per": "HOUR",
+         "derived": false,
+         "source_field": "payRateHistory.payRate[0].hourlyRate"
+        }
+       ],
+       "annual_pay": {
+        "amount": "60000.00",
+        "currency": "USD",
+        "derived": false,
+        "source_field": "payRateHistory.payRate[0].annualPay"
+       },
+       "standard_hours": {
+        "value": "80.00",
+        "unit": "HOURS",
+        "derived": false,
+        "source_field": "payRateHistory.payRate[0].standardHours"
+       },
+       "reason": "Promo"
+      }
+     ]
+    }
+   },
+   {
+    "id": "prismhr:synthetic:employee:201:E1005",
+    "source": {
+     "provider": "prismhr",
+     "tenant_id": "synthetic",
+     "endpoints": [
+      "employee/v1/getEmployee",
+      "employee/v1/getPayRateHistory"
+     ],
+     "ids": {
+      "clientId": "201",
+      "employeeId": "E1005"
+     }
+    },
+    "provider_extensions": {
+     "person.vehicleDetails[0].vehicleMake": "Example",
+     "person.vehicleDetails[0].vehicleModel": "Van",
+     "person.vehicleDetails[0].vehicleYear": "2020",
+     "client.typeDate": "2026-05-01",
+     "compensation.fedFilingStatus": "SS",
+     "compensation.stateTax[0].stateCode": "NC",
+     "compensation.stateTax[0].filingStatus": "S",
+     "compensation.stateTax[0].primaryAllowance": "0"
+    },
+    "diagnostics": [
+     {
+      "code": "PROVIDER_ANNUALIZED",
+      "severity": "info",
+      "field": "compensation.annualPay",
+      "message": "annualPay equals hourlyPay x 2080 for this hourly employee (A-20)"
+     },
+     {
+      "code": "UNDOCUMENTED_SENTINEL_DATE",
+      "severity": "info",
+      "field": "payRateHistory.payRate[0].effectiveDate",
+      "message": "kept as a date; no documented meaning (A-25)",
+      "raw": "9999-12-31"
+     }
+    ],
+    "company_id": "prismhr:synthetic:company:201",
+    "identifiers": [
+     {
+      "type": "PROVIDER_ID",
+      "value": "E1005",
+      "source_field": "id"
+     },
+     {
+      "type": "EMPLOYEE_NUMBER",
+      "value": "1005",
+      "source_field": "client.clientEmployeeId"
+     },
+     {
+      "type": "USERNAME",
+      "value": "psilva",
+      "source_field": "person.userId"
+     }
+    ],
+    "national_id": {
+     "type": "SSN",
+     "masked_at_source": true,
+     "source_field": "compensation.ssn"
+    },
+    "name": {
+     "first": "Priya",
+     "last": "Silva"
+    },
+    "personal": {
+     "birth_date": "1990-04-02",
+     "gender": {
+      "value": "FEMALE",
+      "raw": "F",
+      "source_field": "person.gender"
+     },
+     "marital_status": {
+      "value": "SINGLE",
+      "raw": "S",
+      "source_field": "person.maritalStatus"
+     },
+     "veteran": {
+      "value": "NO",
+      "raw": "N",
+      "source_field": "person.veteran"
+     },
+     "disabled": {
+      "value": "NOT_SPECIFIED",
+      "raw": "",
+      "source_field": "person.handicapped"
+     },
+     "citizenship": {
+      "value": "US_CITIZEN",
+      "raw": "A citizen of the United States",
+      "source_field": "compensation.citizenshipStatus"
+     },
+     "preferred_language": "EN",
+     "emergency_contacts": [
+      {
+       "name": "Pat Example",
+       "relationship": "Sibling",
+       "contact_type": "PHONE",
+       "contact_info": "7045550199"
+      }
+     ]
+    },
+    "addresses": [
+     {
+      "type": "HOME",
+      "line1": "123 Oak Ave",
+      "city": "Charlotte",
+      "county": "Mecklenburg",
+      "state": "NC",
+      "postal_code": "28202"
+     }
+    ],
+    "phones": [
+     {
+      "type": "HOME",
+      "number": "7045550100"
+     }
+    ],
+    "emails": [
+     {
+      "type": "PERSONAL",
+      "address": "priya@example.com"
+     },
+     {
+      "type": "WORK",
+      "address": "priya.silva@work.example"
+     }
+    ],
+    "employment": {
+     "status": {
+      "value": "ACTIVE",
+      "raw": "A",
+      "label": "Active",
+      "source_field": "client.statusClass"
+     },
+     "status_date": "2026-05-01",
+     "employment_type": {
+      "value": "FULL_TIME",
+      "raw": "F",
+      "label": "Seasonal",
+      "source_field": "client.typeClass"
+     },
+     "worker_classification": {
+      "value": "CONTRACTOR_1099",
+      "raw": true,
+      "source_field": "client.employee1099"
+     },
+     "original_hire_date": "2021-03-15",
+     "hire_date": "2021-03-15",
+     "start_date": "2021-03-15",
+     "seniority_date": "2021-03-15",
+     "flsa_exempt": false,
+     "employer_ids": []
+    },
+    "job": {
+     "title": "Delivery Driver",
+     "job_code": "DRIVER",
+     "department": {
+      "code": "LOG",
+      "name": "Logistics"
+     },
+     "division": {
+      "code": "MAIN",
+      "name": "Main"
+     },
+     "location": {
+      "code": "CLT",
+      "name": "Charlotte"
+     },
+     "manager_employee_id": "prismhr:synthetic:employee:201:E1001",
+     "pay_group": "W"
+    },
+    "compensation": {
+     "pay_type": {
+      "value": "HOURLY",
+      "raw": "H",
+      "source_field": "compensation.payMethod"
+     },
+     "pay_frequency": {
+      "frequency": {
+       "value": "WEEKLY",
+       "raw": "W",
+       "source_field": "compensation.payPeriod"
+      },
+      "periods_per_year": 52
+     },
+     "rates": [
+      {
+       "amount": "40.00",
+       "currency": "USD",
+       "per": "HOUR",
+       "derived": false,
+       "source_field": "compensation.hourlyPay"
+      },
+      {
+       "amount": "40.00",
+       "currency": "USD",
+       "per": "HOUR",
+       "derived": false,
+       "source_field": "compensation.hourlyPayRate"
+      }
+     ],
+     "annual_pay": {
+      "amount": "83200.00",
+      "currency": "USD",
+      "derived": false,
+      "source_field": "compensation.annualPay"
+     },
+     "standard_hours": {
+      "value": "80.00",
+      "unit": "HOURS",
+      "derived": false,
+      "source_field": "compensation.standardHours"
+     },
+     "standard_hours_per": "PAY_PERIOD",
+     "effective_date": "2025-01-01",
+     "history": [
+      {
+       "source_id": "9999-12-31#0",
+       "effective_date": "9999-12-31",
+       "pay_type": {
+        "value": "HOURLY",
+        "raw": "H",
+        "source_field": "payRateHistory.payRate[0].payMethod"
+       },
+       "rates": [
+        {
+         "amount": "40.00",
+         "currency": "USD",
+         "per": "HOUR",
+         "derived": false,
+         "source_field": "payRateHistory.payRate[0].payRate"
+        },
+        {
+         "amount": "40.00",
+         "currency": "USD",
+         "per": "HOUR",
+         "derived": false,
+         "source_field": "payRateHistory.payRate[0].hourlyRate"
+        }
+       ],
+       "annual_pay": {
+        "amount": "83200.00",
+        "currency": "USD",
+        "derived": false,
+        "source_field": "payRateHistory.payRate[0].annualPay"
+       },
+       "standard_hours": {
+        "value": "80.00",
+        "unit": "HOURS",
+        "derived": false,
+        "source_field": "payRateHistory.payRate[0].standardHours"
+       },
+       "reason": "Promo"
+      }
+     ]
+    }
+   },
+   {
+    "id": "prismhr:synthetic:employee:202:E2001",
+    "source": {
+     "provider": "prismhr",
+     "tenant_id": "synthetic",
+     "endpoints": [
+      "employee/v1/getEmployee",
+      "employee/v1/getPayRateHistory"
+     ],
+     "ids": {
+      "clientId": "202",
+      "employeeId": "E2001"
+     }
+    },
+    "provider_extensions": {
+     "person.vehicleDetails[0].vehicleMake": "Example",
+     "person.vehicleDetails[0].vehicleModel": "Van",
+     "person.vehicleDetails[0].vehicleYear": "2020",
+     "client.typeDate": "2022-02-01",
+     "compensation.fedFilingStatus": "SS",
+     "compensation.stateTax[0].stateCode": "NC",
+     "compensation.stateTax[0].filingStatus": "S",
+     "compensation.stateTax[0].primaryAllowance": "0"
+    },
+    "diagnostics": [
+     {
+      "code": "PROVIDER_ANNUALIZED",
+      "severity": "info",
+      "field": "compensation.annualPay",
+      "message": "annualPay equals hourlyPay x 2080 for this hourly employee (A-20)"
+     },
+     {
+      "code": "UNDOCUMENTED_SENTINEL_DATE",
+      "severity": "info",
+      "field": "payRateHistory.payRate[0].effectiveDate",
+      "message": "kept as a date; no documented meaning (A-25)",
+      "raw": "9999-12-31"
+     }
+    ],
+    "company_id": "prismhr:synthetic:company:202",
+    "identifiers": [
+     {
+      "type": "PROVIDER_ID",
+      "value": "E2001",
+      "source_field": "id"
+     },
+     {
+      "type": "EMPLOYEE_NUMBER",
+      "value": "2001",
+      "source_field": "client.clientEmployeeId"
+     },
+     {
+      "type": "USERNAME",
+      "value": "olopez",
+      "source_field": "person.userId"
+     }
+    ],
+    "national_id": {
+     "type": "SSN",
+     "masked_at_source": true,
+     "source_field": "compensation.ssn"
+    },
+    "name": {
+     "first": "Omar",
+     "last": "Lopez"
+    },
+    "personal": {
+     "birth_date": "1990-04-02",
+     "gender": {
+      "value": "MALE",
+      "raw": "M",
+      "source_field": "person.gender"
+     },
+     "marital_status": {
+      "value": "SINGLE",
+      "raw": "S",
+      "source_field": "person.maritalStatus"
+     },
+     "veteran": {
+      "value": "NO",
+      "raw": "N",
+      "source_field": "person.veteran"
+     },
+     "disabled": {
+      "value": "NOT_SPECIFIED",
+      "raw": "",
+      "source_field": "person.handicapped"
+     },
+     "citizenship": {
+      "value": "US_CITIZEN",
+      "raw": "A citizen of the United States",
+      "source_field": "compensation.citizenshipStatus"
+     },
+     "preferred_language": "EN",
+     "emergency_contacts": [
+      {
+       "name": "Pat Example",
+       "relationship": "Sibling",
+       "contact_type": "PHONE",
+       "contact_info": "7045550199"
+      }
+     ]
+    },
+    "addresses": [
+     {
+      "type": "HOME",
+      "line1": "846 Oak Ave",
+      "city": "Charlotte",
+      "county": "Mecklenburg",
+      "state": "NC",
+      "postal_code": "28202"
+     }
+    ],
+    "phones": [
+     {
+      "type": "HOME",
+      "number": "7045550100"
+     }
+    ],
+    "emails": [
+     {
+      "type": "PERSONAL",
+      "address": "omar@example.com"
+     },
+     {
+      "type": "WORK",
+      "address": "omar.lopez@work.example"
+     }
+    ],
+    "employment": {
+     "status": {
+      "value": "ACTIVE",
+      "raw": "A",
+      "label": "Active",
+      "source_field": "client.statusClass"
+     },
+     "status_date": "2022-02-01",
+     "employment_type": {
+      "value": "FULL_TIME",
+      "raw": "F",
+      "label": "Full Time",
+      "source_field": "client.typeClass"
+     },
+     "worker_classification": {
+      "value": "EMPLOYEE",
+      "raw": false,
+      "source_field": "client.employee1099"
+     },
+     "original_hire_date": "2021-03-15",
+     "hire_date": "2021-03-15",
+     "start_date": "2021-03-15",
+     "seniority_date": "2021-03-15",
+     "flsa_exempt": false,
+     "employer_ids": []
+    },
+    "job": {
+     "title": "Baker",
+     "job_code": "BAKER",
+     "department": {
+      "code": "PROD",
+      "name": "Production"
+     },
+     "division": {
+      "code": "MAIN",
+      "name": "Main"
+     },
+     "location": {
+      "code": "CLT",
+      "name": "Charlotte"
+     },
+     "manager_employee_id": "prismhr:synthetic:employee:202:E1001",
+     "pay_group": "BW"
+    },
+    "compensation": {
+     "pay_type": {
+      "value": "HOURLY",
+      "raw": "H",
+      "source_field": "compensation.payMethod"
+     },
+     "pay_frequency": {
+      "frequency": {
+       "value": "BIWEEKLY",
+       "raw": "B",
+       "source_field": "compensation.payPeriod"
+      },
+      "periods_per_year": 26
+     },
+     "rates": [
+      {
+       "amount": "28.00",
+       "currency": "USD",
+       "per": "HOUR",
+       "derived": false,
+       "source_field": "compensation.hourlyPay"
+      },
+      {
+       "amount": "28.00",
+       "currency": "USD",
+       "per": "HOUR",
+       "derived": false,
+       "source_field": "compensation.hourlyPayRate"
+      }
+     ],
+     "annual_pay": {
+      "amount": "58240.00",
+      "currency": "USD",
+      "derived": false,
+      "source_field": "compensation.annualPay"
+     },
+     "standard_hours": {
+      "value": "80.00",
+      "unit": "HOURS",
+      "derived": false,
+      "source_field": "compensation.standardHours"
+     },
+     "standard_hours_per": "PAY_PERIOD",
+     "effective_date": "2025-01-01",
+     "history": [
+      {
+       "source_id": "9999-12-31#0",
+       "effective_date": "9999-12-31",
+       "pay_type": {
+        "value": "HOURLY",
+        "raw": "H",
+        "source_field": "payRateHistory.payRate[0].payMethod"
+       },
+       "rates": [
+        {
+         "amount": "28.00",
+         "currency": "USD",
+         "per": "HOUR",
+         "derived": false,
+         "source_field": "payRateHistory.payRate[0].payRate"
+        },
+        {
+         "amount": "28.00",
+         "currency": "USD",
+         "per": "HOUR",
+         "derived": false,
+         "source_field": "payRateHistory.payRate[0].hourlyRate"
+        }
+       ],
+       "annual_pay": {
+        "amount": "58240.00",
+        "currency": "USD",
+        "derived": false,
+        "source_field": "payRateHistory.payRate[0].annualPay"
+       },
+       "standard_hours": {
+        "value": "80.00",
+        "unit": "HOURS",
+        "derived": false,
+        "source_field": "payRateHistory.payRate[0].standardHours"
+       },
+       "reason": "Promo"
+      }
+     ]
+    }
+   }
+  ],
+  "direct_deposits": [
+   {
+    "id": "prismhr:synthetic:direct_deposit:201:E1001:hsa:1",
+    "source": {
+     "provider": "prismhr",
+     "tenant_id": "synthetic",
+     "endpoints": [
+      "employee/v1/getEmployee"
+     ],
+     "ids": {
+      "clientId": "201",
+      "employeeId": "E1001",
+      "position": "1"
+     }
+    },
+    "provider_extensions": {
+     "hsa.achChecksum": "h-1",
+     "transitNum": "123456780",
+     "status": "D",
+     "bankName": "Example HSA Bank"
+    },
+    "diagnostics": [
+     {
+      "code": "PERCENT_SCALE_UNVERIFIED",
+      "severity": "info",
+      "field": "hsa.hsaDepositSettings[].amount",
+      "message": "no live percent deposits to verify the scale (A-29)",
+      "raw": "2.0"
+     }
+    ],
+    "employee_id": "prismhr:synthetic:employee:201:E1001",
+    "company_id": "prismhr:synthetic:company:201",
+    "purpose": "HSA",
+    "funding": {
+     "value": "EMPLOYEE",
+     "raw": "HE",
+     "source_field": "hsa.hsaDepositSettings[].accountType"
+    },
+    "account": {
+     "type": {
+      "value": "CHECKING",
+      "raw": "HE",
+      "source_field": "hsa.hsaDepositSettings[].accountType"
+     },
+     "routing_number": "123456780",
+     "masked_at_source": true,
+     "bank_name": "Example HSA Bank"
+    },
+    "method": {
+     "value": "PERCENT_OF_NET_AFTER_TAXES",
+     "raw": "PN",
+     "source_field": "hsa.hsaDepositSettings[].method"
+    },
+    "percent": {
+     "basis": "UNSPECIFIED",
+     "scale": "UNVERIFIED",
+     "raw": "2.0",
+     "source_field": "hsa.hsaDepositSettings[].amount"
+    },
+    "sequence": 1,
+    "is_remainder": false,
+    "status": {
+     "value": "ACTIVE",
+     "raw": "D",
+     "source_field": "hsa.hsaDepositSettings[].status"
+    },
+    "applies_to_pay_types": []
+   },
+   {
+    "id": "prismhr:synthetic:direct_deposit:201:E1001:net_pay:1",
+    "source": {
+     "provider": "prismhr",
+     "tenant_id": "synthetic",
+     "endpoints": [
+      "employee/v1/getEmployee"
+     ],
+     "ids": {
+      "clientId": "201",
+      "employeeId": "E1001",
+      "position": "1"
+     }
+    },
+    "provider_extensions": {
+     "directDeposit.achStatus": "A",
+     "directDeposit.suppressAccountPrint": false,
+     "directDeposit.directDepositChecksum": "c-1",
+     "transitNum": "123456780",
+     "status": "D",
+     "bankName": "Example Bank"
+    },
+    "diagnostics": [],
+    "employee_id": "prismhr:synthetic:employee:201:E1001",
+    "company_id": "prismhr:synthetic:company:201",
+    "purpose": "NET_PAY",
+    "account": {
+     "type": {
+      "value": "SAVINGS",
+      "raw": "S",
+      "source_field": "directDeposit.achVoucher[].accountType"
+     },
+     "routing_number": "123456780",
+     "masked_at_source": true,
+     "bank_name": "Example Bank"
+    },
+    "method": {
+     "value": "FIXED_AMOUNT",
+     "raw": "F",
+     "source_field": "directDeposit.achVoucher[].method"
+    },
+    "amount": {
+     "amount": "200.00",
+     "currency": "USD",
+     "derived": false,
+     "source_field": "directDeposit.achVoucher[].amount"
+    },
+    "sequence": 1,
+    "is_remainder": false,
+    "status": {
+     "value": "ACTIVE",
+     "raw": "D",
+     "source_field": "directDeposit.achVoucher[].status"
+    },
+    "applies_to_pay_types": [
+     {
+      "value": "REGULAR",
+      "raw": "R",
+      "source_field": "directDeposit.voucherType"
+     },
+     {
+      "value": "VACATION",
+      "raw": "V",
+      "source_field": "directDeposit.voucherType"
+     }
+    ]
+   },
+   {
+    "id": "prismhr:synthetic:direct_deposit:201:E1001:net_pay:2",
+    "source": {
+     "provider": "prismhr",
+     "tenant_id": "synthetic",
+     "endpoints": [
+      "employee/v1/getEmployee"
+     ],
+     "ids": {
+      "clientId": "201",
+      "employeeId": "E1001",
+      "position": "2"
+     }
+    },
+    "provider_extensions": {
+     "directDeposit.achStatus": "A",
+     "directDeposit.suppressAccountPrint": false,
+     "directDeposit.directDepositChecksum": "c-1",
+     "transitNum": "123456780",
+     "status": "D",
+     "bankName": "Example Bank"
+    },
+    "diagnostics": [],
+    "employee_id": "prismhr:synthetic:employee:201:E1001",
+    "company_id": "prismhr:synthetic:company:201",
+    "purpose": "NET_PAY",
+    "account": {
+     "type": {
+      "value": "CHECKING_OR_PAY_CARD",
+      "raw": "C",
+      "source_field": "directDeposit.achVoucher[].accountType"
+     },
+     "routing_number": "123456780",
+     "masked_at_source": true,
+     "bank_name": "Example Bank"
+    },
+    "method": {
+     "value": "REMAINDER",
+     "raw": "B",
+     "source_field": "directDeposit.achVoucher[].method"
+    },
+    "sequence": 2,
+    "is_remainder": true,
+    "status": {
+     "value": "ACTIVE",
+     "raw": "D",
+     "source_field": "directDeposit.achVoucher[].status"
+    },
+    "applies_to_pay_types": [
+     {
+      "value": "REGULAR",
+      "raw": "R",
+      "source_field": "directDeposit.voucherType"
+     },
+     {
+      "value": "VACATION",
+      "raw": "V",
+      "source_field": "directDeposit.voucherType"
+     }
+    ]
+   },
+   {
+    "id": "prismhr:synthetic:direct_deposit:201:E1002:net_pay:1",
+    "source": {
+     "provider": "prismhr",
+     "tenant_id": "synthetic",
+     "endpoints": [
+      "employee/v1/getEmployee"
+     ],
+     "ids": {
+      "clientId": "201",
+      "employeeId": "E1002",
+      "position": "1"
+     }
+    },
+    "provider_extensions": {
+     "directDeposit.achStatus": "A",
+     "directDeposit.suppressAccountPrint": false,
+     "directDeposit.directDepositChecksum": "c-1",
+     "transitNum": "123456780",
+     "status": "D",
+     "bankName": "Example Bank",
+     "limit": "500.0"
+    },
+    "diagnostics": [
+     {
+      "code": "PERCENT_SCALE_UNVERIFIED",
+      "severity": "info",
+      "field": "directDeposit.achVoucher[].amount",
+      "message": "no live percent deposits to verify the scale (A-29)",
+      "raw": "30.0"
+     }
+    ],
+    "employee_id": "prismhr:synthetic:employee:201:E1002",
+    "company_id": "prismhr:synthetic:company:201",
+    "purpose": "NET_PAY",
+    "account": {
+     "type": {
+      "value": "CHECKING_OR_PAY_CARD",
+      "raw": "C",
+      "source_field": "directDeposit.achVoucher[].accountType"
+     },
+     "routing_number": "123456780",
+     "masked_at_source": true,
+     "bank_name": "Example Bank"
+    },
+    "method": {
+     "value": "PERCENT_BASE_UNSPECIFIED",
+     "raw": "P",
+     "source_field": "directDeposit.achVoucher[].method"
+    },
+    "percent": {
+     "basis": "UNSPECIFIED",
+     "scale": "UNVERIFIED",
+     "raw": "30.0",
+     "source_field": "directDeposit.achVoucher[].amount"
+    },
+    "limit": {
+     "amount": "500.00",
+     "currency": "USD",
+     "derived": false,
+     "source_field": "directDeposit.achVoucher[].limit"
+    },
+    "sequence": 1,
+    "is_remainder": false,
+    "status": {
+     "value": "ACTIVE",
+     "raw": "D",
+     "source_field": "directDeposit.achVoucher[].status"
+    },
+    "applies_to_pay_types": [
+     {
+      "value": "REGULAR",
+      "raw": "R",
+      "source_field": "directDeposit.voucherType"
+     },
+     {
+      "value": "VACATION",
+      "raw": "V",
+      "source_field": "directDeposit.voucherType"
+     }
+    ]
+   },
+   {
+    "id": "prismhr:synthetic:direct_deposit:201:E1002:net_pay:2",
+    "source": {
+     "provider": "prismhr",
+     "tenant_id": "synthetic",
+     "endpoints": [
+      "employee/v1/getEmployee"
+     ],
+     "ids": {
+      "clientId": "201",
+      "employeeId": "E1002",
+      "position": "2"
+     }
+    },
+    "provider_extensions": {
+     "directDeposit.achStatus": "A",
+     "directDeposit.suppressAccountPrint": false,
+     "directDeposit.directDepositChecksum": "c-1",
+     "transitNum": "123456780",
+     "status": "D",
+     "bankName": "Example Bank"
+    },
+    "diagnostics": [
+     {
+      "code": "PERCENT_SCALE_UNVERIFIED",
+      "severity": "info",
+      "field": "directDeposit.achVoucher[].amount",
+      "message": "no live percent deposits to verify the scale (A-29)",
+      "raw": "50.0"
+     }
+    ],
+    "employee_id": "prismhr:synthetic:employee:201:E1002",
+    "company_id": "prismhr:synthetic:company:201",
+    "purpose": "NET_PAY",
+    "account": {
+     "type": {
+      "value": "SAVINGS",
+      "raw": "S",
+      "source_field": "directDeposit.achVoucher[].accountType"
+     },
+     "routing_number": "123456780",
+     "masked_at_source": true,
+     "bank_name": "Example Bank"
+    },
+    "method": {
+     "value": "PERCENT_OF_NET_AFTER_FIXED",
+     "raw": "PN",
+     "source_field": "directDeposit.achVoucher[].method"
+    },
+    "percent": {
+     "basis": "UNSPECIFIED",
+     "scale": "UNVERIFIED",
+     "raw": "50.0",
+     "source_field": "directDeposit.achVoucher[].amount"
+    },
+    "sequence": 2,
+    "is_remainder": false,
+    "status": {
+     "value": "ACTIVE",
+     "raw": "D",
+     "source_field": "directDeposit.achVoucher[].status"
+    },
+    "applies_to_pay_types": [
+     {
+      "value": "REGULAR",
+      "raw": "R",
+      "source_field": "directDeposit.voucherType"
+     },
+     {
+      "value": "VACATION",
+      "raw": "V",
+      "source_field": "directDeposit.voucherType"
+     }
+    ]
+   },
+   {
+    "id": "prismhr:synthetic:direct_deposit:201:E1002:net_pay:3",
+    "source": {
+     "provider": "prismhr",
+     "tenant_id": "synthetic",
+     "endpoints": [
+      "employee/v1/getEmployee"
+     ],
+     "ids": {
+      "clientId": "201",
+      "employeeId": "E1002",
+      "position": "3"
+     }
+    },
+    "provider_extensions": {
+     "directDeposit.achStatus": "A",
+     "directDeposit.suppressAccountPrint": false,
+     "directDeposit.directDepositChecksum": "c-1",
+     "transitNum": "123456780",
+     "status": "D",
+     "bankName": "Example Bank"
+    },
+    "diagnostics": [],
+    "employee_id": "prismhr:synthetic:employee:201:E1002",
+    "company_id": "prismhr:synthetic:company:201",
+    "purpose": "NET_PAY",
+    "account": {
+     "type": {
+      "value": "INSTANT_PAY",
+      "raw": "IP",
+      "source_field": "directDeposit.achVoucher[].accountType"
+     },
+     "routing_number": "123456780",
+     "masked_at_source": true,
+     "bank_name": "Example Bank"
+    },
+    "method": {
+     "value": "REMAINDER",
+     "raw": "B",
+     "source_field": "directDeposit.achVoucher[].method"
+    },
+    "sequence": 3,
+    "is_remainder": true,
+    "status": {
+     "value": "ACTIVE",
+     "raw": "D",
+     "source_field": "directDeposit.achVoucher[].status"
+    },
+    "applies_to_pay_types": [
+     {
+      "value": "REGULAR",
+      "raw": "R",
+      "source_field": "directDeposit.voucherType"
+     },
+     {
+      "value": "VACATION",
+      "raw": "V",
+      "source_field": "directDeposit.voucherType"
+     }
+    ]
+   },
+   {
+    "id": "prismhr:synthetic:direct_deposit:201:E1003:net_pay:1",
+    "source": {
+     "provider": "prismhr",
+     "tenant_id": "synthetic",
+     "endpoints": [
+      "employee/v1/getEmployee"
+     ],
+     "ids": {
+      "clientId": "201",
+      "employeeId": "E1003",
+      "position": "1"
+     }
+    },
+    "provider_extensions": {
+     "directDeposit.achStatus": "A",
+     "directDeposit.suppressAccountPrint": false,
+     "directDeposit.directDepositChecksum": "c-1",
+     "transitNum": "123456780",
+     "status": "D",
+     "bankName": "Example Bank"
+    },
+    "diagnostics": [],
+    "employee_id": "prismhr:synthetic:employee:201:E1003",
+    "company_id": "prismhr:synthetic:company:201",
+    "purpose": "NET_PAY",
+    "account": {
+     "type": {
+      "value": "SAVINGS",
+      "raw": "S",
+      "source_field": "directDeposit.achVoucher[].accountType"
+     },
+     "routing_number": "123456780",
+     "masked_at_source": true,
+     "bank_name": "Example Bank"
+    },
+    "method": {
+     "value": "REMAINDER",
+     "raw": "B",
+     "source_field": "directDeposit.achVoucher[].method"
+    },
+    "sequence": 1,
+    "is_remainder": true,
+    "status": {
+     "value": "ACTIVE",
+     "raw": "D",
+     "source_field": "directDeposit.achVoucher[].status"
+    },
+    "applies_to_pay_types": [
+     {
+      "value": "REGULAR",
+      "raw": "R",
+      "source_field": "directDeposit.voucherType"
+     },
+     {
+      "value": "VACATION",
+      "raw": "V",
+      "source_field": "directDeposit.voucherType"
+     }
+    ]
+   },
+   {
+    "id": "prismhr:synthetic:direct_deposit:202:E2001:net_pay:1",
+    "source": {
+     "provider": "prismhr",
+     "tenant_id": "synthetic",
+     "endpoints": [
+      "employee/v1/getEmployee"
+     ],
+     "ids": {
+      "clientId": "202",
+      "employeeId": "E2001",
+      "position": "1"
+     }
+    },
+    "provider_extensions": {
+     "directDeposit.achStatus": "A",
+     "directDeposit.suppressAccountPrint": false,
+     "directDeposit.directDepositChecksum": "c-1",
+     "transitNum": "123456780",
+     "status": "D",
+     "bankName": "Example Bank"
+    },
+    "diagnostics": [],
+    "employee_id": "prismhr:synthetic:employee:202:E2001",
+    "company_id": "prismhr:synthetic:company:202",
+    "purpose": "NET_PAY",
+    "account": {
+     "type": {
+      "value": "SAVINGS",
+      "raw": "S",
+      "source_field": "directDeposit.achVoucher[].accountType"
+     },
+     "routing_number": "123456780",
+     "masked_at_source": true,
+     "bank_name": "Example Bank"
+    },
+    "method": {
+     "value": "REMAINDER",
+     "raw": "B",
+     "source_field": "directDeposit.achVoucher[].method"
+    },
+    "sequence": 1,
+    "is_remainder": true,
+    "status": {
+     "value": "ACTIVE",
+     "raw": "D",
+     "source_field": "directDeposit.achVoucher[].status"
+    },
+    "applies_to_pay_types": [
+     {
+      "value": "REGULAR",
+      "raw": "R",
+      "source_field": "directDeposit.voucherType"
+     },
+     {
+      "value": "VACATION",
+      "raw": "V",
+      "source_field": "directDeposit.voucherType"
+     }
+    ]
+   }
+  ],
+  "deduction_elections": [
+   {
+    "id": "prismhr:synthetic:deduction_election:201:E1001:C401K:2021-04-01:open",
+    "source": {
+     "provider": "prismhr",
+     "tenant_id": "synthetic",
+     "endpoints": [
+      "deductions/v1/getDeductions"
+     ],
+     "ids": {
+      "clientId": "201",
+      "employeeId": "E1001",
+      "deductionCode": "C401K"
+     }
+    },
+    "provider_extensions": {
+     "employeeDeductions.deduction[0].detailsChecksum": "d-1"
+    },
+    "diagnostics": [],
+    "employee_id": "prismhr:synthetic:employee:201:E1001",
+    "company_id": "prismhr:synthetic:company:201",
+    "code": "C401K",
+    "label": "401(k)",
+    "category": {
+     "value": "RETIREMENT",
+     "raw": "K",
+     "source_field": "employeeDeductions.deduction[0].deductionType"
+    },
+    "tax_treatment": "PRE_TAX",
+    "catch_up": false,
+    "calculation": {
+     "method": {
+      "value": "PROVIDER_RULE",
+      "raw": "K",
+      "source_field": "employeeDeductions.deduction[0].deductionMethod"
+     },
+     "basis": "UNSPECIFIED",
+     "percent": {
+      "percent": "5.0",
+      "basis": "UNSPECIFIED",
+      "scale": "VERIFIED_POINTS",
+      "raw": "5.0"
+     }
+    },
+    "limits": {
+     "per_period": {
+      "amount": "0.00",
+      "currency": "USD",
+      "derived": false
+     },
+     "maximum": {
+      "amount": "0.00",
+      "currency": "USD",
+      "derived": false
+     }
+    },
+    "frequency": {
+     "value": "UNMAPPED",
+     "raw": "12345",
+     "source_field": "employeeDeductions.deduction[0].period"
+    },
+    "effective_from": "2021-04-01",
+    "employer_match": {
+     "method": {
+      "value": "PERCENT",
+      "raw": "P",
+      "source_field": "employeeDeductions.deduction[0].matchMethod"
+     },
+     "percent": {
+      "basis": "UNSPECIFIED",
+      "scale": "UNVERIFIED",
+      "raw": "3.0"
+     },
+     "description": "401(k) match"
+    },
+    "arrears_tracking": false,
+    "mandatory": false
+   },
+   {
+    "id": "prismhr:synthetic:deduction_election:201:E1001:DEN125:2021-04-01:open",
+    "source": {
+     "provider": "prismhr",
+     "tenant_id": "synthetic",
+     "endpoints": [
+      "deductions/v1/getDeductions"
+     ],
+     "ids": {
+      "clientId": "201",
+      "employeeId": "E1001",
+      "deductionCode": "DEN125"
+     }
+    },
+    "provider_extensions": {
+     "employeeDeductions.deduction[1].matchAmount": "0.0",
+     "employeeDeductions.deduction[1].detailsChecksum": "d-1"
+    },
+    "diagnostics": [],
+    "employee_id": "prismhr:synthetic:employee:201:E1001",
+    "company_id": "prismhr:synthetic:company:201",
+    "code": "DEN125",
+    "label": "Dental Pre-Tax",
+    "category": {
+     "value": "SECTION_125",
+     "raw": "C",
+     "source_field": "employeeDeductions.deduction[1].deductionType"
+    },
+    "tax_treatment": "PRE_TAX",
+    "calculation": {
+     "method": {
+      "value": "FIXED_AMOUNT",
+      "raw": "F",
+      "source_field": "employeeDeductions.deduction[1].deductionMethod"
+     },
+     "basis": "UNSPECIFIED",
+     "amount": {
+      "amount": "12.50",
+      "currency": "USD",
+      "derived": false
+     }
+    },
+    "limits": {
+     "per_period": {
+      "amount": "0.00",
+      "currency": "USD",
+      "derived": false
+     },
+     "maximum": {
+      "amount": "0.00",
+      "currency": "USD",
+      "derived": false
+     }
+    },
+    "frequency": {
+     "value": "UNMAPPED",
+     "raw": "12345",
+     "source_field": "employeeDeductions.deduction[1].period"
+    },
+    "effective_from": "2021-04-01",
+    "arrears_tracking": false,
+    "mandatory": false
+   },
+   {
+    "id": "prismhr:synthetic:deduction_election:201:E1002:LIFE:2023-07-01:open",
+    "source": {
+     "provider": "prismhr",
+     "tenant_id": "synthetic",
+     "endpoints": [
+      "deductions/v1/getDeductions",
+      "deductions/v1/getVoluntaryRecurringDeductions"
+     ],
+     "ids": {
+      "clientId": "201",
+      "employeeId": "E1002",
+      "deductionCode": "LIFE"
+     }
+    },
+    "provider_extensions": {
+     "employeeDeductions.deduction[0].matchAmount": "0.0",
+     "employeeDeductions.deduction[0].detailsChecksum": "d-1"
+    },
+    "diagnostics": [],
+    "employee_id": "prismhr:synthetic:employee:201:E1002",
+    "company_id": "prismhr:synthetic:company:201",
+    "code": "LIFE",
+    "label": "Voluntary Life",
+    "category": {
+     "value": "VOLUNTARY",
+     "raw": "V",
+     "source_field": "employeeDeductions.deduction[0].deductionType"
+    },
+    "tax_treatment": "UNSPECIFIED",
+    "calculation": {
+     "method": {
+      "value": "FIXED_AMOUNT",
+      "raw": "F",
+      "source_field": "employeeDeductions.deduction[0].deductionMethod"
+     },
+     "basis": "UNSPECIFIED",
+     "amount": {
+      "amount": "8.00",
+      "currency": "USD",
+      "derived": false
+     }
+    },
+    "limits": {
+     "per_period": {
+      "amount": "0.00",
+      "currency": "USD",
+      "derived": false
+     },
+     "maximum": {
+      "amount": "0.00",
+      "currency": "USD",
+      "derived": false
+     }
+    },
+    "frequency": {
+     "value": "UNMAPPED",
+     "raw": "12345",
+     "source_field": "employeeDeductions.deduction[0].period"
+    },
+    "effective_from": "2023-07-01",
+    "arrears_tracking": false,
+    "mandatory": false
+   },
+   {
+    "id": "prismhr:synthetic:deduction_election:201:E1002:loan:1",
+    "source": {
+     "provider": "prismhr",
+     "tenant_id": "synthetic",
+     "endpoints": [
+      "deductions/v1/getEmployeeLoans"
+     ],
+     "ids": {
+      "clientId": "201",
+      "employeeId": "E1002",
+      "loanId": "1"
+     }
+    },
+    "provider_extensions": {
+     "employeeLoanDetail[0].checksum": "l-1",
+     "employeeLoanDetail[0].paymentHistory[0].paymentDate": "2026-06-19",
+     "employeeLoanDetail[0].paymentHistory[0].paymentVoucherId": "070000",
+     "employeeLoanDetail[0].paymentHistory[0].paymentAmount": "25.0",
+     "employeeLoanDetail[0].paymentHistory[1].paymentDate": "2026-06-26",
+     "employeeLoanDetail[0].paymentHistory[1].paymentVoucherId": "070001",
+     "employeeLoanDetail[0].paymentHistory[1].paymentAmount": "25.0",
+     "employeeLoanDetail[0].paymentHistory[2].paymentDate": "2026-07-17",
+     "employeeLoanDetail[0].paymentHistory[2].paymentVoucherId": "070002",
+     "employeeLoanDetail[0].paymentHistory[2].paymentAmount": "25.0",
+     "employeeLoanDetail[0].paymentHistory[3].paymentDate": "2026-07-24",
+     "employeeLoanDetail[0].paymentHistory[3].paymentVoucherId": "070003",
+     "employeeLoanDetail[0].paymentHistory[3].paymentAmount": "25.0",
+     "employeeLoanDetail[0].paymentHistory[4].paymentDate": "2026-08-14",
+     "employeeLoanDetail[0].paymentHistory[4].paymentVoucherId": "070004",
+     "employeeLoanDetail[0].paymentHistory[4].paymentAmount": "25.0"
+    },
+    "diagnostics": [],
+    "employee_id": "prismhr:synthetic:employee:201:E1002",
+    "company_id": "prismhr:synthetic:company:201",
+    "code": "LOAN1",
+    "label": "Employee Loan",
+    "category": {
+     "value": "LOAN",
+     "raw": "L",
+     "source_field": "clientCodes.deductionCode[].type"
+    },
+    "tax_treatment": "UNSPECIFIED",
+    "calculation": {
+     "method": {
+      "value": "FIXED_AMOUNT",
+      "source_field": "employeeLoanDetail[0].paymentAmount"
+     },
+     "basis": "UNSPECIFIED",
+     "amount": {
+      "amount": "25.00",
+      "currency": "USD",
+      "derived": false,
+      "source_field": "employeeLoanDetail[0].paymentAmount"
+     }
+    },
+    "effective_from": "2026-06-19",
+    "loan_or_garnishment_id": "1",
+    "loan": {
+     "principal": {
+      "amount": "500.00",
+      "currency": "USD",
+      "derived": false,
+      "source_field": "employeeLoanDetail[0].loanAmount"
+     },
+     "payback_amount": {
+      "amount": "500.00",
+      "currency": "USD",
+      "derived": false,
+      "source_field": "employeeLoanDetail[0].paybackAmount"
+     },
+     "paid_to_date": {
+      "amount": "125.00",
+      "currency": "USD",
+      "derived": false,
+      "source_field": "employeeLoanDetail[0].paidAmount"
+     },
+     "payment_amount": {
+      "amount": "25.00",
+      "currency": "USD",
+      "derived": false
+     },
+     "payment_frequency": {
+      "value": "EVERY_PAY_PERIOD",
+      "raw": "P",
+      "source_field": "employeeLoanDetail[0].paymentFreq"
+     },
+     "loan_date": "2026-06-15",
+     "reason": "Tools"
+    }
+   },
+   {
+    "id": "prismhr:synthetic:deduction_election:201:E1002:scheduled:UNIFORM:2026-09-21",
+    "source": {
+     "provider": "prismhr",
+     "tenant_id": "synthetic",
+     "endpoints": [
+      "employee/v1/getScheduledDeductions"
+     ],
+     "ids": {
+      "clientId": "201",
+      "employeeId": "E1002",
+      "deductionCode": "UNIFORM"
+     }
+    },
+    "provider_extensions": {},
+    "diagnostics": [],
+    "employee_id": "prismhr:synthetic:employee:201:E1002",
+    "company_id": "prismhr:synthetic:company:201",
+    "code": "UNIFORM",
+    "label": "Uniform",
+    "category": {
+     "value": "VOLUNTARY",
+     "raw": "V",
+     "source_field": "clientCodes.deductionCode[].type"
+    },
+    "tax_treatment": "UNSPECIFIED",
+    "calculation": {
+     "method": {
+      "value": "FIXED_AMOUNT",
+      "source_field": "scheduledDeduction[0].amount"
+     },
+     "basis": "UNSPECIFIED",
+     "amount": {
+      "amount": "15.00",
+      "currency": "USD",
+      "derived": false,
+      "source_field": "scheduledDeduction[0].amount"
+     }
+    },
+    "status": {
+     "value": "ONE_TIME",
+     "raw": "O",
+     "source_field": "scheduledDeduction[0].status"
+    },
+    "effective_from": "2026-09-21",
+    "effective_to": "2026-09-27"
+   }
+  ],
+  "payroll_runs": [
+   {
+    "id": "prismhr:synthetic:payroll_run:201:30115",
+    "source": {
+     "provider": "prismhr",
+     "tenant_id": "synthetic",
+     "endpoints": [
+      "payroll/v1/getBatchInfo",
+      "payroll/v1/getBatchListByDate"
+     ],
+     "ids": {
+      "clientId": "201",
+      "batchId": "30115"
+     }
+    },
+    "provider_extensions": {
+     "batchId": "30115",
+     "payDate": "2026-10-02",
+     "batchStatus": "COMP",
+     "batchInfo.batchStatus": "COMP",
+     "batchInfo.batchId": "30115",
+     "batchInfo.payDate": "2026-10-02",
+     "batchInfo.batchDescription": "30115 - 2026-10-02",
+     "batchInfo.batchType": "R",
+     "batchInfo.processor": "synthetic",
+     "batchInfo.deliveryMethod": "ELEC",
+     "batchInfo.voucher[0].payGroupId": "BW",
+     "batchInfo.voucher[0].periodStart": "2026-09-14",
+     "batchInfo.voucher[0].periodEnd": "2026-09-27",
+     "batchInfo.voucher[0].weeksWorked": "1.0",
+     "batchInfo.voucher[0].deductPeriod": "1",
+     "batchInfo.voucher[0].payPeriod": "40",
+     "batchInfo.voucher[1].payGroupId": "W",
+     "batchInfo.voucher[1].periodStart": "2026-09-21",
+     "batchInfo.voucher[1].periodEnd": "2026-09-27",
+     "batchInfo.voucher[1].weeksWorked": "1.0",
+     "batchInfo.voucher[1].deductPeriod": "1",
+     "batchInfo.voucher[1].payPeriod": "40"
+    },
+    "diagnostics": [],
+    "company_id": "prismhr:synthetic:company:201",
+    "pay_date": "2026-10-02",
+    "description": "30115 - 2026-10-02",
+    "type": {
+     "value": "REGULAR",
+     "raw": "R",
+     "source_field": "batchList[].batchType"
+    },
+    "status": {
+     "value": "COMPLETED",
+     "raw": "COMP",
+     "source_field": "batchList[].batchStatus"
+    },
+    "pay_groups": [
+     {
+      "pay_group": "BW",
+      "period": {
+       "start": "2026-09-14",
+       "end": "2026-09-27"
+      },
+      "weeks_worked": "1",
+      "deduction_period": "1"
+     },
+     {
+      "pay_group": "W",
+      "period": {
+       "start": "2026-09-21",
+       "end": "2026-09-27"
+      },
+      "weeks_worked": "1",
+      "deduction_period": "1"
+     }
+    ]
+   },
+   {
+    "id": "prismhr:synthetic:payroll_run:201:30116",
+    "source": {
+     "provider": "prismhr",
+     "tenant_id": "synthetic",
+     "endpoints": [
+      "payroll/v1/getBatchInfo",
+      "payroll/v1/getBatchListByDate"
+     ],
+     "ids": {
+      "clientId": "201",
+      "batchId": "30116"
+     }
+    },
+    "provider_extensions": {
+     "batchId": "30116",
+     "payDate": "2026-10-02",
+     "batchStatus": "COMP",
+     "batchInfo.batchStatus": "COMP",
+     "batchInfo.batchId": "30116",
+     "batchInfo.payDate": "2026-10-02",
+     "batchInfo.batchDescription": "30116 - 2026-10-02",
+     "batchInfo.batchType": "V",
+     "batchInfo.processor": "synthetic",
+     "batchInfo.deliveryMethod": "ELEC",
+     "batchInfo.voucher[0].payGroupId": "W",
+     "batchInfo.voucher[0].periodStart": "2026-09-21",
+     "batchInfo.voucher[0].periodEnd": "2026-09-27",
+     "batchInfo.voucher[0].weeksWorked": "1.0",
+     "batchInfo.voucher[0].deductPeriod": "1",
+     "batchInfo.voucher[0].payPeriod": "40"
+    },
+    "diagnostics": [],
+    "company_id": "prismhr:synthetic:company:201",
+    "pay_date": "2026-10-02",
+    "description": "30116 - 2026-10-02",
+    "type": {
+     "value": "VOID",
+     "raw": "V",
+     "source_field": "batchList[].batchType"
+    },
+    "status": {
+     "value": "COMPLETED",
+     "raw": "COMP",
+     "source_field": "batchList[].batchStatus"
+    },
+    "pay_groups": [
+     {
+      "pay_group": "W",
+      "period": {
+       "start": "2026-09-21",
+       "end": "2026-09-27"
+      },
+      "weeks_worked": "1",
+      "deduction_period": "1"
+     }
+    ]
+   },
+   {
+    "id": "prismhr:synthetic:payroll_run:201:30117",
+    "source": {
+     "provider": "prismhr",
+     "tenant_id": "synthetic",
+     "endpoints": [
+      "payroll/v1/getBatchInfo",
+      "payroll/v1/getBatchListByDate"
+     ],
+     "ids": {
+      "clientId": "201",
+      "batchId": "30117"
+     }
+    },
+    "provider_extensions": {
+     "batchId": "30117",
+     "payDate": "2026-10-09",
+     "batchStatus": "COMP",
+     "batchInfo.batchStatus": "COMP",
+     "batchInfo.batchId": "30117",
+     "batchInfo.payDate": "2026-10-09",
+     "batchInfo.batchDescription": "30117 - 2026-10-09",
+     "batchInfo.batchType": "S",
+     "batchInfo.processor": "synthetic",
+     "batchInfo.deliveryMethod": "ELEC",
+     "batchInfo.voucher[0].payGroupId": "BW",
+     "batchInfo.voucher[0].periodStart": "2026-09-14",
+     "batchInfo.voucher[0].periodEnd": "2026-09-27",
+     "batchInfo.voucher[0].weeksWorked": "1.0",
+     "batchInfo.voucher[0].deductPeriod": "1",
+     "batchInfo.voucher[0].payPeriod": "40"
+    },
+    "diagnostics": [],
+    "company_id": "prismhr:synthetic:company:201",
+    "pay_date": "2026-10-09",
+    "description": "30117 - 2026-10-09",
+    "type": {
+     "value": "SPECIAL",
+     "raw": "S",
+     "source_field": "batchList[].batchType"
+    },
+    "status": {
+     "value": "COMPLETED",
+     "raw": "COMP",
+     "source_field": "batchList[].batchStatus"
+    },
+    "pay_groups": [
+     {
+      "pay_group": "BW",
+      "period": {
+       "start": "2026-09-14",
+       "end": "2026-09-27"
+      },
+      "weeks_worked": "1",
+      "deduction_period": "1"
+     }
+    ]
+   },
+   {
+    "id": "prismhr:synthetic:payroll_run:201:30118",
+    "source": {
+     "provider": "prismhr",
+     "tenant_id": "synthetic",
+     "endpoints": [
+      "payroll/v1/getBatchInfo",
+      "payroll/v1/getBatchListByDate"
+     ],
+     "ids": {
+      "clientId": "201",
+      "batchId": "30118"
+     }
+    },
+    "provider_extensions": {
+     "batchId": "30118",
+     "payDate": "2026-10-09",
+     "batchStatus": "COMP",
+     "batchInfo.batchStatus": "COMP",
+     "batchInfo.batchId": "30118",
+     "batchInfo.payDate": "2026-10-09",
+     "batchInfo.batchDescription": "30118 - 2026-10-09",
+     "batchInfo.processor": "synthetic",
+     "batchInfo.deliveryMethod": "ELEC",
+     "batchInfo.voucher[0].payGroupId": "W",
+     "batchInfo.voucher[0].periodStart": "2026-09-21",
+     "batchInfo.voucher[0].periodEnd": "2026-09-27",
+     "batchInfo.voucher[0].weeksWorked": "1.0",
+     "batchInfo.voucher[0].deductPeriod": "1",
+     "batchInfo.voucher[0].payPeriod": "40"
+    },
+    "diagnostics": [
+     {
+      "code": "UNMAPPED_CODE",
+      "severity": "warning",
+      "field": "batchList[].batchType",
+      "message": "no documented or evidenced meaning for this code",
+      "raw": ""
+     }
+    ],
+    "company_id": "prismhr:synthetic:company:201",
+    "pay_date": "2026-10-09",
+    "description": "30118 - 2026-10-09",
+    "type": {
+     "value": "UNMAPPED",
+     "raw": "",
+     "source_field": "batchList[].batchType"
+    },
+    "status": {
+     "value": "COMPLETED",
+     "raw": "COMP",
+     "source_field": "batchList[].batchStatus"
+    },
+    "pay_groups": [
+     {
+      "pay_group": "W",
+      "period": {
+       "start": "2026-09-21",
+       "end": "2026-09-27"
+      },
+      "weeks_worked": "1",
+      "deduction_period": "1"
+     }
+    ]
+   },
+   {
+    "id": "prismhr:synthetic:payroll_run:201:30119",
+    "source": {
+     "provider": "prismhr",
+     "tenant_id": "synthetic",
+     "endpoints": [
+      "payroll/v1/getBatchInfo",
+      "payroll/v1/getBatchListByDate"
+     ],
+     "ids": {
+      "clientId": "201",
+      "batchId": "30119"
+     }
+    },
+    "provider_extensions": {
+     "batchId": "30119",
+     "payDate": "2026-10-16",
+     "batchStatus": "TS.READY",
+     "batchInfo.batchStatus": "TS.READY",
+     "batchInfo.batchId": "30119",
+     "batchInfo.payDate": "2026-10-16",
+     "batchInfo.batchDescription": "30119 - 2026-10-16",
+     "batchInfo.batchType": "R",
+     "batchInfo.processor": "synthetic",
+     "batchInfo.deliveryMethod": "ELEC",
+     "batchInfo.voucher[0].payGroupId": "BW",
+     "batchInfo.voucher[0].periodStart": "2026-09-14",
+     "batchInfo.voucher[0].periodEnd": "2026-09-27",
+     "batchInfo.voucher[0].weeksWorked": "1.0",
+     "batchInfo.voucher[0].deductPeriod": "1",
+     "batchInfo.voucher[0].payPeriod": "40"
+    },
+    "diagnostics": [
+     {
+      "code": "UNMAPPED_CODE",
+      "severity": "warning",
+      "field": "batchList[].batchStatus",
+      "message": "no documented or evidenced meaning for this code",
+      "raw": "TS.READY"
+     }
+    ],
+    "company_id": "prismhr:synthetic:company:201",
+    "pay_date": "2026-10-16",
+    "description": "30119 - 2026-10-16",
+    "type": {
+     "value": "REGULAR",
+     "raw": "R",
+     "source_field": "batchList[].batchType"
+    },
+    "status": {
+     "value": "UNMAPPED",
+     "raw": "TS.READY",
+     "source_field": "batchList[].batchStatus"
+    },
+    "pay_groups": [
+     {
+      "pay_group": "BW",
+      "period": {
+       "start": "2026-09-14",
+       "end": "2026-09-27"
+      },
+      "weeks_worked": "1",
+      "deduction_period": "1"
+     }
+    ]
+   },
+   {
+    "id": "prismhr:synthetic:payroll_run:202:40101",
+    "source": {
+     "provider": "prismhr",
+     "tenant_id": "synthetic",
+     "endpoints": [
+      "payroll/v1/getBatchInfo",
+      "payroll/v1/getBatchListByDate"
+     ],
+     "ids": {
+      "clientId": "202",
+      "batchId": "40101"
+     }
+    },
+    "provider_extensions": {
+     "batchId": "40101",
+     "payDate": "2026-10-02",
+     "batchStatus": "COMP",
+     "batchInfo.batchStatus": "COMP",
+     "batchInfo.batchId": "40101",
+     "batchInfo.payDate": "2026-10-02",
+     "batchInfo.batchDescription": "40101 - 2026-10-02",
+     "batchInfo.batchType": "R",
+     "batchInfo.processor": "synthetic",
+     "batchInfo.deliveryMethod": "ELEC",
+     "batchInfo.voucher[0].payGroupId": "BW",
+     "batchInfo.voucher[0].periodStart": "2026-09-14",
+     "batchInfo.voucher[0].periodEnd": "2026-09-27",
+     "batchInfo.voucher[0].weeksWorked": "1.0",
+     "batchInfo.voucher[0].deductPeriod": "1",
+     "batchInfo.voucher[0].payPeriod": "40"
+    },
+    "diagnostics": [],
+    "company_id": "prismhr:synthetic:company:202",
+    "pay_date": "2026-10-02",
+    "description": "40101 - 2026-10-02",
+    "type": {
+     "value": "REGULAR",
+     "raw": "R",
+     "source_field": "batchList[].batchType"
+    },
+    "status": {
+     "value": "COMPLETED",
+     "raw": "COMP",
+     "source_field": "batchList[].batchStatus"
+    },
+    "pay_groups": [
+     {
+      "pay_group": "BW",
+      "period": {
+       "start": "2026-09-14",
+       "end": "2026-09-27"
+      },
+      "weeks_worked": "1",
+      "deduction_period": "1"
+     }
+    ]
+   }
+  ],
+  "pay_statements": [
+   {
+    "id": "prismhr:synthetic:pay_statement:201:077001",
+    "source": {
+     "provider": "prismhr",
+     "tenant_id": "synthetic",
+     "endpoints": [
+      "payroll/v1/getPayrollVoucherForBatch"
+     ],
+     "ids": {
+      "clientId": "201",
+      "voucherId": "077001",
+      "batchId": "30115"
+     }
+    },
+    "provider_extensions": {
+     "voucherId": "077001",
+     "payPeriod": "B",
+     "payGroup": "BW",
+     "dateProcessed": "2026-10-02",
+     "employeeTax[0].empOverLimitAmount": "0.0",
+     "employeeTax[1].empOverLimitAmount": "0.0",
+     "employeeTax[2].empOverLimitAmount": "0.0",
+     "employeeTax[3].empOverLimitAmount": "0.0",
+     "fitTaxableAmount": "1890.75",
+     "earnAmount": "2000.0",
+     "otherEarnAmount": "0.0",
+     "wcHomeClass": "8810",
+     "wcState": "NC",
+     "earning[0].payClassDescription": "Earnings",
+     "earning[0].chargeDate": "2026-09-27",
+     "earning[1].payClassDescription": "Earnings",
+     "earning[1].chargeDate": "2026-09-27",
+     "companyTax[0].comTaxEntity": "P",
+     "companyTax[0].comExemptAmount": "0.0",
+     "companyTax[0].comShelteredAmount": "0.0",
+     "companyTax[0].comTaxType": "9F",
+     "companyTax[0].comOvrLimit": "0.0",
+     "companyTax[0].comTaxRate": "0.0145",
+     "companyTax[1].comTaxEntity": "P",
+     "companyTax[1].comExemptAmount": "0.0",
+     "companyTax[1].comShelteredAmount": "0.0",
+     "companyTax[1].comTaxType": "9F",
+     "companyTax[1].comOvrLimit": "0.0",
+     "companyTax[1].comTaxRate": "0.062",
+     "companyTax[2].comTaxEntity": "P",
+     "companyTax[2].comExemptAmount": "0.0",
+     "companyTax[2].comShelteredAmount": "0.0",
+     "companyTax[2].comTaxType": "9F",
+     "companyTax[2].comOvrLimit": "0.0",
+     "companyTax[2].comTaxRate": "0.006",
+     "companyTax[3].comTaxEntity": "P",
+     "companyTax[3].comExemptAmount": "0.0",
+     "companyTax[3].comShelteredAmount": "0.0",
+     "companyTax[3].comTaxType": "9F",
+     "companyTax[3].comOvrLimit": "0.0",
+     "companyTax[3].comTaxRate": "0.027",
+     "deduction[0].planId": "401K",
+     "bankAccount": "OPER",
+     "payStubType": "Electronic",
+     "checkAccountACH": "ACH1",
+     "retirement.planYearPeriod": "2026",
+     "isManualCheck": false,
+     "hsaPeoMatch": "0.0"
+    },
+    "diagnostics": [],
+    "company_id": "prismhr:synthetic:company:201",
+    "employee_id": "prismhr:synthetic:employee:201:E1001",
+    "payroll_run_id": "prismhr:synthetic:payroll_run:201:30115",
+    "pay_date": "2026-10-02",
+    "period": {
+     "start": "2026-09-14",
+     "end": "2026-09-27"
+    },
+    "type": {
+     "value": "REGULAR",
+     "raw": "R",
+     "source_field": "type"
+    },
+    "status": {
+     "value": "UNMAPPED",
+     "raw": "PRNT",
+     "source_field": "status"
+    },
+    "voided": false,
+    "totals": {
+     "gross_pay": {
+      "amount": "2003.25",
+      "currency": "USD",
+      "derived": false,
+      "source_field": "totalEarnings"
+     },
+     "net_pay": {
+      "amount": "1470.49",
+      "currency": "USD",
+      "derived": false,
+      "source_field": "netPay"
+     },
+     "employee_taxes": {
+      "amount": "417.01",
+      "currency": "USD",
+      "derived": true,
+      "formula": "sum(employeeTax[].empTaxAmount)"
+     },
+     "employer_taxes": {
+      "amount": "218.41",
+      "currency": "USD",
+      "derived": true,
+      "formula": "sum(companyTax[].comTaxAmount)"
+     },
+     "deductions": {
+      "amount": "112.50",
+      "currency": "USD",
+      "derived": true,
+      "formula": "sum(deduction[].deductAmount) + sum(otherDeduction[].otherDeductAmount)"
+     },
+     "employer_contributions": {
+      "amount": "60.00",
+      "currency": "USD",
+      "derived": true,
+      "formula": "sum(employerContributions[].amount)"
+     }
+    },
+    "earnings": [
+     {
+      "code": "REG",
+      "label": "Regular",
+      "kind": {
+       "value": "EARNINGS",
+       "raw": "E",
+       "source_field": "earning[].payClass"
+      },
+      "quantity": {
+       "value": "72.0",
+       "unit": "HOURS",
+       "derived": false,
+       "source_field": "earning[].hoursUnits"
+      },
+      "hours_worked": {
+       "value": "72.0",
+       "unit": "HOURS",
+       "derived": false,
+       "source_field": "earning[].hoursWorked"
+      },
+      "rate": {
+       "amount": "25.0",
+       "currency": "USD",
+       "per": "HOUR",
+       "derived": false,
+       "source_field": "earning[].unitRate"
+      },
+      "amount": {
+       "amount": "1800.00",
+       "currency": "USD",
+       "derived": false,
+       "source_field": "earning[].payAmount"
+      },
+      "allocation": {
+       "division": "MAIN",
+       "jobCode": "BAKER",
+       "department": "PROD",
+       "location": "CLT",
+       "workComp": "8810"
+      },
+      "source_field": "earning[]"
+     },
+     {
+      "code": "HOL",
+      "label": "Holiday",
+      "kind": {
+       "value": "EARNINGS",
+       "raw": "E",
+       "source_field": "earning[].payClass"
+      },
+      "quantity": {
+       "value": "8.0",
+       "unit": "HOURS",
+       "derived": false,
+       "source_field": "earning[].hoursUnits"
+      },
+      "hours_worked": {
+       "value": "8.0",
+       "unit": "HOURS",
+       "derived": false,
+       "source_field": "earning[].hoursWorked"
+      },
+      "rate": {
+       "amount": "25.0",
+       "currency": "USD",
+       "per": "HOUR",
+       "derived": false,
+       "source_field": "earning[].unitRate"
+      },
+      "amount": {
+       "amount": "200.00",
+       "currency": "USD",
+       "derived": false,
+       "source_field": "earning[].payAmount"
+      },
+      "allocation": {
+       "division": "MAIN",
+       "jobCode": "BAKER",
+       "department": "PROD",
+       "location": "CLT",
+       "workComp": "8810"
+      },
+      "source_field": "earning[]"
+     },
+     {
+      "code": "FRINGE",
+      "label": "Fringe",
+      "kind": {
+       "value": "NON_CASH_FRINGE",
+       "raw": "F",
+       "source_field": "clientCodes.payCode[].payClass"
+      },
+      "amount": {
+       "amount": "3.25",
+       "currency": "USD",
+       "derived": false,
+       "source_field": "otherEarningsDetail[].otherEarnAmount"
+      },
+      "allocation": {},
+      "source_field": "otherEarningsDetail[]"
+     }
+    ],
+    "taxes": [
+     {
+      "code": "00-10",
+      "label": "Federal Income Tax",
+      "paid_by": "EMPLOYEE",
+      "amount": {
+       "amount": "189.08",
+       "currency": "USD",
+       "derived": false
+      },
+      "taxable_wages": {
+       "amount": "1890.75",
+       "currency": "USD",
+       "derived": false
+      },
+      "source_field": "employeeTax[]"
+     },
+     {
+      "code": "00-11",
+      "label": "Medicare - Employee",
+      "paid_by": "EMPLOYEE",
+      "amount": {
+       "amount": "28.87",
+       "currency": "USD",
+       "derived": false
+      },
+      "taxable_wages": {
+       "amount": "1990.75",
+       "currency": "USD",
+       "derived": false
+      },
+      "source_field": "employeeTax[]"
+     },
+     {
+      "code": "00-12",
+      "label": "Soc Security - Employee",
+      "paid_by": "EMPLOYEE",
+      "amount": {
+       "amount": "123.43",
+       "currency": "USD",
+       "derived": false
+      },
+      "taxable_wages": {
+       "amount": "1990.75",
+       "currency": "USD",
+       "derived": false
+      },
+      "source_field": "employeeTax[]"
+     },
+     {
+      "code": "NC-20",
+      "label": "NC Income Tax",
+      "paid_by": "EMPLOYEE",
+      "amount": {
+       "amount": "75.63",
+       "currency": "USD",
+       "derived": false
+      },
+      "taxable_wages": {
+       "amount": "1890.75",
+       "currency": "USD",
+       "derived": false
+      },
+      "source_field": "employeeTax[]"
+     },
+     {
+      "code": "00-15",
+      "label": "Medicare - Employer",
+      "paid_by": "EMPLOYER",
+      "amount": {
+       "amount": "28.87",
+       "currency": "USD",
+       "derived": false
+      },
+      "taxable_wages": {
+       "amount": "1990.75",
+       "currency": "USD",
+       "derived": false
+      },
+      "source_field": "companyTax[]"
+     },
+     {
+      "code": "00-16",
+      "label": "Soc Security - Employer",
+      "paid_by": "EMPLOYER",
+      "amount": {
+       "amount": "123.43",
+       "currency": "USD",
+       "derived": false
+      },
+      "taxable_wages": {
+       "amount": "1990.75",
+       "currency": "USD",
+       "derived": false
+      },
+      "source_field": "companyTax[]"
+     },
+     {
+      "code": "00-17",
+      "label": "FUTA",
+      "paid_by": "EMPLOYER",
+      "amount": {
+       "amount": "12.02",
+       "currency": "USD",
+       "derived": false
+      },
+      "taxable_wages": {
+       "amount": "2003.25",
+       "currency": "USD",
+       "derived": false
+      },
+      "source_field": "companyTax[]"
+     },
+     {
+      "code": "NC-SUI",
+      "label": "NC SUTA",
+      "paid_by": "EMPLOYER",
+      "amount": {
+       "amount": "54.09",
+       "currency": "USD",
+       "derived": false
+      },
+      "taxable_wages": {
+       "amount": "2003.25",
+       "currency": "USD",
+       "derived": false
+      },
+      "source_field": "companyTax[]"
+     }
+    ],
+    "deductions": [
+     {
+      "code": "C401K",
+      "label": "401(k)",
+      "category": {
+       "value": "RETIREMENT",
+       "raw": "K",
+       "source_field": "deduction[].deductType"
+      },
+      "tax_treatment": "PRE_TAX",
+      "employee_amount": {
+       "amount": "100.00",
+       "currency": "USD",
+       "derived": false
+      },
+      "source_field": "deduction[]"
+     },
+     {
+      "code": "DEN125",
+      "label": "Dental Pre-Tax",
+      "category": {
+       "value": "SECTION_125",
+       "raw": "C",
+       "source_field": "deduction[].deductType"
+      },
+      "tax_treatment": "PRE_TAX",
+      "employee_amount": {
+       "amount": "12.50",
+       "currency": "USD",
+       "derived": false
+      },
+      "source_field": "deduction[]"
+     }
+    ],
+    "employer_contributions": [
+     {
+      "code": "401KM",
+      "label": "401(k) Match",
+      "amount": {
+       "amount": "60.00",
+       "currency": "USD",
+       "derived": false
+      },
+      "source_field": "employerContributions[]"
+     }
+    ],
+    "benefit_details": [],
+    "retirement": {
+     "plan": "401K",
+     "base_earnings": {
+      "amount": "2003.25",
+      "currency": "USD",
+      "derived": false,
+      "source_field": "retirement.baseEarnings"
+     },
+     "amounts": {
+      "employee_pre_tax": {
+       "amount": "100.00",
+       "currency": "USD",
+       "derived": false,
+       "source_field": "retirement.electiveContributionsPreTax"
+      },
+      "employer_match": {
+       "amount": "60.00",
+       "currency": "USD",
+       "derived": false,
+       "source_field": "retirement.employerMatchingContributions"
+      }
+     }
+    },
+    "payments": [
+     {
+      "kind": {
+       "value": "DIRECT_DEPOSIT",
+       "source_field": "directDeposit[]"
+      },
+      "amount": {
+       "amount": "200.00",
+       "currency": "USD",
+       "derived": false
+      },
+      "routing_number": "123456780",
+      "masked_at_source": true,
+      "status": "D",
+      "source_field": "directDeposit[]"
+     },
+     {
+      "kind": {
+       "value": "DIRECT_DEPOSIT",
+       "source_field": "directDeposit[]"
+      },
+      "amount": {
+       "amount": "1270.49",
+       "currency": "USD",
+       "derived": false
+      },
+      "routing_number": "123456780",
+      "masked_at_source": true,
+      "status": "D",
+      "source_field": "directDeposit[]"
+     }
+    ],
+    "checks": [
+     {
+      "rule": "gross = sum of earning lines",
+      "result": "pass",
+      "detail": "2003.25 vs 2003.25"
+     },
+     {
+      "rule": "gross - non-cash earnings - employee taxes - deductions = net",
+      "result": "pass",
+      "detail": "2003.25 - 3.25 - 417.01 - 112.5 = 1470.49; net 1470.49"
+     },
+     {
+      "rule": "payments = net",
+      "result": "pass",
+      "detail": "1470.49 vs 1470.49"
+     }
+    ]
+   },
+   {
+    "id": "prismhr:synthetic:pay_statement:201:077002",
+    "source": {
+     "provider": "prismhr",
+     "tenant_id": "synthetic",
+     "endpoints": [
+      "payroll/v1/getPayrollVoucherForBatch"
+     ],
+     "ids": {
+      "clientId": "201",
+      "voucherId": "077002",
+      "batchId": "30115"
+     }
+    },
+    "provider_extensions": {
+     "voucherId": "077002",
+     "payPeriod": "W",
+     "payGroup": "W",
+     "dateProcessed": "2026-10-02",
+     "employeeTax[0].empOverLimitAmount": "0.0",
+     "employeeTax[1].empOverLimitAmount": "0.0",
+     "employeeTax[2].empOverLimitAmount": "0.0",
+     "employeeTax[3].empOverLimitAmount": "0.0",
+     "fitTaxableAmount": "708.6",
+     "earnAmount": "708.6",
+     "otherEarnAmount": "0.0",
+     "wcHomeClass": "8810",
+     "wcState": "NC",
+     "earning[0].payClassDescription": "Earnings",
+     "earning[0].chargeDate": "2026-09-27",
+     "earning[1].payClassDescription": "Earnings",
+     "earning[1].chargeDate": "2026-09-27",
+     "earning[2].payClassDescription": "Earnings",
+     "earning[2].chargeDate": "2026-09-27",
+     "earning[3].payClassDescription": "Earnings",
+     "earning[3].chargeDate": "2026-09-27",
+     "companyTax[0].comTaxEntity": "P",
+     "companyTax[0].comExemptAmount": "0.0",
+     "companyTax[0].comShelteredAmount": "0.0",
+     "companyTax[0].comTaxType": "9F",
+     "companyTax[0].comOvrLimit": "0.0",
+     "companyTax[0].comTaxRate": "0.0145",
+     "companyTax[1].comTaxEntity": "P",
+     "companyTax[1].comExemptAmount": "0.0",
+     "companyTax[1].comShelteredAmount": "0.0",
+     "companyTax[1].comTaxType": "9F",
+     "companyTax[1].comOvrLimit": "0.0",
+     "companyTax[1].comTaxRate": "0.062",
+     "companyTax[2].comTaxEntity": "P",
+     "companyTax[2].comExemptAmount": "0.0",
+     "companyTax[2].comShelteredAmount": "0.0",
+     "companyTax[2].comTaxType": "9F",
+     "companyTax[2].comOvrLimit": "0.0",
+     "companyTax[2].comTaxRate": "0.006",
+     "companyTax[3].comTaxEntity": "P",
+     "companyTax[3].comExemptAmount": "0.0",
+     "companyTax[3].comShelteredAmount": "0.0",
+     "companyTax[3].comTaxType": "9F",
+     "companyTax[3].comOvrLimit": "0.0",
+     "companyTax[3].comTaxRate": "0.027",
+     "otherDeduction[0].otherDeductOneTimeSwitch": "Y",
+     "bankAccount": "OPER",
+     "payStubType": "Electronic",
+     "checkAccountACH": "ACH1",
+     "isManualCheck": false,
+     "hsaPeoMatch": "0.0"
+    },
+    "diagnostics": [],
+    "company_id": "prismhr:synthetic:company:201",
+    "employee_id": "prismhr:synthetic:employee:201:E1002",
+    "payroll_run_id": "prismhr:synthetic:payroll_run:201:30115",
+    "pay_date": "2026-10-02",
+    "period": {
+     "start": "2026-09-21",
+     "end": "2026-09-27"
+    },
+    "type": {
+     "value": "REGULAR",
+     "raw": "R",
+     "source_field": "type"
+    },
+    "status": {
+     "value": "UNMAPPED",
+     "raw": "PRNT",
+     "source_field": "status"
+    },
+    "voided": false,
+    "totals": {
+     "gross_pay": {
+      "amount": "708.60",
+      "currency": "USD",
+      "derived": false,
+      "source_field": "totalEarnings"
+     },
+     "net_pay": {
+      "amount": "462.20",
+      "currency": "USD",
+      "derived": false,
+      "source_field": "netPay"
+     },
+     "employee_taxes": {
+      "amount": "153.40",
+      "currency": "USD",
+      "derived": true,
+      "formula": "sum(employeeTax[].empTaxAmount)"
+     },
+     "employer_taxes": {
+      "amount": "77.58",
+      "currency": "USD",
+      "derived": true,
+      "formula": "sum(companyTax[].comTaxAmount)"
+     },
+     "deductions": {
+      "amount": "48.00",
+      "currency": "USD",
+      "derived": true,
+      "formula": "sum(deduction[].deductAmount) + sum(otherDeduction[].otherDeductAmount)"
+     },
+     "employer_contributions": {
+      "amount": "0.00",
+      "currency": "USD",
+      "derived": true,
+      "formula": "sum(employerContributions[].amount)"
+     }
+    },
+    "earnings": [
+     {
+      "code": "REG",
+      "label": "Regular",
+      "kind": {
+       "value": "EARNINGS",
+       "raw": "E",
+       "source_field": "earning[].payClass"
+      },
+      "quantity": {
+       "value": "20.0",
+       "unit": "HOURS",
+       "derived": false,
+       "source_field": "earning[].hoursUnits"
+      },
+      "hours_worked": {
+       "value": "20.0",
+       "unit": "HOURS",
+       "derived": false,
+       "source_field": "earning[].hoursWorked"
+      },
+      "rate": {
+       "amount": "22.5",
+       "currency": "USD",
+       "per": "HOUR",
+       "derived": false,
+       "source_field": "earning[].unitRate"
+      },
+      "amount": {
+       "amount": "450.00",
+       "currency": "USD",
+       "derived": false,
+       "source_field": "earning[].payAmount"
+      },
+      "allocation": {
+       "division": "MAIN",
+       "jobCode": "BAKER",
+       "department": "PROD",
+       "location": "CLT",
+       "workComp": "8810"
+      },
+      "source_field": "earning[]"
+     },
+     {
+      "code": "OT",
+      "label": "Overtime",
+      "kind": {
+       "value": "EARNINGS",
+       "raw": "E",
+       "source_field": "earning[].payClass"
+      },
+      "quantity": {
+       "value": "4.0",
+       "unit": "HOURS",
+       "derived": false,
+       "source_field": "earning[].hoursUnits"
+      },
+      "hours_worked": {
+       "value": "4.0",
+       "unit": "HOURS",
+       "derived": false,
+       "source_field": "earning[].hoursWorked"
+      },
+      "rate": {
+       "amount": "33.75",
+       "currency": "USD",
+       "per": "HOUR",
+       "derived": false,
+       "source_field": "earning[].unitRate"
+      },
+      "amount": {
+       "amount": "135.00",
+       "currency": "USD",
+       "derived": false,
+       "source_field": "earning[].payAmount"
+      },
+      "allocation": {
+       "division": "MAIN",
+       "jobCode": "BAKER",
+       "department": "PROD",
+       "location": "CLT",
+       "workComp": "8810"
+      },
+      "source_field": "earning[]"
+     },
+     {
+      "code": "TIPS",
+      "label": "Reported Tips",
+      "kind": {
+       "value": "REPORTED_TIPS",
+       "raw": "RT",
+       "source_field": "earning[].payClass"
+      },
+      "quantity": {
+       "value": "1.0",
+       "unit": "UNITS",
+       "derived": false,
+       "source_field": "earning[].hoursUnits"
+      },
+      "rate": {
+       "amount": "45.0",
+       "currency": "USD",
+       "per": "UNIT",
+       "derived": false,
+       "source_field": "earning[].unitRate"
+      },
+      "amount": {
+       "amount": "45.00",
+       "currency": "USD",
+       "derived": false,
+       "source_field": "earning[].payAmount"
+      },
+      "allocation": {
+       "division": "MAIN",
+       "jobCode": "BAKER",
+       "department": "PROD",
+       "location": "CLT",
+       "workComp": "8810"
+      },
+      "source_field": "earning[]"
+     },
+     {
+      "code": "MILE",
+      "label": "Mileage Reimbursement",
+      "kind": {
+       "value": "REIMBURSEMENT",
+       "raw": "R",
+       "source_field": "earning[].payClass"
+      },
+      "quantity": {
+       "value": "120.0",
+       "unit": "UNITS",
+       "derived": false,
+       "source_field": "earning[].hoursUnits"
+      },
+      "rate": {
+       "amount": "0.655",
+       "currency": "USD",
+       "per": "UNIT",
+       "derived": false,
+       "source_field": "earning[].unitRate"
+      },
+      "amount": {
+       "amount": "78.60",
+       "currency": "USD",
+       "derived": false,
+       "source_field": "earning[].payAmount"
+      },
+      "allocation": {
+       "division": "MAIN",
+       "jobCode": "BAKER",
+       "department": "PROD",
+       "location": "CLT",
+       "workComp": "8810"
+      },
+      "source_field": "earning[]"
+     }
+    ],
+    "taxes": [
+     {
+      "code": "00-10",
+      "label": "Federal Income Tax",
+      "paid_by": "EMPLOYEE",
+      "amount": {
+       "amount": "70.86",
+       "currency": "USD",
+       "derived": false
+      },
+      "taxable_wages": {
+       "amount": "708.60",
+       "currency": "USD",
+       "derived": false
+      },
+      "source_field": "employeeTax[]"
+     },
+     {
+      "code": "00-11",
+      "label": "Medicare - Employee",
+      "paid_by": "EMPLOYEE",
+      "amount": {
+       "amount": "10.27",
+       "currency": "USD",
+       "derived": false
+      },
+      "taxable_wages": {
+       "amount": "708.60",
+       "currency": "USD",
+       "derived": false
+      },
+      "source_field": "employeeTax[]"
+     },
+     {
+      "code": "00-12",
+      "label": "Soc Security - Employee",
+      "paid_by": "EMPLOYEE",
+      "amount": {
+       "amount": "43.93",
+       "currency": "USD",
+       "derived": false
+      },
+      "taxable_wages": {
+       "amount": "708.60",
+       "currency": "USD",
+       "derived": false
+      },
+      "source_field": "employeeTax[]"
+     },
+     {
+      "code": "NC-20",
+      "label": "NC Income Tax",
+      "paid_by": "EMPLOYEE",
+      "amount": {
+       "amount": "28.34",
+       "currency": "USD",
+       "derived": false
+      },
+      "taxable_wages": {
+       "amount": "708.60",
+       "currency": "USD",
+       "derived": false
+      },
+      "source_field": "employeeTax[]"
+     },
+     {
+      "code": "00-15",
+      "label": "Medicare - Employer",
+      "paid_by": "EMPLOYER",
+      "amount": {
+       "amount": "10.27",
+       "currency": "USD",
+       "derived": false
+      },
+      "taxable_wages": {
+       "amount": "708.60",
+       "currency": "USD",
+       "derived": false
+      },
+      "source_field": "companyTax[]"
+     },
+     {
+      "code": "00-16",
+      "label": "Soc Security - Employer",
+      "paid_by": "EMPLOYER",
+      "amount": {
+       "amount": "43.93",
+       "currency": "USD",
+       "derived": false
+      },
+      "taxable_wages": {
+       "amount": "708.60",
+       "currency": "USD",
+       "derived": false
+      },
+      "source_field": "companyTax[]"
+     },
+     {
+      "code": "00-17",
+      "label": "FUTA",
+      "paid_by": "EMPLOYER",
+      "amount": {
+       "amount": "4.25",
+       "currency": "USD",
+       "derived": false
+      },
+      "taxable_wages": {
+       "amount": "708.60",
+       "currency": "USD",
+       "derived": false
+      },
+      "source_field": "companyTax[]"
+     },
+     {
+      "code": "NC-SUI",
+      "label": "NC SUTA",
+      "paid_by": "EMPLOYER",
+      "amount": {
+       "amount": "19.13",
+       "currency": "USD",
+       "derived": false
+      },
+      "taxable_wages": {
+       "amount": "708.60",
+       "currency": "USD",
+       "derived": false
+      },
+      "source_field": "companyTax[]"
+     }
+    ],
+    "deductions": [
+     {
+      "code": "LIFE",
+      "label": "Voluntary Life",
+      "category": {
+       "value": "VOLUNTARY",
+       "raw": "V",
+       "source_field": "deduction[].deductType"
+      },
+      "tax_treatment": "UNSPECIFIED",
+      "employee_amount": {
+       "amount": "8.00",
+       "currency": "USD",
+       "derived": false
+      },
+      "source_field": "deduction[]"
+     },
+     {
+      "code": "LOAN1",
+      "label": "Employee Loan",
+      "category": {
+       "value": "LOAN",
+       "raw": "L",
+       "source_field": "deduction[].deductType"
+      },
+      "tax_treatment": "UNSPECIFIED",
+      "employee_amount": {
+       "amount": "25.00",
+       "currency": "USD",
+       "derived": false
+      },
+      "source_field": "deduction[]"
+     },
+     {
+      "code": "UNIFORM",
+      "label": "Uniform",
+      "category": {
+       "value": "VOLUNTARY",
+       "raw": "V",
+       "source_field": "clientCodes.deductionCode[].type"
+      },
+      "tax_treatment": "UNSPECIFIED",
+      "employee_amount": {
+       "amount": "15.00",
+       "currency": "USD",
+       "derived": false
+      },
+      "source_field": "otherDeduction[]"
+     }
+    ],
+    "employer_contributions": [],
+    "benefit_details": [
+     {
+      "plan": "LIFE",
+      "coverage_period": "202610",
+      "premium": {
+       "amount": "8.00",
+       "currency": "USD",
+       "derived": false
+      },
+      "premium_cost": {
+       "amount": "7.50",
+       "currency": "USD",
+       "derived": false
+      },
+      "employee_contribution": {
+       "amount": "0.00",
+       "currency": "USD",
+       "derived": false
+      },
+      "employee_deduction": {
+       "amount": "8.00",
+       "currency": "USD",
+       "derived": false
+      },
+      "source_field": "benefit[]"
+     }
+    ],
+    "payments": [
+     {
+      "kind": {
+       "value": "DIRECT_DEPOSIT",
+       "source_field": "directDeposit[]"
+      },
+      "amount": {
+       "amount": "138.66",
+       "currency": "USD",
+       "derived": false
+      },
+      "routing_number": "123456780",
+      "masked_at_source": true,
+      "status": "D",
+      "source_field": "directDeposit[]"
+     },
+     {
+      "kind": {
+       "value": "DIRECT_DEPOSIT",
+       "source_field": "directDeposit[]"
+      },
+      "amount": {
+       "amount": "231.10",
+       "currency": "USD",
+       "derived": false
+      },
+      "routing_number": "123456780",
+      "masked_at_source": true,
+      "status": "D",
+      "source_field": "directDeposit[]"
+     },
+     {
+      "kind": {
+       "value": "DIRECT_DEPOSIT",
+       "source_field": "directDeposit[]"
+      },
+      "amount": {
+       "amount": "92.44",
+       "currency": "USD",
+       "derived": false
+      },
+      "routing_number": "123456780",
+      "masked_at_source": true,
+      "status": "D",
+      "source_field": "directDeposit[]"
+     }
+    ],
+    "checks": [
+     {
+      "rule": "gross = sum of earning lines",
+      "result": "pass",
+      "detail": "708.6 vs 708.6"
+     },
+     {
+      "rule": "gross - non-cash earnings - employee taxes - deductions = net",
+      "result": "pass",
+      "detail": "708.6 - 45.0 - 153.40 - 48.0 = 462.20; net 462.2"
+     },
+     {
+      "rule": "payments = net",
+      "result": "pass",
+      "detail": "462.20 vs 462.2"
+     }
+    ]
+   },
+   {
+    "id": "prismhr:synthetic:pay_statement:201:077003",
+    "source": {
+     "provider": "prismhr",
+     "tenant_id": "synthetic",
+     "endpoints": [
+      "payroll/v1/getPayrollVoucherForBatch"
+     ],
+     "ids": {
+      "clientId": "201",
+      "voucherId": "077003",
+      "batchId": "30115"
+     }
+    },
+    "provider_extensions": {
+     "voucherId": "077003",
+     "payPeriod": "B",
+     "payGroup": "BW",
+     "dateProcessed": "2026-10-02",
+     "employeeTax[0].empOverLimitAmount": "0.0",
+     "employeeTax[1].empOverLimitAmount": "0.0",
+     "employeeTax[2].empOverLimitAmount": "0.0",
+     "employeeTax[3].empOverLimitAmount": "0.0",
+     "fitTaxableAmount": "1920.0",
+     "earnAmount": "1920.0",
+     "otherEarnAmount": "0.0",
+     "wcHomeClass": "8810",
+     "wcState": "NC",
+     "earning[0].payClassDescription": "Earnings",
+     "earning[0].chargeDate": "2026-09-27",
+     "companyTax[0].comTaxEntity": "P",
+     "companyTax[0].comExemptAmount": "0.0",
+     "companyTax[0].comShelteredAmount": "0.0",
+     "companyTax[0].comTaxType": "9F",
+     "companyTax[0].comOvrLimit": "0.0",
+     "companyTax[0].comTaxRate": "0.0145",
+     "companyTax[1].comTaxEntity": "P",
+     "companyTax[1].comExemptAmount": "0.0",
+     "companyTax[1].comShelteredAmount": "0.0",
+     "companyTax[1].comTaxType": "9F",
+     "companyTax[1].comOvrLimit": "0.0",
+     "companyTax[1].comTaxRate": "0.062",
+     "companyTax[2].comTaxEntity": "P",
+     "companyTax[2].comExemptAmount": "0.0",
+     "companyTax[2].comShelteredAmount": "0.0",
+     "companyTax[2].comTaxType": "9F",
+     "companyTax[2].comOvrLimit": "0.0",
+     "companyTax[2].comTaxRate": "0.006",
+     "companyTax[3].comTaxEntity": "P",
+     "companyTax[3].comExemptAmount": "0.0",
+     "companyTax[3].comShelteredAmount": "0.0",
+     "companyTax[3].comTaxType": "9F",
+     "companyTax[3].comOvrLimit": "0.0",
+     "companyTax[3].comTaxRate": "0.027",
+     "bankAccount": "OPER",
+     "payStubType": "Electronic",
+     "checkAccountACH": "ACH1",
+     "isManualCheck": false,
+     "hsaPeoMatch": "0.0"
+    },
+    "diagnostics": [],
+    "company_id": "prismhr:synthetic:company:201",
+    "employee_id": "prismhr:synthetic:employee:201:E1003",
+    "payroll_run_id": "prismhr:synthetic:payroll_run:201:30115",
+    "pay_date": "2026-10-02",
+    "period": {
+     "start": "2026-09-14",
+     "end": "2026-09-27"
+    },
+    "type": {
+     "value": "REGULAR",
+     "raw": "R",
+     "source_field": "type"
+    },
+    "status": {
+     "value": "UNMAPPED",
+     "raw": "PRNT",
+     "source_field": "status"
+    },
+    "voided": false,
+    "totals": {
+     "gross_pay": {
+      "amount": "1920.00",
+      "currency": "USD",
+      "derived": false,
+      "source_field": "totalEarnings"
+     },
+     "net_pay": {
+      "amount": "1504.32",
+      "currency": "USD",
+      "derived": false,
+      "source_field": "netPay"
+     },
+     "employee_taxes": {
+      "amount": "415.68",
+      "currency": "USD",
+      "derived": true,
+      "formula": "sum(employeeTax[].empTaxAmount)"
+     },
+     "employer_taxes": {
+      "amount": "210.24",
+      "currency": "USD",
+      "derived": true,
+      "formula": "sum(companyTax[].comTaxAmount)"
+     },
+     "deductions": {
+      "amount": "0.00",
+      "currency": "USD",
+      "derived": true,
+      "formula": "sum(deduction[].deductAmount) + sum(otherDeduction[].otherDeductAmount)"
+     },
+     "employer_contributions": {
+      "amount": "0.00",
+      "currency": "USD",
+      "derived": true,
+      "formula": "sum(employerContributions[].amount)"
+     }
+    },
+    "earnings": [
+     {
+      "code": "REG",
+      "label": "Regular",
+      "kind": {
+       "value": "EARNINGS",
+       "raw": "E",
+       "source_field": "earning[].payClass"
+      },
+      "quantity": {
+       "value": "64.0",
+       "unit": "HOURS",
+       "derived": false,
+       "source_field": "earning[].hoursUnits"
+      },
+      "hours_worked": {
+       "value": "64.0",
+       "unit": "HOURS",
+       "derived": false,
+       "source_field": "earning[].hoursWorked"
+      },
+      "rate": {
+       "amount": "30.0",
+       "currency": "USD",
+       "per": "HOUR",
+       "derived": false,
+       "source_field": "earning[].unitRate"
+      },
+      "amount": {
+       "amount": "1920.00",
+       "currency": "USD",
+       "derived": false,
+       "source_field": "earning[].payAmount"
+      },
+      "allocation": {
+       "division": "MAIN",
+       "jobCode": "BAKER",
+       "department": "PROD",
+       "location": "CLT",
+       "workComp": "8810"
+      },
+      "source_field": "earning[]"
+     }
+    ],
+    "taxes": [
+     {
+      "code": "00-10",
+      "label": "Federal Income Tax",
+      "paid_by": "EMPLOYEE",
+      "amount": {
+       "amount": "192.00",
+       "currency": "USD",
+       "derived": false
+      },
+      "taxable_wages": {
+       "amount": "1920.00",
+       "currency": "USD",
+       "derived": false
+      },
+      "source_field": "employeeTax[]"
+     },
+     {
+      "code": "00-11",
+      "label": "Medicare - Employee",
+      "paid_by": "EMPLOYEE",
+      "amount": {
+       "amount": "27.84",
+       "currency": "USD",
+       "derived": false
+      },
+      "taxable_wages": {
+       "amount": "1920.00",
+       "currency": "USD",
+       "derived": false
+      },
+      "source_field": "employeeTax[]"
+     },
+     {
+      "code": "00-12",
+      "label": "Soc Security - Employee",
+      "paid_by": "EMPLOYEE",
+      "amount": {
+       "amount": "119.04",
+       "currency": "USD",
+       "derived": false
+      },
+      "taxable_wages": {
+       "amount": "1920.00",
+       "currency": "USD",
+       "derived": false
+      },
+      "source_field": "employeeTax[]"
+     },
+     {
+      "code": "NC-20",
+      "label": "NC Income Tax",
+      "paid_by": "EMPLOYEE",
+      "amount": {
+       "amount": "76.80",
+       "currency": "USD",
+       "derived": false
+      },
+      "taxable_wages": {
+       "amount": "1920.00",
+       "currency": "USD",
+       "derived": false
+      },
+      "source_field": "employeeTax[]"
+     },
+     {
+      "code": "00-15",
+      "label": "Medicare - Employer",
+      "paid_by": "EMPLOYER",
+      "amount": {
+       "amount": "27.84",
+       "currency": "USD",
+       "derived": false
+      },
+      "taxable_wages": {
+       "amount": "1920.00",
+       "currency": "USD",
+       "derived": false
+      },
+      "source_field": "companyTax[]"
+     },
+     {
+      "code": "00-16",
+      "label": "Soc Security - Employer",
+      "paid_by": "EMPLOYER",
+      "amount": {
+       "amount": "119.04",
+       "currency": "USD",
+       "derived": false
+      },
+      "taxable_wages": {
+       "amount": "1920.00",
+       "currency": "USD",
+       "derived": false
+      },
+      "source_field": "companyTax[]"
+     },
+     {
+      "code": "00-17",
+      "label": "FUTA",
+      "paid_by": "EMPLOYER",
+      "amount": {
+       "amount": "11.52",
+       "currency": "USD",
+       "derived": false
+      },
+      "taxable_wages": {
+       "amount": "1920.00",
+       "currency": "USD",
+       "derived": false
+      },
+      "source_field": "companyTax[]"
+     },
+     {
+      "code": "NC-SUI",
+      "label": "NC SUTA",
+      "paid_by": "EMPLOYER",
+      "amount": {
+       "amount": "51.84",
+       "currency": "USD",
+       "derived": false
+      },
+      "taxable_wages": {
+       "amount": "1920.00",
+       "currency": "USD",
+       "derived": false
+      },
+      "source_field": "companyTax[]"
+     }
+    ],
+    "deductions": [],
+    "employer_contributions": [],
+    "benefit_details": [],
+    "payments": [
+     {
+      "kind": {
+       "value": "DIRECT_DEPOSIT",
+       "source_field": "directDeposit[]"
+      },
+      "amount": {
+       "amount": "1504.32",
+       "currency": "USD",
+       "derived": false
+      },
+      "routing_number": "123456780",
+      "masked_at_source": true,
+      "status": "D",
+      "source_field": "directDeposit[]"
+     }
+    ],
+    "checks": [
+     {
+      "rule": "gross = sum of earning lines",
+      "result": "pass",
+      "detail": "1920.0 vs 1920.0"
+     },
+     {
+      "rule": "gross - non-cash earnings - employee taxes - deductions = net",
+      "result": "pass",
+      "detail": "1920.0 - 0 - 415.68 - 0 = 1504.32; net 1504.32"
+     },
+     {
+      "rule": "payments = net",
+      "result": "pass",
+      "detail": "1504.32 vs 1504.32"
+     }
+    ]
+   },
+   {
+    "id": "prismhr:synthetic:pay_statement:201:077004",
+    "source": {
+     "provider": "prismhr",
+     "tenant_id": "synthetic",
+     "endpoints": [
+      "payroll/v1/getPayrollVoucherForBatch"
+     ],
+     "ids": {
+      "clientId": "201",
+      "voucherId": "077004",
+      "batchId": "30115"
+     }
+    },
+    "provider_extensions": {
+     "voucherId": "077004",
+     "payPeriod": "W",
+     "payGroup": "W",
+     "dateProcessed": "2026-10-02",
+     "fitTaxableAmount": "1200.0",
+     "earnAmount": "1200.0",
+     "otherEarnAmount": "0.0",
+     "wcHomeClass": "8810",
+     "wcState": "NC",
+     "earning[0].payClassDescription": "Earnings",
+     "earning[0].chargeDate": "2026-09-27",
+     "bankAccount": "OPER",
+     "payStubType": "Electronic",
+     "checkAccountACH": "ACH1",
+     "isManualCheck": false,
+     "hsaPeoMatch": "0.0"
+    },
+    "diagnostics": [],
+    "company_id": "prismhr:synthetic:company:201",
+    "employee_id": "prismhr:synthetic:employee:201:E1005",
+    "payroll_run_id": "prismhr:synthetic:payroll_run:201:30115",
+    "pay_date": "2026-10-02",
+    "period": {
+     "start": "2026-09-21",
+     "end": "2026-09-27"
+    },
+    "check_number": "90004",
+    "type": {
+     "value": "REGULAR",
+     "raw": "R",
+     "source_field": "type"
+    },
+    "status": {
+     "value": "UNMAPPED",
+     "raw": "PRNT",
+     "source_field": "status"
+    },
+    "voided": false,
+    "totals": {
+     "gross_pay": {
+      "amount": "1200.00",
+      "currency": "USD",
+      "derived": false,
+      "source_field": "totalEarnings"
+     },
+     "net_pay": {
+      "amount": "1200.00",
+      "currency": "USD",
+      "derived": false,
+      "source_field": "netPay"
+     },
+     "employee_taxes": {
+      "amount": "0.00",
+      "currency": "USD",
+      "derived": true,
+      "formula": "sum(employeeTax[].empTaxAmount)"
+     },
+     "employer_taxes": {
+      "amount": "0.00",
+      "currency": "USD",
+      "derived": true,
+      "formula": "sum(companyTax[].comTaxAmount)"
+     },
+     "deductions": {
+      "amount": "0.00",
+      "currency": "USD",
+      "derived": true,
+      "formula": "sum(deduction[].deductAmount) + sum(otherDeduction[].otherDeductAmount)"
+     },
+     "employer_contributions": {
+      "amount": "0.00",
+      "currency": "USD",
+      "derived": true,
+      "formula": "sum(employerContributions[].amount)"
+     }
+    },
+    "earnings": [
+     {
+      "code": "REG",
+      "label": "Regular",
+      "kind": {
+       "value": "EARNINGS",
+       "raw": "E",
+       "source_field": "earning[].payClass"
+      },
+      "quantity": {
+       "value": "30.0",
+       "unit": "HOURS",
+       "derived": false,
+       "source_field": "earning[].hoursUnits"
+      },
+      "hours_worked": {
+       "value": "30.0",
+       "unit": "HOURS",
+       "derived": false,
+       "source_field": "earning[].hoursWorked"
+      },
+      "rate": {
+       "amount": "40.0",
+       "currency": "USD",
+       "per": "HOUR",
+       "derived": false,
+       "source_field": "earning[].unitRate"
+      },
+      "amount": {
+       "amount": "1200.00",
+       "currency": "USD",
+       "derived": false,
+       "source_field": "earning[].payAmount"
+      },
+      "allocation": {
+       "division": "MAIN",
+       "jobCode": "BAKER",
+       "department": "PROD",
+       "location": "CLT",
+       "workComp": "8810"
+      },
+      "source_field": "earning[]"
+     }
+    ],
+    "taxes": [],
+    "deductions": [],
+    "employer_contributions": [],
+    "benefit_details": [],
+    "payments": [
+     {
+      "kind": {
+       "value": "CHECK",
+       "source_field": "checkAmt"
+      },
+      "amount": {
+       "amount": "1200.00",
+       "currency": "USD",
+       "derived": false
+      },
+      "source_field": "checkAmt"
+     }
+    ],
+    "checks": [
+     {
+      "rule": "gross = sum of earning lines",
+      "result": "pass",
+      "detail": "1200.0 vs 1200.0"
+     },
+     {
+      "rule": "gross - non-cash earnings - employee taxes - deductions = net",
+      "result": "pass",
+      "detail": "1200.0 - 0 - 0 - 0 = 1200.0; net 1200.0"
+     },
+     {
+      "rule": "payments = net",
+      "result": "pass",
+      "detail": "1200.0 vs 1200.0"
+     }
+    ]
+   },
+   {
+    "id": "prismhr:synthetic:pay_statement:201:077005",
+    "source": {
+     "provider": "prismhr",
+     "tenant_id": "synthetic",
+     "endpoints": [
+      "payroll/v1/getPayrollVoucherForBatch"
+     ],
+     "ids": {
+      "clientId": "201",
+      "voucherId": "077005",
+      "batchId": "30116"
+     }
+    },
+    "provider_extensions": {
+     "voucherId": "077005",
+     "payPeriod": "W",
+     "payGroup": "W",
+     "dateProcessed": "2026-10-02",
+     "fitTaxableAmount": "80.0",
+     "earnAmount": "80.0",
+     "otherEarnAmount": "0.0",
+     "wcHomeClass": "8810",
+     "wcState": "NC",
+     "earning[0].payClassDescription": "Earnings",
+     "earning[0].chargeDate": "2026-09-27",
+     "bankAccount": "OPER",
+     "payStubType": "Electronic",
+     "checkAccountACH": "ACH1",
+     "isManualCheck": false,
+     "hsaPeoMatch": "0.0"
+    },
+    "diagnostics": [],
+    "company_id": "prismhr:synthetic:company:201",
+    "employee_id": "prismhr:synthetic:employee:201:E1005",
+    "payroll_run_id": "prismhr:synthetic:payroll_run:201:30116",
+    "pay_date": "2026-10-02",
+    "period": {
+     "start": "2026-09-21",
+     "end": "2026-09-27"
+    },
+    "check_number": "90005",
+    "type": {
+     "value": "REGULAR",
+     "raw": "R",
+     "source_field": "type"
+    },
+    "status": {
+     "value": "UNMAPPED",
+     "raw": "PRNT",
+     "source_field": "status"
+    },
+    "voided": true,
+    "void_date": "2026-10-05",
+    "totals": {
+     "gross_pay": {
+      "amount": "80.00",
+      "currency": "USD",
+      "derived": false,
+      "source_field": "totalEarnings"
+     },
+     "net_pay": {
+      "amount": "80.00",
+      "currency": "USD",
+      "derived": false,
+      "source_field": "netPay"
+     },
+     "employee_taxes": {
+      "amount": "0.00",
+      "currency": "USD",
+      "derived": true,
+      "formula": "sum(employeeTax[].empTaxAmount)"
+     },
+     "employer_taxes": {
+      "amount": "0.00",
+      "currency": "USD",
+      "derived": true,
+      "formula": "sum(companyTax[].comTaxAmount)"
+     },
+     "deductions": {
+      "amount": "0.00",
+      "currency": "USD",
+      "derived": true,
+      "formula": "sum(deduction[].deductAmount) + sum(otherDeduction[].otherDeductAmount)"
+     },
+     "employer_contributions": {
+      "amount": "0.00",
+      "currency": "USD",
+      "derived": true,
+      "formula": "sum(employerContributions[].amount)"
+     }
+    },
+    "earnings": [
+     {
+      "code": "REG",
+      "label": "Regular",
+      "kind": {
+       "value": "EARNINGS",
+       "raw": "E",
+       "source_field": "earning[].payClass"
+      },
+      "quantity": {
+       "value": "2.0",
+       "unit": "HOURS",
+       "derived": false,
+       "source_field": "earning[].hoursUnits"
+      },
+      "hours_worked": {
+       "value": "2.0",
+       "unit": "HOURS",
+       "derived": false,
+       "source_field": "earning[].hoursWorked"
+      },
+      "rate": {
+       "amount": "40.0",
+       "currency": "USD",
+       "per": "HOUR",
+       "derived": false,
+       "source_field": "earning[].unitRate"
+      },
+      "amount": {
+       "amount": "80.00",
+       "currency": "USD",
+       "derived": false,
+       "source_field": "earning[].payAmount"
+      },
+      "allocation": {
+       "division": "MAIN",
+       "jobCode": "BAKER",
+       "department": "PROD",
+       "location": "CLT",
+       "workComp": "8810"
+      },
+      "source_field": "earning[]"
+     }
+    ],
+    "taxes": [],
+    "deductions": [],
+    "employer_contributions": [],
+    "benefit_details": [],
+    "payments": [
+     {
+      "kind": {
+       "value": "CHECK",
+       "source_field": "checkAmt"
+      },
+      "amount": {
+       "amount": "80.00",
+       "currency": "USD",
+       "derived": false
+      },
+      "source_field": "checkAmt"
+     }
+    ],
+    "checks": [
+     {
+      "rule": "gross = sum of earning lines",
+      "result": "pass",
+      "detail": "80.0 vs 80.0"
+     },
+     {
+      "rule": "gross - non-cash earnings - employee taxes - deductions = net",
+      "result": "pass",
+      "detail": "80.0 - 0 - 0 - 0 = 80.0; net 80.0"
+     },
+     {
+      "rule": "payments = net",
+      "result": "pass",
+      "detail": "80.0 vs 80.0"
+     }
+    ]
+   },
+   {
+    "id": "prismhr:synthetic:pay_statement:201:077006",
+    "source": {
+     "provider": "prismhr",
+     "tenant_id": "synthetic",
+     "endpoints": [
+      "payroll/v1/getPayrollVoucherForBatch"
+     ],
+     "ids": {
+      "clientId": "201",
+      "voucherId": "077006",
+      "batchId": "30117"
+     }
+    },
+    "provider_extensions": {
+     "voucherId": "077006",
+     "payPeriod": "B",
+     "payGroup": "BW",
+     "dateProcessed": "2026-10-09",
+     "employeeTax[0].empOverLimitAmount": "0.0",
+     "employeeTax[1].empOverLimitAmount": "0.0",
+     "employeeTax[2].empOverLimitAmount": "0.0",
+     "employeeTax[3].empOverLimitAmount": "0.0",
+     "fitTaxableAmount": "950.0",
+     "earnAmount": "1000.0",
+     "otherEarnAmount": "0.0",
+     "wcHomeClass": "8810",
+     "wcState": "NC",
+     "earning[0].payClassDescription": "Earnings",
+     "earning[0].chargeDate": "2026-09-27",
+     "companyTax[0].comTaxEntity": "P",
+     "companyTax[0].comExemptAmount": "0.0",
+     "companyTax[0].comShelteredAmount": "0.0",
+     "companyTax[0].comTaxType": "9F",
+     "companyTax[0].comOvrLimit": "0.0",
+     "companyTax[0].comTaxRate": "0.0145",
+     "companyTax[1].comTaxEntity": "P",
+     "companyTax[1].comExemptAmount": "0.0",
+     "companyTax[1].comShelteredAmount": "0.0",
+     "companyTax[1].comTaxType": "9F",
+     "companyTax[1].comOvrLimit": "0.0",
+     "companyTax[1].comTaxRate": "0.062",
+     "companyTax[2].comTaxEntity": "P",
+     "companyTax[2].comExemptAmount": "0.0",
+     "companyTax[2].comShelteredAmount": "0.0",
+     "companyTax[2].comTaxType": "9F",
+     "companyTax[2].comOvrLimit": "0.0",
+     "companyTax[2].comTaxRate": "0.006",
+     "companyTax[3].comTaxEntity": "P",
+     "companyTax[3].comExemptAmount": "0.0",
+     "companyTax[3].comShelteredAmount": "0.0",
+     "companyTax[3].comTaxType": "9F",
+     "companyTax[3].comOvrLimit": "0.0",
+     "companyTax[3].comTaxRate": "0.027",
+     "deduction[0].planId": "401K",
+     "bankAccount": "OPER",
+     "payStubType": "Electronic",
+     "checkAccountACH": "ACH1",
+     "retirement.planYearPeriod": "2026",
+     "isManualCheck": false,
+     "hsaPeoMatch": "0.0"
+    },
+    "diagnostics": [],
+    "company_id": "prismhr:synthetic:company:201",
+    "employee_id": "prismhr:synthetic:employee:201:E1001",
+    "payroll_run_id": "prismhr:synthetic:payroll_run:201:30117",
+    "pay_date": "2026-10-09",
+    "period": {
+     "start": "2026-09-14",
+     "end": "2026-09-27"
+    },
+    "type": {
+     "value": "VACATION",
+     "raw": "V",
+     "source_field": "type"
+    },
+    "status": {
+     "value": "UNMAPPED",
+     "raw": "PRNT",
+     "source_field": "status"
+    },
+    "voided": false,
+    "totals": {
+     "gross_pay": {
+      "amount": "1000.00",
+      "currency": "USD",
+      "derived": false,
+      "source_field": "totalEarnings"
+     },
+     "net_pay": {
+      "amount": "740.50",
+      "currency": "USD",
+      "derived": false,
+      "source_field": "netPay"
+     },
+     "employee_taxes": {
+      "amount": "209.50",
+      "currency": "USD",
+      "derived": true,
+      "formula": "sum(employeeTax[].empTaxAmount)"
+     },
+     "employer_taxes": {
+      "amount": "109.50",
+      "currency": "USD",
+      "derived": true,
+      "formula": "sum(companyTax[].comTaxAmount)"
+     },
+     "deductions": {
+      "amount": "50.00",
+      "currency": "USD",
+      "derived": true,
+      "formula": "sum(deduction[].deductAmount) + sum(otherDeduction[].otherDeductAmount)"
+     },
+     "employer_contributions": {
+      "amount": "30.00",
+      "currency": "USD",
+      "derived": true,
+      "formula": "sum(employerContributions[].amount)"
+     }
+    },
+    "earnings": [
+     {
+      "code": "VAC",
+      "label": "Vacation",
+      "kind": {
+       "value": "EARNINGS",
+       "raw": "E",
+       "source_field": "earning[].payClass"
+      },
+      "quantity": {
+       "value": "40.0",
+       "unit": "HOURS",
+       "derived": false,
+       "source_field": "earning[].hoursUnits"
+      },
+      "hours_worked": {
+       "value": "40.0",
+       "unit": "HOURS",
+       "derived": false,
+       "source_field": "earning[].hoursWorked"
+      },
+      "rate": {
+       "amount": "25.0",
+       "currency": "USD",
+       "per": "HOUR",
+       "derived": false,
+       "source_field": "earning[].unitRate"
+      },
+      "amount": {
+       "amount": "1000.00",
+       "currency": "USD",
+       "derived": false,
+       "source_field": "earning[].payAmount"
+      },
+      "allocation": {
+       "division": "MAIN",
+       "jobCode": "BAKER",
+       "department": "PROD",
+       "location": "CLT",
+       "workComp": "8810"
+      },
+      "source_field": "earning[]"
+     }
+    ],
+    "taxes": [
+     {
+      "code": "00-10",
+      "label": "Federal Income Tax",
+      "paid_by": "EMPLOYEE",
+      "amount": {
+       "amount": "95.00",
+       "currency": "USD",
+       "derived": false
+      },
+      "taxable_wages": {
+       "amount": "950.00",
+       "currency": "USD",
+       "derived": false
+      },
+      "source_field": "employeeTax[]"
+     },
+     {
+      "code": "00-11",
+      "label": "Medicare - Employee",
+      "paid_by": "EMPLOYEE",
+      "amount": {
+       "amount": "14.50",
+       "currency": "USD",
+       "derived": false
+      },
+      "taxable_wages": {
+       "amount": "1000.00",
+       "currency": "USD",
+       "derived": false
+      },
+      "source_field": "employeeTax[]"
+     },
+     {
+      "code": "00-12",
+      "label": "Soc Security - Employee",
+      "paid_by": "EMPLOYEE",
+      "amount": {
+       "amount": "62.00",
+       "currency": "USD",
+       "derived": false
+      },
+      "taxable_wages": {
+       "amount": "1000.00",
+       "currency": "USD",
+       "derived": false
+      },
+      "source_field": "employeeTax[]"
+     },
+     {
+      "code": "NC-20",
+      "label": "NC Income Tax",
+      "paid_by": "EMPLOYEE",
+      "amount": {
+       "amount": "38.00",
+       "currency": "USD",
+       "derived": false
+      },
+      "taxable_wages": {
+       "amount": "950.00",
+       "currency": "USD",
+       "derived": false
+      },
+      "source_field": "employeeTax[]"
+     },
+     {
+      "code": "00-15",
+      "label": "Medicare - Employer",
+      "paid_by": "EMPLOYER",
+      "amount": {
+       "amount": "14.50",
+       "currency": "USD",
+       "derived": false
+      },
+      "taxable_wages": {
+       "amount": "1000.00",
+       "currency": "USD",
+       "derived": false
+      },
+      "source_field": "companyTax[]"
+     },
+     {
+      "code": "00-16",
+      "label": "Soc Security - Employer",
+      "paid_by": "EMPLOYER",
+      "amount": {
+       "amount": "62.00",
+       "currency": "USD",
+       "derived": false
+      },
+      "taxable_wages": {
+       "amount": "1000.00",
+       "currency": "USD",
+       "derived": false
+      },
+      "source_field": "companyTax[]"
+     },
+     {
+      "code": "00-17",
+      "label": "FUTA",
+      "paid_by": "EMPLOYER",
+      "amount": {
+       "amount": "6.00",
+       "currency": "USD",
+       "derived": false
+      },
+      "taxable_wages": {
+       "amount": "1000.00",
+       "currency": "USD",
+       "derived": false
+      },
+      "source_field": "companyTax[]"
+     },
+     {
+      "code": "NC-SUI",
+      "label": "NC SUTA",
+      "paid_by": "EMPLOYER",
+      "amount": {
+       "amount": "27.00",
+       "currency": "USD",
+       "derived": false
+      },
+      "taxable_wages": {
+       "amount": "1000.00",
+       "currency": "USD",
+       "derived": false
+      },
+      "source_field": "companyTax[]"
+     }
+    ],
+    "deductions": [
+     {
+      "code": "C401K",
+      "label": "401(k)",
+      "category": {
+       "value": "RETIREMENT",
+       "raw": "K",
+       "source_field": "deduction[].deductType"
+      },
+      "tax_treatment": "PRE_TAX",
+      "employee_amount": {
+       "amount": "50.00",
+       "currency": "USD",
+       "derived": false
+      },
+      "source_field": "deduction[]"
+     }
+    ],
+    "employer_contributions": [
+     {
+      "code": "401KM",
+      "label": "401(k) Match",
+      "amount": {
+       "amount": "30.00",
+       "currency": "USD",
+       "derived": false
+      },
+      "source_field": "employerContributions[]"
+     }
+    ],
+    "benefit_details": [],
+    "retirement": {
+     "plan": "401K",
+     "base_earnings": {
+      "amount": "1000.00",
+      "currency": "USD",
+      "derived": false,
+      "source_field": "retirement.baseEarnings"
+     },
+     "amounts": {
+      "employee_pre_tax": {
+       "amount": "50.00",
+       "currency": "USD",
+       "derived": false,
+       "source_field": "retirement.electiveContributionsPreTax"
+      },
+      "employer_match": {
+       "amount": "30.00",
+       "currency": "USD",
+       "derived": false,
+       "source_field": "retirement.employerMatchingContributions"
+      }
+     }
+    },
+    "payments": [
+     {
+      "kind": {
+       "value": "DIRECT_DEPOSIT",
+       "source_field": "directDeposit[]"
+      },
+      "amount": {
+       "amount": "200.00",
+       "currency": "USD",
+       "derived": false
+      },
+      "routing_number": "123456780",
+      "masked_at_source": true,
+      "status": "D",
+      "source_field": "directDeposit[]"
+     },
+     {
+      "kind": {
+       "value": "DIRECT_DEPOSIT",
+       "source_field": "directDeposit[]"
+      },
+      "amount": {
+       "amount": "540.50",
+       "currency": "USD",
+       "derived": false
+      },
+      "routing_number": "123456780",
+      "masked_at_source": true,
+      "status": "D",
+      "source_field": "directDeposit[]"
+     }
+    ],
+    "checks": [
+     {
+      "rule": "gross = sum of earning lines",
+      "result": "pass",
+      "detail": "1000.0 vs 1000.0"
+     },
+     {
+      "rule": "gross - non-cash earnings - employee taxes - deductions = net",
+      "result": "pass",
+      "detail": "1000.0 - 0 - 209.5 - 50.0 = 740.5; net 740.5"
+     },
+     {
+      "rule": "payments = net",
+      "result": "pass",
+      "detail": "740.5 vs 740.5"
+     }
+    ]
+   },
+   {
+    "id": "prismhr:synthetic:pay_statement:201:077007",
+    "source": {
+     "provider": "prismhr",
+     "tenant_id": "synthetic",
+     "endpoints": [
+      "payroll/v1/getPayrollVoucherForBatch"
+     ],
+     "ids": {
+      "clientId": "201",
+      "voucherId": "077007",
+      "batchId": "30118"
+     }
+    },
+    "provider_extensions": {
+     "voucherId": "077007",
+     "payPeriod": "W",
+     "payGroup": "W",
+     "dateProcessed": "2026-10-09",
+     "employeeTax[0].empOverLimitAmount": "0.0",
+     "employeeTax[1].empOverLimitAmount": "0.0",
+     "employeeTax[2].empOverLimitAmount": "0.0",
+     "employeeTax[3].empOverLimitAmount": "0.0",
+     "fitTaxableAmount": "20.0",
+     "earnAmount": "20.0",
+     "otherEarnAmount": "0.0",
+     "wcHomeClass": "8810",
+     "wcState": "NC",
+     "earning[0].payClassDescription": "Earnings",
+     "earning[0].chargeDate": "2026-09-27",
+     "companyTax[0].comTaxEntity": "P",
+     "companyTax[0].comExemptAmount": "0.0",
+     "companyTax[0].comShelteredAmount": "0.0",
+     "companyTax[0].comTaxType": "9F",
+     "companyTax[0].comOvrLimit": "0.0",
+     "companyTax[0].comTaxRate": "0.0145",
+     "companyTax[1].comTaxEntity": "P",
+     "companyTax[1].comExemptAmount": "0.0",
+     "companyTax[1].comShelteredAmount": "0.0",
+     "companyTax[1].comTaxType": "9F",
+     "companyTax[1].comOvrLimit": "0.0",
+     "companyTax[1].comTaxRate": "0.062",
+     "companyTax[2].comTaxEntity": "P",
+     "companyTax[2].comExemptAmount": "0.0",
+     "companyTax[2].comShelteredAmount": "0.0",
+     "companyTax[2].comTaxType": "9F",
+     "companyTax[2].comOvrLimit": "0.0",
+     "companyTax[2].comTaxRate": "0.006",
+     "companyTax[3].comTaxEntity": "P",
+     "companyTax[3].comExemptAmount": "0.0",
+     "companyTax[3].comShelteredAmount": "0.0",
+     "companyTax[3].comTaxType": "9F",
+     "companyTax[3].comOvrLimit": "0.0",
+     "companyTax[3].comTaxRate": "0.027",
+     "bankAccount": "OPER",
+     "payStubType": "Electronic",
+     "checkAccountACH": "ACH1",
+     "isManualCheck": false,
+     "hsaPeoMatch": "0.0"
+    },
+    "diagnostics": [],
+    "company_id": "prismhr:synthetic:company:201",
+    "employee_id": "prismhr:synthetic:employee:201:E1002",
+    "payroll_run_id": "prismhr:synthetic:payroll_run:201:30118",
+    "pay_date": "2026-10-09",
+    "period": {
+     "start": "2026-09-21",
+     "end": "2026-09-27"
+    },
+    "type": {
+     "value": "ADJUSTMENT",
+     "raw": "J",
+     "source_field": "type"
+    },
+    "status": {
+     "value": "UNMAPPED",
+     "raw": "PRNT",
+     "source_field": "status"
+    },
+    "voided": false,
+    "totals": {
+     "gross_pay": {
+      "amount": "20.00",
+      "currency": "USD",
+      "derived": false,
+      "source_field": "totalEarnings"
+     },
+     "net_pay": {
+      "amount": "15.67",
+      "currency": "USD",
+      "derived": false,
+      "source_field": "netPay"
+     },
+     "employee_taxes": {
+      "amount": "4.33",
+      "currency": "USD",
+      "derived": true,
+      "formula": "sum(employeeTax[].empTaxAmount)"
+     },
+     "employer_taxes": {
+      "amount": "2.19",
+      "currency": "USD",
+      "derived": true,
+      "formula": "sum(companyTax[].comTaxAmount)"
+     },
+     "deductions": {
+      "amount": "0.00",
+      "currency": "USD",
+      "derived": true,
+      "formula": "sum(deduction[].deductAmount) + sum(otherDeduction[].otherDeductAmount)"
+     },
+     "employer_contributions": {
+      "amount": "0.00",
+      "currency": "USD",
+      "derived": true,
+      "formula": "sum(employerContributions[].amount)"
+     }
+    },
+    "earnings": [
+     {
+      "code": "BONUS",
+      "label": "Bonus",
+      "kind": {
+       "value": "EARNINGS",
+       "raw": "E",
+       "source_field": "earning[].payClass"
+      },
+      "quantity": {
+       "value": "1.0",
+       "unit": "UNITS",
+       "derived": false,
+       "source_field": "earning[].hoursUnits"
+      },
+      "rate": {
+       "amount": "20.0",
+       "currency": "USD",
+       "per": "UNIT",
+       "derived": false,
+       "source_field": "earning[].unitRate"
+      },
+      "amount": {
+       "amount": "20.00",
+       "currency": "USD",
+       "derived": false,
+       "source_field": "earning[].payAmount"
+      },
+      "allocation": {
+       "division": "MAIN",
+       "jobCode": "BAKER",
+       "department": "PROD",
+       "location": "CLT",
+       "workComp": "8810"
+      },
+      "source_field": "earning[]"
+     }
+    ],
+    "taxes": [
+     {
+      "code": "00-10",
+      "label": "Federal Income Tax",
+      "paid_by": "EMPLOYEE",
+      "amount": {
+       "amount": "2.00",
+       "currency": "USD",
+       "derived": false
+      },
+      "taxable_wages": {
+       "amount": "20.00",
+       "currency": "USD",
+       "derived": false
+      },
+      "source_field": "employeeTax[]"
+     },
+     {
+      "code": "00-11",
+      "label": "Medicare - Employee",
+      "paid_by": "EMPLOYEE",
+      "amount": {
+       "amount": "0.29",
+       "currency": "USD",
+       "derived": false
+      },
+      "taxable_wages": {
+       "amount": "20.00",
+       "currency": "USD",
+       "derived": false
+      },
+      "source_field": "employeeTax[]"
+     },
+     {
+      "code": "00-12",
+      "label": "Soc Security - Employee",
+      "paid_by": "EMPLOYEE",
+      "amount": {
+       "amount": "1.24",
+       "currency": "USD",
+       "derived": false
+      },
+      "taxable_wages": {
+       "amount": "20.00",
+       "currency": "USD",
+       "derived": false
+      },
+      "source_field": "employeeTax[]"
+     },
+     {
+      "code": "NC-20",
+      "label": "NC Income Tax",
+      "paid_by": "EMPLOYEE",
+      "amount": {
+       "amount": "0.80",
+       "currency": "USD",
+       "derived": false
+      },
+      "taxable_wages": {
+       "amount": "20.00",
+       "currency": "USD",
+       "derived": false
+      },
+      "source_field": "employeeTax[]"
+     },
+     {
+      "code": "00-15",
+      "label": "Medicare - Employer",
+      "paid_by": "EMPLOYER",
+      "amount": {
+       "amount": "0.29",
+       "currency": "USD",
+       "derived": false
+      },
+      "taxable_wages": {
+       "amount": "20.00",
+       "currency": "USD",
+       "derived": false
+      },
+      "source_field": "companyTax[]"
+     },
+     {
+      "code": "00-16",
+      "label": "Soc Security - Employer",
+      "paid_by": "EMPLOYER",
+      "amount": {
+       "amount": "1.24",
+       "currency": "USD",
+       "derived": false
+      },
+      "taxable_wages": {
+       "amount": "20.00",
+       "currency": "USD",
+       "derived": false
+      },
+      "source_field": "companyTax[]"
+     },
+     {
+      "code": "00-17",
+      "label": "FUTA",
+      "paid_by": "EMPLOYER",
+      "amount": {
+       "amount": "0.12",
+       "currency": "USD",
+       "derived": false
+      },
+      "taxable_wages": {
+       "amount": "20.00",
+       "currency": "USD",
+       "derived": false
+      },
+      "source_field": "companyTax[]"
+     },
+     {
+      "code": "NC-SUI",
+      "label": "NC SUTA",
+      "paid_by": "EMPLOYER",
+      "amount": {
+       "amount": "0.54",
+       "currency": "USD",
+       "derived": false
+      },
+      "taxable_wages": {
+       "amount": "20.00",
+       "currency": "USD",
+       "derived": false
+      },
+      "source_field": "companyTax[]"
+     }
+    ],
+    "deductions": [],
+    "employer_contributions": [],
+    "benefit_details": [],
+    "payments": [
+     {
+      "kind": {
+       "value": "DIRECT_DEPOSIT",
+       "source_field": "directDeposit[]"
+      },
+      "amount": {
+       "amount": "4.70",
+       "currency": "USD",
+       "derived": false
+      },
+      "routing_number": "123456780",
+      "masked_at_source": true,
+      "status": "D",
+      "source_field": "directDeposit[]"
+     },
+     {
+      "kind": {
+       "value": "DIRECT_DEPOSIT",
+       "source_field": "directDeposit[]"
+      },
+      "amount": {
+       "amount": "7.84",
+       "currency": "USD",
+       "derived": false
+      },
+      "routing_number": "123456780",
+      "masked_at_source": true,
+      "status": "D",
+      "source_field": "directDeposit[]"
+     },
+     {
+      "kind": {
+       "value": "DIRECT_DEPOSIT",
+       "source_field": "directDeposit[]"
+      },
+      "amount": {
+       "amount": "3.13",
+       "currency": "USD",
+       "derived": false
+      },
+      "routing_number": "123456780",
+      "masked_at_source": true,
+      "status": "D",
+      "source_field": "directDeposit[]"
+     }
+    ],
+    "checks": [
+     {
+      "rule": "gross = sum of earning lines",
+      "result": "pass",
+      "detail": "20.0 vs 20.0"
+     },
+     {
+      "rule": "gross - non-cash earnings - employee taxes - deductions = net",
+      "result": "pass",
+      "detail": "20.0 - 0 - 4.33 - 0 = 15.67; net 15.67"
+     },
+     {
+      "rule": "payments = net",
+      "result": "pass",
+      "detail": "15.67 vs 15.67"
+     }
+    ]
+   },
+   {
+    "id": "prismhr:synthetic:pay_statement:202:078001",
+    "source": {
+     "provider": "prismhr",
+     "tenant_id": "synthetic",
+     "endpoints": [
+      "payroll/v1/getPayrollVoucherForBatch"
+     ],
+     "ids": {
+      "clientId": "202",
+      "voucherId": "078001",
+      "batchId": "40101"
+     }
+    },
+    "provider_extensions": {
+     "voucherId": "078001",
+     "payPeriod": "B",
+     "payGroup": "BW",
+     "dateProcessed": "2026-10-02",
+     "employeeTax[0].empOverLimitAmount": "0.0",
+     "employeeTax[1].empOverLimitAmount": "0.0",
+     "employeeTax[2].empOverLimitAmount": "0.0",
+     "employeeTax[3].empOverLimitAmount": "0.0",
+     "fitTaxableAmount": "2240.0",
+     "earnAmount": "2240.0",
+     "otherEarnAmount": "0.0",
+     "wcHomeClass": "8810",
+     "wcState": "NC",
+     "earning[0].payClassDescription": "Earnings",
+     "earning[0].chargeDate": "2026-09-27",
+     "companyTax[0].comTaxEntity": "P",
+     "companyTax[0].comExemptAmount": "0.0",
+     "companyTax[0].comShelteredAmount": "0.0",
+     "companyTax[0].comTaxType": "9F",
+     "companyTax[0].comOvrLimit": "0.0",
+     "companyTax[0].comTaxRate": "0.0145",
+     "companyTax[1].comTaxEntity": "P",
+     "companyTax[1].comExemptAmount": "0.0",
+     "companyTax[1].comShelteredAmount": "0.0",
+     "companyTax[1].comTaxType": "9F",
+     "companyTax[1].comOvrLimit": "0.0",
+     "companyTax[1].comTaxRate": "0.062",
+     "companyTax[2].comTaxEntity": "P",
+     "companyTax[2].comExemptAmount": "0.0",
+     "companyTax[2].comShelteredAmount": "0.0",
+     "companyTax[2].comTaxType": "9F",
+     "companyTax[2].comOvrLimit": "0.0",
+     "companyTax[2].comTaxRate": "0.006",
+     "companyTax[3].comTaxEntity": "P",
+     "companyTax[3].comExemptAmount": "0.0",
+     "companyTax[3].comShelteredAmount": "0.0",
+     "companyTax[3].comTaxType": "9F",
+     "companyTax[3].comOvrLimit": "0.0",
+     "companyTax[3].comTaxRate": "0.027",
+     "bankAccount": "OPER",
+     "payStubType": "Electronic",
+     "checkAccountACH": "ACH1",
+     "isManualCheck": false,
+     "hsaPeoMatch": "0.0"
+    },
+    "diagnostics": [],
+    "company_id": "prismhr:synthetic:company:202",
+    "employee_id": "prismhr:synthetic:employee:202:E2001",
+    "payroll_run_id": "prismhr:synthetic:payroll_run:202:40101",
+    "pay_date": "2026-10-02",
+    "period": {
+     "start": "2026-09-14",
+     "end": "2026-09-27"
+    },
+    "type": {
+     "value": "REGULAR",
+     "raw": "R",
+     "source_field": "type"
+    },
+    "status": {
+     "value": "UNMAPPED",
+     "raw": "PRNT",
+     "source_field": "status"
+    },
+    "voided": false,
+    "totals": {
+     "gross_pay": {
+      "amount": "2240.00",
+      "currency": "USD",
+      "derived": false,
+      "source_field": "totalEarnings"
+     },
+     "net_pay": {
+      "amount": "1755.04",
+      "currency": "USD",
+      "derived": false,
+      "source_field": "netPay"
+     },
+     "employee_taxes": {
+      "amount": "484.96",
+      "currency": "USD",
+      "derived": true,
+      "formula": "sum(employeeTax[].empTaxAmount)"
+     },
+     "employer_taxes": {
+      "amount": "245.28",
+      "currency": "USD",
+      "derived": true,
+      "formula": "sum(companyTax[].comTaxAmount)"
+     },
+     "deductions": {
+      "amount": "0.00",
+      "currency": "USD",
+      "derived": true,
+      "formula": "sum(deduction[].deductAmount) + sum(otherDeduction[].otherDeductAmount)"
+     },
+     "employer_contributions": {
+      "amount": "0.00",
+      "currency": "USD",
+      "derived": true,
+      "formula": "sum(employerContributions[].amount)"
+     }
+    },
+    "earnings": [
+     {
+      "code": "REG",
+      "label": "Regular",
+      "kind": {
+       "value": "EARNINGS",
+       "raw": "E",
+       "source_field": "earning[].payClass"
+      },
+      "quantity": {
+       "value": "80.0",
+       "unit": "HOURS",
+       "derived": false,
+       "source_field": "earning[].hoursUnits"
+      },
+      "hours_worked": {
+       "value": "80.0",
+       "unit": "HOURS",
+       "derived": false,
+       "source_field": "earning[].hoursWorked"
+      },
+      "rate": {
+       "amount": "28.0",
+       "currency": "USD",
+       "per": "HOUR",
+       "derived": false,
+       "source_field": "earning[].unitRate"
+      },
+      "amount": {
+       "amount": "2240.00",
+       "currency": "USD",
+       "derived": false,
+       "source_field": "earning[].payAmount"
+      },
+      "allocation": {
+       "division": "MAIN",
+       "jobCode": "BAKER",
+       "department": "PROD",
+       "location": "CLT",
+       "workComp": "8810"
+      },
+      "source_field": "earning[]"
+     }
+    ],
+    "taxes": [
+     {
+      "code": "00-10",
+      "label": "Federal Income Tax",
+      "paid_by": "EMPLOYEE",
+      "amount": {
+       "amount": "224.00",
+       "currency": "USD",
+       "derived": false
+      },
+      "taxable_wages": {
+       "amount": "2240.00",
+       "currency": "USD",
+       "derived": false
+      },
+      "source_field": "employeeTax[]"
+     },
+     {
+      "code": "00-11",
+      "label": "Medicare - Employee",
+      "paid_by": "EMPLOYEE",
+      "amount": {
+       "amount": "32.48",
+       "currency": "USD",
+       "derived": false
+      },
+      "taxable_wages": {
+       "amount": "2240.00",
+       "currency": "USD",
+       "derived": false
+      },
+      "source_field": "employeeTax[]"
+     },
+     {
+      "code": "00-12",
+      "label": "Soc Security - Employee",
+      "paid_by": "EMPLOYEE",
+      "amount": {
+       "amount": "138.88",
+       "currency": "USD",
+       "derived": false
+      },
+      "taxable_wages": {
+       "amount": "2240.00",
+       "currency": "USD",
+       "derived": false
+      },
+      "source_field": "employeeTax[]"
+     },
+     {
+      "code": "NC-20",
+      "label": "NC Income Tax",
+      "paid_by": "EMPLOYEE",
+      "amount": {
+       "amount": "89.60",
+       "currency": "USD",
+       "derived": false
+      },
+      "taxable_wages": {
+       "amount": "2240.00",
+       "currency": "USD",
+       "derived": false
+      },
+      "source_field": "employeeTax[]"
+     },
+     {
+      "code": "00-15",
+      "label": "Medicare - Employer",
+      "paid_by": "EMPLOYER",
+      "amount": {
+       "amount": "32.48",
+       "currency": "USD",
+       "derived": false
+      },
+      "taxable_wages": {
+       "amount": "2240.00",
+       "currency": "USD",
+       "derived": false
+      },
+      "source_field": "companyTax[]"
+     },
+     {
+      "code": "00-16",
+      "label": "Soc Security - Employer",
+      "paid_by": "EMPLOYER",
+      "amount": {
+       "amount": "138.88",
+       "currency": "USD",
+       "derived": false
+      },
+      "taxable_wages": {
+       "amount": "2240.00",
+       "currency": "USD",
+       "derived": false
+      },
+      "source_field": "companyTax[]"
+     },
+     {
+      "code": "00-17",
+      "label": "FUTA",
+      "paid_by": "EMPLOYER",
+      "amount": {
+       "amount": "13.44",
+       "currency": "USD",
+       "derived": false
+      },
+      "taxable_wages": {
+       "amount": "2240.00",
+       "currency": "USD",
+       "derived": false
+      },
+      "source_field": "companyTax[]"
+     },
+     {
+      "code": "NC-SUI",
+      "label": "NC SUTA",
+      "paid_by": "EMPLOYER",
+      "amount": {
+       "amount": "60.48",
+       "currency": "USD",
+       "derived": false
+      },
+      "taxable_wages": {
+       "amount": "2240.00",
+       "currency": "USD",
+       "derived": false
+      },
+      "source_field": "companyTax[]"
+     }
+    ],
+    "deductions": [],
+    "employer_contributions": [],
+    "benefit_details": [],
+    "payments": [
+     {
+      "kind": {
+       "value": "DIRECT_DEPOSIT",
+       "source_field": "directDeposit[]"
+      },
+      "amount": {
+       "amount": "1755.04",
+       "currency": "USD",
+       "derived": false
+      },
+      "routing_number": "123456780",
+      "masked_at_source": true,
+      "status": "D",
+      "source_field": "directDeposit[]"
+     }
+    ],
+    "checks": [
+     {
+      "rule": "gross = sum of earning lines",
+      "result": "pass",
+      "detail": "2240.0 vs 2240.0"
+     },
+     {
+      "rule": "gross - non-cash earnings - employee taxes - deductions = net",
+      "result": "pass",
+      "detail": "2240.0 - 0 - 484.96 - 0 = 1755.04; net 1755.04"
+     },
+     {
+      "rule": "payments = net",
+      "result": "pass",
+      "detail": "1755.04 vs 1755.04"
+     }
+    ]
+   }
+  ]
+ }
+}

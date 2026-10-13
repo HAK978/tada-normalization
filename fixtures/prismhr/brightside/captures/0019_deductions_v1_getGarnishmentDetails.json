@@ -1,0 +1,16 @@
+{
+  "seq": 19,
+  "endpoint": "deductions/v1/getGarnishmentDetails",
+  "path": "deductions/v1/getGarnishmentDetails",
+  "params": {
+    "clientId": "201",
+    "employeeId": "E1002"
+  },
+  "status": 403,
+  "body": {
+    "garnishmentDetails": null,
+    "errorCode": "403",
+    "errorMessage": "this user session is not authorized for the method specified",
+    "extension": null
+  }
+}

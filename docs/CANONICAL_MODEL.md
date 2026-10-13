@@ -5,7 +5,8 @@ Status: **draft v2, 2026-10-13.**
 - An independent design audit raised 15 findings. All were verified against the specs and folded
   in here and in [ASSUMPTIONS.md](../ASSUMPTIONS.md).
 
-Nothing below is implemented yet.
+Implemented so far: the model itself (`src/normalization/canonical/`) and the PrismHR converter. isolved and
+UKG Ready are in progress.
 
 ## 1. Principles
 
@@ -113,7 +114,7 @@ canonical IDs of the records it belongs to.
 | `name`, `legal_name` | `clientName`, `legalName` | `dbaName`, `legalName` | none: no company endpoint (A-15) |
 | `parent` | none | the isolved client (id, name) | none |
 | `status` (`ACTIVE` `PENDING` `INACTIVE` `TERMINATING` `TERMINATED`) | `statusClass` A/P/I/C/T (documented) | `status` text | none |
-| `own_tax_id` (last 4 if visible) | `federalIdNumber` (fully masked live) | `federalEIN` | none |
+| `own_tax_id`: a business FEIN, kept as returned; masked values stay masked | `federalIdNumber` (fully masked live) | `federalEIN` | none |
 | `service_arrangement` | `serviceType` PEO/ASO/PAY/ASA/COR/HRN (documented) | none | none |
 | `employers[]` (provider terms) | `employerId` + `altEmployer[]`; name and EIN refused (A-09) | the legal company itself | `lookup/eins` |
 | `pay_groups[]` | `getClientCodes` PGroups + `getPayrollSchedule` | `payGroups` (frequency via §6) | not available |

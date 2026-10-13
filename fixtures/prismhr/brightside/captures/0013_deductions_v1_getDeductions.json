@@ -1,0 +1,43 @@
+{
+  "seq": 13,
+  "endpoint": "deductions/v1/getDeductions",
+  "path": "deductions/v1/getDeductions",
+  "params": {
+    "clientId": "201",
+    "employeeId": "E1002",
+    "options": ""
+  },
+  "status": 200,
+  "body": {
+    "employeeDeductions": {
+      "deduction": [
+        {
+          "deductionCode": "LIFE",
+          "deductionType": "V",
+          "deductionMethod": "F",
+          "description": "Voluntary Life",
+          "usePercent": false,
+          "amount": 8.0,
+          "period": "12345",
+          "startDate": "2023-07-01",
+          "stopDate": "",
+          "trackArrears": false,
+          "mandatory": false,
+          "loanOrGarnishId": "",
+          "benefitPlanId": "",
+          "limit": 0.0,
+          "maximum": 0.0,
+          "basis": "",
+          "matchMethod": "",
+          "matchAmount": 0.0,
+          "matchDescription": "",
+          "cutbackPayeeCode": "",
+          "detailsChecksum": "d-1"
+        }
+      ]
+    },
+    "errorCode": "0",
+    "errorMessage": "",
+    "extension": null
+  }
+}

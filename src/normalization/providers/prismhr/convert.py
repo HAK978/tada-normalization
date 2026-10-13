@@ -158,10 +158,11 @@ class _Client:
         row = self.codes.get(table, {}).get(str(code)) if code not in (None, "") else None
         return next((text(row.get(f)) for f in fields if row and text(row.get(f))), None)
 
-    def _refused(self, endpoint: str) -> bool:
+    def _refused(self, endpoint: str, **params: Any) -> bool:
+        params = params or {"clientId": self.client_id}
         return any(
             str((c.body or {}).get("errorCode", "0")) not in ("0", "") or c.status in (401, 403)
-            for c in self.bundle.find(endpoint, clientId=self.client_id)
+            for c in self.bundle.find(endpoint, **params)
         )
 
     def _org(self, table: str, code: Any, *name_fields: str) -> OrgUnit | None:
@@ -202,7 +203,8 @@ class _Client:
                     name=text(alt.get("altDisplayName")),
                 )
             )
-        if employers and self._refused("system/v1/getEmployerDetails"):
+        # Employer lookups are keyed by employer ID, not client ID (A-05).
+        if any(self._refused("system/v1/getEmployerDetails", employerId=e.provider_id) for e in employers):
             notes.info("EMPLOYER_DETAILS_REFUSED", "employers", "employer names and EINs were refused (A-09)")
         if self._refused("deductions/v1/getGarnishmentDetails"):
             notes.info("GARNISHMENT_DETAILS_REFUSED", None, "garnishment details were refused (A-08)")

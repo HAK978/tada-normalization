@@ -1,0 +1,76 @@
+{
+  "seq": 3,
+  "endpoint": "clientMaster/v1/getPayrollSchedule",
+  "path": "clientMaster/v1/getPayrollSchedule",
+  "params": {
+    "clientId": "201"
+  },
+  "status": 200,
+  "body": {
+    "clientPayrollSchedule": [
+      {
+        "groupId": "BW",
+        "groupDesc": "Biweekly",
+        "scheduleId": "BW",
+        "scheduleDesc": "Biweekly",
+        "weekEndOnDay": "6",
+        "printFaxBack": false,
+        "payPeriod": "B",
+        "payPeriodDesc": "Biweekly",
+        "payDay": "5",
+        "skipWeekends": true,
+        "callInDays": null,
+        "deliverDays": null,
+        "payPeriodEnd": null,
+        "periodEndType": null,
+        "periodEndType2": null,
+        "periodEndType2Desc": null,
+        "periodEndTypeDesc": null,
+        "thirdPartyCode": null
+      },
+      {
+        "groupId": "W",
+        "groupDesc": "Weekly",
+        "scheduleId": "W",
+        "scheduleDesc": "Weekly",
+        "weekEndOnDay": "6",
+        "printFaxBack": false,
+        "payPeriod": "W",
+        "payPeriodDesc": "Weekly",
+        "payDay": "5",
+        "skipWeekends": true,
+        "callInDays": null,
+        "deliverDays": null,
+        "payPeriodEnd": null,
+        "periodEndType": null,
+        "periodEndType2": null,
+        "periodEndType2Desc": null,
+        "periodEndTypeDesc": null,
+        "thirdPartyCode": null
+      },
+      {
+        "groupId": "M",
+        "groupDesc": "Monthly",
+        "scheduleId": "M",
+        "scheduleDesc": "Monthly",
+        "weekEndOnDay": "6",
+        "printFaxBack": false,
+        "payPeriod": "M",
+        "payPeriodDesc": "Monthly",
+        "payDay": "5",
+        "skipWeekends": true,
+        "callInDays": null,
+        "deliverDays": null,
+        "payPeriodEnd": null,
+        "periodEndType": null,
+        "periodEndType2": null,
+        "periodEndType2Desc": null,
+        "periodEndTypeDesc": null,
+        "thirdPartyCode": null
+      }
+    ],
+    "errorCode": "0",
+    "errorMessage": "",
+    "extension": null
+  }
+}
