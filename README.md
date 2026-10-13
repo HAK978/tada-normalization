@@ -1,131 +1,228 @@
-# Tada AI · Data Normalization Take-Home
+# Payroll data normalization: PrismHR, isolved and UKG Ready
 
-Build a local platform that normalizes company, employee, direct deposit,
-deduction, and payroll data from
-**PrismHR, isolved, and UKG Ready** into a consistent model. Discover the provider
-mappings, design your own canonical schemas and enums, generate synthetic test
-data, and implement transformations that preserve the meaning of the source data.
-Use any programming language or stack.
-You can use AI as much as you want throughout this project.
+This project reads company, employee, direct-deposit, deduction and payroll data from **PrismHR**,
+**isolved** and **UKG Ready**, and converts it into one canonical model without losing what the source
+data means:
 
-## Data to normalize
+- every code keeps its raw value;
+- every amount stays exact;
+- every derived number says how it was derived;
+- anything the model doesn't map is kept, not dropped.
 
-Normalize these four data types across **PrismHR, isolved, and UKG Ready**:
+It runs locally and offline. The demo and the tests use seeded synthetic data shaped exactly like
+each provider's API. Live demo tenants are needed only to fetch new data. The original brief is in
+[ASSIGNMENT.md](ASSIGNMENT.md).
 
-| Data type | What to cover |
-| --- | --- |
-| **Employee data** | The complete employee data available from each provider, including profile/contact information, employment status and dates, job and organization details, and compensation. Cover all available employee fields, rather than only a small summary. |
-| **Direct deposits** | Employee direct-deposit setup, including account types, deposit allocations, amounts or percentages, priority, and status/effective dates where available. |
-| **Deductions** | Employee deduction setup and deductions recorded in payroll, including provider codes/types, amounts or percentages, and applicable rules or dates where available. |
-| **Payroll data** | Payroll runs/periods and employee paycheck records, including earnings, hours, gross/net pay, taxes, deductions, and benefit contributions where available. |
+## Quick start
 
-Keep the company and employee relationships so these records can be linked in
-your normalized model. If a provider does not expose a field or data type, document
-that gap and your assumptions or decisions in the Markdown explanation described
-under Submission.
-
-## Reference materials
-
-| Provider | Source specifications | Lookup reference |
-| --- | --- | --- |
-| PrismHR | [OpenAPI 3.0.1, API 2025.09](contracts/prismhr/openapi/prismhr-2025.09.openapi.json) | [Documented codes and meanings](contracts/prismhr/lookup-reference.json) |
-| isolved | [Primary Swagger 2.0, API version 6](contracts/isolved/openapi/isolved-v6.swagger.json); [alternate snapshot](contracts/isolved/openapi/isolved-v6.alternate.swagger.json) for comparison | [Documented enum values](contracts/isolved/lookup-reference.json) |
-| UKG Ready | [Cached reference pages](contracts/ukg-ready/reference-docs/index.html) and [extracted JSON schemas](contracts/ukg-ready/reference-schemas.json) | [Documented enum values](contracts/ukg-ready/lookup-reference.json) |
-
-UKG Ready's material is cached HTML documentation and an extracted schema bundle,
-**not an official Swagger/OpenAPI contract**. Read the pages for endpoint bindings,
-parameters, response statuses, XML schemas, and opaque schema blocks. Use isolved's
-primary snapshot consistently; do not mix schemas between its two snapshots.
-The reference versions have not been verified against the latest live APIs.
-
-The lookup files contain actual, cited source values. They are partial references;
-undocumented meanings remain unknown, and tenant-configured lookup values are not
-supplied. Discover the mappings and define your own canonical enums. Documented
-sample payloads are retained as illustrative source examples; generate and validate
-your own fixtures rather than treating those samples as exhaustive contracts.
-
-**Reference status:** this repository is public. PrismHR's artifact license is
-retained, and the organizer has approved sharing this reference pack with candidates.
-The organizer provides the handoff, scope, deadline, and timezone. Use the
-organizer-approved sharing channel.
-
-Source history and evidence remain in the [reference audit](docs/REFERENCE_AUDIT.md),
-[isolved manifest](contracts/isolved/SOURCE_MANIFEST.json), and
-[UKG manifest](contracts/ukg-ready/SOURCE_MANIFEST.json). Attribution/modification
-notices and PrismHR's license stay alongside the specifications.
-
-## Access live demo data
-
-You can inspect live demo responses from all three providers to understand their
-data and validate mapping assumptions. The organizer supplies the **API key
-privately**; it is not included in this repository.
-
-Send `POST https://tada-demo-provider-signin.onrender.com/signin` with an
-`X-API-Key` header and a JSON body containing `tenant`:
+Python 3.11 or newer.
 
 ```sh
-curl -X POST 'https://tada-demo-provider-signin.onrender.com/signin' \
-  -H "X-API-Key: $DEMO_SIGNIN_API_KEY" \
-  -H 'Content-Type: application/json' \
-  -d '{"tenant":"ukg"}'
+python3 -m venv .venv && source .venv/bin/activate
+pip install -e ".[dev]"
+python -m normalization demo    # normalize every provider's synthetic scenario
+pytest                          # 116 tests, offline
 ```
 
-Set `DEMO_SIGNIN_API_KEY` locally to the key provided by the organizer. Change
-`tenant` to `prism`, `isol`, or `ukg` to select the corresponding demo account.
+`demo` prints one line per provider:
 
-| Tenant | Authentication returned | Demo identifiers returned |
-| --- | --- | --- |
-| `prism` | `auth.sessionId`; use it in the provider's `sessionId` header | `context.companies[].client_id` |
-| `isol` | `auth.access_token` and the refresh token when issued; use `Authorization: Bearer <access_token>` | `context.companies[].client_id` and `legal_id` |
-| `ukg` | `auth.access_token`; use `Authorization: Bearer <access_token>` | `context.companies[].company_id` |
+```
+provider   companies  employees  deposits  elections  runs  paychecks  checks pass/fail  warnings
+prismhr            2          6         8          5     6          8              24/0         3
+isolved            1          5         5          5     6          7              25/0         1
+ukg-ready          1          5         6          2     4          4               2/0         3
+```
 
-Each response also includes the provider's `base_url`, `tenant_id`, token expiry
-when supplied, and `usage.header_name` / `usage.header_prefix`. Use the returned
-authentication and identifiers with the provider endpoints in the reference
-materials. Retrieve company names, employees, and payroll records through those
-provider APIs; company names and employee/payroll records are not returned by
-the sign-in endpoint. Prism client IDs and isolved client/legal-entity IDs identify
-the seeded demo companies available for exploration.
+The warnings are deliberate traps in the synthetic data: an invalid placeholder date, codes nobody
+documents, a customer-named pay statement type. Each one is reported, not guessed.
 
-Call `/signin` again when authentication expires. A refresh token is returned
-only if the provider issues one; Prism uses a session ID. The hosted service may
-take longer on its first request after inactivity. See the
-[sign-in service README](https://github.com/Niwant/demo-provider-signin) for the
-response fields and error behavior.
+It writes:
 
-Live access is optional for discovery. Keep fixture generation and submitted
-tests deterministic and able to run locally without credentials or live services.
-Use the demo accounts for inspection, and keep returned tokens and any downloaded
-records out of Git and your submission.
+- `out/demo/<provider>/<record type>.json` and `summary.json`: canonical records, sorted by ID;
+- `out/demo/canonical.sqlite`: all three providers in one database, linked by canonical IDs.
 
-## Submission
+```sql
+-- every paycheck, with its employee and its reconciliation result
+SELECT provider, first_name, last_name, pay_date, gross_wages, gross_pay, net_pay, checks_passed
+FROM pay_statement_overview ORDER BY provider, pay_date;
 
-Submit a link to your own repository containing everything needed to run your
-solution locally. Include:
+-- deductions taken on paychecks, by canonical category, across providers
+SELECT c.provider, d.category, COUNT(*), SUM(CAST(d.employee_amount AS REAL))
+FROM deduction_lines d
+JOIN pay_statements s ON s.id = d.pay_statement_id
+JOIN companies c ON c.id = s.company_id
+GROUP BY 1, 2;
+```
 
-- A README explaining your approach, how you built it, and the steps to set up
-  and run it.
-- A Markdown file documenting your assumptions and decisions, with an explanation
-  of why you made them.
+## Commands
 
-If something fails, or data seems incorrect, inconsistent, or different from
-what you expected, you are free to make your own assumptions and decisions.
-Clearly document the issue, what you assumed or decided, and your reasoning in
-that Markdown file. Be prepared to explain those choices.
+| Command | What it does |
+|---|---|
+| `python -m normalization demo` | Normalizes the synthetic scenario of all three providers. Offline. |
+| `python -m normalization normalize BUNDLE` | Normalizes one raw bundle, a fixture or a live fetch, into `out/`. `--as-of` fixes the date for time-dependent values. |
+| `python -m normalization fetch --provider P` | Read-only fetch from the live demo tenants (`all` for every provider). `--normalize` also normalizes the result. |
+| `python -m normalization write EMPLOYEES_JSON` | Dry run: the UKG Ready requests that would create these employees, validated against UKG's request schemas. Nothing is sent. |
+| `python -m normalization schema` | Writes the canonical model's JSON Schemas to `schemas/`. |
+| `python -m normalization coverage [BUNDLE ...]` | Writes [docs/FIELD_COVERAGE.md](docs/FIELD_COVERAGE.md): what happens to every source field. |
+| `python scripts/generate_fixtures.py [--check]` | Regenerates the synthetic fixtures and golden files, or (`--check`) proves they are reproducible. |
 
-## Optional extension: write canonical data to a provider
+### Live data (optional)
 
-If you want to take the project further, add a write path that accepts canonical
-employee data and a destination tenant, such as UKG Ready or PrismHR. Map the
-canonical data into that provider's format and use its API to create or update
-the employee in the selected destination tenant. Explain which operations and
-fields you support, how you handle provider differences, and any assumptions
-or limitations. You can demonstrate the mapping with a dry run or use a demo
-tenant for the write.
+Put the organizer's key in `.env` as `DEMO_SIGNIN_API_KEY=...` (`.env` is gitignored), then:
 
-This is an open-ended project. You can build an end-to-end system or application,
-covering provider data access, normalization into your canonical model, and,
-if you choose, writing canonical employee data to a destination tenant. Choose
-your own design, architecture, interfaces, and implementation approach. Build
-it in the way you think works best, and explain your decisions in your Markdown
-file.
+```sh
+python -m normalization fetch --provider all --normalize
+```
+
+The demo tenants are real provider test systems, and their tokens can write, so live access is
+locked down (A-04):
+
+- Every request passes a scope guard before it is sent: GET only, on the base URL `/signin`
+  returned, to allowlisted read endpoints, for the demo company IDs only. Redirects are re-checked hop
+  by hop.
+- Credentials are scrubbed from everything saved.
+- Raw responses go to `.discovery/` and normalized output to `out/`. Both are gitignored and never
+  committed.
+
+The live fetches of 2026-10-12 and 2026-10-13 normalize like this:
+
+| Provider | Companies | Employees | Deposits | Elections | Runs | Paychecks | Checks passed |
+|---|---:|---:|---:|---:|---:|---:|---:|
+| PrismHR | 25 | 51 | 22 | 138 | 1,493 | 420 | 1,175 of 1,175 |
+| isolved | 2 | 30 | 21 | 572 | 231 | 430 | 468 of 468 |
+| UKG Ready | 1 | 15 | 5 | 0 (the tenant returns 404, A-12) | 89 | 61 | 60 of 60 |
+
+## How it works
+
+```
+provider API --fetch (GET only)--> raw bundle -----> converter -----> canonical records --> JSON + SQLite
+synthetic generator -------------> raw bundle        (one per          (Output)
+ (validated against the provider's  (session.json +   provider)
+  own published schemas)             captures/)
+```
+
+- A **raw bundle** has the same layout whether it came from a live fetch or the generator, so the
+  converters can't tell the two apart.
+- Each **converter** lives in `src/normalization/providers/<provider>/`. `codes.py` holds every code
+  table, and each table cites its evidence. `convert.py` maps responses to records.
+
+### The canonical model
+
+Six record types: `Company`, `Employee`, `DirectDeposit`, `DeductionElection`, `PayrollRun` and
+`PayStatement` (paycheck). They are linked by canonical IDs of the form
+`{provider}:{tenant}:{entity}:{source ids}`. The full design is in
+[docs/CANONICAL_MODEL.md](docs/CANONICAL_MODEL.md), and the JSON Schemas are in [schemas/](schemas/).
+The main conventions:
+
+- **Coded values** are `{value, raw, label, source_field}`. An unknown code becomes `UNMAPPED`, keeps
+  its raw value, and gets a diagnostic. Customer-configured labels stay `UNMAPPED` with their label.
+- **Money** is an exact decimal string, never a float and never rounded.
+- **Rates** always carry their period (`per`). **Quantities** carry a unit: hours, units or unknown.
+- **Percents** carry a scale. When a provider's scale (5 vs 0.05) isn't proven, the number stays null
+  and the raw value is kept.
+- **Derived values** are flagged, with their formula: UKG's gross and net, for example.
+- **Time-dependent values** (is this deposit active? which pay record is current?) are evaluated at an
+  explicit `as_of` date: the fetch date, or a fixed date for fixtures.
+- **Lossless:** converters read every source field through a tracker, and whatever a record doesn't
+  map goes into its `provider_extensions`, sanitized. The coverage report proves it field by field.
+- **Sensitive data:** SSNs and account numbers keep at most their last 4 digits, everywhere.
+- **Diagnostics** on every record explain anything unusual: unmapped codes, invalid dates, data not
+  fetched, amounts not finalized.
+- **Reconciliation checks** on every paycheck are reported, never "fixed":
+  - gross wages = the sum of the earning lines;
+  - gross wages − non-cash earnings = gross pay;
+  - gross pay − employee taxes − deductions = net;
+  - payments = net.
+
+### The evidence rule
+
+A mapping is made only from the provider's own documentation, the provider's own label or
+classification, or arithmetic on live data. Enum names alone are not evidence. Some findings this
+rule produced, each recorded in [ASSUMPTIONS.md](ASSUMPTIONS.md):
+
+- PrismHR's `salary` is per pay period, not annual (A-20). Its vouchers reconcile only once non-cash
+  pay classes are excluded from net pay (A-32).
+- isolved's `grossWages − grossPay` equals the paycheck's group-term life imputed income on every
+  live check (A-28). Its pay frequency must be resolved by lookup *description*, never by ID (A-27).
+- UKG Ready's hours are milliseconds (A-24), and its `base_rate` is the employee's base rate: overtime
+  lines pay 1.5 times it (A-24). Its "Fringe" payment lines balance non-cash pay and pay nothing
+  (A-58).
+- The three providers mask differently: UKG returns full SSNs, PrismHR masks them. The output keeps the
+  last 4 digits in every case (A-23).
+- Live data departs from each provider's own schema in specific, documented ways (A-16, A-47, A-52,
+  A-61).
+
+## How it was built
+
+1. **Discovery first.** We read the specs, then made read-only calls to each live demo tenant. Every
+   response was saved, and each open question was settled with counts. For example: is UKG's `hours`
+   a count or milliseconds? Does PrismHR's net pay include fringe? Each decision went into
+   ASSUMPTIONS.md as issue, evidence, decision, why.
+2. **The canonical model,** designed from that evidence, then reviewed and audited before any converter
+   was written.
+3. **One converter per provider,** each tested three ways:
+   - on synthetic fixtures full of traps;
+   - against golden files;
+   - on the live data, where every reconciliation check passes.
+4. **Tooling that checks the work:**
+   - the fixture generator validates every response against the provider's published schema;
+   - the coverage report accounts for every source field;
+   - every output record validates against the exported JSON Schema;
+   - fixtures and golden files must regenerate byte for byte.
+
+AI assistance was used throughout, as the brief allows. Every mapping rests on cited spec text or
+counted live evidence.
+
+## Testing
+
+`pytest` runs 116 offline tests (plus parametrized subtests). Nothing needs credentials or network.
+
+- **Synthetic scenarios** (`fixtures/<provider>/brightside`) come from a seeded generator, and every
+  response is validated against the provider's own published schema. They are full of real-world
+  traps, all listed at the top of each `src/normalization/fixtures/<provider>.py`.
+- **Golden files** (`tests/golden/`) pin the complete output. Tests also assert specific facts, such as
+  "sequence 0 is the remainder account" or "the fringe is in gross wages but not gross pay".
+- **Determinism:** `scripts/generate_fixtures.py --check` regenerates everything and compares it byte
+  for byte.
+- **Coverage and schema tests** check three things:
+  - no field is both mapped and kept;
+  - only crawl indexes and unneeded lookups go unread;
+  - every golden record matches the exported JSON Schema.
+- **Live client tests** reproduce scope, redirect and scrubbing attacks against a fake HTTP client.
+
+## Repository layout
+
+```
+src/normalization/
+  canonical/          the model: records, value types, code enums, JSON Schema export
+  providers/          one converter per provider (codes.py + convert.py), shared helpers
+  fixtures/           the seeded synthetic scenario of each provider, and schema validation
+  live/               the read-only client: sign-in, scope guard, crawl, fetch
+  write/              the dry-run write path (UKG Ready)
+  checks.py           paycheck reconciliation
+  export.py           JSON and SQLite output
+  coverage.py         the field coverage report
+  source.py           tracked field access and value parsing
+  sanitize.py         last-4 masking of sensitive values
+fixtures/             generated synthetic bundles (committed)
+tests/                tests and golden files
+schemas/              JSON Schema of every canonical record type
+docs/                 CANONICAL_MODEL.md, FIELD_COVERAGE.md, REFERENCE_AUDIT.md (organizer)
+contracts/            the organizer's provider specs (untouched, hash-checked)
+```
+
+## Limitations
+
+The details are in [ASSUMPTIONS.md](ASSUMPTIONS.md).
+
+- **Refused or empty endpoints:** some endpoints are refused for the demo credentials, such as
+  PrismHR garnishment and employer details and isolved's payroll and "corestream" endpoints (A-08 to
+  A-10). UKG deduction setup returns 404 on the demo tenant. The converter supports it and is tested
+  on synthetic data (A-12).
+- **Payroll history:** live isolved payroll is historical, imported data, and all live UKG payrolls are
+  still open (A-11, A-13).
+- **Percent scales** are unproven for isolved and UKG deposits and deductions, so the number stays
+  null with its raw value (A-29). Tax withholding setup is kept raw, not mapped (A-34).
+- **Small live samples:** codes that never appeared in them are mapped from documentation only (A-07).
+- **Write path:** a dry run into UKG Ready only. The full SSN is not available by design, because the
+  model keeps the last 4 digits (A-63).

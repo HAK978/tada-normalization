@@ -36,8 +36,10 @@ Status: first draft, written during discovery. Entries are added as mapping deci
   - `references.py` stays, because `test_reference_integrity.py` imports it. Its one changed line
     imports the provider list from `providers/` instead of the removed adapters.
   - `contracts/` and `test_reference_integrity.py` are untouched.
+  - The organizer's README, the assignment brief, is kept unchanged as `ASSIGNMENT.md` at the root, where
+    its relative links still work. `README.md` is now this project's README.
 - **Why:** the gate checks *distribution metadata*, not data correctness. The organizer approved
-  sharing the reference pack with candidates (README, "Reference status").
+  sharing the reference pack with candidates ([ASSIGNMENT.md](ASSIGNMENT.md), "Reference status").
 
 ### A-03 Stack
 - **Decision:** Python 3.11+ with Pydantic v2 for the canonical model (exported to JSON Schema),
@@ -75,7 +77,7 @@ Status: first draft, written during discovery. Entries are added as mapping deci
 ### A-06 Live data is never committed; tests use synthetic data
 - **Decision:** responses go to `.discovery/`, which is gitignored. Fixtures are generated from a
   seed and validated against the provider schemas.
-- **Why:** the README forbids committing downloaded records. Separately, live responses contain full
+- **Why:** the brief ([ASSIGNMENT.md](ASSIGNMENT.md)) forbids committing downloaded records. Separately, live responses contain full
   SSNs (UKG) and bank account numbers (isolved).
 
 ### A-07 What was sampled
@@ -767,7 +769,7 @@ entries below are new.
 ## Optional extension: writing an employee (2026-10-13)
 
 ### A-63 Write path: a dry run into UKG Ready
-- **Issue:** the README invites an optional write path from canonical employee data to a destination
+- **Issue:** the brief ([ASSIGNMENT.md](ASSIGNMENT.md)) invites an optional write path from canonical employee data to a destination
   tenant, done for real or as a dry run. The demo tokens are write-capable and the tenants are real
   provider UAT systems (A-04).
 - **Decision:**
