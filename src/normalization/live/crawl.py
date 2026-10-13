@@ -4,6 +4,7 @@ Each crawl walks company -> employees -> per-employee setup -> payroll runs
 -> paychecks, using IDs taken from earlier responses. Limits keep a run small
 and polite; every response, including errors, is saved by the Recorder.
 """
+
 from __future__ import annotations
 
 from dataclasses import dataclass
@@ -12,16 +13,45 @@ from datetime import date
 from .client import ReadOnlyClient
 
 # Health is excluded on purpose: it returns medical data that the canonical model does not need.
-PRISM_EMPLOYEE_OPTIONS = ",".join([
-    "Person", "Client", "Compensation", "ContactInformation", "DirectDeposit", "HSA",
-    "ScheduledDeductions", "EmployeeEvents", "Skills", "AbsenceJournal", "BenefitEnrollStatus",
-    "NewHireQuestions", "EnrollmentInprogress",
-])
-PRISM_CLIENT_CODE_OPTIONS = ",".join([
-    "BenefitGroup", "Deduction", "Department", "Division", "Ethnic", "Job", "Location", "Pay",
-    "PGroups", "PositionClass", "Reason", "Relation", "RetirementPlan", "Shift", "Status", "Type",
-    "Union", "Workgroup",
-])
+PRISM_EMPLOYEE_OPTIONS = ",".join(
+    [
+        "Person",
+        "Client",
+        "Compensation",
+        "ContactInformation",
+        "DirectDeposit",
+        "HSA",
+        "ScheduledDeductions",
+        "EmployeeEvents",
+        "Skills",
+        "AbsenceJournal",
+        "BenefitEnrollStatus",
+        "NewHireQuestions",
+        "EnrollmentInprogress",
+    ]
+)
+PRISM_CLIENT_CODE_OPTIONS = ",".join(
+    [
+        "BenefitGroup",
+        "Deduction",
+        "Department",
+        "Division",
+        "Ethnic",
+        "Job",
+        "Location",
+        "Pay",
+        "PGroups",
+        "PositionClass",
+        "Reason",
+        "Relation",
+        "RetirementPlan",
+        "Shift",
+        "Status",
+        "Type",
+        "Union",
+        "Workgroup",
+    ]
+)
 PRISM_SYSTEM_CODE_OPTIONS = "SYSTEM.Deduction,SYSTEM.Pay,SYSTEM.Reason,SYSTEM.Status,SYSTEM.Type"
 PRISM_VOUCHER_OPTIONS = ["EmployerContribution", "Retirement", "TaxFilingStatus", "Arrears"]
 UKG_DEPRECATED_DD_HEADERS = {"X-End-of-Support-Timeline": "2026-01-29"}
@@ -83,8 +113,10 @@ def _prismhr(c: ReadOnlyClient, limits: Limits) -> None:
         employee_ids = [str(i) for i in (_dig(listing, "employeeList", "employeeId") or [])]
         selected = employee_ids[: limits.max_employees]
         for start in range(0, len(selected), 20):
-            c.get("employee/v1/getEmployee",
-                  {**base, "employeeId": selected[start:start + 20], "options": PRISM_EMPLOYEE_OPTIONS})
+            c.get(
+                "employee/v1/getEmployee",
+                {**base, "employeeId": selected[start : start + 20], "options": PRISM_EMPLOYEE_OPTIONS},
+            )
         for employee_id in selected:
             person = {**base, "employeeId": employee_id}
             c.get("employee/v1/getPayRateHistory", person)
@@ -100,8 +132,11 @@ def _prismhr(c: ReadOnlyClient, limits: Limits) -> None:
 
         batches: dict[str, dict] = {}
         for year in range(limits.since.year, limits.until.year + 1):
-            window = {"startDate": max(limits.since, date(year, 1, 1)).isoformat(),
-                      "endDate": min(limits.until, date(year, 12, 31)).isoformat(), "dateType": "PAY"}
+            window = {
+                "startDate": max(limits.since, date(year, 1, 1)).isoformat(),
+                "endDate": min(limits.until, date(year, 12, 31)).isoformat(),
+                "dateType": "PAY",
+            }
             listing = c.get("payroll/v1/getBatchListByDate", {**base, **window})["body"]
             for batch in _dig(listing, "batchList") or []:
                 if isinstance(batch, dict) and batch.get("batchId"):
@@ -111,9 +146,16 @@ def _prismhr(c: ReadOnlyClient, limits: Limits) -> None:
             c.get("payroll/v1/getBatchInfo", {**base, "batchId": batch_id})
             seen: set[str] = set()
             for page in range(0, 20):
-                vouchers = c.get("payroll/v1/getPayrollVoucherForBatch", {
-                    **base, "batchId": batch_id, "count": "25", "startpage": str(page),
-                    "options": PRISM_VOUCHER_OPTIONS})["body"]
+                vouchers = c.get(
+                    "payroll/v1/getPayrollVoucherForBatch",
+                    {
+                        **base,
+                        "batchId": batch_id,
+                        "count": "25",
+                        "startpage": str(page),
+                        "options": PRISM_VOUCHER_OPTIONS,
+                    },
+                )["body"]
                 # Live responses use "payrollVoucher"; the 2025.09 spec documents "payrollVouchers".
                 listed = _dig(vouchers, "payrollVoucher") or _dig(vouchers, "payrollVouchers")
                 new_ids = set(_ids(listed, "voucherId")) - seen
@@ -137,9 +179,15 @@ def _paged(c: ReadOnlyClient, path: str, params: dict, limit: int, page_param: s
 
 
 def _isolved(c: ReadOnlyClient, limits: Limits) -> None:
-    for path in ("api/lookup/Frequencies", "api/lookup/genders", "api/lookup/maritalStatuses",
-                 "api/lookup/ethnicorigins", "api/lookup/citizenships", "api/system/payTypes",
-                 "api/system/earnings"):
+    for path in (
+        "api/lookup/Frequencies",
+        "api/lookup/genders",
+        "api/lookup/maritalStatuses",
+        "api/lookup/ethnicorigins",
+        "api/lookup/citizenships",
+        "api/system/payTypes",
+        "api/system/earnings",
+    ):
         c.get(path)
     for client_id in sorted(c.session.companies.clients):
         c.get(f"api/clients/{client_id}")
@@ -150,22 +198,40 @@ def _isolved(c: ReadOnlyClient, limits: Limits) -> None:
         legal = c.get(root, {"includeDetails": "true"})["body"]
 
         # Paychecks are sparse, so find them company-wide first and make sure their employees are sampled.
-        checks = _paged(c, f"{root}/checks", {"filter.fromDate": limits.since.isoformat(),
-                                               "filter.toDate": limits.until.isoformat(),
-                                               "filter.pageSize": 500}, 5000, page_param="filter.page")
+        checks = _paged(
+            c,
+            f"{root}/checks",
+            {
+                "filter.fromDate": limits.since.isoformat(),
+                "filter.toDate": limits.until.isoformat(),
+                "filter.pageSize": 500,
+            },
+            5000,
+            page_param="filter.page",
+        )
         check_owners = list(dict.fromkeys(_ids(checks, "employeeId")))
         employees = _paged(c, f"{root}/employees", {"pageSize": 100}, 10_000)
         sample = list(dict.fromkeys(check_owners[: limits.max_employees] + _ids(employees)))[: limits.max_employees]
         for employee_id in sample:
             person = f"{root}/employees/{employee_id}"
-            c.get(person, {"includeMiscFields": "true", "includeLabors": "true", "includeOrganizations": "true",
-                           "includeAlternateRates": "true", "includeTaxes": "true"})
+            c.get(
+                person,
+                {
+                    "includeMiscFields": "true",
+                    "includeLabors": "true",
+                    "includeOrganizations": "true",
+                    "includeAlternateRates": "true",
+                    "includeTaxes": "true",
+                },
+            )
             for suffix in ("directdeposits", "salaries", "statuses", "payRates", "payItems", "garnishments"):
                 c.get(f"{person}/{suffix}")
             for template, path in (
                 ("api/clients/{client}/legals/{legal}/employees/{id}/payroll", f"{person}/payroll"),
-                ("api/corestream/clients/{client}/legals/{legal}/employees/{id}/deductions",
-                 f"{corestream}/employees/{employee_id}/deductions"),
+                (
+                    "api/corestream/clients/{client}/legals/{legal}/employees/{id}/deductions",
+                    f"{corestream}/employees/{employee_id}/deductions",
+                ),
             ):
                 if template not in c.denied:
                     c.get(path)
@@ -188,7 +254,7 @@ def _isolved(c: ReadOnlyClient, limits: Limits) -> None:
             runs = history if isinstance(history, list) else []
             completed = [r for r in runs if "complete" in str(r.get("status", "")).lower()]
             others = [r for r in runs if r not in completed]
-            for payroll_id in _ids(completed[-limits.max_payrolls:] + others[-2:]):
+            for payroll_id in _ids(completed[-limits.max_payrolls :] + others[-2:]):
                 c.get(f"{root}/paygroupId/{pay_group_id}/payrollRunHistory/{payroll_id}")
                 template = "api/corestream/clients/{client}/legals/{legal}/paygroups/{id}/payrolls/{id}"
                 if template not in c.denied:
@@ -198,8 +264,16 @@ def _isolved(c: ReadOnlyClient, limits: Limits) -> None:
 def _ukg(c: ReadOnlyClient, limits: Limits) -> None:
     for company_id in sorted(c.session.companies.companies)[: limits.max_companies]:
         root = f"rest/v2/companies/{company_id}"
-        for lookup in ("eins", "earning-codes", "deduction-codes", "pay-types", "payroll-types",
-                       "pay-statement-types", "employee-types", "jobs"):
+        for lookup in (
+            "eins",
+            "earning-codes",
+            "deduction-codes",
+            "pay-types",
+            "payroll-types",
+            "pay-statement-types",
+            "employee-types",
+            "jobs",
+        ):
             c.get(f"{root}/lookup/{lookup}")
         employees = c.get(f"{root}/employees")["body"]
         for account_id in _ids(_dig(employees, "employees"))[: limits.max_employees]:
@@ -212,11 +286,15 @@ def _ukg(c: ReadOnlyClient, limits: Limits) -> None:
             for deduction_id in _ids(_dig(deductions, "deductions")):
                 c.get(f"{person}/deductions/{deduction_id}")
 
-        listing = c.get(f"{root}/payrolls", {"pay_date_from": limits.since.isoformat(),
-                                              "pay_date_to": limits.until.isoformat()})["body"]
+        listing = c.get(
+            f"{root}/payrolls", {"pay_date_from": limits.since.isoformat(), "pay_date_to": limits.until.isoformat()}
+        )["body"]
         payrolls = [p for p in _dig(listing, "payrolls") or [] if isinstance(p, dict) and p.get("id")]
-        past = sorted((p for p in payrolls if str(p.get("pay_date", "")) <= date.today().isoformat()),
-                      key=lambda p: str(p.get("pay_date")), reverse=True)
+        past = sorted(
+            (p for p in payrolls if str(p.get("pay_date", "")) <= date.today().isoformat()),
+            key=lambda p: str(p.get("pay_date")),
+            reverse=True,
+        )
         with_statements = probed = 0
         for payroll in past + [p for p in payrolls if p not in past][:2]:
             if with_statements >= limits.max_payrolls or probed >= limits.max_payrolls * 3:

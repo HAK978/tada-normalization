@@ -4,6 +4,7 @@ json.loads turns 0.123456789123456789 into a float, and no later Decimal convers
 recover the digits it dropped. Provider responses and fixtures are therefore read with
 loads() and written with dumps(), which emits a Decimal as the same plain JSON number.
 """
+
 from __future__ import annotations
 
 import json

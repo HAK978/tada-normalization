@@ -1,4 +1,5 @@
 """The live scope guard must refuse anything outside the demo companies, offline."""
+
 import pytest
 
 from normalization.live import client as live_client
@@ -18,14 +19,17 @@ def test_prism_allows_allowlisted_operation_for_demo_client():
     assert check("prismhr", PRISM_BASE, PRISM, url, {"clientId": "100"}) == "employee/v1/getEmployee"
 
 
-@pytest.mark.parametrize("url, params", [
-    (PRISM_BASE + "/employee/v1/getEmployee", {"clientId": "999"}),
-    (PRISM_BASE + "/employee/v1/getEmployee", {}),
-    (PRISM_BASE + "/employee/v1/updateEmployeeFields", {"clientId": "100"}),
-    (PRISM_BASE + "/clientMaster/v1/getClientList", {"clientId": "100"}),
-    ("https://evil.example.test/api/services/rest/employee/v1/getEmployee", {"clientId": "100"}),
-    (PRISM_BASE + "/employee/v1/getEmployee?clientId=100", {"clientId": "100"}),
-])
+@pytest.mark.parametrize(
+    "url, params",
+    [
+        (PRISM_BASE + "/employee/v1/getEmployee", {"clientId": "999"}),
+        (PRISM_BASE + "/employee/v1/getEmployee", {}),
+        (PRISM_BASE + "/employee/v1/updateEmployeeFields", {"clientId": "100"}),
+        (PRISM_BASE + "/clientMaster/v1/getClientList", {"clientId": "100"}),
+        ("https://evil.example.test/api/services/rest/employee/v1/getEmployee", {"clientId": "100"}),
+        (PRISM_BASE + "/employee/v1/getEmployee?clientId=100", {"clientId": "100"}),
+    ],
+)
 def test_prism_refuses_out_of_scope_requests(url, params):
     with pytest.raises(ScopeError):
         check("prismhr", PRISM_BASE, PRISM, url, params)
@@ -38,15 +42,18 @@ def test_isolved_allows_demo_pair_and_global_lookups():
     assert check("isolved", ISOLVED_BASE, ISOLVED, ISOLVED_BASE + "/api/clients/7") == "api/clients/{client}"
 
 
-@pytest.mark.parametrize("path", [
-    "/api/clients/7/legals/71/employees",
-    "/api/clients/8/legals/70/employees",
-    "/api/clients/8",
-    "/api/clients",
-    "/api/legals",
-    "/api/clients/7/legals/70/employees/../../71/employees",
-    "/api/clients/7/legals/70/employees/5/directdeposits/9",
-])
+@pytest.mark.parametrize(
+    "path",
+    [
+        "/api/clients/7/legals/71/employees",
+        "/api/clients/8/legals/70/employees",
+        "/api/clients/8",
+        "/api/clients",
+        "/api/legals",
+        "/api/clients/7/legals/70/employees/../../71/employees",
+        "/api/clients/7/legals/70/employees/5/directdeposits/9",
+    ],
+)
 def test_isolved_refuses_other_companies_and_unlisted_paths(path):
     with pytest.raises(ScopeError):
         check("isolved", ISOLVED_BASE, ISOLVED, ISOLVED_BASE + path)

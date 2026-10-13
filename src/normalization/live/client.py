@@ -1,4 +1,5 @@
 """GET-only client for the live demo tenants; every response is saved with credentials scrubbed."""
+
 from __future__ import annotations
 
 import json
@@ -16,8 +17,15 @@ from . import scope
 from .signin import Session, sign_in
 
 # Response headers are saved for discovery, minus anything that could carry a credential.
-_DROPPED_HEADERS = {"set-cookie", "cookie", "authorization", "www-authenticate", "proxy-authenticate",
-                    "sessionid", "x-api-key"}
+_DROPPED_HEADERS = {
+    "set-cookie",
+    "cookie",
+    "authorization",
+    "www-authenticate",
+    "proxy-authenticate",
+    "sessionid",
+    "x-api-key",
+}
 # Signed tokens embedded in responses (UKG photo_href links carry one per employee).
 _JWT = re.compile(r"eyJ[A-Za-z0-9_-]{10,}\.[A-Za-z0-9_-]{10,}(?:\.[A-Za-z0-9_-]+)?")
 _RETRYABLE = {429, 502, 504}
@@ -37,8 +45,15 @@ class Recorder:
         context = {**session.public_context(), "saved_at": _now()}
         (self.root / "session.json").write_text(json.dumps(context, indent=2) + "\n", encoding="utf-8")
 
-    def save(self, endpoint: str, path: str, params: dict, response: httpx.Response, elapsed: float,
-             redact: Callable[[str], str] = lambda text: text) -> dict:
+    def save(
+        self,
+        endpoint: str,
+        path: str,
+        params: dict,
+        response: httpx.Response,
+        elapsed: float,
+        redact: Callable[[str], str] = lambda text: text,
+    ) -> dict:
         self.count += 1
         try:
             body = exactjson.loads(response.text)
@@ -66,9 +81,17 @@ class Recorder:
 class ReadOnlyClient:
     """Sends only scope-checked GET requests; there is deliberately no other verb."""
 
-    def __init__(self, provider: str, api_key: str, recorder: Recorder, *,
-                 http: httpx.Client | None = None, delay: float = 0.2,
-                 sleep: Callable[[float], None] = time.sleep, log: Callable[[str], None] = print):
+    def __init__(
+        self,
+        provider: str,
+        api_key: str,
+        recorder: Recorder,
+        *,
+        http: httpx.Client | None = None,
+        delay: float = 0.2,
+        sleep: Callable[[float], None] = time.sleep,
+        log: Callable[[str], None] = print,
+    ):
         self.provider = provider
         self._api_key = api_key
         self._http = http or httpx.Client(timeout=httpx.Timeout(90.0, connect=30.0), follow_redirects=False)
@@ -84,8 +107,9 @@ class ReadOnlyClient:
     def get(self, path: str, params: dict | None = None, headers: dict | None = None) -> dict:
         params = {k: v for k, v in (params or {}).items() if v is not None}
         url = f"{self.session.base_url.rstrip('/')}/{path.lstrip('/')}"
-        endpoint = scope.check(self.provider, self.session.base_url, self.session.companies, url, params,
-                               frozenset(self.employers))
+        endpoint = scope.check(
+            self.provider, self.session.base_url, self.session.companies, url, params, frozenset(self.employers)
+        )
         started = time.monotonic()
         response = self._send(endpoint, url, params, headers or {})
         record = self.recorder.save(endpoint, path, params, response, time.monotonic() - started, self.redact)
@@ -127,18 +151,26 @@ class ReadOnlyClient:
         """Follow redirects manually so each hop is scope-checked too."""
         for _ in range(_MAX_REDIRECTS + 1):
             # Per request, so an injected client that follows redirects can't skip the checks below.
-            response = self._http.get(url, params=params, follow_redirects=False, headers={
-                "Accept": "application/json", **headers, **self.session.auth_headers})
+            response = self._http.get(
+                url,
+                params=params,
+                follow_redirects=False,
+                headers={"Accept": "application/json", **headers, **self.session.auth_headers},
+            )
             if not response.is_redirect:
                 return response
             target = httpx.URL(urljoin(str(response.url), response.headers["location"]))
             params = {}
             for key, value in target.params.multi_items():
-                params[key] = [*params[key], value] if isinstance(params.get(key), list) else (
-                    [params[key], value] if key in params else value)
+                params[key] = (
+                    [*params[key], value]
+                    if isinstance(params.get(key), list)
+                    else ([params[key], value] if key in params else value)
+                )
             url = str(target.copy_with(query=None))
-            scope.check(self.provider, self.session.base_url, self.session.companies, url, params,
-                        frozenset(self.employers))
+            scope.check(
+                self.provider, self.session.base_url, self.session.companies, url, params, frozenset(self.employers)
+            )
         return response
 
     def _learn_employers(self, body: object) -> None:
@@ -175,7 +207,7 @@ class ReadOnlyClient:
             wait_ms = response.headers.get("X-CallLimit-TimeToWait")
             return int(wait_ms) / 1000 if wait_ms and wait_ms.isdigit() else 60.0
         if response.status_code in _RETRYABLE:
-            return 2.0 ** attempt
+            return 2.0**attempt
         return None
 
 

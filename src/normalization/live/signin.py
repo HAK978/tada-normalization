@@ -4,6 +4,7 @@ POST /signin to the organizer's service is the only non-GET request this
 project makes. Its response carries provider credentials, so the Session
 keeps them out of repr() and public_context() never includes them.
 """
+
 from __future__ import annotations
 
 import os

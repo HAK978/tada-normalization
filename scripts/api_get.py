@@ -11,6 +11,7 @@ endpoints, demo company IDs only), prints the response and saves a copy under
 
 Query parameters are key=value; repeat a key to send a list (employeeId=A employeeId=B).
 """
+
 import argparse
 import sys
 from datetime import datetime, timezone
@@ -47,8 +48,9 @@ def main(argv=None) -> int:
 
     run = ROOT / ".discovery" / args.provider / (datetime.now(timezone.utc).strftime("%Y%m%dT%H%M%SZ") + "_manual")
     try:
-        client = ReadOnlyClient(args.provider, load_api_key(ROOT / ".env"), Recorder(run),
-                                log=lambda line: print(line, file=sys.stderr))
+        client = ReadOnlyClient(
+            args.provider, load_api_key(ROOT / ".env"), Recorder(run), log=lambda line: print(line, file=sys.stderr)
+        )
         if args.provider == "prismhr" and args.path == "system/v1/getEmployerDetails":
             print("employer lookups need a demo client's master record first; use discover.py", file=sys.stderr)
         record = client.get(args.path, parse_params(args.params))

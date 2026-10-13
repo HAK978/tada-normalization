@@ -1,4 +1,5 @@
 """Numbers survive a read and a write unchanged, which float parsing can't guarantee."""
+
 from decimal import Decimal
 
 import pytest

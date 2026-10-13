@@ -6,6 +6,7 @@ committed. Needs DEMO_SIGNIN_API_KEY in the environment or in .env.
     python scripts/discover.py --provider all --signin-only
     python scripts/discover.py --provider prismhr --max-employees 5
 """
+
 import argparse
 import json
 import sys
@@ -45,8 +46,17 @@ def main(argv=None) -> int:
             client = ReadOnlyClient(provider, api_key, recorder)
             print(json.dumps(client.session.public_context(), indent=2))
             if not args.signin_only:
-                crawl(client, Limits(args.since, args.until, args.max_employees, args.max_payrolls,
-                                      args.max_paychecks, args.max_companies))
+                crawl(
+                    client,
+                    Limits(
+                        args.since,
+                        args.until,
+                        args.max_employees,
+                        args.max_payrolls,
+                        args.max_paychecks,
+                        args.max_companies,
+                    ),
+                )
         except (SignInError, ScopeError) as exc:
             failures += 1
             print(f"[{provider}] stopped: {exc}", file=sys.stderr)

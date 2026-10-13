@@ -5,6 +5,7 @@ so every live request is checked before it is sent: it must stay on the base
 URL returned by /signin, match an allowlisted read endpoint, and reference
 only the demo company IDs returned by /signin.
 """
+
 from __future__ import annotations
 
 import re
@@ -45,23 +46,25 @@ class Companies:
 
 # PrismHR addresses operations as {service}/v1/{operation}; every one listed
 # here is a documented GET that takes a clientId query parameter.
-PRISM_OPERATIONS = frozenset({
-    "clientMaster/v1/getClientMaster",
-    "clientMaster/v1/getClientCodes",
-    "clientMaster/v1/getPayrollSchedule",
-    "employee/v1/getEmployeeList",
-    "employee/v1/getEmployee",
-    "employee/v1/getPayRateHistory",
-    "employee/v1/getScheduledDeductions",
-    "deductions/v1/getDeductions",
-    "deductions/v1/getVoluntaryRecurringDeductions",
-    "deductions/v1/getEmployeeLoans",
-    "deductions/v1/getGarnishmentDetails",
-    "benefits/v1/getActiveBenefitPlans",
-    "payroll/v1/getBatchListByDate",
-    "payroll/v1/getBatchInfo",
-    "payroll/v1/getPayrollVoucherForBatch",
-})
+PRISM_OPERATIONS = frozenset(
+    {
+        "clientMaster/v1/getClientMaster",
+        "clientMaster/v1/getClientCodes",
+        "clientMaster/v1/getPayrollSchedule",
+        "employee/v1/getEmployeeList",
+        "employee/v1/getEmployee",
+        "employee/v1/getPayRateHistory",
+        "employee/v1/getScheduledDeductions",
+        "deductions/v1/getDeductions",
+        "deductions/v1/getVoluntaryRecurringDeductions",
+        "deductions/v1/getEmployeeLoans",
+        "deductions/v1/getGarnishmentDetails",
+        "benefits/v1/getActiveBenefitPlans",
+        "payroll/v1/getBatchListByDate",
+        "payroll/v1/getBatchInfo",
+        "payroll/v1/getPayrollVoucherForBatch",
+    }
+)
 
 # The one operation not keyed by clientId. Without an employerId it lists every employer
 # in the tenant, so it is only allowed for employer IDs that demo clients reference.
@@ -139,8 +142,14 @@ _TEMPLATES = {
 }
 
 
-def check(provider: str, base_url: str, companies: Companies, url: str, params: dict | None = None,
-          employers: frozenset[str] = frozenset()) -> str:
+def check(
+    provider: str,
+    base_url: str,
+    companies: Companies,
+    url: str,
+    params: dict | None = None,
+    employers: frozenset[str] = frozenset(),
+) -> str:
     """Return the matched endpoint id, or raise ScopeError without sending anything.
 
     employers: PrismHR employer IDs referenced by the demo clients' own getClientMaster responses.
@@ -153,7 +162,7 @@ def check(provider: str, base_url: str, companies: Companies, url: str, params: 
     prefix = base.path.rstrip("/") + "/"
     if not target.path.startswith(prefix):
         raise ScopeError(f"{target.path} is outside the /signin base URL path")
-    relative = target.path[len(prefix):].rstrip("/")
+    relative = target.path[len(prefix) :].rstrip("/")
     params = params or {}
     if provider == "prismhr":
         return _check_prism(relative, params, companies, employers)
