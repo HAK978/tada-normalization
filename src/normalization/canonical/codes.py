@@ -1,0 +1,348 @@
+"""Canonical code lists. Every list has UNMAPPED for source values without evidence (model §1, principle 3)."""
+
+from enum import StrEnum
+
+
+class CompanyStatus(StrEnum):
+    ACTIVE = "ACTIVE"
+    PENDING = "PENDING"
+    INACTIVE = "INACTIVE"
+    TERMINATING = "TERMINATING"
+    TERMINATED = "TERMINATED"
+    UNMAPPED = "UNMAPPED"
+
+
+class ServiceArrangement(StrEnum):
+    PEO = "PEO"
+    ASO = "ASO"
+    PAYROLL_ONLY = "PAYROLL_ONLY"
+    ASO_ALT_BILLING = "ASO_ALT_BILLING"
+    CORPORATE_PAYROLL = "CORPORATE_PAYROLL"
+    HR_ONLY = "HR_ONLY"
+    UNMAPPED = "UNMAPPED"
+
+
+class EmployerKind(StrEnum):
+    ASSIGNED = "ASSIGNED"
+    ALTERNATE = "ALTERNATE"
+    LEGAL_COMPANY = "LEGAL_COMPANY"
+    EIN = "EIN"
+
+
+class EmploymentStatus(StrEnum):
+    ACTIVE = "ACTIVE"
+    ON_LEAVE = "ON_LEAVE"
+    TERMINATED = "TERMINATED"
+    UNMAPPED = "UNMAPPED"
+
+
+class EmploymentType(StrEnum):
+    FULL_TIME = "FULL_TIME"
+    PART_TIME = "PART_TIME"
+    UNMAPPED = "UNMAPPED"
+
+
+class WorkerClassification(StrEnum):
+    EMPLOYEE = "EMPLOYEE"
+    CONTRACTOR_1099 = "CONTRACTOR_1099"
+    UNMAPPED = "UNMAPPED"
+
+
+class PayType(StrEnum):
+    SALARY = "SALARY"
+    HOURLY = "HOURLY"
+    COMMISSION = "COMMISSION"
+    DRIVER = "DRIVER"
+    UNMAPPED = "UNMAPPED"
+
+
+class PayFrequency(StrEnum):
+    DAILY = "DAILY"
+    WEEKLY = "WEEKLY"
+    BIWEEKLY = "BIWEEKLY"
+    SEMIMONTHLY = "SEMIMONTHLY"
+    MONTHLY = "MONTHLY"
+    QUARTERLY = "QUARTERLY"
+    SEMIANNUALLY = "SEMIANNUALLY"
+    ANNUALLY = "ANNUALLY"
+    OTHER = "OTHER"
+    UNMAPPED = "UNMAPPED"
+
+
+class RatePeriod(StrEnum):
+    HOUR = "HOUR"
+    DAY = "DAY"
+    WEEK = "WEEK"
+    BIWEEK = "BIWEEK"
+    SEMIMONTH = "SEMIMONTH"
+    MONTH = "MONTH"
+    QUARTER = "QUARTER"
+    YEAR = "YEAR"
+    PAY_PERIOD = "PAY_PERIOD"
+    UNIT = "UNIT"
+    UNMAPPED = "UNMAPPED"
+
+
+class QuantityUnit(StrEnum):
+    HOURS = "HOURS"
+    UNITS = "UNITS"
+    UNKNOWN = "UNKNOWN"
+
+
+class PercentScale(StrEnum):
+    VERIFIED_POINTS = "VERIFIED_POINTS"
+    UNVERIFIED = "UNVERIFIED"
+
+
+class CalculationBasis(StrEnum):
+    GROSS_PAY = "GROSS_PAY"
+    GROSS_EARNINGS = "GROSS_EARNINGS"
+    GROSS_EARNINGS_LESS_DEDUCTIONS = "GROSS_EARNINGS_LESS_DEDUCTIONS"
+    STRAIGHT_PAY = "STRAIGHT_PAY"
+    PAY_RATE = "PAY_RATE"
+    PRIOR_MONTH_PAY_RATE = "PRIOR_MONTH_PAY_RATE"
+    RETIREMENT_EARNINGS = "RETIREMENT_EARNINGS"
+    EARNINGS = "EARNINGS"
+    CERTIFIED_JOB_EARNINGS = "CERTIFIED_JOB_EARNINGS"
+    HOURS_WORKED = "HOURS_WORKED"
+    HOURS_PAID = "HOURS_PAID"
+    HOURS_PAID_SELECTED_CODES = "HOURS_PAID_SELECTED_CODES"
+    CERTIFIED_JOB_HOURS = "CERTIFIED_JOB_HOURS"
+    UNION_JOB_HOURS = "UNION_JOB_HOURS"
+    UNION_PROJECT_HOURS = "UNION_PROJECT_HOURS"
+    NET_PAY = "NET_PAY"
+    UNSPECIFIED = "UNSPECIFIED"
+
+
+class Gender(StrEnum):
+    MALE = "MALE"
+    FEMALE = "FEMALE"
+    UNMAPPED = "UNMAPPED"
+
+
+class MaritalStatus(StrEnum):
+    SINGLE = "SINGLE"
+    MARRIED = "MARRIED"
+    DIVORCED = "DIVORCED"
+    WIDOWED = "WIDOWED"
+    CIVIL_UNION = "CIVIL_UNION"
+    OTHER = "OTHER"
+    UNMAPPED = "UNMAPPED"
+
+
+class YesNoDeclined(StrEnum):
+    YES = "YES"
+    NO = "NO"
+    DECLINED = "DECLINED"
+    NOT_SPECIFIED = "NOT_SPECIFIED"
+    UNMAPPED = "UNMAPPED"
+
+
+class Citizenship(StrEnum):
+    US_CITIZEN = "US_CITIZEN"
+    US_NONCITIZEN_NATIONAL = "US_NONCITIZEN_NATIONAL"
+    LAWFUL_PERMANENT_RESIDENT = "LAWFUL_PERMANENT_RESIDENT"
+    AUTHORIZED_ALIEN = "AUTHORIZED_ALIEN"
+    UNMAPPED = "UNMAPPED"
+
+
+class NationalIdType(StrEnum):
+    SSN = "SSN"
+    OTHER = "OTHER"
+
+
+class IdentifierType(StrEnum):
+    PROVIDER_ID = "PROVIDER_ID"
+    EMPLOYEE_NUMBER = "EMPLOYEE_NUMBER"
+    EXTERNAL_ID = "EXTERNAL_ID"
+    CLOCK_NUMBER = "CLOCK_NUMBER"
+    UNIQUE_ID = "UNIQUE_ID"
+    USERNAME = "USERNAME"
+
+
+class AddressType(StrEnum):
+    HOME = "HOME"
+    MAILING = "MAILING"
+    W2 = "W2"
+    COMPANY = "COMPANY"
+    BILLING = "BILLING"
+
+
+class PhoneType(StrEnum):
+    HOME = "HOME"
+    MOBILE = "MOBILE"
+    WORK = "WORK"
+    FAX = "FAX"
+    MAIN = "MAIN"
+
+
+class EmailType(StrEnum):
+    PERSONAL = "PERSONAL"
+    WORK = "WORK"
+    BENEFITS = "BENEFITS"
+    MAIN = "MAIN"
+
+
+class DepositPurpose(StrEnum):
+    NET_PAY = "NET_PAY"
+    HSA = "HSA"
+
+
+class FundingParty(StrEnum):
+    EMPLOYEE = "EMPLOYEE"
+    EMPLOYER = "EMPLOYER"
+    UNMAPPED = "UNMAPPED"
+
+
+class AccountType(StrEnum):
+    CHECKING = "CHECKING"
+    SAVINGS = "SAVINGS"
+    CHECKING_OR_PAY_CARD = "CHECKING_OR_PAY_CARD"
+    INSTANT_PAY = "INSTANT_PAY"
+    PAPER_CHECK = "PAPER_CHECK"
+    UNMAPPED = "UNMAPPED"
+
+
+class DepositMethod(StrEnum):
+    FIXED_AMOUNT = "FIXED_AMOUNT"
+    FIXED_AMOUNT_SKIP_IF_INSUFFICIENT = "FIXED_AMOUNT_SKIP_IF_INSUFFICIENT"
+    PERCENT_BASE_UNSPECIFIED = "PERCENT_BASE_UNSPECIFIED"
+    PERCENT_OF_GROSS = "PERCENT_OF_GROSS"
+    PERCENT_OF_NET = "PERCENT_OF_NET"
+    PERCENT_OF_NET_AFTER_FIXED = "PERCENT_OF_NET_AFTER_FIXED"
+    PERCENT_OF_NET_AFTER_TAXES = "PERCENT_OF_NET_AFTER_TAXES"
+    PERCENT_OF_REMAINDER = "PERCENT_OF_REMAINDER"
+    REMAINDER = "REMAINDER"
+    UNMAPPED = "UNMAPPED"
+
+
+class DepositStatus(StrEnum):
+    ACTIVE = "ACTIVE"
+    INACTIVE = "INACTIVE"
+    PRENOTE = "PRENOTE"
+    UNMAPPED = "UNMAPPED"
+
+
+class PayKindScope(StrEnum):
+    REGULAR = "REGULAR"
+    SUPPLEMENTAL = "SUPPLEMENTAL"
+    VACATION = "VACATION"
+    UNMAPPED = "UNMAPPED"
+
+
+class DeductionCategory(StrEnum):
+    RETIREMENT = "RETIREMENT"
+    RETIREMENT_LOAN = "RETIREMENT_LOAN"
+    SECTION_125 = "SECTION_125"
+    FSA = "FSA"
+    HSA = "HSA"
+    POST_TAX_BENEFIT = "POST_TAX_BENEFIT"
+    VOLUNTARY = "VOLUNTARY"
+    GARNISHMENT = "GARNISHMENT"
+    LOAN = "LOAN"
+    UNMAPPED = "UNMAPPED"
+
+
+class TaxTreatment(StrEnum):
+    PRE_TAX = "PRE_TAX"
+    POST_TAX = "POST_TAX"
+    ROTH = "ROTH"
+    UNSPECIFIED = "UNSPECIFIED"
+
+
+class CalculationMethod(StrEnum):
+    FIXED_AMOUNT = "FIXED_AMOUNT"
+    PERCENT = "PERCENT"
+    PER_TEN_THOUSAND = "PER_TEN_THOUSAND"
+    RATE_PER_HOUR = "RATE_PER_HOUR"
+    RATE_TABLE = "RATE_TABLE"
+    PROVIDER_RULE = "PROVIDER_RULE"
+    UNMAPPED = "UNMAPPED"
+
+
+class Rounding(StrEnum):
+    NEAREST_DOLLAR = "NEAREST_DOLLAR"
+
+
+class LimitBasis(StrEnum):
+    PAY_PERIOD = "PAY_PERIOD"
+    MONTH = "MONTH"
+    QUARTER = "QUARTER"
+    YEAR = "YEAR"
+    LIFETIME = "LIFETIME"
+    UNMAPPED = "UNMAPPED"
+
+
+class ElectionStatus(StrEnum):
+    ACTIVE = "ACTIVE"
+    INACTIVE = "INACTIVE"
+    ONE_TIME = "ONE_TIME"
+    UNMAPPED = "UNMAPPED"
+
+
+class PayrollRunType(StrEnum):
+    REGULAR = "REGULAR"
+    SPECIAL = "SPECIAL"
+    MANUAL = "MANUAL"
+    VOID = "VOID"
+    ADJUSTMENT = "ADJUSTMENT"
+    CORRECTION = "CORRECTION"
+    HISTORICAL_IMPORT = "HISTORICAL_IMPORT"
+    UNMAPPED = "UNMAPPED"
+
+
+class PayrollRunStatus(StrEnum):
+    OPEN = "OPEN"
+    CLOSED = "CLOSED"
+    SUBMITTED = "SUBMITTED"
+    COMPLETED = "COMPLETED"
+    NOT_PROCESSED = "NOT_PROCESSED"
+    FAILED = "FAILED"
+    UNMAPPED = "UNMAPPED"
+
+
+class PayStatementType(StrEnum):
+    REGULAR = "REGULAR"
+    SUPPLEMENTAL = "SUPPLEMENTAL"
+    VACATION = "VACATION"
+    ARREARS = "ARREARS"
+    ADJUSTMENT = "ADJUSTMENT"
+    MANUAL = "MANUAL"
+    HISTORICAL_IMPORT = "HISTORICAL_IMPORT"
+    UNMAPPED = "UNMAPPED"
+
+
+class EarningKind(StrEnum):
+    EARNINGS = "EARNINGS"
+    REIMBURSEMENT = "REIMBURSEMENT"
+    NON_CASH_FRINGE = "NON_CASH_FRINGE"
+    REPORTED_TIPS = "REPORTED_TIPS"
+    MEMO = "MEMO"
+    UNMAPPED = "UNMAPPED"
+
+
+# Earning kinds that count toward gross for tax purposes but are not paid out in cash.
+NON_CASH_EARNING_KINDS = frozenset({EarningKind.NON_CASH_FRINGE, EarningKind.REPORTED_TIPS, EarningKind.MEMO})
+
+
+class TaxPaidBy(StrEnum):
+    EMPLOYEE = "EMPLOYEE"
+    EMPLOYER = "EMPLOYER"
+
+
+class PaymentKind(StrEnum):
+    DIRECT_DEPOSIT = "DIRECT_DEPOSIT"
+    CHECK = "CHECK"
+    UNMAPPED = "UNMAPPED"
+
+
+class Severity(StrEnum):
+    INFO = "info"
+    WARNING = "warning"
+    ERROR = "error"
+
+
+class CheckResult(StrEnum):
+    PASS = "pass"
+    FAIL = "fail"
+    NOT_APPLICABLE = "not_applicable"

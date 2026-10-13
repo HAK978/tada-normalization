@@ -162,6 +162,8 @@ Status: first draft, written during discovery. Entries are added as mapping deci
 - **Evidence:** Prism `#/components/schemas/Compensation/properties/hourlyPayPeriod` documents
   H/W/B/S/M/Y. Live, 18 employees have `A`, and on all 18 `hourlyPayRate` equals `annualPay`. The
   documented `Y` behaves the same way (1 of 1).
+- **More evidence:** the pay-rate history schema documents `A` as "annually"
+  (`#/components/schemas/PayRate/properties/payPeriod`).
 - **Decision:** map `A` to per `YEAR`, keep the raw value, and add an info diagnostic.
 
 ### A-20 PrismHR `salary` is per pay period
@@ -291,13 +293,20 @@ Status: first draft, written during discovery. Entries are added as mapping deci
 - **Why:** both are US payroll systems with federal and state tax lines. The assumption is applied in
   one place and is easy to change.
 
-### A-32 PrismHR `totalEarnings` doesn't always equal earnings + other earnings
-- **Evidence:** `totalEarnings = earnAmount + otherEarnAmount` on 333 of 420 vouchers. The other 87
-  differ by small amounts, often multiples of $0.92. gross − employee taxes − deductions = net holds
-  on 334 of 420.
-- **Decision (for now):** use `totalEarnings` as the provided gross, and report the mismatch as a
-  diagnostic. Investigation continues; the likely sources are benefit or imputed amounts.
-
+### A-32 PrismHR gross and net reconcile from the line items (resolved)
+- **Evidence:** across 420 live vouchers:
+  - `totalEarnings = sum(earning[].payAmount) + sum(otherEarningsDetail[].otherEarnAmount)` on
+    **420 of 420**.
+  - The summary fields are the unreliable part: `otherEarnAmount` leaves out "Fringe" lines on 64
+    vouchers, and `earnAmount` differs from its lines on 23.
+  - Net pay reconciles on **420 of 420** once non-cash pay is excluded:
+    `gross - non-cash earnings - employee taxes - deductions = netPay`. Non-cash means pay classes
+    F (non-cash fringe), M (memo) and RT (reported tips), documented in
+    `#/components/schemas/ClientCodes-PayCode/properties/payClass`. Such pay is taxed (it sits inside
+    federal taxable wages) but not paid out.
+- **Decision:** gross is `totalEarnings`. Earning lines come from both lists, and their kind comes
+  from `payClass` (or the client pay-code table for "other" lines). The paycheck check excludes
+  non-cash kinds. `earnAmount` and `otherEarnAmount` are kept in `provider_extensions`, not used.
 ### A-33 Time-dependent fields use an explicit `as_of` date
 - **Decision:** values like "is this deposit active?" (UKG `active` plus dates) are evaluated
   against `as_of`. That date defaults to the fetch date for live data and is fixed for fixtures.
@@ -380,4 +389,24 @@ entries below are new.
   their documented names (`payrollVoucher` → `payrollVouchers`, `clientPayrollSchedule` →
   `clientPayrollSchedules`), so the contents are validated against the real schema. Converters still
   receive the alias form, as live data has it.
+
+## Found while running the PrismHR converter on live data (2026-10-13)
+
+### A-44 PrismHR gender codes
+- **Evidence:** `#/components/schemas/Person/properties/gender` lists "M, F, X or D" with no meanings.
+- **Decision:** M maps to `MALE` and F to `FEMALE`. X and D stay `UNMAPPED` with the raw value kept,
+  because their meanings aren't stated.
+
+### A-45 PrismHR citizenship arrives as the documented description, not the code
+- **Evidence:** `#/components/schemas/Compensation/properties/citizenshipStatus` documents codes Z01–Z04
+  with their meanings. All 18 live values are the description text itself, e.g. "A citizen of the
+  United States".
+- **Decision:** both the codes and their exact documented descriptions map to the canonical values.
+  Anything else stays `UNMAPPED`.
+
+### A-46 PrismHR placeholder dates
+- **Evidence:** live `compensation.effectiveDate` and pay-rate history contain `0000-01-01`, which is
+  not a valid date. Pay-rate history also contains `9999-12-31`. Neither is documented.
+- **Decision:** `0000-01-01` becomes null with an `INVALID_DATE` warning. `9999-12-31` is kept as a
+  date with an info diagnostic, consistent with A-25. Nothing is guessed.
 
