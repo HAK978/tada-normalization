@@ -1,0 +1,53 @@
+{
+  "seq": 21,
+  "endpoint": "rest/v2/companies/{company}/employees/{id}",
+  "path": "rest/v2/companies/7001/employees/5003",
+  "params": {},
+  "status": 200,
+  "body": {
+    "id": 5003,
+    "employee_id": "1003",
+    "username": "areyes",
+    "first_name": "Ana",
+    "last_name": "Reyes",
+    "primary_account_id": 5003,
+    "ein_name": "Brightside Bakery LLC",
+    "ein": {
+      "id": 801
+    },
+    "status": "Terminated",
+    "locked": true,
+    "social_security": "900-10-6783",
+    "national_id_numbers": [
+      {
+        "type": "SSN",
+        "value": "900-10-6783",
+        "primary": true
+      }
+    ],
+    "address": {
+      "address_line_1": "103 Market St",
+      "city": "Charlotte",
+      "state": "NC",
+      "zip": "28202",
+      "country": "USA"
+    },
+    "dates": {
+      "hired": "2018-02-01",
+      "started": "2018-02-01",
+      "birthday": "1990-04-12",
+      "terminated": "2026-09-30"
+    },
+    "phones": {
+      "cell_phone": "704-555-0100",
+      "preferred_phone": "CELL"
+    },
+    "primary_email": "ana@brightside.example",
+    "managers": [],
+    "timezone": "America/New_York",
+    "photo_href": "https://example.invalid/photos/5003?sig=not-a-real-token",
+    "_links": {
+      "self": "https://example.invalid/ta/rest/v2/companies/7001/employees/5003"
+    }
+  }
+}

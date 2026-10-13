@@ -1,0 +1,31 @@
+{
+  "seq": 7,
+  "endpoint": "rest/v2/companies/{company}/lookup/earning-codes",
+  "path": "rest/v2/companies/7001/lookup/earning-codes",
+  "params": {},
+  "status": 200,
+  "body": {
+    "items": [
+      {
+        "id": 38219544,
+        "code": "Salary",
+        "name": "Salary"
+      },
+      {
+        "id": 38219545,
+        "code": "Regular",
+        "name": "Regular"
+      },
+      {
+        "id": 38219537,
+        "code": "Holiday",
+        "name": "Holiday"
+      },
+      {
+        "id": 38219529,
+        "code": "GTL-Imp Inc",
+        "name": "GTL-Imputed Income"
+      }
+    ]
+  }
+}

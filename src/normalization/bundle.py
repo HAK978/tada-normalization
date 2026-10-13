@@ -8,6 +8,7 @@ Layout (same for both sources):
 from __future__ import annotations
 
 from dataclasses import dataclass, field
+from datetime import date
 from pathlib import Path
 from typing import Any, Iterator
 
@@ -30,6 +31,8 @@ class Bundle:
     tenant_id: str
     companies: list[dict[str, Any]]
     captures: list[Capture] = field(default_factory=list)
+    # The date time-dependent values are evaluated at (A-33): a fixture's fixed date, else the fetch date.
+    as_of: date | None = None
 
     @classmethod
     def load(cls, root: Path) -> Bundle:
@@ -47,7 +50,14 @@ class Bundle:
                     file.name,
                 )
             )
-        return cls(session["provider"], str(session.get("tenant_id", "")), session.get("companies") or [], captures)
+        as_of = session.get("as_of") or str(session.get("saved_at") or "")[:10]
+        return cls(
+            session["provider"],
+            str(session.get("tenant_id", "")),
+            session.get("companies") or [],
+            captures,
+            date.fromisoformat(as_of) if as_of else None,
+        )
 
     def find(self, endpoint: str, **params: Any) -> Iterator[Capture]:
         """Captures of one endpoint whose params include all of the given ones."""

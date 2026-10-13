@@ -15,6 +15,7 @@ from pathlib import Path
 from typing import Any
 
 from jsonschema import Draft4Validator
+from jsonschema.validators import validator_for
 from referencing import Registry, Resource
 from referencing.jsonschema import DRAFT4
 
@@ -23,11 +24,15 @@ SPECS = {
     "prismhr": ROOT / "contracts/prismhr/openapi/prismhr-2025.09.openapi.json",
     # The primary isolved snapshot only; the alternate is never mixed in.
     "isolved": ROOT / "contracts/isolved/openapi/isolved-v6.swagger.json",
+    # Not OpenAPI: a list of {source_page, method, schema} blocks, one per documented operation.
+    "ukg-ready": ROOT / "contracts/ukg-ready/reference-schemas.json",
 }
-# Documented live deviations that fixtures reproduce on purpose: (validator, field name) pairs that
-# are not reported (A-52). Everything else is.
+# Documented live deviations that fixtures reproduce on purpose: (validator, field) pairs that are
+# not reported (A-52, A-61). The field is the failing property's name, or for additionalProperties
+# the unexpected property's name. Everything else is reported.
 DEVIATIONS = {
     "isolved": {("maxLength", "maritalStatus")},
+    "ukg-ready": {("additionalProperties", "ein_name"), ("minimum", "num_pp_in_year")},
 }
 # Live response keys that differ from the spec, translated back for validation only (A-16, A-43).
 ALIASES = {
@@ -60,12 +65,54 @@ def _swagger_path(provider: str, endpoint: str) -> str:
     return matches[0]
 
 
+def _page_shape(page: str) -> str:
+    """reference-docs/res/__v2__companies__(cid)__employees__(aid).html -> v2/companies/{}/employees/{}"""
+    name = page.rsplit("/", 1)[-1].removesuffix(".html")
+    return re.sub(r"\([^)]*\)", "{}", name.replace("__", "/")).strip("/").lower()
+
+
+@lru_cache(maxsize=None)
+def _ukg_schema(endpoint: str) -> int:
+    """The index of the documented GET schema whose source page names the same path."""
+    document, _ = _registry("ukg-ready")
+    target = _shape(endpoint.removeprefix("rest/"))
+    matches = [
+        i
+        for i, block in enumerate(document["schemas"])
+        if block.get("method") == "GET" and _page_shape(block.get("source_page", "")) == target
+    ]
+    if len(matches) != 1:
+        raise KeyError(f"{endpoint}: {len(matches)} matching documented schemas")
+    return matches[0]
+
+
 def response_pointer(provider: str, endpoint: str) -> str:
     if provider == "prismhr":
         return f"/paths/{_escape('/' + endpoint)}/get/responses/200/content/{_escape('application/json')}/schema"
     if provider == "isolved":
         return f"/paths/{_escape(_swagger_path(provider, endpoint))}/get/responses/200/schema"
+    if provider == "ukg-ready":
+        return f"/schemas/{_ukg_schema(endpoint)}/schema"
     raise ValueError(provider)
+
+
+def _deviation(provider: str, error: Any) -> bool:
+    allowed = DEVIATIONS.get(provider, set())
+    if error.validator == "additionalProperties":
+        names = re.findall(r"'([^']+)'", error.message.split("(", 1)[-1])
+        return bool(names) and all(("additionalProperties", name) in allowed for name in names)
+    field = str(error.absolute_path[-1]) if error.absolute_path else ""
+    return (error.validator, field) in allowed
+
+
+def _root(provider: str, endpoint: str) -> tuple[dict, dict]:
+    """(the document $refs resolve against, the response schema). Each UKG block is its own JSON
+    Schema document, with its own definitions and $schema version."""
+    document, _ = _registry(provider)
+    if provider == "ukg-ready":
+        block = document["schemas"][_ukg_schema(endpoint)]["schema"]
+        return block, block
+    return document, _deref(document, {"$ref": "#" + response_pointer(provider, endpoint)})
 
 
 def errors(provider: str, endpoint: str, body: Any, allow_null: bool = True) -> list[str]:
@@ -74,18 +121,23 @@ def errors(provider: str, endpoint: str, body: Any, allow_null: bool = True) -> 
     Live PrismHR sends null for many typed fields (422 of 428 live responses are valid once
     nulls are allowed, A-47), so null is accepted by default; nothing else is relaxed.
     """
-    _, registry = _registry(provider)
     body = deepcopy(body)
     if isinstance(body, dict):
         for alias, documented in ALIASES.get(provider, {}).items():
             if alias in body and documented not in body:
                 body[documented] = body.pop(alias)
-    validator = Draft4Validator({"$ref": f"urn:{provider}#{response_pointer(provider, endpoint)}"}, registry=registry)
+    if provider == "ukg-ready":
+        _, schema = _root(provider, endpoint)
+        validator = validator_for(schema, default=Draft4Validator)(schema)
+    else:
+        _, registry = _registry(provider)
+        validator = Draft4Validator(
+            {"$ref": f"urn:{provider}#{response_pointer(provider, endpoint)}"}, registry=registry
+        )
     return [
         f"{'/'.join(map(str, e.absolute_path)) or '<root>'}: {e.message}"
         for e in validator.iter_errors(body)
-        if not (allow_null and e.validator == "type" and e.instance is None)
-        and (e.validator, str(e.absolute_path[-1]) if e.absolute_path else "") not in DEVIATIONS.get(provider, set())
+        if not (allow_null and e.validator == "type" and e.instance is None) and not _deviation(provider, e)
     ]
 
 
@@ -121,6 +173,5 @@ def _complete(document: dict, schema: dict, value: Any, aliases: dict[str, str])
 def complete(provider: str, endpoint: str, body: Any) -> Any:
     """Add every required property the body doesn't set, as null: live PrismHR returns all fields,
     mostly empty or null (A-47). Live key aliases are completed against their documented schema."""
-    document, _ = _registry(provider)
-    schema = _deref(document, {"$ref": "#" + response_pointer(provider, endpoint)})
+    document, schema = _root(provider, endpoint)
     return _complete(document, schema, deepcopy(body), ALIASES.get(provider, {}))

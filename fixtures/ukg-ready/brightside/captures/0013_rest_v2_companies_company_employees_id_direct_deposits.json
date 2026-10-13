@@ -1,0 +1,61 @@
+{
+  "seq": 13,
+  "endpoint": "rest/v2/companies/{company}/employees/{id}/direct-deposits",
+  "path": "rest/v2/companies/7001/employees/5001/direct-deposits",
+  "params": {},
+  "status": 200,
+  "body": {
+    "deposits": [
+      {
+        "id": 4001,
+        "sequence": 1,
+        "type": "DIRECT_DEPOSIT",
+        "active_from": "2024-01-01",
+        "active_to": "3000-01-01",
+        "active": true,
+        "calc_method": {
+          "type": "FLAT_AMOUNT",
+          "display_name": "Flat Amount"
+        },
+        "pre_note_status": "COMPLETE_OK",
+        "payroll_frequency": {
+          "type": "EVERY_PAY"
+        },
+        "currency": "USD",
+        "_links": {
+          "self": "https://example.invalid/ta/rest/v2/companies/7001/direct-deposits/4001"
+        },
+        "account_type": "SAVINGS",
+        "account_number": "4000123456",
+        "routing_number": "053000196",
+        "routing_type": "ABA",
+        "amount": 200.0
+      },
+      {
+        "id": 4002,
+        "sequence": 2,
+        "type": "DIRECT_DEPOSIT",
+        "active_from": "1900-01-01",
+        "active_to": "3000-01-01",
+        "active": true,
+        "calc_method": {
+          "type": "FULL",
+          "display_name": "Entire/Remainder"
+        },
+        "pre_note_status": "COMPLETE_OK",
+        "payroll_frequency": {
+          "type": "EVERY_PAY"
+        },
+        "currency": "USD",
+        "_links": {
+          "self": "https://example.invalid/ta/rest/v2/companies/7001/direct-deposits/4002"
+        },
+        "account_type": "CHECKING",
+        "account_number": "4000987654",
+        "routing_number": "053000196",
+        "routing_type": "ABA"
+      }
+    ],
+    "_links": null
+  }
+}

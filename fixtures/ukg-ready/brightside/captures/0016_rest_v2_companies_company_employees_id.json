@@ -1,0 +1,59 @@
+{
+  "seq": 16,
+  "endpoint": "rest/v2/companies/{company}/employees/{id}",
+  "path": "rest/v2/companies/7001/employees/5002",
+  "params": {},
+  "status": 200,
+  "body": {
+    "id": 5002,
+    "employee_id": "1002",
+    "username": "jcarter",
+    "first_name": "James",
+    "last_name": "Carter",
+    "primary_account_id": 5002,
+    "ein_name": "Brightside Bakery LLC",
+    "ein": {
+      "id": 801
+    },
+    "status": "Active",
+    "locked": false,
+    "social_security": "900-10-6782",
+    "national_id_numbers": [
+      {
+        "type": "SSN",
+        "value": "900-10-6782",
+        "primary": true
+      }
+    ],
+    "address": {
+      "address_line_1": "102 Market St",
+      "city": "Charlotte",
+      "state": "NC",
+      "zip": "28202",
+      "country": "USA"
+    },
+    "dates": {
+      "hired": "2021-03-15",
+      "started": "2021-03-15",
+      "birthday": "1990-04-12"
+    },
+    "phones": {
+      "cell_phone": "704-555-0100",
+      "preferred_phone": "CELL"
+    },
+    "primary_email": "james@brightside.example",
+    "managers": [
+      {
+        "index": 0,
+        "empl_ref": {
+          "account_id": 5001
+        }
+      }
+    ],
+    "timezone": "America/New_York",
+    "photo_href": "https://example.invalid/photos/5002?sig=not-a-real-token",
+    "_links": {
+      "self": "https://example.invalid/ta/rest/v2/companies/7001/employees/5002"
+    }
+  }
+}

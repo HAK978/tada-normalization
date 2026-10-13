@@ -1,0 +1,37 @@
+{
+  "seq": 14,
+  "endpoint": "rest/v2/companies/{company}/employees/{id}/deductions",
+  "path": "rest/v2/companies/7001/employees/5001/deductions",
+  "params": {},
+  "status": 200,
+  "body": {
+    "deductions": [
+      {
+        "id": 3001,
+        "deduction": {
+          "code": "401k",
+          "name": "401k"
+        },
+        "effective_from": "2024-01-01",
+        "effective_to": "9999-12-31",
+        "sequence": 1,
+        "_links": {
+          "self": "https://example.invalid/ta/rest/v2/companies/7001/employees/5001/deductions/3001"
+        }
+      },
+      {
+        "id": 3002,
+        "deduction": {
+          "code": "Dental",
+          "name": "Dental Insurance"
+        },
+        "effective_from": "2024-01-01",
+        "effective_to": "2026-01-01",
+        "sequence": 2,
+        "_links": {
+          "self": "https://example.invalid/ta/rest/v2/companies/7001/employees/5001/deductions/3002"
+        }
+      }
+    ]
+  }
+}

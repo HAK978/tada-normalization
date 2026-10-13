@@ -1,0 +1,53 @@
+{
+  "seq": 12,
+  "endpoint": "rest/v2/companies/{company}/employees/{id}/compensation/history",
+  "path": "rest/v2/companies/7001/employees/5001/compensation/history",
+  "params": {},
+  "status": 200,
+  "body": {
+    "compensations": [
+      {
+        "id": 190012315001,
+        "employee": {
+          "account_id": 5001
+        },
+        "effective_from": "1900-12-31",
+        "amount": 0.0,
+        "amount_period": "HOUR",
+        "hourly_pay": 0.0,
+        "time": 7488000000,
+        "time_period": "YEAR",
+        "num_pp_in_year": 0,
+        "currency": "USD"
+      },
+      {
+        "id": 202401015001,
+        "employee": {
+          "account_id": 5001
+        },
+        "effective_from": "2024-01-01",
+        "amount": 52000.0,
+        "amount_period": "YEAR",
+        "hourly_pay": 25.0,
+        "time": 7488000000,
+        "time_period": "YEAR",
+        "num_pp_in_year": 26,
+        "currency": "USD"
+      },
+      {
+        "id": 202701015001,
+        "employee": {
+          "account_id": 5001
+        },
+        "effective_from": "2027-01-01",
+        "amount": 54600.0,
+        "amount_period": "YEAR",
+        "hourly_pay": 26.25,
+        "time": 7488000000,
+        "time_period": "YEAR",
+        "num_pp_in_year": 26,
+        "currency": "USD"
+      }
+    ]
+  }
+}

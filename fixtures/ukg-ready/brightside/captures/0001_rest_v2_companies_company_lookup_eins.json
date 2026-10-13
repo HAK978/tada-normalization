@@ -1,0 +1,17 @@
+{
+  "seq": 1,
+  "endpoint": "rest/v2/companies/{company}/lookup/eins",
+  "path": "rest/v2/companies/7001/lookup/eins",
+  "params": {},
+  "status": 200,
+  "body": {
+    "items": [
+      {
+        "id": 801,
+        "ein_name": "Brightside Bakery LLC",
+        "ein_tax_id": "12-3456789",
+        "ein_country_id": "USA"
+      }
+    ]
+  }
+}

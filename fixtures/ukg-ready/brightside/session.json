@@ -1,0 +1,11 @@
+{
+  "provider": "ukg-ready",
+  "tenant_id": "synthetic",
+  "companies": [
+    {
+      "company_id": "7001"
+    }
+  ],
+  "synthetic": true,
+  "as_of": "2026-10-13"
+}

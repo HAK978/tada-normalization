@@ -234,9 +234,16 @@ class Employee(Record):
 class BankAccount(Model):
     type: Coded[AccountType]
     routing_number: str | None = None
+    routing_type: str | None = None
     account_last4: str | None = None
     masked_at_source: bool | None = None
     bank_name: str | None = None
+
+
+class Prenote(Model):
+    status: Coded[str] | None = None
+    sent_date: date | None = None
+    expiration_date: date | None = None
 
 
 class DirectDeposit(Record):
@@ -256,6 +263,8 @@ class DirectDeposit(Record):
     effective_to: date | None = None
     frequency: Coded[str] | None = None
     applies_to_pay_types: list[Coded[PayKindScope]] = Field(default_factory=list)
+    prenote: Prenote | None = None
+    currency: str | None = None
 
 
 # ---------------------------------------------------------------- deduction setup
@@ -344,6 +353,10 @@ class PayrollRun(Record):
     type: Coded[PayrollRunType]
     status: Coded[PayrollRunStatus] | None = None
     pay_groups: list[RunPayGroup] = Field(default_factory=list)
+    # For providers that give one period per run rather than per pay group (UKG).
+    period: DateRange | None = None
+    # The legal entity the run is for, when the provider says (a UKG EIN).
+    legal_entity_id: str | None = None
 
 
 class EarningLine(Model):

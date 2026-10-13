@@ -27,6 +27,7 @@ class FixtureBundle:
     tenant_id: str
     companies: list[dict[str, Any]]
     captures: list[dict[str, Any]] = field(default_factory=list)
+    as_of: str | None = None  # fixed evaluation date for time-dependent values (A-33)
 
     def add(self, endpoint: str, path: str, params: dict, body: Any, status: int = 200) -> None:
         self.captures.append({"endpoint": endpoint, "path": path, "params": params, "status": status, "body": body})
@@ -43,6 +44,8 @@ class FixtureBundle:
             "companies": self.companies,
             "synthetic": True,
         }
+        if self.as_of:
+            session["as_of"] = self.as_of
         written = [root / "session.json"]
         written[0].write_text(exactjson.dumps(session, indent=2) + "\n", encoding="utf-8")
         for seq, capture in enumerate(self.captures, start=1):

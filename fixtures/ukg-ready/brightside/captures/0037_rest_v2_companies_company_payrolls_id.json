@@ -1,0 +1,29 @@
+{
+  "seq": 37,
+  "endpoint": "rest/v2/companies/{company}/payrolls/{id}",
+  "path": "rest/v2/companies/7001/payrolls/6001",
+  "params": {},
+  "status": 200,
+  "body": {
+    "id": 6001,
+    "name": "Primary-EIN Regular Bi-Weekly 10/02/2026",
+    "pay_date": "2026-10-02",
+    "start_date": "2026-09-14",
+    "end_date": "2026-09-27",
+    "type": {
+      "id": 641,
+      "display_name": "Regular"
+    },
+    "ein": {
+      "id": 801,
+      "ein_name": "Brightside Bakery LLC",
+      "ein_tax_id": "12-3456789",
+      "ein_country_id": "USA"
+    },
+    "status": "OPEN",
+    "billable": true,
+    "_links": {
+      "self": "https://example.invalid/ta/rest/v2/companies/7001/payrolls/6001"
+    }
+  }
+}

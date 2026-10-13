@@ -1,0 +1,11 @@
+{
+  "seq": 34,
+  "endpoint": "rest/v2/companies/{company}/employees/{id}/direct-deposits",
+  "path": "rest/v2/companies/7001/employees/5005/direct-deposits",
+  "params": {},
+  "status": 200,
+  "body": {
+    "deposits": [],
+    "_links": null
+  }
+}

@@ -1,0 +1,17 @@
+{
+  "seq": 32,
+  "endpoint": "rest/v2/companies/{company}/employees/{id}/pay-info",
+  "path": "rest/v2/companies/7001/employees/5005/pay-info",
+  "params": {},
+  "status": 200,
+  "body": {
+    "employee_type": {
+      "id": 913
+    },
+    "pay_type": {
+      "id": 901
+    },
+    "standard_work_day": 28800000,
+    "payroll_classification": "REGULAR"
+  }
+}

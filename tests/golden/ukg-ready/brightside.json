@@ -1,0 +1,2807 @@
+{
+ "summary": {
+  "counts": {
+   "companies": 1,
+   "employees": 5,
+   "direct_deposits": 6,
+   "deduction_elections": 2,
+   "payroll_runs": 4,
+   "pay_statements": 4
+  },
+  "diagnostics": {
+   "info": 31,
+   "warning": 3
+  },
+  "checks": {
+   "pass": 2
+  }
+ },
+ "records": {
+  "companies": [
+   {
+    "id": "ukg-ready:synthetic:company:7001",
+    "source": {
+     "provider": "ukg-ready",
+     "tenant_id": "synthetic",
+     "endpoints": [
+      "rest/v2/companies/{company}/lookup/eins",
+      "rest/v2/companies/{company}/payrolls"
+     ],
+     "ids": {
+      "companyId": "7001"
+     }
+    },
+    "provider_extensions": {
+     "eins[801].ein_country_id": "USA"
+    },
+    "diagnostics": [
+     {
+      "code": "NO_COMPANY_ENDPOINT",
+      "severity": "info",
+      "message": "UKG has no company details endpoint; name and address stay null"
+     },
+     {
+      "code": "EIN_FROM_PAYROLL",
+      "severity": "info",
+      "field": "payrolls[].ein",
+      "message": "named by payrolls, not listed by lookup/eins",
+      "raw": "802"
+     }
+    ],
+    "employers": [
+     {
+      "kind": "EIN",
+      "provider_id": "801",
+      "name": "Brightside Bakery LLC",
+      "tax_id": {
+       "value": "12-3456789",
+       "masked_at_source": false,
+       "source_field": "lookup/eins.ein_tax_id"
+      }
+     },
+     {
+      "kind": "EIN",
+      "provider_id": "802",
+      "name": "Brightside Logistics LLC",
+      "tax_id": {
+       "value": "98-7654321",
+       "masked_at_source": false,
+       "source_field": "payrolls[].ein.ein_tax_id"
+      }
+     }
+    ],
+    "pay_groups": [],
+    "addresses": [],
+    "phones": [],
+    "emails": []
+   }
+  ],
+  "employees": [
+   {
+    "id": "ukg-ready:synthetic:employee:5001",
+    "source": {
+     "provider": "ukg-ready",
+     "tenant_id": "synthetic",
+     "endpoints": [
+      "rest/v2/companies/{company}/employees/{id}",
+      "rest/v2/companies/{company}/employees/{id}/compensation/history",
+      "rest/v2/companies/{company}/employees/{id}/pay-info"
+     ],
+     "ids": {
+      "companyId": "7001",
+      "accountId": "5001"
+     }
+    },
+    "provider_extensions": {
+     "primary_account_id": 5001,
+     "locked": false,
+     "national_id_numbers[0].type": "SSN",
+     "national_id_numbers[0].value": "***6781",
+     "national_id_numbers[0].primary": true,
+     "national_id_numbers[1].type": "OTHER_1",
+     "national_id_numbers[1].value": "***4567",
+     "national_id_numbers[1].primary": false,
+     "phones.preferred_phone": "CELL",
+     "timezone": "America/New_York",
+     "pay-info.standard_work_day": 28800000,
+     "pay-info.payroll_classification": "REGULAR",
+     "compensation.history[0].time_period": "YEAR",
+     "compensation.history[0].num_pp_in_year": 0,
+     "compensation.history[2].time_period": "YEAR",
+     "compensation.history[2].num_pp_in_year": 26
+    },
+    "diagnostics": [
+     {
+      "code": "UNDOCUMENTED_SENTINEL_DATE",
+      "severity": "info",
+      "field": "compensation.history[0].effective_from",
+      "message": "kept as a date; no documented meaning (A-25)",
+      "raw": "1900-12-31"
+     }
+    ],
+    "company_id": "ukg-ready:synthetic:company:7001",
+    "legal_entity_id": "801",
+    "identifiers": [
+     {
+      "type": "PROVIDER_ID",
+      "value": "5001",
+      "source_field": "id"
+     },
+     {
+      "type": "EMPLOYEE_NUMBER",
+      "value": "1001",
+      "source_field": "employee_id"
+     },
+     {
+      "type": "USERNAME",
+      "value": "mlopez",
+      "source_field": "username"
+     }
+    ],
+    "national_id": {
+     "type": "SSN",
+     "last4": "6781",
+     "masked_at_source": false,
+     "source_field": "social_security"
+    },
+    "name": {
+     "first": "Maria",
+     "last": "Lopez"
+    },
+    "personal": {
+     "birth_date": "1990-04-12",
+     "emergency_contacts": []
+    },
+    "addresses": [
+     {
+      "type": "HOME",
+      "line1": "101 Market St",
+      "city": "Charlotte",
+      "state": "NC",
+      "postal_code": "28202",
+      "country": "USA"
+     }
+    ],
+    "phones": [
+     {
+      "type": "MOBILE",
+      "number": "704-555-0100"
+     }
+    ],
+    "emails": [
+     {
+      "type": "MAIN",
+      "address": "maria@brightside.example"
+     }
+    ],
+    "employment": {
+     "status": {
+      "value": "ACTIVE",
+      "raw": "Active",
+      "label": "Active",
+      "source_field": "status"
+     },
+     "employment_type": {
+      "value": "UNMAPPED",
+      "raw": "911",
+      "label": "FT Exempt",
+      "source_field": "pay-info.employee_type.id"
+     },
+     "hire_date": "2019-08-05",
+     "start_date": "2019-08-05",
+     "employer_ids": [
+      "801"
+     ]
+    },
+    "job": {
+     "title": "Store Manager",
+     "job_code": "923"
+    },
+    "compensation": {
+     "pay_type": {
+      "value": "UNMAPPED",
+      "raw": "902",
+      "label": "Salaried",
+      "source_field": "pay-info.pay_type.id"
+     },
+     "pay_frequency": {
+      "frequency": {
+       "value": "BIWEEKLY",
+       "raw": 26,
+       "source_field": "compensation.history[1].num_pp_in_year"
+      },
+      "periods_per_year": 26
+     },
+     "rates": [
+      {
+       "amount": "52000.0",
+       "currency": "USD",
+       "per": "YEAR",
+       "derived": false,
+       "source_field": "compensation.history[1].amount"
+      },
+      {
+       "amount": "25.0",
+       "currency": "USD",
+       "per": "HOUR",
+       "derived": false,
+       "source_field": "compensation.history[1].hourly_pay"
+      }
+     ],
+     "annual_pay": {
+      "amount": "52000.00",
+      "currency": "USD",
+      "derived": false,
+      "source_field": "compensation.history[1].amount"
+     },
+     "standard_hours": {
+      "value": "2080",
+      "unit": "HOURS",
+      "raw": 7488000000,
+      "derived": true,
+      "formula": "compensation.history[1].time / 3600000",
+      "source_field": "compensation.history[1].time"
+     },
+     "standard_hours_per": "YEAR",
+     "effective_date": "2024-01-01",
+     "history": [
+      {
+       "source_id": "190012315001",
+       "effective_date": "1900-12-31",
+       "rates": [],
+       "standard_hours": {
+        "value": "2080",
+        "unit": "HOURS",
+        "raw": 7488000000,
+        "derived": true,
+        "formula": "compensation.history[0].time / 3600000",
+        "source_field": "compensation.history[0].time"
+       }
+      },
+      {
+       "source_id": "202401015001",
+       "effective_date": "2024-01-01",
+       "rates": [
+        {
+         "amount": "52000.0",
+         "currency": "USD",
+         "per": "YEAR",
+         "derived": false,
+         "source_field": "compensation.history[1].amount"
+        },
+        {
+         "amount": "25.0",
+         "currency": "USD",
+         "per": "HOUR",
+         "derived": false,
+         "source_field": "compensation.history[1].hourly_pay"
+        }
+       ],
+       "annual_pay": {
+        "amount": "52000.00",
+        "currency": "USD",
+        "derived": false,
+        "source_field": "compensation.history[1].amount"
+       },
+       "standard_hours": {
+        "value": "2080",
+        "unit": "HOURS",
+        "raw": 7488000000,
+        "derived": true,
+        "formula": "compensation.history[1].time / 3600000",
+        "source_field": "compensation.history[1].time"
+       }
+      },
+      {
+       "source_id": "202701015001",
+       "effective_date": "2027-01-01",
+       "rates": [
+        {
+         "amount": "54600.0",
+         "currency": "USD",
+         "per": "YEAR",
+         "derived": false,
+         "source_field": "compensation.history[2].amount"
+        },
+        {
+         "amount": "26.25",
+         "currency": "USD",
+         "per": "HOUR",
+         "derived": false,
+         "source_field": "compensation.history[2].hourly_pay"
+        }
+       ],
+       "annual_pay": {
+        "amount": "54600.00",
+        "currency": "USD",
+        "derived": false,
+        "source_field": "compensation.history[2].amount"
+       },
+       "standard_hours": {
+        "value": "2080",
+        "unit": "HOURS",
+        "raw": 7488000000,
+        "derived": true,
+        "formula": "compensation.history[2].time / 3600000",
+        "source_field": "compensation.history[2].time"
+       }
+      }
+     ]
+    }
+   },
+   {
+    "id": "ukg-ready:synthetic:employee:5002",
+    "source": {
+     "provider": "ukg-ready",
+     "tenant_id": "synthetic",
+     "endpoints": [
+      "rest/v2/companies/{company}/employees/{id}",
+      "rest/v2/companies/{company}/employees/{id}/compensation/history",
+      "rest/v2/companies/{company}/employees/{id}/pay-info"
+     ],
+     "ids": {
+      "companyId": "7001",
+      "accountId": "5002"
+     }
+    },
+    "provider_extensions": {
+     "primary_account_id": 5002,
+     "locked": false,
+     "national_id_numbers[0].type": "SSN",
+     "national_id_numbers[0].value": "***6782",
+     "national_id_numbers[0].primary": true,
+     "phones.preferred_phone": "CELL",
+     "timezone": "America/New_York",
+     "pay-info.standard_work_day": 28800000,
+     "pay-info.payroll_classification": "REGULAR",
+     "compensation.history[0].time_period": "YEAR",
+     "compensation.history[0].num_pp_in_year": 0
+    },
+    "diagnostics": [
+     {
+      "code": "UNDOCUMENTED_SENTINEL_DATE",
+      "severity": "info",
+      "field": "compensation.history[0].effective_from",
+      "message": "kept as a date; no documented meaning (A-25)",
+      "raw": "1900-12-31"
+     }
+    ],
+    "company_id": "ukg-ready:synthetic:company:7001",
+    "legal_entity_id": "801",
+    "identifiers": [
+     {
+      "type": "PROVIDER_ID",
+      "value": "5002",
+      "source_field": "id"
+     },
+     {
+      "type": "EMPLOYEE_NUMBER",
+      "value": "1002",
+      "source_field": "employee_id"
+     },
+     {
+      "type": "USERNAME",
+      "value": "jcarter",
+      "source_field": "username"
+     }
+    ],
+    "national_id": {
+     "type": "SSN",
+     "last4": "6782",
+     "masked_at_source": false,
+     "source_field": "social_security"
+    },
+    "name": {
+     "first": "James",
+     "last": "Carter"
+    },
+    "personal": {
+     "birth_date": "1990-04-12",
+     "emergency_contacts": []
+    },
+    "addresses": [
+     {
+      "type": "HOME",
+      "line1": "102 Market St",
+      "city": "Charlotte",
+      "state": "NC",
+      "postal_code": "28202",
+      "country": "USA"
+     }
+    ],
+    "phones": [
+     {
+      "type": "MOBILE",
+      "number": "704-555-0100"
+     }
+    ],
+    "emails": [
+     {
+      "type": "MAIN",
+      "address": "james@brightside.example"
+     }
+    ],
+    "employment": {
+     "status": {
+      "value": "ACTIVE",
+      "raw": "Active",
+      "label": "Active",
+      "source_field": "status"
+     },
+     "employment_type": {
+      "value": "UNMAPPED",
+      "raw": "912",
+      "label": "PT Hourly",
+      "source_field": "pay-info.employee_type.id"
+     },
+     "hire_date": "2021-03-15",
+     "start_date": "2021-03-15",
+     "employer_ids": [
+      "801"
+     ]
+    },
+    "job": {
+     "title": "Driver",
+     "job_code": "922",
+     "manager_employee_id": "ukg-ready:synthetic:employee:5001"
+    },
+    "compensation": {
+     "pay_type": {
+      "value": "UNMAPPED",
+      "raw": "901",
+      "label": "Hourly",
+      "source_field": "pay-info.pay_type.id"
+     },
+     "pay_frequency": {
+      "frequency": {
+       "value": "BIWEEKLY",
+       "raw": 26,
+       "source_field": "compensation.history[1].num_pp_in_year"
+      },
+      "periods_per_year": 26
+     },
+     "rates": [
+      {
+       "amount": "18.0",
+       "currency": "USD",
+       "per": "HOUR",
+       "derived": false,
+       "source_field": "compensation.history[1].amount"
+      }
+     ],
+     "standard_hours": {
+      "value": "20",
+      "unit": "HOURS",
+      "raw": 72000000,
+      "derived": true,
+      "formula": "compensation.history[1].time / 3600000",
+      "source_field": "compensation.history[1].time"
+     },
+     "standard_hours_per": "WEEK",
+     "effective_date": "2025-06-01",
+     "history": [
+      {
+       "source_id": "190012315002",
+       "effective_date": "1900-12-31",
+       "rates": [],
+       "standard_hours": {
+        "value": "2080",
+        "unit": "HOURS",
+        "raw": 7488000000,
+        "derived": true,
+        "formula": "compensation.history[0].time / 3600000",
+        "source_field": "compensation.history[0].time"
+       }
+      },
+      {
+       "source_id": "202506015002",
+       "effective_date": "2025-06-01",
+       "rates": [
+        {
+         "amount": "18.0",
+         "currency": "USD",
+         "per": "HOUR",
+         "derived": false,
+         "source_field": "compensation.history[1].amount"
+        }
+       ],
+       "standard_hours": {
+        "value": "20",
+        "unit": "HOURS",
+        "raw": 72000000,
+        "derived": true,
+        "formula": "compensation.history[1].time / 3600000",
+        "source_field": "compensation.history[1].time"
+       }
+      }
+     ]
+    }
+   },
+   {
+    "id": "ukg-ready:synthetic:employee:5003",
+    "source": {
+     "provider": "ukg-ready",
+     "tenant_id": "synthetic",
+     "endpoints": [
+      "rest/v2/companies/{company}/employees/{id}",
+      "rest/v2/companies/{company}/employees/{id}/compensation/history",
+      "rest/v2/companies/{company}/employees/{id}/pay-info"
+     ],
+     "ids": {
+      "companyId": "7001",
+      "accountId": "5003"
+     }
+    },
+    "provider_extensions": {
+     "primary_account_id": 5003,
+     "locked": true,
+     "national_id_numbers[0].type": "SSN",
+     "national_id_numbers[0].value": "***6783",
+     "national_id_numbers[0].primary": true,
+     "phones.preferred_phone": "CELL",
+     "timezone": "America/New_York",
+     "pay-info.standard_work_day": 28800000,
+     "pay-info.payroll_classification": "REGULAR"
+    },
+    "diagnostics": [],
+    "company_id": "ukg-ready:synthetic:company:7001",
+    "legal_entity_id": "801",
+    "identifiers": [
+     {
+      "type": "PROVIDER_ID",
+      "value": "5003",
+      "source_field": "id"
+     },
+     {
+      "type": "EMPLOYEE_NUMBER",
+      "value": "1003",
+      "source_field": "employee_id"
+     },
+     {
+      "type": "USERNAME",
+      "value": "areyes",
+      "source_field": "username"
+     }
+    ],
+    "national_id": {
+     "type": "SSN",
+     "last4": "6783",
+     "masked_at_source": false,
+     "source_field": "social_security"
+    },
+    "name": {
+     "first": "Ana",
+     "last": "Reyes"
+    },
+    "personal": {
+     "birth_date": "1990-04-12",
+     "emergency_contacts": []
+    },
+    "addresses": [
+     {
+      "type": "HOME",
+      "line1": "103 Market St",
+      "city": "Charlotte",
+      "state": "NC",
+      "postal_code": "28202",
+      "country": "USA"
+     }
+    ],
+    "phones": [
+     {
+      "type": "MOBILE",
+      "number": "704-555-0100"
+     }
+    ],
+    "emails": [
+     {
+      "type": "MAIN",
+      "address": "ana@brightside.example"
+     }
+    ],
+    "employment": {
+     "status": {
+      "value": "TERMINATED",
+      "raw": "Terminated",
+      "label": "Terminated",
+      "source_field": "status"
+     },
+     "employment_type": {
+      "value": "UNMAPPED",
+      "raw": "911",
+      "label": "FT Exempt",
+      "source_field": "pay-info.employee_type.id"
+     },
+     "hire_date": "2018-02-01",
+     "start_date": "2018-02-01",
+     "termination_date": "2026-09-30",
+     "employer_ids": [
+      "801"
+     ]
+    },
+    "job": {},
+    "compensation": {
+     "pay_type": {
+      "value": "UNMAPPED",
+      "raw": "902",
+      "label": "Salaried",
+      "source_field": "pay-info.pay_type.id"
+     },
+     "pay_frequency": {
+      "frequency": {
+       "value": "BIWEEKLY",
+       "raw": 26,
+       "source_field": "compensation.history[0].num_pp_in_year"
+      },
+      "periods_per_year": 26
+     },
+     "rates": [
+      {
+       "amount": "49920.0",
+       "currency": "USD",
+       "per": "YEAR",
+       "derived": false,
+       "source_field": "compensation.history[0].amount"
+      },
+      {
+       "amount": "24.0",
+       "currency": "USD",
+       "per": "HOUR",
+       "derived": false,
+       "source_field": "compensation.history[0].hourly_pay"
+      }
+     ],
+     "annual_pay": {
+      "amount": "49920.00",
+      "currency": "USD",
+      "derived": false,
+      "source_field": "compensation.history[0].amount"
+     },
+     "standard_hours": {
+      "value": "80",
+      "unit": "HOURS",
+      "raw": 288000000,
+      "derived": true,
+      "formula": "compensation.history[0].time / 3600000",
+      "source_field": "compensation.history[0].time"
+     },
+     "standard_hours_per": "PAY_PERIOD",
+     "effective_date": "2018-02-01",
+     "history": [
+      {
+       "source_id": "201802015003",
+       "effective_date": "2018-02-01",
+       "rates": [
+        {
+         "amount": "49920.0",
+         "currency": "USD",
+         "per": "YEAR",
+         "derived": false,
+         "source_field": "compensation.history[0].amount"
+        },
+        {
+         "amount": "24.0",
+         "currency": "USD",
+         "per": "HOUR",
+         "derived": false,
+         "source_field": "compensation.history[0].hourly_pay"
+        }
+       ],
+       "annual_pay": {
+        "amount": "49920.00",
+        "currency": "USD",
+        "derived": false,
+        "source_field": "compensation.history[0].amount"
+       },
+       "standard_hours": {
+        "value": "80",
+        "unit": "HOURS",
+        "raw": 288000000,
+        "derived": true,
+        "formula": "compensation.history[0].time / 3600000",
+        "source_field": "compensation.history[0].time"
+       }
+      }
+     ]
+    }
+   },
+   {
+    "id": "ukg-ready:synthetic:employee:5004",
+    "source": {
+     "provider": "ukg-ready",
+     "tenant_id": "synthetic",
+     "endpoints": [
+      "rest/v2/companies/{company}/employees/{id}",
+      "rest/v2/companies/{company}/employees/{id}/compensation/history",
+      "rest/v2/companies/{company}/employees/{id}/pay-info"
+     ],
+     "ids": {
+      "companyId": "7001",
+      "accountId": "5004"
+     }
+    },
+    "provider_extensions": {
+     "primary_account_id": 5004,
+     "locked": false,
+     "national_id_numbers[0].type": "SSN",
+     "national_id_numbers[0].value": "***6784",
+     "national_id_numbers[0].primary": true,
+     "phones.preferred_phone": "CELL",
+     "timezone": "America/New_York",
+     "pay-info.standard_work_day": 28800000,
+     "pay-info.payroll_classification": "REGULAR"
+    },
+    "diagnostics": [],
+    "company_id": "ukg-ready:synthetic:company:7001",
+    "legal_entity_id": "801",
+    "identifiers": [
+     {
+      "type": "PROVIDER_ID",
+      "value": "5004",
+      "source_field": "id"
+     },
+     {
+      "type": "EMPLOYEE_NUMBER",
+      "value": "1004",
+      "source_field": "employee_id"
+     },
+     {
+      "type": "USERNAME",
+      "value": "dprice",
+      "source_field": "username"
+     }
+    ],
+    "national_id": {
+     "type": "SSN",
+     "last4": "6784",
+     "masked_at_source": false,
+     "source_field": "social_security"
+    },
+    "name": {
+     "first": "Devon",
+     "last": "Price"
+    },
+    "personal": {
+     "birth_date": "1990-04-12",
+     "emergency_contacts": []
+    },
+    "addresses": [
+     {
+      "type": "HOME",
+      "line1": "104 Market St",
+      "city": "Charlotte",
+      "state": "NC",
+      "postal_code": "28202",
+      "country": "USA"
+     }
+    ],
+    "phones": [
+     {
+      "type": "MOBILE",
+      "number": "704-555-0100"
+     }
+    ],
+    "emails": [
+     {
+      "type": "MAIN",
+      "address": "devon@brightside.example"
+     }
+    ],
+    "employment": {
+     "status": {
+      "value": "ACTIVE",
+      "raw": "Active",
+      "label": "Active",
+      "source_field": "status"
+     },
+     "employment_type": {
+      "value": "UNMAPPED",
+      "raw": "912",
+      "label": "PT Hourly",
+      "source_field": "pay-info.employee_type.id"
+     },
+     "hire_date": "2016-06-02",
+     "rehire_date": "2025-03-01",
+     "start_date": "2025-03-01",
+     "employer_ids": [
+      "801"
+     ]
+    },
+    "job": {
+     "title": "Head Baker",
+     "job_code": "921"
+    },
+    "compensation": {
+     "pay_type": {
+      "value": "UNMAPPED",
+      "raw": "901",
+      "label": "Hourly",
+      "source_field": "pay-info.pay_type.id"
+     },
+     "pay_frequency": {
+      "frequency": {
+       "value": "BIWEEKLY",
+       "raw": 26,
+       "source_field": "compensation.history[0].num_pp_in_year"
+      },
+      "periods_per_year": 26
+     },
+     "rates": [
+      {
+       "amount": "1840.0",
+       "currency": "USD",
+       "per": "PAY_PERIOD",
+       "derived": false,
+       "source_field": "compensation.history[0].amount"
+      },
+      {
+       "amount": "23.0",
+       "currency": "USD",
+       "per": "HOUR",
+       "derived": false,
+       "source_field": "compensation.history[0].hourly_pay"
+      }
+     ],
+     "standard_hours": {
+      "value": "2080",
+      "unit": "HOURS",
+      "raw": 7488000000,
+      "derived": true,
+      "formula": "compensation.history[0].time / 3600000",
+      "source_field": "compensation.history[0].time"
+     },
+     "standard_hours_per": "YEAR",
+     "effective_date": "2025-03-01",
+     "history": [
+      {
+       "source_id": "202503015004",
+       "effective_date": "2025-03-01",
+       "rates": [
+        {
+         "amount": "1840.0",
+         "currency": "USD",
+         "per": "PAY_PERIOD",
+         "derived": false,
+         "source_field": "compensation.history[0].amount"
+        },
+        {
+         "amount": "23.0",
+         "currency": "USD",
+         "per": "HOUR",
+         "derived": false,
+         "source_field": "compensation.history[0].hourly_pay"
+        }
+       ],
+       "standard_hours": {
+        "value": "2080",
+        "unit": "HOURS",
+        "raw": 7488000000,
+        "derived": true,
+        "formula": "compensation.history[0].time / 3600000",
+        "source_field": "compensation.history[0].time"
+       }
+      }
+     ]
+    }
+   },
+   {
+    "id": "ukg-ready:synthetic:employee:5005",
+    "source": {
+     "provider": "ukg-ready",
+     "tenant_id": "synthetic",
+     "endpoints": [
+      "rest/v2/companies/{company}/employees/{id}",
+      "rest/v2/companies/{company}/employees/{id}/compensation/history",
+      "rest/v2/companies/{company}/employees/{id}/pay-info"
+     ],
+     "ids": {
+      "companyId": "7001",
+      "accountId": "5005"
+     }
+    },
+    "provider_extensions": {
+     "primary_account_id": 5005,
+     "locked": false,
+     "national_id_numbers[0].type": "SSN",
+     "national_id_numbers[0].value": "***6785",
+     "national_id_numbers[0].primary": true,
+     "phones.preferred_phone": "CELL",
+     "timezone": "America/New_York",
+     "pay-info.standard_work_day": 28800000,
+     "pay-info.payroll_classification": "REGULAR"
+    },
+    "diagnostics": [],
+    "company_id": "ukg-ready:synthetic:company:7001",
+    "legal_entity_id": "801",
+    "identifiers": [
+     {
+      "type": "PROVIDER_ID",
+      "value": "5005",
+      "source_field": "id"
+     },
+     {
+      "type": "EMPLOYEE_NUMBER",
+      "value": "1005",
+      "source_field": "employee_id"
+     },
+     {
+      "type": "USERNAME",
+      "value": "pshah",
+      "source_field": "username"
+     }
+    ],
+    "national_id": {
+     "type": "SSN",
+     "last4": "6785",
+     "masked_at_source": false,
+     "source_field": "social_security"
+    },
+    "name": {
+     "first": "Priya",
+     "last": "Shah"
+    },
+    "personal": {
+     "birth_date": "1990-04-12",
+     "emergency_contacts": []
+    },
+    "addresses": [
+     {
+      "type": "HOME",
+      "line1": "105 Market St",
+      "city": "Charlotte",
+      "state": "NC",
+      "postal_code": "28202",
+      "country": "USA"
+     }
+    ],
+    "phones": [
+     {
+      "type": "MOBILE",
+      "number": "704-555-0100"
+     }
+    ],
+    "emails": [
+     {
+      "type": "MAIN",
+      "address": "priya@brightside.example"
+     }
+    ],
+    "employment": {
+     "status": {
+      "value": "ACTIVE",
+      "raw": "Active",
+      "label": "Active",
+      "source_field": "status"
+     },
+     "employment_type": {
+      "value": "UNMAPPED",
+      "raw": "913",
+      "label": "Consultant",
+      "source_field": "pay-info.employee_type.id"
+     },
+     "hire_date": "2026-08-01",
+     "start_date": "2026-08-01",
+     "employer_ids": [
+      "801"
+     ]
+    },
+    "job": {},
+    "compensation": {
+     "pay_type": {
+      "value": "UNMAPPED",
+      "raw": "901",
+      "label": "Hourly",
+      "source_field": "pay-info.pay_type.id"
+     },
+     "pay_frequency": {
+      "frequency": {
+       "value": "BIWEEKLY",
+       "raw": 26,
+       "source_field": "compensation.history[0].num_pp_in_year"
+      },
+      "periods_per_year": 26
+     },
+     "rates": [
+      {
+       "amount": "40.0",
+       "currency": "USD",
+       "per": "HOUR",
+       "derived": false,
+       "source_field": "compensation.history[0].amount"
+      }
+     ],
+     "standard_hours": {
+      "value": "2080",
+      "unit": "HOURS",
+      "raw": 7488000000,
+      "derived": true,
+      "formula": "compensation.history[0].time / 3600000",
+      "source_field": "compensation.history[0].time"
+     },
+     "standard_hours_per": "YEAR",
+     "effective_date": "2026-08-01",
+     "history": [
+      {
+       "source_id": "202608015005",
+       "effective_date": "2026-08-01",
+       "rates": [
+        {
+         "amount": "40.0",
+         "currency": "USD",
+         "per": "HOUR",
+         "derived": false,
+         "source_field": "compensation.history[0].amount"
+        }
+       ],
+       "standard_hours": {
+        "value": "2080",
+        "unit": "HOURS",
+        "raw": 7488000000,
+        "derived": true,
+        "formula": "compensation.history[0].time / 3600000",
+        "source_field": "compensation.history[0].time"
+       }
+      }
+     ]
+    }
+   }
+  ],
+  "direct_deposits": [
+   {
+    "id": "ukg-ready:synthetic:direct_deposit:4001",
+    "source": {
+     "provider": "ukg-ready",
+     "tenant_id": "synthetic",
+     "endpoints": [
+      "rest/v2/companies/{company}/employees/{id}/direct-deposits"
+     ],
+     "ids": {
+      "companyId": "7001",
+      "accountId": "5001",
+      "depositId": "4001"
+     }
+    },
+    "provider_extensions": {},
+    "diagnostics": [
+     {
+      "code": "OPEN_ENDED",
+      "severity": "info",
+      "field": "active_to",
+      "message": "UKG's documented beginning or end of time; kept as open (A-25)",
+      "raw": "3000-01-01"
+     },
+     {
+      "code": "EVALUATED_AT_AS_OF",
+      "severity": "info",
+      "field": "active",
+      "message": "span 2024-01-01..None evaluated at 2026-10-13 (A-33)"
+     }
+    ],
+    "employee_id": "ukg-ready:synthetic:employee:5001",
+    "company_id": "ukg-ready:synthetic:company:7001",
+    "purpose": "NET_PAY",
+    "account": {
+     "type": {
+      "value": "SAVINGS",
+      "raw": "SAVINGS",
+      "source_field": "account_type"
+     },
+     "routing_number": "053000196",
+     "routing_type": "ABA",
+     "account_last4": "3456",
+     "masked_at_source": false
+    },
+    "method": {
+     "value": "FIXED_AMOUNT",
+     "raw": "FLAT_AMOUNT",
+     "label": "Flat Amount",
+     "source_field": "calc_method.type"
+    },
+    "amount": {
+     "amount": "200.00",
+     "currency": "USD",
+     "derived": false,
+     "source_field": "amount"
+    },
+    "sequence": 1,
+    "is_remainder": false,
+    "status": {
+     "value": "ACTIVE",
+     "raw": true,
+     "source_field": "active + active_from/active_to"
+    },
+    "effective_from": "2024-01-01",
+    "frequency": {
+     "value": "UNMAPPED",
+     "raw": "EVERY_PAY",
+     "source_field": "payroll_frequency.type"
+    },
+    "applies_to_pay_types": [],
+    "prenote": {
+     "status": {
+      "value": "UNMAPPED",
+      "raw": "COMPLETE_OK",
+      "source_field": "pre_note_status"
+     }
+    },
+    "currency": "USD"
+   },
+   {
+    "id": "ukg-ready:synthetic:direct_deposit:4002",
+    "source": {
+     "provider": "ukg-ready",
+     "tenant_id": "synthetic",
+     "endpoints": [
+      "rest/v2/companies/{company}/employees/{id}/direct-deposits"
+     ],
+     "ids": {
+      "companyId": "7001",
+      "accountId": "5001",
+      "depositId": "4002"
+     }
+    },
+    "provider_extensions": {},
+    "diagnostics": [
+     {
+      "code": "OPEN_ENDED",
+      "severity": "info",
+      "field": "active_from",
+      "message": "UKG's documented beginning or end of time; kept as open (A-25)",
+      "raw": "1900-01-01"
+     },
+     {
+      "code": "OPEN_ENDED",
+      "severity": "info",
+      "field": "active_to",
+      "message": "UKG's documented beginning or end of time; kept as open (A-25)",
+      "raw": "3000-01-01"
+     },
+     {
+      "code": "EVALUATED_AT_AS_OF",
+      "severity": "info",
+      "field": "active",
+      "message": "span None..None evaluated at 2026-10-13 (A-33)"
+     }
+    ],
+    "employee_id": "ukg-ready:synthetic:employee:5001",
+    "company_id": "ukg-ready:synthetic:company:7001",
+    "purpose": "NET_PAY",
+    "account": {
+     "type": {
+      "value": "CHECKING",
+      "raw": "CHECKING",
+      "source_field": "account_type"
+     },
+     "routing_number": "053000196",
+     "routing_type": "ABA",
+     "account_last4": "7654",
+     "masked_at_source": false
+    },
+    "method": {
+     "value": "REMAINDER",
+     "raw": "FULL",
+     "label": "Entire/Remainder",
+     "source_field": "calc_method.type"
+    },
+    "sequence": 2,
+    "is_remainder": true,
+    "status": {
+     "value": "ACTIVE",
+     "raw": true,
+     "source_field": "active + active_from/active_to"
+    },
+    "frequency": {
+     "value": "UNMAPPED",
+     "raw": "EVERY_PAY",
+     "source_field": "payroll_frequency.type"
+    },
+    "applies_to_pay_types": [],
+    "prenote": {
+     "status": {
+      "value": "UNMAPPED",
+      "raw": "COMPLETE_OK",
+      "source_field": "pre_note_status"
+     }
+    },
+    "currency": "USD"
+   },
+   {
+    "id": "ukg-ready:synthetic:direct_deposit:4003",
+    "source": {
+     "provider": "ukg-ready",
+     "tenant_id": "synthetic",
+     "endpoints": [
+      "rest/v2/companies/{company}/employees/{id}/direct-deposits"
+     ],
+     "ids": {
+      "companyId": "7001",
+      "accountId": "5002",
+      "depositId": "4003"
+     }
+    },
+    "provider_extensions": {},
+    "diagnostics": [
+     {
+      "code": "OPEN_ENDED",
+      "severity": "info",
+      "field": "active_to",
+      "message": "UKG's documented beginning or end of time; kept as open (A-25)",
+      "raw": "3000-01-01"
+     },
+     {
+      "code": "EVALUATED_AT_AS_OF",
+      "severity": "info",
+      "field": "active",
+      "message": "span 2024-01-01..None evaluated at 2026-10-13 (A-33)"
+     }
+    ],
+    "employee_id": "ukg-ready:synthetic:employee:5002",
+    "company_id": "ukg-ready:synthetic:company:7001",
+    "purpose": "NET_PAY",
+    "account": {
+     "type": {
+      "value": "CHECKING",
+      "raw": "CHECKING",
+      "source_field": "account_type"
+     },
+     "routing_number": "053000196",
+     "routing_type": "ABA",
+     "account_last4": "5123",
+     "masked_at_source": false
+    },
+    "method": {
+     "value": "REMAINDER",
+     "raw": "FULL",
+     "label": "Entire/Remainder",
+     "source_field": "calc_method.type"
+    },
+    "sequence": 1,
+    "is_remainder": true,
+    "status": {
+     "value": "ACTIVE",
+     "raw": true,
+     "source_field": "active + active_from/active_to"
+    },
+    "effective_from": "2024-01-01",
+    "frequency": {
+     "value": "UNMAPPED",
+     "raw": "EVERY_PAY",
+     "source_field": "payroll_frequency.type"
+    },
+    "applies_to_pay_types": [],
+    "prenote": {
+     "status": {
+      "value": "UNMAPPED",
+      "raw": "COMPLETE_OK",
+      "source_field": "pre_note_status"
+     }
+    },
+    "currency": "USD"
+   },
+   {
+    "id": "ukg-ready:synthetic:direct_deposit:4004",
+    "source": {
+     "provider": "ukg-ready",
+     "tenant_id": "synthetic",
+     "endpoints": [
+      "rest/v2/companies/{company}/employees/{id}/direct-deposits"
+     ],
+     "ids": {
+      "companyId": "7001",
+      "accountId": "5002",
+      "depositId": "4004"
+     }
+    },
+    "provider_extensions": {},
+    "diagnostics": [
+     {
+      "code": "EVALUATED_AT_AS_OF",
+      "severity": "info",
+      "field": "active",
+      "message": "span 2024-01-01..2026-06-30 evaluated at 2026-10-13 (A-33)"
+     }
+    ],
+    "employee_id": "ukg-ready:synthetic:employee:5002",
+    "company_id": "ukg-ready:synthetic:company:7001",
+    "purpose": "NET_PAY",
+    "account": {
+     "type": {
+      "value": "CHECKING",
+      "raw": "CHECKING",
+      "source_field": "account_type"
+     },
+     "routing_number": "053000196",
+     "routing_type": "ABA",
+     "account_last4": "5999",
+     "masked_at_source": false
+    },
+    "method": {
+     "value": "PERCENT_OF_GROSS",
+     "raw": "GROSS_EARNING",
+     "label": "% Of Gross Earnings",
+     "source_field": "calc_method.type"
+    },
+    "percent": {
+     "basis": "UNSPECIFIED",
+     "scale": "UNVERIFIED",
+     "raw": "10",
+     "source_field": "percentage"
+    },
+    "sequence": 2,
+    "is_remainder": false,
+    "status": {
+     "value": "INACTIVE",
+     "raw": true,
+     "source_field": "active + active_from/active_to"
+    },
+    "effective_from": "2024-01-01",
+    "effective_to": "2026-06-30",
+    "frequency": {
+     "value": "UNMAPPED",
+     "raw": "EVERY_PAY",
+     "source_field": "payroll_frequency.type"
+    },
+    "applies_to_pay_types": [],
+    "prenote": {
+     "status": {
+      "value": "UNMAPPED",
+      "raw": "COMPLETE_OK",
+      "source_field": "pre_note_status"
+     }
+    },
+    "currency": "USD"
+   },
+   {
+    "id": "ukg-ready:synthetic:direct_deposit:4005",
+    "source": {
+     "provider": "ukg-ready",
+     "tenant_id": "synthetic",
+     "endpoints": [
+      "rest/v2/companies/{company}/employees/{id}/direct-deposits"
+     ],
+     "ids": {
+      "companyId": "7001",
+      "accountId": "5004",
+      "depositId": "4005"
+     }
+    },
+    "provider_extensions": {},
+    "diagnostics": [
+     {
+      "code": "OPEN_ENDED",
+      "severity": "info",
+      "field": "active_to",
+      "message": "UKG's documented beginning or end of time; kept as open (A-25)",
+      "raw": "3000-01-01"
+     },
+     {
+      "code": "EVALUATED_AT_AS_OF",
+      "severity": "info",
+      "field": "active",
+      "message": "span 2024-01-01..None evaluated at 2026-10-13 (A-33)"
+     }
+    ],
+    "employee_id": "ukg-ready:synthetic:employee:5004",
+    "company_id": "ukg-ready:synthetic:company:7001",
+    "purpose": "NET_PAY",
+    "account": {
+     "type": {
+      "value": "PAPER_CHECK",
+      "raw": "RESERVE_LIVE_CHECK",
+      "source_field": "type"
+     }
+    },
+    "method": {
+     "value": "FIXED_AMOUNT",
+     "raw": "FLAT_AMOUNT",
+     "label": "Flat Amount",
+     "source_field": "calc_method.type"
+    },
+    "amount": {
+     "amount": "100.00",
+     "currency": "USD",
+     "derived": false,
+     "source_field": "amount"
+    },
+    "sequence": 1,
+    "is_remainder": false,
+    "status": {
+     "value": "ACTIVE",
+     "raw": true,
+     "source_field": "active + active_from/active_to"
+    },
+    "effective_from": "2024-01-01",
+    "frequency": {
+     "value": "UNMAPPED",
+     "raw": "EVERY_PAY",
+     "source_field": "payroll_frequency.type"
+    },
+    "applies_to_pay_types": [],
+    "prenote": {
+     "status": {
+      "value": "UNMAPPED",
+      "raw": "COMPLETE_OK",
+      "source_field": "pre_note_status"
+     }
+    },
+    "currency": "USD"
+   },
+   {
+    "id": "ukg-ready:synthetic:direct_deposit:4006",
+    "source": {
+     "provider": "ukg-ready",
+     "tenant_id": "synthetic",
+     "endpoints": [
+      "rest/v2/companies/{company}/employees/{id}/direct-deposits"
+     ],
+     "ids": {
+      "companyId": "7001",
+      "accountId": "5004",
+      "depositId": "4006"
+     }
+    },
+    "provider_extensions": {},
+    "diagnostics": [
+     {
+      "code": "UNMAPPED_CODE",
+      "severity": "warning",
+      "field": "calc_method.type",
+      "message": "no documented or evidenced meaning for this code",
+      "raw": "NET_PAY"
+     },
+     {
+      "code": "OPEN_ENDED",
+      "severity": "info",
+      "field": "active_to",
+      "message": "UKG's documented beginning or end of time; kept as open (A-25)",
+      "raw": "3000-01-01"
+     },
+     {
+      "code": "EVALUATED_AT_AS_OF",
+      "severity": "info",
+      "field": "active",
+      "message": "span 2024-01-01..None evaluated at 2026-10-13 (A-33)"
+     }
+    ],
+    "employee_id": "ukg-ready:synthetic:employee:5004",
+    "company_id": "ukg-ready:synthetic:company:7001",
+    "purpose": "NET_PAY",
+    "account": {
+     "type": {
+      "value": "CHECKING",
+      "raw": "CHECKING",
+      "source_field": "account_type"
+     },
+     "routing_number": "053000196",
+     "routing_type": "ABA",
+     "account_last4": "7888",
+     "masked_at_source": false
+    },
+    "method": {
+     "value": "UNMAPPED",
+     "raw": "NET_PAY",
+     "source_field": "calc_method.type"
+    },
+    "sequence": 2,
+    "is_remainder": false,
+    "status": {
+     "value": "ACTIVE",
+     "raw": true,
+     "source_field": "active + active_from/active_to"
+    },
+    "effective_from": "2024-01-01",
+    "frequency": {
+     "value": "UNMAPPED",
+     "raw": "EVERY_PAY",
+     "source_field": "payroll_frequency.type"
+    },
+    "applies_to_pay_types": [],
+    "prenote": {
+     "status": {
+      "value": "UNMAPPED",
+      "raw": "COMPLETE_OK",
+      "source_field": "pre_note_status"
+     }
+    },
+    "currency": "USD"
+   }
+  ],
+  "deduction_elections": [
+   {
+    "id": "ukg-ready:synthetic:deduction_election:3001",
+    "source": {
+     "provider": "ukg-ready",
+     "tenant_id": "synthetic",
+     "endpoints": [
+      "rest/v2/companies/{company}/employees/{id}/deductions",
+      "rest/v2/companies/{company}/employees/{id}/deductions/{id}"
+     ],
+     "ids": {
+      "companyId": "7001",
+      "accountId": "5001",
+      "deductionId": "3001"
+     }
+    },
+    "provider_extensions": {
+     "sequence": 1,
+     "annual_max_amount": 23000,
+     "ee_max_calc_method.amount": 500,
+     "ee_max_calc_method.percent": 0,
+     "vendor.id": 65792,
+     "vendor.name": "Retirement Plan Vendor"
+    },
+    "diagnostics": [
+     {
+      "code": "AMOUNT_UNIT_UNVERIFIED",
+      "severity": "info",
+      "message": "setup amounts are typed integer, with no documented unit (dollars or cents); kept raw (A-12)"
+     },
+     {
+      "code": "UNDOCUMENTED_SENTINEL_DATE",
+      "severity": "info",
+      "field": "effective_to",
+      "message": "kept as a date; no documented meaning (A-25)",
+      "raw": "9999-12-31"
+     },
+     {
+      "code": "EVALUATED_AT_AS_OF",
+      "severity": "info",
+      "field": "effective_from/effective_to",
+      "message": "span 2024-01-01..9999-12-31 evaluated at 2026-10-13 (A-33)"
+     }
+    ],
+    "employee_id": "ukg-ready:synthetic:employee:5001",
+    "company_id": "ukg-ready:synthetic:company:7001",
+    "code": "401k",
+    "label": "401k",
+    "category": {
+     "value": "UNMAPPED",
+     "raw": "401k",
+     "label": "401k",
+     "source_field": "deduction.code"
+    },
+    "tax_treatment": "UNSPECIFIED",
+    "calculation": {
+     "method": {
+      "value": "UNMAPPED",
+      "raw": "EARNING_LIST",
+      "label": "% Of Earnings List",
+      "source_field": "ee_calc_method.method.type"
+     },
+     "basis": "UNSPECIFIED",
+     "percent": {
+      "basis": "UNSPECIFIED",
+      "scale": "UNVERIFIED",
+      "raw": "5",
+      "source_field": "ee_calc_method.percent"
+     }
+    },
+    "status": {
+     "value": "ACTIVE",
+     "source_field": "effective_from/effective_to"
+    },
+    "frequency": {
+     "value": "UNMAPPED",
+     "raw": "EVERY_SCHEDULED_PAY",
+     "label": "Every Scheduled Pay",
+     "source_field": "ee_frequency.type"
+    },
+    "effective_from": "2024-01-01",
+    "effective_to": "9999-12-31"
+   },
+   {
+    "id": "ukg-ready:synthetic:deduction_election:3002",
+    "source": {
+     "provider": "ukg-ready",
+     "tenant_id": "synthetic",
+     "endpoints": [
+      "rest/v2/companies/{company}/employees/{id}/deductions"
+     ],
+     "ids": {
+      "companyId": "7001",
+      "accountId": "5001",
+      "deductionId": "3002"
+     }
+    },
+    "provider_extensions": {
+     "sequence": 2
+    },
+    "diagnostics": [
+     {
+      "code": "DETAIL_NOT_FETCHED",
+      "severity": "info",
+      "message": "from the deductions list; calculation details weren't requested"
+     },
+     {
+      "code": "EVALUATED_AT_AS_OF",
+      "severity": "info",
+      "field": "effective_from/effective_to",
+      "message": "span 2024-01-01..2026-01-01 evaluated at 2026-10-13 (A-33)"
+     }
+    ],
+    "employee_id": "ukg-ready:synthetic:employee:5001",
+    "company_id": "ukg-ready:synthetic:company:7001",
+    "code": "Dental",
+    "label": "Dental Insurance",
+    "category": {
+     "value": "UNMAPPED",
+     "raw": "Dental",
+     "label": "Dental Insurance",
+     "source_field": "deduction.code"
+    },
+    "tax_treatment": "UNSPECIFIED",
+    "status": {
+     "value": "INACTIVE",
+     "source_field": "effective_from/effective_to"
+    },
+    "effective_from": "2024-01-01",
+    "effective_to": "2026-01-01"
+   }
+  ],
+  "payroll_runs": [
+   {
+    "id": "ukg-ready:synthetic:payroll_run:6001",
+    "source": {
+     "provider": "ukg-ready",
+     "tenant_id": "synthetic",
+     "endpoints": [
+      "rest/v2/companies/{company}/payrolls/{id}"
+     ],
+     "ids": {
+      "companyId": "7001",
+      "payrollId": "6001"
+     }
+    },
+    "provider_extensions": {
+     "type.id": 641,
+     "billable": true
+    },
+    "diagnostics": [
+     {
+      "code": "NOT_FINALIZED",
+      "severity": "info",
+      "field": "status",
+      "message": "not finalized; amounts may still change (A-13)",
+      "raw": "OPEN"
+     }
+    ],
+    "company_id": "ukg-ready:synthetic:company:7001",
+    "pay_date": "2026-10-02",
+    "description": "Primary-EIN Regular Bi-Weekly 10/02/2026",
+    "type": {
+     "value": "REGULAR",
+     "raw": "Regular",
+     "label": "Regular",
+     "source_field": "type.display_name"
+    },
+    "status": {
+     "value": "OPEN",
+     "raw": "OPEN",
+     "source_field": "status"
+    },
+    "pay_groups": [],
+    "period": {
+     "start": "2026-09-14",
+     "end": "2026-09-27"
+    },
+    "legal_entity_id": "801"
+   },
+   {
+    "id": "ukg-ready:synthetic:payroll_run:6002",
+    "source": {
+     "provider": "ukg-ready",
+     "tenant_id": "synthetic",
+     "endpoints": [
+      "rest/v2/companies/{company}/payrolls/{id}"
+     ],
+     "ids": {
+      "companyId": "7001",
+      "payrollId": "6002"
+     }
+    },
+    "provider_extensions": {
+     "type.id": 641,
+     "billable": true
+    },
+    "diagnostics": [],
+    "company_id": "ukg-ready:synthetic:company:7001",
+    "pay_date": "2026-10-02",
+    "processed_date": "2026-10-01",
+    "description": "2nd EIN- Regular Bi-Weekly 10/02/2026",
+    "type": {
+     "value": "REGULAR",
+     "raw": "Regular",
+     "label": "Regular",
+     "source_field": "type.display_name"
+    },
+    "status": {
+     "value": "COMPLETED",
+     "raw": "FINALIZED",
+     "source_field": "status"
+    },
+    "pay_groups": [],
+    "period": {
+     "start": "2026-09-14",
+     "end": "2026-09-27"
+    },
+    "legal_entity_id": "802"
+   },
+   {
+    "id": "ukg-ready:synthetic:payroll_run:6003",
+    "source": {
+     "provider": "ukg-ready",
+     "tenant_id": "synthetic",
+     "endpoints": [
+      "rest/v2/companies/{company}/payrolls/{id}"
+     ],
+     "ids": {
+      "companyId": "7001",
+      "payrollId": "6003"
+     }
+    },
+    "provider_extensions": {
+     "type.id": 129,
+     "billable": true
+    },
+    "diagnostics": [
+     {
+      "code": "NOT_FINALIZED",
+      "severity": "info",
+      "field": "status",
+      "message": "not finalized; amounts may still change (A-13)",
+      "raw": "CLOSED"
+     }
+    ],
+    "company_id": "ukg-ready:synthetic:company:7001",
+    "pay_date": "2026-10-09",
+    "description": "Void 10/09/2026",
+    "type": {
+     "value": "VOID",
+     "raw": "Void",
+     "label": "Void",
+     "source_field": "type.display_name"
+    },
+    "status": {
+     "value": "CLOSED",
+     "raw": "CLOSED",
+     "source_field": "status"
+    },
+    "pay_groups": [],
+    "period": {
+     "start": "2026-09-14",
+     "end": "2026-09-27"
+    },
+    "legal_entity_id": "801"
+   },
+   {
+    "id": "ukg-ready:synthetic:payroll_run:6004",
+    "source": {
+     "provider": "ukg-ready",
+     "tenant_id": "synthetic",
+     "endpoints": [
+      "rest/v2/companies/{company}/payrolls"
+     ],
+     "ids": {
+      "companyId": "7001",
+      "payrollId": "6004"
+     }
+    },
+    "provider_extensions": {
+     "type.id": 641,
+     "billable": true
+    },
+    "diagnostics": [
+     {
+      "code": "NOT_FINALIZED",
+      "severity": "info",
+      "field": "status",
+      "message": "not finalized; amounts may still change (A-13)",
+      "raw": "OPEN"
+     }
+    ],
+    "company_id": "ukg-ready:synthetic:company:7001",
+    "pay_date": "2026-10-16",
+    "description": "Primary-EIN Regular Bi-Weekly 10/16/2026",
+    "type": {
+     "value": "REGULAR",
+     "raw": "Regular",
+     "label": "Regular",
+     "source_field": "type.display_name"
+    },
+    "status": {
+     "value": "OPEN",
+     "raw": "OPEN",
+     "source_field": "status"
+    },
+    "pay_groups": [],
+    "period": {
+     "start": "2026-09-14",
+     "end": "2026-09-27"
+    },
+    "legal_entity_id": "801"
+   }
+  ],
+  "pay_statements": [
+   {
+    "id": "ukg-ready:synthetic:pay_statement:7101",
+    "source": {
+     "provider": "ukg-ready",
+     "tenant_id": "synthetic",
+     "endpoints": [
+      "rest/v2/companies/{company}/payrolls/{id}/pay-statements/{id}"
+     ],
+     "ids": {
+      "companyId": "7001",
+      "payrollId": "6001",
+      "payStatementId": "7101"
+     }
+    },
+    "provider_extensions": {
+     "type.id": 36656000,
+     "earnings[0].id": 3328979392,
+     "earnings[0].batch.id": 4342647435,
+     "earnings[0].batch.display_name": "Regular Earnings",
+     "earnings[1].id": 842431431,
+     "earnings[1].batch.id": 4342647435,
+     "earnings[1].batch.display_name": "Regular Earnings",
+     "earnings[2].id": 2642864188,
+     "earnings[2].batch.id": 4342647435,
+     "earnings[2].batch.display_name": "Regular Earnings",
+     "earnings[3].id": 3080662346,
+     "earnings[3].batch.id": 4342647435,
+     "earnings[3].batch.display_name": "Regular Earnings",
+     "taxes[0].type_name": "Tax",
+     "taxes[0].batch.id": 4342647435,
+     "taxes[0].batch.display_name": "Regular Earnings",
+     "taxes[1].type_name": "Tax",
+     "taxes[1].batch.id": 4342647435,
+     "taxes[1].batch.display_name": "Regular Earnings",
+     "taxes[2].type_name": "Tax",
+     "taxes[2].batch.id": 4342647435,
+     "taxes[2].batch.display_name": "Regular Earnings",
+     "taxes[3].type_name": "Tax",
+     "taxes[3].batch.id": 4342647435,
+     "taxes[3].batch.display_name": "Regular Earnings",
+     "taxes[4].type_name": "Tax",
+     "taxes[4].batch.id": 4342647435,
+     "taxes[4].batch.display_name": "Regular Earnings",
+     "deductions[0].type_name": "Deduction (Auto)",
+     "deductions[0].batch.id": 4342647435,
+     "deductions[0].batch.display_name": "Regular Earnings",
+     "deductions[1].type_name": "Deduction (Auto)",
+     "deductions[1].batch.id": 4342647435,
+     "deductions[1].batch.display_name": "Regular Earnings",
+     "payments[0].batch.id": 4342647435,
+     "payments[0].batch.display_name": "Regular Earnings",
+     "payments[1].batch.id": 4342647435,
+     "payments[1].batch.display_name": "Regular Earnings",
+     "payments[2].type_name": "Fringe",
+     "payments[2].ee_amount": "3.1",
+     "payments[2].batch.id": 4342647435,
+     "payments[2].batch.display_name": "Regular Earnings",
+     "payments[3].type_name": "Check",
+     "payments[3].batch.id": 4342647435,
+     "payments[3].batch.display_name": "Regular Earnings",
+     "messages[0].type_name": "Message",
+     "messages[0].message.text": "Missing company bank settings.",
+     "messages[0].message.severity": "ERROR"
+    },
+    "diagnostics": [
+     {
+      "code": "NOT_FINALIZED",
+      "severity": "info",
+      "field": "status",
+      "message": "not finalized; amounts may still change (A-13)",
+      "raw": "OPEN"
+     },
+     {
+      "code": "FLOAT_ARTIFACT",
+      "severity": "info",
+      "field": "taxes[].ee_amount",
+      "message": "a binary floating-point form of 2.47",
+      "raw": "2.4699999999999998"
+     }
+    ],
+    "company_id": "ukg-ready:synthetic:company:7001",
+    "employee_id": "ukg-ready:synthetic:employee:5001",
+    "payroll_run_id": "ukg-ready:synthetic:payroll_run:6001",
+    "pay_date": "2026-10-02",
+    "period": {
+     "start": "2026-09-14",
+     "end": "2026-09-27"
+    },
+    "type": {
+     "value": "REGULAR",
+     "raw": "Regular",
+     "label": "Regular",
+     "source_field": "type.display_name"
+    },
+    "status": {
+     "value": "UNMAPPED",
+     "raw": "OPEN",
+     "source_field": "status"
+    },
+    "voided": false,
+    "totals": {
+     "gross_pay": {
+      "amount": "2025.00",
+      "currency": "USD",
+      "derived": true,
+      "formula": "sum(earnings[].ee_amount) - sum(non-cash earning lines)"
+     },
+     "gross_wages": {
+      "amount": "2028.10",
+      "currency": "USD",
+      "derived": true,
+      "formula": "sum(earnings[].ee_amount)"
+     },
+     "net_pay": {
+      "amount": "1604.88",
+      "currency": "USD",
+      "derived": true,
+      "formula": "sum(payments[Check, Direct Deposit].ee_amount)"
+     },
+     "employee_taxes": {
+      "amount": "307.6199999999999998",
+      "currency": "USD",
+      "derived": true,
+      "formula": "sum(taxes[].ee_amount)"
+     },
+     "employer_taxes": {
+      "amount": "167.32",
+      "currency": "USD",
+      "derived": true,
+      "formula": "sum(taxes[].er_amount)"
+     },
+     "deductions": {
+      "amount": "112.50",
+      "currency": "USD",
+      "derived": true,
+      "formula": "sum(deductions[].ee_amount)"
+     },
+     "employer_contributions": {
+      "amount": "50.00",
+      "currency": "USD",
+      "derived": true,
+      "formula": "sum(deductions[].er_amount)"
+     }
+    },
+    "earnings": [
+     {
+      "code": "Salary",
+      "label": "Salary",
+      "kind": {
+       "value": "EARNINGS",
+       "raw": "Earning (Auto)",
+       "source_field": "earnings[].type_name"
+      },
+      "in_gross": true,
+      "amount": {
+       "amount": "1800.00",
+       "currency": "USD",
+       "derived": false,
+       "source_field": "earnings[].ee_amount"
+      },
+      "allocation": {},
+      "source_field": "earnings[]"
+     },
+     {
+      "code": "Holiday",
+      "label": "Holiday",
+      "kind": {
+       "value": "EARNINGS",
+       "raw": "Earning",
+       "source_field": "earnings[].type_name"
+      },
+      "in_gross": true,
+      "quantity": {
+       "value": "8",
+       "unit": "HOURS",
+       "raw": 28800000,
+       "derived": true,
+       "formula": "earnings[].hours / 3600000",
+       "source_field": "earnings[].hours"
+      },
+      "rate": {
+       "amount": "25.0",
+       "currency": "USD",
+       "per": "HOUR",
+       "derived": false,
+       "source_field": "earnings[].base_rate"
+      },
+      "amount": {
+       "amount": "200.00",
+       "currency": "USD",
+       "derived": false,
+       "source_field": "earnings[].ee_amount"
+      },
+      "period": {
+       "start": "2026-09-14",
+       "end": "2026-09-27"
+      },
+      "allocation": {},
+      "source_field": "earnings[]"
+     },
+     {
+      "code": "GTL-Imp Inc",
+      "label": "GTL-Imputed Income",
+      "kind": {
+       "value": "NON_CASH_FRINGE",
+       "raw": "Earning (Fringe, Auto)",
+       "source_field": "earnings[].type_name"
+      },
+      "in_gross": true,
+      "amount": {
+       "amount": "3.10",
+       "currency": "USD",
+       "derived": false,
+       "source_field": "earnings[].ee_amount"
+      },
+      "allocation": {},
+      "source_field": "earnings[]"
+     },
+     {
+      "code": "Cell Reimb",
+      "label": "Cell Reimb",
+      "kind": {
+       "value": "REIMBURSEMENT",
+       "raw": "Reimbursement(Neg Ded, Auto)",
+       "source_field": "earnings[].type_name"
+      },
+      "in_gross": true,
+      "amount": {
+       "amount": "25.00",
+       "currency": "USD",
+       "derived": false,
+       "source_field": "earnings[].ee_amount"
+      },
+      "allocation": {},
+      "source_field": "earnings[]"
+     }
+    ],
+    "taxes": [
+     {
+      "code": "FIT",
+      "label": "Federal Income Tax",
+      "paid_by": "EMPLOYEE",
+      "amount": {
+       "amount": "150.00",
+       "currency": "USD",
+       "derived": false,
+       "source_field": "taxes[].ee_amount"
+      },
+      "taxable_wages": {
+       "amount": "1915.60",
+       "currency": "USD",
+       "derived": false,
+       "source_field": "taxes[].ee_subject_wage"
+      },
+      "source_field": "taxes[]"
+     },
+     {
+      "code": "Social Security",
+      "label": "Social Security",
+      "paid_by": "EMPLOYEE",
+      "amount": {
+       "amount": "125.74",
+       "currency": "USD",
+       "derived": false,
+       "source_field": "taxes[].ee_amount"
+      },
+      "taxable_wages": {
+       "amount": "2028.10",
+       "currency": "USD",
+       "derived": false,
+       "source_field": "taxes[].ee_subject_wage"
+      },
+      "source_field": "taxes[]"
+     },
+     {
+      "code": "Social Security",
+      "label": "Social Security",
+      "paid_by": "EMPLOYER",
+      "amount": {
+       "amount": "125.74",
+       "currency": "USD",
+       "derived": false,
+       "source_field": "taxes[].er_amount"
+      },
+      "taxable_wages": {
+       "amount": "2028.10",
+       "currency": "USD",
+       "derived": false,
+       "source_field": "taxes[].er_subject_wage"
+      },
+      "source_field": "taxes[]"
+     },
+     {
+      "code": "Medicare",
+      "label": "Medicare",
+      "paid_by": "EMPLOYEE",
+      "amount": {
+       "amount": "29.41",
+       "currency": "USD",
+       "derived": false,
+       "source_field": "taxes[].ee_amount"
+      },
+      "taxable_wages": {
+       "amount": "2028.10",
+       "currency": "USD",
+       "derived": false,
+       "source_field": "taxes[].ee_subject_wage"
+      },
+      "source_field": "taxes[]"
+     },
+     {
+      "code": "Medicare",
+      "label": "Medicare",
+      "paid_by": "EMPLOYER",
+      "amount": {
+       "amount": "29.41",
+       "currency": "USD",
+       "derived": false,
+       "source_field": "taxes[].er_amount"
+      },
+      "taxable_wages": {
+       "amount": "2028.10",
+       "currency": "USD",
+       "derived": false,
+       "source_field": "taxes[].er_subject_wage"
+      },
+      "source_field": "taxes[]"
+     },
+     {
+      "code": "SIT:NC",
+      "label": "NC Income Tax",
+      "paid_by": "EMPLOYEE",
+      "amount": {
+       "amount": "2.4699999999999998",
+       "currency": "USD",
+       "derived": false,
+       "source_field": "taxes[].ee_amount"
+      },
+      "taxable_wages": {
+       "amount": "2028.10",
+       "currency": "USD",
+       "derived": false,
+       "source_field": "taxes[].ee_subject_wage"
+      },
+      "source_field": "taxes[]"
+     },
+     {
+      "code": "FUTA",
+      "label": "FUTA",
+      "paid_by": "EMPLOYER",
+      "amount": {
+       "amount": "12.17",
+       "currency": "USD",
+       "derived": false,
+       "source_field": "taxes[].er_amount"
+      },
+      "taxable_wages": {
+       "amount": "2028.10",
+       "currency": "USD",
+       "derived": false,
+       "source_field": "taxes[].er_subject_wage"
+      },
+      "source_field": "taxes[]"
+     }
+    ],
+    "deductions": [
+     {
+      "code": "401k",
+      "external_id": "D20",
+      "label": "401k",
+      "category": {
+       "value": "UNMAPPED",
+       "raw": "401k",
+       "label": "401k",
+       "source_field": "deductions[].deduction.code"
+      },
+      "tax_treatment": "UNSPECIFIED",
+      "employee_amount": {
+       "amount": "100.00",
+       "currency": "USD",
+       "derived": false,
+       "source_field": "deductions[].ee_amount"
+      },
+      "source_field": "deductions[]"
+     },
+     {
+      "code": "Dental",
+      "external_id": "D11",
+      "label": "Dental Insurance",
+      "category": {
+       "value": "UNMAPPED",
+       "raw": "Dental",
+       "label": "Dental Insurance",
+       "source_field": "deductions[].deduction.code"
+      },
+      "tax_treatment": "UNSPECIFIED",
+      "employee_amount": {
+       "amount": "12.50",
+       "currency": "USD",
+       "derived": false,
+       "source_field": "deductions[].ee_amount"
+      },
+      "source_field": "deductions[]"
+     }
+    ],
+    "employer_contributions": [
+     {
+      "code": "401k",
+      "label": "401k",
+      "amount": {
+       "amount": "50.00",
+       "currency": "USD",
+       "derived": false,
+       "source_field": "deductions[].er_amount"
+      },
+      "source_field": "deductions[].er_amount"
+     }
+    ],
+    "benefit_details": [],
+    "payments": [
+     {
+      "kind": {
+       "value": "DIRECT_DEPOSIT",
+       "raw": "Direct Deposit",
+       "source_field": "payments[].type_name"
+      },
+      "amount": {
+       "amount": "200.00",
+       "currency": "USD",
+       "derived": false,
+       "source_field": "payments[].ee_amount"
+      },
+      "source_field": "payments[]"
+     },
+     {
+      "kind": {
+       "value": "DIRECT_DEPOSIT",
+       "raw": "Direct Deposit",
+       "source_field": "payments[].type_name"
+      },
+      "amount": {
+       "amount": "1404.88",
+       "currency": "USD",
+       "derived": false,
+       "source_field": "payments[].ee_amount"
+      },
+      "source_field": "payments[]"
+     }
+    ],
+    "checks": [
+     {
+      "rule": "gross pay - employee taxes - deductions = net",
+      "result": "pass",
+      "detail": "2025.0 - 307.6199999999999998 - 112.5 = 1604.8800000000000002; net 1604.88"
+     }
+    ]
+   },
+   {
+    "id": "ukg-ready:synthetic:pay_statement:7102",
+    "source": {
+     "provider": "ukg-ready",
+     "tenant_id": "synthetic",
+     "endpoints": [
+      "rest/v2/companies/{company}/payrolls/{id}/pay-statements/{id}"
+     ],
+     "ids": {
+      "companyId": "7001",
+      "payrollId": "6001",
+      "payStatementId": "7102"
+     }
+    },
+    "provider_extensions": {
+     "type.id": 36656000,
+     "earnings[0].id": 3316898287,
+     "earnings[0].batch.id": 4342647435,
+     "earnings[0].batch.display_name": "Regular Earnings",
+     "earnings[1].id": 839854465,
+     "earnings[1].type_name": "Earning (Auto)",
+     "earnings[1].batch.id": 4342647435,
+     "earnings[1].batch.display_name": "Regular Earnings",
+     "earnings[1].earning.code": "SECA",
+     "earnings[1].earning.name": "SECA",
+     "earnings[1].base_rate": "18.0",
+     "taxes[0].type_name": "Tax",
+     "taxes[0].batch.id": 4342647435,
+     "taxes[0].batch.display_name": "Regular Earnings",
+     "taxes[1].type_name": "Tax",
+     "taxes[1].batch.id": 4342647435,
+     "taxes[1].batch.display_name": "Regular Earnings",
+     "taxes[2].type_name": "Tax",
+     "taxes[2].batch.id": 4342647435,
+     "taxes[2].batch.display_name": "Regular Earnings",
+     "payments[0].batch.id": 4342647435,
+     "payments[0].batch.display_name": "Regular Earnings"
+    },
+    "diagnostics": [
+     {
+      "code": "NOT_FINALIZED",
+      "severity": "info",
+      "field": "status",
+      "message": "not finalized; amounts may still change (A-13)",
+      "raw": "OPEN"
+     }
+    ],
+    "company_id": "ukg-ready:synthetic:company:7001",
+    "employee_id": "ukg-ready:synthetic:employee:5002",
+    "payroll_run_id": "ukg-ready:synthetic:payroll_run:6001",
+    "pay_date": "2026-10-02",
+    "period": {
+     "start": "2026-09-14",
+     "end": "2026-09-27"
+    },
+    "type": {
+     "value": "REGULAR",
+     "raw": "Regular",
+     "label": "Regular",
+     "source_field": "type.display_name"
+    },
+    "status": {
+     "value": "UNMAPPED",
+     "raw": "OPEN",
+     "source_field": "status"
+    },
+    "voided": false,
+    "totals": {
+     "gross_pay": {
+      "amount": "360.00",
+      "currency": "USD",
+      "derived": true,
+      "formula": "sum(earnings[].ee_amount) - sum(non-cash earning lines)"
+     },
+     "gross_wages": {
+      "amount": "360.00",
+      "currency": "USD",
+      "derived": true,
+      "formula": "sum(earnings[].ee_amount)"
+     },
+     "net_pay": {
+      "amount": "312.46",
+      "currency": "USD",
+      "derived": true,
+      "formula": "sum(payments[Check, Direct Deposit].ee_amount)"
+     },
+     "employee_taxes": {
+      "amount": "47.54",
+      "currency": "USD",
+      "derived": true,
+      "formula": "sum(taxes[].ee_amount)"
+     },
+     "employer_taxes": {
+      "amount": "27.54",
+      "currency": "USD",
+      "derived": true,
+      "formula": "sum(taxes[].er_amount)"
+     },
+     "deductions": {
+      "amount": "0.00",
+      "currency": "USD",
+      "derived": true,
+      "formula": "sum(deductions[].ee_amount)"
+     },
+     "employer_contributions": {
+      "amount": "0.00",
+      "currency": "USD",
+      "derived": true,
+      "formula": "sum(deductions[].er_amount)"
+     }
+    },
+    "earnings": [
+     {
+      "code": "Regular",
+      "label": "Regular",
+      "kind": {
+       "value": "EARNINGS",
+       "raw": "Earning",
+       "source_field": "earnings[].type_name"
+      },
+      "in_gross": true,
+      "quantity": {
+       "value": "20",
+       "unit": "HOURS",
+       "raw": 72000000,
+       "derived": true,
+       "formula": "earnings[].hours / 3600000",
+       "source_field": "earnings[].hours"
+      },
+      "rate": {
+       "amount": "18.0",
+       "currency": "USD",
+       "per": "HOUR",
+       "derived": false,
+       "source_field": "earnings[].base_rate"
+      },
+      "amount": {
+       "amount": "360.00",
+       "currency": "USD",
+       "derived": false,
+       "source_field": "earnings[].ee_amount"
+      },
+      "period": {
+       "start": "2026-09-14",
+       "end": "2026-09-27"
+      },
+      "allocation": {},
+      "source_field": "earnings[]"
+     }
+    ],
+    "taxes": [
+     {
+      "code": "FIT",
+      "label": "Federal Income Tax",
+      "paid_by": "EMPLOYEE",
+      "amount": {
+       "amount": "20.00",
+       "currency": "USD",
+       "derived": false,
+       "source_field": "taxes[].ee_amount"
+      },
+      "taxable_wages": {
+       "amount": "360.00",
+       "currency": "USD",
+       "derived": false,
+       "source_field": "taxes[].ee_subject_wage"
+      },
+      "source_field": "taxes[]"
+     },
+     {
+      "code": "Social Security",
+      "label": "Social Security",
+      "paid_by": "EMPLOYEE",
+      "amount": {
+       "amount": "22.32",
+       "currency": "USD",
+       "derived": false,
+       "source_field": "taxes[].ee_amount"
+      },
+      "taxable_wages": {
+       "amount": "360.00",
+       "currency": "USD",
+       "derived": false,
+       "source_field": "taxes[].ee_subject_wage"
+      },
+      "source_field": "taxes[]"
+     },
+     {
+      "code": "Social Security",
+      "label": "Social Security",
+      "paid_by": "EMPLOYER",
+      "amount": {
+       "amount": "22.32",
+       "currency": "USD",
+       "derived": false,
+       "source_field": "taxes[].er_amount"
+      },
+      "taxable_wages": {
+       "amount": "360.00",
+       "currency": "USD",
+       "derived": false,
+       "source_field": "taxes[].er_subject_wage"
+      },
+      "source_field": "taxes[]"
+     },
+     {
+      "code": "Medicare",
+      "label": "Medicare",
+      "paid_by": "EMPLOYEE",
+      "amount": {
+       "amount": "5.22",
+       "currency": "USD",
+       "derived": false,
+       "source_field": "taxes[].ee_amount"
+      },
+      "taxable_wages": {
+       "amount": "360.00",
+       "currency": "USD",
+       "derived": false,
+       "source_field": "taxes[].ee_subject_wage"
+      },
+      "source_field": "taxes[]"
+     },
+     {
+      "code": "Medicare",
+      "label": "Medicare",
+      "paid_by": "EMPLOYER",
+      "amount": {
+       "amount": "5.22",
+       "currency": "USD",
+       "derived": false,
+       "source_field": "taxes[].er_amount"
+      },
+      "taxable_wages": {
+       "amount": "360.00",
+       "currency": "USD",
+       "derived": false,
+       "source_field": "taxes[].er_subject_wage"
+      },
+      "source_field": "taxes[]"
+     }
+    ],
+    "deductions": [],
+    "employer_contributions": [],
+    "benefit_details": [],
+    "payments": [
+     {
+      "kind": {
+       "value": "CHECK",
+       "raw": "Check",
+       "source_field": "payments[].type_name"
+      },
+      "amount": {
+       "amount": "312.46",
+       "currency": "USD",
+       "derived": false,
+       "source_field": "payments[].ee_amount"
+      },
+      "source_field": "payments[]"
+     }
+    ],
+    "checks": [
+     {
+      "rule": "gross pay - employee taxes - deductions = net",
+      "result": "pass",
+      "detail": "360.0 - 47.54 - 0 = 312.46; net 312.46"
+     }
+    ]
+   },
+   {
+    "id": "ukg-ready:synthetic:pay_statement:7103",
+    "source": {
+     "provider": "ukg-ready",
+     "tenant_id": "synthetic",
+     "endpoints": [
+      "rest/v2/companies/{company}/payrolls/{id}/pay-statements/{id}"
+     ],
+     "ids": {
+      "companyId": "7001",
+      "payrollId": "6002",
+      "payStatementId": "7103"
+     }
+    },
+    "provider_extensions": {
+     "type.id": 36656008,
+     "earnings[0].id": 226290912,
+     "earnings[0].batch.id": 4342647435,
+     "earnings[0].batch.display_name": "Regular Earnings",
+     "earnings[1].id": 853828475,
+     "earnings[1].batch.id": 4342647435,
+     "earnings[1].batch.display_name": "Regular Earnings",
+     "taxes[0].type_name": "Tax",
+     "taxes[0].batch.id": 4342647435,
+     "taxes[0].batch.display_name": "Regular Earnings",
+     "payments[0].batch.id": 4342647435,
+     "payments[0].batch.display_name": "Regular Earnings"
+    },
+    "diagnostics": [
+     {
+      "code": "NOT_FINALIZED",
+      "severity": "info",
+      "field": "status",
+      "message": "not finalized; amounts may still change (A-13)",
+      "raw": "OPEN"
+     },
+     {
+      "code": "UNMAPPED_CODE",
+      "severity": "warning",
+      "field": "earnings[].type_name",
+      "message": "no evidenced meaning for this line type",
+      "raw": "Earning (Memo)"
+     },
+     {
+      "code": "UNMAPPED_CODE",
+      "severity": "warning",
+      "field": "type.display_name",
+      "message": "no documented or evidenced meaning for this code",
+      "raw": "Comm"
+     },
+     {
+      "code": "GROSS_PAY_NOT_DERIVED",
+      "severity": "info",
+      "field": "earnings",
+      "message": "an earning line counted in gross has an unmapped kind"
+     }
+    ],
+    "company_id": "ukg-ready:synthetic:company:7001",
+    "employee_id": "ukg-ready:synthetic:employee:5005",
+    "payroll_run_id": "ukg-ready:synthetic:payroll_run:6002",
+    "pay_date": "2026-10-02",
+    "period": {
+     "start": "2026-09-14",
+     "end": "2026-09-27"
+    },
+    "type": {
+     "value": "UNMAPPED",
+     "raw": "Comm",
+     "label": "Comm",
+     "source_field": "type.display_name"
+    },
+    "status": {
+     "value": "UNMAPPED",
+     "raw": "OPEN",
+     "source_field": "status"
+    },
+    "voided": false,
+    "totals": {
+     "gross_wages": {
+      "amount": "1250.00",
+      "currency": "USD",
+      "derived": true,
+      "formula": "sum(earnings[].ee_amount)"
+     },
+     "net_pay": {
+      "amount": "1100.00",
+      "currency": "USD",
+      "derived": true,
+      "formula": "sum(payments[Check, Direct Deposit].ee_amount)"
+     },
+     "employee_taxes": {
+      "amount": "100.00",
+      "currency": "USD",
+      "derived": true,
+      "formula": "sum(taxes[].ee_amount)"
+     },
+     "employer_taxes": {
+      "amount": "0.00",
+      "currency": "USD",
+      "derived": true,
+      "formula": "sum(taxes[].er_amount)"
+     },
+     "deductions": {
+      "amount": "0.00",
+      "currency": "USD",
+      "derived": true,
+      "formula": "sum(deductions[].ee_amount)"
+     },
+     "employer_contributions": {
+      "amount": "0.00",
+      "currency": "USD",
+      "derived": true,
+      "formula": "sum(deductions[].er_amount)"
+     }
+    },
+    "earnings": [
+     {
+      "code": "Commission",
+      "label": "Commission",
+      "kind": {
+       "value": "EARNINGS",
+       "raw": "Earning",
+       "source_field": "earnings[].type_name"
+      },
+      "in_gross": true,
+      "amount": {
+       "amount": "1200.00",
+       "currency": "USD",
+       "derived": false,
+       "source_field": "earnings[].ee_amount"
+      },
+      "allocation": {},
+      "source_field": "earnings[]"
+     },
+     {
+      "code": "Tips Memo",
+      "label": "Tips Memo",
+      "kind": {
+       "value": "UNMAPPED",
+       "raw": "Earning (Memo)",
+       "source_field": "earnings[].type_name"
+      },
+      "in_gross": true,
+      "amount": {
+       "amount": "50.00",
+       "currency": "USD",
+       "derived": false,
+       "source_field": "earnings[].ee_amount"
+      },
+      "allocation": {},
+      "source_field": "earnings[]"
+     }
+    ],
+    "taxes": [
+     {
+      "code": "FIT",
+      "label": "Federal Income Tax",
+      "paid_by": "EMPLOYEE",
+      "amount": {
+       "amount": "100.00",
+       "currency": "USD",
+       "derived": false,
+       "source_field": "taxes[].ee_amount"
+      },
+      "taxable_wages": {
+       "amount": "1250.00",
+       "currency": "USD",
+       "derived": false,
+       "source_field": "taxes[].ee_subject_wage"
+      },
+      "source_field": "taxes[]"
+     }
+    ],
+    "deductions": [],
+    "employer_contributions": [],
+    "benefit_details": [],
+    "payments": [
+     {
+      "kind": {
+       "value": "DIRECT_DEPOSIT",
+       "raw": "Direct Deposit",
+       "source_field": "payments[].type_name"
+      },
+      "amount": {
+       "amount": "1100.00",
+       "currency": "USD",
+       "derived": false,
+       "source_field": "payments[].ee_amount"
+      },
+      "source_field": "payments[]"
+     }
+    ],
+    "checks": []
+   },
+   {
+    "id": "ukg-ready:synthetic:pay_statement:7105",
+    "source": {
+     "provider": "ukg-ready",
+     "tenant_id": "synthetic",
+     "endpoints": [
+      "rest/v2/companies/{company}/payrolls/{id}/pay-statements"
+     ],
+     "ids": {
+      "companyId": "7001",
+      "payrollId": "6001",
+      "payStatementId": "7105"
+     }
+    },
+    "provider_extensions": {
+     "type.id": 36656000
+    },
+    "diagnostics": [
+     {
+      "code": "DETAIL_NOT_FETCHED",
+      "severity": "info",
+      "message": "from the payroll's statement list; line items were not requested"
+     },
+     {
+      "code": "NOT_FINALIZED",
+      "severity": "info",
+      "field": "status",
+      "message": "not finalized; amounts may still change (A-13)",
+      "raw": "OPEN"
+     }
+    ],
+    "company_id": "ukg-ready:synthetic:company:7001",
+    "employee_id": "ukg-ready:synthetic:employee:5004",
+    "payroll_run_id": "ukg-ready:synthetic:payroll_run:6001",
+    "pay_date": "2026-10-02",
+    "period": {
+     "start": "2026-09-14",
+     "end": "2026-09-27"
+    },
+    "type": {
+     "value": "REGULAR",
+     "raw": "Regular",
+     "label": "Regular",
+     "source_field": "type.display_name"
+    },
+    "status": {
+     "value": "UNMAPPED",
+     "raw": "OPEN",
+     "source_field": "status"
+    },
+    "voided": false,
+    "totals": {},
+    "earnings": [],
+    "taxes": [],
+    "deductions": [],
+    "employer_contributions": [],
+    "benefit_details": [],
+    "payments": [],
+    "checks": []
+   }
+  ]
+ }
+}

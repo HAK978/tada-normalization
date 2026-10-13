@@ -1,0 +1,21 @@
+{
+  "seq": 8,
+  "endpoint": "rest/v2/companies/{company}/lookup/deduction-codes",
+  "path": "rest/v2/companies/7001/lookup/deduction-codes",
+  "params": {},
+  "status": 200,
+  "body": {
+    "items": [
+      {
+        "id": 38512329,
+        "code": "401k",
+        "name": "401k"
+      },
+      {
+        "id": 38512348,
+        "code": "Dental",
+        "name": "Dental Insurance"
+      }
+    ]
+  }
+}

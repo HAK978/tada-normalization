@@ -1,0 +1,39 @@
+{
+  "seq": 18,
+  "endpoint": "rest/v2/companies/{company}/employees/{id}/compensation/history",
+  "path": "rest/v2/companies/7001/employees/5002/compensation/history",
+  "params": {},
+  "status": 200,
+  "body": {
+    "compensations": [
+      {
+        "id": 190012315002,
+        "employee": {
+          "account_id": 5002
+        },
+        "effective_from": "1900-12-31",
+        "amount": 0.0,
+        "amount_period": "HOUR",
+        "hourly_pay": 0.0,
+        "time": 7488000000,
+        "time_period": "YEAR",
+        "num_pp_in_year": 0,
+        "currency": "USD"
+      },
+      {
+        "id": 202506015002,
+        "employee": {
+          "account_id": 5002
+        },
+        "effective_from": "2025-06-01",
+        "amount": 18.0,
+        "amount_period": "HOUR",
+        "hourly_pay": 18.0,
+        "time": 72000000,
+        "time_period": "WEEK",
+        "num_pp_in_year": 26,
+        "currency": "USD"
+      }
+    ]
+  }
+}

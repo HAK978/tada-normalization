@@ -5,8 +5,8 @@ Status: **draft v2, 2026-10-13.**
 - An independent design audit raised 15 findings. All were verified against the specs and folded
   in here and in [ASSUMPTIONS.md](../ASSUMPTIONS.md).
 
-Implemented so far: the model itself (`src/normalization/canonical/`) and the PrismHR and isolved converters.
-UKG Ready is in progress.
+Implemented: the model itself (`src/normalization/canonical/`) and the PrismHR, isolved and UKG Ready
+converters.
 
 ## 1. Principles
 
@@ -116,7 +116,7 @@ canonical IDs of the records it belongs to.
 | `status` (`ACTIVE` `PENDING` `INACTIVE` `TERMINATING` `TERMINATED`) | `statusClass` A/P/I/C/T (documented) | `status` text | none |
 | `own_tax_id`: a business FEIN, kept as returned; masked values stay masked | `federalIdNumber` (fully masked live) | `federalEIN` | none |
 | `service_arrangement` | `serviceType` PEO/ASO/PAY/ASA/COR/HRN (documented) | none | none |
-| `employers[]` (provider terms) | `employerId` + `altEmployer[]`; name and EIN refused (A-09) | the legal company itself | `lookup/eins` |
+| `employers[]` (provider terms) | `employerId` + `altEmployer[]`; name and EIN refused (A-09) | the legal company itself | `lookup/eins`, plus EINs only payrolls name (A-60) |
 | `pay_groups[]` | `getClientCodes` PGroups + `getPayrollSchedule` | `payGroups` (frequency via §6) | not available |
 
 ## 4. Employee
@@ -253,6 +253,8 @@ not a provider one.
 - `pay_date`, run and processed dates, `type`, `status`.
 - `pay_groups[]`, each with its own period start and end, weeks worked and deduction period. Prism
   gives periods per pay group (`BatchByDateResponse-BatchList-PayGroup`).
+- `period` for providers with one period per run, and `legal_entity_id`, the EIN the run is for
+  (UKG).
 - Types are `REGULAR` `SPECIAL` `MANUAL` `VOID` `ADJUSTMENT` `CORRECTION` `HISTORICAL_IMPORT`.
 - Statuses are `OPEN` `CLOSED` `SUBMITTED` `COMPLETED` `NOT_PROCESSED` `FAILED`, always with the raw
   value (A-21).
@@ -288,11 +290,11 @@ not a provider one.
 | Earning lines | `earning[]` **and** `otherEarningsDetail[]` (gross = earn + other) | `earnings[]` (`check*` bucket, A-28) | `earnings[]` |
 | Quantity | `hoursUnits`, which is "hours or units paid": the unit comes from the pay code's documented `payReason` H/U, else `UNKNOWN`. Plus `hoursWorked` (A-38). | `checkHours` and `checkUnits` | `hours` in ms, converted to hours (A-24); `quantity` unit `UNKNOWN` |
 | Line amount | `payAmount` = quantity × `unitRate` (A-18) | `checkDollars` | `ee_amount` |
-| Earning kind | `payClass` E/R/F/RT/M (documented) | `isMemoEarning`, else the client pay item's system earning (A-53) | `UNMAPPED` |
+| Earning kind | `payClass` E/R/F/RT/M (documented) | `isMemoEarning`, else the client pay item's system earning (A-53) | `type_name`: Earning, Earning (Fringe), Reimbursement (A-58) |
 | Taxes | `employeeTax[]`, `companyTax[]` | `taxes[]` + `isEmployeeTax` | `taxes[]` with `ee_*` and `er_*` amounts and wage bases |
 | Deductions | `deduction[]` (`deductType`), `otherDeduction[]` | `deductions[]`, `garnishments[]` | `deductions[]`: code, external ID, name |
 | Employer contributions | `employerContributions[]` | `benefits[].checkEmployerContribution` | `deductions[].er_amount` |
-| Payments | `checkAmt` + `directDeposit[]` | `checkAmount` + `directDeposits[]` | `payments[]` (`type_name` "Check" / "Direct Deposit"; others `UNMAPPED`) |
+| Payments | `checkAmt` + `directDeposit[]` | `checkAmount` + `directDeposits[]` | `payments[]` (`type_name` "Check" / "Direct Deposit"; "Fringe" rows balance non-cash pay and are not payments, A-58) |
 
 **Checks, reported and never "fixed":**
 - gross wages = the sum of earning lines counted in gross;

@@ -1,0 +1,19 @@
+{
+  "seq": 5,
+  "endpoint": "rest/v2/companies/{company}/lookup/payroll-types",
+  "path": "rest/v2/companies/7001/lookup/payroll-types",
+  "params": {},
+  "status": 200,
+  "body": {
+    "items": [
+      {
+        "id": 641,
+        "display_name": "Regular"
+      },
+      {
+        "id": 129,
+        "display_name": "Void"
+      }
+    ]
+  }
+}

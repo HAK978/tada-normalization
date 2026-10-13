@@ -1,0 +1,19 @@
+{
+  "seq": 2,
+  "endpoint": "rest/v2/companies/{company}/lookup/pay-types",
+  "path": "rest/v2/companies/7001/lookup/pay-types",
+  "params": {},
+  "status": 200,
+  "body": {
+    "items": [
+      {
+        "id": 901,
+        "name": "Hourly"
+      },
+      {
+        "id": 902,
+        "name": "Salaried"
+      }
+    ]
+  }
+}

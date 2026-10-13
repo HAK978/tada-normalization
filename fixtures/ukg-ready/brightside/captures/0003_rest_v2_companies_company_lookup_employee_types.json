@@ -1,0 +1,23 @@
+{
+  "seq": 3,
+  "endpoint": "rest/v2/companies/{company}/lookup/employee-types",
+  "path": "rest/v2/companies/7001/lookup/employee-types",
+  "params": {},
+  "status": 200,
+  "body": {
+    "items": [
+      {
+        "id": 911,
+        "name": "FT Exempt"
+      },
+      {
+        "id": 912,
+        "name": "PT Hourly"
+      },
+      {
+        "id": 913,
+        "name": "Consultant"
+      }
+    ]
+  }
+}

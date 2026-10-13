@@ -76,7 +76,11 @@ Status: first draft, written during discovery. Entries are added as mapping deci
   the master records of all 25 clients.
 - **isolved:** client 4046, both legal companies (5797 and 5806), 30 employees, 430 checks from the
   check list (15 also fetched in detail), and 231 payroll runs from run history (8 fetched in detail).
-- **UKG Ready:** company 33704016, 15 employees, 10 payroll runs and 22 pay statements.
+- **UKG Ready:** company 33704016, 15 employees, 89 payrolls listed (10 fetched in detail), and 28
+  pay statements listed (22 fetched in detail).
+- **Limitation:** the UKG crawl sampled the first 15 employees rather than the paychecks' owners, so
+  27 of the 28 statements belong to employees outside the sample (`EMPLOYEE_NOT_IN_BUNDLE`). The isolved
+  crawl already samples check owners first.
 - **Limitation:** codes that never appeared in these samples are mapped from the documentation only.
 
 ## Data that is unavailable
@@ -118,6 +122,10 @@ Status: first draft, written during discovery. Entries are added as mapping deci
 - **Decision:** the UKG converter supports the documented endpoints and is tested on synthetic data.
   For this tenant, no UKG `DeductionElection` records are produced, and the gap is reported.
   Deductions still appear on pay statements.
+- **Setup amounts:** `annual_max_amount` and the calculation `amount` fields are typed integer, and
+  nothing says whether they are dollars or cents. They stay raw in `provider_extensions`, with an
+  `AMOUNT_UNIT_UNVERIFIED` diagnostic. The calculation method is an open string, so it stays
+  `UNMAPPED` with its `display_name`.
 - **Why:** a tenant's missing endpoint is a fact about the tenant, not about UKG. The converter
   shouldn't be limited by one demo account.
 ### A-13 UKG payroll runs are all OPEN
@@ -316,7 +324,9 @@ Status: first draft, written during discovery. Entries are added as mapping deci
   lines). `earnAmount` and `otherEarnAmount` are kept in `provider_extensions`, not used.
 ### A-33 Time-dependent fields use an explicit `as_of` date
 - **Decision:** values like "is this deposit active?" (UKG `active` plus dates) are evaluated
-  against `as_of`. That date defaults to the fetch date for live data and is fixed for fixtures.
+  against `as_of`. That date defaults to the fetch date for live data (`session.json` `saved_at`) and
+  is fixed for fixtures (`session.json` `as_of`). Every evaluation leaves an `EVALUATED_AT_AS_OF`
+  diagnostic, and a missing date gives `AS_OF_UNKNOWN` instead of a guess.
 - **Why:** the output must be reproducible, so tests can't depend on today's date.
 
 ## Scope decisions from the model review (2026-10-13)
@@ -578,3 +588,112 @@ entries below are new.
     - payments = net.
 - **Live result:** Prism 1175 of 1175 checks pass, with gross pay derived on every voucher that has
   lines. isolved 468 of 468 pass, including the new gross check on all 15 detailed checks.
+
+## Found while building the UKG Ready converter (2026-10-13)
+
+### A-55 UKG employee status
+- **Evidence:** `#/schemas/106` documents `status` only as "This field is only used for GET". Live,
+  "Terminated" appears exactly when `dates.terminated` is set (12 of 12), and "Active" exactly when it
+  isn't (3 of 3).
+- **Decision:** "Active" and "Terminated" map to `ACTIVE` and `TERMINATED`. Anything else stays
+  `UNMAPPED` with its text.
+
+### A-56 UKG pay: amounts, hours and pay periods
+- **Evidence:**
+  - `#/schemas/122` gives each compensation record an `amount` per `amount_period`, an `hourly_pay`,
+    a `time` per `time_period` ("Time is represented in milliseconds") and `num_pp_in_year`.
+  - Live, all 27 records with an amount agree: `amount` ÷ hours per period = `hourly_pay`. For example,
+    a YEAR amount ÷ 2080 hours (7,488,000,000 ms) gives the hourly pay, and a PAY_PERIOD amount × 26
+    periods ÷ 2080 hours gives it too.
+  - Every employee also has a placeholder record dated 1900-12-31, with no amount and
+    `num_pp_in_year` 0.
+  - `lookup/pay-types` is documented with the sample names "Pay Type 1" and "Pay Type 2", so pay types
+    are customer-defined. Live they are "Hourly" and "Salaried". Employee types ("FT Exempt",
+    "Consultant") are customer-defined too.
+- **Decision:**
+  - The current pay is the latest record in effect at `as_of` (A-33). Every record is kept in `history`,
+    including records dated after `as_of`.
+  - Rates keep their period, and `hourly_pay` is added as a rate per hour. `time` becomes standard hours
+    (derived, with the raw milliseconds kept) per `time_period`.
+  - `num_pp_in_year` sets the pay frequency: 52 is weekly, 26 biweekly, 24 semimonthly, 12 monthly,
+    because each count is that frequency's definition. Any other count is `OTHER` with the count, and 0
+    means not set.
+  - Pay type and employee type stay `UNMAPPED` with their names (A-35). `WEEK` and `MONTH` amounts
+    weren't seen live.
+
+### A-57 UKG payroll and pay statement types and statuses
+- **Evidence:**
+  - `lookup/payroll-types` is documented as "the list of supported payroll types". The documented sample
+    and the live tenant list the same names (Regular, Void, Correction, Historical and others) under
+    different IDs.
+  - `lookup/pay-statement-types` is documented the same way, but the live tenant also has names like
+    "Comm" and "Regular 2", which a customer must have added.
+  - Payroll `status` (`#/schemas/360`) lists values without definitions. The documented actions run
+    OPEN → close → CLOSED → finalize ("Performs the finalize process on the specified payrolls if
+    closed") → FINALIZED.
+  - All 89 live payrolls and 28 statements are `OPEN` (A-13).
+- **Decision:**
+  - Payroll types map by name, never by ID: Regular, Void, Correction and Historical.
+  - Pay statement types map only for the documented sample names Regular, Manual and Historical.
+  - Payroll statuses: OPEN, CLOSED and SUBMITTED map to themselves, FINALIZED to `COMPLETED`, and the
+    `*_FAILED` values to `FAILED`. NEW stays `UNMAPPED`.
+  - Anything not finalized gets a `NOT_FINALIZED` diagnostic.
+
+### A-58 UKG pay statement line types, and "Fringe" payments
+- **Evidence:**
+  - UKG pay statements give no gross or net. Each line has a `type_name` in the form
+    "<kind> (<modifiers>)". Live earnings show "Earning", "Earning (Auto)", "Earning (Auto Reduce)",
+    "Earning (Fringe, Auto)" (code "GTL-Imp Inc") and "Reimbursement(Neg Ded, Auto)". The docs sample
+    shows "Deduction (Manual)".
+  - Payments are "Check", "Direct Deposit" and "Fringe".
+  - On **22 of 22** live statements, each "Fringe" payment equals the fringe earnings, and
+    `sum of earnings − fringe earnings − employee taxes − deductions = check + direct deposit`.
+- **Decision:**
+  - "Earning" lines are `EARNINGS`, "Reimbursement" lines `REIMBURSEMENT`, and lines with the
+    "Fringe" modifier `NON_CASH_FRINGE`.
+  - A modifier outside those seen (Auto, Auto Reduce, Manual, Fringe, Neg Ded) leaves the line
+    `UNMAPPED` with a warning, since it could change the meaning.
+  - "Fringe" payment rows aren't payments: nothing is paid. They stay in `provider_extensions`.
+  - Gross wages are derived as the sum of the lines. Gross pay is derived by subtracting the fringe
+    lines (A-54). Net pay is derived from the check and direct deposit payments. The
+    `gross pay − taxes − deductions = net` check passes on 22 of 22 live statements.
+  - Lines with no amount (3 earnings and 3 check payments live) carry no money for the statement, so
+    they don't become lines. They stay in `provider_extensions`.
+  - Each tax line becomes one employee line and one employer line, each with its own subject wages.
+    Deduction `er_amount` becomes an employer contribution.
+
+### A-59 One amount arrived as a binary floating-point number
+- **Evidence:**
+  - One live UKG tax amount is `2.4699999999999998`. That is 2.47 after a binary floating-point
+    computation.
+  - The pay statement page types `ee_amount` as a float, and says "Amount should be rounded to a
+    Penny".
+  - It is the only such value: 1 of 988 live UKG decimals, and 0 of 31,602 Prism and 0 of 8,387
+    isolved decimals.
+- **Decision:** keep it exactly as sent ("never rounded"), with a `FLOAT_ARTIFACT` info diagnostic
+  that names the penny amount. Derived sums carry it too. The checks' 0.01 tolerance absorbs it.
+- **Why:** rounding would be a guess about the provider's intent. Reporting it lets a consumer decide.
+
+### A-60 UKG EINs: the lookup doesn't list them all
+- **Evidence:** `lookup/eins` returns one EIN. The 89 live payrolls name two: the listed one (46
+  payrolls) and a second one (43), each with its name and tax ID. All 15 sampled employees name the
+  first.
+- **Decision:**
+  - The company's `employers[]` holds every EIN from the lookup, plus any EIN only payrolls name, with an
+    `EIN_FROM_PAYROLL` info diagnostic.
+  - Employees and payroll runs carry the EIN as `legal_entity_id`.
+  - With several EINs there is no single `own_tax_id`, so it stays null.
+
+### A-61 Live UKG responses don't match their own schema, in five specific ways
+- **Evidence:** of 112 live 200 responses, 78 validate once `null` is allowed. The rest show:
+  - an unexpected `ein_name` on every employee (15 of 15);
+  - an unexpected `_links.country-fields` on employees, in both the list and the detail;
+  - pay-info `eeo4_classification` and `eeo4_function` of "UNKNOWN", which isn't in the enum (15 of 15);
+  - `num_pp_in_year` 0, below the documented minimum of 1, on the placeholder records (A-56);
+  - `pay_grade.parent.code` "S10", where an integer is declared (3).
+- **Decision:**
+  - Converters accept all of these.
+  - The fixtures reproduce two of them, `ein_name` and the placeholder's 0. Validation ignores exactly
+    those two (`DEVIATIONS` in `fixtures/validate.py`), and reports any other additional property.
+  - Each UKG schema block is validated as its own document, with its own `$schema` version, because its
+    `$ref`s point at its own definitions.
