@@ -457,98 +457,99 @@ class _Legal:
         manager = text((s.child("assignedManager") or Src({})).get("id"))
         supervisor = text((s.child("assignedSupervisor") or Src({})).get("id"))
 
+        employee = Employee(
+            id=self._id("employee", employee_id),
+            company_id=self.company_id,
+            source=self._source(
+                [E, E + "/salaries", E + "/statuses"],
+                clientId=self.client_id,
+                legalId=self.legal_id,
+                employeeId=employee_id,
+            ),
+            identifiers=identifiers,
+            national_id=national_id,
+            name=dict(
+                first=text(name.get("firstName")),
+                middle=text(name.get("middleName")),
+                last=text(name.get("lastName")),
+                preferred=text(name.get("preferredName")),
+                prefix=text(name.get("prefix")),
+                suffix=text(name.get("suffix")),
+            ),
+            personal=dict(
+                birth_date=iso_date(s.get("birthDate"), "birthDate", notes),
+                gender=self._lookup_coded("genders", I.GENDER, s.get("gender"), "gender", notes, C.Gender.UNMAPPED),
+                marital_status=self._lookup_coded(
+                    "maritalStatuses",
+                    I.MARITAL,
+                    s.get("maritalStatus"),
+                    "maritalStatus",
+                    notes,
+                    C.MaritalStatus.UNMAPPED,
+                ),
+                ethnicity=unmapped_label(s.get("ethnicOrigin"), text(s.data.get("ethnicOrigin")), "ethnicOrigin"),
+                disabled=Coded[C.YesNoDeclined](
+                    value=C.YesNoDeclined.YES if disabled else C.YesNoDeclined.NO,
+                    raw=disabled,
+                    source_field="disabled",
+                )
+                if disabled is not None
+                else None,
+                citizenship=self._lookup_coded(
+                    "citizenships",
+                    I.CITIZENSHIP,
+                    s.get("citizenship"),
+                    "citizenship",
+                    notes,
+                    C.Citizenship.UNMAPPED,
+                ),
+            ),
+            addresses=addresses,
+            phones=phones,
+            emails=emails,
+            employment=dict(
+                status=status,
+                status_date=status_date,
+                employment_type=unmapped_label(s.get("employmentCategoryCode"), None, "employmentCategoryCode"),
+                worker_classification=worker,
+                original_hire_date=iso_date(s.get("originalHireDate"), "originalHireDate", notes),
+                hire_date=iso_date(s.get("hireDate"), "hireDate", notes),
+                rehire_date=iso_date(s.get("rehireDate"), "rehireDate", notes),
+                termination_date=status_date if status and status.value is C.EmploymentStatus.TERMINATED else None,
+                flsa_exempt=flag(s.get("jobFLSAExempt")),
+            ),
+            job=dict(
+                title=text(s.get("jobTitle")),
+                job_code=text(s.get("jobCode")),
+                manager_employee_id=self._id("employee", manager) if manager else None,
+                supervisor_employee_id=self._id("employee", supervisor) if supervisor else None,
+                pay_group=text(s.get("payGroup")),
+            ),
+            compensation=Compensation(
+                pay_type=pay_type,
+                pay_frequency=self._frequency(s.get("payFrequency"), "payFrequency", notes),
+                rates=rates,
+                annual_pay=money(s.get("annualSalary"), "annualSalary"),
+                standard_hours=Quantity(value=normal_hours, unit=C.QuantityUnit.HOURS, source_field="normalHours")
+                if normal_hours is not None
+                else None,
+                standard_hours_per="PAY_PERIOD" if normal_hours is not None else None,
+                effective_date=iso_date(s.get("salaryEffectiveDate"), "salaryEffectiveDate", notes),
+                history=self._salary_history(employee_id, notes),
+            ),
+            diagnostics=notes.items,
+        )
+        # Only now has every mapped field been read, so the leftovers are exactly what wasn't mapped.
         extensions = without_links(sanitize_extensions(s.leftovers()))
-        # Earning and employer-side pay items have no record of their own; they are kept here (model §9).
+        # Earning and employer-side pay items have no record of their own; they are kept here (model §9),
+        # minus the employee's own name and IDs that each item repeats.
         for i, row in enumerate(self._body_list(E + "/payItems", employee=employee_id)):
             if text(row.get("payItemType")) != "Deduction":
-                extensions.update(without_links(sanitize_extensions(Src(row, f"payItems[{i}]").leftovers())))
-
-        self.out.add(
-            "employees",
-            Employee(
-                id=self._id("employee", employee_id),
-                company_id=self.company_id,
-                source=self._source(
-                    [E, E + "/salaries", E + "/statuses"],
-                    clientId=self.client_id,
-                    legalId=self.legal_id,
-                    employeeId=employee_id,
-                ),
-                identifiers=identifiers,
-                national_id=national_id,
-                name=dict(
-                    first=text(name.get("firstName")),
-                    middle=text(name.get("middleName")),
-                    last=text(name.get("lastName")),
-                    preferred=text(name.get("preferredName")),
-                    prefix=text(name.get("prefix")),
-                    suffix=text(name.get("suffix")),
-                ),
-                personal=dict(
-                    birth_date=iso_date(s.get("birthDate"), "birthDate", notes),
-                    gender=self._lookup_coded("genders", I.GENDER, s.get("gender"), "gender", notes, C.Gender.UNMAPPED),
-                    marital_status=self._lookup_coded(
-                        "maritalStatuses",
-                        I.MARITAL,
-                        s.get("maritalStatus"),
-                        "maritalStatus",
-                        notes,
-                        C.MaritalStatus.UNMAPPED,
-                    ),
-                    ethnicity=unmapped_label(s.get("ethnicOrigin"), text(s.data.get("ethnicOrigin")), "ethnicOrigin"),
-                    disabled=Coded[C.YesNoDeclined](
-                        value=C.YesNoDeclined.YES if disabled else C.YesNoDeclined.NO,
-                        raw=disabled,
-                        source_field="disabled",
-                    )
-                    if disabled is not None
-                    else None,
-                    citizenship=self._lookup_coded(
-                        "citizenships",
-                        I.CITIZENSHIP,
-                        s.get("citizenship"),
-                        "citizenship",
-                        notes,
-                        C.Citizenship.UNMAPPED,
-                    ),
-                ),
-                addresses=addresses,
-                phones=phones,
-                emails=emails,
-                employment=dict(
-                    status=status,
-                    status_date=status_date,
-                    employment_type=unmapped_label(s.get("employmentCategoryCode"), None, "employmentCategoryCode"),
-                    worker_classification=worker,
-                    original_hire_date=iso_date(s.get("originalHireDate"), "originalHireDate", notes),
-                    hire_date=iso_date(s.get("hireDate"), "hireDate", notes),
-                    rehire_date=iso_date(s.get("rehireDate"), "rehireDate", notes),
-                    termination_date=status_date if status and status.value is C.EmploymentStatus.TERMINATED else None,
-                    flsa_exempt=flag(s.get("jobFLSAExempt")),
-                ),
-                job=dict(
-                    title=text(s.get("jobTitle")),
-                    job_code=text(s.get("jobCode")),
-                    manager_employee_id=self._id("employee", manager) if manager else None,
-                    supervisor_employee_id=self._id("employee", supervisor) if supervisor else None,
-                    pay_group=text(s.get("payGroup")),
-                ),
-                compensation=Compensation(
-                    pay_type=pay_type,
-                    pay_frequency=self._frequency(s.get("payFrequency"), "payFrequency", notes),
-                    rates=rates,
-                    annual_pay=money(s.get("annualSalary"), "annualSalary"),
-                    standard_hours=Quantity(value=normal_hours, unit=C.QuantityUnit.HOURS, source_field="normalHours")
-                    if normal_hours is not None
-                    else None,
-                    standard_hours_per="PAY_PERIOD" if normal_hours is not None else None,
-                    effective_date=iso_date(s.get("salaryEffectiveDate"), "salaryEffectiveDate", notes),
-                    history=self._salary_history(employee_id, notes),
-                ),
-                provider_extensions=extensions,
-                diagnostics=notes.items,
-            ),
-        )
+                item = Src(row, f"payItems[{i}]")
+                item.mark("firstName", "lastName", "employeeId", "employeeNumber")
+                extensions.update(without_links(sanitize_extensions(item.leftovers())))
+        employee.provider_extensions = extensions
+        self.out.add("employees", employee)
 
     def _salary_history(self, employee_id: str, notes: Notes) -> list[CompensationChange]:
         changes = []
