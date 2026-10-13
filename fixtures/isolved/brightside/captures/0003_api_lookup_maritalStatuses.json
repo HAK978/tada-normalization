@@ -1,0 +1,21 @@
+{
+  "seq": 3,
+  "endpoint": "api/lookup/maritalStatuses",
+  "path": "api/lookup/maritalStatuses",
+  "params": {},
+  "status": 200,
+  "body": [
+    {
+      "id": "S",
+      "description": "Single"
+    },
+    {
+      "id": "M",
+      "description": "Married"
+    },
+    {
+      "id": "R",
+      "description": "Chose not to answer"
+    }
+  ]
+}

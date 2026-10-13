@@ -1,0 +1,72 @@
+{
+  "seq": 14,
+  "endpoint": "api/clients/{client}/legals/{legal}/employees/{id}/payItems",
+  "path": "api/clients/501/legals/601/employees/9001/payItems",
+  "params": {},
+  "status": 200,
+  "body": [
+    {
+      "id": -1,
+      "payItemId": -1,
+      "payItemCode": null,
+      "payItemName": "401K",
+      "payItemType": "Deduction",
+      "employeeId": 9001,
+      "employeeNumber": "1001",
+      "firstName": "Maria",
+      "lastName": "Chen",
+      "referenceNumber": null,
+      "scheduleOverride": null,
+      "startDate": "2025-01-01T00:00:00",
+      "stopDate": null,
+      "calcParams": [
+        {
+          "paramType": "Percent",
+          "paramValue": 5.0
+        }
+      ]
+    },
+    {
+      "id": -2,
+      "payItemId": -2,
+      "payItemCode": null,
+      "payItemName": "Dental Pre-tax",
+      "payItemType": "Deduction",
+      "employeeId": 9001,
+      "employeeNumber": "1001",
+      "firstName": "Maria",
+      "lastName": "Chen",
+      "referenceNumber": null,
+      "scheduleOverride": null,
+      "startDate": "2025-01-01T00:00:00",
+      "stopDate": null,
+      "calcParams": [
+        {
+          "paramType": "Amount",
+          "paramValue": 12.5
+        }
+      ]
+    },
+    {
+      "id": -3,
+      "payItemId": -3,
+      "payItemCode": null,
+      "payItemName": "Regular",
+      "payItemType": "Earning",
+      "employeeId": 9001,
+      "employeeNumber": "1001",
+      "firstName": "Maria",
+      "lastName": "Chen",
+      "referenceNumber": null,
+      "scheduleOverride": null,
+      "startDate": "2025-01-01T00:00:00",
+      "stopDate": null,
+      "calcParams": [
+        {
+          "paramType": "Amount",
+          "paramValue": 0.0
+        }
+      ]
+    }
+  ]
+}

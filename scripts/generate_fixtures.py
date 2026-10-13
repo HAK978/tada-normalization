@@ -13,13 +13,14 @@ import tempfile
 from pathlib import Path
 
 from normalization.bundle import Bundle
-from normalization.fixtures import prismhr as prismhr_fixtures
+from normalization.fixtures import isolved as isolved_fixtures, prismhr as prismhr_fixtures
 from normalization.fixtures.validate import errors
-from normalization.providers import prismhr
+from normalization.providers import isolved, prismhr
 
 ROOT = Path(__file__).resolve().parents[1]
 SCENARIOS = {
     ("prismhr", "brightside"): (prismhr_fixtures.build, prismhr.normalize),
+    ("isolved", "brightside"): (isolved_fixtures.build, isolved.normalize),
 }
 
 

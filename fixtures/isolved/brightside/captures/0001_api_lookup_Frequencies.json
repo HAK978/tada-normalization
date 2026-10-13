@@ -1,0 +1,29 @@
+{
+  "seq": 1,
+  "endpoint": "api/lookup/Frequencies",
+  "path": "api/lookup/Frequencies",
+  "params": {},
+  "status": 200,
+  "body": [
+    {
+      "id": 12,
+      "description": "Monthly"
+    },
+    {
+      "id": 13,
+      "description": "13 Pay Periods Per Year"
+    },
+    {
+      "id": 24,
+      "description": "Semi-Monthly"
+    },
+    {
+      "id": 26,
+      "description": "Bi-Weekly"
+    },
+    {
+      "id": 52,
+      "description": "Weekly"
+    }
+  ]
+}

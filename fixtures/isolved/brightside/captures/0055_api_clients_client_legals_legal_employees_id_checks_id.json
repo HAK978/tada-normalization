@@ -1,0 +1,51 @@
+{
+  "seq": 55,
+  "endpoint": "api/clients/{client}/legals/{legal}/employees/{id}/checks/{id}",
+  "path": "api/clients/501/legals/601/employees/9005/checks/70004",
+  "params": {},
+  "status": 200,
+  "body": {
+    "id": 70004,
+    "checkDate": "2026-10-02T00:00:00",
+    "checkNumber": 70004,
+    "checkSequence": 0,
+    "checkTypeDescription": "Regular",
+    "payrollRunNumber": 2,
+    "payrollRunType": "Regular Payroll",
+    "periodBeginDate": "2026-09-21T00:00:00",
+    "periodEndDate": "2026-09-27T00:00:00",
+    "employeeId": 9005,
+    "employeeNumber": "1005",
+    "employeeName": "Priya Lopez",
+    "employeeSSN": "XXX-XX-6784",
+    "legalCompanyName": "Brightside Bakery LLC",
+    "grossWages": 1200.0,
+    "grossPay": 1200.0,
+    "netPay": 1200.0,
+    "checkAmount": 1200.0,
+    "directDepositAmount": 0.0,
+    "earnings": [
+      {
+        "itemCode": "Regular",
+        "itemDescription": "Regular",
+        "isMemoEarning": false,
+        "checkHours": 30.0,
+        "checkUnits": null,
+        "checkDollars": 1200.0,
+        "currentDollars": 1200.0,
+        "ptdDollars": 1200.0,
+        "mtdDollars": 1200.0,
+        "qtdDollars": 6000.0,
+        "ytdDollars": 24000.0,
+        "ftdDollars": 24000.0
+      }
+    ],
+    "taxes": [],
+    "deductions": [],
+    "garnishments": [],
+    "benefits": [],
+    "directDeposits": [],
+    "accruals": [],
+    "employeeOrganizations": []
+  }
+}

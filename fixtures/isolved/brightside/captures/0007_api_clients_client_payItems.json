@@ -1,0 +1,189 @@
+{
+  "seq": 7,
+  "endpoint": "api/clients/{client}/payItems",
+  "path": "api/clients/501/payItems",
+  "params": {},
+  "status": 200,
+  "body": [
+    {
+      "id": 900,
+      "title": "Regular",
+      "code": null,
+      "description": null,
+      "payItemType": "Earning",
+      "systemBenefitType": null,
+      "systemPayItemType": "Regular",
+      "scheduleDefault": "Every Pay",
+      "isInactive": false,
+      "hasDecliningBalance": false,
+      "sequenceNumber": 0,
+      "calcParams": [
+        {
+          "paramType": "Amount"
+        }
+      ]
+    },
+    {
+      "id": 901,
+      "title": "Overtime",
+      "code": null,
+      "description": null,
+      "payItemType": "Earning",
+      "systemBenefitType": null,
+      "systemPayItemType": "Overtime @ Flat 1.5",
+      "scheduleDefault": "Every Pay",
+      "isInactive": false,
+      "hasDecliningBalance": false,
+      "sequenceNumber": 1,
+      "calcParams": [
+        {
+          "paramType": "Amount"
+        }
+      ]
+    },
+    {
+      "id": 902,
+      "title": "Holiday",
+      "code": null,
+      "description": null,
+      "payItemType": "Earning",
+      "systemBenefitType": "Leave Accrual",
+      "systemPayItemType": "Holiday",
+      "scheduleDefault": "Every Pay",
+      "isInactive": false,
+      "hasDecliningBalance": false,
+      "sequenceNumber": 2,
+      "calcParams": [
+        {
+          "paramType": "Amount"
+        }
+      ]
+    },
+    {
+      "id": 903,
+      "title": "Bonus",
+      "code": null,
+      "description": null,
+      "payItemType": "Earning",
+      "systemBenefitType": null,
+      "systemPayItemType": "Bonus",
+      "scheduleDefault": "Every Pay",
+      "isInactive": false,
+      "hasDecliningBalance": false,
+      "sequenceNumber": 3,
+      "calcParams": [
+        {
+          "paramType": "Amount"
+        }
+      ]
+    },
+    {
+      "id": 904,
+      "title": "401K",
+      "code": null,
+      "description": null,
+      "payItemType": "Deduction",
+      "systemBenefitType": "401(k)",
+      "systemPayItemType": "401K",
+      "scheduleDefault": "Every Pay",
+      "isInactive": false,
+      "hasDecliningBalance": false,
+      "sequenceNumber": 4,
+      "calcParams": [
+        {
+          "paramType": "Amount"
+        }
+      ]
+    },
+    {
+      "id": 905,
+      "title": "401K Loan",
+      "code": null,
+      "description": null,
+      "payItemType": "Deduction",
+      "systemBenefitType": "401(k)",
+      "systemPayItemType": "401K Loan",
+      "scheduleDefault": "Every Pay",
+      "isInactive": false,
+      "hasDecliningBalance": false,
+      "sequenceNumber": 5,
+      "calcParams": [
+        {
+          "paramType": "Amount"
+        }
+      ]
+    },
+    {
+      "id": 906,
+      "title": "Dental Pre-tax",
+      "code": null,
+      "description": null,
+      "payItemType": "Deduction",
+      "systemBenefitType": "Dental Pre-Tax 125",
+      "systemPayItemType": "Dental Pre-tax",
+      "scheduleDefault": "Every Pay",
+      "isInactive": false,
+      "hasDecliningBalance": false,
+      "sequenceNumber": 6,
+      "calcParams": [
+        {
+          "paramType": "Amount"
+        }
+      ]
+    },
+    {
+      "id": 907,
+      "title": "HSA After-tax",
+      "code": null,
+      "description": null,
+      "payItemType": "Deduction",
+      "systemBenefitType": "Health Savings Account",
+      "systemPayItemType": "HSA After-tax",
+      "scheduleDefault": "Every Pay",
+      "isInactive": false,
+      "hasDecliningBalance": false,
+      "sequenceNumber": 7,
+      "calcParams": [
+        {
+          "paramType": "Amount"
+        }
+      ]
+    },
+    {
+      "id": 908,
+      "title": "Voluntary Life",
+      "code": null,
+      "description": null,
+      "payItemType": "Deduction",
+      "systemBenefitType": null,
+      "systemPayItemType": "Voluntary Deduction",
+      "scheduleDefault": "Every Pay",
+      "isInactive": false,
+      "hasDecliningBalance": false,
+      "sequenceNumber": 8,
+      "calcParams": [
+        {
+          "paramType": "Amount"
+        }
+      ]
+    },
+    {
+      "id": 909,
+      "title": "401(k) Match",
+      "code": null,
+      "description": null,
+      "payItemType": "Memo Calc",
+      "systemBenefitType": "401(k)",
+      "systemPayItemType": "401(k) Match",
+      "scheduleDefault": "Every Pay",
+      "isInactive": false,
+      "hasDecliningBalance": false,
+      "sequenceNumber": 9,
+      "calcParams": [
+        {
+          "paramType": "Amount"
+        }
+      ]
+    }
+  ]
+}

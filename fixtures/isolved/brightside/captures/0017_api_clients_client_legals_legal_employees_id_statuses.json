@@ -1,0 +1,18 @@
+{
+  "seq": 17,
+  "endpoint": "api/clients/{client}/legals/{legal}/employees/{id}/statuses",
+  "path": "api/clients/501/legals/601/employees/9002/statuses",
+  "params": {},
+  "status": 200,
+  "body": [
+    {
+      "statusId": -1,
+      "clientEmploymentStatusId": -1,
+      "clientEmploymentStatusDescription": "Active",
+      "isImpliedStatus": true,
+      "effectiveDate": "2023-06-01T00:00:00",
+      "endDate": null,
+      "employeeEmploymentId": 90020
+    }
+  ]
+}

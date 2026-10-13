@@ -1,0 +1,38 @@
+{
+  "seq": 22,
+  "endpoint": "api/clients/{client}/legals/{legal}/employees/{id}/garnishments",
+  "path": "api/clients/501/legals/601/employees/9002/garnishments",
+  "params": {},
+  "status": 200,
+  "body": [
+    {
+      "id": 4401,
+      "garnishmentSequence": 1,
+      "garnishmentDescription": "Child support order",
+      "garnishmentType": {
+        "id": "CS",
+        "typeDescription": "Child Support"
+      },
+      "caseNumber": "CASE-0001",
+      "amount": 50.0,
+      "percent": null,
+      "percentageOf": "Disposable Income",
+      "status": "Active",
+      "startDate": "2026-01-01T00:00:00",
+      "stopDate": null,
+      "limit": 0.0,
+      "maximumAmount": 2000.0,
+      "garnishmentPayee": {
+        "id": 7,
+        "payeeName": "State Disbursement Unit"
+      },
+      "state": {
+        "id": "NC",
+        "stateName": "NC"
+      },
+      "arrearsBalance": 0.0,
+      "remainingBalance": 1500.0,
+      "feeAmount": 1.0
+    }
+  ]
+}

@@ -1,0 +1,25 @@
+{
+  "seq": 2,
+  "endpoint": "api/lookup/genders",
+  "path": "api/lookup/genders",
+  "params": {},
+  "status": 200,
+  "body": [
+    {
+      "id": "F",
+      "description": "Female"
+    },
+    {
+      "id": "M",
+      "description": "Male"
+    },
+    {
+      "id": "X",
+      "description": "Non-binary"
+    },
+    {
+      "id": "N",
+      "description": "Chose not to answer"
+    }
+  ]
+}

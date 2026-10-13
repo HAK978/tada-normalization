@@ -1,0 +1,4275 @@
+{
+ "summary": {
+  "counts": {
+   "companies": 1,
+   "employees": 5,
+   "direct_deposits": 5,
+   "deduction_elections": 5,
+   "payroll_runs": 6,
+   "pay_statements": 7
+  },
+  "diagnostics": {
+   "info": 6
+  },
+  "checks": {
+   "pass": 18
+  }
+ },
+ "records": {
+  "companies": [
+   {
+    "id": "isolved:synthetic:company:501:601",
+    "source": {
+     "provider": "isolved",
+     "tenant_id": "synthetic",
+     "endpoints": [
+      "api/clients/{client}",
+      "api/clients/{client}/legals/{legal}"
+     ],
+     "ids": {
+      "clientId": "501",
+      "legalId": "601"
+     }
+    },
+    "provider_extensions": {
+     "id": 601,
+     "legalCode": "BRT-01",
+     "allowRemoteWorkers": false,
+     "iSolvedTimeEnabled": false,
+     "forceDirectDepositPrenote": true,
+     "legalAddress.addressDescription": "Headquarters",
+     "payGroups[0].payrollType": "Regular Payroll",
+     "payGroups[0].isInactive": false,
+     "payGroups[0].normalHours": "80.0",
+     "payGroups[1].payrollType": "Regular Payroll",
+     "payGroups[1].isInactive": false,
+     "payGroups[1].normalHours": "40.0"
+    },
+    "diagnostics": [],
+    "name": "Brightside Bakery LLC",
+    "legal_name": "Brightside Bakery LLC",
+    "parent": {
+     "code": "501",
+     "name": "Brightside Holdings"
+    },
+    "status": {
+     "value": "ACTIVE",
+     "raw": "Active",
+     "label": "Active",
+     "source_field": "status"
+    },
+    "own_tax_id": {
+     "value": "12-3456789",
+     "masked_at_source": false,
+     "source_field": "federalEIN"
+    },
+    "employers": [
+     {
+      "kind": "LEGAL_COMPANY",
+      "provider_id": "601",
+      "name": "Brightside Bakery LLC",
+      "tax_id": {
+       "value": "12-3456789",
+       "masked_at_source": false,
+       "source_field": "federalEIN"
+      }
+     }
+    ],
+    "pay_groups": [
+     {
+      "code": "701",
+      "name": "Biweekly",
+      "frequency": {
+       "frequency": {
+        "value": "BIWEEKLY",
+        "raw": "26",
+        "label": "Bi-Weekly",
+        "source_field": "payGroups[].payFrequency"
+       },
+       "periods_per_year": 26
+      }
+     },
+     {
+      "code": "702",
+      "name": "Weekly",
+      "frequency": {
+       "frequency": {
+        "value": "WEEKLY",
+        "raw": "52",
+        "label": "Weekly",
+        "source_field": "payGroups[].payFrequency"
+       },
+       "periods_per_year": 52
+      }
+     }
+    ],
+    "addresses": [
+     {
+      "type": "COMPANY",
+      "line1": "100 Main St",
+      "city": "Charlotte",
+      "state": "NC",
+      "postal_code": "28202"
+     }
+    ],
+    "phones": [
+     {
+      "type": "MAIN",
+      "number": "7045550100"
+     }
+    ],
+    "emails": []
+   }
+  ],
+  "employees": [
+   {
+    "id": "isolved:synthetic:employee:9001",
+    "source": {
+     "provider": "isolved",
+     "tenant_id": "synthetic",
+     "endpoints": [
+      "api/clients/{client}/legals/{legal}/employees/{id}",
+      "api/clients/{client}/legals/{legal}/employees/{id}/salaries",
+      "api/clients/{client}/legals/{legal}/employees/{id}/statuses"
+     ],
+     "ids": {
+      "clientId": "501",
+      "legalId": "601",
+      "employeeId": "9001"
+     }
+    },
+    "provider_extensions": {
+     "birthDate": "1990-04-02T00:00:00",
+     "gender": "Female",
+     "maritalStatus": "Single",
+     "ethnicOrigin": "Hispanic or Latino",
+     "citizenship": "Citizen of the United States",
+     "employmentCategoryCode": "FT",
+     "hireDate": "2021-03-15T00:00:00",
+     "originalHireDate": "2021-03-15T00:00:00",
+     "jobCode": "BAKER",
+     "jobTitle": "Baker",
+     "jobFLSAExempt": true,
+     "payGroup": "Biweekly",
+     "payFrequency": 26,
+     "annualSalary": "52000.0",
+     "salaryEffectiveDate": "2025-01-01T00:00:00",
+     "nameAddress.firstName": "Maria",
+     "nameAddress.lastName": "Chen",
+     "taxes.federal.filingStatus": "Single",
+     "taxes.federal.primaryExemptions": 0,
+     "payItems[2].id": -3,
+     "payItems[2].payItemId": -3,
+     "payItems[2].payItemName": "Regular",
+     "payItems[2].payItemType": "Earning",
+     "payItems[2].employeeId": 9001,
+     "payItems[2].employeeNumber": "1001",
+     "payItems[2].firstName": "Maria",
+     "payItems[2].lastName": "Chen",
+     "payItems[2].startDate": "2025-01-01T00:00:00",
+     "payItems[2].calcParams[0].paramType": "Amount",
+     "payItems[2].calcParams[0].paramValue": "0.0"
+    },
+    "diagnostics": [],
+    "company_id": "isolved:synthetic:company:501:601",
+    "identifiers": [
+     {
+      "type": "PROVIDER_ID",
+      "value": "9001",
+      "source_field": "id"
+     },
+     {
+      "type": "EMPLOYEE_NUMBER",
+      "value": "1001",
+      "source_field": "employeeNumber"
+     },
+     {
+      "type": "CLOCK_NUMBER",
+      "value": "T1001",
+      "source_field": "timeclockId"
+     },
+     {
+      "type": "UNIQUE_ID",
+      "value": "U-9001",
+      "source_field": "uniqueId"
+     }
+    ],
+    "national_id": {
+     "type": "SSN",
+     "last4": "6788",
+     "masked_at_source": true,
+     "source_field": "checks[].employeeSSN"
+    },
+    "name": {
+     "first": "Maria",
+     "last": "Chen"
+    },
+    "personal": {
+     "birth_date": "1990-04-02",
+     "gender": {
+      "value": "FEMALE",
+      "raw": "Female",
+      "label": "Female",
+      "source_field": "gender"
+     },
+     "marital_status": {
+      "value": "SINGLE",
+      "raw": "Single",
+      "label": "Single",
+      "source_field": "maritalStatus"
+     },
+     "ethnicity": {
+      "value": "UNMAPPED",
+      "raw": "Hispanic or Latino",
+      "label": "Hispanic or Latino",
+      "source_field": "ethnicOrigin"
+     },
+     "disabled": {
+      "value": "NO",
+      "raw": false,
+      "source_field": "disabled"
+     },
+     "citizenship": {
+      "value": "US_CITIZEN",
+      "raw": "Citizen of the United States",
+      "label": "Citizen of the United States",
+      "source_field": "citizenship"
+     },
+     "emergency_contacts": []
+    },
+    "addresses": [
+     {
+      "type": "HOME",
+      "line1": "12 Oak Ave",
+      "city": "Charlotte",
+      "state": "NC",
+      "postal_code": "28202"
+     }
+    ],
+    "phones": [
+     {
+      "type": "HOME",
+      "number": "7045550100"
+     }
+    ],
+    "emails": [
+     {
+      "type": "MAIN",
+      "address": "maria@work.example"
+     },
+     {
+      "type": "PERSONAL",
+      "address": "maria@example.com"
+     }
+    ],
+    "employment": {
+     "status": {
+      "value": "ACTIVE",
+      "raw": "Active",
+      "label": "Active",
+      "source_field": "employmentStatus"
+     },
+     "status_date": "2021-03-15",
+     "employment_type": {
+      "value": "UNMAPPED",
+      "raw": "FT",
+      "source_field": "employmentCategoryCode"
+     },
+     "original_hire_date": "2021-03-15",
+     "hire_date": "2021-03-15",
+     "flsa_exempt": true,
+     "employer_ids": []
+    },
+    "job": {
+     "title": "Baker",
+     "job_code": "BAKER",
+     "pay_group": "Biweekly"
+    },
+    "compensation": {
+     "pay_type": {
+      "value": "SALARY",
+      "raw": "Salary",
+      "label": "Salary",
+      "source_field": "payType"
+     },
+     "pay_frequency": {
+      "frequency": {
+       "value": "BIWEEKLY",
+       "raw": "26",
+       "label": "Bi-Weekly",
+       "source_field": "payFrequency"
+      },
+      "periods_per_year": 26
+     },
+     "rates": [
+      {
+       "amount": "25.0",
+       "currency": "USD",
+       "per": "HOUR",
+       "derived": false,
+       "source_field": "hourlyRate"
+      },
+      {
+       "amount": "2000.0",
+       "currency": "USD",
+       "per": "PAY_PERIOD",
+       "derived": false,
+       "source_field": "perPaySalary"
+      }
+     ],
+     "annual_pay": {
+      "amount": "52000.00",
+      "currency": "USD",
+      "derived": false,
+      "source_field": "annualSalary"
+     },
+     "standard_hours": {
+      "value": "80.0",
+      "unit": "HOURS",
+      "derived": false,
+      "source_field": "normalHours"
+     },
+     "standard_hours_per": "PAY_PERIOD",
+     "effective_date": "2025-01-01",
+     "history": [
+      {
+       "source_id": "900101",
+       "effective_date": "2025-01-01",
+       "pay_type": {
+        "value": "SALARY",
+        "raw": "Salary",
+        "label": "Salary",
+        "source_field": "salaries[0].payType.description"
+       },
+       "rates": [
+        {
+         "amount": "25.0",
+         "currency": "USD",
+         "per": "HOUR",
+         "derived": false,
+         "source_field": "salaries[0].hourlyRate"
+        },
+        {
+         "amount": "2000.0",
+         "currency": "USD",
+         "per": "PAY_PERIOD",
+         "derived": false,
+         "source_field": "salaries[0].perPaySalary"
+        }
+       ],
+       "standard_hours": {
+        "value": "80.0",
+        "unit": "HOURS",
+        "derived": false,
+        "source_field": "salaries[0].normalHours"
+       },
+       "reason": "Merit"
+      }
+     ]
+    }
+   },
+   {
+    "id": "isolved:synthetic:employee:9002",
+    "source": {
+     "provider": "isolved",
+     "tenant_id": "synthetic",
+     "endpoints": [
+      "api/clients/{client}/legals/{legal}/employees/{id}",
+      "api/clients/{client}/legals/{legal}/employees/{id}/salaries",
+      "api/clients/{client}/legals/{legal}/employees/{id}/statuses"
+     ],
+     "ids": {
+      "clientId": "501",
+      "legalId": "601",
+      "employeeId": "9002"
+     }
+    },
+    "provider_extensions": {
+     "birthDate": "1990-04-02T00:00:00",
+     "gender": "Male",
+     "maritalStatus": "M",
+     "citizenship": "Citizen of the United States",
+     "employmentCategoryCode": "PT",
+     "hireDate": "2021-03-15T00:00:00",
+     "originalHireDate": "2021-03-15T00:00:00",
+     "jobCode": "BAKER",
+     "jobTitle": "Baker",
+     "jobFLSAExempt": false,
+     "payGroup": "Weekly",
+     "payFrequency": 52,
+     "annualSalary": "46800.0",
+     "salaryEffectiveDate": "2025-01-01T00:00:00",
+     "nameAddress.firstName": "James",
+     "nameAddress.lastName": "Nair",
+     "assignedManager.employeeName": "Maria",
+     "taxes.federal.filingStatus": "Single",
+     "taxes.federal.primaryExemptions": 0,
+     "payItems[2].id": -3,
+     "payItems[2].payItemId": -3,
+     "payItems[2].payItemName": "Regular",
+     "payItems[2].payItemType": "Earning",
+     "payItems[2].employeeId": 9002,
+     "payItems[2].employeeNumber": "1002",
+     "payItems[2].firstName": "James",
+     "payItems[2].lastName": "Nair",
+     "payItems[2].startDate": "2025-01-01T00:00:00",
+     "payItems[2].calcParams[0].paramType": "Amount",
+     "payItems[2].calcParams[0].paramValue": "0.0"
+    },
+    "diagnostics": [],
+    "company_id": "isolved:synthetic:company:501:601",
+    "identifiers": [
+     {
+      "type": "PROVIDER_ID",
+      "value": "9002",
+      "source_field": "id"
+     },
+     {
+      "type": "EMPLOYEE_NUMBER",
+      "value": "1002",
+      "source_field": "employeeNumber"
+     },
+     {
+      "type": "CLOCK_NUMBER",
+      "value": "T1002",
+      "source_field": "timeclockId"
+     },
+     {
+      "type": "UNIQUE_ID",
+      "value": "U-9002",
+      "source_field": "uniqueId"
+     }
+    ],
+    "national_id": {
+     "type": "SSN",
+     "last4": "6787",
+     "masked_at_source": true,
+     "source_field": "checks[].employeeSSN"
+    },
+    "name": {
+     "first": "James",
+     "last": "Nair"
+    },
+    "personal": {
+     "birth_date": "1990-04-02",
+     "gender": {
+      "value": "MALE",
+      "raw": "Male",
+      "label": "Male",
+      "source_field": "gender"
+     },
+     "marital_status": {
+      "value": "MARRIED",
+      "raw": "M",
+      "label": "Married",
+      "source_field": "maritalStatus"
+     },
+     "disabled": {
+      "value": "NO",
+      "raw": false,
+      "source_field": "disabled"
+     },
+     "citizenship": {
+      "value": "US_CITIZEN",
+      "raw": "Citizen of the United States",
+      "label": "Citizen of the United States",
+      "source_field": "citizenship"
+     },
+     "emergency_contacts": []
+    },
+    "addresses": [
+     {
+      "type": "HOME",
+      "line1": "12 Oak Ave",
+      "city": "Charlotte",
+      "state": "NC",
+      "postal_code": "28202"
+     }
+    ],
+    "phones": [
+     {
+      "type": "HOME",
+      "number": "7045550100"
+     }
+    ],
+    "emails": [
+     {
+      "type": "MAIN",
+      "address": "james@work.example"
+     },
+     {
+      "type": "PERSONAL",
+      "address": "james@example.com"
+     }
+    ],
+    "employment": {
+     "status": {
+      "value": "ACTIVE",
+      "raw": "Active",
+      "label": "Active",
+      "source_field": "employmentStatus"
+     },
+     "status_date": "2023-06-01",
+     "employment_type": {
+      "value": "UNMAPPED",
+      "raw": "PT",
+      "source_field": "employmentCategoryCode"
+     },
+     "original_hire_date": "2021-03-15",
+     "hire_date": "2021-03-15",
+     "flsa_exempt": false,
+     "employer_ids": []
+    },
+    "job": {
+     "title": "Baker",
+     "job_code": "BAKER",
+     "manager_employee_id": "isolved:synthetic:employee:9001",
+     "pay_group": "Weekly"
+    },
+    "compensation": {
+     "pay_type": {
+      "value": "HOURLY",
+      "raw": "Hourly",
+      "label": "Hourly",
+      "source_field": "payType"
+     },
+     "pay_frequency": {
+      "frequency": {
+       "value": "WEEKLY",
+       "raw": "52",
+       "label": "Weekly",
+       "source_field": "payFrequency"
+      },
+      "periods_per_year": 52
+     },
+     "rates": [
+      {
+       "amount": "22.5",
+       "currency": "USD",
+       "per": "HOUR",
+       "derived": false,
+       "source_field": "hourlyRate"
+      }
+     ],
+     "annual_pay": {
+      "amount": "46800.00",
+      "currency": "USD",
+      "derived": false,
+      "source_field": "annualSalary"
+     },
+     "standard_hours": {
+      "value": "40.0",
+      "unit": "HOURS",
+      "derived": false,
+      "source_field": "normalHours"
+     },
+     "standard_hours_per": "PAY_PERIOD",
+     "effective_date": "2025-01-01",
+     "history": [
+      {
+       "source_id": "900201",
+       "effective_date": "2025-01-01",
+       "pay_type": {
+        "value": "HOURLY",
+        "raw": "Hourly",
+        "label": "Hourly",
+        "source_field": "salaries[0].payType.description"
+       },
+       "rates": [
+        {
+         "amount": "22.5",
+         "currency": "USD",
+         "per": "HOUR",
+         "derived": false,
+         "source_field": "salaries[0].hourlyRate"
+        }
+       ],
+       "standard_hours": {
+        "value": "80.0",
+        "unit": "HOURS",
+        "derived": false,
+        "source_field": "salaries[0].normalHours"
+       },
+       "reason": "Merit"
+      }
+     ]
+    }
+   },
+   {
+    "id": "isolved:synthetic:employee:9003",
+    "source": {
+     "provider": "isolved",
+     "tenant_id": "synthetic",
+     "endpoints": [
+      "api/clients/{client}/legals/{legal}/employees/{id}",
+      "api/clients/{client}/legals/{legal}/employees/{id}/salaries",
+      "api/clients/{client}/legals/{legal}/employees/{id}/statuses"
+     ],
+     "ids": {
+      "clientId": "501",
+      "legalId": "601",
+      "employeeId": "9003"
+     }
+    },
+    "provider_extensions": {
+     "birthDate": "1990-04-02T00:00:00",
+     "gender": "Female",
+     "maritalStatus": "Single",
+     "citizenship": "Citizen of the United States",
+     "employmentCategoryCode": "FT",
+     "hireDate": "2021-03-15T00:00:00",
+     "originalHireDate": "2021-03-15T00:00:00",
+     "jobCode": "BAKER",
+     "jobTitle": "Baker",
+     "jobFLSAExempt": false,
+     "payGroup": "Biweekly",
+     "payFrequency": 26,
+     "annualSalary": "62400.0",
+     "salaryEffectiveDate": "2025-01-01T00:00:00",
+     "nameAddress.firstName": "Ana",
+     "nameAddress.lastName": "Price",
+     "assignedManager.employeeName": "Maria",
+     "taxes.federal.filingStatus": "Single",
+     "taxes.federal.primaryExemptions": 0,
+     "payItems[0].id": -1,
+     "payItems[0].payItemId": -1,
+     "payItems[0].payItemName": "Regular",
+     "payItems[0].payItemType": "Earning",
+     "payItems[0].employeeId": 9003,
+     "payItems[0].employeeNumber": "1003",
+     "payItems[0].firstName": "Ana",
+     "payItems[0].lastName": "Price",
+     "payItems[0].startDate": "2025-01-01T00:00:00",
+     "payItems[0].calcParams[0].paramType": "Amount",
+     "payItems[0].calcParams[0].paramValue": "0.0"
+    },
+    "diagnostics": [],
+    "company_id": "isolved:synthetic:company:501:601",
+    "identifiers": [
+     {
+      "type": "PROVIDER_ID",
+      "value": "9003",
+      "source_field": "id"
+     },
+     {
+      "type": "EMPLOYEE_NUMBER",
+      "value": "1003",
+      "source_field": "employeeNumber"
+     },
+     {
+      "type": "CLOCK_NUMBER",
+      "value": "T1003",
+      "source_field": "timeclockId"
+     },
+     {
+      "type": "UNIQUE_ID",
+      "value": "U-9003",
+      "source_field": "uniqueId"
+     }
+    ],
+    "national_id": {
+     "type": "SSN",
+     "last4": "6786",
+     "masked_at_source": true,
+     "source_field": "checks[].employeeSSN"
+    },
+    "name": {
+     "first": "Ana",
+     "last": "Price"
+    },
+    "personal": {
+     "birth_date": "1990-04-02",
+     "gender": {
+      "value": "FEMALE",
+      "raw": "Female",
+      "label": "Female",
+      "source_field": "gender"
+     },
+     "marital_status": {
+      "value": "SINGLE",
+      "raw": "Single",
+      "label": "Single",
+      "source_field": "maritalStatus"
+     },
+     "disabled": {
+      "value": "NO",
+      "raw": false,
+      "source_field": "disabled"
+     },
+     "citizenship": {
+      "value": "US_CITIZEN",
+      "raw": "Citizen of the United States",
+      "label": "Citizen of the United States",
+      "source_field": "citizenship"
+     },
+     "emergency_contacts": []
+    },
+    "addresses": [
+     {
+      "type": "HOME",
+      "line1": "12 Oak Ave",
+      "city": "Charlotte",
+      "state": "NC",
+      "postal_code": "28202"
+     }
+    ],
+    "phones": [
+     {
+      "type": "HOME",
+      "number": "7045550100"
+     }
+    ],
+    "emails": [
+     {
+      "type": "MAIN",
+      "address": "ana@work.example"
+     },
+     {
+      "type": "PERSONAL",
+      "address": "ana@example.com"
+     }
+    ],
+    "employment": {
+     "status": {
+      "value": "TERMINATED",
+      "raw": "Terminated",
+      "label": "Terminated",
+      "source_field": "employmentStatus"
+     },
+     "status_date": "2026-09-30",
+     "employment_type": {
+      "value": "UNMAPPED",
+      "raw": "FT",
+      "source_field": "employmentCategoryCode"
+     },
+     "original_hire_date": "2021-03-15",
+     "hire_date": "2021-03-15",
+     "termination_date": "2026-09-30",
+     "flsa_exempt": false,
+     "employer_ids": []
+    },
+    "job": {
+     "title": "Baker",
+     "job_code": "BAKER",
+     "manager_employee_id": "isolved:synthetic:employee:9001",
+     "pay_group": "Biweekly"
+    },
+    "compensation": {
+     "pay_type": {
+      "value": "HOURLY",
+      "raw": "Hourly",
+      "label": "Hourly",
+      "source_field": "payType"
+     },
+     "pay_frequency": {
+      "frequency": {
+       "value": "BIWEEKLY",
+       "raw": "26",
+       "label": "Bi-Weekly",
+       "source_field": "payFrequency"
+      },
+      "periods_per_year": 26
+     },
+     "rates": [
+      {
+       "amount": "30.0",
+       "currency": "USD",
+       "per": "HOUR",
+       "derived": false,
+       "source_field": "hourlyRate"
+      }
+     ],
+     "annual_pay": {
+      "amount": "62400.00",
+      "currency": "USD",
+      "derived": false,
+      "source_field": "annualSalary"
+     },
+     "standard_hours": {
+      "value": "80.0",
+      "unit": "HOURS",
+      "derived": false,
+      "source_field": "normalHours"
+     },
+     "standard_hours_per": "PAY_PERIOD",
+     "effective_date": "2025-01-01",
+     "history": [
+      {
+       "source_id": "900301",
+       "effective_date": "2025-01-01",
+       "pay_type": {
+        "value": "HOURLY",
+        "raw": "Hourly",
+        "label": "Hourly",
+        "source_field": "salaries[0].payType.description"
+       },
+       "rates": [
+        {
+         "amount": "30.0",
+         "currency": "USD",
+         "per": "HOUR",
+         "derived": false,
+         "source_field": "salaries[0].hourlyRate"
+        }
+       ],
+       "standard_hours": {
+        "value": "80.0",
+        "unit": "HOURS",
+        "derived": false,
+        "source_field": "salaries[0].normalHours"
+       },
+       "reason": "Merit"
+      }
+     ]
+    }
+   },
+   {
+    "id": "isolved:synthetic:employee:9004",
+    "source": {
+     "provider": "isolved",
+     "tenant_id": "synthetic",
+     "endpoints": [
+      "api/clients/{client}/legals/{legal}/employees/{id}",
+      "api/clients/{client}/legals/{legal}/employees/{id}/salaries",
+      "api/clients/{client}/legals/{legal}/employees/{id}/statuses"
+     ],
+     "ids": {
+      "clientId": "501",
+      "legalId": "601",
+      "employeeId": "9004"
+     }
+    },
+    "provider_extensions": {
+     "birthDate": "1990-04-02T00:00:00",
+     "gender": "Male",
+     "maritalStatus": "Single",
+     "citizenship": "Citizen of the United States",
+     "employmentCategoryCode": "FT",
+     "hireDate": "2021-03-15T00:00:00",
+     "originalHireDate": "2021-03-15T00:00:00",
+     "jobCode": "BAKER",
+     "jobTitle": "Baker",
+     "jobFLSAExempt": true,
+     "payGroup": "Biweekly",
+     "payFrequency": 26,
+     "annualSalary": "60000.0",
+     "salaryEffectiveDate": "2025-01-01T00:00:00",
+     "nameAddress.firstName": "Devon",
+     "nameAddress.lastName": "Silva",
+     "assignedManager.employeeName": "Maria",
+     "taxes.federal.filingStatus": "Single",
+     "taxes.federal.primaryExemptions": 0,
+     "payItems[0].id": -1,
+     "payItems[0].payItemId": -1,
+     "payItems[0].payItemName": "Regular",
+     "payItems[0].payItemType": "Earning",
+     "payItems[0].employeeId": 9004,
+     "payItems[0].employeeNumber": "1004",
+     "payItems[0].firstName": "Devon",
+     "payItems[0].lastName": "Silva",
+     "payItems[0].startDate": "2025-01-01T00:00:00",
+     "payItems[0].calcParams[0].paramType": "Amount",
+     "payItems[0].calcParams[0].paramValue": "0.0"
+    },
+    "diagnostics": [
+     {
+      "code": "CUSTOMER_STATUS",
+      "severity": "info",
+      "field": "employmentStatus",
+      "message": "not shown as an implied system status in /statuses; kept as a label (A-48)",
+      "raw": "Leave - FMLA"
+     }
+    ],
+    "company_id": "isolved:synthetic:company:501:601",
+    "identifiers": [
+     {
+      "type": "PROVIDER_ID",
+      "value": "9004",
+      "source_field": "id"
+     },
+     {
+      "type": "EMPLOYEE_NUMBER",
+      "value": "1004",
+      "source_field": "employeeNumber"
+     },
+     {
+      "type": "CLOCK_NUMBER",
+      "value": "T1004",
+      "source_field": "timeclockId"
+     },
+     {
+      "type": "UNIQUE_ID",
+      "value": "U-9004",
+      "source_field": "uniqueId"
+     }
+    ],
+    "name": {
+     "first": "Devon",
+     "last": "Silva"
+    },
+    "personal": {
+     "birth_date": "1990-04-02",
+     "gender": {
+      "value": "MALE",
+      "raw": "Male",
+      "label": "Male",
+      "source_field": "gender"
+     },
+     "marital_status": {
+      "value": "SINGLE",
+      "raw": "Single",
+      "label": "Single",
+      "source_field": "maritalStatus"
+     },
+     "disabled": {
+      "value": "NO",
+      "raw": false,
+      "source_field": "disabled"
+     },
+     "citizenship": {
+      "value": "US_CITIZEN",
+      "raw": "Citizen of the United States",
+      "label": "Citizen of the United States",
+      "source_field": "citizenship"
+     },
+     "emergency_contacts": []
+    },
+    "addresses": [
+     {
+      "type": "HOME",
+      "line1": "12 Oak Ave",
+      "city": "Charlotte",
+      "state": "NC",
+      "postal_code": "28202"
+     }
+    ],
+    "phones": [
+     {
+      "type": "HOME",
+      "number": "7045550100"
+     }
+    ],
+    "emails": [
+     {
+      "type": "MAIN",
+      "address": "devon@work.example"
+     },
+     {
+      "type": "PERSONAL",
+      "address": "devon@example.com"
+     }
+    ],
+    "employment": {
+     "status": {
+      "value": "UNMAPPED",
+      "raw": "Leave - FMLA",
+      "label": "Leave - FMLA",
+      "source_field": "employmentStatus"
+     },
+     "status_date": "2026-08-01",
+     "employment_type": {
+      "value": "UNMAPPED",
+      "raw": "FT",
+      "source_field": "employmentCategoryCode"
+     },
+     "original_hire_date": "2021-03-15",
+     "hire_date": "2021-03-15",
+     "flsa_exempt": true,
+     "employer_ids": []
+    },
+    "job": {
+     "title": "Baker",
+     "job_code": "BAKER",
+     "manager_employee_id": "isolved:synthetic:employee:9001",
+     "pay_group": "Biweekly"
+    },
+    "compensation": {
+     "pay_type": {
+      "value": "SALARY",
+      "raw": "Salary",
+      "label": "Salary",
+      "source_field": "payType"
+     },
+     "pay_frequency": {
+      "frequency": {
+       "value": "BIWEEKLY",
+       "raw": "26",
+       "label": "Bi-Weekly",
+       "source_field": "payFrequency"
+      },
+      "periods_per_year": 26
+     },
+     "rates": [
+      {
+       "amount": "28.85",
+       "currency": "USD",
+       "per": "HOUR",
+       "derived": false,
+       "source_field": "hourlyRate"
+      },
+      {
+       "amount": "2307.69",
+       "currency": "USD",
+       "per": "PAY_PERIOD",
+       "derived": false,
+       "source_field": "perPaySalary"
+      }
+     ],
+     "annual_pay": {
+      "amount": "60000.00",
+      "currency": "USD",
+      "derived": false,
+      "source_field": "annualSalary"
+     },
+     "standard_hours": {
+      "value": "80.0",
+      "unit": "HOURS",
+      "derived": false,
+      "source_field": "normalHours"
+     },
+     "standard_hours_per": "PAY_PERIOD",
+     "effective_date": "2025-01-01",
+     "history": [
+      {
+       "source_id": "900401",
+       "effective_date": "2025-01-01",
+       "pay_type": {
+        "value": "SALARY",
+        "raw": "Salary",
+        "label": "Salary",
+        "source_field": "salaries[0].payType.description"
+       },
+       "rates": [
+        {
+         "amount": "28.85",
+         "currency": "USD",
+         "per": "HOUR",
+         "derived": false,
+         "source_field": "salaries[0].hourlyRate"
+        },
+        {
+         "amount": "2307.69",
+         "currency": "USD",
+         "per": "PAY_PERIOD",
+         "derived": false,
+         "source_field": "salaries[0].perPaySalary"
+        }
+       ],
+       "standard_hours": {
+        "value": "80.0",
+        "unit": "HOURS",
+        "derived": false,
+        "source_field": "salaries[0].normalHours"
+       },
+       "reason": "Merit"
+      }
+     ]
+    }
+   },
+   {
+    "id": "isolved:synthetic:employee:9005",
+    "source": {
+     "provider": "isolved",
+     "tenant_id": "synthetic",
+     "endpoints": [
+      "api/clients/{client}/legals/{legal}/employees/{id}",
+      "api/clients/{client}/legals/{legal}/employees/{id}/salaries",
+      "api/clients/{client}/legals/{legal}/employees/{id}/statuses"
+     ],
+     "ids": {
+      "clientId": "501",
+      "legalId": "601",
+      "employeeId": "9005"
+     }
+    },
+    "provider_extensions": {
+     "birthDate": "1990-04-02T00:00:00",
+     "gender": "Female",
+     "maritalStatus": "Single",
+     "citizenship": "Citizen of the United States",
+     "employmentCategoryCode": "FT",
+     "hireDate": "2021-03-15T00:00:00",
+     "originalHireDate": "2021-03-15T00:00:00",
+     "jobCode": "BAKER",
+     "jobTitle": "Baker",
+     "jobFLSAExempt": false,
+     "payGroup": "Weekly",
+     "payFrequency": 52,
+     "annualSalary": "83200.0",
+     "salaryEffectiveDate": "2025-01-01T00:00:00",
+     "nameAddress.firstName": "Priya",
+     "nameAddress.lastName": "Lopez",
+     "assignedManager.employeeName": "Maria",
+     "payItems[0].id": -1,
+     "payItems[0].payItemId": -1,
+     "payItems[0].payItemName": "Regular",
+     "payItems[0].payItemType": "Earning",
+     "payItems[0].employeeId": 9005,
+     "payItems[0].employeeNumber": "1005",
+     "payItems[0].firstName": "Priya",
+     "payItems[0].lastName": "Lopez",
+     "payItems[0].startDate": "2025-01-01T00:00:00",
+     "payItems[0].calcParams[0].paramType": "Amount",
+     "payItems[0].calcParams[0].paramValue": "0.0"
+    },
+    "diagnostics": [],
+    "company_id": "isolved:synthetic:company:501:601",
+    "identifiers": [
+     {
+      "type": "PROVIDER_ID",
+      "value": "9005",
+      "source_field": "id"
+     },
+     {
+      "type": "EMPLOYEE_NUMBER",
+      "value": "1005",
+      "source_field": "employeeNumber"
+     },
+     {
+      "type": "CLOCK_NUMBER",
+      "value": "T1005",
+      "source_field": "timeclockId"
+     },
+     {
+      "type": "UNIQUE_ID",
+      "value": "U-9005",
+      "source_field": "uniqueId"
+     }
+    ],
+    "national_id": {
+     "type": "SSN",
+     "last4": "6784",
+     "masked_at_source": true,
+     "source_field": "checks[].employeeSSN"
+    },
+    "name": {
+     "first": "Priya",
+     "last": "Lopez"
+    },
+    "personal": {
+     "birth_date": "1990-04-02",
+     "gender": {
+      "value": "FEMALE",
+      "raw": "Female",
+      "label": "Female",
+      "source_field": "gender"
+     },
+     "marital_status": {
+      "value": "SINGLE",
+      "raw": "Single",
+      "label": "Single",
+      "source_field": "maritalStatus"
+     },
+     "disabled": {
+      "value": "NO",
+      "raw": false,
+      "source_field": "disabled"
+     },
+     "citizenship": {
+      "value": "US_CITIZEN",
+      "raw": "Citizen of the United States",
+      "label": "Citizen of the United States",
+      "source_field": "citizenship"
+     },
+     "emergency_contacts": []
+    },
+    "addresses": [
+     {
+      "type": "HOME",
+      "line1": "12 Oak Ave",
+      "city": "Charlotte",
+      "state": "NC",
+      "postal_code": "28202"
+     }
+    ],
+    "phones": [
+     {
+      "type": "HOME",
+      "number": "7045550100"
+     }
+    ],
+    "emails": [
+     {
+      "type": "MAIN",
+      "address": "priya@work.example"
+     },
+     {
+      "type": "PERSONAL",
+      "address": "priya@example.com"
+     }
+    ],
+    "employment": {
+     "status": {
+      "value": "ACTIVE",
+      "raw": "Active",
+      "label": "Active",
+      "source_field": "employmentStatus"
+     },
+     "status_date": "2026-05-01",
+     "employment_type": {
+      "value": "UNMAPPED",
+      "raw": "FT",
+      "source_field": "employmentCategoryCode"
+     },
+     "worker_classification": {
+      "value": "CONTRACTOR_1099",
+      "raw": "1099",
+      "source_field": "payType"
+     },
+     "original_hire_date": "2021-03-15",
+     "hire_date": "2021-03-15",
+     "flsa_exempt": false,
+     "employer_ids": []
+    },
+    "job": {
+     "title": "Baker",
+     "job_code": "BAKER",
+     "manager_employee_id": "isolved:synthetic:employee:9001",
+     "pay_group": "Weekly"
+    },
+    "compensation": {
+     "pay_type": {
+      "value": "UNMAPPED",
+      "raw": "1099",
+      "label": "1099",
+      "source_field": "payType"
+     },
+     "pay_frequency": {
+      "frequency": {
+       "value": "WEEKLY",
+       "raw": "52",
+       "label": "Weekly",
+       "source_field": "payFrequency"
+      },
+      "periods_per_year": 52
+     },
+     "rates": [
+      {
+       "amount": "40.0",
+       "currency": "USD",
+       "per": "HOUR",
+       "derived": false,
+       "source_field": "hourlyRate"
+      }
+     ],
+     "annual_pay": {
+      "amount": "83200.00",
+      "currency": "USD",
+      "derived": false,
+      "source_field": "annualSalary"
+     },
+     "standard_hours": {
+      "value": "40.0",
+      "unit": "HOURS",
+      "derived": false,
+      "source_field": "normalHours"
+     },
+     "standard_hours_per": "PAY_PERIOD",
+     "effective_date": "2025-01-01",
+     "history": [
+      {
+       "source_id": "900501",
+       "effective_date": "2025-01-01",
+       "pay_type": {
+        "value": "UNMAPPED",
+        "raw": "1099",
+        "label": "1099",
+        "source_field": "salaries[0].payType.description"
+       },
+       "rates": [
+        {
+         "amount": "40.0",
+         "currency": "USD",
+         "per": "HOUR",
+         "derived": false,
+         "source_field": "salaries[0].hourlyRate"
+        }
+       ],
+       "standard_hours": {
+        "value": "80.0",
+        "unit": "HOURS",
+        "derived": false,
+        "source_field": "salaries[0].normalHours"
+       },
+       "reason": "Merit"
+      }
+     ]
+    }
+   }
+  ],
+  "direct_deposits": [
+   {
+    "id": "isolved:synthetic:direct_deposit:90010",
+    "source": {
+     "provider": "isolved",
+     "tenant_id": "synthetic",
+     "endpoints": [
+      "api/clients/{client}/legals/{legal}/employees/{id}/directdeposits"
+     ],
+     "ids": {
+      "clientId": "501",
+      "legalId": "601",
+      "employeeId": "9001",
+      "depositId": "90010"
+     }
+    },
+    "provider_extensions": {
+     "description": "Savings"
+    },
+    "diagnostics": [],
+    "employee_id": "isolved:synthetic:employee:9001",
+    "company_id": "isolved:synthetic:company:501:601",
+    "purpose": "NET_PAY",
+    "account": {
+     "type": {
+      "value": "SAVINGS",
+      "raw": "Savings",
+      "label": "Savings",
+      "source_field": "accountType"
+     },
+     "routing_number": "123456780",
+     "account_last4": "6789",
+     "masked_at_source": false,
+     "bank_name": "Example Bank"
+    },
+    "method": {
+     "value": "FIXED_AMOUNT",
+     "source_field": "sequenceNumber/amount/percent"
+    },
+    "amount": {
+     "amount": "200.00",
+     "currency": "USD",
+     "derived": false,
+     "source_field": "amount"
+    },
+    "sequence": 1,
+    "is_remainder": false,
+    "status": {
+     "value": "ACTIVE",
+     "raw": "Active",
+     "label": "Active",
+     "source_field": "status"
+    },
+    "frequency": {
+     "value": "UNMAPPED",
+     "raw": "Every Pay",
+     "label": "Every Pay",
+     "source_field": "frequency"
+    },
+    "applies_to_pay_types": []
+   },
+   {
+    "id": "isolved:synthetic:direct_deposit:90011",
+    "source": {
+     "provider": "isolved",
+     "tenant_id": "synthetic",
+     "endpoints": [
+      "api/clients/{client}/legals/{legal}/employees/{id}/directdeposits"
+     ],
+     "ids": {
+      "clientId": "501",
+      "legalId": "601",
+      "employeeId": "9001",
+      "depositId": "90011"
+     }
+    },
+    "provider_extensions": {
+     "description": "Checking"
+    },
+    "diagnostics": [],
+    "employee_id": "isolved:synthetic:employee:9001",
+    "company_id": "isolved:synthetic:company:501:601",
+    "purpose": "NET_PAY",
+    "account": {
+     "type": {
+      "value": "CHECKING",
+      "raw": "Checking",
+      "label": "Checking",
+      "source_field": "accountType"
+     },
+     "routing_number": "123456780",
+     "account_last4": "4321",
+     "masked_at_source": false,
+     "bank_name": "Example Bank"
+    },
+    "method": {
+     "value": "REMAINDER",
+     "raw": 0,
+     "source_field": "sequenceNumber/amount/percent"
+    },
+    "sequence": 0,
+    "is_remainder": true,
+    "status": {
+     "value": "ACTIVE",
+     "raw": "Active",
+     "label": "Active",
+     "source_field": "status"
+    },
+    "frequency": {
+     "value": "UNMAPPED",
+     "raw": "Every Pay",
+     "label": "Every Pay",
+     "source_field": "frequency"
+    },
+    "applies_to_pay_types": []
+   },
+   {
+    "id": "isolved:synthetic:direct_deposit:90020",
+    "source": {
+     "provider": "isolved",
+     "tenant_id": "synthetic",
+     "endpoints": [
+      "api/clients/{client}/legals/{legal}/employees/{id}/directdeposits"
+     ],
+     "ids": {
+      "clientId": "501",
+      "legalId": "601",
+      "employeeId": "9002",
+      "depositId": "90020"
+     }
+    },
+    "provider_extensions": {
+     "description": "Checking"
+    },
+    "diagnostics": [
+     {
+      "code": "PERCENT_SCALE_UNVERIFIED",
+      "severity": "info",
+      "field": "percent",
+      "message": "no live percent deposits to verify the scale (A-29)",
+      "raw": "30.0"
+     }
+    ],
+    "employee_id": "isolved:synthetic:employee:9002",
+    "company_id": "isolved:synthetic:company:501:601",
+    "purpose": "NET_PAY",
+    "account": {
+     "type": {
+      "value": "CHECKING",
+      "raw": "Checking",
+      "label": "Checking",
+      "source_field": "accountType"
+     },
+     "routing_number": "123456780",
+     "account_last4": "2345",
+     "masked_at_source": false,
+     "bank_name": "Example Bank"
+    },
+    "method": {
+     "value": "PERCENT_BASE_UNSPECIFIED",
+     "source_field": "sequenceNumber/amount/percent"
+    },
+    "percent": {
+     "basis": "UNSPECIFIED",
+     "scale": "UNVERIFIED",
+     "raw": "30.0",
+     "source_field": "percent"
+    },
+    "sequence": 1,
+    "is_remainder": false,
+    "status": {
+     "value": "ACTIVE",
+     "raw": "Active",
+     "label": "Active",
+     "source_field": "status"
+    },
+    "frequency": {
+     "value": "UNMAPPED",
+     "raw": "Every Pay",
+     "label": "Every Pay",
+     "source_field": "frequency"
+    },
+    "applies_to_pay_types": []
+   },
+   {
+    "id": "isolved:synthetic:direct_deposit:90021",
+    "source": {
+     "provider": "isolved",
+     "tenant_id": "synthetic",
+     "endpoints": [
+      "api/clients/{client}/legals/{legal}/employees/{id}/directdeposits"
+     ],
+     "ids": {
+      "clientId": "501",
+      "legalId": "601",
+      "employeeId": "9002",
+      "depositId": "90021"
+     }
+    },
+    "provider_extensions": {
+     "description": "Savings"
+    },
+    "diagnostics": [],
+    "employee_id": "isolved:synthetic:employee:9002",
+    "company_id": "isolved:synthetic:company:501:601",
+    "purpose": "NET_PAY",
+    "account": {
+     "type": {
+      "value": "SAVINGS",
+      "raw": "Savings",
+      "label": "Savings",
+      "source_field": "accountType"
+     },
+     "routing_number": "123456780",
+     "account_last4": "7890",
+     "masked_at_source": false,
+     "bank_name": "Example Bank"
+    },
+    "method": {
+     "value": "REMAINDER",
+     "raw": 0,
+     "source_field": "sequenceNumber/amount/percent"
+    },
+    "sequence": 0,
+    "is_remainder": true,
+    "status": {
+     "value": "ACTIVE",
+     "raw": "Active",
+     "label": "Active",
+     "source_field": "status"
+    },
+    "frequency": {
+     "value": "UNMAPPED",
+     "raw": "Every Pay",
+     "label": "Every Pay",
+     "source_field": "frequency"
+    },
+    "applies_to_pay_types": []
+   },
+   {
+    "id": "isolved:synthetic:direct_deposit:90030",
+    "source": {
+     "provider": "isolved",
+     "tenant_id": "synthetic",
+     "endpoints": [
+      "api/clients/{client}/legals/{legal}/employees/{id}/directdeposits"
+     ],
+     "ids": {
+      "clientId": "501",
+      "legalId": "601",
+      "employeeId": "9003",
+      "depositId": "90030"
+     }
+    },
+    "provider_extensions": {
+     "description": "Savings"
+    },
+    "diagnostics": [],
+    "employee_id": "isolved:synthetic:employee:9003",
+    "company_id": "isolved:synthetic:company:501:601",
+    "purpose": "NET_PAY",
+    "account": {
+     "type": {
+      "value": "SAVINGS",
+      "raw": "Savings",
+      "label": "Savings",
+      "source_field": "accountType"
+     },
+     "routing_number": "123456780",
+     "account_last4": "1111",
+     "masked_at_source": false,
+     "bank_name": "Example Bank"
+    },
+    "method": {
+     "value": "REMAINDER",
+     "raw": 0,
+     "source_field": "sequenceNumber/amount/percent"
+    },
+    "sequence": 0,
+    "is_remainder": true,
+    "status": {
+     "value": "ACTIVE",
+     "raw": "Active",
+     "label": "Active",
+     "source_field": "status"
+    },
+    "frequency": {
+     "value": "UNMAPPED",
+     "raw": "Every Pay",
+     "label": "Every Pay",
+     "source_field": "frequency"
+    },
+    "applies_to_pay_types": []
+   }
+  ],
+  "deduction_elections": [
+   {
+    "id": "isolved:synthetic:deduction_election:9001:payitem:-1",
+    "source": {
+     "provider": "isolved",
+     "tenant_id": "synthetic",
+     "endpoints": [
+      "api/clients/{client}/legals/{legal}/employees/{id}/payItems",
+      "api/clients/{client}/payItems"
+     ],
+     "ids": {
+      "clientId": "501",
+      "legalId": "601",
+      "employeeId": "9001",
+      "payItemId": "-1"
+     }
+    },
+    "provider_extensions": {},
+    "diagnostics": [],
+    "employee_id": "isolved:synthetic:employee:9001",
+    "company_id": "isolved:synthetic:company:501:601",
+    "code": "401K",
+    "label": "401K",
+    "category": {
+     "value": "RETIREMENT",
+     "raw": "401(k) / 401K",
+     "label": "401K",
+     "source_field": "clientPayItems[].systemBenefitType+systemPayItemType"
+    },
+    "tax_treatment": "UNSPECIFIED",
+    "calculation": {
+     "method": {
+      "value": "PERCENT",
+      "raw": "Percent",
+      "source_field": "calcParams[].paramType"
+     },
+     "basis": "UNSPECIFIED",
+     "percent": {
+      "basis": "UNSPECIFIED",
+      "scale": "UNVERIFIED",
+      "raw": "5.0"
+     }
+    },
+    "frequency": {
+     "value": "UNMAPPED",
+     "raw": "Every Pay",
+     "label": "Every Pay",
+     "source_field": "scheduleOverride"
+    },
+    "effective_from": "2025-01-01"
+   },
+   {
+    "id": "isolved:synthetic:deduction_election:9001:payitem:-2",
+    "source": {
+     "provider": "isolved",
+     "tenant_id": "synthetic",
+     "endpoints": [
+      "api/clients/{client}/legals/{legal}/employees/{id}/payItems",
+      "api/clients/{client}/payItems"
+     ],
+     "ids": {
+      "clientId": "501",
+      "legalId": "601",
+      "employeeId": "9001",
+      "payItemId": "-2"
+     }
+    },
+    "provider_extensions": {},
+    "diagnostics": [],
+    "employee_id": "isolved:synthetic:employee:9001",
+    "company_id": "isolved:synthetic:company:501:601",
+    "code": "Dental Pre-tax",
+    "label": "Dental Pre-tax",
+    "category": {
+     "value": "SECTION_125",
+     "raw": "Dental Pre-Tax 125 / Dental Pre-tax",
+     "label": "Dental Pre-tax",
+     "source_field": "clientPayItems[].systemBenefitType+systemPayItemType"
+    },
+    "tax_treatment": "PRE_TAX",
+    "calculation": {
+     "method": {
+      "value": "FIXED_AMOUNT",
+      "raw": "Amount",
+      "source_field": "calcParams[].paramType"
+     },
+     "basis": "UNSPECIFIED",
+     "amount": {
+      "amount": "12.50",
+      "currency": "USD",
+      "derived": false
+     }
+    },
+    "frequency": {
+     "value": "UNMAPPED",
+     "raw": "Every Pay",
+     "label": "Every Pay",
+     "source_field": "scheduleOverride"
+    },
+    "effective_from": "2025-01-01"
+   },
+   {
+    "id": "isolved:synthetic:deduction_election:9002:garnishment:4401",
+    "source": {
+     "provider": "isolved",
+     "tenant_id": "synthetic",
+     "endpoints": [
+      "api/clients/{client}/legals/{legal}/employees/{id}/garnishments"
+     ],
+     "ids": {
+      "clientId": "501",
+      "legalId": "601",
+      "employeeId": "9002",
+      "garnishmentId": "4401"
+     }
+    },
+    "provider_extensions": {
+     "garnishmentSequence": 1,
+     "garnishmentPayee.id": 7,
+     "state.stateName": "NC"
+    },
+    "diagnostics": [],
+    "employee_id": "isolved:synthetic:employee:9002",
+    "company_id": "isolved:synthetic:company:501:601",
+    "code": "CS",
+    "label": "Child support order",
+    "category": {
+     "value": "GARNISHMENT",
+     "source_field": "garnishments[]"
+    },
+    "tax_treatment": "UNSPECIFIED",
+    "calculation": {
+     "method": {
+      "value": "FIXED_AMOUNT",
+      "source_field": "amount/percent"
+     },
+     "basis": "DISPOSABLE_INCOME",
+     "amount": {
+      "amount": "50.00",
+      "currency": "USD",
+      "derived": false
+     }
+    },
+    "limits": {
+     "per_period": {
+      "amount": "0.00",
+      "currency": "USD",
+      "derived": false
+     },
+     "maximum": {
+      "amount": "2000.00",
+      "currency": "USD",
+      "derived": false
+     }
+    },
+    "status": {
+     "value": "ACTIVE",
+     "raw": "Active",
+     "label": "Active",
+     "source_field": "status"
+    },
+    "effective_from": "2026-01-01",
+    "loan_or_garnishment_id": "4401",
+    "garnishment": {
+     "case_number": "CASE-0001",
+     "garnishment_type": {
+      "value": "UNMAPPED",
+      "raw": "CS",
+      "label": "Child Support",
+      "source_field": "garnishmentType.id"
+     },
+     "payee": "State Disbursement Unit",
+     "issuing_state": "NC",
+     "arrears_balance": {
+      "amount": "0.00",
+      "currency": "USD",
+      "derived": false
+     },
+     "remaining_balance": {
+      "amount": "1500.00",
+      "currency": "USD",
+      "derived": false
+     },
+     "fee": {
+      "amount": "1.00",
+      "currency": "USD",
+      "derived": false
+     }
+    }
+   },
+   {
+    "id": "isolved:synthetic:deduction_election:9002:payitem:-1",
+    "source": {
+     "provider": "isolved",
+     "tenant_id": "synthetic",
+     "endpoints": [
+      "api/clients/{client}/legals/{legal}/employees/{id}/payItems",
+      "api/clients/{client}/payItems"
+     ],
+     "ids": {
+      "clientId": "501",
+      "legalId": "601",
+      "employeeId": "9002",
+      "payItemId": "-1"
+     }
+    },
+    "provider_extensions": {},
+    "diagnostics": [],
+    "employee_id": "isolved:synthetic:employee:9002",
+    "company_id": "isolved:synthetic:company:501:601",
+    "code": "Voluntary Life",
+    "label": "Voluntary Life",
+    "category": {
+     "value": "VOLUNTARY",
+     "raw": "Voluntary Deduction",
+     "label": "Voluntary Deduction",
+     "source_field": "clientPayItems[].systemBenefitType+systemPayItemType"
+    },
+    "tax_treatment": "UNSPECIFIED",
+    "calculation": {
+     "method": {
+      "value": "FIXED_AMOUNT",
+      "raw": "Amount",
+      "source_field": "calcParams[].paramType"
+     },
+     "basis": "UNSPECIFIED",
+     "amount": {
+      "amount": "8.00",
+      "currency": "USD",
+      "derived": false
+     }
+    },
+    "frequency": {
+     "value": "UNMAPPED",
+     "raw": "Every Pay",
+     "label": "Every Pay",
+     "source_field": "scheduleOverride"
+    },
+    "effective_from": "2025-01-01"
+   },
+   {
+    "id": "isolved:synthetic:deduction_election:9002:payitem:-2",
+    "source": {
+     "provider": "isolved",
+     "tenant_id": "synthetic",
+     "endpoints": [
+      "api/clients/{client}/legals/{legal}/employees/{id}/payItems",
+      "api/clients/{client}/payItems"
+     ],
+     "ids": {
+      "clientId": "501",
+      "legalId": "601",
+      "employeeId": "9002",
+      "payItemId": "-2"
+     }
+    },
+    "provider_extensions": {},
+    "diagnostics": [],
+    "employee_id": "isolved:synthetic:employee:9002",
+    "company_id": "isolved:synthetic:company:501:601",
+    "code": "401K Loan",
+    "label": "401K Loan",
+    "category": {
+     "value": "RETIREMENT_LOAN",
+     "raw": "401(k) / 401K Loan",
+     "label": "401K Loan",
+     "source_field": "clientPayItems[].systemBenefitType+systemPayItemType"
+    },
+    "tax_treatment": "UNSPECIFIED",
+    "calculation": {
+     "method": {
+      "value": "FIXED_AMOUNT",
+      "raw": "Amount",
+      "source_field": "calcParams[].paramType"
+     },
+     "basis": "UNSPECIFIED",
+     "amount": {
+      "amount": "25.00",
+      "currency": "USD",
+      "derived": false
+     }
+    },
+    "frequency": {
+     "value": "UNMAPPED",
+     "raw": "Every Pay",
+     "label": "Every Pay",
+     "source_field": "scheduleOverride"
+    },
+    "effective_from": "2025-01-01"
+   }
+  ],
+  "payroll_runs": [
+   {
+    "id": "isolved:synthetic:payroll_run:501:601:701:8800",
+    "source": {
+     "provider": "isolved",
+     "tenant_id": "synthetic",
+     "endpoints": [
+      "api/clients/{client}/legals/{legal}/paygroupId/{id}/payrollRunHistory",
+      "api/clients/{client}/legals/{legal}/paygroupId/{id}/payrollRunHistory/{id}"
+     ],
+     "ids": {
+      "clientId": "501",
+      "legalId": "601",
+      "payGroupId": "701",
+      "payrollRunId": "8800"
+     }
+    },
+    "provider_extensions": {
+     "id": 8800,
+     "payPeriod": 35
+    },
+    "diagnostics": [],
+    "company_id": "isolved:synthetic:company:501:601",
+    "pay_date": "2018-08-03",
+    "processed_date": "2018-08-03",
+    "description": "1st",
+    "type": {
+     "value": "HISTORICAL_IMPORT",
+     "raw": "Data Conversion",
+     "label": "Data Conversion",
+     "source_field": "payrollRunType"
+    },
+    "status": {
+     "value": "COMPLETED",
+     "raw": "Completed Payroll Run",
+     "label": "Completed Payroll Run",
+     "source_field": "status"
+    },
+    "pay_groups": [
+     {
+      "pay_group": "701",
+      "period": {
+       "start": "2018-08-03",
+       "end": "2018-08-03"
+      }
+     }
+    ]
+   },
+   {
+    "id": "isolved:synthetic:payroll_run:501:601:701:8801",
+    "source": {
+     "provider": "isolved",
+     "tenant_id": "synthetic",
+     "endpoints": [
+      "api/clients/{client}/legals/{legal}/paygroupId/{id}/payrollRunHistory",
+      "api/clients/{client}/legals/{legal}/paygroupId/{id}/payrollRunHistory/{id}"
+     ],
+     "ids": {
+      "clientId": "501",
+      "legalId": "601",
+      "payGroupId": "701",
+      "payrollRunId": "8801"
+     }
+    },
+    "provider_extensions": {
+     "id": 8801,
+     "payPeriod": 1
+    },
+    "diagnostics": [],
+    "company_id": "isolved:synthetic:company:501:601",
+    "pay_date": "2026-10-02",
+    "processed_date": "2026-10-02",
+    "description": "1st",
+    "type": {
+     "value": "REGULAR",
+     "raw": "Regular Payroll",
+     "label": "Regular Payroll",
+     "source_field": "payrollRunType"
+    },
+    "status": {
+     "value": "COMPLETED",
+     "raw": "Completed Payroll Run",
+     "label": "Completed Payroll Run",
+     "source_field": "status"
+    },
+    "pay_groups": [
+     {
+      "pay_group": "701",
+      "period": {
+       "start": "2026-10-02",
+       "end": "2026-10-02"
+      }
+     }
+    ]
+   },
+   {
+    "id": "isolved:synthetic:payroll_run:501:601:701:8802",
+    "source": {
+     "provider": "isolved",
+     "tenant_id": "synthetic",
+     "endpoints": [
+      "api/clients/{client}/legals/{legal}/paygroupId/{id}/payrollRunHistory",
+      "api/clients/{client}/legals/{legal}/paygroupId/{id}/payrollRunHistory/{id}"
+     ],
+     "ids": {
+      "clientId": "501",
+      "legalId": "601",
+      "payGroupId": "701",
+      "payrollRunId": "8802"
+     }
+    },
+    "provider_extensions": {
+     "id": 8802,
+     "payPeriod": 1
+    },
+    "diagnostics": [],
+    "company_id": "isolved:synthetic:company:501:601",
+    "pay_date": "2026-10-16",
+    "processed_date": "2026-10-16",
+    "description": "1st",
+    "type": {
+     "value": "REGULAR",
+     "raw": "Regular Payroll",
+     "label": "Regular Payroll",
+     "source_field": "payrollRunType"
+    },
+    "status": {
+     "value": "NOT_PROCESSED",
+     "raw": "Payroll Not Processed",
+     "label": "Payroll Not Processed",
+     "source_field": "status"
+    },
+    "pay_groups": [
+     {
+      "pay_group": "701",
+      "period": {
+       "start": "2026-10-16",
+       "end": "2026-10-16"
+      }
+     }
+    ]
+   },
+   {
+    "id": "isolved:synthetic:payroll_run:501:601:701:8803",
+    "source": {
+     "provider": "isolved",
+     "tenant_id": "synthetic",
+     "endpoints": [
+      "api/clients/{client}/legals/{legal}/paygroupId/{id}/payrollRunHistory",
+      "api/clients/{client}/legals/{legal}/paygroupId/{id}/payrollRunHistory/{id}"
+     ],
+     "ids": {
+      "clientId": "501",
+      "legalId": "601",
+      "payGroupId": "701",
+      "payrollRunId": "8803"
+     }
+    },
+    "provider_extensions": {
+     "id": 8803,
+     "payPeriod": 3
+    },
+    "diagnostics": [],
+    "company_id": "isolved:synthetic:company:501:601",
+    "pay_date": "2026-10-09",
+    "processed_date": "2026-10-09",
+    "description": "1st",
+    "type": {
+     "value": "REGULAR",
+     "raw": "Regular Payroll",
+     "label": "Regular Payroll",
+     "source_field": "payrollRunType"
+    },
+    "status": {
+     "value": "COMPLETED",
+     "raw": "Completed Payroll Run",
+     "label": "Completed Payroll Run",
+     "source_field": "status"
+    },
+    "pay_groups": [
+     {
+      "pay_group": "701",
+      "period": {
+       "start": "2026-10-09",
+       "end": "2026-10-09"
+      }
+     }
+    ]
+   },
+   {
+    "id": "isolved:synthetic:payroll_run:501:601:702:8811",
+    "source": {
+     "provider": "isolved",
+     "tenant_id": "synthetic",
+     "endpoints": [
+      "api/clients/{client}/legals/{legal}/paygroupId/{id}/payrollRunHistory",
+      "api/clients/{client}/legals/{legal}/paygroupId/{id}/payrollRunHistory/{id}"
+     ],
+     "ids": {
+      "clientId": "501",
+      "legalId": "601",
+      "payGroupId": "702",
+      "payrollRunId": "8811"
+     }
+    },
+    "provider_extensions": {
+     "id": 8811,
+     "payPeriod": 2
+    },
+    "diagnostics": [],
+    "company_id": "isolved:synthetic:company:501:601",
+    "pay_date": "2026-10-02",
+    "processed_date": "2026-10-02",
+    "description": "1st",
+    "type": {
+     "value": "REGULAR",
+     "raw": "Regular Payroll",
+     "label": "Regular Payroll",
+     "source_field": "payrollRunType"
+    },
+    "status": {
+     "value": "COMPLETED",
+     "raw": "Completed Payroll Run",
+     "label": "Completed Payroll Run",
+     "source_field": "status"
+    },
+    "pay_groups": [
+     {
+      "pay_group": "702",
+      "period": {
+       "start": "2026-10-02",
+       "end": "2026-10-02"
+      }
+     }
+    ]
+   },
+   {
+    "id": "isolved:synthetic:payroll_run:501:601:702:8813",
+    "source": {
+     "provider": "isolved",
+     "tenant_id": "synthetic",
+     "endpoints": [
+      "api/clients/{client}/legals/{legal}/paygroupId/{id}/payrollRunHistory",
+      "api/clients/{client}/legals/{legal}/paygroupId/{id}/payrollRunHistory/{id}"
+     ],
+     "ids": {
+      "clientId": "501",
+      "legalId": "601",
+      "payGroupId": "702",
+      "payrollRunId": "8813"
+     }
+    },
+    "provider_extensions": {
+     "id": 8813,
+     "payPeriod": 3
+    },
+    "diagnostics": [],
+    "company_id": "isolved:synthetic:company:501:601",
+    "pay_date": "2026-10-09",
+    "processed_date": "2026-10-09",
+    "description": "1st",
+    "type": {
+     "value": "REGULAR",
+     "raw": "Regular Payroll",
+     "label": "Regular Payroll",
+     "source_field": "payrollRunType"
+    },
+    "status": {
+     "value": "COMPLETED",
+     "raw": "Completed Payroll Run",
+     "label": "Completed Payroll Run",
+     "source_field": "status"
+    },
+    "pay_groups": [
+     {
+      "pay_group": "702",
+      "period": {
+       "start": "2026-10-09",
+       "end": "2026-10-09"
+      }
+     }
+    ]
+   }
+  ],
+  "pay_statements": [
+   {
+    "id": "isolved:synthetic:pay_statement:60001",
+    "source": {
+     "provider": "isolved",
+     "tenant_id": "synthetic",
+     "endpoints": [
+      "api/clients/{client}/legals/{legal}/employees/{id}/checks/{id}"
+     ],
+     "ids": {
+      "clientId": "501",
+      "legalId": "601",
+      "employeeId": "9003",
+      "checkId": "60001"
+     }
+    },
+    "provider_extensions": {
+     "checkSequence": 0,
+     "payrollRunType": "Data Conversion",
+     "employeeId": 9003,
+     "employeeNumber": "1003",
+     "employeeName": "Ana Price",
+     "employeeSSN": "***6786",
+     "legalCompanyName": "Brightside Bakery LLC",
+     "directDepositAmount": "1175.25",
+     "earnings[0].currentDollars": "1500.0",
+     "earnings[0].ptdDollars": "1500.0",
+     "earnings[0].mtdDollars": "1500.0",
+     "earnings[0].qtdDollars": "7500.0",
+     "earnings[0].ytdDollars": "30000.0",
+     "earnings[0].ftdDollars": "30000.0",
+     "taxes[0].currentDollars": "150.0",
+     "taxes[0].ptdDollars": "150.0",
+     "taxes[0].mtdDollars": "150.0",
+     "taxes[0].qtdDollars": "750.0",
+     "taxes[0].ytdDollars": "3000.0",
+     "taxes[0].ftdDollars": "3000.0",
+     "taxes[1].currentDollars": "93.0",
+     "taxes[1].ptdDollars": "93.0",
+     "taxes[1].mtdDollars": "93.0",
+     "taxes[1].qtdDollars": "465.0",
+     "taxes[1].ytdDollars": "1860.0",
+     "taxes[1].ftdDollars": "1860.0",
+     "taxes[2].currentDollars": "21.75",
+     "taxes[2].ptdDollars": "21.75",
+     "taxes[2].mtdDollars": "21.75",
+     "taxes[2].qtdDollars": "108.75",
+     "taxes[2].ytdDollars": "435.0",
+     "taxes[2].ftdDollars": "435.0",
+     "taxes[3].currentDollars": "60.0",
+     "taxes[3].ptdDollars": "60.0",
+     "taxes[3].mtdDollars": "60.0",
+     "taxes[3].qtdDollars": "300.0",
+     "taxes[3].ytdDollars": "1200.0",
+     "taxes[3].ftdDollars": "1200.0",
+     "taxes[4].currentDollars": "93.0",
+     "taxes[4].ptdDollars": "93.0",
+     "taxes[4].mtdDollars": "93.0",
+     "taxes[4].qtdDollars": "465.0",
+     "taxes[4].ytdDollars": "1860.0",
+     "taxes[4].ftdDollars": "1860.0",
+     "taxes[5].currentDollars": "21.75",
+     "taxes[5].ptdDollars": "21.75",
+     "taxes[5].mtdDollars": "21.75",
+     "taxes[5].qtdDollars": "108.75",
+     "taxes[5].ytdDollars": "435.0",
+     "taxes[5].ftdDollars": "435.0",
+     "taxes[6].currentDollars": "9.0",
+     "taxes[6].ptdDollars": "9.0",
+     "taxes[6].mtdDollars": "9.0",
+     "taxes[6].qtdDollars": "45.0",
+     "taxes[6].ytdDollars": "180.0",
+     "taxes[6].ftdDollars": "180.0",
+     "directDeposits[0].itemDescription": "Savings"
+    },
+    "diagnostics": [],
+    "company_id": "isolved:synthetic:company:501:601",
+    "employee_id": "isolved:synthetic:employee:9003",
+    "payroll_run_id": "isolved:synthetic:payroll_run:501:601:701:8800",
+    "pay_date": "2018-08-03",
+    "period": {
+     "start": "2018-07-16",
+     "end": "2018-07-29"
+    },
+    "check_number": "60001",
+    "type": {
+     "value": "ADJUSTMENT",
+     "raw": "Adjustment",
+     "label": "Adjustment",
+     "source_field": "checkTypeDescription"
+    },
+    "voided": false,
+    "totals": {
+     "gross_pay": {
+      "amount": "1500.00",
+      "currency": "USD",
+      "derived": false,
+      "source_field": "grossPay"
+     },
+     "gross_wages": {
+      "amount": "1500.00",
+      "currency": "USD",
+      "derived": false,
+      "source_field": "grossWages"
+     },
+     "net_pay": {
+      "amount": "1175.25",
+      "currency": "USD",
+      "derived": false,
+      "source_field": "netPay"
+     },
+     "employee_taxes": {
+      "amount": "324.75",
+      "currency": "USD",
+      "derived": true,
+      "formula": "sum(taxes[isEmployeeTax].checkDollars)"
+     },
+     "employer_taxes": {
+      "amount": "123.75",
+      "currency": "USD",
+      "derived": true,
+      "formula": "sum(taxes[not isEmployeeTax].checkDollars)"
+     },
+     "deductions": {
+      "amount": "0.00",
+      "currency": "USD",
+      "derived": true,
+      "formula": "sum(deductions[].checkDollars) + sum(garnishments[].checkDollars)"
+     },
+     "employer_contributions": {
+      "amount": "0.00",
+      "currency": "USD",
+      "derived": true,
+      "formula": "sum(benefits[].checkEmployerContribution)"
+     }
+    },
+    "earnings": [
+     {
+      "code": "Regular",
+      "label": "Regular",
+      "kind": {
+       "value": "UNMAPPED",
+       "raw": false,
+       "source_field": "earnings[].isMemoEarning"
+      },
+      "in_gross": true,
+      "quantity": {
+       "value": "50.0",
+       "unit": "HOURS",
+       "derived": false,
+       "source_field": "earnings[].checkHours"
+      },
+      "amount": {
+       "amount": "1500.00",
+       "currency": "USD",
+       "derived": false,
+       "source_field": "earnings[].checkDollars"
+      },
+      "allocation": {},
+      "source_field": "earnings[]"
+     }
+    ],
+    "taxes": [
+     {
+      "code": "FIT",
+      "label": "Federal Withholding",
+      "paid_by": "EMPLOYEE",
+      "amount": {
+       "amount": "150.00",
+       "currency": "USD",
+       "derived": false
+      },
+      "taxable_wages": {
+       "amount": "1500.00",
+       "currency": "USD",
+       "derived": false
+      },
+      "source_field": "taxes[]"
+     },
+     {
+      "code": "SS",
+      "label": "Social Security",
+      "paid_by": "EMPLOYEE",
+      "amount": {
+       "amount": "93.00",
+       "currency": "USD",
+       "derived": false
+      },
+      "taxable_wages": {
+       "amount": "1500.00",
+       "currency": "USD",
+       "derived": false
+      },
+      "source_field": "taxes[]"
+     },
+     {
+      "code": "MED",
+      "label": "Medicare",
+      "paid_by": "EMPLOYEE",
+      "amount": {
+       "amount": "21.75",
+       "currency": "USD",
+       "derived": false
+      },
+      "taxable_wages": {
+       "amount": "1500.00",
+       "currency": "USD",
+       "derived": false
+      },
+      "source_field": "taxes[]"
+     },
+     {
+      "code": "NCSIT",
+      "label": "NC Withholding",
+      "paid_by": "EMPLOYEE",
+      "amount": {
+       "amount": "60.00",
+       "currency": "USD",
+       "derived": false
+      },
+      "taxable_wages": {
+       "amount": "1500.00",
+       "currency": "USD",
+       "derived": false
+      },
+      "source_field": "taxes[]"
+     },
+     {
+      "code": "SS-ER",
+      "label": "Social Security Employer",
+      "paid_by": "EMPLOYER",
+      "amount": {
+       "amount": "93.00",
+       "currency": "USD",
+       "derived": false
+      },
+      "taxable_wages": {
+       "amount": "1500.00",
+       "currency": "USD",
+       "derived": false
+      },
+      "source_field": "taxes[]"
+     },
+     {
+      "code": "MED-ER",
+      "label": "Medicare Employer",
+      "paid_by": "EMPLOYER",
+      "amount": {
+       "amount": "21.75",
+       "currency": "USD",
+       "derived": false
+      },
+      "taxable_wages": {
+       "amount": "1500.00",
+       "currency": "USD",
+       "derived": false
+      },
+      "source_field": "taxes[]"
+     },
+     {
+      "code": "FUTA",
+      "label": "FUTA",
+      "paid_by": "EMPLOYER",
+      "amount": {
+       "amount": "9.00",
+       "currency": "USD",
+       "derived": false
+      },
+      "taxable_wages": {
+       "amount": "1500.00",
+       "currency": "USD",
+       "derived": false
+      },
+      "source_field": "taxes[]"
+     }
+    ],
+    "deductions": [],
+    "employer_contributions": [],
+    "benefit_details": [],
+    "payments": [
+     {
+      "kind": {
+       "value": "DIRECT_DEPOSIT",
+       "source_field": "directDeposits[]"
+      },
+      "amount": {
+       "amount": "1175.25",
+       "currency": "USD",
+       "derived": false
+      },
+      "account_last4": "1111",
+      "masked_at_source": true,
+      "source_field": "directDeposits[]"
+     }
+    ],
+    "checks": [
+     {
+      "rule": "gross wages = sum of earning lines counted in gross",
+      "result": "pass",
+      "detail": "1500.0 vs 1500.0"
+     },
+     {
+      "rule": "gross - non-cash earnings - employee taxes - deductions = net",
+      "result": "pass",
+      "detail": "1500.0 - 0 - 324.75 - 0 = 1175.25; net 1175.25"
+     },
+     {
+      "rule": "payments = net",
+      "result": "pass",
+      "detail": "1175.25 vs 1175.25"
+     }
+    ]
+   },
+   {
+    "id": "isolved:synthetic:pay_statement:70001",
+    "source": {
+     "provider": "isolved",
+     "tenant_id": "synthetic",
+     "endpoints": [
+      "api/clients/{client}/legals/{legal}/employees/{id}/checks/{id}"
+     ],
+     "ids": {
+      "clientId": "501",
+      "legalId": "601",
+      "employeeId": "9001",
+      "checkId": "70001"
+     }
+    },
+    "provider_extensions": {
+     "checkSequence": 0,
+     "payrollRunType": "Regular Payroll",
+     "employeeId": 9001,
+     "employeeNumber": "1001",
+     "employeeName": "Maria Chen",
+     "employeeSSN": "***6788",
+     "legalCompanyName": "Brightside Bakery LLC",
+     "directDepositAmount": "1467.81",
+     "earnings[0].currentDollars": "1800.0",
+     "earnings[0].ptdDollars": "1800.0",
+     "earnings[0].mtdDollars": "1800.0",
+     "earnings[0].qtdDollars": "9000.0",
+     "earnings[0].ytdDollars": "36000.0",
+     "earnings[0].ftdDollars": "36000.0",
+     "earnings[1].currentDollars": "200.0",
+     "earnings[1].ptdDollars": "200.0",
+     "earnings[1].mtdDollars": "200.0",
+     "earnings[1].qtdDollars": "1000.0",
+     "earnings[1].ytdDollars": "4000.0",
+     "earnings[1].ftdDollars": "4000.0",
+     "earnings[2].currentDollars": "60.0",
+     "earnings[2].ptdDollars": "60.0",
+     "earnings[2].mtdDollars": "60.0",
+     "earnings[2].qtdDollars": "300.0",
+     "earnings[2].ytdDollars": "1200.0",
+     "earnings[2].ftdDollars": "1200.0",
+     "earnings[3].itemCode": "Bonus",
+     "earnings[3].itemDescription": "Bonus",
+     "earnings[3].isMemoEarning": false,
+     "earnings[3].qtdDollars": "125.0",
+     "earnings[3].ytdDollars": "500.0",
+     "earnings[3].ftdDollars": "500.0",
+     "taxes[0].currentDollars": "188.44",
+     "taxes[0].ptdDollars": "188.44",
+     "taxes[0].mtdDollars": "188.44",
+     "taxes[0].qtdDollars": "942.2",
+     "taxes[0].ytdDollars": "3768.8",
+     "taxes[0].ftdDollars": "3768.8",
+     "taxes[1].currentDollars": "123.81",
+     "taxes[1].ptdDollars": "123.81",
+     "taxes[1].mtdDollars": "123.81",
+     "taxes[1].qtdDollars": "619.04",
+     "taxes[1].ytdDollars": "2476.16",
+     "taxes[1].ftdDollars": "2476.16",
+     "taxes[2].currentDollars": "28.96",
+     "taxes[2].ptdDollars": "28.96",
+     "taxes[2].mtdDollars": "28.96",
+     "taxes[2].qtdDollars": "144.78",
+     "taxes[2].ytdDollars": "579.1",
+     "taxes[2].ftdDollars": "579.1",
+     "taxes[3].currentDollars": "75.38",
+     "taxes[3].ptdDollars": "75.38",
+     "taxes[3].mtdDollars": "75.38",
+     "taxes[3].qtdDollars": "376.88",
+     "taxes[3].ytdDollars": "1507.52",
+     "taxes[3].ftdDollars": "1507.52",
+     "taxes[4].currentDollars": "123.81",
+     "taxes[4].ptdDollars": "123.81",
+     "taxes[4].mtdDollars": "123.81",
+     "taxes[4].qtdDollars": "619.04",
+     "taxes[4].ytdDollars": "2476.16",
+     "taxes[4].ftdDollars": "2476.16",
+     "taxes[5].currentDollars": "28.96",
+     "taxes[5].ptdDollars": "28.96",
+     "taxes[5].mtdDollars": "28.96",
+     "taxes[5].qtdDollars": "144.78",
+     "taxes[5].ytdDollars": "579.1",
+     "taxes[5].ftdDollars": "579.1",
+     "taxes[6].currentDollars": "11.98",
+     "taxes[6].ptdDollars": "11.98",
+     "taxes[6].mtdDollars": "11.98",
+     "taxes[6].qtdDollars": "59.91",
+     "taxes[6].ytdDollars": "239.63",
+     "taxes[6].ftdDollars": "239.63",
+     "deductions[0].currentDollars": "100.0",
+     "deductions[0].ptdDollars": "100.0",
+     "deductions[0].mtdDollars": "100.0",
+     "deductions[0].qtdDollars": "500.0",
+     "deductions[0].ytdDollars": "2000.0",
+     "deductions[0].ftdDollars": "2000.0",
+     "deductions[1].currentDollars": "12.5",
+     "deductions[1].ptdDollars": "12.5",
+     "deductions[1].mtdDollars": "12.5",
+     "deductions[1].qtdDollars": "62.5",
+     "deductions[1].ytdDollars": "250.0",
+     "deductions[1].ftdDollars": "250.0",
+     "directDeposits[0].itemDescription": "Savings",
+     "directDeposits[1].itemDescription": "Checking"
+    },
+    "diagnostics": [
+     {
+      "code": "GROSS_PAY_DIFFERS_FROM_GROSS_WAGES",
+      "severity": "info",
+      "field": "grossPay",
+      "message": "grossPay 1996.9 vs grossWages 2000.0; the difference is undocumented (A-28)"
+     }
+    ],
+    "company_id": "isolved:synthetic:company:501:601",
+    "employee_id": "isolved:synthetic:employee:9001",
+    "payroll_run_id": "isolved:synthetic:payroll_run:501:601:701:8801",
+    "pay_date": "2026-10-02",
+    "period": {
+     "start": "2026-09-14",
+     "end": "2026-09-27"
+    },
+    "check_number": "70001",
+    "type": {
+     "value": "REGULAR",
+     "raw": "Regular",
+     "label": "Regular",
+     "source_field": "checkTypeDescription"
+    },
+    "voided": false,
+    "totals": {
+     "gross_pay": {
+      "amount": "1996.90",
+      "currency": "USD",
+      "derived": false,
+      "source_field": "grossPay"
+     },
+     "gross_wages": {
+      "amount": "2000.00",
+      "currency": "USD",
+      "derived": false,
+      "source_field": "grossWages"
+     },
+     "net_pay": {
+      "amount": "1467.81",
+      "currency": "USD",
+      "derived": false,
+      "source_field": "netPay"
+     },
+     "employee_taxes": {
+      "amount": "416.59",
+      "currency": "USD",
+      "derived": true,
+      "formula": "sum(taxes[isEmployeeTax].checkDollars)"
+     },
+     "employer_taxes": {
+      "amount": "164.75",
+      "currency": "USD",
+      "derived": true,
+      "formula": "sum(taxes[not isEmployeeTax].checkDollars)"
+     },
+     "deductions": {
+      "amount": "112.50",
+      "currency": "USD",
+      "derived": true,
+      "formula": "sum(deductions[].checkDollars) + sum(garnishments[].checkDollars)"
+     },
+     "employer_contributions": {
+      "amount": "60.00",
+      "currency": "USD",
+      "derived": true,
+      "formula": "sum(benefits[].checkEmployerContribution)"
+     }
+    },
+    "earnings": [
+     {
+      "code": "Regular",
+      "label": "Regular",
+      "kind": {
+       "value": "UNMAPPED",
+       "raw": false,
+       "source_field": "earnings[].isMemoEarning"
+      },
+      "in_gross": true,
+      "quantity": {
+       "value": "72.0",
+       "unit": "HOURS",
+       "derived": false,
+       "source_field": "earnings[].checkHours"
+      },
+      "amount": {
+       "amount": "1800.00",
+       "currency": "USD",
+       "derived": false,
+       "source_field": "earnings[].checkDollars"
+      },
+      "allocation": {},
+      "source_field": "earnings[]"
+     },
+     {
+      "code": "Holiday",
+      "label": "Holiday",
+      "kind": {
+       "value": "UNMAPPED",
+       "raw": false,
+       "source_field": "earnings[].isMemoEarning"
+      },
+      "in_gross": true,
+      "quantity": {
+       "value": "8.0",
+       "unit": "HOURS",
+       "derived": false,
+       "source_field": "earnings[].checkHours"
+      },
+      "amount": {
+       "amount": "200.00",
+       "currency": "USD",
+       "derived": false,
+       "source_field": "earnings[].checkDollars"
+      },
+      "allocation": {},
+      "source_field": "earnings[]"
+     },
+     {
+      "code": "401(k) Match",
+      "label": "401(k) Match",
+      "kind": {
+       "value": "MEMO",
+       "raw": true,
+       "source_field": "earnings[].isMemoEarning"
+      },
+      "in_gross": false,
+      "amount": {
+       "amount": "60.00",
+       "currency": "USD",
+       "derived": false,
+       "source_field": "earnings[].checkDollars"
+      },
+      "allocation": {},
+      "source_field": "earnings[]"
+     }
+    ],
+    "taxes": [
+     {
+      "code": "FIT",
+      "label": "Federal Withholding",
+      "paid_by": "EMPLOYEE",
+      "amount": {
+       "amount": "188.44",
+       "currency": "USD",
+       "derived": false
+      },
+      "taxable_wages": {
+       "amount": "1884.40",
+       "currency": "USD",
+       "derived": false
+      },
+      "source_field": "taxes[]"
+     },
+     {
+      "code": "SS",
+      "label": "Social Security",
+      "paid_by": "EMPLOYEE",
+      "amount": {
+       "amount": "123.81",
+       "currency": "USD",
+       "derived": false
+      },
+      "taxable_wages": {
+       "amount": "1884.40",
+       "currency": "USD",
+       "derived": false
+      },
+      "source_field": "taxes[]"
+     },
+     {
+      "code": "MED",
+      "label": "Medicare",
+      "paid_by": "EMPLOYEE",
+      "amount": {
+       "amount": "28.96",
+       "currency": "USD",
+       "derived": false
+      },
+      "taxable_wages": {
+       "amount": "1884.40",
+       "currency": "USD",
+       "derived": false
+      },
+      "source_field": "taxes[]"
+     },
+     {
+      "code": "NCSIT",
+      "label": "NC Withholding",
+      "paid_by": "EMPLOYEE",
+      "amount": {
+       "amount": "75.38",
+       "currency": "USD",
+       "derived": false
+      },
+      "taxable_wages": {
+       "amount": "1884.40",
+       "currency": "USD",
+       "derived": false
+      },
+      "source_field": "taxes[]"
+     },
+     {
+      "code": "SS-ER",
+      "label": "Social Security Employer",
+      "paid_by": "EMPLOYER",
+      "amount": {
+       "amount": "123.81",
+       "currency": "USD",
+       "derived": false
+      },
+      "taxable_wages": {
+       "amount": "1996.90",
+       "currency": "USD",
+       "derived": false
+      },
+      "source_field": "taxes[]"
+     },
+     {
+      "code": "MED-ER",
+      "label": "Medicare Employer",
+      "paid_by": "EMPLOYER",
+      "amount": {
+       "amount": "28.96",
+       "currency": "USD",
+       "derived": false
+      },
+      "taxable_wages": {
+       "amount": "1996.90",
+       "currency": "USD",
+       "derived": false
+      },
+      "source_field": "taxes[]"
+     },
+     {
+      "code": "FUTA",
+      "label": "FUTA",
+      "paid_by": "EMPLOYER",
+      "amount": {
+       "amount": "11.98",
+       "currency": "USD",
+       "derived": false
+      },
+      "taxable_wages": {
+       "amount": "1996.90",
+       "currency": "USD",
+       "derived": false
+      },
+      "source_field": "taxes[]"
+     }
+    ],
+    "deductions": [
+     {
+      "code": "401K",
+      "label": "401K",
+      "category": {
+       "value": "RETIREMENT",
+       "raw": "401(k) / 401K",
+       "label": "401K",
+       "source_field": "clientPayItems[].systemBenefitType+systemPayItemType"
+      },
+      "tax_treatment": "UNSPECIFIED",
+      "employee_amount": {
+       "amount": "100.00",
+       "currency": "USD",
+       "derived": false
+      },
+      "source_field": "deductions[]"
+     },
+     {
+      "code": "Dental Pre-tax",
+      "label": "Dental Pre-tax",
+      "category": {
+       "value": "SECTION_125",
+       "raw": "Dental Pre-Tax 125 / Dental Pre-tax",
+       "label": "Dental Pre-tax",
+       "source_field": "clientPayItems[].systemBenefitType+systemPayItemType"
+      },
+      "tax_treatment": "PRE_TAX",
+      "employee_amount": {
+       "amount": "12.50",
+       "currency": "USD",
+       "derived": false
+      },
+      "source_field": "deductions[]"
+     }
+    ],
+    "employer_contributions": [
+     {
+      "code": "401(k)",
+      "label": "401(k)",
+      "amount": {
+       "amount": "60.00",
+       "currency": "USD",
+       "derived": false
+      },
+      "source_field": "benefits[]"
+     }
+    ],
+    "benefit_details": [
+     {
+      "plan": "401(k)",
+      "employee_deduction": {
+       "amount": "100.00",
+       "currency": "USD",
+       "derived": false
+      },
+      "employer_contribution": {
+       "amount": "60.00",
+       "currency": "USD",
+       "derived": false
+      },
+      "source_field": "benefits[]"
+     }
+    ],
+    "payments": [
+     {
+      "kind": {
+       "value": "DIRECT_DEPOSIT",
+       "source_field": "directDeposits[]"
+      },
+      "amount": {
+       "amount": "200.00",
+       "currency": "USD",
+       "derived": false
+      },
+      "account_last4": "6789",
+      "masked_at_source": true,
+      "source_field": "directDeposits[]"
+     },
+     {
+      "kind": {
+       "value": "DIRECT_DEPOSIT",
+       "source_field": "directDeposits[]"
+      },
+      "amount": {
+       "amount": "1267.81",
+       "currency": "USD",
+       "derived": false
+      },
+      "account_last4": "4321",
+      "masked_at_source": true,
+      "source_field": "directDeposits[]"
+     }
+    ],
+    "checks": [
+     {
+      "rule": "gross wages = sum of earning lines counted in gross",
+      "result": "pass",
+      "detail": "2000.0 vs 2000.0"
+     },
+     {
+      "rule": "gross - non-cash earnings - employee taxes - deductions = net",
+      "result": "pass",
+      "detail": "1996.9 - 0 - 416.59 - 112.5 = 1467.81; net 1467.81"
+     },
+     {
+      "rule": "payments = net",
+      "result": "pass",
+      "detail": "1467.81 vs 1467.81"
+     }
+    ]
+   },
+   {
+    "id": "isolved:synthetic:pay_statement:70002",
+    "source": {
+     "provider": "isolved",
+     "tenant_id": "synthetic",
+     "endpoints": [
+      "api/clients/{client}/legals/{legal}/employees/{id}/checks/{id}"
+     ],
+     "ids": {
+      "clientId": "501",
+      "legalId": "601",
+      "employeeId": "9002",
+      "checkId": "70002"
+     }
+    },
+    "provider_extensions": {
+     "checkSequence": 0,
+     "payrollRunType": "Regular Payroll",
+     "employeeId": 9002,
+     "employeeNumber": "1002",
+     "employeeName": "James Nair",
+     "employeeSSN": "***6787",
+     "legalCompanyName": "Brightside Bakery LLC",
+     "directDepositAmount": "378.85",
+     "earnings[0].currentDollars": "450.0",
+     "earnings[0].ptdDollars": "450.0",
+     "earnings[0].mtdDollars": "450.0",
+     "earnings[0].qtdDollars": "2250.0",
+     "earnings[0].ytdDollars": "9000.0",
+     "earnings[0].ftdDollars": "9000.0",
+     "earnings[1].currentDollars": "135.0",
+     "earnings[1].ptdDollars": "135.0",
+     "earnings[1].mtdDollars": "135.0",
+     "earnings[1].qtdDollars": "675.0",
+     "earnings[1].ytdDollars": "2700.0",
+     "earnings[1].ftdDollars": "2700.0",
+     "taxes[0].currentDollars": "56.0",
+     "taxes[0].ptdDollars": "56.0",
+     "taxes[0].mtdDollars": "56.0",
+     "taxes[0].qtdDollars": "280.0",
+     "taxes[0].ytdDollars": "1120.0",
+     "taxes[0].ftdDollars": "1120.0",
+     "taxes[1].currentDollars": "36.27",
+     "taxes[1].ptdDollars": "36.27",
+     "taxes[1].mtdDollars": "36.27",
+     "taxes[1].qtdDollars": "181.35",
+     "taxes[1].ytdDollars": "725.4",
+     "taxes[1].ftdDollars": "725.4",
+     "taxes[2].currentDollars": "8.48",
+     "taxes[2].ptdDollars": "8.48",
+     "taxes[2].mtdDollars": "8.48",
+     "taxes[2].qtdDollars": "42.41",
+     "taxes[2].ytdDollars": "169.65",
+     "taxes[2].ftdDollars": "169.65",
+     "taxes[3].currentDollars": "22.4",
+     "taxes[3].ptdDollars": "22.4",
+     "taxes[3].mtdDollars": "22.4",
+     "taxes[3].qtdDollars": "112.0",
+     "taxes[3].ytdDollars": "448.0",
+     "taxes[3].ftdDollars": "448.0",
+     "taxes[4].currentDollars": "36.27",
+     "taxes[4].ptdDollars": "36.27",
+     "taxes[4].mtdDollars": "36.27",
+     "taxes[4].qtdDollars": "181.35",
+     "taxes[4].ytdDollars": "725.4",
+     "taxes[4].ftdDollars": "725.4",
+     "taxes[5].currentDollars": "8.48",
+     "taxes[5].ptdDollars": "8.48",
+     "taxes[5].mtdDollars": "8.48",
+     "taxes[5].qtdDollars": "42.41",
+     "taxes[5].ytdDollars": "169.65",
+     "taxes[5].ftdDollars": "169.65",
+     "taxes[6].currentDollars": "3.51",
+     "taxes[6].ptdDollars": "3.51",
+     "taxes[6].mtdDollars": "3.51",
+     "taxes[6].qtdDollars": "17.55",
+     "taxes[6].ytdDollars": "70.2",
+     "taxes[6].ftdDollars": "70.2",
+     "deductions[0].currentDollars": "8.0",
+     "deductions[0].ptdDollars": "8.0",
+     "deductions[0].mtdDollars": "8.0",
+     "deductions[0].qtdDollars": "40.0",
+     "deductions[0].ytdDollars": "160.0",
+     "deductions[0].ftdDollars": "160.0",
+     "deductions[1].currentDollars": "25.0",
+     "deductions[1].ptdDollars": "25.0",
+     "deductions[1].mtdDollars": "25.0",
+     "deductions[1].qtdDollars": "125.0",
+     "deductions[1].ytdDollars": "500.0",
+     "deductions[1].ftdDollars": "500.0",
+     "garnishments[0].currentDollars": "50.0",
+     "garnishments[0].ptdDollars": "50.0",
+     "garnishments[0].mtdDollars": "50.0",
+     "garnishments[0].qtdDollars": "250.0",
+     "garnishments[0].ytdDollars": "1000.0",
+     "garnishments[0].ftdDollars": "1000.0",
+     "directDeposits[0].itemDescription": "Checking",
+     "directDeposits[1].itemDescription": "Savings"
+    },
+    "diagnostics": [],
+    "company_id": "isolved:synthetic:company:501:601",
+    "employee_id": "isolved:synthetic:employee:9002",
+    "payroll_run_id": "isolved:synthetic:payroll_run:501:601:702:8811",
+    "pay_date": "2026-10-02",
+    "period": {
+     "start": "2026-09-21",
+     "end": "2026-09-27"
+    },
+    "check_number": "70002",
+    "type": {
+     "value": "REGULAR",
+     "raw": "Regular",
+     "label": "Regular",
+     "source_field": "checkTypeDescription"
+    },
+    "voided": false,
+    "totals": {
+     "gross_pay": {
+      "amount": "585.00",
+      "currency": "USD",
+      "derived": false,
+      "source_field": "grossPay"
+     },
+     "gross_wages": {
+      "amount": "585.00",
+      "currency": "USD",
+      "derived": false,
+      "source_field": "grossWages"
+     },
+     "net_pay": {
+      "amount": "378.85",
+      "currency": "USD",
+      "derived": false,
+      "source_field": "netPay"
+     },
+     "employee_taxes": {
+      "amount": "123.15",
+      "currency": "USD",
+      "derived": true,
+      "formula": "sum(taxes[isEmployeeTax].checkDollars)"
+     },
+     "employer_taxes": {
+      "amount": "48.26",
+      "currency": "USD",
+      "derived": true,
+      "formula": "sum(taxes[not isEmployeeTax].checkDollars)"
+     },
+     "deductions": {
+      "amount": "83.00",
+      "currency": "USD",
+      "derived": true,
+      "formula": "sum(deductions[].checkDollars) + sum(garnishments[].checkDollars)"
+     },
+     "employer_contributions": {
+      "amount": "0.00",
+      "currency": "USD",
+      "derived": true,
+      "formula": "sum(benefits[].checkEmployerContribution)"
+     }
+    },
+    "earnings": [
+     {
+      "code": "Regular",
+      "label": "Regular",
+      "kind": {
+       "value": "UNMAPPED",
+       "raw": false,
+       "source_field": "earnings[].isMemoEarning"
+      },
+      "in_gross": true,
+      "quantity": {
+       "value": "20.0",
+       "unit": "HOURS",
+       "derived": false,
+       "source_field": "earnings[].checkHours"
+      },
+      "amount": {
+       "amount": "450.00",
+       "currency": "USD",
+       "derived": false,
+       "source_field": "earnings[].checkDollars"
+      },
+      "allocation": {},
+      "source_field": "earnings[]"
+     },
+     {
+      "code": "Overtime",
+      "label": "Overtime",
+      "kind": {
+       "value": "UNMAPPED",
+       "raw": false,
+       "source_field": "earnings[].isMemoEarning"
+      },
+      "in_gross": true,
+      "quantity": {
+       "value": "4.0",
+       "unit": "HOURS",
+       "derived": false,
+       "source_field": "earnings[].checkHours"
+      },
+      "amount": {
+       "amount": "135.00",
+       "currency": "USD",
+       "derived": false,
+       "source_field": "earnings[].checkDollars"
+      },
+      "allocation": {},
+      "source_field": "earnings[]"
+     }
+    ],
+    "taxes": [
+     {
+      "code": "FIT",
+      "label": "Federal Withholding",
+      "paid_by": "EMPLOYEE",
+      "amount": {
+       "amount": "56.00",
+       "currency": "USD",
+       "derived": false
+      },
+      "taxable_wages": {
+       "amount": "560.00",
+       "currency": "USD",
+       "derived": false
+      },
+      "source_field": "taxes[]"
+     },
+     {
+      "code": "SS",
+      "label": "Social Security",
+      "paid_by": "EMPLOYEE",
+      "amount": {
+       "amount": "36.27",
+       "currency": "USD",
+       "derived": false
+      },
+      "taxable_wages": {
+       "amount": "560.00",
+       "currency": "USD",
+       "derived": false
+      },
+      "source_field": "taxes[]"
+     },
+     {
+      "code": "MED",
+      "label": "Medicare",
+      "paid_by": "EMPLOYEE",
+      "amount": {
+       "amount": "8.48",
+       "currency": "USD",
+       "derived": false
+      },
+      "taxable_wages": {
+       "amount": "560.00",
+       "currency": "USD",
+       "derived": false
+      },
+      "source_field": "taxes[]"
+     },
+     {
+      "code": "NCSIT",
+      "label": "NC Withholding",
+      "paid_by": "EMPLOYEE",
+      "amount": {
+       "amount": "22.40",
+       "currency": "USD",
+       "derived": false
+      },
+      "taxable_wages": {
+       "amount": "560.00",
+       "currency": "USD",
+       "derived": false
+      },
+      "source_field": "taxes[]"
+     },
+     {
+      "code": "SS-ER",
+      "label": "Social Security Employer",
+      "paid_by": "EMPLOYER",
+      "amount": {
+       "amount": "36.27",
+       "currency": "USD",
+       "derived": false
+      },
+      "taxable_wages": {
+       "amount": "585.00",
+       "currency": "USD",
+       "derived": false
+      },
+      "source_field": "taxes[]"
+     },
+     {
+      "code": "MED-ER",
+      "label": "Medicare Employer",
+      "paid_by": "EMPLOYER",
+      "amount": {
+       "amount": "8.48",
+       "currency": "USD",
+       "derived": false
+      },
+      "taxable_wages": {
+       "amount": "585.00",
+       "currency": "USD",
+       "derived": false
+      },
+      "source_field": "taxes[]"
+     },
+     {
+      "code": "FUTA",
+      "label": "FUTA",
+      "paid_by": "EMPLOYER",
+      "amount": {
+       "amount": "3.51",
+       "currency": "USD",
+       "derived": false
+      },
+      "taxable_wages": {
+       "amount": "585.00",
+       "currency": "USD",
+       "derived": false
+      },
+      "source_field": "taxes[]"
+     }
+    ],
+    "deductions": [
+     {
+      "code": "Voluntary Life",
+      "label": "Voluntary Life",
+      "category": {
+       "value": "VOLUNTARY",
+       "raw": "Voluntary Deduction",
+       "label": "Voluntary Deduction",
+       "source_field": "clientPayItems[].systemBenefitType+systemPayItemType"
+      },
+      "tax_treatment": "UNSPECIFIED",
+      "employee_amount": {
+       "amount": "8.00",
+       "currency": "USD",
+       "derived": false
+      },
+      "source_field": "deductions[]"
+     },
+     {
+      "code": "401K Loan",
+      "label": "401K Loan",
+      "category": {
+       "value": "RETIREMENT_LOAN",
+       "raw": "401(k) / 401K Loan",
+       "label": "401K Loan",
+       "source_field": "clientPayItems[].systemBenefitType+systemPayItemType"
+      },
+      "tax_treatment": "UNSPECIFIED",
+      "employee_amount": {
+       "amount": "25.00",
+       "currency": "USD",
+       "derived": false
+      },
+      "source_field": "deductions[]"
+     },
+     {
+      "code": "Child Support",
+      "label": "Child Support",
+      "category": {
+       "value": "GARNISHMENT",
+       "source_field": "garnishments[]"
+      },
+      "tax_treatment": "UNSPECIFIED",
+      "employee_amount": {
+       "amount": "50.00",
+       "currency": "USD",
+       "derived": false
+      },
+      "source_field": "garnishments[]"
+     }
+    ],
+    "employer_contributions": [],
+    "benefit_details": [],
+    "payments": [
+     {
+      "kind": {
+       "value": "DIRECT_DEPOSIT",
+       "source_field": "directDeposits[]"
+      },
+      "amount": {
+       "amount": "113.66",
+       "currency": "USD",
+       "derived": false
+      },
+      "account_last4": "2345",
+      "masked_at_source": true,
+      "source_field": "directDeposits[]"
+     },
+     {
+      "kind": {
+       "value": "DIRECT_DEPOSIT",
+       "source_field": "directDeposits[]"
+      },
+      "amount": {
+       "amount": "265.19",
+       "currency": "USD",
+       "derived": false
+      },
+      "account_last4": "7890",
+      "masked_at_source": true,
+      "source_field": "directDeposits[]"
+     }
+    ],
+    "checks": [
+     {
+      "rule": "gross wages = sum of earning lines counted in gross",
+      "result": "pass",
+      "detail": "585.0 vs 585.0"
+     },
+     {
+      "rule": "gross - non-cash earnings - employee taxes - deductions = net",
+      "result": "pass",
+      "detail": "585.0 - 0 - 123.15 - 83.0 = 378.85; net 378.85"
+     },
+     {
+      "rule": "payments = net",
+      "result": "pass",
+      "detail": "378.85 vs 378.85"
+     }
+    ]
+   },
+   {
+    "id": "isolved:synthetic:pay_statement:70003",
+    "source": {
+     "provider": "isolved",
+     "tenant_id": "synthetic",
+     "endpoints": [
+      "api/clients/{client}/legals/{legal}/employees/{id}/checks/{id}"
+     ],
+     "ids": {
+      "clientId": "501",
+      "legalId": "601",
+      "employeeId": "9003",
+      "checkId": "70003"
+     }
+    },
+    "provider_extensions": {
+     "checkSequence": 0,
+     "payrollRunType": "Regular Payroll",
+     "employeeId": 9003,
+     "employeeNumber": "1003",
+     "employeeName": "Ana Price",
+     "employeeSSN": "***6786",
+     "legalCompanyName": "Brightside Bakery LLC",
+     "directDepositAmount": "1504.32",
+     "earnings[0].currentDollars": "1920.0",
+     "earnings[0].ptdDollars": "1920.0",
+     "earnings[0].mtdDollars": "1920.0",
+     "earnings[0].qtdDollars": "9600.0",
+     "earnings[0].ytdDollars": "38400.0",
+     "earnings[0].ftdDollars": "38400.0",
+     "taxes[0].currentDollars": "192.0",
+     "taxes[0].ptdDollars": "192.0",
+     "taxes[0].mtdDollars": "192.0",
+     "taxes[0].qtdDollars": "960.0",
+     "taxes[0].ytdDollars": "3840.0",
+     "taxes[0].ftdDollars": "3840.0",
+     "taxes[1].currentDollars": "119.04",
+     "taxes[1].ptdDollars": "119.04",
+     "taxes[1].mtdDollars": "119.04",
+     "taxes[1].qtdDollars": "595.2",
+     "taxes[1].ytdDollars": "2380.8",
+     "taxes[1].ftdDollars": "2380.8",
+     "taxes[2].currentDollars": "27.84",
+     "taxes[2].ptdDollars": "27.84",
+     "taxes[2].mtdDollars": "27.84",
+     "taxes[2].qtdDollars": "139.2",
+     "taxes[2].ytdDollars": "556.8",
+     "taxes[2].ftdDollars": "556.8",
+     "taxes[3].currentDollars": "76.8",
+     "taxes[3].ptdDollars": "76.8",
+     "taxes[3].mtdDollars": "76.8",
+     "taxes[3].qtdDollars": "384.0",
+     "taxes[3].ytdDollars": "1536.0",
+     "taxes[3].ftdDollars": "1536.0",
+     "taxes[4].currentDollars": "119.04",
+     "taxes[4].ptdDollars": "119.04",
+     "taxes[4].mtdDollars": "119.04",
+     "taxes[4].qtdDollars": "595.2",
+     "taxes[4].ytdDollars": "2380.8",
+     "taxes[4].ftdDollars": "2380.8",
+     "taxes[5].currentDollars": "27.84",
+     "taxes[5].ptdDollars": "27.84",
+     "taxes[5].mtdDollars": "27.84",
+     "taxes[5].qtdDollars": "139.2",
+     "taxes[5].ytdDollars": "556.8",
+     "taxes[5].ftdDollars": "556.8",
+     "taxes[6].currentDollars": "11.52",
+     "taxes[6].ptdDollars": "11.52",
+     "taxes[6].mtdDollars": "11.52",
+     "taxes[6].qtdDollars": "57.6",
+     "taxes[6].ytdDollars": "230.4",
+     "taxes[6].ftdDollars": "230.4",
+     "directDeposits[0].itemDescription": "Savings"
+    },
+    "diagnostics": [],
+    "company_id": "isolved:synthetic:company:501:601",
+    "employee_id": "isolved:synthetic:employee:9003",
+    "payroll_run_id": "isolved:synthetic:payroll_run:501:601:701:8801",
+    "pay_date": "2026-10-02",
+    "period": {
+     "start": "2026-09-14",
+     "end": "2026-09-27"
+    },
+    "check_number": "70003",
+    "type": {
+     "value": "REGULAR",
+     "raw": "Regular",
+     "label": "Regular",
+     "source_field": "checkTypeDescription"
+    },
+    "voided": false,
+    "totals": {
+     "gross_pay": {
+      "amount": "1920.00",
+      "currency": "USD",
+      "derived": false,
+      "source_field": "grossPay"
+     },
+     "gross_wages": {
+      "amount": "1920.00",
+      "currency": "USD",
+      "derived": false,
+      "source_field": "grossWages"
+     },
+     "net_pay": {
+      "amount": "1504.32",
+      "currency": "USD",
+      "derived": false,
+      "source_field": "netPay"
+     },
+     "employee_taxes": {
+      "amount": "415.68",
+      "currency": "USD",
+      "derived": true,
+      "formula": "sum(taxes[isEmployeeTax].checkDollars)"
+     },
+     "employer_taxes": {
+      "amount": "158.40",
+      "currency": "USD",
+      "derived": true,
+      "formula": "sum(taxes[not isEmployeeTax].checkDollars)"
+     },
+     "deductions": {
+      "amount": "0.00",
+      "currency": "USD",
+      "derived": true,
+      "formula": "sum(deductions[].checkDollars) + sum(garnishments[].checkDollars)"
+     },
+     "employer_contributions": {
+      "amount": "0.00",
+      "currency": "USD",
+      "derived": true,
+      "formula": "sum(benefits[].checkEmployerContribution)"
+     }
+    },
+    "earnings": [
+     {
+      "code": "Regular",
+      "label": "Regular",
+      "kind": {
+       "value": "UNMAPPED",
+       "raw": false,
+       "source_field": "earnings[].isMemoEarning"
+      },
+      "in_gross": true,
+      "quantity": {
+       "value": "64.0",
+       "unit": "HOURS",
+       "derived": false,
+       "source_field": "earnings[].checkHours"
+      },
+      "amount": {
+       "amount": "1920.00",
+       "currency": "USD",
+       "derived": false,
+       "source_field": "earnings[].checkDollars"
+      },
+      "allocation": {},
+      "source_field": "earnings[]"
+     }
+    ],
+    "taxes": [
+     {
+      "code": "FIT",
+      "label": "Federal Withholding",
+      "paid_by": "EMPLOYEE",
+      "amount": {
+       "amount": "192.00",
+       "currency": "USD",
+       "derived": false
+      },
+      "taxable_wages": {
+       "amount": "1920.00",
+       "currency": "USD",
+       "derived": false
+      },
+      "source_field": "taxes[]"
+     },
+     {
+      "code": "SS",
+      "label": "Social Security",
+      "paid_by": "EMPLOYEE",
+      "amount": {
+       "amount": "119.04",
+       "currency": "USD",
+       "derived": false
+      },
+      "taxable_wages": {
+       "amount": "1920.00",
+       "currency": "USD",
+       "derived": false
+      },
+      "source_field": "taxes[]"
+     },
+     {
+      "code": "MED",
+      "label": "Medicare",
+      "paid_by": "EMPLOYEE",
+      "amount": {
+       "amount": "27.84",
+       "currency": "USD",
+       "derived": false
+      },
+      "taxable_wages": {
+       "amount": "1920.00",
+       "currency": "USD",
+       "derived": false
+      },
+      "source_field": "taxes[]"
+     },
+     {
+      "code": "NCSIT",
+      "label": "NC Withholding",
+      "paid_by": "EMPLOYEE",
+      "amount": {
+       "amount": "76.80",
+       "currency": "USD",
+       "derived": false
+      },
+      "taxable_wages": {
+       "amount": "1920.00",
+       "currency": "USD",
+       "derived": false
+      },
+      "source_field": "taxes[]"
+     },
+     {
+      "code": "SS-ER",
+      "label": "Social Security Employer",
+      "paid_by": "EMPLOYER",
+      "amount": {
+       "amount": "119.04",
+       "currency": "USD",
+       "derived": false
+      },
+      "taxable_wages": {
+       "amount": "1920.00",
+       "currency": "USD",
+       "derived": false
+      },
+      "source_field": "taxes[]"
+     },
+     {
+      "code": "MED-ER",
+      "label": "Medicare Employer",
+      "paid_by": "EMPLOYER",
+      "amount": {
+       "amount": "27.84",
+       "currency": "USD",
+       "derived": false
+      },
+      "taxable_wages": {
+       "amount": "1920.00",
+       "currency": "USD",
+       "derived": false
+      },
+      "source_field": "taxes[]"
+     },
+     {
+      "code": "FUTA",
+      "label": "FUTA",
+      "paid_by": "EMPLOYER",
+      "amount": {
+       "amount": "11.52",
+       "currency": "USD",
+       "derived": false
+      },
+      "taxable_wages": {
+       "amount": "1920.00",
+       "currency": "USD",
+       "derived": false
+      },
+      "source_field": "taxes[]"
+     }
+    ],
+    "deductions": [],
+    "employer_contributions": [],
+    "benefit_details": [],
+    "payments": [
+     {
+      "kind": {
+       "value": "DIRECT_DEPOSIT",
+       "source_field": "directDeposits[]"
+      },
+      "amount": {
+       "amount": "1504.32",
+       "currency": "USD",
+       "derived": false
+      },
+      "account_last4": "1111",
+      "masked_at_source": true,
+      "source_field": "directDeposits[]"
+     }
+    ],
+    "checks": [
+     {
+      "rule": "gross wages = sum of earning lines counted in gross",
+      "result": "pass",
+      "detail": "1920.0 vs 1920.0"
+     },
+     {
+      "rule": "gross - non-cash earnings - employee taxes - deductions = net",
+      "result": "pass",
+      "detail": "1920.0 - 0 - 415.68 - 0 = 1504.32; net 1504.32"
+     },
+     {
+      "rule": "payments = net",
+      "result": "pass",
+      "detail": "1504.32 vs 1504.32"
+     }
+    ]
+   },
+   {
+    "id": "isolved:synthetic:pay_statement:70004",
+    "source": {
+     "provider": "isolved",
+     "tenant_id": "synthetic",
+     "endpoints": [
+      "api/clients/{client}/legals/{legal}/employees/{id}/checks/{id}"
+     ],
+     "ids": {
+      "clientId": "501",
+      "legalId": "601",
+      "employeeId": "9005",
+      "checkId": "70004"
+     }
+    },
+    "provider_extensions": {
+     "checkSequence": 0,
+     "payrollRunType": "Regular Payroll",
+     "employeeId": 9005,
+     "employeeNumber": "1005",
+     "employeeName": "Priya Lopez",
+     "employeeSSN": "***6784",
+     "legalCompanyName": "Brightside Bakery LLC",
+     "directDepositAmount": "0.0",
+     "earnings[0].currentDollars": "1200.0",
+     "earnings[0].ptdDollars": "1200.0",
+     "earnings[0].mtdDollars": "1200.0",
+     "earnings[0].qtdDollars": "6000.0",
+     "earnings[0].ytdDollars": "24000.0",
+     "earnings[0].ftdDollars": "24000.0"
+    },
+    "diagnostics": [],
+    "company_id": "isolved:synthetic:company:501:601",
+    "employee_id": "isolved:synthetic:employee:9005",
+    "payroll_run_id": "isolved:synthetic:payroll_run:501:601:702:8811",
+    "pay_date": "2026-10-02",
+    "period": {
+     "start": "2026-09-21",
+     "end": "2026-09-27"
+    },
+    "check_number": "70004",
+    "type": {
+     "value": "REGULAR",
+     "raw": "Regular",
+     "label": "Regular",
+     "source_field": "checkTypeDescription"
+    },
+    "voided": false,
+    "totals": {
+     "gross_pay": {
+      "amount": "1200.00",
+      "currency": "USD",
+      "derived": false,
+      "source_field": "grossPay"
+     },
+     "gross_wages": {
+      "amount": "1200.00",
+      "currency": "USD",
+      "derived": false,
+      "source_field": "grossWages"
+     },
+     "net_pay": {
+      "amount": "1200.00",
+      "currency": "USD",
+      "derived": false,
+      "source_field": "netPay"
+     },
+     "employee_taxes": {
+      "amount": "0.00",
+      "currency": "USD",
+      "derived": true,
+      "formula": "sum(taxes[isEmployeeTax].checkDollars)"
+     },
+     "employer_taxes": {
+      "amount": "0.00",
+      "currency": "USD",
+      "derived": true,
+      "formula": "sum(taxes[not isEmployeeTax].checkDollars)"
+     },
+     "deductions": {
+      "amount": "0.00",
+      "currency": "USD",
+      "derived": true,
+      "formula": "sum(deductions[].checkDollars) + sum(garnishments[].checkDollars)"
+     },
+     "employer_contributions": {
+      "amount": "0.00",
+      "currency": "USD",
+      "derived": true,
+      "formula": "sum(benefits[].checkEmployerContribution)"
+     }
+    },
+    "earnings": [
+     {
+      "code": "Regular",
+      "label": "Regular",
+      "kind": {
+       "value": "UNMAPPED",
+       "raw": false,
+       "source_field": "earnings[].isMemoEarning"
+      },
+      "in_gross": true,
+      "quantity": {
+       "value": "30.0",
+       "unit": "HOURS",
+       "derived": false,
+       "source_field": "earnings[].checkHours"
+      },
+      "amount": {
+       "amount": "1200.00",
+       "currency": "USD",
+       "derived": false,
+       "source_field": "earnings[].checkDollars"
+      },
+      "allocation": {},
+      "source_field": "earnings[]"
+     }
+    ],
+    "taxes": [],
+    "deductions": [],
+    "employer_contributions": [],
+    "benefit_details": [],
+    "payments": [
+     {
+      "kind": {
+       "value": "CHECK",
+       "source_field": "checkAmount"
+      },
+      "amount": {
+       "amount": "1200.00",
+       "currency": "USD",
+       "derived": false
+      },
+      "source_field": "checkAmount"
+     }
+    ],
+    "checks": [
+     {
+      "rule": "gross wages = sum of earning lines counted in gross",
+      "result": "pass",
+      "detail": "1200.0 vs 1200.0"
+     },
+     {
+      "rule": "gross - non-cash earnings - employee taxes - deductions = net",
+      "result": "pass",
+      "detail": "1200.0 - 0 - 0 - 0 = 1200.0; net 1200.0"
+     },
+     {
+      "rule": "payments = net",
+      "result": "pass",
+      "detail": "1200.0 vs 1200.0"
+     }
+    ]
+   },
+   {
+    "id": "isolved:synthetic:pay_statement:70005",
+    "source": {
+     "provider": "isolved",
+     "tenant_id": "synthetic",
+     "endpoints": [
+      "api/clients/{client}/legals/{legal}/employees/{id}/checks/{id}"
+     ],
+     "ids": {
+      "clientId": "501",
+      "legalId": "601",
+      "employeeId": "9001",
+      "checkId": "70005"
+     }
+    },
+    "provider_extensions": {
+     "checkSequence": 0,
+     "payrollRunType": "Regular Payroll",
+     "employeeId": 9001,
+     "employeeNumber": "1001",
+     "employeeName": "Maria Chen",
+     "employeeSSN": "***6788",
+     "legalCompanyName": "Brightside Bakery LLC",
+     "directDepositAmount": "370.25",
+     "earnings[0].currentDollars": "500.0",
+     "earnings[0].ptdDollars": "500.0",
+     "earnings[0].mtdDollars": "500.0",
+     "earnings[0].qtdDollars": "2500.0",
+     "earnings[0].ytdDollars": "10000.0",
+     "earnings[0].ftdDollars": "10000.0",
+     "taxes[0].currentDollars": "47.5",
+     "taxes[0].ptdDollars": "47.5",
+     "taxes[0].mtdDollars": "47.5",
+     "taxes[0].qtdDollars": "237.5",
+     "taxes[0].ytdDollars": "950.0",
+     "taxes[0].ftdDollars": "950.0",
+     "taxes[1].currentDollars": "31.0",
+     "taxes[1].ptdDollars": "31.0",
+     "taxes[1].mtdDollars": "31.0",
+     "taxes[1].qtdDollars": "155.0",
+     "taxes[1].ytdDollars": "620.0",
+     "taxes[1].ftdDollars": "620.0",
+     "taxes[2].currentDollars": "7.25",
+     "taxes[2].ptdDollars": "7.25",
+     "taxes[2].mtdDollars": "7.25",
+     "taxes[2].qtdDollars": "36.25",
+     "taxes[2].ytdDollars": "145.0",
+     "taxes[2].ftdDollars": "145.0",
+     "taxes[3].currentDollars": "19.0",
+     "taxes[3].ptdDollars": "19.0",
+     "taxes[3].mtdDollars": "19.0",
+     "taxes[3].qtdDollars": "95.0",
+     "taxes[3].ytdDollars": "380.0",
+     "taxes[3].ftdDollars": "380.0",
+     "taxes[4].currentDollars": "31.0",
+     "taxes[4].ptdDollars": "31.0",
+     "taxes[4].mtdDollars": "31.0",
+     "taxes[4].qtdDollars": "155.0",
+     "taxes[4].ytdDollars": "620.0",
+     "taxes[4].ftdDollars": "620.0",
+     "taxes[5].currentDollars": "7.25",
+     "taxes[5].ptdDollars": "7.25",
+     "taxes[5].mtdDollars": "7.25",
+     "taxes[5].qtdDollars": "36.25",
+     "taxes[5].ytdDollars": "145.0",
+     "taxes[5].ftdDollars": "145.0",
+     "taxes[6].currentDollars": "3.0",
+     "taxes[6].ptdDollars": "3.0",
+     "taxes[6].mtdDollars": "3.0",
+     "taxes[6].qtdDollars": "15.0",
+     "taxes[6].ytdDollars": "60.0",
+     "taxes[6].ftdDollars": "60.0",
+     "deductions[0].currentDollars": "25.0",
+     "deductions[0].ptdDollars": "25.0",
+     "deductions[0].mtdDollars": "25.0",
+     "deductions[0].qtdDollars": "125.0",
+     "deductions[0].ytdDollars": "500.0",
+     "deductions[0].ftdDollars": "500.0",
+     "directDeposits[0].itemDescription": "Savings",
+     "directDeposits[1].itemDescription": "Checking"
+    },
+    "diagnostics": [
+     {
+      "code": "RUN_NOT_MATCHED",
+      "severity": "info",
+      "field": "payrollRunNumber",
+      "message": "2 payroll runs match pay date + run number; left unlinked (A-40)",
+      "raw": "3"
+     }
+    ],
+    "company_id": "isolved:synthetic:company:501:601",
+    "employee_id": "isolved:synthetic:employee:9001",
+    "pay_date": "2026-10-09",
+    "period": {
+     "start": "2026-09-14",
+     "end": "2026-09-27"
+    },
+    "check_number": "70005",
+    "type": {
+     "value": "REGULAR",
+     "raw": "Regular",
+     "label": "Regular",
+     "source_field": "checkTypeDescription"
+    },
+    "voided": false,
+    "totals": {
+     "gross_pay": {
+      "amount": "500.00",
+      "currency": "USD",
+      "derived": false,
+      "source_field": "grossPay"
+     },
+     "gross_wages": {
+      "amount": "500.00",
+      "currency": "USD",
+      "derived": false,
+      "source_field": "grossWages"
+     },
+     "net_pay": {
+      "amount": "370.25",
+      "currency": "USD",
+      "derived": false,
+      "source_field": "netPay"
+     },
+     "employee_taxes": {
+      "amount": "104.75",
+      "currency": "USD",
+      "derived": true,
+      "formula": "sum(taxes[isEmployeeTax].checkDollars)"
+     },
+     "employer_taxes": {
+      "amount": "41.25",
+      "currency": "USD",
+      "derived": true,
+      "formula": "sum(taxes[not isEmployeeTax].checkDollars)"
+     },
+     "deductions": {
+      "amount": "25.00",
+      "currency": "USD",
+      "derived": true,
+      "formula": "sum(deductions[].checkDollars) + sum(garnishments[].checkDollars)"
+     },
+     "employer_contributions": {
+      "amount": "0.00",
+      "currency": "USD",
+      "derived": true,
+      "formula": "sum(benefits[].checkEmployerContribution)"
+     }
+    },
+    "earnings": [
+     {
+      "code": "Bonus",
+      "label": "Bonus",
+      "kind": {
+       "value": "UNMAPPED",
+       "raw": false,
+       "source_field": "earnings[].isMemoEarning"
+      },
+      "in_gross": true,
+      "amount": {
+       "amount": "500.00",
+       "currency": "USD",
+       "derived": false,
+       "source_field": "earnings[].checkDollars"
+      },
+      "allocation": {},
+      "source_field": "earnings[]"
+     }
+    ],
+    "taxes": [
+     {
+      "code": "FIT",
+      "label": "Federal Withholding",
+      "paid_by": "EMPLOYEE",
+      "amount": {
+       "amount": "47.50",
+       "currency": "USD",
+       "derived": false
+      },
+      "taxable_wages": {
+       "amount": "475.00",
+       "currency": "USD",
+       "derived": false
+      },
+      "source_field": "taxes[]"
+     },
+     {
+      "code": "SS",
+      "label": "Social Security",
+      "paid_by": "EMPLOYEE",
+      "amount": {
+       "amount": "31.00",
+       "currency": "USD",
+       "derived": false
+      },
+      "taxable_wages": {
+       "amount": "475.00",
+       "currency": "USD",
+       "derived": false
+      },
+      "source_field": "taxes[]"
+     },
+     {
+      "code": "MED",
+      "label": "Medicare",
+      "paid_by": "EMPLOYEE",
+      "amount": {
+       "amount": "7.25",
+       "currency": "USD",
+       "derived": false
+      },
+      "taxable_wages": {
+       "amount": "475.00",
+       "currency": "USD",
+       "derived": false
+      },
+      "source_field": "taxes[]"
+     },
+     {
+      "code": "NCSIT",
+      "label": "NC Withholding",
+      "paid_by": "EMPLOYEE",
+      "amount": {
+       "amount": "19.00",
+       "currency": "USD",
+       "derived": false
+      },
+      "taxable_wages": {
+       "amount": "475.00",
+       "currency": "USD",
+       "derived": false
+      },
+      "source_field": "taxes[]"
+     },
+     {
+      "code": "SS-ER",
+      "label": "Social Security Employer",
+      "paid_by": "EMPLOYER",
+      "amount": {
+       "amount": "31.00",
+       "currency": "USD",
+       "derived": false
+      },
+      "taxable_wages": {
+       "amount": "500.00",
+       "currency": "USD",
+       "derived": false
+      },
+      "source_field": "taxes[]"
+     },
+     {
+      "code": "MED-ER",
+      "label": "Medicare Employer",
+      "paid_by": "EMPLOYER",
+      "amount": {
+       "amount": "7.25",
+       "currency": "USD",
+       "derived": false
+      },
+      "taxable_wages": {
+       "amount": "500.00",
+       "currency": "USD",
+       "derived": false
+      },
+      "source_field": "taxes[]"
+     },
+     {
+      "code": "FUTA",
+      "label": "FUTA",
+      "paid_by": "EMPLOYER",
+      "amount": {
+       "amount": "3.00",
+       "currency": "USD",
+       "derived": false
+      },
+      "taxable_wages": {
+       "amount": "500.00",
+       "currency": "USD",
+       "derived": false
+      },
+      "source_field": "taxes[]"
+     }
+    ],
+    "deductions": [
+     {
+      "code": "401K",
+      "label": "401K",
+      "category": {
+       "value": "RETIREMENT",
+       "raw": "401(k) / 401K",
+       "label": "401K",
+       "source_field": "clientPayItems[].systemBenefitType+systemPayItemType"
+      },
+      "tax_treatment": "UNSPECIFIED",
+      "employee_amount": {
+       "amount": "25.00",
+       "currency": "USD",
+       "derived": false
+      },
+      "source_field": "deductions[]"
+     }
+    ],
+    "employer_contributions": [],
+    "benefit_details": [],
+    "payments": [
+     {
+      "kind": {
+       "value": "DIRECT_DEPOSIT",
+       "source_field": "directDeposits[]"
+      },
+      "amount": {
+       "amount": "200.00",
+       "currency": "USD",
+       "derived": false
+      },
+      "account_last4": "6789",
+      "masked_at_source": true,
+      "source_field": "directDeposits[]"
+     },
+     {
+      "kind": {
+       "value": "DIRECT_DEPOSIT",
+       "source_field": "directDeposits[]"
+      },
+      "amount": {
+       "amount": "170.25",
+       "currency": "USD",
+       "derived": false
+      },
+      "account_last4": "4321",
+      "masked_at_source": true,
+      "source_field": "directDeposits[]"
+     }
+    ],
+    "checks": [
+     {
+      "rule": "gross wages = sum of earning lines counted in gross",
+      "result": "pass",
+      "detail": "500.0 vs 500.0"
+     },
+     {
+      "rule": "gross - non-cash earnings - employee taxes - deductions = net",
+      "result": "pass",
+      "detail": "500.0 - 0 - 104.75 - 25.0 = 370.25; net 370.25"
+     },
+     {
+      "rule": "payments = net",
+      "result": "pass",
+      "detail": "370.25 vs 370.25"
+     }
+    ]
+   },
+   {
+    "id": "isolved:synthetic:pay_statement:70009",
+    "source": {
+     "provider": "isolved",
+     "tenant_id": "synthetic",
+     "endpoints": [
+      "api/clients/{client}/legals/{legal}/checks"
+     ],
+     "ids": {
+      "clientId": "501",
+      "legalId": "601",
+      "employeeId": "9002",
+      "checkId": "70009"
+     }
+    },
+    "provider_extensions": {
+     "checkSequence": 1,
+     "payrollRunType": "Regular Payroll",
+     "employeeId": 9002,
+     "employeeNumber": "1002",
+     "employeeName": "James Nair",
+     "employeeSSN": "***6787",
+     "legalCompanyName": "Brightside Bakery LLC",
+     "directDepositAmount": "313.4"
+    },
+    "diagnostics": [
+     {
+      "code": "DETAIL_NOT_FETCHED",
+      "severity": "info",
+      "message": "from the legal-level check list; line items were not requested"
+     },
+     {
+      "code": "RUN_NOT_MATCHED",
+      "severity": "info",
+      "field": "payrollRunNumber",
+      "message": "0 payroll runs match pay date + run number; left unlinked (A-40)",
+      "raw": "9"
+     }
+    ],
+    "company_id": "isolved:synthetic:company:501:601",
+    "employee_id": "isolved:synthetic:employee:9002",
+    "pay_date": "2026-09-25",
+    "period": {
+     "start": "2026-09-21",
+     "end": "2026-09-27"
+    },
+    "check_number": "70009",
+    "type": {
+     "value": "UNMAPPED",
+     "source_field": "checkTypeDescription"
+    },
+    "voided": false,
+    "totals": {
+     "gross_pay": {
+      "amount": "400.00",
+      "currency": "USD",
+      "derived": false,
+      "source_field": "grossPay"
+     },
+     "gross_wages": {
+      "amount": "400.00",
+      "currency": "USD",
+      "derived": false,
+      "source_field": "grossWages"
+     },
+     "net_pay": {
+      "amount": "313.40",
+      "currency": "USD",
+      "derived": false,
+      "source_field": "netPay"
+     }
+    },
+    "earnings": [],
+    "taxes": [],
+    "deductions": [],
+    "employer_contributions": [],
+    "benefit_details": [],
+    "payments": [],
+    "checks": []
+   }
+  ]
+ }
+}

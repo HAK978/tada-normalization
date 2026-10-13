@@ -8,6 +8,7 @@ read, never modified.
 from __future__ import annotations
 
 import json
+import re
 from copy import deepcopy
 from functools import lru_cache
 from pathlib import Path
@@ -20,6 +21,13 @@ from referencing.jsonschema import DRAFT4
 ROOT = Path(__file__).resolve().parents[3]
 SPECS = {
     "prismhr": ROOT / "contracts/prismhr/openapi/prismhr-2025.09.openapi.json",
+    # The primary isolved snapshot only; the alternate is never mixed in.
+    "isolved": ROOT / "contracts/isolved/openapi/isolved-v6.swagger.json",
+}
+# Documented live deviations that fixtures reproduce on purpose: (validator, field name) pairs that
+# are not reported (A-52). Everything else is.
+DEVIATIONS = {
+    "isolved": {("maxLength", "maritalStatus")},
 }
 # Live response keys that differ from the spec, translated back for validation only (A-16, A-43).
 ALIASES = {
@@ -38,9 +46,25 @@ def _escape(token: str) -> str:
     return token.replace("~", "~0").replace("/", "~1")
 
 
+def _shape(path: str) -> str:
+    return re.sub(r"\{[^}]+\}", "{}", path.strip("/").lower())
+
+
+@lru_cache(maxsize=None)
+def _swagger_path(provider: str, endpoint: str) -> str:
+    """Our endpoint templates name placeholders {client}/{legal}/{id}; the spec names them its own way."""
+    document, _ = _registry(provider)
+    matches = [path for path in document["paths"] if _shape(path) == _shape(endpoint)]
+    if len(matches) != 1:
+        raise KeyError(f"{endpoint}: {len(matches)} matching spec paths")
+    return matches[0]
+
+
 def response_pointer(provider: str, endpoint: str) -> str:
     if provider == "prismhr":
         return f"/paths/{_escape('/' + endpoint)}/get/responses/200/content/{_escape('application/json')}/schema"
+    if provider == "isolved":
+        return f"/paths/{_escape(_swagger_path(provider, endpoint))}/get/responses/200/schema"
     raise ValueError(provider)
 
 
@@ -61,6 +85,7 @@ def errors(provider: str, endpoint: str, body: Any, allow_null: bool = True) -> 
         f"{'/'.join(map(str, e.absolute_path)) or '<root>'}: {e.message}"
         for e in validator.iter_errors(body)
         if not (allow_null and e.validator == "type" and e.instance is None)
+        and (e.validator, str(e.absolute_path[-1]) if e.absolute_path else "") not in DEVIATIONS.get(provider, set())
     ]
 
 

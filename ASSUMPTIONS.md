@@ -97,7 +97,7 @@ Status: first draft, written during discovery. Entries are added as mapping deci
   - `/employees/{e}/payroll`;
   - `/api/corestream/.../employees/{e}/deductions`;
   - `/api/corestream/.../paygroups/{pg}/payrolls/{id}`.
-- **Decision:** deduction setup comes from `/employees/{e}/payItems` (589 deduction items live), and
+- **Decision:** deduction setup comes from `/employees/{e}/payItems` (570 deduction items live), and
   payroll deductions come from check details.
 - **Why:** the alternative endpoints are documented and readable, so nothing is lost.
 
@@ -106,7 +106,8 @@ Status: first draft, written during discovery. Entries are added as mapping deci
   - Pay group 7612 has 231 runs. 36 are "Completed Payroll Run" (all "Data Conversion", 2018) and
     195 are "Payroll Not Processed".
   - The other pay groups return 404 (no history).
-  - All 15 checks found are type "Adjustment" from conversion runs.
+  - The legal-level check list returns 430 checks, all from "Data Conversion" runs. The 15 fetched
+    in detail are all type "Adjustment".
 - **Decision:** normalize these as they are, with run type `HISTORICAL_IMPORT`. Synthetic fixtures
   cover regular runs.
 
@@ -425,3 +426,96 @@ entries below are new.
 - **Why:** the fixtures should look like what PrismHR actually sends, while staying checkable
   against the published contract.
 
+## Found while building the isolved converter (2026-10-13)
+
+### A-48 isolved employment status: only implied system statuses are mapped
+- **Evidence:**
+  - `#/definitions/AOS.PayrollOffice.RestAPI.Models.EmployeeModel/properties/employmentStatus` is
+    "The current employment status description", with no list of values. The client endpoint
+    (`/api/clients/{c}`) returns only its code, name, ID and links, so there is no client status
+    table to look the text up in.
+  - `/employees/{e}/statuses` (`EmployeeEmploymentStatusModel`) marks each history row with
+    `isImpliedStatus`. All 31 live rows are implied, with negative IDs that belong to no client table:
+    "Active" (`statusId` −1, 30 rows) and "Terminated" (−2, 1 row). These are also the only two live
+    `employmentStatus` values (29 Active, 1 Terminated).
+- **Decision:** "Active" maps to `ACTIVE` and "Terminated" to `TERMINATED`, but only when the
+  employee's own status history shows that description as an implied status. Any other description,
+  such as a customer status like "Leave - FMLA", stays `UNMAPPED` with its label and a
+  `CUSTOMER_STATUS` info diagnostic.
+- **Why:** implied statuses are isolved's own, so their meaning is fixed. Customer statuses are
+  configurable labels (A-35); "on leave" can't be read from a name.
+
+### A-49 isolved deduction categories come from the client pay item's system classification
+- **Evidence:**
+  - Employee pay items (`EmployeePayItemModel`) have a name, code and type ("Deduction", "Earning",
+    "Memo Calc") but no category. Client pay items (`ClientPayItemModel`) add `systemBenefitType` and
+    `systemPayItemType`: the system item the client's item is built on. The spec describes them only
+    as "System Benefit Type" and "System Pay Item Type".
+  - Live, all 1230 employee pay items (150 earnings, 570 deductions, 510 memo calculations) link to a
+    client pay item by title (`payItemName` = `title`). Titles are unique per client (56 of 56) but
+    codes are not (41 distinct codes across 56 items), so linking by code would pick a different item
+    for 360 of the 1230. `payItemId` is documented as deprecated and matches no client item ID.
+  - Check lines link the same way. On all 154 live earning and deduction lines, `itemDescription` is
+    a client item's title and `itemCode` is that item's code. Garnishment lines (4) don't link.
+  - `/employees/{e}/garnishments` returns 404 for the 29 of 30 live employees without a garnishment.
+- **Decision:**
+  - Category and tax treatment come from a table keyed by (`systemBenefitType`,
+    `systemPayItemType`) in `providers/isolved/codes.py`. For example, ("401(k)", "401K Loan") is a
+    `RETIREMENT_LOAN`, and ("Dental Pre-Tax 125", any type) is a pre-tax `SECTION_125` deduction.
+  - A system pay item type that says "post-tax" or "after-tax" sets the treatment to post-tax.
+  - Unknown pairs stay `UNMAPPED`, with the pair kept as the raw value.
+  - Only "Deduction" items become elections. Earning and memo items stay in the employee's
+    `provider_extensions`.
+  - Garnishments are always `GARNISHMENT`. A 404 from the garnishments endpoint means "none", not an
+    error.
+- **Why:** the system types are isolved's own classification. Titles are customer-chosen text (A-35).
+
+### A-50 isolved SSN last 4 comes from check records
+- **Evidence:** `EmployeeModel.ssn` is required ("Employee SSN or identification type value") but is
+  null on all 30 live employees. `CheckModel.employeeSSN` ("Employee Social Security Number") arrives
+  masked as `XXX-XX-` plus the last four digits, on all 430 listed checks and all 15 check details.
+- **Decision:** when the employee record has no SSN, `national_id.last4` comes from the employee's
+  checks, with `source_field` `checks[].employeeSSN` and `masked_at_source` true. Employees with no
+  checks have no national ID.
+- **Why:** the last four digits are all any record keeps (A-23), and checks are the only place isolved
+  returns them.
+
+### A-51 isolved check list vs check detail, and year-to-date-only lines
+- **Evidence:**
+  - The legal-level check list (`/legals/{l}/checks`, 430 live rows) is a summary. Its line-item
+    arrays are empty on all 430 rows, and `checkTypeDescription` is null on all 430.
+  - For the 15 checks also fetched in detail (`/employees/{e}/checks/{id}`), `checkSequence` is 1 in
+    the list and 0 in the detail on all 15. `employeeName` differs on one check, and address fields
+    on a few others.
+  - Detail arrays also hold lines with no `check*` value at all: 52 of 121 earning lines and 26 of
+    137 tax lines live. They carry only month-, quarter- or year-to-date amounts from earlier checks.
+- **Decision:**
+  - The detail is used whenever it was fetched.
+  - A list-only check becomes a pay statement with its header and totals, and no lines. Its type is
+    `UNMAPPED` (missing, so no warning), it gets a `DETAIL_NOT_FETCHED` info diagnostic, and the
+    line-based checks are skipped.
+  - Checks link to employees by `employeeId` only, never by name.
+  - Only lines with a `check*` value are this paycheck's lines. The others stay in
+    `provider_extensions`.
+- **Why:** the list omits fields rather than contradicting them. The name and address are snapshots,
+  kept raw in `provider_extensions`.
+
+### A-52 Live isolved employee records don't match their own schema, in two ways
+- **Evidence:**
+  - `EmployeeModel.maritalStatus` is "Marital status code" with `maxLength` 1, but live sends the
+    description: "Single" (9), "Married" (10) or null (11). `/api/lookup/maritalStatuses` maps each
+    code to its description. `gender` and `citizenship` are documented as descriptions and arrive as
+    descriptions.
+  - `idType` is required but absent from all 30 employee records and from every employee-list row.
+  - Of 210 live 200 responses, 177 validate against the spec once `null` is allowed. The other 33
+    (30 employee details and 3 employee-list pages) all lack `idType`, and 22 of them also send a
+    marital status longer than one character.
+- **Decision:**
+  - Marital status, gender and citizenship map by their lookup description. A code (the documented
+    form) is first translated through the lookup, and `raw` keeps exactly what was sent.
+  - The fixtures send both forms.
+  - Fixture validation ignores exactly one deviation, `maxLength` on `maritalStatus` (`DEVIATIONS` in
+    `fixtures/validate.py`). The generator fills `idType` with null, like other unset required fields
+    (A-47).
+- **Why:** as in A-47, fixtures should look like live data while staying checkable against the
+  published contract.

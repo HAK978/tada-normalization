@@ -5,8 +5,8 @@ Status: **draft v2, 2026-10-13.**
 - An independent design audit raised 15 findings. All were verified against the specs and folded
   in here and in [ASSUMPTIONS.md](../ASSUMPTIONS.md).
 
-Implemented so far: the model itself (`src/normalization/canonical/`) and the PrismHR converter. isolved and
-UKG Ready are in progress.
+Implemented so far: the model itself (`src/normalization/canonical/`) and the PrismHR and isolved converters.
+UKG Ready is in progress.
 
 ## 1. Principles
 
@@ -135,8 +135,8 @@ canonical IDs of the records it belongs to.
 | | PrismHR | isolved | UKG Ready |
 |---|---|---|---|
 | IDs | response `id` (the request parameter is `employeeId`); `client.clientEmployeeId`; `client.clockNum` | `id`; `employeeNumber`; `timeclockId`; `uniqueId` | `id` (account); `employee_id`; `external_id` |
-| SSN | `compensation.ssn` (masked live); `person.cobraSSN` is also sanitized | not returned | `social_security` and `national_id_numbers[]`, returned in full live and reduced to last 4 |
-| Status | `client.statusClass` A/L/T (documented), plus the client status code and label | `employmentStatus`, via the client's status table | `status`: undocumented, but consistent with `dates.terminated` live |
+| SSN | `compensation.ssn` (masked live); `person.cobraSSN` is also sanitized | `ssn` is null live; last 4 from `checks[].employeeSSN` (A-50) | `social_security` and `national_id_numbers[]`, returned in full live and reduced to last 4 |
+| Status | `client.statusClass` A/L/T (documented), plus the client status code and label | `employmentStatus`: "Active"/"Terminated" only when `/statuses` shows it as an implied system status (A-48); others `UNMAPPED` with the label | `status`: undocumented, but consistent with `dates.terminated` live |
 | Type | `client.typeClass` F/P (documented filter values) | `employmentCategoryCode`: customer code, `UNMAPPED` | pay-info `employee_type`: tenant label, `UNMAPPED` |
 | Worker class | `client.employee1099` (independent of `payMethod`) | `payType` "1099" gives `CONTRACTOR_1099` and pay type `UNMAPPED` | none |
 | Pay | `payMethod` S/H/C/D. `salary` is per pay period (A-20). `hourlyPay` is per hour. `hourlyPayRate` is per `hourlyPayPeriod` (live `A` = annual, A-19). | `payType`; `hourlyRate` per hour; `perPaySalary` per pay period; `annualSalary` | compensation `amount` per `amount_period`; `hourly_pay`; `time` in ms per `time_period`; `num_pp_in_year` |
@@ -263,6 +263,8 @@ not a provider one.
   deductions, and employer contributions. Each is either provided or derived and flagged.
 - **`earnings[]`:**
   - code, label and `kind` (`EARNINGS` `REIMBURSEMENT` `NON_CASH_FRINGE` `REPORTED_TIPS` `MEMO`);
+  - `in_gross`: whether the provider counts the line in its gross figure (Prism: every line, A-32;
+    isolved: every non-memo line, A-28);
   - `quantity` (value with unit `HOURS`/`UNITS`/`UNKNOWN`) and `hours_worked`;
   - rate, amount, line date range and allocations.
 - **`taxes[]`:** code, label, `paid_by`, amount, and employee and employer wage bases kept separate.
@@ -288,9 +290,13 @@ not a provider one.
 | Payments | `checkAmt` + `directDeposit[]` | `checkAmount` + `directDeposits[]` | `payments[]` (`type_name` "Check" / "Direct Deposit"; others `UNMAPPED`) |
 
 **Checks, reported and never "fixed":**
-- gross − employee taxes − deductions = net;
-- payments = net;
-- each provided total = the sum of its lines.
+- the provider's gross of lines (gross wages when reported, else gross pay) = the sum of earning lines
+  counted in gross;
+- gross pay − non-cash earnings counted in gross − employee taxes − deductions = net, when the
+  statement has line items;
+- payments = net.
+
+A failed check becomes a `RECONCILIATION_MISMATCH` warning; the totals stay as the provider sent them.
 
 ## 9. Field dispositions, sensitive data, drops and testing
 

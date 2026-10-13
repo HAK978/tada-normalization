@@ -48,7 +48,6 @@ from normalization.canonical.records import (
 from normalization.canonical.types import (
     Coded,
     DateRange,
-    Diagnostic,
     Money,
     NationalId,
     Percent,
@@ -57,15 +56,14 @@ from normalization.canonical.types import (
     Source,
     TaxIdentifier,
 )
-from normalization.checks import reconcile
 from normalization.output import Output
-from normalization.sanitize import MASK_CHARS, last4, sanitize_extensions
+from normalization.sanitize import last4, sanitize_extensions
 from normalization.source import Notes, Src, coded, decimal, flag, iso_date, text, unmapped_label
 
+from ..common import ZERO, attach_checks, derived_sum, masked, money
 from . import codes as P
 
 PROVIDER = "prismhr"
-ZERO = Decimal("0")
 
 RETIREMENT_FIELDS = {
     "electiveContributionsPreTax": "employee_pre_tax",
@@ -89,19 +87,6 @@ def normalize(bundle: Bundle, as_of: date | None = None) -> Output:
     for client_id in sorted(clients):
         _Client(bundle, client_id, out).run()
     return out
-
-
-def money(value: Any, field: str | None = None) -> Money | None:
-    amount = decimal(value)
-    return None if amount is None else Money(amount=amount, source_field=field)
-
-
-def derived_sum(amounts: list[Decimal], formula: str) -> Money:
-    return Money(amount=sum(amounts, ZERO), derived=True, formula=formula)
-
-
-def masked(value: str | None) -> bool:
-    return bool(value) and any(ch in MASK_CHARS for ch in value)
 
 
 def _codes_table(rows: Any, key: str = "id") -> dict[str, dict]:
@@ -1163,6 +1148,7 @@ class _Client:
                 EarningLine(
                     code=code,
                     label=self._label("payCode", code, "payDescription") or text(line.get("payClassDescription")),
+                    in_gross=True,
                     kind=self._pay_class(code, line.get("payClass"), "earning[].payClass", notes),
                     quantity=Quantity(value=quantity, unit=unit, source_field="earning[].hoursUnits")
                     if quantity is not None
@@ -1190,6 +1176,7 @@ class _Client:
                 EarningLine(
                     code=code,
                     label=text(line.get("otherEarnsDesc")) or self._label("payCode", code, "payDescription"),
+                    in_gross=True,
                     kind=self._pay_class(code, None, "otherEarningsDetail[].otherEarnCode", notes),
                     amount=Money(
                         amount=decimal(line.get("otherEarnAmount")) or ZERO,
@@ -1373,15 +1360,5 @@ class _Client:
             provider_extensions=sanitize_extensions(s.leftovers()),
             diagnostics=notes.items,
         )
-        statement.checks = reconcile(statement)
-        statement.diagnostics += [
-            Diagnostic(
-                code="RECONCILIATION_MISMATCH",
-                severity=C.Severity.WARNING,
-                field="totals",
-                message=f"{check.rule}: {check.detail}",
-            )
-            for check in statement.checks
-            if check.result is C.CheckResult.FAIL
-        ]
+        attach_checks(statement)
         self.out.add("pay_statements", statement)

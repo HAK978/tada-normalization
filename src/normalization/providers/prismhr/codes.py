@@ -7,8 +7,11 @@ named. Codes outside a table become UNMAPPED with a diagnostic.
 
 from normalization.canonical.codes import (
     AccountType,
+    CalculationBasis as B,
+    CalculationMethod as M,
     Citizenship,
     CompanyStatus,
+    DeductionCategory as Cat,
     DepositMethod,
     DepositStatus,
     EarningKind,
@@ -29,19 +32,8 @@ from normalization.canonical.codes import (
     RatePeriod,
     Rounding,
     ServiceArrangement,
-    YesNoDeclined,
-)
-from normalization.canonical.codes import (
-    CalculationBasis as B,
-)
-from normalization.canonical.codes import (
-    CalculationMethod as M,
-)
-from normalization.canonical.codes import (
-    DeductionCategory as Cat,
-)
-from normalization.canonical.codes import (
     TaxTreatment as T,
+    YesNoDeclined,
 )
 
 # ClientMaster/statusClass

@@ -1,0 +1,33 @@
+{
+  "seq": 11,
+  "endpoint": "api/clients/{client}/legals/{legal}/employees/{id}/salaries",
+  "path": "api/clients/501/legals/601/employees/9001/salaries",
+  "params": {},
+  "status": 200,
+  "body": [
+    {
+      "id": 900101,
+      "effectiveDate": "2025-01-01T00:00:00",
+      "hourlyRate": 25.0,
+      "perPaySalary": 2000.0,
+      "normalHours": 80.0,
+      "isInactive": false,
+      "frequency": {
+        "id": 26,
+        "description": "Bi-Weekly"
+      },
+      "payType": {
+        "id": "2",
+        "description": "Salary"
+      },
+      "payGroup": {
+        "id": 701,
+        "description": "Biweekly"
+      },
+      "changeReason": {
+        "id": 1,
+        "description": "Merit"
+      }
+    }
+  ]
+}

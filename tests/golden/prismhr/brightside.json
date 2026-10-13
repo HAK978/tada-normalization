@@ -3261,6 +3261,7 @@
        "raw": "E",
        "source_field": "earning[].payClass"
       },
+      "in_gross": true,
       "quantity": {
        "value": "72.0",
        "unit": "HOURS",
@@ -3303,6 +3304,7 @@
        "raw": "E",
        "source_field": "earning[].payClass"
       },
+      "in_gross": true,
       "quantity": {
        "value": "8.0",
        "unit": "HOURS",
@@ -3345,6 +3347,7 @@
        "raw": "F",
        "source_field": "clientCodes.payCode[].payClass"
       },
+      "in_gross": true,
       "amount": {
        "amount": "3.25",
        "currency": "USD",
@@ -3589,7 +3592,7 @@
     ],
     "checks": [
      {
-      "rule": "gross = sum of earning lines",
+      "rule": "gross = sum of earning lines counted in gross",
       "result": "pass",
       "detail": "2003.25 vs 2003.25"
      },
@@ -3739,6 +3742,7 @@
        "raw": "E",
        "source_field": "earning[].payClass"
       },
+      "in_gross": true,
       "quantity": {
        "value": "20.0",
        "unit": "HOURS",
@@ -3781,6 +3785,7 @@
        "raw": "E",
        "source_field": "earning[].payClass"
       },
+      "in_gross": true,
       "quantity": {
        "value": "4.0",
        "unit": "HOURS",
@@ -3823,6 +3828,7 @@
        "raw": "RT",
        "source_field": "earning[].payClass"
       },
+      "in_gross": true,
       "quantity": {
        "value": "1.0",
        "unit": "UNITS",
@@ -3859,6 +3865,7 @@
        "raw": "R",
        "source_field": "earning[].payClass"
       },
+      "in_gross": true,
       "quantity": {
        "value": "120.0",
        "unit": "UNITS",
@@ -4145,7 +4152,7 @@
     ],
     "checks": [
      {
-      "rule": "gross = sum of earning lines",
+      "rule": "gross = sum of earning lines counted in gross",
       "result": "pass",
       "detail": "708.6 vs 708.6"
      },
@@ -4288,6 +4295,7 @@
        "raw": "E",
        "source_field": "earning[].payClass"
       },
+      "in_gross": true,
       "quantity": {
        "value": "64.0",
        "unit": "HOURS",
@@ -4475,7 +4483,7 @@
     ],
     "checks": [
      {
-      "rule": "gross = sum of earning lines",
+      "rule": "gross = sum of earning lines counted in gross",
       "result": "pass",
       "detail": "1920.0 vs 1920.0"
      },
@@ -4591,6 +4599,7 @@
        "raw": "E",
        "source_field": "earning[].payClass"
       },
+      "in_gross": true,
       "quantity": {
        "value": "30.0",
        "unit": "HOURS",
@@ -4646,7 +4655,7 @@
     ],
     "checks": [
      {
-      "rule": "gross = sum of earning lines",
+      "rule": "gross = sum of earning lines counted in gross",
       "result": "pass",
       "detail": "1200.0 vs 1200.0"
      },
@@ -4763,6 +4772,7 @@
        "raw": "E",
        "source_field": "earning[].payClass"
       },
+      "in_gross": true,
       "quantity": {
        "value": "2.0",
        "unit": "HOURS",
@@ -4818,7 +4828,7 @@
     ],
     "checks": [
      {
-      "rule": "gross = sum of earning lines",
+      "rule": "gross = sum of earning lines counted in gross",
       "result": "pass",
       "detail": "80.0 vs 80.0"
      },
@@ -4963,6 +4973,7 @@
        "raw": "E",
        "source_field": "earning[].payClass"
       },
+      "in_gross": true,
       "quantity": {
        "value": "40.0",
        "unit": "HOURS",
@@ -5216,7 +5227,7 @@
     ],
     "checks": [
      {
-      "rule": "gross = sum of earning lines",
+      "rule": "gross = sum of earning lines counted in gross",
       "result": "pass",
       "detail": "1000.0 vs 1000.0"
      },
@@ -5359,6 +5370,7 @@
        "raw": "E",
        "source_field": "earning[].payClass"
       },
+      "in_gross": true,
       "quantity": {
        "value": "1.0",
        "unit": "UNITS",
@@ -5570,7 +5582,7 @@
     ],
     "checks": [
      {
-      "rule": "gross = sum of earning lines",
+      "rule": "gross = sum of earning lines counted in gross",
       "result": "pass",
       "detail": "20.0 vs 20.0"
      },
@@ -5713,6 +5725,7 @@
        "raw": "E",
        "source_field": "earning[].payClass"
       },
+      "in_gross": true,
       "quantity": {
        "value": "80.0",
        "unit": "HOURS",
@@ -5900,7 +5913,7 @@
     ],
     "checks": [
      {
-      "rule": "gross = sum of earning lines",
+      "rule": "gross = sum of earning lines counted in gross",
       "result": "pass",
       "detail": "2240.0 vs 2240.0"
      },

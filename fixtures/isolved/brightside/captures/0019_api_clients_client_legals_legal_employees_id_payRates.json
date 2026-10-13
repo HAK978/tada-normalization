@@ -1,0 +1,8 @@
+{
+  "seq": 19,
+  "endpoint": "api/clients/{client}/legals/{legal}/employees/{id}/payRates",
+  "path": "api/clients/501/legals/601/employees/9002/payRates",
+  "params": {},
+  "status": 200,
+  "body": []
+}

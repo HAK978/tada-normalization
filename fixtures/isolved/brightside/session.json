@@ -1,0 +1,11 @@
+{
+  "provider": "isolved",
+  "tenant_id": "synthetic",
+  "companies": [
+    {
+      "client_id": "501",
+      "legal_id": "601"
+    }
+  ],
+  "synthetic": true
+}

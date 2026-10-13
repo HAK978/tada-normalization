@@ -1,0 +1,17 @@
+{
+  "seq": 4,
+  "endpoint": "api/lookup/citizenships",
+  "path": "api/lookup/citizenships",
+  "params": {},
+  "status": 200,
+  "body": [
+    {
+      "id": "1",
+      "description": "Citizen of the United States"
+    },
+    {
+      "id": "5",
+      "description": "National of the United States"
+    }
+  ]
+}

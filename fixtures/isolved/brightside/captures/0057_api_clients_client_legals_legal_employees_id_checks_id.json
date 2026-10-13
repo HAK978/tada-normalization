@@ -1,0 +1,149 @@
+{
+  "seq": 57,
+  "endpoint": "api/clients/{client}/legals/{legal}/employees/{id}/checks/{id}",
+  "path": "api/clients/501/legals/601/employees/9003/checks/60001",
+  "params": {},
+  "status": 200,
+  "body": {
+    "id": 60001,
+    "checkDate": "2018-08-03T00:00:00",
+    "checkNumber": 60001,
+    "checkSequence": 0,
+    "checkTypeDescription": "Adjustment",
+    "payrollRunNumber": 35,
+    "payrollRunType": "Data Conversion",
+    "periodBeginDate": "2018-07-16T00:00:00",
+    "periodEndDate": "2018-07-29T00:00:00",
+    "employeeId": 9003,
+    "employeeNumber": "1003",
+    "employeeName": "Ana Price",
+    "employeeSSN": "XXX-XX-6786",
+    "legalCompanyName": "Brightside Bakery LLC",
+    "grossWages": 1500.0,
+    "grossPay": 1500.0,
+    "netPay": 1175.25,
+    "checkAmount": 0.0,
+    "directDepositAmount": 1175.25,
+    "earnings": [
+      {
+        "itemCode": "Regular",
+        "itemDescription": "Regular",
+        "isMemoEarning": false,
+        "checkHours": 50.0,
+        "checkUnits": null,
+        "checkDollars": 1500.0,
+        "currentDollars": 1500.0,
+        "ptdDollars": 1500.0,
+        "mtdDollars": 1500.0,
+        "qtdDollars": 7500.0,
+        "ytdDollars": 30000.0,
+        "ftdDollars": 30000.0
+      }
+    ],
+    "taxes": [
+      {
+        "itemCode": "FIT",
+        "itemDescription": "Federal Withholding",
+        "isEmployeeTax": true,
+        "checkTaxableWages": 1500.0,
+        "checkDollars": 150.0,
+        "currentDollars": 150.0,
+        "ptdDollars": 150.0,
+        "mtdDollars": 150.0,
+        "qtdDollars": 750.0,
+        "ytdDollars": 3000.0,
+        "ftdDollars": 3000.0
+      },
+      {
+        "itemCode": "SS",
+        "itemDescription": "Social Security",
+        "isEmployeeTax": true,
+        "checkTaxableWages": 1500.0,
+        "checkDollars": 93.0,
+        "currentDollars": 93.0,
+        "ptdDollars": 93.0,
+        "mtdDollars": 93.0,
+        "qtdDollars": 465.0,
+        "ytdDollars": 1860.0,
+        "ftdDollars": 1860.0
+      },
+      {
+        "itemCode": "MED",
+        "itemDescription": "Medicare",
+        "isEmployeeTax": true,
+        "checkTaxableWages": 1500.0,
+        "checkDollars": 21.75,
+        "currentDollars": 21.75,
+        "ptdDollars": 21.75,
+        "mtdDollars": 21.75,
+        "qtdDollars": 108.75,
+        "ytdDollars": 435.0,
+        "ftdDollars": 435.0
+      },
+      {
+        "itemCode": "NCSIT",
+        "itemDescription": "NC Withholding",
+        "isEmployeeTax": true,
+        "checkTaxableWages": 1500.0,
+        "checkDollars": 60.0,
+        "currentDollars": 60.0,
+        "ptdDollars": 60.0,
+        "mtdDollars": 60.0,
+        "qtdDollars": 300.0,
+        "ytdDollars": 1200.0,
+        "ftdDollars": 1200.0
+      },
+      {
+        "itemCode": "SS-ER",
+        "itemDescription": "Social Security Employer",
+        "isEmployeeTax": false,
+        "checkTaxableWages": 1500.0,
+        "checkDollars": 93.0,
+        "currentDollars": 93.0,
+        "ptdDollars": 93.0,
+        "mtdDollars": 93.0,
+        "qtdDollars": 465.0,
+        "ytdDollars": 1860.0,
+        "ftdDollars": 1860.0
+      },
+      {
+        "itemCode": "MED-ER",
+        "itemDescription": "Medicare Employer",
+        "isEmployeeTax": false,
+        "checkTaxableWages": 1500.0,
+        "checkDollars": 21.75,
+        "currentDollars": 21.75,
+        "ptdDollars": 21.75,
+        "mtdDollars": 21.75,
+        "qtdDollars": 108.75,
+        "ytdDollars": 435.0,
+        "ftdDollars": 435.0
+      },
+      {
+        "itemCode": "FUTA",
+        "itemDescription": "FUTA",
+        "isEmployeeTax": false,
+        "checkTaxableWages": 1500.0,
+        "checkDollars": 9.0,
+        "currentDollars": 9.0,
+        "ptdDollars": 9.0,
+        "mtdDollars": 9.0,
+        "qtdDollars": 45.0,
+        "ytdDollars": 180.0,
+        "ftdDollars": 180.0
+      }
+    ],
+    "deductions": [],
+    "garnishments": [],
+    "benefits": [],
+    "directDeposits": [
+      {
+        "account": "XXXXXXXX1111",
+        "depositAmount": 1175.25,
+        "itemDescription": "Savings"
+      }
+    ],
+    "accruals": [],
+    "employeeOrganizations": []
+  }
+}

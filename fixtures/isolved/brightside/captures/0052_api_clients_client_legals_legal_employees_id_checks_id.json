@@ -1,0 +1,227 @@
+{
+  "seq": 52,
+  "endpoint": "api/clients/{client}/legals/{legal}/employees/{id}/checks/{id}",
+  "path": "api/clients/501/legals/601/employees/9001/checks/70001",
+  "params": {},
+  "status": 200,
+  "body": {
+    "id": 70001,
+    "checkDate": "2026-10-02T00:00:00",
+    "checkNumber": 70001,
+    "checkSequence": 0,
+    "checkTypeDescription": "Regular",
+    "payrollRunNumber": 1,
+    "payrollRunType": "Regular Payroll",
+    "periodBeginDate": "2026-09-14T00:00:00",
+    "periodEndDate": "2026-09-27T00:00:00",
+    "employeeId": 9001,
+    "employeeNumber": "1001",
+    "employeeName": "Maria Chen",
+    "employeeSSN": "XXX-XX-6788",
+    "legalCompanyName": "Brightside Bakery LLC",
+    "grossWages": 2000.0,
+    "grossPay": 1996.9,
+    "netPay": 1467.81,
+    "checkAmount": 0.0,
+    "directDepositAmount": 1467.81,
+    "earnings": [
+      {
+        "itemCode": "Regular",
+        "itemDescription": "Regular",
+        "isMemoEarning": false,
+        "checkHours": 72.0,
+        "checkUnits": null,
+        "checkDollars": 1800.0,
+        "currentDollars": 1800.0,
+        "ptdDollars": 1800.0,
+        "mtdDollars": 1800.0,
+        "qtdDollars": 9000.0,
+        "ytdDollars": 36000.0,
+        "ftdDollars": 36000.0
+      },
+      {
+        "itemCode": "Holiday",
+        "itemDescription": "Holiday",
+        "isMemoEarning": false,
+        "checkHours": 8.0,
+        "checkUnits": null,
+        "checkDollars": 200.0,
+        "currentDollars": 200.0,
+        "ptdDollars": 200.0,
+        "mtdDollars": 200.0,
+        "qtdDollars": 1000.0,
+        "ytdDollars": 4000.0,
+        "ftdDollars": 4000.0
+      },
+      {
+        "itemCode": "401(k) Match",
+        "itemDescription": "401(k) Match",
+        "isMemoEarning": true,
+        "checkHours": null,
+        "checkUnits": null,
+        "checkDollars": 60.0,
+        "currentDollars": 60.0,
+        "ptdDollars": 60.0,
+        "mtdDollars": 60.0,
+        "qtdDollars": 300.0,
+        "ytdDollars": 1200.0,
+        "ftdDollars": 1200.0
+      },
+      {
+        "itemCode": "Bonus",
+        "itemDescription": "Bonus",
+        "isMemoEarning": false,
+        "checkHours": null,
+        "checkUnits": null,
+        "checkDollars": null,
+        "currentDollars": null,
+        "ptdDollars": null,
+        "mtdDollars": null,
+        "qtdDollars": 125.0,
+        "ytdDollars": 500.0,
+        "ftdDollars": 500.0
+      }
+    ],
+    "taxes": [
+      {
+        "itemCode": "FIT",
+        "itemDescription": "Federal Withholding",
+        "isEmployeeTax": true,
+        "checkTaxableWages": 1884.4,
+        "checkDollars": 188.44,
+        "currentDollars": 188.44,
+        "ptdDollars": 188.44,
+        "mtdDollars": 188.44,
+        "qtdDollars": 942.2,
+        "ytdDollars": 3768.8,
+        "ftdDollars": 3768.8
+      },
+      {
+        "itemCode": "SS",
+        "itemDescription": "Social Security",
+        "isEmployeeTax": true,
+        "checkTaxableWages": 1884.4,
+        "checkDollars": 123.81,
+        "currentDollars": 123.81,
+        "ptdDollars": 123.81,
+        "mtdDollars": 123.81,
+        "qtdDollars": 619.04,
+        "ytdDollars": 2476.16,
+        "ftdDollars": 2476.16
+      },
+      {
+        "itemCode": "MED",
+        "itemDescription": "Medicare",
+        "isEmployeeTax": true,
+        "checkTaxableWages": 1884.4,
+        "checkDollars": 28.96,
+        "currentDollars": 28.96,
+        "ptdDollars": 28.96,
+        "mtdDollars": 28.96,
+        "qtdDollars": 144.78,
+        "ytdDollars": 579.1,
+        "ftdDollars": 579.1
+      },
+      {
+        "itemCode": "NCSIT",
+        "itemDescription": "NC Withholding",
+        "isEmployeeTax": true,
+        "checkTaxableWages": 1884.4,
+        "checkDollars": 75.38,
+        "currentDollars": 75.38,
+        "ptdDollars": 75.38,
+        "mtdDollars": 75.38,
+        "qtdDollars": 376.88,
+        "ytdDollars": 1507.52,
+        "ftdDollars": 1507.52
+      },
+      {
+        "itemCode": "SS-ER",
+        "itemDescription": "Social Security Employer",
+        "isEmployeeTax": false,
+        "checkTaxableWages": 1996.9,
+        "checkDollars": 123.81,
+        "currentDollars": 123.81,
+        "ptdDollars": 123.81,
+        "mtdDollars": 123.81,
+        "qtdDollars": 619.04,
+        "ytdDollars": 2476.16,
+        "ftdDollars": 2476.16
+      },
+      {
+        "itemCode": "MED-ER",
+        "itemDescription": "Medicare Employer",
+        "isEmployeeTax": false,
+        "checkTaxableWages": 1996.9,
+        "checkDollars": 28.96,
+        "currentDollars": 28.96,
+        "ptdDollars": 28.96,
+        "mtdDollars": 28.96,
+        "qtdDollars": 144.78,
+        "ytdDollars": 579.1,
+        "ftdDollars": 579.1
+      },
+      {
+        "itemCode": "FUTA",
+        "itemDescription": "FUTA",
+        "isEmployeeTax": false,
+        "checkTaxableWages": 1996.9,
+        "checkDollars": 11.98,
+        "currentDollars": 11.98,
+        "ptdDollars": 11.98,
+        "mtdDollars": 11.98,
+        "qtdDollars": 59.91,
+        "ytdDollars": 239.63,
+        "ftdDollars": 239.63
+      }
+    ],
+    "deductions": [
+      {
+        "itemCode": "401K",
+        "itemDescription": "401K",
+        "checkDollars": 100.0,
+        "currentDollars": 100.0,
+        "ptdDollars": 100.0,
+        "mtdDollars": 100.0,
+        "qtdDollars": 500.0,
+        "ytdDollars": 2000.0,
+        "ftdDollars": 2000.0
+      },
+      {
+        "itemCode": "Dental Pre-tax",
+        "itemDescription": "Dental Pre-tax",
+        "checkDollars": 12.5,
+        "currentDollars": 12.5,
+        "ptdDollars": 12.5,
+        "mtdDollars": 12.5,
+        "qtdDollars": 62.5,
+        "ytdDollars": 250.0,
+        "ftdDollars": 250.0
+      }
+    ],
+    "garnishments": [],
+    "benefits": [
+      {
+        "benefitTitle": "401(k)",
+        "benefitDescription": "401(k)",
+        "checkEmployeeDeduction": 100.0,
+        "checkEmployerContribution": 60.0,
+        "checkEmployeeCatchUp": 0.0
+      }
+    ],
+    "directDeposits": [
+      {
+        "account": "XXXXXXXX6789",
+        "depositAmount": 200.0,
+        "itemDescription": "Savings"
+      },
+      {
+        "account": "XXXXXXXX4321",
+        "depositAmount": 1267.81,
+        "itemDescription": "Checking"
+      }
+    ],
+    "accruals": [],
+    "employeeOrganizations": []
+  }
+}

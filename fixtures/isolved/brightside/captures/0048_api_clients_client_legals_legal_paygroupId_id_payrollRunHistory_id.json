@@ -1,0 +1,19 @@
+{
+  "seq": 48,
+  "endpoint": "api/clients/{client}/legals/{legal}/paygroupId/{id}/payrollRunHistory/{id}",
+  "path": "api/clients/501/legals/601/paygroupId/702/payrollRunHistory/8811",
+  "params": {},
+  "status": 200,
+  "body": {
+    "id": 8811,
+    "runNumber": 2,
+    "payDate": "2026-10-02T00:00:00",
+    "runDate": "2026-10-02T00:00:00",
+    "payrollRunType": "Regular Payroll",
+    "status": "Completed Payroll Run",
+    "payOfTheMonth": "1st",
+    "periodBeginDate": "2026-10-02T00:00:00",
+    "periodEndDate": "2026-10-02T00:00:00",
+    "payPeriod": 2
+  }
+}

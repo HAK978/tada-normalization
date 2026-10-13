@@ -30,3 +30,6 @@ extend-exclude = ["contracts"]
 
 [tool.ruff.lint]
 select = ["E", "F", "W", "B", "I"]
+
+[tool.ruff.lint.isort]
+combine-as-imports = true

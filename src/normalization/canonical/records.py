@@ -254,6 +254,7 @@ class DirectDeposit(Record):
     status: Coded[DepositStatus] | None = None
     effective_from: date | None = None
     effective_to: date | None = None
+    frequency: Coded[str] | None = None
     applies_to_pay_types: list[Coded[PayKindScope]] = Field(default_factory=list)
 
 
@@ -292,6 +293,16 @@ class LoanDetails(Model):
     reason: str | None = None
 
 
+class GarnishmentDetails(Model):
+    case_number: str | None = None
+    garnishment_type: Coded[str] | None = None
+    payee: str | None = None
+    issuing_state: str | None = None
+    arrears_balance: Money | None = None
+    remaining_balance: Money | None = None
+    fee: Money | None = None
+
+
 class DeductionElection(Record):
     employee_id: str
     company_id: str
@@ -312,6 +323,7 @@ class DeductionElection(Record):
     benefit_plan_id: str | None = None
     loan_or_garnishment_id: str | None = None
     loan: LoanDetails | None = None
+    garnishment: GarnishmentDetails | None = None
 
 
 # ---------------------------------------------------------------- payroll
@@ -338,6 +350,8 @@ class EarningLine(Model):
     code: str | None = None
     label: str | None = None
     kind: Coded[EarningKind]
+    # Whether the provider counts this line in its gross figure (Prism: all lines, A-32; isolved: not memo, A-28).
+    in_gross: bool | None = None
     quantity: Quantity | None = None
     hours_worked: Quantity | None = None
     rate: Rate | None = None
