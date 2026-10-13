@@ -95,6 +95,15 @@ def test_times_are_milliseconds_converted_to_hours(out):
     assert line.quantity.value * line.rate.amount == line.amount.amount
 
 
+def test_base_rate_is_the_line_rate_only_where_it_multiplies_out(out):
+    james = one(out, "pay_statements", ":7102")
+    regular, overtime = (next(e for e in james.earnings if e.code == code) for code in ("Regular", "OT"))
+    assert regular.rate.amount == Decimal("18.0") and overtime.rate is None
+    assert overtime.quantity.value == Decimal("2") and overtime.amount.amount == Decimal("54.00")
+    assert "BASE_RATE_NOT_LINE_RATE" in codes(james)
+    assert any(k.endswith(".base_rate") and v == Decimal("18.0") for k, v in james.provider_extensions.items())
+
+
 def test_deposit_status_needs_the_flag_and_the_span(out):
     ended = one(out, "direct_deposits", ":4004")
     assert (ended.status.value.value, str(ended.effective_to)) == ("INACTIVE", "2026-06-30")

@@ -36,6 +36,23 @@
         "ee_amount": 360.0
       },
       {
+        "id": 702391358,
+        "type_name": "Earning",
+        "batch": {
+          "id": 4342647435,
+          "display_name": "Regular Earnings"
+        },
+        "earning": {
+          "code": "OT",
+          "name": "Overtime"
+        },
+        "hours": 7200000,
+        "date_range_from": "2026-09-14",
+        "date_range_to": "2026-09-27",
+        "base_rate": 18.0,
+        "ee_amount": 54.0
+      },
+      {
         "id": 839854465,
         "type_name": "Earning (Auto)",
         "batch": {
@@ -97,7 +114,7 @@
     "payments": [
       {
         "type_name": "Check",
-        "ee_amount": 312.46,
+        "ee_amount": 366.46,
         "batch": {
           "id": 4342647435,
           "display_name": "Regular Earnings"

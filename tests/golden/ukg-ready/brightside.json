@@ -9,7 +9,7 @@
    "pay_statements": 4
   },
   "diagnostics": {
-   "info": 31,
+   "info": 32,
    "warning": 3
   },
   "checks": {
@@ -2298,13 +2298,17 @@
      "earnings[0].id": 3316898287,
      "earnings[0].batch.id": 4342647435,
      "earnings[0].batch.display_name": "Regular Earnings",
-     "earnings[1].id": 839854465,
-     "earnings[1].type_name": "Earning (Auto)",
+     "earnings[1].id": 702391358,
      "earnings[1].batch.id": 4342647435,
      "earnings[1].batch.display_name": "Regular Earnings",
-     "earnings[1].earning.code": "SECA",
-     "earnings[1].earning.name": "SECA",
      "earnings[1].base_rate": "18.0",
+     "earnings[2].id": 839854465,
+     "earnings[2].type_name": "Earning (Auto)",
+     "earnings[2].batch.id": 4342647435,
+     "earnings[2].batch.display_name": "Regular Earnings",
+     "earnings[2].earning.code": "SECA",
+     "earnings[2].earning.name": "SECA",
+     "earnings[2].base_rate": "18.0",
      "taxes[0].type_name": "Tax",
      "taxes[0].batch.id": 4342647435,
      "taxes[0].batch.display_name": "Regular Earnings",
@@ -2324,6 +2328,13 @@
       "field": "status",
       "message": "not finalized; amounts may still change (A-13)",
       "raw": "OPEN"
+     },
+     {
+      "code": "BASE_RATE_NOT_LINE_RATE",
+      "severity": "info",
+      "field": "earnings[].base_rate",
+      "message": "amount = 1.5000 x hours x base_rate; base_rate is kept raw (A-24)",
+      "raw": "18.0"
      }
     ],
     "company_id": "ukg-ready:synthetic:company:7001",
@@ -2348,19 +2359,19 @@
     "voided": false,
     "totals": {
      "gross_pay": {
-      "amount": "360.00",
+      "amount": "414.00",
       "currency": "USD",
       "derived": true,
       "formula": "sum(earnings[].ee_amount) - sum(non-cash earning lines)"
      },
      "gross_wages": {
-      "amount": "360.00",
+      "amount": "414.00",
       "currency": "USD",
       "derived": true,
       "formula": "sum(earnings[].ee_amount)"
      },
      "net_pay": {
-      "amount": "312.46",
+      "amount": "366.46",
       "currency": "USD",
       "derived": true,
       "formula": "sum(payments[Check, Direct Deposit].ee_amount)"
@@ -2417,6 +2428,36 @@
       },
       "amount": {
        "amount": "360.00",
+       "currency": "USD",
+       "derived": false,
+       "source_field": "earnings[].ee_amount"
+      },
+      "period": {
+       "start": "2026-09-14",
+       "end": "2026-09-27"
+      },
+      "allocation": {},
+      "source_field": "earnings[]"
+     },
+     {
+      "code": "OT",
+      "label": "Overtime",
+      "kind": {
+       "value": "EARNINGS",
+       "raw": "Earning",
+       "source_field": "earnings[].type_name"
+      },
+      "in_gross": true,
+      "quantity": {
+       "value": "2",
+       "unit": "HOURS",
+       "raw": 7200000,
+       "derived": true,
+       "formula": "earnings[].hours / 3600000",
+       "source_field": "earnings[].hours"
+      },
+      "amount": {
+       "amount": "54.00",
        "currency": "USD",
        "derived": false,
        "source_field": "earnings[].ee_amount"
@@ -2532,7 +2573,7 @@
        "source_field": "payments[].type_name"
       },
       "amount": {
-       "amount": "312.46",
+       "amount": "366.46",
        "currency": "USD",
        "derived": false,
        "source_field": "payments[].ee_amount"
@@ -2544,7 +2585,7 @@
      {
       "rule": "gross pay - employee taxes - deductions = net",
       "result": "pass",
-      "detail": "360.0 - 47.54 - 0 = 312.46; net 312.46"
+      "detail": "414.0 - 47.54 - 0 = 366.46; net 366.46"
      }
     ]
    },

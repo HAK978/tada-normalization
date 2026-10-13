@@ -469,7 +469,7 @@ def _payroll(bundle: FixtureBundle) -> None:
             ],
         },
     )
-    # James: hours in milliseconds (20 h), and an earning line that carries no amount.
+    # James: hours in milliseconds (20 h), an overtime line, and an earning line that carries no amount.
     james = _statement(
         7102,
         5002,
@@ -478,6 +478,8 @@ def _payroll(bundle: FixtureBundle) -> None:
         {
             "earnings": [
                 _earning("Regular", "Regular", "Earning", D("360"), hours=20, rate=D("18")),
+                # Overtime: amount = 1.5 x hours x base_rate, as on every live overtime line (A-24).
+                _earning("OT", "Overtime", "Earning", D("54"), hours=2, rate=D("18")),
                 _earning("SECA", "SECA", "Earning (Auto)", None, rate=D("18")),
             ],
             "taxes": [
@@ -485,7 +487,7 @@ def _payroll(bundle: FixtureBundle) -> None:
                 _tax("Social Security", "Social Security", D("22.32"), D("22.32"), D("360")),
                 _tax("Medicare", "Medicare", D("5.22"), D("5.22"), D("360")),
             ],
-            "payments": [{"type_name": "Check", "ee_amount": _money(D("360") - D("47.54")), "batch": _line_batch()}],
+            "payments": [{"type_name": "Check", "ee_amount": _money(D("414") - D("47.54")), "batch": _line_batch()}],
         },
     )
     # Priya: a customer pay statement type ("Comm") and a line modifier UKG never documents.

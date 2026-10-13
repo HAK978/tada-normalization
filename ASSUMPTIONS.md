@@ -6,7 +6,8 @@ Each entry has four parts: **issue**, **evidence**, **decision** and **why**.
   - **Prism** = `contracts/prismhr/openapi/prismhr-2025.09.openapi.json`
   - **isolved** = `contracts/isolved/openapi/isolved-v6.swagger.json` (the primary snapshot only)
   - **UKG** = `contracts/ukg-ready/reference-schemas.json`, plus HTML pages under `contracts/ukg-ready/reference-docs/`
-- **Live evidence** comes from read-only requests to the demo tenants on **2026-10-12**. The raw
+- **Live evidence** comes from read-only requests to the demo tenants on **2026-10-12**, plus a second
+  UKG fetch on **2026-10-13** (A-07). The raw
   responses stay on the machine that fetched them and are never committed, so this file quotes counts
   and code values only.
 
@@ -84,9 +85,11 @@ Status: first draft, written during discovery. Entries are added as mapping deci
   check list (15 also fetched in detail), and 231 payroll runs from run history (8 fetched in detail).
 - **UKG Ready:** company 33704016, 15 employees, 89 payrolls listed (10 fetched in detail), and 28
   pay statements listed (22 fetched in detail).
-- **Limitation:** the UKG crawl sampled the first 15 employees rather than the paychecks' owners, so
-  27 of the 28 statements belong to employees outside the sample (`EMPLOYEE_NOT_IN_BUNDLE`). The isolved
-  crawl already samples check owners first.
+- **UKG, second fetch (2026-10-13):** the first crawl sampled the first 15 employees rather than the
+  paychecks' owners, so 27 of its 28 statements belonged to employees outside the sample. The crawl now
+  samples paycheck owners first, as the isolved crawl does. The second fetch found 89 payrolls and 61
+  pay statements, and 36 of those statements belong to the 15 sampled employees; the others exceed the
+  limit. Every UKG claim below holds on both fetches unless it says otherwise.
 - **Limitation:** codes that never appeared in these samples are mapped from the documentation only.
 
 ## Data that is unavailable
@@ -219,11 +222,19 @@ Status: first draft, written during discovery. Entries are added as mapping deci
   - `photo_href` is dropped. Birth dates are kept as employee data.
 - **Why:** keeping fields "verbatim" in `provider_extensions` would otherwise undo the masking.
 ### A-24 UKG pay-statement hours are milliseconds
-- **Evidence:** UKG `#/schemas/364` types earnings `hours` as an integer with no unit. Live, **all 23**
-  earning lines that have both hours and a rate satisfy `(hours ÷ 3,600,000) × base_rate = ee_amount`,
-  and none satisfies `hours × base_rate`. Milliseconds are also documented elsewhere in the same API
-  (compensation `time`, pay-info `standard_work_day`).
-- **Decision:** convert to hours, keep the raw value, and record the formula.
+- **Evidence:**
+  - UKG `#/schemas/364` types earnings `hours` as an integer with no unit. Live, all 23 earning lines in
+    the first fetch that have both hours and a rate satisfy `(hours ÷ 3,600,000) × base_rate =
+    ee_amount`, and none satisfies `hours × base_rate`. Milliseconds are also documented elsewhere in
+    the same API (compensation `time`, pay-info `standard_work_day`).
+  - In the second fetch, 67 of 71 such lines satisfy it. The other 4 are all overtime (code "OT"), where
+    `ee_amount = 1.5 × hours × base_rate`. So `base_rate` is the employee's base hourly rate, and premium
+    lines multiply it.
+- **Decision:**
+  - Hours are converted, with the raw value kept and the formula recorded.
+  - `base_rate` becomes the line's `rate` only where hours × base_rate = amount on that line. Otherwise it
+    stays raw in `provider_extensions`, with a `BASE_RATE_NOT_LINE_RATE` info diagnostic giving the
+    multiple, because a canonical rate must multiply out to the amount.
 
 ### A-25 Open-ended dates and span boundaries
 - **Evidence:** UKG `reference-docs/Foundations.html` ("Conventions related to time") documents
@@ -662,7 +673,8 @@ entries below are new.
     "Earning (Fringe, Auto)" (code "GTL-Imp Inc") and "Reimbursement(Neg Ded, Auto)". The docs sample
     shows "Deduction (Manual)".
   - Payments are "Check", "Direct Deposit" and "Fringe".
-  - On **22 of 22** live statements, each "Fringe" payment equals the fringe earnings, and
+  - On every live statement (22 of 22 in the first fetch, 61 of 61 in the second), each "Fringe"
+    payment equals the fringe earnings, and
     `sum of earnings − fringe earnings − employee taxes − deductions = check + direct deposit`.
 - **Decision:**
   - "Earning" lines are `EARNINGS`, "Reimbursement" lines `REIMBURSEMENT`, and lines with the
@@ -672,7 +684,8 @@ entries below are new.
   - "Fringe" payment rows aren't payments: nothing is paid. They stay in `provider_extensions`.
   - Gross wages are derived as the sum of the lines. Gross pay is derived by subtracting the fringe
     lines (A-54). Net pay is derived from the check and direct deposit payments. The
-    `gross pay − taxes − deductions = net` check passes on 22 of 22 live statements.
+    `gross pay − taxes − deductions = net` check passes on every live statement where net can be derived:
+    22 of 22, and 60 of 61 in the second fetch, where one statement has an earning but no payments.
   - Lines with no amount (3 earnings and 3 check payments live) carry no money for the statement, so
     they don't become lines. They stay in `provider_extensions`.
   - Each tax line becomes one employee line and one employer line, each with its own subject wages.
@@ -684,8 +697,8 @@ entries below are new.
     computation.
   - The pay statement page types `ee_amount` as a float, and says "Amount should be rounded to a
     Penny".
-  - It is the only such value: 1 of 988 live UKG decimals, and 0 of 31,602 Prism and 0 of 8,387
-    isolved decimals.
+  - Such values are rare: 1 of 988 UKG decimals in the first fetch and 3 of 2,555 in the second, against
+    0 of 31,602 Prism and 0 of 8,387 isolved decimals.
 - **Decision:** keep it exactly as sent ("never rounded"), with a `FLOAT_ARTIFACT` info diagnostic
   that names the penny amount. Derived sums carry it too. The checks' 0.01 tolerance absorbs it.
 - **Why:** rounding would be a guess about the provider's intent. Reporting it lets a consumer decide.

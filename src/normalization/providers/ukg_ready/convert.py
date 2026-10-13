@@ -729,6 +729,26 @@ class _Company:
         return Coded[C.EarningKind](value=value, raw=type_name, source_field="earnings[].type_name")
 
     @staticmethod
+    def _line_rate(line: Src, quantity: Quantity | None, value: Money, notes: Notes) -> Rate | None:
+        """base_rate is the employee's base hourly rate. It is this line's rate only where hours x base_rate =
+        amount; premium lines multiply it (overtime: 1.5 on every live line) and keep it raw (A-24)."""
+        base = decimal(line.data.get("base_rate"))
+        if quantity is None or base is None:
+            return None
+        if abs(quantity.value * base - value.amount) <= PENNY:
+            line.get("base_rate")
+            return Rate(amount=base, per=C.RatePeriod.HOUR, source_field="earnings[].base_rate")
+        if quantity.value * base:
+            ratio = (value.amount / (quantity.value * base)).quantize(Decimal("0.0001"))
+            notes.info(
+                "BASE_RATE_NOT_LINE_RATE",
+                "earnings[].base_rate",
+                f"amount = {ratio} x hours x base_rate; base_rate is kept raw (A-24)",
+                str(base),
+            )
+        return None
+
+    @staticmethod
     def _allocation(line: Src) -> dict[str, str]:
         allocation = {}
         for cc in line.children("cost_centers"):
@@ -760,8 +780,7 @@ class _Company:
                 continue  # no money on this statement; the line stays in provider_extensions
             item = line.child("earning") or Src({})
             quantity = hours(line.get("hours"), "earnings[].hours")
-            # base_rate is per hour where hours are given: hours x rate = amount on all 23 live lines (A-24).
-            rate = decimal(line.get("base_rate")) if quantity is not None else None
+            rate = self._line_rate(line, quantity, value, notes)
             earnings.append(
                 EarningLine(
                     code=text(item.get("code")),
@@ -769,9 +788,7 @@ class _Company:
                     kind=self._earning_kind(text(line.get("type_name")), notes),
                     in_gross=True,  # gross wages are derived as the sum of every line (A-54)
                     quantity=quantity,
-                    rate=Rate(amount=rate, per=C.RatePeriod.HOUR, source_field="earnings[].base_rate")
-                    if rate is not None
-                    else None,
+                    rate=rate,
                     amount=value,
                     period=DateRange(
                         start=iso_date(line.get("date_range_from"), "earnings[].date_range_from", notes),

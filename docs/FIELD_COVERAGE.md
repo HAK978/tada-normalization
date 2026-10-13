@@ -16,7 +16,7 @@ Sources:
 
 - prismhr: a live fetch (`20261012T230841Z`) (428 responses)
 - isolved: a live fetch (`20261012T230841Z`) (210 responses)
-- ukg-ready: a live fetch (`20261012T230841Z`) (112 responses)
+- ukg-ready: a live fetch (`20261013T095646Z`) (159 responses)
 
 ## Summary
 
@@ -59,10 +59,10 @@ Sources:
 | isolved | `api/system/earnings` | 6 | 0 | 0 | 2 | 0 | 4 |
 | isolved | `api/system/payTypes` | 2 | 0 | 0 | 0 | 0 | 2 |
 | ukg-ready | `rest/v2/companies/{company}/employees` | 18 | 0 | 0 | 6 | 0 | 12 |
-| ukg-ready | `rest/v2/companies/{company}/employees/{id}` | 56 | 28 | 21 | 7 | 0 | 0 |
+| ukg-ready | `rest/v2/companies/{company}/employees/{id}` | 73 | 28 | 38 | 7 | 0 | 0 |
 | ukg-ready | `rest/v2/companies/{company}/employees/{id}/compensation/history` | 11 | 8 | 2 | 1 | 0 | 0 |
-| ukg-ready | `rest/v2/companies/{company}/employees/{id}/direct-deposits` | 33 | 14 | 7 | 12 | 0 | 0 |
-| ukg-ready | `rest/v2/companies/{company}/employees/{id}/pay-info` | 16 | 3 | 13 | 0 | 0 | 0 |
+| ukg-ready | `rest/v2/companies/{company}/employees/{id}/direct-deposits` | 34 | 14 | 8 | 12 | 0 | 0 |
+| ukg-ready | `rest/v2/companies/{company}/employees/{id}/pay-info` | 15 | 3 | 12 | 0 | 0 | 0 |
 | ukg-ready | `rest/v2/companies/{company}/lookup/deduction-codes` | 4 | 0 | 0 | 0 | 0 | 4 |
 | ukg-ready | `rest/v2/companies/{company}/lookup/earning-codes` | 4 | 0 | 0 | 0 | 0 | 4 |
 | ukg-ready | `rest/v2/companies/{company}/lookup/eins` | 4 | 3 | 1 | 0 | 0 | 0 |
@@ -74,7 +74,7 @@ Sources:
 | ukg-ready | `rest/v2/companies/{company}/payrolls` | 14 | 11 | 2 | 1 | 0 | 0 |
 | ukg-ready | `rest/v2/companies/{company}/payrolls/{id}` | 13 | 11 | 2 | 0 | 0 | 0 |
 | ukg-ready | `rest/v2/companies/{company}/payrolls/{id}/pay-statements` | 11 | 0 | 0 | 1 | 0 | 10 |
-| ukg-ready | `rest/v2/companies/{company}/payrolls/{id}/pay-statements/{id}` | 76 | 30 | 46 | 0 | 0 | 0 |
+| ukg-ready | `rest/v2/companies/{company}/payrolls/{id}/pay-statements/{id}` | 78 | 30 | 48 | 0 | 0 | 0 |
 
 ## prismhr
 
@@ -1608,6 +1608,8 @@ Sources:
 | `_links.pay-info` | dropped: API navigation |
 | `_links.profiles` | dropped: API navigation |
 | `_links.self` | dropped: API navigation |
+| `account_extra_fields[].index` | kept |
+| `account_extra_fields[].values[].value` | kept |
 | `add_to_new_hire_export` | kept |
 | `address.address_line_1` | mapped |
 | `address.address_line_2` | mapped |
@@ -1624,8 +1626,8 @@ Sources:
 | `dates.birthday` | mapped |
 | `dates.hired` | mapped |
 | `dates.re_hired` | mapped |
+| `dates.review` | kept |
 | `dates.started` | mapped |
-| `dates.terminated` | mapped |
 | `ein.id` | mapped |
 | `ein_name` | mapped |
 | `employee_id` | mapped |
@@ -1639,20 +1641,35 @@ Sources:
 | `last_name` | mapped |
 | `locale.id` | kept |
 | `locked` | kept |
+| `mailing_address.address_line_1` | kept |
+| `mailing_address.city` | kept |
+| `mailing_address.country` | kept |
+| `mailing_address.state` | kept |
+| `mailing_address.state_code` | kept |
+| `mailing_address.zip` | kept |
 | `managed_cost_centers_enabled` | kept |
-| `managers[].empl_ref.account_id` | mapped (12) / kept (5) |
+| `managed_cost_centers_settings.allow_save_others_cost_centers` | kept |
+| `managers[].empl_ref.account_id` | mapped (15) / kept (11) |
 | `managers[].index` | mapped |
 | `middle_name` | mapped |
 | `national_id_numbers[].primary` | mapped (2) / kept (13) |
 | `national_id_numbers[].type` | mapped (2) / kept (13) |
 | `national_id_numbers[].value` | kept |
 | `nickname` | mapped |
+| `phones.cell_phone` | mapped |
+| `phones.cell_phone_country_code` | kept |
+| `phones.cell_phone_country_id` | kept |
 | `phones.home_phone` | mapped |
+| `phones.home_phone_country_code` | kept |
+| `phones.home_phone_country_id` | kept |
 | `phones.preferred_phone` | kept |
 | `phones.work_phone` | mapped |
+| `phones.work_phone_country_code` | kept |
+| `phones.work_phone_country_id` | kept |
 | `photo_href` | dropped: a signed link that works as a credential |
 | `primary_account_id` | kept |
 | `primary_email` | mapped |
+| `secondary_email` | kept |
 | `social_security` | mapped |
 | `status` | mapped |
 | `timezone` | kept |
@@ -1671,9 +1688,9 @@ Sources:
 | `compensations[].employee.account_id` | mapped |
 | `compensations[].hourly_pay` | mapped |
 | `compensations[].id` | mapped |
-| `compensations[].num_pp_in_year` | mapped (15) / kept (16) |
+| `compensations[].num_pp_in_year` | mapped (15) / kept (31) |
 | `compensations[].time` | mapped |
-| `compensations[].time_period` | mapped (15) / kept (16) |
+| `compensations[].time_period` | mapped (15) / kept (31) |
 
 ### `rest/v2/companies/{company}/employees/{id}/direct-deposits`
 
@@ -1704,6 +1721,7 @@ Sources:
 | `deposits[].cancel_pre_note` | kept |
 | `deposits[].id` | mapped |
 | `deposits[].is_paypal` | kept |
+| `deposits[].name` | kept |
 | `deposits[].payroll_frequency.type` | mapped |
 | `deposits[].pre_note_status` | mapped |
 | `deposits[].routing_number` | mapped |
@@ -1722,8 +1740,6 @@ Sources:
 | `eeo4_function` | kept |
 | `eeo_classification` | kept |
 | `employee_type.id` | mapped |
-| `gl_codes[].index` | kept |
-| `gl_codes[].value` | kept |
 | `job_last_changed` | kept |
 | `pay_grade.id` | kept |
 | `pay_grade.parent.code` | kept |
@@ -1732,6 +1748,7 @@ Sources:
 | `pay_type.id` | mapped |
 | `payroll_classification` | kept |
 | `standard_work_day` | kept |
+| `union.id` | kept |
 | `workers_comp_code.external_id` | kept |
 
 ### `rest/v2/companies/{company}/lookup/deduction-codes`
@@ -1804,19 +1821,19 @@ Sources:
 | Field | Disposition |
 |---|---|
 | `payrolls[]._links.self` | dropped: API navigation |
-| `payrolls[].billable` | kept (79) / unused (10) |
-| `payrolls[].ein.ein_country_id` | mapped (79) / unused (10) |
-| `payrolls[].ein.ein_name` | mapped (79) / unused (10) |
-| `payrolls[].ein.ein_tax_id` | mapped (79) / unused (10) |
-| `payrolls[].ein.id` | mapped (79) / unused (10) |
-| `payrolls[].end_date` | mapped (79) / unused (10) |
-| `payrolls[].id` | mapped (79) / unused (10) |
-| `payrolls[].name` | mapped (79) / unused (10) |
-| `payrolls[].pay_date` | mapped (79) / unused (10) |
-| `payrolls[].start_date` | mapped (79) / unused (10) |
-| `payrolls[].status` | mapped (79) / unused (10) |
-| `payrolls[].type.display_name` | mapped (79) / unused (10) |
-| `payrolls[].type.id` | kept (79) / unused (10) |
+| `payrolls[].billable` | kept (75) / unused (14) |
+| `payrolls[].ein.ein_country_id` | mapped (75) / unused (14) |
+| `payrolls[].ein.ein_name` | mapped (75) / unused (14) |
+| `payrolls[].ein.ein_tax_id` | mapped (75) / unused (14) |
+| `payrolls[].ein.id` | mapped (75) / unused (14) |
+| `payrolls[].end_date` | mapped (75) / unused (14) |
+| `payrolls[].id` | mapped (75) / unused (14) |
+| `payrolls[].name` | mapped (75) / unused (14) |
+| `payrolls[].pay_date` | mapped (75) / unused (14) |
+| `payrolls[].start_date` | mapped (75) / unused (14) |
+| `payrolls[].status` | mapped (75) / unused (14) |
+| `payrolls[].type.display_name` | mapped (75) / unused (14) |
+| `payrolls[].type.id` | kept (75) / unused (14) |
 
 ### `rest/v2/companies/{company}/payrolls/{id}`
 
@@ -1841,16 +1858,16 @@ Sources:
 | Field | Disposition |
 |---|---|
 | `pay_statements[]._links.self` | dropped: API navigation |
-| `pay_statements[].calcUpto` | kept (6) / unused (22) |
-| `pay_statements[].employee.account_id` | mapped (6) / unused (22) |
-| `pay_statements[].emptyEarning` | kept (6) / unused (22) |
-| `pay_statements[].id` | mapped (6) / unused (22) |
-| `pay_statements[].pay_date` | mapped (6) / unused (22) |
-| `pay_statements[].pay_period_end` | mapped (6) / unused (22) |
-| `pay_statements[].pay_period_start` | mapped (6) / unused (22) |
-| `pay_statements[].status` | mapped (6) / unused (22) |
-| `pay_statements[].type.display_name` | mapped (6) / unused (22) |
-| `pay_statements[].type.id` | kept (6) / unused (22) |
+| `pay_statements[].calcUpto` | unused |
+| `pay_statements[].employee.account_id` | unused |
+| `pay_statements[].emptyEarning` | unused |
+| `pay_statements[].id` | unused |
+| `pay_statements[].pay_date` | unused |
+| `pay_statements[].pay_period_end` | unused |
+| `pay_statements[].pay_period_start` | unused |
+| `pay_statements[].status` | unused |
+| `pay_statements[].type.display_name` | unused |
+| `pay_statements[].type.id` | unused |
 
 ### `rest/v2/companies/{company}/payrolls/{id}/pay-statements/{id}`
 
@@ -1865,8 +1882,9 @@ Sources:
 | `deductions[].cost_centers[].value.external_id` | kept |
 | `deductions[].cost_centers[].value.id` | kept |
 | `deductions[].cost_centers[].value.name` | kept |
+| `deductions[].cost_centers[].value.payroll_code` | kept |
 | `deductions[].deduction.code` | mapped |
-| `deductions[].deduction.external_id` | mapped (28) / kept (14) |
+| `deductions[].deduction.external_id` | mapped (68) / kept (45) |
 | `deductions[].deduction.id` | kept |
 | `deductions[].deduction.name` | mapped |
 | `deductions[].ee_amount` | mapped |
@@ -1876,25 +1894,26 @@ Sources:
 | `deductions[].er_amount` | mapped |
 | `deductions[].id` | kept |
 | `deductions[].type_name` | kept |
-| `earnings[].base_rate` | mapped (23) / kept (26) |
+| `earnings[].base_rate` | mapped (67) / kept (74) |
 | `earnings[].batch.display_name` | kept |
 | `earnings[].batch.id` | kept |
-| `earnings[].cost_centers[].index` | mapped (148) / kept (8) |
+| `earnings[].cost_centers[].index` | mapped (405) / kept (16) |
 | `earnings[].cost_centers[].value.description` | kept |
-| `earnings[].cost_centers[].value.display_name` | mapped (148) / kept (8) |
+| `earnings[].cost_centers[].value.display_name` | mapped (405) / kept (16) |
 | `earnings[].cost_centers[].value.external_id` | kept |
 | `earnings[].cost_centers[].value.id` | kept |
-| `earnings[].cost_centers[].value.name` | mapped (148) / kept (8) |
+| `earnings[].cost_centers[].value.name` | mapped (405) / kept (16) |
+| `earnings[].cost_centers[].value.payroll_code` | kept |
 | `earnings[].date_range_from` | mapped |
 | `earnings[].date_range_to` | mapped |
-| `earnings[].earning.code` | mapped (57) / kept (3) |
+| `earnings[].earning.code` | mapped (154) / kept (6) |
 | `earnings[].earning.external_id` | kept |
 | `earnings[].earning.id` | kept |
-| `earnings[].earning.name` | mapped (57) / kept (3) |
+| `earnings[].earning.name` | mapped (154) / kept (6) |
 | `earnings[].ee_amount` | mapped |
 | `earnings[].hours` | mapped |
 | `earnings[].id` | kept |
-| `earnings[].type_name` | mapped (57) / kept (3) |
+| `earnings[].type_name` | mapped (154) / kept (6) |
 | `employee.account_id` | mapped |
 | `emptyEarning` | kept |
 | `id` | mapped |
@@ -1909,9 +1928,9 @@ Sources:
 | `pay_period_start` | mapped |
 | `payments[].batch.display_name` | kept |
 | `payments[].batch.id` | kept |
-| `payments[].ee_amount` | mapped (22) / kept (10) |
+| `payments[].ee_amount` | mapped (60) / kept (17) |
 | `payments[].id` | kept |
-| `payments[].type_name` | mapped (22) / kept (13) |
+| `payments[].type_name` | mapped (60) / kept (24) |
 | `status` | mapped |
 | `taxes[].batch.display_name` | kept |
 | `taxes[].batch.id` | kept |
@@ -1923,7 +1942,7 @@ Sources:
 | `taxes[].ee_amount` | mapped |
 | `taxes[].ee_gross_subject_wage` | kept |
 | `taxes[].ee_gross_wage` | kept |
-| `taxes[].ee_subject_wage` | mapped (79) / kept (7) |
+| `taxes[].ee_subject_wage` | mapped (220) / kept (19) |
 | `taxes[].er_amount` | mapped |
 | `taxes[].er_gross_subject_wage` | kept |
 | `taxes[].er_gross_wage` | kept |

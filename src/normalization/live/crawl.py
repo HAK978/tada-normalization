@@ -275,17 +275,7 @@ def _ukg(c: ReadOnlyClient, limits: Limits) -> None:
             "jobs",
         ):
             c.get(f"{root}/lookup/{lookup}")
-        employees = c.get(f"{root}/employees")["body"]
-        for account_id in _ids(_dig(employees, "employees"))[: limits.max_employees]:
-            person = f"{root}/employees/{account_id}"
-            c.get(person)
-            c.get(f"{person}/pay-info")
-            c.get(f"{person}/compensation/history")
-            c.get(f"{person}/direct-deposits", headers=UKG_DEPRECATED_DD_HEADERS)
-            deductions = c.get(f"{person}/deductions")["body"]
-            for deduction_id in _ids(_dig(deductions, "deductions")):
-                c.get(f"{person}/deductions/{deduction_id}")
-
+        # Paychecks are sparse, so find them first and make sure their employees are sampled (A-07).
         listing = c.get(
             f"{root}/payrolls", {"pay_date_from": limits.since.isoformat(), "pay_date_to": limits.until.isoformat()}
         )["body"]
@@ -295,6 +285,7 @@ def _ukg(c: ReadOnlyClient, limits: Limits) -> None:
             key=lambda p: str(p.get("pay_date")),
             reverse=True,
         )
+        owners: list[str] = []
         with_statements = probed = 0
         for payroll in past + [p for p in payrolls if p not in past][:2]:
             if with_statements >= limits.max_payrolls or probed >= limits.max_payrolls * 3:
@@ -303,7 +294,22 @@ def _ukg(c: ReadOnlyClient, limits: Limits) -> None:
             payroll_id = str(payroll["id"])
             c.get(f"{root}/payrolls/{payroll_id}")
             statements = c.get(f"{root}/payrolls/{payroll_id}/pay-statements")["body"]
-            statement_ids = _ids(_dig(statements, "pay_statements"))
+            rows = [s for s in _dig(statements, "pay_statements") or [] if isinstance(s, dict)]
+            owners += [str(a) for s in rows if (a := (s.get("employee") or {}).get("account_id")) not in (None, "")]
+            statement_ids = _ids(rows)
             with_statements += bool(statement_ids)
             for statement_id in statement_ids[: limits.max_paychecks]:
                 c.get(f"{root}/payrolls/{payroll_id}/pay-statements/{statement_id}")
+
+        employees = c.get(f"{root}/employees")["body"]
+        listed = _ids(_dig(employees, "employees"))
+        sample = list(dict.fromkeys(owners + listed))[: limits.max_employees]  # owners first, without repeats
+        for account_id in sample:
+            person = f"{root}/employees/{account_id}"
+            c.get(person)
+            c.get(f"{person}/pay-info")
+            c.get(f"{person}/compensation/history")
+            c.get(f"{person}/direct-deposits", headers=UKG_DEPRECATED_DD_HEADERS)
+            deductions = c.get(f"{person}/deductions")["body"]
+            for deduction_id in _ids(_dig(deductions, "deductions")):
+                c.get(f"{person}/deductions/{deduction_id}")
