@@ -12,11 +12,11 @@ endpoints, demo company IDs only), prints the response and saves a copy under
 Query parameters are key=value; repeat a key to send a list (employeeId=A employeeId=B).
 """
 import argparse
-import json
 import sys
 from datetime import datetime, timezone
 from pathlib import Path
 
+from normalization import exactjson
 from normalization.live.client import ReadOnlyClient, Recorder
 from normalization.live.scope import ScopeError
 from normalization.live.signin import SignInError, load_api_key
@@ -55,7 +55,7 @@ def main(argv=None) -> int:
     except (SignInError, ScopeError) as exc:
         print(f"refused: {exc}", file=sys.stderr)
         return 1
-    print(json.dumps(record["body"], indent=2))
+    print(client.redact(exactjson.dumps(record["body"], indent=2)))
     return 0 if record["status"] < 400 else 1
 
 

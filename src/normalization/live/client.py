@@ -1,4 +1,4 @@
-"""GET-only client for the live demo tenants; every response is saved verbatim."""
+"""GET-only client for the live demo tenants; every response is saved with credentials scrubbed."""
 from __future__ import annotations
 
 import json
@@ -11,11 +11,15 @@ from urllib.parse import urljoin
 
 import httpx
 
+from .. import exactjson
 from . import scope
 from .signin import Session, sign_in
 
 # Response headers are saved for discovery, minus anything that could carry a credential.
-_DROPPED_HEADERS = {"set-cookie", "authorization", "www-authenticate", "proxy-authenticate"}
+_DROPPED_HEADERS = {"set-cookie", "cookie", "authorization", "www-authenticate", "proxy-authenticate",
+                    "sessionid", "x-api-key"}
+# Signed tokens embedded in responses (UKG photo_href links carry one per employee).
+_JWT = re.compile(r"eyJ[A-Za-z0-9_-]{10,}\.[A-Za-z0-9_-]{10,}(?:\.[A-Za-z0-9_-]+)?")
 _RETRYABLE = {429, 502, 504}
 _MAX_REDIRECTS = 3
 
@@ -33,10 +37,11 @@ class Recorder:
         context = {**session.public_context(), "saved_at": _now()}
         (self.root / "session.json").write_text(json.dumps(context, indent=2) + "\n", encoding="utf-8")
 
-    def save(self, endpoint: str, path: str, params: dict, response: httpx.Response, elapsed: float) -> dict:
+    def save(self, endpoint: str, path: str, params: dict, response: httpx.Response, elapsed: float,
+             redact: Callable[[str], str] = lambda text: text) -> dict:
         self.count += 1
         try:
-            body = response.json()
+            body = exactjson.loads(response.text)
         except ValueError:
             body = {"_non_json_body": response.text[:20000]}
         record = {
@@ -51,10 +56,10 @@ class Recorder:
             "body": body,
         }
         name = f"{self.count:04d}_{re.sub(r'[^A-Za-z0-9]+', '_', endpoint).strip('_')[:80]}.json"
-        (self.captures / name).write_text(json.dumps(record, indent=2) + "\n", encoding="utf-8")
+        (self.captures / name).write_text(redact(exactjson.dumps(record, indent=2)) + "\n", encoding="utf-8")
         index_line = {k: record[k] for k in ("seq", "endpoint", "path", "params", "status")} | {"file": name}
         with (self.root / "index.jsonl").open("a", encoding="utf-8") as index:
-            index.write(json.dumps(index_line) + "\n")
+            index.write(redact(exactjson.dumps(index_line)) + "\n")
         return record
 
 
@@ -83,12 +88,19 @@ class ReadOnlyClient:
                                frozenset(self.employers))
         started = time.monotonic()
         response = self._send(endpoint, url, params, headers or {})
-        record = self.recorder.save(endpoint, path, params, response, time.monotonic() - started)
+        record = self.recorder.save(endpoint, path, params, response, time.monotonic() - started, self.redact)
         if endpoint == "clientMaster/v1/getClientMaster" and response.status_code == 200:
             self._learn_employers(record["body"])
-        self.log(f"[{self.provider}] {response.status_code} {path} {_brief(params)}")
+        self.log(self.redact(f"[{self.provider}] {response.status_code} {path} {_brief(params)}"))
         self.sleep(self.delay)
         return record
+
+    def redact(self, text: str) -> str:
+        """Remove the API key, the current session's tokens and embedded signed tokens."""
+        for secret in (self._api_key, *self.session.secrets):
+            if secret:
+                text = text.replace(secret, "[REDACTED]")
+        return _JWT.sub("[REDACTED_TOKEN]", text)
 
     def _send(self, endpoint: str, url: str, params: dict, headers: dict) -> httpx.Response:
         reauthenticated = False
@@ -114,7 +126,8 @@ class ReadOnlyClient:
     def _follow(self, url: str, params: dict, headers: dict) -> httpx.Response:
         """Follow redirects manually so each hop is scope-checked too."""
         for _ in range(_MAX_REDIRECTS + 1):
-            response = self._http.get(url, params=params, headers={
+            # Per request, so an injected client that follows redirects can't skip the checks below.
+            response = self._http.get(url, params=params, follow_redirects=False, headers={
                 "Accept": "application/json", **headers, **self.session.auth_headers})
             if not response.is_redirect:
                 return response

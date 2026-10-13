@@ -32,6 +32,7 @@ class Session:
     company_entries: list[dict]
     auth_headers: dict[str, str] = field(repr=False)
     auth_fields: list[str] = field(default_factory=list)
+    secrets: tuple[str, ...] = field(default=(), repr=False)
 
     def public_context(self) -> dict:
         """Everything about the session that is safe to print or save."""
@@ -64,9 +65,14 @@ def sign_in(provider: str, api_key: str, http: httpx.Client) -> Session:
         headers={"X-API-Key": api_key},
         json={"tenant": TENANT_SELECTORS[provider]},
         timeout=httpx.Timeout(120.0, connect=60.0),
+        follow_redirects=False,
     )
+    if response.is_redirect:
+        # Following it would resend the API key to wherever the redirect points.
+        raise SignInError(f"/signin for {provider} answered with a redirect; refusing to follow it")
     if response.status_code != 200:
-        raise SignInError(f"/signin for {provider} returned HTTP {response.status_code}: {response.text[:200]}")
+        detail = response.text[:200].replace(api_key, "[REDACTED]")
+        raise SignInError(f"/signin for {provider} returned HTTP {response.status_code}: {detail}")
     data = response.json()
     auth = data.get("auth") or {}
     usage = data.get("usage") or {}
@@ -87,4 +93,5 @@ def sign_in(provider: str, api_key: str, http: httpx.Client) -> Session:
         company_entries=entries,
         auth_headers={header_name: value},
         auth_fields=sorted(auth),
+        secrets=tuple(str(v) for k, v in auth.items() if k in ("sessionId", "access_token", "refresh_token") and v),
     )
