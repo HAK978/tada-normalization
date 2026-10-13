@@ -21,7 +21,7 @@ Python 3.11 or newer.
 python3 -m venv .venv && source .venv/bin/activate
 pip install -e ".[dev]"
 python -m normalization demo    # normalize every provider's synthetic scenario
-pytest                          # 116 tests, offline
+pytest                          # 126 tests, offline
 ```
 
 `demo` prints one line per provider:
@@ -29,7 +29,7 @@ pytest                          # 116 tests, offline
 ```
 provider   companies  employees  deposits  elections  runs  paychecks  checks pass/fail  warnings
 prismhr            2          6         8          5     6          8              24/0         3
-isolved            1          5         5          5     6          7              25/0         1
+isolved            1          5         5          5     6          7              24/0         1
 ukg-ready          1          5         6          2     4          4               2/0         3
 ```
 
@@ -88,7 +88,7 @@ The live fetches of 2026-10-12 and 2026-10-13 normalize like this:
 
 | Provider | Companies | Employees | Deposits | Elections | Runs | Paychecks | Checks passed |
 |---|---:|---:|---:|---:|---:|---:|---:|
-| PrismHR | 25 | 51 | 22 | 138 | 1,493 | 420 | 1,175 of 1,175 |
+| PrismHR | 25 | 51 | 22 | 137 | 1,493 | 420 | 1,175 of 1,175 |
 | isolved | 2 | 30 | 21 | 572 | 231 | 430 | 468 of 468 |
 | UKG Ready | 1 | 15 | 5 | 0 (the tenant returns 404, A-12) | 89 | 61 | 60 of 60 |
 
@@ -124,7 +124,9 @@ The main conventions:
 - **Time-dependent values** (is this deposit active? which pay record is current?) are evaluated at an
   explicit `as_of` date: the fetch date, or a fixed date for fixtures.
 - **Lossless:** converters read every source field through a tracker, and whatever a record doesn't
-  map goes into its `provider_extensions`, sanitized. The coverage report proves it field by field.
+  map goes into its `provider_extensions`, sanitized. The coverage report shows each field's fate. It
+  tracks what converters read, so converters read only the values they map, and tests check that
+  values they don't map survive (A-62).
 - **Sensitive data:** SSNs and account numbers keep at most their last 4 digits, everywhere.
 - **Diagnostics** on every record explain anything unusual: unmapped codes, invalid dates, data not
   fetched, amounts not finalized.
@@ -175,7 +177,7 @@ counted live evidence.
 
 ## Testing
 
-`pytest` runs 116 offline tests (plus parametrized subtests). Nothing needs credentials or network.
+`pytest` runs 126 offline tests (plus parametrized subtests). Nothing needs credentials or network.
 
 - **Synthetic scenarios** (`fixtures/<provider>/brightside`) come from a seeded generator, and every
   response is validated against the provider's own published schema. They are full of real-world

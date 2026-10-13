@@ -168,7 +168,7 @@ Methods are mapped per **full source field**:
 | `PERCENT_OF_NET_AFTER_FIXED` | PN | none | none | none |
 | `PERCENT_OF_NET_AFTER_TAXES` | none | PN | none | none |
 | `REMAINDER` | B | B | `sequenceNumber` 0 ("0 = Net Pay") | FULL ("Entire/Remainder") |
-| `UNMAPPED` | other | other | none | NET_PAY and DIRECT_DEPOSIT_PER_OF_REMAINDER: no documented meaning, unless the record's `display_name` states one (A-26) |
+| `UNMAPPED` | other | other | none | NET_PAY and DIRECT_DEPOSIT_PER_OF_REMAINDER: no documented meaning; raw type and label kept (A-26) |
 
 | Canonical account type | Source |
 |---|---|

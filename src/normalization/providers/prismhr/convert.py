@@ -6,6 +6,7 @@ not mapped here is kept in provider_extensions; field meanings come from codes.p
 
 from __future__ import annotations
 
+from dataclasses import replace
 from datetime import date
 from decimal import Decimal
 from typing import Any
@@ -48,6 +49,7 @@ from normalization.canonical.records import (
 from normalization.canonical.types import (
     Coded,
     DateRange,
+    Diagnostic,
     Money,
     NationalId,
     Percent,
@@ -82,11 +84,21 @@ RETIREMENT_FIELDS = {
 
 def normalize(bundle: Bundle, as_of: date | None = None) -> Output:
     out = Output()
+    # PrismHR can report a failure inside an HTTP 200 (errorCode). Such a response is not data: it is
+    # taken out of the successful ones and reported on its company.
+    failed = [c for c in bundle.captures if c.status == 200 and _error_code(c.body)]
+    if failed:
+        bundle = replace(bundle, captures=[replace(c, status=-1) if c in failed else c for c in bundle.captures])
     clients = {str(c["client_id"]) for c in bundle.companies if c.get("client_id")}
     clients |= {str(c.params["clientId"]) for c in bundle.captures if c.params.get("clientId")}
     for client_id in sorted(clients):
-        _Client(bundle, client_id, out).run()
+        _Client(bundle, client_id, out, [c for c in failed if str(c.params.get("clientId")) == client_id]).run()
     return out
+
+
+def _error_code(body: Any) -> str | None:
+    code = text(body.get("errorCode")) if isinstance(body, dict) else None
+    return code if code not in (None, "0") else None
 
 
 def _codes_table(rows: Any, key: str = "id") -> dict[str, dict]:
@@ -94,8 +106,9 @@ def _codes_table(rows: Any, key: str = "id") -> dict[str, dict]:
 
 
 class _Client:
-    def __init__(self, bundle: Bundle, client_id: str, out: Output):
+    def __init__(self, bundle: Bundle, client_id: str, out: Output, failed: list | None = None):
         self.bundle, self.client_id, self.out = bundle, client_id, out
+        self.failed = failed or []
         self.tenant = bundle.tenant_id
         self.company_id = self._id("company", client_id)
         self.codes = self._load_codes()
@@ -176,6 +189,13 @@ class _Client:
         s = Src((capture.body or {}).get("clientMaster") if capture else {})
         if capture is None:
             notes.warn("SOURCE_MISSING", None, "getClientMaster is not in the bundle; company fields are empty")
+        for failure in self.failed:
+            notes.warn(
+                "SOURCE_ERROR",
+                failure.endpoint,
+                f"returned errorCode {_error_code(failure.body)}: {text(failure.body.get('errorMessage'))}",
+                _error_code(failure.body),
+            )
         fein = text(s.get("federalIdNumber"))
         employers = []
         if text(s.get("employerId")):
@@ -811,17 +831,24 @@ class _Client:
         ):
             for capture in self.bundle.ok(endpoint, clientId=self.client_id, employeeId=employee_id):
                 for i, row in enumerate(((capture.body.get(body_key) or {}).get("deduction")) or []):
-                    key = (
-                        text(row.get("deductionCode")),
-                        text(row.get("startDate")),
-                        text(row.get("stopDate")),
-                        str(row.get("amount")),
-                    )
+                    # The election's identity (code and dates), the same parts as its canonical ID.
+                    key = (text(row.get("deductionCode")), text(row.get("startDate")), text(row.get("stopDate")))
                     if key in seen:
                         # The same election from a second endpoint: keep only the fields that differ.
                         repeat = Src(row, f"{body_key}.deduction[{i}]")
                         repeat.mark(*(k for k, v in row.items() if first[key].get(k) == v))
-                        seen[key].provider_extensions.update(sanitize_extensions(repeat.leftovers()))
+                        differing = sanitize_extensions(repeat.leftovers())
+                        seen[key].provider_extensions.update(differing)
+                        if differing:
+                            seen[key].diagnostics.append(
+                                Diagnostic(
+                                    code="SOURCE_CONFLICT",
+                                    severity=C.Severity.WARNING,
+                                    field=body_key,
+                                    message="a second endpoint disagrees on this election; the first is "
+                                    "mapped and the other values are kept: " + ", ".join(sorted(differing)),
+                                )
+                            )
                         seen[key].source.endpoints = sorted(set(seen[key].source.endpoints) | {endpoint})
                         continue
                     first[key] = row

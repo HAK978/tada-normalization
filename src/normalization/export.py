@@ -266,7 +266,19 @@ def write_json(output: Output, directory: Path) -> list[Path]:
 def write_sqlite(outputs: Iterable[Output], path: Path) -> Path:
     """A fresh database holding every given output; canonical IDs are unique across providers."""
     path.parent.mkdir(parents=True, exist_ok=True)
-    path.unlink(missing_ok=True)
+    # Built beside the destination and swapped in only on success: a failed export keeps the old database.
+    building = path.with_name(path.name + ".building")
+    building.unlink(missing_ok=True)
+    try:
+        _fill(building, outputs)
+    except BaseException:
+        building.unlink(missing_ok=True)
+        raise
+    building.replace(path)
+    return path
+
+
+def _fill(path: Path, outputs: Iterable[Output]) -> None:
     with closing(sqlite3.connect(path)) as db:
         db.executescript(SCHEMA)
         for output in outputs:
@@ -288,7 +300,6 @@ def write_sqlite(outputs: Iterable[Output], path: Path) -> Path:
                             raw=_raw(d.get("raw")),
                         )
         db.commit()
-    return path
 
 
 # ---------------------------------------------------------------- rows

@@ -43,7 +43,9 @@ def reconcile(statement: PayStatement) -> list[CheckOutcome]:
             )
         )
 
-    if wages is not None and gross is not None and counted and not (wages.derived or gross.derived):
+    # An unknown kind could be cash or not, so this comparison has nothing to stand on (as in paid_gross).
+    unknown = any(EarningKind(line.kind.value) is EarningKind.UNMAPPED for line in counted)
+    if wages is not None and gross is not None and counted and not unknown and not (wages.derived or gross.derived):
         expected = wages.amount - non_cash
         out.append(
             _outcome(

@@ -105,8 +105,12 @@
      "timezone": "America/New_York",
      "pay-info.standard_work_day": 28800000,
      "pay-info.payroll_classification": "REGULAR",
+     "compensation.history[0].amount": "0.0",
+     "compensation.history[0].amount_period": "HOUR",
+     "compensation.history[0].hourly_pay": "0.0",
      "compensation.history[0].time_period": "YEAR",
      "compensation.history[0].num_pp_in_year": 0,
+     "compensation.history[0].currency": "USD",
      "compensation.history[2].time_period": "YEAR",
      "compensation.history[2].num_pp_in_year": 26
     },
@@ -354,8 +358,12 @@
      "timezone": "America/New_York",
      "pay-info.standard_work_day": 28800000,
      "pay-info.payroll_classification": "REGULAR",
+     "compensation.history[0].amount": "0.0",
+     "compensation.history[0].amount_period": "HOUR",
+     "compensation.history[0].hourly_pay": "0.0",
      "compensation.history[0].time_period": "YEAR",
-     "compensation.history[0].num_pp_in_year": 0
+     "compensation.history[0].num_pp_in_year": 0,
+     "compensation.history[0].currency": "USD"
     },
     "diagnostics": [
      {

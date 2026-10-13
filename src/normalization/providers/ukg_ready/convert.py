@@ -119,7 +119,7 @@ def active_at(start: date | None, end: date | None, as_of: date) -> bool:
     return (start is None or start <= as_of) and (end is None or as_of < end)
 
 
-def amount(value: Any, field: str, notes: Notes) -> Money | None:
+def amount(value: Any, field: str, notes: Notes, currency: str | None = None) -> Money | None:
     """An amount exactly as sent. UKG documents amounts as floats "rounded to a Penny"; a value that is
     a binary floating-point form of a penny amount is reported, never changed (A-59)."""
     parsed = decimal(value)
@@ -128,7 +128,7 @@ def amount(value: Any, field: str, notes: Notes) -> Money | None:
     exponent = parsed.as_tuple().exponent
     if isinstance(exponent, int) and exponent < -6 and abs(parsed - parsed.quantize(PENNY)) < Decimal("1e-9"):
         notes.info("FLOAT_ARTIFACT", field, f"a binary floating-point form of {parsed.quantize(PENNY)}", str(value))
-    return Money(amount=parsed, source_field=field)
+    return Money(amount=parsed, currency=currency or "USD", source_field=field)
 
 
 def normalize(bundle: Bundle, as_of: date | None = None) -> Output:
@@ -437,16 +437,23 @@ class _Company:
             history=[change for _, _, change in history],
         )
 
+    @staticmethod
+    def _placeholder(h: Src) -> bool:
+        """The 1900-12-31 rows with no amount and 0 pay periods (A-56); a real zero pay is kept."""
+        return decimal(h.data.get("amount")) in (None, ZERO) and decimal(h.data.get("num_pp_in_year")) in (None, ZERO)
+
     def _rates(self, h: Src) -> list[Rate]:
         """amount per amount_period, plus hourly_pay; live they agree on all 27 records (A-56)."""
         rates = []
+        if self._placeholder(h):
+            return rates  # its fields stay raw in provider_extensions
         value, period = decimal(h.get("amount")), text(h.get("amount_period"))
         currency = text(h.get("currency")) or "USD"
-        if value not in (None, ZERO):
+        if value is not None:
             per = U.RATE_PERIOD.get(period or "", C.RatePeriod.UNMAPPED)
             rates.append(Rate(amount=value, currency=currency, per=per, source_field=f"{h.path}.amount"))
         hourly = decimal(h.get("hourly_pay"))
-        if hourly not in (None, ZERO) and period != "HOUR":
+        if hourly is not None and period != "HOUR":
             rates.append(
                 Rate(amount=hourly, currency=currency, per=C.RatePeriod.HOUR, source_field=f"{h.path}.hourly_pay")
             )
@@ -454,7 +461,7 @@ class _Company:
 
     def _annual(self, h: Src) -> Money | None:
         value = decimal(h.data.get("amount"))
-        if h.data.get("amount_period") == "YEAR" and value not in (None, ZERO):
+        if h.data.get("amount_period") == "YEAR" and value is not None and not self._placeholder(h):
             return Money(amount=value, currency=text(h.data.get("currency")) or "USD", source_field=f"{h.path}.amount")
         return None
 
@@ -485,7 +492,8 @@ class _Company:
             if method is None:
                 method = Coded[C.DepositMethod](value=C.DepositMethod.UNMAPPED, source_field="calc_method.type")
                 notes.warn("NO_ALLOCATION", "calc_method", "no calculation method")
-            value = amount(s.get("amount"), "amount", notes)
+            # The deposit states its own currency (#/schemas/137); its amount is in that currency.
+            value = amount(s.get("amount"), "amount", notes, text(s.data.get("currency")))
             pct = decimal(s.get("percentage"))
             kind = text(s.get("type"))
             if kind == U.RESERVE_LIVE_CHECK:
@@ -876,6 +884,10 @@ class _Company:
         has_lines = bool(earnings or taxes or deductions)
         wages = derived_sum([e.amount.amount for e in earnings], "sum(earnings[].ee_amount)") if earnings else None
         cash = [p.amount.amount for p in payments if p.kind.value is not C.PaymentKind.UNMAPPED]
+        if any(p.kind.value is C.PaymentKind.UNMAPPED for p in payments):
+            # A payment of unknown kind may or may not be cash, so net pay can't be derived (A-58).
+            cash = []
+            notes.info("NET_PAY_NOT_DERIVED", "payments", "a payment of unknown kind could be cash or not")
         type_src = s.child("type") or Src({})
         type_name = text(type_src.get("display_name"))
         statement = PayStatement(

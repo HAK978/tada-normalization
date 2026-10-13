@@ -13,7 +13,7 @@
    "warning": 1
   },
   "checks": {
-   "pass": 25
+   "pass": 24
   }
  },
  "records": {
@@ -3815,11 +3815,6 @@
       "rule": "gross wages = sum of earning lines counted in gross",
       "result": "pass",
       "detail": "1200.0 vs 1200.0"
-     },
-     {
-      "rule": "gross wages - non-cash earnings = gross pay",
-      "result": "pass",
-      "detail": "1200.0 - 0 = 1200.0; gross pay 1200.0"
      },
      {
       "rule": "gross pay - employee taxes - deductions = net",

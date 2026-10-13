@@ -262,8 +262,8 @@ entry says so.
 - **Decision:**
   - `FULL`, `FLAT_AMOUNT` and `GROSS_EARNING` map to `REMAINDER`, `FIXED_AMOUNT` and
     `PERCENT_OF_GROSS`.
-  - `NET_PAY` and `DIRECT_DEPOSIT_PER_OF_REMAINDER` map to `UNMAPPED`, unless the record's own
-    `display_name` states the basis.
+  - `NET_PAY` and `DIRECT_DEPOSIT_PER_OF_REMAINDER` map to `UNMAPPED`, keeping the raw type and its
+    `display_name`. No label for either has been seen, so no label-based mapping is implemented.
 - **Why:** enum names are the provider's words but carry no definition. Labels are evidence; names
   alone are not.
 ### A-27 isolved pay frequency: resolve by description, not by ID
@@ -765,6 +765,11 @@ entries below are new.
   - list rows whose detail response was used instead;
   - lookups the converters don't need, because lines carry their own codes and names;
   - request echoes and paging envelopes.
+- **Limit, found by the implementation audit:** the report tracks *reads*. A converter that reads
+  several values and keeps one would show all of them as mapped while losing the rest. This happened
+  twice: an isolved deduction kept only its first calculation parameter, and a check line with both
+  hours and units dropped the units. Converters now read only the value they map, so the others stay
+  in `provider_extensions`, and regression tests check that those values survive.
 - **Why:** "preserve what the source data means" includes not losing it. The report makes every
   field's fate checkable.
 
@@ -803,3 +808,30 @@ entries below are new.
   - UKG employees round-trip into valid requests.
   - PrismHR employees are valid, except one whose effective date was invalid at the source.
   - isolved employees are rejected for the missing username. That is the honest answer.
+
+## Fixes from the implementation audit (2026-10-13)
+
+### A-64 Unknown, conflicting or failed source data is reported, never assumed
+- **Issue:** an independent audit of the implementation found cases where the code assumed something
+  the data doesn't establish. Each now has a regression test (`tests/test_audit_fixes.py`).
+- **Decision:**
+  - **Unknown kinds are not treated as cash.**
+    - The `gross wages − non-cash earnings = gross pay` check is skipped when a counted earning's kind
+      is `UNMAPPED`, as `paid_gross` already refused to derive in that case (A-54).
+    - UKG net pay isn't derived when a payment has an unknown `type_name`, which gets a
+      `NET_PAY_NOT_DERIVED` diagnostic (A-58).
+  - **Currency:** a UKG deposit's amount is in the deposit's own `currency`, not USD (A-31).
+  - **Zero is a value:** a UKG pay of 0 on a real compensation record is kept. Only the 1900-12-31
+    placeholders, with no amount and 0 pay periods, are skipped, and their raw fields stay in
+    `provider_extensions` (A-56).
+  - **Conflicts:** PrismHR elections from `getDeductions` and `getVoluntaryRecurringDeductions` match
+    on their identity (code and dates), the same parts as the canonical ID. When the two disagree,
+    the first is mapped, the other values are kept, and a `SOURCE_CONFLICT` warning names them.
+    Before, a different amount produced two records with the same ID.
+  - **Failures inside HTTP 200:** a PrismHR response with a nonzero `errorCode` is treated as failed,
+    not as data, and its company gets a `SOURCE_ERROR` warning with the code and message.
+  - **Output safety:**
+    - A SQLite export is built beside the destination and swapped in only on success, so a failed
+      export keeps the previous database.
+    - The exact-number JSON writer marks decimals with a random per-call token, so no source string
+      can be mistaken for a number.

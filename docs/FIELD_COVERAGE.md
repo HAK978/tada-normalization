@@ -41,10 +41,10 @@ Sources:
 | isolved | `api/clients/{client}/legals/{legal}/checks` | 33 | 11 | 18 | 4 | 0 | 0 |
 | isolved | `api/clients/{client}/legals/{legal}/employees` | 92 | 0 | 0 | 13 | 0 | 79 |
 | isolved | `api/clients/{client}/legals/{legal}/employees/{id}` | 126 | 40 | 67 | 19 | 0 | 0 |
-| isolved | `api/clients/{client}/legals/{legal}/employees/{id}/checks/{id}` | 135 | 31 | 102 | 2 | 0 | 0 |
+| isolved | `api/clients/{client}/legals/{legal}/employees/{id}/checks/{id}` | 135 | 30 | 103 | 2 | 0 | 0 |
 | isolved | `api/clients/{client}/legals/{legal}/employees/{id}/directdeposits` | 9 | 9 | 0 | 0 | 0 | 0 |
 | isolved | `api/clients/{client}/legals/{legal}/employees/{id}/garnishments` | 23 | 12 | 9 | 2 | 0 | 0 |
-| isolved | `api/clients/{client}/legals/{legal}/employees/{id}/payItems` | 17 | 8 | 6 | 3 | 0 | 0 |
+| isolved | `api/clients/{client}/legals/{legal}/employees/{id}/payItems` | 17 | 6 | 8 | 3 | 0 | 0 |
 | isolved | `api/clients/{client}/legals/{legal}/employees/{id}/payRates` | 8 | 0 | 8 | 0 | 0 | 0 |
 | isolved | `api/clients/{client}/legals/{legal}/employees/{id}/salaries` | 15 | 6 | 7 | 2 | 0 | 0 |
 | isolved | `api/clients/{client}/legals/{legal}/employees/{id}/statuses` | 8 | 2 | 6 | 0 | 0 | 0 |
@@ -444,8 +444,8 @@ Sources:
 
 | Field | Disposition |
 |---|---|
-| `employeeDeductions.deduction[].amount` | mapped |
-| `employeeDeductions.deduction[].benefitPlanId` | mapped |
+| `employeeDeductions.deduction[].amount` | mapped (136) / kept (1) |
+| `employeeDeductions.deduction[].benefitPlanId` | mapped (31) / kept (1) |
 | `employeeDeductions.deduction[].deductionCode` | mapped |
 | `employeeDeductions.deduction[].deductionMethod` | mapped |
 | `employeeDeductions.deduction[].deductionType` | mapped |
@@ -487,8 +487,8 @@ Sources:
 |---|---|
 | `checksum` | dropped: response envelope |
 | `errorCode` | dropped: response envelope |
-| `voluntaryDeduction.deduction[].amount` | mapped |
-| `voluntaryDeduction.deduction[].benefitPlanId` | mapped |
+| `voluntaryDeduction.deduction[].amount` | mapped (25) / kept (1) |
+| `voluntaryDeduction.deduction[].benefitPlanId` | mapped (25) / kept (1) |
 | `voluntaryDeduction.deduction[].deductionCode` | mapped |
 | `voluntaryDeduction.deduction[].deductionMethod` | mapped |
 | `voluntaryDeduction.deduction[].deductionType` | mapped |
@@ -1261,7 +1261,7 @@ Sources:
 | `deductions[].ytdDollars` | kept |
 | `directDepositAmount` | mapped |
 | `earnings[].checkDollars` | mapped |
-| `earnings[].checkHours` | mapped |
+| `earnings[].checkHours` | mapped (27) / kept (42) |
 | `earnings[].currentDollars` | kept |
 | `earnings[].currentHours` | kept |
 | `earnings[].id` | kept |
@@ -1392,8 +1392,8 @@ Sources:
 |---|---|
 | `[].auditId` | kept |
 | `[].balance` | kept |
-| `[].calcParams[].paramType` | mapped (540) / kept (510) |
-| `[].calcParams[].paramValue` | mapped (540) / kept (510) |
+| `[].calcParams[].paramType` | mapped (420) / kept (630) |
+| `[].calcParams[].paramValue` | mapped (420) / kept (630) |
 | `[].employeeId` | mapped |
 | `[].employeeNumber` | mapped |
 | `[].firstName` | mapped |
@@ -1681,12 +1681,12 @@ Sources:
 | Field | Disposition |
 |---|---|
 | `compensations[]._links.self` | dropped: API navigation |
-| `compensations[].amount` | mapped |
-| `compensations[].amount_period` | mapped |
-| `compensations[].currency` | mapped |
+| `compensations[].amount` | mapped (43) / kept (3) |
+| `compensations[].amount_period` | mapped (43) / kept (3) |
+| `compensations[].currency` | mapped (43) / kept (3) |
 | `compensations[].effective_from` | mapped |
 | `compensations[].employee.account_id` | mapped |
-| `compensations[].hourly_pay` | mapped |
+| `compensations[].hourly_pay` | mapped (43) / kept (3) |
 | `compensations[].id` | mapped |
 | `compensations[].num_pp_in_year` | mapped (15) / kept (31) |
 | `compensations[].time` | mapped |

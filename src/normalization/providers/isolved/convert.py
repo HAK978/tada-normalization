@@ -702,9 +702,14 @@ class _Legal:
     # -------------------------------------------------------------- deduction setup
 
     def _calculation(self, params: list[Src], notes: Notes) -> Calculation | None:
-        rows = [(text(p.get("paramType")), decimal(p.get("paramValue"))) for p in params]
-        chosen = next(((t, v) for t, v in rows if v not in (None, ZERO)), rows[0] if rows else (None, None))
-        kind, value = chosen
+        # One parameter drives the calculation; only it is read, so any others stay in provider_extensions.
+        rows = [(p, text(p.data.get("paramType")), decimal(p.data.get("paramValue"))) for p in params]
+        chosen = next((r for r in rows if r[2] not in (None, ZERO)), rows[0] if rows else None)
+        if chosen is None:
+            return None
+        param, kind, value = chosen
+        param.get("paramType")
+        param.get("paramValue")
         if kind == "Amount":
             return Calculation(
                 method=Coded[C.CalculationMethod](
@@ -950,14 +955,16 @@ class _Legal:
         earnings = []
         for line in self._lines(s, "earnings"):
             memo = bool(flag(line.get("isMemoEarning")))
-            hours, units = decimal(line.get("checkHours")), decimal(line.get("checkUnits"))
-            quantity = (
-                Quantity(value=hours, unit=C.QuantityUnit.HOURS, source_field="earnings[].checkHours")
-                if hours not in (None, ZERO)
-                else Quantity(value=units, unit=C.QuantityUnit.UNITS, source_field="earnings[].checkUnits")
-                if units not in (None, ZERO)
-                else None
-            )
+            # One quantity per line: hours if set, else units. Only the one used is read, so the other
+            # (when both are set) stays in provider_extensions.
+            hours, units = decimal(line.data.get("checkHours")), decimal(line.data.get("checkUnits"))
+            quantity = None
+            if hours not in (None, ZERO):
+                line.get("checkHours")
+                quantity = Quantity(value=hours, unit=C.QuantityUnit.HOURS, source_field="earnings[].checkHours")
+            elif units not in (None, ZERO):
+                line.get("checkUnits")
+                quantity = Quantity(value=units, unit=C.QuantityUnit.UNITS, source_field="earnings[].checkUnits")
             title = text(line.get("itemDescription"))
             earnings.append(
                 EarningLine(
