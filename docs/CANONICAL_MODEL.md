@@ -11,7 +11,7 @@ evidence). Nothing below is implemented yet.
    = legal employer" would be wrong (A-30).
 2. **Never lose the original.** Every coded value keeps the provider's raw value, its source field
    and the provider's own label. Any source field not mapped to a canonical field is kept verbatim in
-   `provider_extensions`, except for a short drop list where each entry has a stated reason (§6).
+   `provider_extensions`, except for a short drop list where each entry has a stated reason (§4).
 3. **Map meaning only with evidence.** A code is translated only when one of these supports it:
    - the provider documents it;
    - the provider supplies its own label or classification for it;
