@@ -64,11 +64,11 @@ def test_no_hint_without_a_canonical_list_or_a_resemblance():
 def test_suggestions_are_never_applied(tmp_path):
     items = reviewed("ukg-ready")
     files = template(list(items.values()))
-    row = next(r for r in files["ukg-ready"]["mappings"] if r["raw"] == "Earning (Memo)")
+    row = next(r for r in files[("ukg-ready", "synthetic")]["mappings"] if r["raw"] == "Earning (Memo)")
     assert row["suggestions"] and row["value"] is None and row["evidence"] is None
     path = tmp_path / "mappings.json"
-    path.write_text(json.dumps(files["ukg-ready"]), encoding="utf-8")
-    assert Mappings.load([path], "ukg-ready").entries == {}
+    path.write_text(json.dumps(files[("ukg-ready", "synthetic")]), encoding="utf-8")
+    assert Mappings.load([path], "ukg-ready", "synthetic").entries == {}
     statement = next(
         r
         for r in normalize(Bundle.load(ROOT / "fixtures/ukg-ready/brightside"), mapping_files=[path]).records[

@@ -54,6 +54,7 @@ from normalization.canonical.types import (
     Source,
     TaxIdentifier,
     coded_type,
+    company_scope,
 )
 from normalization.output import Output
 from normalization.sanitize import last4, sanitize_extensions
@@ -102,7 +103,9 @@ def normalize(bundle: Bundle, as_of: date | None = None) -> Output:
         if ids.get("client") and ids.get("legal"):
             legals.add((ids["client"], ids["legal"]))
     for client_id, legal_id in sorted(legals):
-        _Legal(bundle, client_id, legal_id, out).run()
+        legal = _Legal(bundle, client_id, legal_id, out)
+        with company_scope(legal.company_id):
+            legal.run()
     return out
 
 

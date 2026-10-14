@@ -219,8 +219,9 @@ def _review(args: argparse.Namespace) -> int:
     suggest(items, outputs)  # proposals only; nothing is applied without a mapping file (A-66)
     args.out.mkdir(parents=True, exist_ok=True)
     (args.out / "UNMAPPED_REVIEW.md").write_text(render(items), encoding="utf-8")
-    for provider, data in template(items).items():
-        (args.out / f"mappings-{provider}.json").write_text(json.dumps(data, indent=1) + "\n", encoding="utf-8")
+    for (provider, tenant), data in template(items).items():
+        name = re.sub(r"[^A-Za-z0-9_.-]+", "_", f"mappings-{provider}-{tenant}") + ".json"
+        (args.out / name).write_text(json.dumps(data, indent=1) + "\n", encoding="utf-8")
     records = sum(u.records for u in items)
     print(f"{len(items)} distinct unmapped values across {records} record mentions")
     for u in items[:15]:

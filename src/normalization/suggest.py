@@ -63,7 +63,7 @@ def suggest(items: list[Unmapped], outputs: list[tuple[str, Output]]) -> None:
     kinds = {item.kind for item in items if _is_enum(item.kind)}
     vocabulary = _vocabulary(outputs, kinds)
     for item in items:
-        found = arithmetic.get((item.provider, item.field, item.raw))
+        found = arithmetic.get((item.provider, item.tenant, item.field, item.raw))
         if found:
             item.suggestions.append(found)
         if _is_enum(item.kind):
@@ -76,13 +76,14 @@ def suggest(items: list[Unmapped], outputs: list[tuple[str, Output]]) -> None:
 # ---------------------------------------------------------------- arithmetic
 
 
-def _arithmetic(outputs: list[tuple[str, Output]]) -> dict[tuple[str, str, str], Suggestion]:
-    tally: dict[tuple[str, str, str], Counter] = defaultdict(Counter)
+def _arithmetic(outputs: list[tuple[str, Output]]) -> dict[tuple[str, str, str, str], Suggestion]:
+    tally: dict[tuple[str, str, str, str], Counter] = defaultdict(Counter)
     for provider, output in outputs:
         for statement in cast("list[PayStatement]", output.records["pay_statements"]):
+            tenant = statement.source.tenant_id
             counted = [line for line in statement.earnings if line.in_gross is not False]
             unknown = {
-                (provider, _field(line.kind.source_field), _key(line.kind.raw))
+                (provider, tenant, _field(line.kind.source_field), _key(line.kind.raw))
                 for line in counted
                 if _unmapped(line.kind)
             }
@@ -155,15 +156,15 @@ def _test(statement: Any, counted: list) -> str:
     return "neither"
 
 
-def _tax_rates(outputs: list[tuple[str, Output]]) -> dict[tuple[str, str, str], Suggestion]:
+def _tax_rates(outputs: list[tuple[str, Output]]) -> dict[tuple[str, str, str, str], Suggestion]:
     """For each unknown tax code: is every line with money taxed at exactly one statutory rate?"""
-    tally: dict[tuple[str, str, str], Counter] = defaultdict(Counter)
+    tally: dict[tuple[str, str, str, str], Counter] = defaultdict(Counter)
     for provider, output in outputs:
         for statement in cast("list[PayStatement]", output.records["pay_statements"]):
             for line in statement.taxes:
                 if line.type is None or not _unmapped(line.type):
                     continue
-                key = (provider, _field(line.type.source_field), _key(line.type.raw))
+                key = (provider, statement.source.tenant_id, _field(line.type.source_field), _key(line.type.raw))
                 base = line.taxable_wages.amount if line.taxable_wages else None
                 if not base or not line.amount.amount:
                     tally[key]["untested"] += 1  # nothing taxed (e.g. over a wage base): can't test

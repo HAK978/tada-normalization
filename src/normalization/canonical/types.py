@@ -2,7 +2,8 @@
 
 from __future__ import annotations
 
-from collections.abc import Callable
+from collections.abc import Callable, Iterator
+from contextlib import contextmanager
 from contextvars import ContextVar
 from datetime import date
 from decimal import Decimal
@@ -49,6 +50,18 @@ E = TypeVar("E")
 
 # Set while mapping files are active (normalization.mappings): (source_field, raw) -> canonical value or None.
 MAPPING_OVERRIDE: ContextVar[Callable[[str, Raw], str | None] | None] = ContextVar("mapping_override", default=None)
+# The canonical ID of the company being converted, for mapping rules limited to some companies (A-69).
+MAPPING_COMPANY: ContextVar[str | None] = ContextVar("mapping_company", default=None)
+
+
+@contextmanager
+def company_scope(company_id: str) -> Iterator[None]:
+    """Everything converted inside belongs to this company, as far as mapping rules are concerned."""
+    token = MAPPING_COMPANY.set(company_id)
+    try:
+        yield
+    finally:
+        MAPPING_COMPANY.reset(token)
 
 
 class Coded(Model, Generic[E]):

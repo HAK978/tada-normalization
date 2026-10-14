@@ -50,6 +50,7 @@ from normalization.canonical.types import (
     Rate,
     Source,
     TaxIdentifier,
+    company_scope,
 )
 from normalization.output import Output
 from normalization.sanitize import last4, sanitize_extensions
@@ -147,7 +148,9 @@ def normalize(bundle: Bundle, as_of: date | None = None) -> Output:
     companies = {str(c["company_id"]) for c in bundle.companies if c.get("company_id")}
     companies |= {ids["company"] for c in bundle.captures if (ids := path_ids(c)).get("company")}
     for company_id in sorted(companies):
-        _Company(bundle, company_id, as_of or bundle.as_of, out).run()
+        company = _Company(bundle, company_id, as_of or bundle.as_of, out)
+        with company_scope(company.company_id):
+            company.run()
     return out
 
 

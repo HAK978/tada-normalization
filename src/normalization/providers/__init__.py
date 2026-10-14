@@ -23,11 +23,13 @@ def converter(provider: str) -> Callable[..., Output]:
 
 
 def normalize(bundle: Bundle, as_of: date | None = None, mapping_files: list[Path] | None = None) -> Output:
-    """Normalize a bundle with its own provider's converter, resolving UNMAPPED values from mapping files (A-65)."""
+    """Normalize a bundle with its own provider's converter, resolving UNMAPPED values from the mapping files
+    for its tenant (A-65, A-69)."""
     from normalization.mappings import Mappings, active, annotate
 
-    mappings = Mappings.load(mapping_files or [], bundle.provider)
+    mappings = Mappings.load(mapping_files or [], bundle.provider, bundle.tenant_id)
     with active(mappings):
         output = converter(bundle.provider)(bundle, as_of)
     annotate(output, mappings)
+    output.provenance |= {"mapping_files": mappings.report(), "mapping_files_skipped": mappings.skipped}
     return output

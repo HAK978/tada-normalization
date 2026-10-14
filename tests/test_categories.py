@@ -213,6 +213,7 @@ def test_a_mapping_file_resolves_a_category_and_a_tax_type(tmp_path):
         json.dumps(
             {
                 "provider": "ukg-ready",
+                "tenant": "synthetic",
                 "mappings": [
                     {"field": "earnings[].earning.code", "raw": "OT", "value": "OVERTIME", "evidence": evidence},
                     {

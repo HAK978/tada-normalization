@@ -58,6 +58,7 @@ from normalization.canonical.types import (
     Rate,
     Source,
     TaxIdentifier,
+    company_scope,
 )
 from normalization.output import Output
 from normalization.sanitize import last4, sanitize_extensions
@@ -104,7 +105,9 @@ def normalize(bundle: Bundle, as_of: date | None = None) -> Output:
     clients = {str(c["client_id"]) for c in bundle.companies if c.get("client_id")}
     clients |= {str(c.params["clientId"]) for c in bundle.captures if c.params.get("clientId")}
     for client_id in sorted(clients):
-        _Client(bundle, client_id, out, [c for c in failed if str(c.params.get("clientId")) == client_id]).run()
+        client = _Client(bundle, client_id, out, [c for c in failed if str(c.params.get("clientId")) == client_id])
+        with company_scope(client.company_id):
+            client.run()
     return out
 
 

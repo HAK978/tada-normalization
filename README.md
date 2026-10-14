@@ -181,8 +181,8 @@ guessed. The loop for resolving them needs no code change (A-65):
 
 ```sh
 python -m normalization review .discovery/prismhr/<run>     # 6,540 unmapped mentions -> 77 decisions
-# fill in `value` and `evidence` in out/review/mappings-prismhr.json
-python -m normalization normalize .discovery/prismhr/<run> --mappings out/review/mappings-prismhr.json
+# fill in `value` and `evidence` in out/review/mappings-prismhr-<tenant>.json
+python -m normalization normalize .discovery/prismhr/<run> --mappings out/review/mappings-prismhr-<tenant>.json
 ```
 
 The rules for mapping files:
@@ -190,7 +190,12 @@ The rules for mapping files:
 - A mapping only fills a value that would otherwise be `UNMAPPED`; it never overrides a documented
   code table.
 - Every entry must carry written evidence, and the value must be valid for that field.
-- Each resolved record notes which mapping and evidence resolved it.
+- A file names its tenant and applies to no other. A rule can be limited to some of the tenant's
+  companies, because a customer's code can mean different things in two of its companies. The
+  template limits each rule to the companies the value was seen in; widening it is a separate
+  decision (A-69).
+- Each resolved record notes which mapping and evidence resolved it. The output lists each mapping
+  file used, with its hash and any rule that matched nothing, such as a mistyped company ID.
 
 Because a mapping takes effect during conversion, everything downstream uses it: a newly classified
 earning line, for example, lets gross pay be derived.

@@ -4,7 +4,7 @@ from __future__ import annotations
 
 from collections import Counter
 from dataclasses import dataclass, field
-from typing import cast
+from typing import Any, cast
 
 from . import exactjson
 from .canonical.records import RECORD_TYPES, PayStatement, dump
@@ -14,6 +14,8 @@ from .canonical.types import Record
 @dataclass
 class Output:
     records: dict[str, list[Record]] = field(default_factory=lambda: {kind: [] for kind in RECORD_TYPES})
+    # Where the records came from and what shaped them: the bundle and the mapping files (A-71).
+    provenance: dict[str, Any] = field(default_factory=dict)
 
     def add(self, kind: str, record: Record) -> None:
         if not isinstance(record, RECORD_TYPES[kind]):

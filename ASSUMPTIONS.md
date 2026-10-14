@@ -855,6 +855,7 @@ entries below are new.
     Each has a regression test.
 
 ### A-65 Unknown values are resolved by mapping files with evidence, not by code changes
+*Refined by A-69: a mapping file is scoped to one tenant, and a rule can be limited to companies.*
 - **Issue:** a larger live fetch (A-21, A-32, A-45) showed the long tail. Every tenant brings codes
   no code table knows, such as citizenship `Y` and new batch statuses. They were handled safely, as
   `UNMAPPED` with a warning, but resolving one meant editing Python, and the warnings were scattered
@@ -1026,4 +1027,33 @@ entries below are new.
 - **Why:** each rule rests on the provider's own code and description, and the federal ones on exact
   statutory arithmetic as well. A tax number that means different things in different states stays
   unmapped rather than being right most of the time.
+
+## Hardening after an outside review (2026-10-14)
+
+An independent review compared the design with how Finch, Merge, FHIR and data platforms handle the
+same problems. The entries below address its points; the first two were real gaps, confirmed on live
+data.
+
+### A-69 Mapping files belong to one tenant, and a rule can be limited to companies
+- **Issue:** a mapping rule was keyed by provider, field and raw value only. One rule applied to every
+  company in a bundle, and to every tenant of that provider if the file was reused. A customer's codes
+  are configured per company, though: in the live PrismHR bundle, pay code `BONUSup` is "Bonus" in
+  most clients and "Extra Bonus" in another, and `MEMO` is "Memo" in most and "Xmas Club CF" in one.
+  Mapping files are also now how PrismHR and UKG earning codes get their category (A-67).
+- **Decision:**
+  - A mapping file must name its `tenant`. A file for another tenant or provider is skipped, and the
+    output says so.
+  - A rule may list `companies`, by canonical company ID. It then applies only to records of those
+    companies. Without the list, it covers the whole tenant.
+  - Two rules for the same value may disagree only if their companies don't overlap; otherwise
+    loading stops with an error.
+  - The converters convert one company at a time inside a scope, so a rule applies during conversion
+    (A-65) and never to another company's records.
+  - `review` writes one template per tenant. Each row lists the companies the value was seen in, so
+    the default is narrow. Widening a rule to the whole tenant means deleting its list, a deliberate
+    act.
+  - The output lists each mapping file used, with its SHA-256 and every rule that matched nothing. A
+    mistyped company ID shows up there instead of silently doing nothing.
+- **Why:** this follows Finch, whose custom rules apply to one customer connection. Evidence about one
+  company's code says nothing about another company's code that happens to share the name.
 
