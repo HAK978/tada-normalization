@@ -199,7 +199,8 @@ entry says so.
 ### A-21 PrismHR batch codes that the spec doesn't document
 - **Evidence:** Prism `#/components/schemas/BatchList/properties/batchType` documents R/M/S/V.
   - Live, an empty `batchType` also appears.
-  - `batchStatus` values (`COMP`, `TS.READY`, `TS.ENTRY`, `INITFAIL`) have no documented meanings.
+  - `batchStatus` values (`COMP`, `TS.READY`, `TS.ENTRY`, `INITFAIL`, and in the later fetch also
+    `INITCOMP`, `TSOKAUTO`, `TSOKCOMP`) have no documented meanings.
 - **Decision:**
   - An empty batch type maps to `UNMAPPED`.
   - `COMP` maps to `COMPLETED`, because every voucher in a `COMP` batch has status `PRNT` (printed).
@@ -343,6 +344,14 @@ entry says so.
   is derived as `totalEarnings` minus the non-cash lines, and flagged as derived (A-54). Earning lines
   come from both lists, and their kind comes from `payClass` (or the client pay-code table for "other"
   lines). `earnAmount` and `otherEarnAmount` are kept in `provider_extensions`, not used.
+- **Later fetch (2026-10-13, 2,403 vouchers):** 6,804 of 6,807 checks pass. Two vouchers break the
+  pattern, and the checks report them as `RECONCILIATION_MISMATCH`; nothing is adjusted:
+  - one has a memo line of 250 while `totalEarnings` is 0, so here a memo line sits *outside* the
+    total, unlike the first 420;
+  - one is a negative (reversal) voucher whose net differs by 55.81 from its lines.
+
+  The rule stands, but it isn't universal: "every line counts in gross" held on 420 vouchers and
+  failed on one later voucher.
 ### A-33 Time-dependent fields use an explicit `as_of` date
 - **Decision:** values like "is this deposit active?" (UKG `active` plus dates) are evaluated
   against `as_of`. That date defaults to the fetch date for live data (`session.json` `saved_at`) and
@@ -448,9 +457,10 @@ entries below are new.
 ### A-45 PrismHR citizenship arrives as the documented description, not the code
 - **Evidence:** `#/components/schemas/Compensation/properties/citizenshipStatus` documents codes Z01–Z04
   with their meanings. All 18 live values are the description text itself, e.g. "A citizen of the
-  United States".
+  United States". In the later fetch, 45 employees have `Y`, which is neither a documented code nor a
+  description.
 - **Decision:** both the codes and their exact documented descriptions map to the canonical values.
-  Anything else stays `UNMAPPED`.
+  Anything else stays `UNMAPPED`, including `Y`, whose meaning isn't documented.
 
 ### A-46 PrismHR placeholder dates
 - **Evidence:** live `compensation.effectiveDate` and pay-rate history contain `0000-01-01`, which is
