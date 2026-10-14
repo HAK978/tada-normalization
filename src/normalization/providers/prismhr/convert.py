@@ -70,6 +70,7 @@ from ..common import (
     categorized,
     customer_category,
     derived_sum,
+    line_amount,
     masked,
     money,
     paid_gross,
@@ -208,7 +209,19 @@ class _Client:
         self._company()
         employee_ids = self._employees()
         for employee_id in sorted(employee_ids | self._employees_with_setup()):
+            added = len(self.out.records["deduction_elections"])
             self._deductions(employee_id)
+            if employee_id not in employee_ids:  # the setup is kept, but its employee wasn't fetched
+                for election in self.out.records["deduction_elections"][added:]:
+                    election.diagnostics.append(
+                        Diagnostic(
+                            code="EMPLOYEE_NOT_IN_BUNDLE",
+                            severity=C.Severity.INFO,
+                            field="employeeId",
+                            message="employee record was not fetched into this bundle",
+                            raw=employee_id,
+                        )
+                    )
         runs = self._payroll_runs()
         self._pay_statements(runs, employee_ids)
 
@@ -1277,7 +1290,7 @@ class _Client:
                     )
                     if rate is not None
                     else None,
-                    amount=Money(amount=decimal(line.get("payAmount")) or ZERO, source_field="earning[].payAmount"),
+                    amount=line_amount(line.get("payAmount"), "earning[].payAmount", notes),
                     allocation=allocation,
                     source_field="earning[]",
                 )
@@ -1292,10 +1305,7 @@ class _Client:
                     in_gross=True,
                     kind=kind,
                     category=self._earning_category(code, kind, notes),
-                    amount=Money(
-                        amount=decimal(line.get("otherEarnAmount")) or ZERO,
-                        source_field="otherEarningsDetail[].otherEarnAmount",
-                    ),
+                    amount=line_amount(line.get("otherEarnAmount"), "otherEarningsDetail[].otherEarnAmount", notes),
                     source_field="otherEarningsDetail[]",
                 )
             )
@@ -1322,7 +1332,7 @@ class _Client:
                         type=tax_kind,
                         state=state,
                         paid_by=paid_by,
-                        amount=Money(amount=decimal(t.get(f"{prefix}TaxAmount")) or ZERO),
+                        amount=line_amount(t.get(f"{prefix}TaxAmount"), f"{side}[].{prefix}TaxAmount", notes),
                         taxable_wages=money(t.get(f"{prefix}TaxableAmount")),
                         source_field=f"{side}[]",
                     )
@@ -1337,7 +1347,7 @@ class _Client:
                     label=text(d.get("deductDescription")),
                     category=category,
                     tax_treatment=treatment,
-                    employee_amount=Money(amount=decimal(d.get("deductAmount")) or ZERO),
+                    employee_amount=line_amount(d.get("deductAmount"), "deduction[].deductAmount", notes),
                     source_field="deduction[]",
                 )
             )
@@ -1354,7 +1364,9 @@ class _Client:
                     label=text(d.get("otherDeductDescription")),
                     category=category,
                     tax_treatment=treatment,
-                    employee_amount=Money(amount=decimal(d.get("otherDeductAmount")) or ZERO),
+                    employee_amount=line_amount(
+                        d.get("otherDeductAmount"), "otherDeduction[].otherDeductAmount", notes
+                    ),
                     source_field="otherDeduction[]",
                 )
             )
@@ -1363,7 +1375,7 @@ class _Client:
             ContributionLine(
                 code=text(c.get("code")),
                 label=text(c.get("description")),
-                amount=Money(amount=decimal(c.get("amount")) or ZERO),
+                amount=line_amount(c.get("amount"), "employerContributions[].amount", notes),
                 source_field="employerContributions[]",
             )
             for c in s.children("employerContributions")
@@ -1402,7 +1414,7 @@ class _Client:
             payments.append(
                 PaymentLine(
                     kind=Coded[C.PaymentKind](value=C.PaymentKind.DIRECT_DEPOSIT, source_field="directDeposit[]"),
-                    amount=Money(amount=decimal(d.get("amount")) or ZERO),
+                    amount=line_amount(d.get("amount"), "directDeposit[].amount", notes),
                     routing_number=text(d.get("transitNum")),
                     account_last4=digits,
                     masked_at_source=was_masked if account else None,

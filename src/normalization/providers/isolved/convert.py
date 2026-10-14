@@ -66,6 +66,7 @@ from ..common import (
     categorized,
     customer_category,
     derived_sum,
+    line_amount,
     money,
     tax_type,
     us_state,
@@ -1042,9 +1043,7 @@ class _Legal:
                     # grossWages is the sum of the non-memo lines (A-28)
                     in_gross=not memo,
                     quantity=quantity,
-                    amount=Money(
-                        amount=decimal(line.get("checkDollars")) or ZERO, source_field="earnings[].checkDollars"
-                    ),
+                    amount=line_amount(line.get("checkDollars"), "earnings[].checkDollars", notes),
                     source_field="earnings[]",
                 )
             )
@@ -1059,7 +1058,7 @@ class _Legal:
                     type=tax,
                     state=state,
                     paid_by=C.TaxPaidBy.EMPLOYEE if flag(t.get("isEmployeeTax")) else C.TaxPaidBy.EMPLOYER,
-                    amount=Money(amount=decimal(t.get("checkDollars")) or ZERO),
+                    amount=line_amount(t.get("checkDollars"), "taxes[].checkDollars", notes),
                     taxable_wages=money(t.get("checkTaxableWages")),
                     source_field="taxes[]",
                 )
@@ -1074,7 +1073,7 @@ class _Legal:
                     label=label,
                     category=category,
                     tax_treatment=treatment,
-                    employee_amount=Money(amount=decimal(d.get("checkDollars")) or ZERO),
+                    employee_amount=line_amount(d.get("checkDollars"), "deductions[].checkDollars", notes),
                     source_field="deductions[]",
                 )
             )
@@ -1086,7 +1085,7 @@ class _Legal:
                     category=Coded[C.DeductionCategory](
                         value=C.DeductionCategory.GARNISHMENT, source_field="garnishments[]"
                     ),
-                    employee_amount=Money(amount=decimal(g.get("checkDollars")) or ZERO),
+                    employee_amount=line_amount(g.get("checkDollars"), "garnishments[].checkDollars", notes),
                     source_field="garnishments[]",
                 )
             )
@@ -1122,7 +1121,7 @@ class _Legal:
             payments.append(
                 PaymentLine(
                     kind=Coded[C.PaymentKind](value=C.PaymentKind.DIRECT_DEPOSIT, source_field="directDeposits[]"),
-                    amount=Money(amount=decimal(d.get("depositAmount")) or ZERO),
+                    amount=line_amount(d.get("depositAmount"), "directDeposits[].depositAmount", notes),
                     account_last4=digits,
                     masked_at_source=was_masked if account else None,
                     source_field="directDeposits[]",

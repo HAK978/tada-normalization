@@ -815,6 +815,8 @@ class _Company:
             notes.info("DETAIL_NOT_FETCHED", None, "from the payroll's statement list; line items were not requested")
         if employee_id not in employees:
             notes.info("EMPLOYEE_NOT_IN_BUNDLE", "employee.account_id", "employee record was not fetched", employee_id)
+        if payroll_id and self._id("payroll_run", payroll_id) not in self.out.ids("payroll_runs"):
+            notes.info("RUN_NOT_IN_BUNDLE", None, "the statement's payroll was not fetched into the bundle", payroll_id)
         status_raw = text(s.get("status"))
         if status_raw != "FINALIZED":
             notes.info("NOT_FINALIZED", "status", "not finalized; amounts may still change (A-13)", status_raw)

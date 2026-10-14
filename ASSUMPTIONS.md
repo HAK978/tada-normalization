@@ -1113,3 +1113,33 @@ data.
 - **Why:** with the snapshot hash, the date, the mapping-file hashes and the commit, any output can
   be reproduced, or its difference from another explained.
 
+### A-72 Rules that must hold for any input are tested on generated inputs
+- **Issue:** the tests checked the scenarios someone thought of. Whether the converters were fitted
+  to those examples could only be argued, not shown.
+- **Decision:** `tests/test_properties.py` uses Hypothesis to generate inputs and checks properties
+  over them:
+  - a code no table knows, in five places across the providers, comes out `UNMAPPED` with its exact
+    raw value and a warning;
+  - line amounts stay exact, derived totals add up to the cent, and any decimal survives the JSON
+    writer digit for digit;
+  - shuffling the captures changes nothing in the output;
+  - dropping any subset of captures never crashes, and every record that points at a missing one says
+    so;
+  - a field no converter knows is kept in `provider_extensions`;
+  - a mapping rule limited to some companies reaches exactly those (A-69).
+  Runs are derandomized and keep no example database, so the suite stays deterministic and offline.
+  Setting `PROPERTY_EXAMPLES` runs a deeper, randomized search.
+- **What it found,** in a deep search of 300 to 400 cases per property:
+  - PrismHR deduction setup was kept for an employee whose record wasn't fetched, with no
+    `EMPLOYEE_NOT_IN_BUNDLE` note. Paychecks already had one.
+  - A UKG statement whose payroll wasn't fetched pointed at a run that didn't exist, with no
+    `RUN_NOT_IN_BUNDLE` note as PrismHR gives.
+
+  Both are fixed and pinned by example tests.
+- **Zero is never missing:** a zero stays a zero everywhere. One gap was found by example: PrismHR and
+  isolved filled a line's missing amount with 0, silently. Live data never omits one, but a line
+  without an amount now keeps a 0 placeholder, so its code and other values stay, with an
+  `AMOUNT_MISSING` warning saying the 0 wasn't sent.
+- **Why:** a property that holds over thousands of generated inputs is evidence the code isn't fitted
+  to its examples; a failing one names a minimal counterexample.
+

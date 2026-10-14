@@ -21,7 +21,7 @@ Python 3.11 or newer.
 python3 -m venv .venv && source .venv/bin/activate
 pip install -e ".[dev]"
 python -m normalization demo    # normalize every provider's synthetic scenario
-pytest                          # 140 tests, offline
+pytest                          # 190 tests, offline
 mypy                            # static type check: no issues
 ```
 
@@ -249,7 +249,7 @@ counted live evidence.
 
 ## Testing
 
-`pytest` runs 140 offline tests (plus parametrized subtests). Nothing needs credentials or network.
+`pytest` runs 190 offline tests (plus parametrized subtests). Nothing needs credentials or network.
 
 - **Synthetic scenarios** (`fixtures/<provider>/brightside`) come from a seeded generator, and every
   response is validated against the provider's own published schema. They are full of real-world
@@ -263,6 +263,18 @@ counted live evidence.
   - only crawl indexes and unneeded lookups go unread;
   - every golden record matches the exported JSON Schema.
 - **Live client tests** reproduce scope, redirect and scrubbing attacks against a fake HTTP client.
+- **Property tests** (`tests/test_properties.py`, Hypothesis) check rules that must hold for any
+  input, not just the fixtures' (A-72):
+  - a code no table knows comes out `UNMAPPED` with its raw value;
+  - amounts stay exact to the cent;
+  - the output doesn't depend on the order of captures;
+  - a partial bundle never crashes and every dangling link is explained;
+  - a field no converter knows is kept;
+  - a mapping rule reaches exactly the companies it names.
+
+  They run derandomized, so the suite stays deterministic. `PROPERTY_EXAMPLES=500 pytest
+  tests/test_properties.py` searches deeper. The deep search found two links left dangling without an
+  explanation, both now fixed and pinned by tests.
 
 ## Repository layout
 

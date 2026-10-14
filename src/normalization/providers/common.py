@@ -30,6 +30,16 @@ def money(value: Any, field: str | None = None) -> Money | None:
     return None if amount is None else Money(amount=amount, source_field=field)
 
 
+def line_amount(value: Any, field: str | None, notes: Notes) -> Money:
+    """A paycheck line's amount. A line sent without one keeps a 0 placeholder, so its code and other
+    values stay, and an AMOUNT_MISSING warning says the 0 was not sent: missing is never zero (A-72)."""
+    amount = decimal(value)
+    if amount is None:
+        notes.warn("AMOUNT_MISSING", field, "the line has no amount; the 0 here stands in for it and was not sent")
+        return Money(amount=ZERO, source_field=field)
+    return Money(amount=amount, source_field=field)
+
+
 def derived_sum(amounts: list[Decimal], formula: str) -> Money:
     return Money(amount=sum(amounts, ZERO), derived=True, formula=formula)
 

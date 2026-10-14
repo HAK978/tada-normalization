@@ -2309,7 +2309,8 @@
       "amount": {
        "amount": "150.00",
        "currency": "USD",
-       "derived": false
+       "derived": false,
+       "source_field": "taxes[].checkDollars"
       },
       "taxable_wages": {
        "amount": "1500.00",
@@ -2329,7 +2330,8 @@
       "amount": {
        "amount": "93.00",
        "currency": "USD",
-       "derived": false
+       "derived": false,
+       "source_field": "taxes[].checkDollars"
       },
       "taxable_wages": {
        "amount": "1500.00",
@@ -2349,7 +2351,8 @@
       "amount": {
        "amount": "21.75",
        "currency": "USD",
-       "derived": false
+       "derived": false,
+       "source_field": "taxes[].checkDollars"
       },
       "taxable_wages": {
        "amount": "1500.00",
@@ -2370,7 +2373,8 @@
       "amount": {
        "amount": "60.00",
        "currency": "USD",
-       "derived": false
+       "derived": false,
+       "source_field": "taxes[].checkDollars"
       },
       "taxable_wages": {
        "amount": "1500.00",
@@ -2390,7 +2394,8 @@
       "amount": {
        "amount": "93.00",
        "currency": "USD",
-       "derived": false
+       "derived": false,
+       "source_field": "taxes[].checkDollars"
       },
       "taxable_wages": {
        "amount": "1500.00",
@@ -2410,7 +2415,8 @@
       "amount": {
        "amount": "21.75",
        "currency": "USD",
-       "derived": false
+       "derived": false,
+       "source_field": "taxes[].checkDollars"
       },
       "taxable_wages": {
        "amount": "1500.00",
@@ -2430,7 +2436,8 @@
       "amount": {
        "amount": "9.00",
        "currency": "USD",
-       "derived": false
+       "derived": false,
+       "source_field": "taxes[].checkDollars"
       },
       "taxable_wages": {
        "amount": "1500.00",
@@ -2451,7 +2458,8 @@
       "amount": {
        "amount": "15.00",
        "currency": "USD",
-       "derived": false
+       "derived": false,
+       "source_field": "taxes[].checkDollars"
       },
       "taxable_wages": {
        "amount": "1500.00",
@@ -2473,7 +2481,8 @@
       "amount": {
        "amount": "1175.25",
        "currency": "USD",
-       "derived": false
+       "derived": false,
+       "source_field": "directDeposits[].depositAmount"
       },
       "account_last4": "1111",
       "masked_at_source": true,
@@ -2792,7 +2801,8 @@
       "amount": {
        "amount": "189.06",
        "currency": "USD",
-       "derived": false
+       "derived": false,
+       "source_field": "taxes[].checkDollars"
       },
       "taxable_wages": {
        "amount": "1890.60",
@@ -2812,7 +2822,8 @@
       "amount": {
        "amount": "124.19",
        "currency": "USD",
-       "derived": false
+       "derived": false,
+       "source_field": "taxes[].checkDollars"
       },
       "taxable_wages": {
        "amount": "1890.60",
@@ -2832,7 +2843,8 @@
       "amount": {
        "amount": "29.04",
        "currency": "USD",
-       "derived": false
+       "derived": false,
+       "source_field": "taxes[].checkDollars"
       },
       "taxable_wages": {
        "amount": "1890.60",
@@ -2853,7 +2865,8 @@
       "amount": {
        "amount": "75.62",
        "currency": "USD",
-       "derived": false
+       "derived": false,
+       "source_field": "taxes[].checkDollars"
       },
       "taxable_wages": {
        "amount": "1890.60",
@@ -2873,7 +2886,8 @@
       "amount": {
        "amount": "124.19",
        "currency": "USD",
-       "derived": false
+       "derived": false,
+       "source_field": "taxes[].checkDollars"
       },
       "taxable_wages": {
        "amount": "2003.10",
@@ -2893,7 +2907,8 @@
       "amount": {
        "amount": "29.04",
        "currency": "USD",
-       "derived": false
+       "derived": false,
+       "source_field": "taxes[].checkDollars"
       },
       "taxable_wages": {
        "amount": "2003.10",
@@ -2913,7 +2928,8 @@
       "amount": {
        "amount": "12.02",
        "currency": "USD",
-       "derived": false
+       "derived": false,
+       "source_field": "taxes[].checkDollars"
       },
       "taxable_wages": {
        "amount": "2003.10",
@@ -2934,7 +2950,8 @@
       "amount": {
        "amount": "20.03",
        "currency": "USD",
-       "derived": false
+       "derived": false,
+       "source_field": "taxes[].checkDollars"
       },
       "taxable_wages": {
        "amount": "2003.10",
@@ -2958,7 +2975,8 @@
       "employee_amount": {
        "amount": "100.00",
        "currency": "USD",
-       "derived": false
+       "derived": false,
+       "source_field": "deductions[].checkDollars"
       },
       "source_field": "deductions[]"
      },
@@ -2975,7 +2993,8 @@
       "employee_amount": {
        "amount": "12.50",
        "currency": "USD",
-       "derived": false
+       "derived": false,
+       "source_field": "deductions[].checkDollars"
       },
       "source_field": "deductions[]"
      }
@@ -3017,7 +3036,8 @@
       "amount": {
        "amount": "200.00",
        "currency": "USD",
-       "derived": false
+       "derived": false,
+       "source_field": "directDeposits[].depositAmount"
       },
       "account_last4": "6789",
       "masked_at_source": true,
@@ -3031,7 +3051,8 @@
       "amount": {
        "amount": "1269.59",
        "currency": "USD",
-       "derived": false
+       "derived": false,
+       "source_field": "directDeposits[].depositAmount"
       },
       "account_last4": "4321",
       "masked_at_source": true,
@@ -3301,7 +3322,8 @@
       "amount": {
        "amount": "56.00",
        "currency": "USD",
-       "derived": false
+       "derived": false,
+       "source_field": "taxes[].checkDollars"
       },
       "taxable_wages": {
        "amount": "560.00",
@@ -3321,7 +3343,8 @@
       "amount": {
        "amount": "36.27",
        "currency": "USD",
-       "derived": false
+       "derived": false,
+       "source_field": "taxes[].checkDollars"
       },
       "taxable_wages": {
        "amount": "560.00",
@@ -3341,7 +3364,8 @@
       "amount": {
        "amount": "8.48",
        "currency": "USD",
-       "derived": false
+       "derived": false,
+       "source_field": "taxes[].checkDollars"
       },
       "taxable_wages": {
        "amount": "560.00",
@@ -3362,7 +3386,8 @@
       "amount": {
        "amount": "22.40",
        "currency": "USD",
-       "derived": false
+       "derived": false,
+       "source_field": "taxes[].checkDollars"
       },
       "taxable_wages": {
        "amount": "560.00",
@@ -3382,7 +3407,8 @@
       "amount": {
        "amount": "36.27",
        "currency": "USD",
-       "derived": false
+       "derived": false,
+       "source_field": "taxes[].checkDollars"
       },
       "taxable_wages": {
        "amount": "585.00",
@@ -3402,7 +3428,8 @@
       "amount": {
        "amount": "8.48",
        "currency": "USD",
-       "derived": false
+       "derived": false,
+       "source_field": "taxes[].checkDollars"
       },
       "taxable_wages": {
        "amount": "585.00",
@@ -3422,7 +3449,8 @@
       "amount": {
        "amount": "3.51",
        "currency": "USD",
-       "derived": false
+       "derived": false,
+       "source_field": "taxes[].checkDollars"
       },
       "taxable_wages": {
        "amount": "585.00",
@@ -3443,7 +3471,8 @@
       "amount": {
        "amount": "5.85",
        "currency": "USD",
-       "derived": false
+       "derived": false,
+       "source_field": "taxes[].checkDollars"
       },
       "taxable_wages": {
        "amount": "585.00",
@@ -3467,7 +3496,8 @@
       "employee_amount": {
        "amount": "8.00",
        "currency": "USD",
-       "derived": false
+       "derived": false,
+       "source_field": "deductions[].checkDollars"
       },
       "source_field": "deductions[]"
      },
@@ -3484,7 +3514,8 @@
       "employee_amount": {
        "amount": "25.00",
        "currency": "USD",
-       "derived": false
+       "derived": false,
+       "source_field": "deductions[].checkDollars"
       },
       "source_field": "deductions[]"
      },
@@ -3499,7 +3530,8 @@
       "employee_amount": {
        "amount": "50.00",
        "currency": "USD",
-       "derived": false
+       "derived": false,
+       "source_field": "garnishments[].checkDollars"
       },
       "source_field": "garnishments[]"
      }
@@ -3515,7 +3547,8 @@
       "amount": {
        "amount": "113.66",
        "currency": "USD",
-       "derived": false
+       "derived": false,
+       "source_field": "directDeposits[].depositAmount"
       },
       "account_last4": "2345",
       "masked_at_source": true,
@@ -3529,7 +3562,8 @@
       "amount": {
        "amount": "265.19",
        "currency": "USD",
-       "derived": false
+       "derived": false,
+       "source_field": "directDeposits[].depositAmount"
       },
       "account_last4": "7890",
       "masked_at_source": true,
@@ -3744,7 +3778,8 @@
       "amount": {
        "amount": "192.00",
        "currency": "USD",
-       "derived": false
+       "derived": false,
+       "source_field": "taxes[].checkDollars"
       },
       "taxable_wages": {
        "amount": "1920.00",
@@ -3764,7 +3799,8 @@
       "amount": {
        "amount": "119.04",
        "currency": "USD",
-       "derived": false
+       "derived": false,
+       "source_field": "taxes[].checkDollars"
       },
       "taxable_wages": {
        "amount": "1920.00",
@@ -3784,7 +3820,8 @@
       "amount": {
        "amount": "27.84",
        "currency": "USD",
-       "derived": false
+       "derived": false,
+       "source_field": "taxes[].checkDollars"
       },
       "taxable_wages": {
        "amount": "1920.00",
@@ -3805,7 +3842,8 @@
       "amount": {
        "amount": "76.80",
        "currency": "USD",
-       "derived": false
+       "derived": false,
+       "source_field": "taxes[].checkDollars"
       },
       "taxable_wages": {
        "amount": "1920.00",
@@ -3825,7 +3863,8 @@
       "amount": {
        "amount": "119.04",
        "currency": "USD",
-       "derived": false
+       "derived": false,
+       "source_field": "taxes[].checkDollars"
       },
       "taxable_wages": {
        "amount": "1920.00",
@@ -3845,7 +3884,8 @@
       "amount": {
        "amount": "27.84",
        "currency": "USD",
-       "derived": false
+       "derived": false,
+       "source_field": "taxes[].checkDollars"
       },
       "taxable_wages": {
        "amount": "1920.00",
@@ -3865,7 +3905,8 @@
       "amount": {
        "amount": "11.52",
        "currency": "USD",
-       "derived": false
+       "derived": false,
+       "source_field": "taxes[].checkDollars"
       },
       "taxable_wages": {
        "amount": "1920.00",
@@ -3886,7 +3927,8 @@
       "amount": {
        "amount": "19.20",
        "currency": "USD",
-       "derived": false
+       "derived": false,
+       "source_field": "taxes[].checkDollars"
       },
       "taxable_wages": {
        "amount": "1920.00",
@@ -3908,7 +3950,8 @@
       "amount": {
        "amount": "1504.32",
        "currency": "USD",
-       "derived": false
+       "derived": false,
+       "source_field": "directDeposits[].depositAmount"
       },
       "account_last4": "1111",
       "masked_at_source": true,
@@ -4293,7 +4336,8 @@
       "amount": {
        "amount": "47.50",
        "currency": "USD",
-       "derived": false
+       "derived": false,
+       "source_field": "taxes[].checkDollars"
       },
       "taxable_wages": {
        "amount": "475.00",
@@ -4313,7 +4357,8 @@
       "amount": {
        "amount": "31.00",
        "currency": "USD",
-       "derived": false
+       "derived": false,
+       "source_field": "taxes[].checkDollars"
       },
       "taxable_wages": {
        "amount": "475.00",
@@ -4333,7 +4378,8 @@
       "amount": {
        "amount": "7.25",
        "currency": "USD",
-       "derived": false
+       "derived": false,
+       "source_field": "taxes[].checkDollars"
       },
       "taxable_wages": {
        "amount": "475.00",
@@ -4354,7 +4400,8 @@
       "amount": {
        "amount": "19.00",
        "currency": "USD",
-       "derived": false
+       "derived": false,
+       "source_field": "taxes[].checkDollars"
       },
       "taxable_wages": {
        "amount": "475.00",
@@ -4374,7 +4421,8 @@
       "amount": {
        "amount": "31.00",
        "currency": "USD",
-       "derived": false
+       "derived": false,
+       "source_field": "taxes[].checkDollars"
       },
       "taxable_wages": {
        "amount": "500.00",
@@ -4394,7 +4442,8 @@
       "amount": {
        "amount": "7.25",
        "currency": "USD",
-       "derived": false
+       "derived": false,
+       "source_field": "taxes[].checkDollars"
       },
       "taxable_wages": {
        "amount": "500.00",
@@ -4414,7 +4463,8 @@
       "amount": {
        "amount": "3.00",
        "currency": "USD",
-       "derived": false
+       "derived": false,
+       "source_field": "taxes[].checkDollars"
       },
       "taxable_wages": {
        "amount": "500.00",
@@ -4435,7 +4485,8 @@
       "amount": {
        "amount": "5.00",
        "currency": "USD",
-       "derived": false
+       "derived": false,
+       "source_field": "taxes[].checkDollars"
       },
       "taxable_wages": {
        "amount": "500.00",
@@ -4459,7 +4510,8 @@
       "employee_amount": {
        "amount": "25.00",
        "currency": "USD",
-       "derived": false
+       "derived": false,
+       "source_field": "deductions[].checkDollars"
       },
       "source_field": "deductions[]"
      }
@@ -4475,7 +4527,8 @@
       "amount": {
        "amount": "200.00",
        "currency": "USD",
-       "derived": false
+       "derived": false,
+       "source_field": "directDeposits[].depositAmount"
       },
       "account_last4": "6789",
       "masked_at_source": true,
@@ -4489,7 +4542,8 @@
       "amount": {
        "amount": "170.25",
        "currency": "USD",
-       "derived": false
+       "derived": false,
+       "source_field": "directDeposits[].depositAmount"
       },
       "account_last4": "4321",
       "masked_at_source": true,
