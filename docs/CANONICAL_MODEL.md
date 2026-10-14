@@ -367,8 +367,10 @@ Sanitizing keeps at most the last 4 digits, and never invents digits for values 
   live alias form (A-43).
 - All inputs are parsed with exact decimals.
 
-## 10. Decisions from review (2026-10-13)
+## 10. Scope decisions
 
-1. **Tax withholding setup** stays in `provider_extensions` for v1 (A-34).
-2. **Customer-configured labels** stay `UNMAPPED`, with the label kept (A-35).
-3. **Output** is JSON per entity plus a SQLite database with the same records linked by ID (A-36).
+1. **Tax withholding setup** is kept in `provider_extensions`, not normalized (A-34).
+2. **Customer-configured labels** stay `UNMAPPED` with the label kept, until a mapping file classifies
+   them (A-35, A-65).
+3. **Output** is JSON per record type plus a SQLite database with the same records linked by ID, each
+   with its provenance (A-36, A-71).

@@ -13,6 +13,28 @@ It runs locally and offline. The demo and the tests use seeded synthetic data sh
 each provider's API. Live demo tenants are needed only to fetch new data. The original brief is in
 [ASSIGNMENT.md](ASSIGNMENT.md).
 
+## Start here
+
+A ten-minute tour:
+
+1. **Run it.** The [quick start](#quick-start) normalizes a synthetic scenario for each provider and
+   writes JSON and a SQLite database you can query.
+2. **The model.** Six linked record types with a few strict conventions: see
+   [the canonical model](#the-canonical-model), with the full design in
+   [docs/CANONICAL_MODEL.md](docs/CANONICAL_MODEL.md). The complete normalized output of each
+   provider's scenario is in `tests/golden/<provider>/brightside.json`.
+3. **How meaning is kept.** See [the evidence rule](#the-evidence-rule), and five decisions from
+   [ASSUMPTIONS.md](ASSUMPTIONS.md) that show it:
+   - gross pay and gross wages mean the same thing for every provider (A-54). That is what makes
+     paychecks reconcile: 7,408 of 7,411 checks pass on the live data.
+   - UKG's pay-statement hours are milliseconds. Only arithmetic on live paychecks revealed it (A-24).
+   - A code nobody documents stays `UNMAPPED` with its raw value. It is never guessed from its name
+     (A-35, A-64).
+   - A refused request is not an empty answer, and a missing value is not zero (A-70, A-73).
+   - A company is the business, not the legal employer, which the data can't name (A-30).
+4. **What's missing.** See [Limitations](#limitations), with the full list in
+   [ASSUMPTIONS.md](ASSUMPTIONS.md#known-limitations).
+
 ## Quick start
 
 Python 3.11 or newer.
@@ -78,7 +100,7 @@ GROUP BY 1, 2, 3;
 | `python -m normalization normalize BUNDLE` | Normalizes one raw bundle, a fixture or a live fetch, into `out/`. `--as-of` fixes the date for time-dependent values. |
 | `python -m normalization fetch --provider P` | Read-only fetch from the live demo tenants (`all` for every provider). `--normalize` also normalizes the result. |
 | `python -m normalization write EMPLOYEES_JSON` | Dry run: the UKG Ready requests that would create these employees, validated against UKG's request schemas. Nothing is sent. |
-| `python -m normalization review BUNDLE ...` | Collects every value still `UNMAPPED` into distinct decisions, with suggestions, and writes a report plus a mapping-file template per provider. |
+| `python -m normalization review BUNDLE ...` | Collects every value still `UNMAPPED` into distinct decisions, with suggestions, and writes a report plus a mapping-file template per tenant. |
 | `python -m normalization schema` | Writes the canonical model's JSON Schemas to `schemas/`. |
 | `python -m normalization coverage [BUNDLE ...]` | Writes [docs/FIELD_COVERAGE.md](docs/FIELD_COVERAGE.md): what happens to every source field. |
 | `python scripts/generate_fixtures.py [--check]` | Regenerates the synthetic fixtures and golden files, or (`--check`) proves they are reproducible. |
@@ -101,13 +123,16 @@ locked down (A-04):
 - Raw responses go to `.discovery/` and normalized output to `out/`. Both are gitignored and never
   committed.
 
-The live fetches of 2026-10-12 and 2026-10-13 normalize like this:
+The full live fetch (2026-10-13, and identical on 2026-10-14) normalizes like this:
 
 | Provider | Companies | Employees | Deposits | Elections | Runs | Paychecks | Checks passed |
 |---|---:|---:|---:|---:|---:|---:|---:|
-| PrismHR | 25 | 51 | 22 | 137 | 1,493 | 420 | 1,175 of 1,175 |
-| isolved | 2 | 30 | 21 | 572 | 231 | 430 | 468 of 468 |
-| UKG Ready | 1 | 15 | 5 | 0 (the tenant returns 404, A-12) | 89 | 61 | 60 of 60 |
+| PrismHR | 25 | 194 | 64 | 590 | 4,525 | 2,403 | 6,804 of 6,807 |
+| isolved | 2 | 45 | 35 | 858 | 231 | 430 | 543 of 543 |
+| UKG Ready | 1 | 25 | 7 | 0 (the tenant returns 404, A-12) | 89 | 63 | 61 of 61 |
+
+The 3 failed checks are two PrismHR vouchers that don't add up in PrismHR's own numbers. They are
+reported, not adjusted (A-32).
 
 ## How it works
 
@@ -141,9 +166,8 @@ The main conventions:
 - **Time-dependent values** (is this deposit active? which pay record is current?) are evaluated at an
   explicit `as_of` date: the fetch date, or a fixed date for fixtures.
 - **Lossless:** converters read every source field through a tracker, and whatever a record doesn't
-  map goes into its `provider_extensions`, sanitized. The coverage report shows each field's fate. It
-  tracks what converters read, so converters read only the values they map, and tests check that
-  values they don't map survive (A-62).
+  map goes into its `provider_extensions`, sanitized. The coverage report shows each field's fate, and
+  fails if any field is neither mapped nor kept (A-62).
 - **Sensitive data:** SSNs and account numbers keep at most their last 4 digits, everywhere.
 - **Paycheck lines are classified** in canonical terms: an earning's `kind` (how it is paid) and
   `category` (what it pays for: regular, overtime, vacation, ...), and a tax's `type` (federal income,
@@ -153,7 +177,10 @@ The main conventions:
 - **Unavailable is not empty:** a request that was refused or failed is reported on the records it
   would have fed, so their missing data reads as unknown, not none. A failure counts as an empty
   answer only where the provider documents or says so (A-70).
-- **Reconciliation checks** on every paycheck are reported, never "fixed":
+- **Missing is never zero:** a value the provider didn't send is never read as 0, "no" or "none"
+  (A-73).
+- **Reconciliation checks** on every paycheck are reported, never "fixed". A check that an unknown
+  value blocks is reported as not applicable:
   - gross wages = the sum of the earning lines;
   - gross wages − non-cash earnings = gross pay;
   - gross pay − employee taxes − deductions = net;
@@ -237,7 +264,8 @@ empty until a person fills them in.
 3. **One converter per provider,** each tested three ways:
    - on synthetic fixtures full of traps;
    - against golden files;
-   - on the live data, where every reconciliation check passes.
+   - on the live data, where 7,408 of 7,411 reconciliation checks pass; the other 3 are source
+     inconsistencies, reported (A-32).
 4. **Tooling that checks the work:**
    - the fixture generator validates every response against the provider's published schema;
    - the coverage report accounts for every source field;
@@ -292,6 +320,8 @@ src/normalization/
   checks.py           paycheck reconciliation
   export.py           JSON and SQLite output
   coverage.py         the field coverage report
+  availability.py     requests that returned no data: an empty answer, or unavailable
+  provenance.py       what produced an output: bundle hash, mapping files, code version
   mappings.py         mapping files and the review queue for unmapped values
   suggest.py          suggestions for that queue: arithmetic evidence and similar names
   source.py           tracked field access and value parsing
@@ -305,7 +335,7 @@ contracts/            the organizer's provider specs (untouched, hash-checked)
 
 ## Limitations
 
-The details are in [ASSUMPTIONS.md](ASSUMPTIONS.md).
+The full list is in [ASSUMPTIONS.md](ASSUMPTIONS.md#known-limitations).
 
 - **Refused or empty endpoints:** some endpoints are refused for the demo credentials, such as
   PrismHR garnishment and employer details and isolved's payroll and "corestream" endpoints (A-08 to
@@ -315,7 +345,9 @@ The details are in [ASSUMPTIONS.md](ASSUMPTIONS.md).
   still open (A-11, A-13).
 - **Percent scales** are unproven for isolved and UKG deposits and deductions, so the number stays
   null with its raw value (A-29). Tax withholding setup is kept raw, not mapped (A-34).
-- **Small live samples:** codes that never appeared in them are mapped from documentation only (A-07).
+- **Small tenants:** codes that never appeared live are mapped from documentation only (A-07). The
+  demo tenants were fetched nearly in full, so behavior on other tenants rests on the evidence rules and
+  the tests (A-72, A-73).
 - **Unclassified codes:** PrismHR and UKG earning codes have no category until a mapping file gives
   one (A-67). State and local tax numbers that mean different things in different states stay
   `UNMAPPED`, as do PrismHR's state assessments (A-68).
