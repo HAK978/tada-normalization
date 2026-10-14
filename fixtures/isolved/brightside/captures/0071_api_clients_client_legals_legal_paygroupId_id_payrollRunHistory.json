@@ -1,0 +1,37 @@
+{
+  "seq": 71,
+  "endpoint": "api/clients/{client}/legals/{legal}/paygroupId/{id}/payrollRunHistory",
+  "path": "api/clients/501/legals/601/paygroupId/701/payrollRunHistory",
+  "params": {},
+  "status": 200,
+  "body": [
+    {
+      "id": 8800,
+      "runNumber": 35,
+      "payDate": "2018-08-03T00:00:00",
+      "payrollRunType": "Data Conversion",
+      "status": "Completed Payroll Run"
+    },
+    {
+      "id": 8801,
+      "runNumber": 1,
+      "payDate": "2026-10-02T00:00:00",
+      "payrollRunType": "Regular Payroll",
+      "status": "Completed Payroll Run"
+    },
+    {
+      "id": 8803,
+      "runNumber": 3,
+      "payDate": "2026-10-09T00:00:00",
+      "payrollRunType": "Regular Payroll",
+      "status": "Completed Payroll Run"
+    },
+    {
+      "id": 8802,
+      "runNumber": 1,
+      "payDate": "2026-10-16T00:00:00",
+      "payrollRunType": "Regular Payroll",
+      "status": "Payroll Not Processed"
+    }
+  ]
+}

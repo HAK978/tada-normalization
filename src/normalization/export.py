@@ -81,6 +81,29 @@ CREATE TABLE employee_rates (
     source_field TEXT,
     PRIMARY KEY (employee_id, line)
 );
+CREATE TABLE employee_contacts (
+    employee_id TEXT NOT NULL REFERENCES employees(id),
+    line INTEGER NOT NULL,
+    roles TEXT NOT NULL,
+    first_name TEXT,
+    last_name TEXT,
+    full_name TEXT,
+    relationship TEXT,
+    relationship_code TEXT,
+    birth_date TEXT,
+    source_field TEXT NOT NULL,
+    PRIMARY KEY (employee_id, line)
+);
+CREATE TABLE employee_org_units (
+    employee_id TEXT NOT NULL REFERENCES employees(id),
+    line INTEGER NOT NULL,
+    dimension TEXT,
+    code TEXT,
+    name TEXT,
+    path TEXT,
+    source_field TEXT NOT NULL,
+    PRIMARY KEY (employee_id, line)
+);
 CREATE TABLE direct_deposits (
     id TEXT PRIMARY KEY,
     employee_id TEXT NOT NULL REFERENCES employees(id),
@@ -435,6 +458,33 @@ def _employee(db: sqlite3.Connection, e: dict) -> None:
             per=r["per"],
             derived=_flag(r.get("derived")),
             source_field=r.get("source_field"),
+        )
+    for i, c in enumerate(_at(e, "personal.contacts") or []):
+        _insert(
+            db,
+            "employee_contacts",
+            employee_id=e["id"],
+            line=i,
+            roles=",".join(c.get("roles", [])),
+            first_name=_at(c, "name.first"),
+            last_name=_at(c, "name.last"),
+            full_name=c.get("full_name"),
+            relationship=c.get("relationship"),
+            relationship_code=c.get("relationship_code"),
+            birth_date=c.get("birth_date"),
+            source_field=c["source_field"],
+        )
+    for i, o in enumerate(_at(e, "job.org_units") or []):
+        _insert(
+            db,
+            "employee_org_units",
+            employee_id=e["id"],
+            line=i,
+            dimension=o.get("dimension"),
+            code=o.get("code"),
+            name=o.get("name"),
+            path=" / ".join(o.get("path", [])) or None,
+            source_field=o["source_field"],
         )
 
 

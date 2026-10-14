@@ -23,10 +23,12 @@ PAGING = "paging metadata about the response, not data"
 LOOKUP = "a row of a code table, read by code or name; not a record of its own"
 SECOND = "the second source of an election also in getDeductions: repeating or leaving out a value is no conflict"
 DETAIL = "a list row whose detail this scenario also fetched, which replaces it (list-only rows: tested below)"
+CONTACT_DEFAULT = "documented with a default of false (#/schemas/124), so a missing role flag is a false one (A-77)"
 
 AGREE = {
     "prismhr": {
         ("clientMaster/v1/getClientCodes", "clientCodes.statusCode[].obsolete"): LOOKUP,
+        ("clientMaster/v1/getClientCodes", "clientCodes.relationCodes[].obsolete"): LOOKUP,
         ("deductions/v1/getVoluntaryRecurringDeductions", "voluntaryDeduction.deduction[].usePercent"): SECOND,
         ("deductions/v1/getVoluntaryRecurringDeductions", "voluntaryDeduction.deduction[].trackArrears"): SECOND,
         ("deductions/v1/getVoluntaryRecurringDeductions", "voluntaryDeduction.deduction[].mandatory"): SECOND,
@@ -94,6 +96,10 @@ AGREE = {
         ("rest/v2/companies/{company}/payrolls/{id}/pay-statements", "pay_statements[].employee.account_id"): DETAIL,
         ("rest/v2/companies/{company}/payrolls/{id}/pay-statements", "pay_statements[].type.id"): DETAIL,
         ("rest/v2/companies/{company}/payrolls/{id}/pay-statements/{id}", "id"): ID,
+        ("rest/v2/companies/{company}/employees/{id}/contacts", "contacts[].employee.account_id"): ID,
+        ("rest/v2/companies/{company}/employees/{id}/contacts", "contacts[].emergency"): CONTACT_DEFAULT,
+        ("rest/v2/companies/{company}/employees/{id}/contacts", "contacts[].dependent"): CONTACT_DEFAULT,
+        ("rest/v2/companies/{company}/employees/{id}/contacts", "contacts[].beneficiary"): CONTACT_DEFAULT,
     },
 }
 

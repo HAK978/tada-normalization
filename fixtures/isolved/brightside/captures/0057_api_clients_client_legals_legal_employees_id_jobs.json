@@ -1,0 +1,10 @@
+{
+  "seq": 57,
+  "endpoint": "api/clients/{client}/legals/{legal}/employees/{id}/jobs",
+  "path": "api/clients/501/legals/601/employees/9005/jobs",
+  "params": {},
+  "status": 404,
+  "body": {
+    "_non_json_body": ""
+  }
+}

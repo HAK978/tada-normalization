@@ -22,6 +22,7 @@ from dataclasses import dataclass, field
 from typing import Any
 
 from .bundle import Bundle
+from .canonical.records import dump
 from .providers import normalize
 from .source import Src, covered, trace
 
@@ -44,6 +45,7 @@ DROPPED = {
         (r"(^|\.)_links(\.|$)", "API navigation"),
         (r"(^|\.)photo_href$", "a signed link that works as a credential"),
         (r"^_routing_type$", "a default for new deposits; each deposit carries its own routing type"),
+        (r"^(_total_count|_sub_count\.\w+)$", "counts of the listed items"),
     ],
 }
 # Responses the converters read as code tables, by key, rather than field by field.
@@ -55,12 +57,14 @@ REFERENCE = {
         "api/lookup/maritalStatuses",
         "api/lookup/citizenships",
         "api/clients/{client}/payItems",
+        "api/lookup/ContactRelationshipCodes",
     },
     "ukg-ready": {
         "rest/v2/companies/{company}/lookup/eins",
         "rest/v2/companies/{company}/lookup/pay-types",
         "rest/v2/companies/{company}/lookup/employee-types",
         "rest/v2/companies/{company}/lookup/jobs",
+        "rest/v2/companies/{company}/config/cost-centers",
     },
 }
 STATUSES = ("mapped", "kept", "lost", "dropped", "reference", "unused")
@@ -76,6 +80,9 @@ class Coverage:
     reasons: dict[tuple[str, str], str] = field(default_factory=dict)
     # Source paths a converter returned as leftovers and then read: mapped and kept twice. Should be empty.
     read_after_kept: list[str] = field(default_factory=list)
+    # How many employee records have each canonical field (A-74), and how many records there are.
+    employee_fields: Counter = field(default_factory=Counter)
+    employees: int = 0
 
     @property
     def lost(self) -> list[tuple[str, str]]:
@@ -92,13 +99,16 @@ class Coverage:
 
 def measure(bundle: Bundle, source: str) -> Coverage:
     with trace() as traced:
-        normalize(bundle)
+        output = normalize(bundle)
     # Every object inside a tracked record, so a response nested into a merged record is still found.
     by_data: dict[int, list[tuple[Src, str]]] = {}
     for root in traced.roots:
         for node, rel in _objects(root.data, ""):
             by_data.setdefault(id(node), []).append((root, rel))
     result = Coverage(bundle.provider, source, sum(1 for c in bundle.captures if c.status == 200))
+    result.employees = len(output.records["employees"])
+    for employee in output.records["employees"]:
+        result.employee_fields.update(canonical_fields(dump(employee)))
     result.read_after_kept = sorted(traced.read_after_kept())
     # A tracked object's unread fields are kept only if a converter asked it for its leftovers.
     collected = {id(used) for used, _ in traced.given}
@@ -119,6 +129,25 @@ def measure(bundle: Bundle, source: str) -> Coverage:
             if reason:
                 result.reasons[key] = reason
     return result
+
+
+# Record bookkeeping, not employee data; and the employee's sections, each counted field by field.
+_NOT_FIELDS = {"id", "source", "provider_extensions", "diagnostics", "company_id"}
+_SECTIONS = {"name", "personal", "employment", "job", "compensation"}
+
+
+def canonical_fields(record: dict) -> set[str]:
+    """The canonical fields a dumped employee has a value in: `personal.gender`, `job.org_units`,
+    `addresses`. A list counts when it has an item."""
+    found = set()
+    for key, value in record.items():
+        if key in _NOT_FIELDS or value in (None, [], {}):
+            continue
+        if key in _SECTIONS and isinstance(value, dict):
+            found |= {f"{key}.{inner}" for inner, v in value.items() if v not in (None, [], {})}
+        else:
+            found.add(key)
+    return found
 
 
 def _objects(node: Any, rel: str):
@@ -193,6 +222,7 @@ def render(results: list[Coverage]) -> str:
             totals = Counter(_main_status(r.fields[k]) for k in keys)
             counts = " | ".join(str(totals[s]) for s in STATUSES)
             lines.append(f"| {r.provider} | `{endpoint}` | {len(keys)} | {counts} |")
+    lines += _employee_fields(results)
     for r in results:
         lines += ["", f"## {r.provider}", ""]
         for endpoint in sorted({e for e, _ in r.fields}):
@@ -201,6 +231,26 @@ def render(results: list[Coverage]) -> str:
                 lines.append(f"| `{key[1]}` | {r.label(key)} |")
             lines.append("")
     return "\n".join(lines).rstrip() + "\n"
+
+
+def _employee_fields(results: list[Coverage]) -> list[str]:
+    """How many employees have each canonical field, per provider: a field empty for every employee of a
+    provider is data that was never fetched, or never mapped (A-74)."""
+    names = sorted({name for r in results for name in r.employee_fields})
+    lines = [
+        "",
+        "## Canonical employee fields",
+        "",
+        "How many employee records have each canonical field (two levels deep). A 0 means no employee of that",
+        "provider has it: the provider doesn't send it for these employees, keeps it elsewhere (UKG and isolved",
+        "organization is in `job.org_units`), or sends it with no evidence to map it. ASSUMPTIONS.md summarizes",
+        "the zeros under Employee.",
+        "",
+        "| Field | " + " | ".join(f"{r.provider} ({r.employees})" for r in results) + " |",
+        "|---|" + "---:|" * len(results),
+    ]
+    lines += [f"| `{name}` | " + " | ".join(str(r.employee_fields[name]) for r in results) + " |" for name in names]
+    return lines
 
 
 def _main_status(counts: Counter) -> str:

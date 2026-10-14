@@ -1,0 +1,106 @@
+{
+  "seq": 54,
+  "endpoint": "api/clients/{client}/legals/{legal}/employees/{id}",
+  "path": "api/clients/501/legals/601/employees/9005",
+  "params": {
+    "includeTaxes": "true"
+  },
+  "status": 200,
+  "body": {
+    "id": 9005,
+    "employeeNumber": "1005",
+    "timeclockId": "T1005",
+    "uniqueId": "U-9005",
+    "ssn": null,
+    "idType": null,
+    "birthDate": "1990-04-02T00:00:00",
+    "gender": "Female",
+    "maritalStatus": "Single",
+    "ethnicOrigin": null,
+    "citizenship": "Citizen of the United States",
+    "disabled": false,
+    "disabilityDescription": null,
+    "protectedVeteran": false,
+    "veteranStatusNotSpecified": false,
+    "employmentStatus": "Active",
+    "statusDate": "2026-05-01T00:00:00",
+    "terminationDate": null,
+    "terminationReason": null,
+    "terminationType": null,
+    "workLocation": "NC1",
+    "workLocationDashDescription": "NC1 - CHARLOTTE, NC",
+    "employmentCategoryCode": "FT",
+    "hireDate": "2021-03-15T00:00:00",
+    "originalHireDate": "2021-03-15T00:00:00",
+    "rehireDate": null,
+    "jobCode": "BAKER",
+    "jobTitle": "Baker",
+    "jobFLSAExempt": false,
+    "payType": "1099",
+    "payGroup": "Weekly",
+    "payFrequency": 52,
+    "hourlyRate": 40.0,
+    "perPaySalary": 0.0,
+    "annualSalary": 83200.0,
+    "normalHours": 40.0,
+    "salaryEffectiveDate": "2025-01-01T00:00:00",
+    "emailAddress": "priya@work.example",
+    "nameAddress": {
+      "firstName": "Priya",
+      "middleName": null,
+      "lastName": "Lopez",
+      "preferredName": null,
+      "address1": "12 Oak Ave",
+      "address2": null,
+      "city": "Charlotte",
+      "state": "NC",
+      "zipCode": "28202"
+    },
+    "personal": {
+      "homePhone": "7045550100",
+      "mobilePhone": null,
+      "personalEmailAddress": "priya@example.com"
+    },
+    "assignedManager": {
+      "id": 9001,
+      "employeeName": "Maria"
+    },
+    "organizations": [
+      {
+        "id": 90051,
+        "organizationId": 9943,
+        "displayOrder": 1,
+        "title": "Location",
+        "value": "CLT",
+        "valueDescription": "Charlotte"
+      },
+      {
+        "id": 90052,
+        "organizationId": 9944,
+        "displayOrder": 2,
+        "title": "Department",
+        "value": "LOG",
+        "valueDescription": "Logistics"
+      }
+    ],
+    "taxes": null,
+    "i9Documents": {
+      "documentA": {
+        "documentNumber": "A1234567",
+        "documentCode": "01",
+        "documentContent": null,
+        "documentFileName": null,
+        "issuingAuthority": null
+      },
+      "i9Completed": null
+    },
+    "links": [
+      {
+        "href": "/api/clients/501/legals/601/employees/9005",
+        "method": "GET",
+        "rel": "self"
+      }
+    ],
+    "legalCode": null
+  }
+}

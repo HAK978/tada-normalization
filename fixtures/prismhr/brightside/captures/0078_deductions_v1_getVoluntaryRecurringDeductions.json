@@ -1,0 +1,19 @@
+{
+  "seq": 78,
+  "endpoint": "deductions/v1/getVoluntaryRecurringDeductions",
+  "path": "deductions/v1/getVoluntaryRecurringDeductions",
+  "params": {
+    "clientId": "202",
+    "employeeId": "E2001"
+  },
+  "status": 200,
+  "body": {
+    "voluntaryDeduction": {
+      "deduction": []
+    },
+    "errorCode": "0",
+    "errorMessage": "",
+    "extension": null,
+    "checksum": "v-1"
+  }
+}

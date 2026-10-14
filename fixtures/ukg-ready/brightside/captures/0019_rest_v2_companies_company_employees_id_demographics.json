@@ -1,0 +1,12 @@
+{
+  "seq": 19,
+  "endpoint": "rest/v2/companies/{company}/employees/{id}/demographics",
+  "path": "rest/v2/companies/7001/employees/5001/demographics",
+  "params": {},
+  "status": 200,
+  "body": {
+    "gender": "FEMALE",
+    "ethnicity": "HISPANIC_OR_LATINO",
+    "citizenship": "US_CITIZEN"
+  }
+}

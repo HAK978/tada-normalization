@@ -14,9 +14,9 @@ _SSN = re.compile(r"\b\d{3}-\d{2}-\d{4}\b")
 
 # Matched against the end of a source path, e.g. "employee[0].compensation.ssn".
 SENSITIVE_FIELDS = re.compile(
-    r"(?:^|[.\]])(?:ssn|cobraSSN|employeeSSN|social_security|social_insurance|national_insurance|bsn"
+    r"(?:^|[.\]])(?:ssn|ssnUnmasked|cobraSSN|employeeSSN|social_security|social_insurance|national_insurance|bsn"
     r"|accountNum|accountNumber|account_number|bank_account_number|account"
-    r"|national_id_numbers\[\d+\]\.value)$"
+    r"|national_id_numbers\[\d+\]\.value|visa\.number)$"
 )
 
 

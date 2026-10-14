@@ -1,0 +1,12 @@
+{
+  "seq": 33,
+  "endpoint": "rest/v2/companies/{company}/position/assignments/{id}",
+  "path": "rest/v2/companies/7001/position/assignments/5002",
+  "params": {
+    "req_details": "all"
+  },
+  "status": 200,
+  "body": {
+    "assignments": []
+  }
+}

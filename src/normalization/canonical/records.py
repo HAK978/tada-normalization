@@ -14,6 +14,7 @@ from .codes import (
     CalculationMethod,
     Citizenship,
     CompanyStatus,
+    ContactRole,
     DeductionCategory,
     DepositMethod,
     DepositPurpose,
@@ -23,6 +24,7 @@ from .codes import (
     ElectionStatus,
     EmailType,
     EmployerKind,
+    EmploymentChangeKind,
     EmploymentStatus,
     EmploymentType,
     FundingParty,
@@ -92,6 +94,22 @@ class OrgUnit(Model):
     name: str | None = None
 
 
+class OrgAssignment(Model):
+    """One organization dimension the provider places the employee in, in the provider's own terms (A-75).
+
+    `dimension` is the provider's name for the dimension (an isolved organization field title, a UKG
+    cost-center tree). It is never interpreted: a dimension named "Department" is not copied into
+    `Job.department`, because the names are customer configuration.
+    """
+
+    dimension: str | None = None
+    code: str | None = None
+    name: str | None = None
+    # Names from the top of the provider's hierarchy down to this unit, when it has one (UKG).
+    path: list[str] = Field(default_factory=list)
+    source_field: str
+
+
 class FrequencyInfo(Model):
     frequency: Coded[PayFrequency]
     periods_per_year: int | None = None
@@ -113,6 +131,18 @@ class PayGroup(Model):
     frequency: FrequencyInfo | None = None
 
 
+class CompanyContact(Model):
+    """A person the provider lists as a contact at the company (A-84)."""
+
+    source_id: str | None = None
+    name: str | None = None
+    title: str | None = None
+    # The provider's contact type, as sent: customer configuration, not a canonical code.
+    contact_type: str | None = None
+    phones: list[Phone] = Field(default_factory=list)
+    emails: list[Email] = Field(default_factory=list)
+
+
 class Company(Record):
     name: str | None = None
     legal_name: str | None = None
@@ -125,6 +155,7 @@ class Company(Record):
     addresses: list[Address] = Field(default_factory=list)
     phones: list[Phone] = Field(default_factory=list)
     emails: list[Email] = Field(default_factory=list)
+    contacts: list[CompanyContact] = Field(default_factory=list)
 
 
 # ---------------------------------------------------------------- employee
@@ -146,11 +177,28 @@ class PersonName(Model):
     nickname: str | None = None
 
 
-class EmergencyContact(Model):
-    name: str | None = None
+class Contact(Model):
+    """Someone the employee lists: an emergency contact, a dependent or a beneficiary (A-77)."""
+
+    source_id: str | None = None
+    roles: list[ContactRole] = Field(default_factory=list)
+    name: PersonName = Field(default_factory=PersonName)
+    # The whole name, when the provider sends it as one text (PrismHR emergency contacts).
+    full_name: str | None = None
+    # The provider's own words or label; relationships are customer configuration, never translated.
     relationship: str | None = None
+    relationship_code: str | None = None
+    primary: bool | None = None
+    priority: int | None = None
+    birth_date: date | None = None
+    phones: list[Phone] = Field(default_factory=list)
+    emails: list[Email] = Field(default_factory=list)
+    address: Address | None = None
+    # PrismHR sends one value per emergency contact, with its kind (PHONE, EMAIL, TEXT, ADDRESS, OTHER).
     contact_type: str | None = None
     contact_info: str | None = None
+    active: bool | None = None
+    source_field: str
 
 
 class Personal(Model):
@@ -162,7 +210,38 @@ class Personal(Model):
     disabled: Coded[YesNoDeclined] | None = None
     citizenship: Coded[Citizenship] | None = None
     preferred_language: str | None = None
-    emergency_contacts: list[EmergencyContact] = Field(default_factory=list)
+    contacts: list[Contact] = Field(default_factory=list)
+
+
+class EmploymentChange(Model):
+    """One row of the provider's employment history (A-76)."""
+
+    kind: EmploymentChangeKind
+    source_id: str | None = None
+    effective_date: date | None = None
+    end_date: date | None = None
+    status: Coded[EmploymentStatus] | None = None
+    employment_type: Coded[EmploymentType] | None = None
+    reason: Coded[str] | None = None
+    expected_return_date: date | None = None
+    source_field: str
+
+
+class JobChange(Model):
+    """One effective-dated job or organization record from the provider's history (A-76)."""
+
+    source_id: str | None = None
+    effective_date: date | None = None
+    title: str | None = None
+    job_code: str | None = None
+    department: OrgUnit | None = None
+    division: OrgUnit | None = None
+    location: OrgUnit | None = None
+    org_units: list[OrgAssignment] = Field(default_factory=list)
+    manager_employee_id: str | None = None
+    supervisor_employee_id: str | None = None
+    reason: Coded[str] | None = None
+    source_field: str
 
 
 class Employment(Model):
@@ -180,6 +259,7 @@ class Employment(Model):
     termination_reason: Coded[str] | None = None
     flsa_exempt: bool | None = None
     employer_ids: list[str] = Field(default_factory=list)
+    history: list[EmploymentChange] = Field(default_factory=list)
 
 
 class Job(Model):
@@ -192,6 +272,8 @@ class Job(Model):
     supervisor_employee_id: str | None = None
     union: OrgUnit | None = None
     pay_group: str | None = None
+    org_units: list[OrgAssignment] = Field(default_factory=list)
+    history: list[JobChange] = Field(default_factory=list)
 
 
 class CompensationChange(Model):

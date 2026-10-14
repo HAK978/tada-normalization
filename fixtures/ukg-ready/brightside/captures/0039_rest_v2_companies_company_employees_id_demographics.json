@@ -1,0 +1,10 @@
+{
+  "seq": 39,
+  "endpoint": "rest/v2/companies/{company}/employees/{id}/demographics",
+  "path": "rest/v2/companies/7001/employees/5003/demographics",
+  "params": {},
+  "status": 200,
+  "body": {
+    "gender": "UNDEFINED"
+  }
+}

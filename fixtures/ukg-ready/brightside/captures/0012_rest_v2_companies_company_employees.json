@@ -1,0 +1,88 @@
+{
+  "seq": 12,
+  "endpoint": "rest/v2/companies/{company}/employees",
+  "path": "rest/v2/companies/7001/employees",
+  "params": {},
+  "status": 200,
+  "body": {
+    "employees": [
+      {
+        "id": 5001,
+        "username": "mlopez",
+        "employee_id": "1001",
+        "first_name": "Maria",
+        "last_name": "Lopez",
+        "dates": {
+          "hired": "2019-08-05",
+          "started": "2019-08-05"
+        },
+        "status": "Active",
+        "_links": {
+          "self": "https://example.invalid/ta/rest/v2/companies/7001/employees/5001"
+        }
+      },
+      {
+        "id": 5002,
+        "username": "jcarter",
+        "employee_id": "1002",
+        "first_name": "James",
+        "last_name": "Carter",
+        "dates": {
+          "hired": "2021-03-15",
+          "started": "2021-03-15"
+        },
+        "status": "Active",
+        "_links": {
+          "self": "https://example.invalid/ta/rest/v2/companies/7001/employees/5002"
+        }
+      },
+      {
+        "id": 5003,
+        "username": "areyes",
+        "employee_id": "1003",
+        "first_name": "Ana",
+        "last_name": "Reyes",
+        "dates": {
+          "hired": "2018-02-01",
+          "started": "2018-02-01",
+          "terminated": "2026-09-30"
+        },
+        "status": "Terminated",
+        "_links": {
+          "self": "https://example.invalid/ta/rest/v2/companies/7001/employees/5003"
+        }
+      },
+      {
+        "id": 5004,
+        "username": "dprice",
+        "employee_id": "1004",
+        "first_name": "Devon",
+        "last_name": "Price",
+        "dates": {
+          "hired": "2016-06-02",
+          "started": "2025-03-01",
+          "re_hired": "2025-03-01"
+        },
+        "status": "Active",
+        "_links": {
+          "self": "https://example.invalid/ta/rest/v2/companies/7001/employees/5004"
+        }
+      },
+      {
+        "id": 5005,
+        "username": "pshah",
+        "employee_id": "1005",
+        "first_name": "Priya",
+        "last_name": "Shah",
+        "dates": {
+          "hired": "2026-08-01",
+          "started": "2026-08-01"
+        },
+        "status": "Active",
+        "_links": {
+          "self": "https://example.invalid/ta/rest/v2/companies/7001/employees/5005"
+        }
+      }
+    ]
+  }
+}

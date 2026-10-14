@@ -1,0 +1,53 @@
+{
+  "seq": 44,
+  "endpoint": "rest/v2/companies/{company}/employees/{id}",
+  "path": "rest/v2/companies/7001/employees/5004",
+  "params": {},
+  "status": 200,
+  "body": {
+    "id": 5004,
+    "employee_id": "1004",
+    "username": "dprice",
+    "first_name": "Devon",
+    "last_name": "Price",
+    "primary_account_id": 5004,
+    "ein_name": "Brightside Bakery LLC",
+    "ein": {
+      "id": 801
+    },
+    "status": "Active",
+    "locked": false,
+    "social_security": "900-10-6784",
+    "national_id_numbers": [
+      {
+        "type": "SSN",
+        "value": "900-10-6784",
+        "primary": true
+      }
+    ],
+    "address": {
+      "address_line_1": "104 Market St",
+      "city": "Charlotte",
+      "state": "NC",
+      "zip": "28202",
+      "country": "USA"
+    },
+    "dates": {
+      "hired": "2016-06-02",
+      "started": "2025-03-01",
+      "birthday": "1990-04-12",
+      "re_hired": "2025-03-01"
+    },
+    "phones": {
+      "cell_phone": "704-555-0100",
+      "preferred_phone": "CELL"
+    },
+    "primary_email": "devon@brightside.example",
+    "managers": [],
+    "timezone": "America/New_York",
+    "photo_href": "https://example.invalid/photos/5004?sig=not-a-real-token",
+    "_links": {
+      "self": "https://example.invalid/ta/rest/v2/companies/7001/employees/5004"
+    }
+  }
+}

@@ -1,0 +1,23 @@
+{
+  "seq": 58,
+  "endpoint": "api/clients/{client}/legals/{legal}/employees/{id}/categories",
+  "path": "api/clients/501/legals/601/employees/9005/categories",
+  "params": {},
+  "status": 200,
+  "body": [
+    {
+      "id": 900508,
+      "effectiveDate": "2021-03-15T00:00:00",
+      "employmentCategory": {
+        "id": 1,
+        "code": "FT",
+        "description": "Full Time",
+        "acaEmploymentStatus": "ACA Full Time"
+      },
+      "employmentId": 90050,
+      "fullTimeEquivalent": 1.0,
+      "statutoryEmployee": false,
+      "highlyCompensated": false
+    }
+  ]
+}

@@ -1,0 +1,18 @@
+{
+  "seq": 84,
+  "endpoint": "benefits/v1/getDependents",
+  "path": "benefits/v1/getDependents",
+  "params": {
+    "clientId": "202",
+    "employeeId": "E2001"
+  },
+  "status": 200,
+  "body": {
+    "dependent": [],
+    "errorCode": "0",
+    "errorMessage": "",
+    "extension": null,
+    "clientId": "202",
+    "employeeId": "E2001"
+  }
+}

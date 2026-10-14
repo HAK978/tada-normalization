@@ -32,6 +32,8 @@ A ten-minute tour:
      (A-35, A-64).
    - A refused request is not an empty answer, and a missing value is not zero (A-70, A-73).
    - A company is the business, not the legal employer, which the data can't name (A-30).
+   - Every read endpoint the specs document, 855 of them, is fetched or has a recorded reason it isn't,
+     and a test keeps it that way (A-74).
 4. **What's missing.** See [Limitations](#limitations), with the full list in
    [ASSUMPTIONS.md](ASSUMPTIONS.md#known-limitations).
 
@@ -102,7 +104,7 @@ GROUP BY 1, 2, 3;
 | `python -m normalization write EMPLOYEES_JSON` | Dry run: the UKG Ready requests that would create these employees, validated against UKG's request schemas. Nothing is sent. |
 | `python -m normalization review BUNDLE ...` | Collects every value still `UNMAPPED` into distinct decisions, with suggestions, and writes a report plus a mapping-file template per tenant. |
 | `python -m normalization schema` | Writes the canonical model's JSON Schemas to `schemas/`. |
-| `python -m normalization coverage [BUNDLE ...]` | Writes [docs/FIELD_COVERAGE.md](docs/FIELD_COVERAGE.md): what happens to every source field. |
+| `python -m normalization coverage [BUNDLE ...]` | Writes [docs/FIELD_COVERAGE.md](docs/FIELD_COVERAGE.md): what happens to every source field, and how many employees have each canonical field. |
 | `python scripts/generate_fixtures.py [--check]` | Regenerates the synthetic fixtures and golden files, or (`--check`) proves they are reproducible. |
 
 ### Live data (optional)
@@ -123,7 +125,7 @@ locked down (A-04):
 - Raw responses go to `.discovery/` and normalized output to `out/`. Both are gitignored and never
   committed.
 
-The full live fetch (2026-10-13, and identical on 2026-10-14) normalizes like this:
+The full live fetch (2026-10-14, with the endpoints A-74 added) normalizes like this:
 
 | Provider | Companies | Employees | Deposits | Elections | Runs | Paychecks | Checks passed |
 |---|---:|---:|---:|---:|---:|---:|---:|
@@ -172,6 +174,9 @@ The main conventions:
 - **Paycheck lines are classified** in canonical terms: an earning's `kind` (how it is paid) and
   `category` (what it pays for: regular, overtime, vacation, ...), and a tax's `type` (federal income,
   Social Security, state unemployment, ...) with its `state` (A-67, A-68).
+- **Employees** also carry their contacts (emergency contacts, dependents and beneficiaries, each with
+  its roles), organization units in the provider's own words, and employment and job history (A-75 to
+  A-77).
 - **Diagnostics** on every record explain anything unusual: unmapped codes, invalid dates, data not
   fetched, amounts not finalized.
 - **Unavailable is not empty:** a request that was refused or failed is reported on the records it
@@ -269,15 +274,22 @@ empty until a person fills them in.
 4. **Tooling that checks the work:**
    - the fixture generator validates every response against the provider's published schema;
    - the coverage report accounts for every source field;
+   - the endpoint inventory accounts for every documented read endpoint;
    - every output record validates against the exported JSON Schema;
    - fixtures and golden files must regenerate byte for byte.
+
+5. **A check of the specs against the fetch.** Late in the build, every documented read endpoint was
+   compared with what was fetched. Employee data that isolved and UKG keep in endpoints the plan hadn't
+   named (UKG demographics and contacts, isolved job history, among others) was missing, and every check
+   so far had looked only at fetched responses. 16 endpoints were added, and the endpoint inventory now
+   ties every documented endpoint to a decision (A-74).
 
 AI assistance was used throughout, as the brief allows. Every mapping rests on cited spec text or
 counted live evidence.
 
 ## Testing
 
-`pytest` runs 202 offline tests (plus parametrized subtests). Nothing needs credentials or network.
+`pytest` runs 212 offline tests (plus parametrized subtests). Nothing needs credentials or network.
 
 - **Synthetic scenarios** (`fixtures/<provider>/brightside`) come from a seeded generator, and every
   response is validated against the provider's own published schema. They are full of real-world
@@ -294,6 +306,8 @@ counted live evidence.
 - **Missing is never zero** (`tests/test_missing_vs_zero.py`, A-73): every number and yes/no in the
   scenarios is deleted in one run and set to 0 or false in another, and the two outputs must differ.
   Each place where they may agree has a written reason; a new one fails the test.
+- **Endpoint inventory** (`tests/test_endpoint_inventory.py`, A-74): every read endpoint in the specs must
+  be fetched or carry a recorded reason, and every recorded reason must name a documented endpoint.
 - **Live client tests** reproduce scope, redirect and scrubbing attacks against a fake HTTP client.
 - **Property tests** (`tests/test_properties.py`, Hypothesis) check rules that must hold for any
   input, not just the fixtures' (A-72):
@@ -315,7 +329,7 @@ src/normalization/
   canonical/          the model: records, value types, code enums, JSON Schema export
   providers/          one converter per provider (codes.py + convert.py), shared helpers
   fixtures/           the seeded synthetic scenario of each provider, and schema validation
-  live/               the read-only client: sign-in, scope guard, crawl, fetch
+  live/               the read-only client: sign-in, scope guard, crawl, fetch, and the endpoint inventory
   write/              the dry-run write path (UKG Ready)
   checks.py           paycheck reconciliation
   export.py           JSON and SQLite output
@@ -341,6 +355,11 @@ The full list is in [ASSUMPTIONS.md](ASSUMPTIONS.md#known-limitations).
   PrismHR garnishment and employer details and isolved's payroll and "corestream" endpoints (A-08 to
   A-10). UKG deduction setup returns 404 on the demo tenant. The converter supports it and is tested
   on synthetic data (A-12).
+- **Endpoints with no live data:** some documented employee data is empty for every demo employee
+  (PrismHR deduction arrears, UKG additional compensation, among others) or refused, so it isn't fetched;
+  each is recorded with its reason (A-74). isolved contacts are fetched but empty live, so their mapping
+  rests on the documentation (A-77). UKG demographics arrive as enums without definitions and stay
+  `UNMAPPED` until a mapping file confirms them (A-79).
 - **Payroll history:** live isolved payroll is historical, imported data, and all live UKG payrolls are
   still open (A-11, A-13).
 - **Percent scales** are unproven for isolved and UKG deposits and deductions, so the number stays

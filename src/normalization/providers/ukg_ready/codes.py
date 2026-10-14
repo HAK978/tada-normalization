@@ -9,6 +9,7 @@ pages under contracts/ukg-ready/reference-docs/.
 
 from normalization.canonical.codes import (
     AccountType,
+    ContactRole,
     DepositMethod,
     EarningKind,
     EmploymentStatus,
@@ -25,6 +26,17 @@ from normalization.canonical.codes import (
 # employees/{aid} status (#/schemas/106) is undocumented. Live, "Terminated" appears exactly when
 # dates.terminated is set (12 of 12), and "Active" exactly when it isn't (3 of 3) (A-55).
 EMPLOYEE_STATUS = {"Active": EmploymentStatus.ACTIVE, "Terminated": EmploymentStatus.TERMINATED}
+
+# employees/{aid}/contacts: the flags behind the documented contact_type filter, "Valid values: EMERGENCY,
+# DEPENDENT, BENEFICIARY ... Used to fetch account contacts filtered by contact type" (A-77).
+CONTACT_ROLES = (
+    ("emergency", ContactRole.EMERGENCY),
+    ("dependent", ContactRole.DEPENDENT),
+    ("beneficiary", ContactRole.BENEFICIARY),
+)
+
+# employees/{aid}/demographics gender, citizenship and ethnicity are documented enums without definitions, so
+# there is deliberately no table: they stay UNMAPPED with the value as sent (A-26, A-79).
 
 # national_id_numbers[].type (#/schemas/106 enum); only SSN is named for the US.
 NATIONAL_ID_TYPE = {"SSN": NationalIdType.SSN}
@@ -125,3 +137,7 @@ TAX_CODE = {
 # of 63 live statements, including all 28 where FIT's differs from Social Security's, so it is taxed
 # on the income-tax wage base (A-68). Other prefixes (SUTA_SC, ...) stay UNMAPPED.
 STATE_TAX_PREFIX = {"SIT": TaxType.STATE_INCOME, "SUTA": TaxType.STATE_UNEMPLOYMENT}
+
+# Failed requests that mean "nothing here" (A-70). A cost-center tree the company doesn't use answers HTTP
+# 400 "Cost Center not used." (live, tree 1): there is no tree, not an unknown one (A-75).
+EMPTY_MESSAGES = {"rest/v2/companies/{company}/config/cost-centers": ("Cost Center not used.",)}

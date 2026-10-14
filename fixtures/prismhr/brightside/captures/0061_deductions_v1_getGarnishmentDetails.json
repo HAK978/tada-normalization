@@ -3,8 +3,8 @@
   "endpoint": "deductions/v1/getGarnishmentDetails",
   "path": "deductions/v1/getGarnishmentDetails",
   "params": {
-    "clientId": "202",
-    "employeeId": "E2001"
+    "clientId": "201",
+    "employeeId": "E1005"
   },
   "status": 403,
   "body": {

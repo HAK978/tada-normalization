@@ -310,6 +310,10 @@ def _client_codes(client_id: str) -> dict:
             "locationCode": [{"id": "CLT", "locationName": "Charlotte"}],
             "reasonCode": [{"id": "VOL", "description": "Voluntary resignation", "validActions": "T"}],
             "ethnicCode": [{"id": "H", "description": "Hispanic or Latino", "reportCode": "H"}],
+            "relationCodes": [
+                {"code": "S", "description": "Spouse", "obsolete": False},
+                {"code": "C", "description": "Child", "obsolete": False},
+            ],
             "payGroups": [
                 {"payGroupCode": "BW", "description": "Biweekly"},
                 {"payGroupCode": "W", "description": "Weekly"},
@@ -347,7 +351,7 @@ def _schedule() -> dict:
 # ---------------------------------------------------------------------- employees
 
 
-def _employee(p: Person, rng: random.Random) -> dict:
+def _employee(p: Person, rng: random.Random, employers: dict[str, list[str]]) -> dict:
     deposits = []
     for spec in p.deposits:
         method, account = spec[0], spec[1]
@@ -395,7 +399,7 @@ def _employee(p: Person, rng: random.Random) -> dict:
             "handicapped": "",
             "preferredLanguage": "EN",
             "userId": f"{p.first[0]}{p.last}".lower(),
-            "employerIds": [],
+            **employers,
             "nickname": "",
             "hrpCitizenshipCountry": None,
             "emergencyContact": [
@@ -613,6 +617,66 @@ def _employee_setup(bundle: FixtureBundle, client: str, p: Person) -> None:
     bundle.add(
         "benefits/v1/getActiveBenefitPlans", "benefits/v1/getActiveBenefitPlans", person, _envelope(benefitPlans=[])
     )
+    # Client 201 sends the live key historyRecord, 202 the documented historyRecords (A-78).
+    key = "historyRecord" if client == "201" else "historyRecords"
+    bundle.add("employee/v1/getHistory", "employee/v1/getHistory", person, _envelope(**{key: _history(p)}))
+    bundle.add(
+        "benefits/v1/getDependents",
+        "benefits/v1/getDependents",
+        person,
+        {**_envelope(dependent=_dependents(p)), "clientId": client, "employeeId": p.id},
+    )
+    # Garnishment details are refused below; this one employee is reported to have garnishments (A-83).
+    has_garnishments = p.id == "E1002"
+    bundle.add(
+        "employee/v1/checkForGarnishments",
+        "employee/v1/checkForGarnishments",
+        person,
+        _envelope(enrolled=has_garnishments, active=has_garnishments),
+    )
+    # One employee has a recurring payment set up; the others get PrismHR's "does not exist" 404.
+    if p.id == "E1001":
+        bundle.add(
+            "payroll/v1/getScheduledPayments",
+            "payroll/v1/getScheduledPayments",
+            person,
+            {
+                **_envelope(
+                    scheduledPayment={
+                        "scheduledPaymentDetail": [
+                            {
+                                "payCode": "BONUS",
+                                "payDesc": "Retention bonus",
+                                "startPayDate": "2026-11-06",
+                                "endPayDate": None,
+                                "deductionPeriod": "12345",
+                                "status": "A",
+                                "amount": 150.0,
+                            }
+                        ]
+                    }
+                ),
+                "clientId": client,
+                "employeeId": p.id,
+                "checksum": "sp-1",
+            },
+        )
+    else:
+        bundle.add(
+            "payroll/v1/getScheduledPayments",
+            "payroll/v1/getScheduledPayments",
+            person,
+            {
+                "clientId": None,
+                "employeeId": None,
+                "checksum": None,
+                "scheduledPayment": None,
+                "errorCode": "404",
+                "errorMessage": f"Scheduled payment for employee '{p.id}' in client '{client}' does not exist.",
+                "extension": None,
+            },
+            status=404,
+        )
     # Mirrors the live tenant: garnishment details are refused for this API user (A-08).
     bundle.add(
         "deductions/v1/getGarnishmentDetails",
@@ -626,6 +690,165 @@ def _employee_setup(bundle: FixtureBundle, client: str, p: Person) -> None:
         },
         status=403,
     )
+
+
+def _history(p: Person) -> list[dict]:
+    """getHistory rows: each holds one kind of change (A-76). Pay changes stay raw on the employee."""
+    hired = "2023-06-01" if p.id == "E1002" else "2021-03-15"
+    rows: list[dict] = [
+        {
+            "type": "statusChange",
+            "effectiveDate": hired,
+            "statusChange": {"employeeStatusCode": "A", "employeeTypeCode": p.type_code, "reason": ""},
+        },
+        {
+            "type": "positionChange",
+            "effectiveDate": hired,
+            "newPositionCode": "DRIVER" if p.pay_group == "W" else "BAKER",
+        },
+        {
+            "type": "payChange",
+            "effectiveDate": p.effective_date if p.effective_date != "0000-01-01" else hired,
+            "payChange": {
+                "newPayRate": str(p.salary or p.hourly),
+                "payPeriod": p.pay_period if p.salary else "H",
+                "payMethod": p.pay_method,
+                "annualPay": str(p.annual or ""),
+                "hourlyRate": str(p.hourly),
+                "reason": "Merit",
+            },
+        },
+    ]
+    if p.id == "E1002":
+        rows.append(
+            {"type": "departmentChange", "effectiveDate": "2024-02-01", "departmentChange": {"departmentCode": "LOG"}}
+        )
+        rows.append(
+            {
+                "type": "benefitGroupChange",
+                "effectiveDate": "2024-01-01",
+                "benefitGroupChange": {"benefitGroupCode": "PT"},
+            }
+        )
+    if p.status_class == "L":
+        rows.append(
+            {
+                "type": "leave",
+                "effectiveDate": p.status_date,
+                "leave": {
+                    "employeeStatusCode": "L",
+                    "employeeTypeCode": p.type_code,
+                    "expectedReturnDate": "2026-11-01",
+                    "reason": "MED",
+                },
+            }
+        )
+    if p.status_class == "T":
+        rows.append(
+            {
+                "type": "termination",
+                "effectiveDate": p.status_date,
+                "termination": {
+                    "employeeStatusCode": "T",
+                    "employeeTypeCode": p.type_code,
+                    "reason": p.term_reason,
+                    "rehireOK": "N",
+                    "explanation": "Relocated",
+                },
+            }
+        )
+    return rows
+
+
+def _dependents(p: Person) -> list[dict]:
+    """Dependents and beneficiaries (A-77). SSNs arrive masked, as live PrismHR masks them."""
+    if p.id == "E1001":
+        return [
+            {
+                "dependentId": "1",
+                "firstName": "Sam",
+                "lastName": p.last,
+                "middleInitial": "",
+                "relation": "S",
+                "relationType": "D",
+                "relationshipCodeType": "SP",
+                "beneficiaryType": "P",
+                "benefitPercent": "100",
+                "spouse": "Y",
+                "gender": "M",
+                "birthdate": "1989-11-20",
+                "ssn": "***-**-6789",
+                "status": "A",
+                "statusDate": "2021-04-01",
+                "homePhone": "7045550111",
+                "email": "sam@example.com",
+                "address": "12 Oak Ave",
+                "city": "Charlotte",
+                "state": "NC",
+                "zip": "28202",
+            },
+            {
+                "dependentId": "2",
+                "firstName": "Kai",
+                "lastName": p.last,
+                "relation": "C",
+                "relationType": "D",
+                "relationshipCodeType": "CH",
+                "spouse": "N",
+                # Live, 12 of 14 dependents' birth dates arrive masked like this (A-77).
+                "birthdate": "****-**-**",
+                "status": "P",
+                "fullTimeStudent": False,
+            },
+        ]
+    if p.id == "E1002":
+        return [
+            {
+                "dependentId": "3",
+                "firstName": "Lee",
+                "lastName": "Example",
+                "relation": "O",
+                "relationType": "B",
+                "beneficiaryType": "C",
+                "benefitPercent": "100",
+                "status": "A",
+            }
+        ]
+    return []
+
+
+def _company_contacts(live_key: bool) -> dict:
+    """Client contacts; client 201 sends the live key prismClientContact (A-78, A-84)."""
+    contacts = (
+        [
+            {
+                "contactId": "11",
+                "contactType": "PAY",
+                "contactName": "Robin Example",
+                "contactTitle": "Payroll Manager",
+                "contactPhone": "7045550120",
+                "contactPhoneExt": "12",
+                "contactEmail": "payroll@brightside.example",
+                "contactAddress": "100 Main St",
+                "contactCity": "Charlotte",
+                "contactState": "NC",
+                "contactZip": "28202",
+                "checksum": "pc-11",
+            },
+            {
+                "contactId": "12",
+                "contactType": "HR",
+                "contactName": "Alex Example",
+                "contactTitle": "HR Lead",
+                "contactCellPhone": "7045550130",
+                "checksum": "pc-12",
+            },
+        ]
+        if live_key
+        else []
+    )
+    key = "prismClientContact" if live_key else "prismClientContacts"
+    return _envelope(prismClientContactResult={key: contacts})
 
 
 # ---------------------------------------------------------------------- payroll
@@ -929,6 +1152,12 @@ def _client_201(bundle: FixtureBundle, staff: list[Person], rng: random.Random) 
     )
     bundle.add("clientMaster/v1/getPayrollSchedule", "clientMaster/v1/getPayrollSchedule", {"clientId": c}, _schedule())
     bundle.add(
+        "clientMaster/v1/getAllPrismClientContacts",
+        "clientMaster/v1/getAllPrismClientContacts",
+        {"clientId": c},
+        _company_contacts(live_key=True),
+    )
+    bundle.add(
         "employee/v1/getEmployeeList",
         "employee/v1/getEmployeeList",
         {"clientId": c},
@@ -938,7 +1167,8 @@ def _client_201(bundle: FixtureBundle, staff: list[Person], rng: random.Random) 
         "employee/v1/getEmployee",
         "employee/v1/getEmployee",
         {"clientId": c, "employeeId": [p.id for p in staff], "options": "Person,Client,Compensation"},
-        _envelope(employee=[_employee(p, rng) for p in staff]),
+        # Live sends the employee's employers as employerId, documented as employerIds (A-78).
+        _envelope(employee=[_employee(p, rng, {"employerId": ["5"]}) for p in staff]),
     )
     for p in staff:
         _employee_setup(bundle, c, p)
@@ -1090,10 +1320,16 @@ def _client_202(bundle: FixtureBundle, staff: list[Person], rng: random.Random) 
         _client_codes(c),
     )
     bundle.add(
+        "clientMaster/v1/getAllPrismClientContacts",
+        "clientMaster/v1/getAllPrismClientContacts",
+        {"clientId": c},
+        _company_contacts(live_key=False),
+    )
+    bundle.add(
         "employee/v1/getEmployee",
         "employee/v1/getEmployee",
         {"clientId": c, "employeeId": [omar.id], "options": "Person,Client,Compensation"},
-        _envelope(employee=[_employee(omar, rng)]),
+        _envelope(employee=[_employee(omar, rng, {"employerIds": ["202"]})]),
     )
     _employee_setup(bundle, c, omar)
     bw = ("BW", "2026-09-14", "2026-09-27")

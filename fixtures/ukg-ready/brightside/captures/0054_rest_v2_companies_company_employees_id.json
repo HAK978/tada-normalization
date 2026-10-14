@@ -1,0 +1,52 @@
+{
+  "seq": 54,
+  "endpoint": "rest/v2/companies/{company}/employees/{id}",
+  "path": "rest/v2/companies/7001/employees/5005",
+  "params": {},
+  "status": 200,
+  "body": {
+    "id": 5005,
+    "employee_id": "1005",
+    "username": "pshah",
+    "first_name": "Priya",
+    "last_name": "Shah",
+    "primary_account_id": 5005,
+    "ein_name": "Brightside Bakery LLC",
+    "ein": {
+      "id": 801
+    },
+    "status": "Active",
+    "locked": false,
+    "social_security": "900-10-6785",
+    "national_id_numbers": [
+      {
+        "type": "SSN",
+        "value": "900-10-6785",
+        "primary": true
+      }
+    ],
+    "address": {
+      "address_line_1": "105 Market St",
+      "city": "Charlotte",
+      "state": "NC",
+      "zip": "28202",
+      "country": "USA"
+    },
+    "dates": {
+      "hired": "2026-08-01",
+      "started": "2026-08-01",
+      "birthday": "1990-04-12"
+    },
+    "phones": {
+      "cell_phone": "704-555-0100",
+      "preferred_phone": "CELL"
+    },
+    "primary_email": "priya@brightside.example",
+    "managers": [],
+    "timezone": "America/New_York",
+    "photo_href": "https://example.invalid/photos/5005?sig=not-a-real-token",
+    "_links": {
+      "self": "https://example.invalid/ta/rest/v2/companies/7001/employees/5005"
+    }
+  }
+}

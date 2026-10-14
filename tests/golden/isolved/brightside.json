@@ -9,17 +9,17 @@
    "pay_statements": 7
   },
   "diagnostics": {
-   "info": 5,
-   "warning": 1
+   "info": 6,
+   "warning": 2
   },
   "checks": {
-   "pass": 24,
-   "not_applicable": 1
+   "not_applicable": 1,
+   "pass": 24
   },
   "requests": {
-   "total": 58,
-   "ok": 54,
-   "empty": 4,
+   "total": 79,
+   "ok": 67,
+   "empty": 12,
    "unavailable": 0
   },
   "unavailable": []
@@ -128,7 +128,8 @@
       "number": "7045550100"
      }
     ],
-    "emails": []
+    "emails": [],
+    "contacts": []
    }
   ],
   "employees": [
@@ -139,8 +140,12 @@
      "tenant_id": "synthetic",
      "endpoints": [
       "api/clients/{client}/legals/{legal}/employees/{id}",
+      "api/clients/{client}/legals/{legal}/employees/{id}/categories",
+      "api/clients/{client}/legals/{legal}/employees/{id}/contacts",
+      "api/clients/{client}/legals/{legal}/employees/{id}/jobs",
       "api/clients/{client}/legals/{legal}/employees/{id}/salaries",
-      "api/clients/{client}/legals/{legal}/employees/{id}/statuses"
+      "api/clients/{client}/legals/{legal}/employees/{id}/statuses",
+      "api/clients/{client}/legals/{legal}/employees/{id}/veteranStatus"
      ],
      "ids": {
       "clientId": "501",
@@ -149,6 +154,14 @@
      }
     },
     "provider_extensions": {
+     "protectedVeteran": false,
+     "veteranStatusNotSpecified": false,
+     "organizations[0].id": 90011,
+     "organizations[0].organizationId": 9943,
+     "organizations[0].displayOrder": 1,
+     "organizations[1].id": 90012,
+     "organizations[1].organizationId": 9944,
+     "organizations[1].displayOrder": 2,
      "taxes.federal.filingStatus": "Single",
      "taxes.federal.primaryExemptions": 0,
      "payItems[2].id": -3,
@@ -158,6 +171,28 @@
      "payItems[2].startDate": "2025-01-01T00:00:00",
      "payItems[2].calcParams[0].paramType": "Amount",
      "payItems[2].calcParams[0].paramValue": "0.0",
+     "veteranStatus.activeWartimeOrCampaignBadgeVeteran": false,
+     "veteranStatus.disabledVeteran": false,
+     "veteranStatus.serviceMedalVeteran": false,
+     "contacts[0].ssn": "***6789",
+     "contacts[0].ssnUnmasked": "***6789",
+     "contacts[0].useEmployeeAddress": true,
+     "contacts[0].genderCode": "M",
+     "contacts[1].birthDate": "**/**/1975",
+     "categories[0].employmentCategory.id": 1,
+     "categories[0].employmentCategory.acaEmploymentStatus": "ACA Full Time",
+     "categories[0].employmentId": 90010,
+     "categories[0].fullTimeEquivalent": "1.0",
+     "categories[0].statutoryEmployee": false,
+     "categories[0].highlyCompensated": false,
+     "jobs[0].clientJob.id": 31,
+     "jobs[0].clientJob.eeoCategory": "Service Workers",
+     "jobs[0].clientJob.isFLSAExempt": true,
+     "jobs[0].clientJob.isUnion": false,
+     "jobs[0].organizations[0].clientOrganizationField.id": 9944,
+     "jobs[0].changeReason.id": 3,
+     "jobs[0].isWorkersCompExempt": false,
+     "jobs[0].compaRatio": "1.00",
      "salaries[0].isInactive": false,
      "salaries[0].frequency.id": 26,
      "salaries[0].frequency.description": "Bi-Weekly",
@@ -167,10 +202,17 @@
      "salaries[0].changeReason.id": 1,
      "statuses[0].statusId": -1,
      "statuses[0].clientEmploymentStatusId": -1,
-     "statuses[0].effectiveDate": "2021-03-15T00:00:00",
      "statuses[0].employeeEmploymentId": 90010
     },
-    "diagnostics": [],
+    "diagnostics": [
+     {
+      "code": "MASKED_AT_SOURCE",
+      "severity": "info",
+      "field": "contacts[1].birthDate",
+      "message": "the provider masked this date; it is kept as sent",
+      "raw": "**/**/1975"
+     }
+    ],
     "company_id": "isolved:synthetic:company:501:601",
     "identifiers": [
      {
@@ -235,7 +277,64 @@
       "label": "Citizen of the United States",
       "source_field": "citizenship"
      },
-     "emergency_contacts": []
+     "contacts": [
+      {
+       "source_id": "51",
+       "roles": [
+        "EMERGENCY",
+        "DEPENDENT"
+       ],
+       "name": {
+        "first": "Sam",
+        "last": "Example"
+       },
+       "relationship": "Spouse",
+       "relationship_code": "SP",
+       "priority": 1,
+       "birth_date": "1989-11-20",
+       "phones": [
+        {
+         "type": "MOBILE",
+         "number": "7045550111"
+        }
+       ],
+       "emails": [
+        {
+         "type": "MAIN",
+         "address": "sam@example.com"
+        }
+       ],
+       "address": {
+        "type": "MAILING",
+        "line1": "12 Oak Ave",
+        "city": "Charlotte",
+        "state": "NC",
+        "postal_code": "28202"
+       },
+       "source_field": "contacts[0]"
+      },
+      {
+       "source_id": "52",
+       "roles": [
+        "EMERGENCY"
+       ],
+       "name": {
+        "first": "Jo",
+        "last": "Friend"
+       },
+       "relationship": "Friend",
+       "relationship_code": "FR",
+       "priority": 2,
+       "phones": [
+        {
+         "type": "HOME",
+         "number": "7045550122"
+        }
+       ],
+       "emails": [],
+       "source_field": "contacts[1]"
+      }
+     ]
     },
     "addresses": [
      {
@@ -278,7 +377,32 @@
      "original_hire_date": "2021-03-15",
      "hire_date": "2021-03-15",
      "flsa_exempt": true,
-     "employer_ids": []
+     "employer_ids": [],
+     "history": [
+      {
+       "kind": "STATUS",
+       "effective_date": "2021-03-15",
+       "status": {
+        "value": "ACTIVE",
+        "raw": "Active",
+        "label": "Active",
+        "source_field": "statuses[0].clientEmploymentStatusDescription"
+       },
+       "source_field": "statuses[0]"
+      },
+      {
+       "kind": "CATEGORY",
+       "source_id": "900108",
+       "effective_date": "2021-03-15",
+       "employment_type": {
+        "value": "UNMAPPED",
+        "raw": "FT",
+        "label": "Full Time",
+        "source_field": "categories[0].employmentCategory.code"
+       },
+       "source_field": "categories[0]"
+      }
+     ]
     },
     "job": {
      "title": "Baker",
@@ -287,7 +411,46 @@
       "code": "NC1",
       "name": "CHARLOTTE, NC"
      },
-     "pay_group": "Biweekly"
+     "pay_group": "Biweekly",
+     "org_units": [
+      {
+       "dimension": "Location",
+       "code": "CLT",
+       "name": "Charlotte",
+       "path": [],
+       "source_field": "organizations[0]"
+      },
+      {
+       "dimension": "Department",
+       "code": "PROD",
+       "name": "Production",
+       "path": [],
+       "source_field": "organizations[1]"
+      }
+     ],
+     "history": [
+      {
+       "source_id": "900107",
+       "effective_date": "2021-03-15",
+       "title": "Baker",
+       "job_code": "BAKER",
+       "org_units": [
+        {
+         "dimension": "Department",
+         "code": "PROD",
+         "path": [],
+         "source_field": "jobs[0].organizations[0]"
+        }
+       ],
+       "reason": {
+        "value": "UNMAPPED",
+        "raw": "NH",
+        "label": "New Hire",
+        "source_field": "jobs[0].changeReason.code"
+       },
+       "source_field": "jobs[0]"
+      }
+     ]
     },
     "compensation": {
      "pay_type": {
@@ -379,8 +542,11 @@
      "tenant_id": "synthetic",
      "endpoints": [
       "api/clients/{client}/legals/{legal}/employees/{id}",
+      "api/clients/{client}/legals/{legal}/employees/{id}/categories",
+      "api/clients/{client}/legals/{legal}/employees/{id}/jobs",
       "api/clients/{client}/legals/{legal}/employees/{id}/salaries",
-      "api/clients/{client}/legals/{legal}/employees/{id}/statuses"
+      "api/clients/{client}/legals/{legal}/employees/{id}/statuses",
+      "api/clients/{client}/legals/{legal}/employees/{id}/veteranStatus"
      ],
      "ids": {
       "clientId": "501",
@@ -389,8 +555,16 @@
      }
     },
     "provider_extensions": {
+     "protectedVeteran": false,
+     "veteranStatusNotSpecified": true,
      "perPaySalary": "0.0",
      "assignedManager.employeeName": "Maria",
+     "organizations[0].id": 90021,
+     "organizations[0].organizationId": 9943,
+     "organizations[0].displayOrder": 1,
+     "organizations[1].id": 90022,
+     "organizations[1].organizationId": 9944,
+     "organizations[1].displayOrder": 2,
      "taxes.federal.filingStatus": "Single",
      "taxes.federal.primaryExemptions": 0,
      "payItems[2].id": -3,
@@ -400,6 +574,27 @@
      "payItems[2].startDate": "2025-01-01T00:00:00",
      "payItems[2].calcParams[0].paramType": "Amount",
      "payItems[2].calcParams[0].paramValue": "0.0",
+     "veteranStatus.activeWartimeOrCampaignBadgeVeteran": false,
+     "veteranStatus.disabledVeteran": false,
+     "veteranStatus.serviceMedalVeteran": false,
+     "categories[0].employmentCategory.id": 2,
+     "categories[0].employmentCategory.acaEmploymentStatus": "ACA Full Time",
+     "categories[0].employmentId": 90020,
+     "categories[0].fullTimeEquivalent": "0.5",
+     "categories[0].statutoryEmployee": false,
+     "categories[0].highlyCompensated": false,
+     "jobs[0].clientJob.id": 31,
+     "jobs[0].clientJob.eeoCategory": "Service Workers",
+     "jobs[0].clientJob.isFLSAExempt": false,
+     "jobs[0].clientJob.isUnion": false,
+     "jobs[0].manager.firstName": "Maria",
+     "jobs[0].manager.lastName": "Example",
+     "jobs[0].supervisor.firstName": "Devon",
+     "jobs[0].supervisor.lastName": "Example",
+     "jobs[0].organizations[0].clientOrganizationField.id": 9944,
+     "jobs[0].changeReason.id": 3,
+     "jobs[0].isWorkersCompExempt": false,
+     "jobs[0].compaRatio": "1.00",
      "salaries[0].perPaySalary": "0.0",
      "salaries[0].isInactive": false,
      "salaries[0].frequency.id": 52,
@@ -410,10 +605,17 @@
      "salaries[0].changeReason.id": 1,
      "statuses[0].statusId": -1,
      "statuses[0].clientEmploymentStatusId": -1,
-     "statuses[0].effectiveDate": "2023-06-01T00:00:00",
      "statuses[0].employeeEmploymentId": 90020
     },
-    "diagnostics": [],
+    "diagnostics": [
+     {
+      "code": "UNMAPPED_CODE",
+      "severity": "warning",
+      "field": "veteranStatus.veteranStatus",
+      "message": "no documented values",
+      "raw": "NoAnswer"
+     }
+    ],
     "company_id": "isolved:synthetic:company:501:601",
     "identifiers": [
      {
@@ -461,6 +663,12 @@
       "label": "Married",
       "source_field": "maritalStatus"
      },
+     "veteran": {
+      "value": "UNMAPPED",
+      "raw": "NoAnswer",
+      "label": "NoAnswer",
+      "source_field": "veteranStatus.veteranStatus"
+     },
      "disabled": {
       "value": "NO",
       "raw": false,
@@ -472,7 +680,7 @@
       "label": "Citizen of the United States",
       "source_field": "citizenship"
      },
-     "emergency_contacts": []
+     "contacts": []
     },
     "addresses": [
      {
@@ -515,7 +723,32 @@
      "original_hire_date": "2021-03-15",
      "hire_date": "2021-03-15",
      "flsa_exempt": false,
-     "employer_ids": []
+     "employer_ids": [],
+     "history": [
+      {
+       "kind": "STATUS",
+       "effective_date": "2023-06-01",
+       "status": {
+        "value": "ACTIVE",
+        "raw": "Active",
+        "label": "Active",
+        "source_field": "statuses[0].clientEmploymentStatusDescription"
+       },
+       "source_field": "statuses[0]"
+      },
+      {
+       "kind": "CATEGORY",
+       "source_id": "900208",
+       "effective_date": "2021-03-15",
+       "employment_type": {
+        "value": "UNMAPPED",
+        "raw": "PT",
+        "label": "Part Time",
+        "source_field": "categories[0].employmentCategory.code"
+       },
+       "source_field": "categories[0]"
+      }
+     ]
     },
     "job": {
      "title": "Baker",
@@ -525,7 +758,48 @@
       "name": "CHARLOTTE, NC"
      },
      "manager_employee_id": "isolved:synthetic:employee:9001",
-     "pay_group": "Weekly"
+     "pay_group": "Weekly",
+     "org_units": [
+      {
+       "dimension": "Location",
+       "code": "CLT",
+       "name": "Charlotte",
+       "path": [],
+       "source_field": "organizations[0]"
+      },
+      {
+       "dimension": "Department",
+       "code": "LOG",
+       "name": "Logistics",
+       "path": [],
+       "source_field": "organizations[1]"
+      }
+     ],
+     "history": [
+      {
+       "source_id": "900207",
+       "effective_date": "2021-03-15",
+       "title": "Baker",
+       "job_code": "BAKER",
+       "org_units": [
+        {
+         "dimension": "Department",
+         "code": "LOG",
+         "path": [],
+         "source_field": "jobs[0].organizations[0]"
+        }
+       ],
+       "manager_employee_id": "isolved:synthetic:employee:9001",
+       "supervisor_employee_id": "isolved:synthetic:employee:9004",
+       "reason": {
+        "value": "UNMAPPED",
+        "raw": "NH",
+        "label": "New Hire",
+        "source_field": "jobs[0].changeReason.code"
+       },
+       "source_field": "jobs[0]"
+      }
+     ]
     },
     "compensation": {
      "pay_type": {
@@ -603,6 +877,8 @@
      "tenant_id": "synthetic",
      "endpoints": [
       "api/clients/{client}/legals/{legal}/employees/{id}",
+      "api/clients/{client}/legals/{legal}/employees/{id}/categories",
+      "api/clients/{client}/legals/{legal}/employees/{id}/jobs",
       "api/clients/{client}/legals/{legal}/employees/{id}/salaries",
       "api/clients/{client}/legals/{legal}/employees/{id}/statuses"
      ],
@@ -613,9 +889,17 @@
      }
     },
     "provider_extensions": {
+     "protectedVeteran": false,
+     "veteranStatusNotSpecified": false,
      "terminationType": "Voluntary Termination",
      "perPaySalary": "0.0",
      "assignedManager.employeeName": "Maria",
+     "organizations[0].id": 90031,
+     "organizations[0].organizationId": 9943,
+     "organizations[0].displayOrder": 1,
+     "organizations[1].id": 90032,
+     "organizations[1].organizationId": 9944,
+     "organizations[1].displayOrder": 2,
      "taxes.federal.filingStatus": "Single",
      "taxes.federal.primaryExemptions": 0,
      "payItems[0].id": -1,
@@ -625,6 +909,22 @@
      "payItems[0].startDate": "2025-01-01T00:00:00",
      "payItems[0].calcParams[0].paramType": "Amount",
      "payItems[0].calcParams[0].paramValue": "0.0",
+     "categories[0].employmentCategory.id": 1,
+     "categories[0].employmentCategory.acaEmploymentStatus": "ACA Full Time",
+     "categories[0].employmentId": 90030,
+     "categories[0].fullTimeEquivalent": "1.0",
+     "categories[0].statutoryEmployee": false,
+     "categories[0].highlyCompensated": false,
+     "jobs[0].clientJob.id": 31,
+     "jobs[0].clientJob.eeoCategory": "Service Workers",
+     "jobs[0].clientJob.isFLSAExempt": false,
+     "jobs[0].clientJob.isUnion": false,
+     "jobs[0].manager.firstName": "Maria",
+     "jobs[0].manager.lastName": "Example",
+     "jobs[0].organizations[0].clientOrganizationField.id": 9944,
+     "jobs[0].changeReason.id": 3,
+     "jobs[0].isWorkersCompExempt": false,
+     "jobs[0].compaRatio": "1.00",
      "salaries[0].perPaySalary": "0.0",
      "salaries[0].isInactive": false,
      "salaries[0].frequency.id": 26,
@@ -635,7 +935,6 @@
      "salaries[0].changeReason.id": 1,
      "statuses[0].statusId": -1,
      "statuses[0].clientEmploymentStatusId": -1,
-     "statuses[0].effectiveDate": "2026-09-30T00:00:00",
      "statuses[0].employeeEmploymentId": 90030
     },
     "diagnostics": [],
@@ -687,9 +986,10 @@
       "source_field": "maritalStatus"
      },
      "disabled": {
-      "value": "NO",
-      "raw": false,
-      "source_field": "disabled"
+      "value": "DECLINED",
+      "raw": "Chose not to answer",
+      "label": "Chose not to answer",
+      "source_field": "disabilityDescription"
      },
      "citizenship": {
       "value": "US_CITIZEN",
@@ -697,7 +997,7 @@
       "label": "Citizen of the United States",
       "source_field": "citizenship"
      },
-     "emergency_contacts": []
+     "contacts": []
     },
     "addresses": [
      {
@@ -747,7 +1047,32 @@
       "source_field": "terminationReason"
      },
      "flsa_exempt": false,
-     "employer_ids": []
+     "employer_ids": [],
+     "history": [
+      {
+       "kind": "STATUS",
+       "effective_date": "2026-09-30",
+       "status": {
+        "value": "TERMINATED",
+        "raw": "Terminated",
+        "label": "Terminated",
+        "source_field": "statuses[0].clientEmploymentStatusDescription"
+       },
+       "source_field": "statuses[0]"
+      },
+      {
+       "kind": "CATEGORY",
+       "source_id": "900308",
+       "effective_date": "2021-03-15",
+       "employment_type": {
+        "value": "UNMAPPED",
+        "raw": "FT",
+        "label": "Full Time",
+        "source_field": "categories[0].employmentCategory.code"
+       },
+       "source_field": "categories[0]"
+      }
+     ]
     },
     "job": {
      "title": "Baker",
@@ -757,7 +1082,47 @@
       "name": "CHARLOTTE, NC"
      },
      "manager_employee_id": "isolved:synthetic:employee:9001",
-     "pay_group": "Biweekly"
+     "pay_group": "Biweekly",
+     "org_units": [
+      {
+       "dimension": "Location",
+       "code": "CLT",
+       "name": "Charlotte",
+       "path": [],
+       "source_field": "organizations[0]"
+      },
+      {
+       "dimension": "Department",
+       "code": "PROD",
+       "name": "Production",
+       "path": [],
+       "source_field": "organizations[1]"
+      }
+     ],
+     "history": [
+      {
+       "source_id": "900307",
+       "effective_date": "2021-03-15",
+       "title": "Baker",
+       "job_code": "BAKER",
+       "org_units": [
+        {
+         "dimension": "Department",
+         "code": "PROD",
+         "path": [],
+         "source_field": "jobs[0].organizations[0]"
+        }
+       ],
+       "manager_employee_id": "isolved:synthetic:employee:9001",
+       "reason": {
+        "value": "UNMAPPED",
+        "raw": "NH",
+        "label": "New Hire",
+        "source_field": "jobs[0].changeReason.code"
+       },
+       "source_field": "jobs[0]"
+      }
+     ]
     },
     "compensation": {
      "pay_type": {
@@ -835,6 +1200,8 @@
      "tenant_id": "synthetic",
      "endpoints": [
       "api/clients/{client}/legals/{legal}/employees/{id}",
+      "api/clients/{client}/legals/{legal}/employees/{id}/categories",
+      "api/clients/{client}/legals/{legal}/employees/{id}/jobs",
       "api/clients/{client}/legals/{legal}/employees/{id}/salaries",
       "api/clients/{client}/legals/{legal}/employees/{id}/statuses"
      ],
@@ -845,7 +1212,14 @@
      }
     },
     "provider_extensions": {
+     "veteranStatusNotSpecified": false,
      "assignedManager.employeeName": "Maria",
+     "organizations[0].id": 90041,
+     "organizations[0].organizationId": 9943,
+     "organizations[0].displayOrder": 1,
+     "organizations[1].id": 90042,
+     "organizations[1].organizationId": 9944,
+     "organizations[1].displayOrder": 2,
      "taxes.federal.filingStatus": "Single",
      "taxes.federal.primaryExemptions": 0,
      "payItems[0].id": -1,
@@ -855,6 +1229,22 @@
      "payItems[0].startDate": "2025-01-01T00:00:00",
      "payItems[0].calcParams[0].paramType": "Amount",
      "payItems[0].calcParams[0].paramValue": "0.0",
+     "categories[0].employmentCategory.id": 1,
+     "categories[0].employmentCategory.acaEmploymentStatus": "ACA Full Time",
+     "categories[0].employmentId": 90040,
+     "categories[0].fullTimeEquivalent": "1.0",
+     "categories[0].statutoryEmployee": false,
+     "categories[0].highlyCompensated": false,
+     "jobs[0].clientJob.id": 31,
+     "jobs[0].clientJob.eeoCategory": "Service Workers",
+     "jobs[0].clientJob.isFLSAExempt": true,
+     "jobs[0].clientJob.isUnion": false,
+     "jobs[0].manager.firstName": "Maria",
+     "jobs[0].manager.lastName": "Example",
+     "jobs[0].organizations[0].clientOrganizationField.id": 9944,
+     "jobs[0].changeReason.id": 3,
+     "jobs[0].isWorkersCompExempt": false,
+     "jobs[0].compaRatio": "1.00",
      "salaries[0].isInactive": false,
      "salaries[0].frequency.id": 26,
      "salaries[0].frequency.description": "Bi-Weekly",
@@ -864,8 +1254,6 @@
      "salaries[0].changeReason.id": 1,
      "statuses[0].statusId": 55,
      "statuses[0].clientEmploymentStatusId": 55,
-     "statuses[0].clientEmploymentStatusDescription": "Leave - FMLA",
-     "statuses[0].effectiveDate": "2026-08-01T00:00:00",
      "statuses[0].employeeEmploymentId": 90040
     },
     "diagnostics": [
@@ -918,6 +1306,11 @@
       "label": "Single",
       "source_field": "maritalStatus"
      },
+     "veteran": {
+      "value": "YES",
+      "raw": true,
+      "source_field": "protectedVeteran"
+     },
      "disabled": {
       "value": "NO",
       "raw": false,
@@ -929,7 +1322,7 @@
       "label": "Citizen of the United States",
       "source_field": "citizenship"
      },
-     "emergency_contacts": []
+     "contacts": []
     },
     "addresses": [
      {
@@ -972,7 +1365,32 @@
      "original_hire_date": "2021-03-15",
      "hire_date": "2021-03-15",
      "flsa_exempt": true,
-     "employer_ids": []
+     "employer_ids": [],
+     "history": [
+      {
+       "kind": "STATUS",
+       "effective_date": "2026-08-01",
+       "status": {
+        "value": "UNMAPPED",
+        "raw": "Leave - FMLA",
+        "label": "Leave - FMLA",
+        "source_field": "statuses[0].clientEmploymentStatusDescription"
+       },
+       "source_field": "statuses[0]"
+      },
+      {
+       "kind": "CATEGORY",
+       "source_id": "900408",
+       "effective_date": "2021-03-15",
+       "employment_type": {
+        "value": "UNMAPPED",
+        "raw": "FT",
+        "label": "Full Time",
+        "source_field": "categories[0].employmentCategory.code"
+       },
+       "source_field": "categories[0]"
+      }
+     ]
     },
     "job": {
      "title": "Baker",
@@ -982,7 +1400,47 @@
       "name": "CHARLOTTE, NC"
      },
      "manager_employee_id": "isolved:synthetic:employee:9001",
-     "pay_group": "Biweekly"
+     "pay_group": "Biweekly",
+     "org_units": [
+      {
+       "dimension": "Location",
+       "code": "CLT",
+       "name": "Charlotte",
+       "path": [],
+       "source_field": "organizations[0]"
+      },
+      {
+       "dimension": "Department",
+       "code": "PROD",
+       "name": "Production",
+       "path": [],
+       "source_field": "organizations[1]"
+      }
+     ],
+     "history": [
+      {
+       "source_id": "900407",
+       "effective_date": "2021-03-15",
+       "title": "Baker",
+       "job_code": "BAKER",
+       "org_units": [
+        {
+         "dimension": "Department",
+         "code": "PROD",
+         "path": [],
+         "source_field": "jobs[0].organizations[0]"
+        }
+       ],
+       "manager_employee_id": "isolved:synthetic:employee:9001",
+       "reason": {
+        "value": "UNMAPPED",
+        "raw": "NH",
+        "label": "New Hire",
+        "source_field": "jobs[0].changeReason.code"
+       },
+       "source_field": "jobs[0]"
+      }
+     ]
     },
     "compensation": {
      "pay_type": {
@@ -1074,6 +1532,7 @@
      "tenant_id": "synthetic",
      "endpoints": [
       "api/clients/{client}/legals/{legal}/employees/{id}",
+      "api/clients/{client}/legals/{legal}/employees/{id}/categories",
       "api/clients/{client}/legals/{legal}/employees/{id}/salaries",
       "api/clients/{client}/legals/{legal}/employees/{id}/statuses"
      ],
@@ -1084,8 +1543,16 @@
      }
     },
     "provider_extensions": {
+     "protectedVeteran": false,
+     "veteranStatusNotSpecified": false,
      "perPaySalary": "0.0",
      "assignedManager.employeeName": "Maria",
+     "organizations[0].id": 90051,
+     "organizations[0].organizationId": 9943,
+     "organizations[0].displayOrder": 1,
+     "organizations[1].id": 90052,
+     "organizations[1].organizationId": 9944,
+     "organizations[1].displayOrder": 2,
      "payItems[0].id": -1,
      "payItems[0].payItemId": -1,
      "payItems[0].payItemName": "Regular",
@@ -1093,6 +1560,12 @@
      "payItems[0].startDate": "2025-01-01T00:00:00",
      "payItems[0].calcParams[0].paramType": "Amount",
      "payItems[0].calcParams[0].paramValue": "0.0",
+     "categories[0].employmentCategory.id": 1,
+     "categories[0].employmentCategory.acaEmploymentStatus": "ACA Full Time",
+     "categories[0].employmentId": 90050,
+     "categories[0].fullTimeEquivalent": "1.0",
+     "categories[0].statutoryEmployee": false,
+     "categories[0].highlyCompensated": false,
      "salaries[0].perPaySalary": "0.0",
      "salaries[0].isInactive": false,
      "salaries[0].frequency.id": 52,
@@ -1103,7 +1576,6 @@
      "salaries[0].changeReason.id": 1,
      "statuses[0].statusId": -1,
      "statuses[0].clientEmploymentStatusId": -1,
-     "statuses[0].effectiveDate": "2026-05-01T00:00:00",
      "statuses[0].employeeEmploymentId": 90050
     },
     "diagnostics": [],
@@ -1165,7 +1637,7 @@
       "label": "Citizen of the United States",
       "source_field": "citizenship"
      },
-     "emergency_contacts": []
+     "contacts": []
     },
     "addresses": [
      {
@@ -1213,7 +1685,32 @@
      "original_hire_date": "2021-03-15",
      "hire_date": "2021-03-15",
      "flsa_exempt": false,
-     "employer_ids": []
+     "employer_ids": [],
+     "history": [
+      {
+       "kind": "STATUS",
+       "effective_date": "2026-05-01",
+       "status": {
+        "value": "ACTIVE",
+        "raw": "Active",
+        "label": "Active",
+        "source_field": "statuses[0].clientEmploymentStatusDescription"
+       },
+       "source_field": "statuses[0]"
+      },
+      {
+       "kind": "CATEGORY",
+       "source_id": "900508",
+       "effective_date": "2021-03-15",
+       "employment_type": {
+        "value": "UNMAPPED",
+        "raw": "FT",
+        "label": "Full Time",
+        "source_field": "categories[0].employmentCategory.code"
+       },
+       "source_field": "categories[0]"
+      }
+     ]
     },
     "job": {
      "title": "Baker",
@@ -1223,7 +1720,24 @@
       "name": "CHARLOTTE, NC"
      },
      "manager_employee_id": "isolved:synthetic:employee:9001",
-     "pay_group": "Weekly"
+     "pay_group": "Weekly",
+     "org_units": [
+      {
+       "dimension": "Location",
+       "code": "CLT",
+       "name": "Charlotte",
+       "path": [],
+       "source_field": "organizations[0]"
+      },
+      {
+       "dimension": "Department",
+       "code": "LOG",
+       "name": "Logistics",
+       "path": [],
+       "source_field": "organizations[1]"
+      }
+     ],
+     "history": []
     },
     "compensation": {
      "pay_type": {

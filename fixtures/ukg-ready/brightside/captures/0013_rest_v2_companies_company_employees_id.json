@@ -1,0 +1,82 @@
+{
+  "seq": 13,
+  "endpoint": "rest/v2/companies/{company}/employees/{id}",
+  "path": "rest/v2/companies/7001/employees/5001",
+  "params": {},
+  "status": 200,
+  "body": {
+    "cost_centers_info": {
+      "defaults": [
+        {
+          "index": 0,
+          "value": {
+            "id": 6102
+          }
+        },
+        {
+          "index": 2,
+          "value": {
+            "id": 6202
+          }
+        }
+      ]
+    },
+    "use_separate_mailing_address": true,
+    "mailing_address": {
+      "address_line_1": "PO Box 77",
+      "city": "Charlotte",
+      "state": "NC",
+      "zip": "28201",
+      "country": null
+    },
+    "secondary_email": "maria.lopez@example.com",
+    "id": 5001,
+    "employee_id": "1001",
+    "username": "mlopez",
+    "first_name": "Maria",
+    "last_name": "Lopez",
+    "primary_account_id": 5001,
+    "ein_name": "Brightside Bakery LLC",
+    "ein": {
+      "id": 801
+    },
+    "status": "Active",
+    "locked": false,
+    "social_security": "900-10-6781",
+    "national_id_numbers": [
+      {
+        "type": "SSN",
+        "value": "900-10-6781",
+        "primary": true
+      },
+      {
+        "type": "OTHER_1",
+        "value": "A1234567",
+        "primary": false
+      }
+    ],
+    "address": {
+      "address_line_1": "101 Market St",
+      "city": "Charlotte",
+      "state": "NC",
+      "zip": "28202",
+      "country": "USA"
+    },
+    "dates": {
+      "hired": "2019-08-05",
+      "started": "2019-08-05",
+      "birthday": "1990-04-12"
+    },
+    "phones": {
+      "cell_phone": "704-555-0100",
+      "preferred_phone": "CELL"
+    },
+    "primary_email": "maria@brightside.example",
+    "managers": [],
+    "timezone": "America/New_York",
+    "photo_href": "https://example.invalid/photos/5001?sig=not-a-real-token",
+    "_links": {
+      "self": "https://example.invalid/ta/rest/v2/companies/7001/employees/5001"
+    }
+  }
+}

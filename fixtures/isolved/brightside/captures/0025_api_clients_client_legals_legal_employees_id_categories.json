@@ -1,0 +1,23 @@
+{
+  "seq": 25,
+  "endpoint": "api/clients/{client}/legals/{legal}/employees/{id}/categories",
+  "path": "api/clients/501/legals/601/employees/9002/categories",
+  "params": {},
+  "status": 200,
+  "body": [
+    {
+      "id": 900208,
+      "effectiveDate": "2021-03-15T00:00:00",
+      "employmentCategory": {
+        "id": 2,
+        "code": "PT",
+        "description": "Part Time",
+        "acaEmploymentStatus": "ACA Full Time"
+      },
+      "employmentId": 90020,
+      "fullTimeEquivalent": 0.5,
+      "statutoryEmployee": false,
+      "highlyCompensated": false
+    }
+  ]
+}

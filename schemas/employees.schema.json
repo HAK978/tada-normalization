@@ -786,6 +786,187 @@
    "title": "CompensationChange",
    "type": "object"
   },
+  "Contact": {
+   "additionalProperties": false,
+   "description": "Someone the employee lists: an emergency contact, a dependent or a beneficiary (A-77).",
+   "properties": {
+    "active": {
+     "anyOf": [
+      {
+       "type": "boolean"
+      },
+      {
+       "type": "null"
+      }
+     ],
+     "default": null,
+     "title": "Active"
+    },
+    "address": {
+     "anyOf": [
+      {
+       "$ref": "#/$defs/Address"
+      },
+      {
+       "type": "null"
+      }
+     ],
+     "default": null
+    },
+    "birth_date": {
+     "anyOf": [
+      {
+       "format": "date",
+       "type": "string"
+      },
+      {
+       "type": "null"
+      }
+     ],
+     "default": null,
+     "title": "Birth Date"
+    },
+    "contact_info": {
+     "anyOf": [
+      {
+       "type": "string"
+      },
+      {
+       "type": "null"
+      }
+     ],
+     "default": null,
+     "title": "Contact Info"
+    },
+    "contact_type": {
+     "anyOf": [
+      {
+       "type": "string"
+      },
+      {
+       "type": "null"
+      }
+     ],
+     "default": null,
+     "title": "Contact Type"
+    },
+    "emails": {
+     "items": {
+      "$ref": "#/$defs/Email"
+     },
+     "title": "Emails",
+     "type": "array"
+    },
+    "full_name": {
+     "anyOf": [
+      {
+       "type": "string"
+      },
+      {
+       "type": "null"
+      }
+     ],
+     "default": null,
+     "title": "Full Name"
+    },
+    "name": {
+     "$ref": "#/$defs/PersonName"
+    },
+    "phones": {
+     "items": {
+      "$ref": "#/$defs/Phone"
+     },
+     "title": "Phones",
+     "type": "array"
+    },
+    "primary": {
+     "anyOf": [
+      {
+       "type": "boolean"
+      },
+      {
+       "type": "null"
+      }
+     ],
+     "default": null,
+     "title": "Primary"
+    },
+    "priority": {
+     "anyOf": [
+      {
+       "type": "integer"
+      },
+      {
+       "type": "null"
+      }
+     ],
+     "default": null,
+     "title": "Priority"
+    },
+    "relationship": {
+     "anyOf": [
+      {
+       "type": "string"
+      },
+      {
+       "type": "null"
+      }
+     ],
+     "default": null,
+     "title": "Relationship"
+    },
+    "relationship_code": {
+     "anyOf": [
+      {
+       "type": "string"
+      },
+      {
+       "type": "null"
+      }
+     ],
+     "default": null,
+     "title": "Relationship Code"
+    },
+    "roles": {
+     "items": {
+      "$ref": "#/$defs/ContactRole"
+     },
+     "title": "Roles",
+     "type": "array"
+    },
+    "source_field": {
+     "title": "Source Field",
+     "type": "string"
+    },
+    "source_id": {
+     "anyOf": [
+      {
+       "type": "string"
+      },
+      {
+       "type": "null"
+      }
+     ],
+     "default": null,
+     "title": "Source Id"
+    }
+   },
+   "required": [
+    "source_field"
+   ],
+   "title": "Contact",
+   "type": "object"
+  },
+  "ContactRole": {
+   "description": "Why the employee lists a person; one person can have several roles (A-77).",
+   "enum": [
+    "EMERGENCY",
+    "DEPENDENT",
+    "BENEFICIARY"
+   ],
+   "title": "ContactRole",
+   "type": "string"
+  },
   "Diagnostic": {
    "additionalProperties": false,
    "properties": {
@@ -862,65 +1043,11 @@
     "PERSONAL",
     "WORK",
     "BENEFITS",
-    "MAIN"
+    "MAIN",
+    "SECONDARY"
    ],
    "title": "EmailType",
    "type": "string"
-  },
-  "EmergencyContact": {
-   "additionalProperties": false,
-   "properties": {
-    "contact_info": {
-     "anyOf": [
-      {
-       "type": "string"
-      },
-      {
-       "type": "null"
-      }
-     ],
-     "default": null,
-     "title": "Contact Info"
-    },
-    "contact_type": {
-     "anyOf": [
-      {
-       "type": "string"
-      },
-      {
-       "type": "null"
-      }
-     ],
-     "default": null,
-     "title": "Contact Type"
-    },
-    "name": {
-     "anyOf": [
-      {
-       "type": "string"
-      },
-      {
-       "type": "null"
-      }
-     ],
-     "default": null,
-     "title": "Name"
-    },
-    "relationship": {
-     "anyOf": [
-      {
-       "type": "string"
-      },
-      {
-       "type": "null"
-      }
-     ],
-     "default": null,
-     "title": "Relationship"
-    }
-   },
-   "title": "EmergencyContact",
-   "type": "object"
   },
   "Employment": {
    "additionalProperties": false,
@@ -967,6 +1094,13 @@
      ],
      "default": null,
      "title": "Hire Date"
+    },
+    "history": {
+     "items": {
+      "$ref": "#/$defs/EmploymentChange"
+     },
+     "title": "History",
+     "type": "array"
     },
     "last_worked_date": {
      "anyOf": [
@@ -1096,6 +1230,120 @@
    "title": "Employment",
    "type": "object"
   },
+  "EmploymentChange": {
+   "additionalProperties": false,
+   "description": "One row of the provider's employment history (A-76).",
+   "properties": {
+    "effective_date": {
+     "anyOf": [
+      {
+       "format": "date",
+       "type": "string"
+      },
+      {
+       "type": "null"
+      }
+     ],
+     "default": null,
+     "title": "Effective Date"
+    },
+    "employment_type": {
+     "anyOf": [
+      {
+       "$ref": "#/$defs/Coded_EmploymentType_"
+      },
+      {
+       "type": "null"
+      }
+     ],
+     "default": null
+    },
+    "end_date": {
+     "anyOf": [
+      {
+       "format": "date",
+       "type": "string"
+      },
+      {
+       "type": "null"
+      }
+     ],
+     "default": null,
+     "title": "End Date"
+    },
+    "expected_return_date": {
+     "anyOf": [
+      {
+       "format": "date",
+       "type": "string"
+      },
+      {
+       "type": "null"
+      }
+     ],
+     "default": null,
+     "title": "Expected Return Date"
+    },
+    "kind": {
+     "$ref": "#/$defs/EmploymentChangeKind"
+    },
+    "reason": {
+     "anyOf": [
+      {
+       "$ref": "#/$defs/Coded_str_"
+      },
+      {
+       "type": "null"
+      }
+     ],
+     "default": null
+    },
+    "source_field": {
+     "title": "Source Field",
+     "type": "string"
+    },
+    "source_id": {
+     "anyOf": [
+      {
+       "type": "string"
+      },
+      {
+       "type": "null"
+      }
+     ],
+     "default": null,
+     "title": "Source Id"
+    },
+    "status": {
+     "anyOf": [
+      {
+       "$ref": "#/$defs/Coded_EmploymentStatus_"
+      },
+      {
+       "type": "null"
+      }
+     ],
+     "default": null
+    }
+   },
+   "required": [
+    "kind",
+    "source_field"
+   ],
+   "title": "EmploymentChange",
+   "type": "object"
+  },
+  "EmploymentChangeKind": {
+   "description": "What an employment history row records (A-76).",
+   "enum": [
+    "STATUS",
+    "LEAVE",
+    "TERMINATION",
+    "CATEGORY"
+   ],
+   "title": "EmploymentChangeKind",
+   "type": "string"
+  },
   "EmploymentStatus": {
    "enum": [
     "ACTIVE",
@@ -1211,6 +1459,13 @@
      ],
      "default": null
     },
+    "history": {
+     "items": {
+      "$ref": "#/$defs/JobChange"
+     },
+     "title": "History",
+     "type": "array"
+    },
     "job_code": {
      "anyOf": [
       {
@@ -1245,6 +1500,13 @@
      ],
      "default": null,
      "title": "Manager Employee Id"
+    },
+    "org_units": {
+     "items": {
+      "$ref": "#/$defs/OrgAssignment"
+     },
+     "title": "Org Units",
+     "type": "array"
     },
     "pay_group": {
      "anyOf": [
@@ -1295,6 +1557,145 @@
     }
    },
    "title": "Job",
+   "type": "object"
+  },
+  "JobChange": {
+   "additionalProperties": false,
+   "description": "One effective-dated job or organization record from the provider's history (A-76).",
+   "properties": {
+    "department": {
+     "anyOf": [
+      {
+       "$ref": "#/$defs/OrgUnit"
+      },
+      {
+       "type": "null"
+      }
+     ],
+     "default": null
+    },
+    "division": {
+     "anyOf": [
+      {
+       "$ref": "#/$defs/OrgUnit"
+      },
+      {
+       "type": "null"
+      }
+     ],
+     "default": null
+    },
+    "effective_date": {
+     "anyOf": [
+      {
+       "format": "date",
+       "type": "string"
+      },
+      {
+       "type": "null"
+      }
+     ],
+     "default": null,
+     "title": "Effective Date"
+    },
+    "job_code": {
+     "anyOf": [
+      {
+       "type": "string"
+      },
+      {
+       "type": "null"
+      }
+     ],
+     "default": null,
+     "title": "Job Code"
+    },
+    "location": {
+     "anyOf": [
+      {
+       "$ref": "#/$defs/OrgUnit"
+      },
+      {
+       "type": "null"
+      }
+     ],
+     "default": null
+    },
+    "manager_employee_id": {
+     "anyOf": [
+      {
+       "type": "string"
+      },
+      {
+       "type": "null"
+      }
+     ],
+     "default": null,
+     "title": "Manager Employee Id"
+    },
+    "org_units": {
+     "items": {
+      "$ref": "#/$defs/OrgAssignment"
+     },
+     "title": "Org Units",
+     "type": "array"
+    },
+    "reason": {
+     "anyOf": [
+      {
+       "$ref": "#/$defs/Coded_str_"
+      },
+      {
+       "type": "null"
+      }
+     ],
+     "default": null
+    },
+    "source_field": {
+     "title": "Source Field",
+     "type": "string"
+    },
+    "source_id": {
+     "anyOf": [
+      {
+       "type": "string"
+      },
+      {
+       "type": "null"
+      }
+     ],
+     "default": null,
+     "title": "Source Id"
+    },
+    "supervisor_employee_id": {
+     "anyOf": [
+      {
+       "type": "string"
+      },
+      {
+       "type": "null"
+      }
+     ],
+     "default": null,
+     "title": "Supervisor Employee Id"
+    },
+    "title": {
+     "anyOf": [
+      {
+       "type": "string"
+      },
+      {
+       "type": "null"
+      }
+     ],
+     "default": null,
+     "title": "Title"
+    }
+   },
+   "required": [
+    "source_field"
+   ],
+   "title": "JobChange",
    "type": "object"
   },
   "MaritalStatus": {
@@ -1412,6 +1813,64 @@
    ],
    "title": "NationalIdType",
    "type": "string"
+  },
+  "OrgAssignment": {
+   "additionalProperties": false,
+   "description": "One organization dimension the provider places the employee in, in the provider's own terms (A-75).\n\n`dimension` is the provider's name for the dimension (an isolved organization field title, a UKG\ncost-center tree). It is never interpreted: a dimension named \"Department\" is not copied into\n`Job.department`, because the names are customer configuration.",
+   "properties": {
+    "code": {
+     "anyOf": [
+      {
+       "type": "string"
+      },
+      {
+       "type": "null"
+      }
+     ],
+     "default": null,
+     "title": "Code"
+    },
+    "dimension": {
+     "anyOf": [
+      {
+       "type": "string"
+      },
+      {
+       "type": "null"
+      }
+     ],
+     "default": null,
+     "title": "Dimension"
+    },
+    "name": {
+     "anyOf": [
+      {
+       "type": "string"
+      },
+      {
+       "type": "null"
+      }
+     ],
+     "default": null,
+     "title": "Name"
+    },
+    "path": {
+     "items": {
+      "type": "string"
+     },
+     "title": "Path",
+     "type": "array"
+    },
+    "source_field": {
+     "title": "Source Field",
+     "type": "string"
+    }
+   },
+   "required": [
+    "source_field"
+   ],
+   "title": "OrgAssignment",
+   "type": "object"
   },
   "OrgUnit": {
    "additionalProperties": false,
@@ -1584,6 +2043,13 @@
      ],
      "default": null
     },
+    "contacts": {
+     "items": {
+      "$ref": "#/$defs/Contact"
+     },
+     "title": "Contacts",
+     "type": "array"
+    },
     "disabled": {
      "anyOf": [
       {
@@ -1594,13 +2060,6 @@
       }
      ],
      "default": null
-    },
-    "emergency_contacts": {
-     "items": {
-      "$ref": "#/$defs/EmergencyContact"
-     },
-     "title": "Emergency Contacts",
-     "type": "array"
     },
     "ethnicity": {
      "anyOf": [

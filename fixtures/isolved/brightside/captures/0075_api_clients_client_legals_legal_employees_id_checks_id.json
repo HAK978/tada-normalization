@@ -1,0 +1,162 @@
+{
+  "seq": 75,
+  "endpoint": "api/clients/{client}/legals/{legal}/employees/{id}/checks/{id}",
+  "path": "api/clients/501/legals/601/employees/9003/checks/70003",
+  "params": {},
+  "status": 200,
+  "body": {
+    "id": 70003,
+    "checkDate": "2026-10-02T00:00:00",
+    "checkNumber": 70003,
+    "checkSequence": 0,
+    "checkTypeDescription": "Regular",
+    "payrollRunNumber": 1,
+    "payrollRunType": "Regular Payroll",
+    "periodBeginDate": "2026-09-14T00:00:00",
+    "periodEndDate": "2026-09-27T00:00:00",
+    "employeeId": 9003,
+    "employeeNumber": "1003",
+    "employeeName": "Ana Price",
+    "employeeSSN": "XXX-XX-6786",
+    "legalCompanyName": "Brightside Bakery LLC",
+    "grossWages": 1920.0,
+    "grossPay": 1920.0,
+    "netPay": 1504.32,
+    "checkAmount": 0.0,
+    "directDepositAmount": 1504.32,
+    "earnings": [
+      {
+        "itemCode": "Regular",
+        "itemDescription": "Regular",
+        "isMemoEarning": false,
+        "checkHours": 64.0,
+        "checkUnits": null,
+        "checkDollars": 1920.0,
+        "currentDollars": 1920.0,
+        "ptdDollars": 1920.0,
+        "mtdDollars": 1920.0,
+        "qtdDollars": 9600.0,
+        "ytdDollars": 38400.0,
+        "ftdDollars": 38400.0
+      }
+    ],
+    "taxes": [
+      {
+        "itemCode": null,
+        "itemDescription": "FEDERAL WH",
+        "isEmployeeTax": true,
+        "checkTaxableWages": 1920.0,
+        "checkDollars": 192.0,
+        "currentDollars": 192.0,
+        "ptdDollars": 192.0,
+        "mtdDollars": 192.0,
+        "qtdDollars": 960.0,
+        "ytdDollars": 3840.0,
+        "ftdDollars": 3840.0
+      },
+      {
+        "itemCode": null,
+        "itemDescription": "SOC SEC EE",
+        "isEmployeeTax": true,
+        "checkTaxableWages": 1920.0,
+        "checkDollars": 119.04,
+        "currentDollars": 119.04,
+        "ptdDollars": 119.04,
+        "mtdDollars": 119.04,
+        "qtdDollars": 595.2,
+        "ytdDollars": 2380.8,
+        "ftdDollars": 2380.8
+      },
+      {
+        "itemCode": null,
+        "itemDescription": "MED EE",
+        "isEmployeeTax": true,
+        "checkTaxableWages": 1920.0,
+        "checkDollars": 27.84,
+        "currentDollars": 27.84,
+        "ptdDollars": 27.84,
+        "mtdDollars": 27.84,
+        "qtdDollars": 139.2,
+        "ytdDollars": 556.8,
+        "ftdDollars": 556.8
+      },
+      {
+        "itemCode": null,
+        "itemDescription": "NORTH CAROLINA WH",
+        "isEmployeeTax": true,
+        "checkTaxableWages": 1920.0,
+        "checkDollars": 76.8,
+        "currentDollars": 76.8,
+        "ptdDollars": 76.8,
+        "mtdDollars": 76.8,
+        "qtdDollars": 384.0,
+        "ytdDollars": 1536.0,
+        "ftdDollars": 1536.0
+      },
+      {
+        "itemCode": null,
+        "itemDescription": "SOC SEC ER",
+        "isEmployeeTax": false,
+        "checkTaxableWages": 1920.0,
+        "checkDollars": 119.04,
+        "currentDollars": 119.04,
+        "ptdDollars": 119.04,
+        "mtdDollars": 119.04,
+        "qtdDollars": 595.2,
+        "ytdDollars": 2380.8,
+        "ftdDollars": 2380.8
+      },
+      {
+        "itemCode": null,
+        "itemDescription": "MED ER",
+        "isEmployeeTax": false,
+        "checkTaxableWages": 1920.0,
+        "checkDollars": 27.84,
+        "currentDollars": 27.84,
+        "ptdDollars": 27.84,
+        "mtdDollars": 27.84,
+        "qtdDollars": 139.2,
+        "ytdDollars": 556.8,
+        "ftdDollars": 556.8
+      },
+      {
+        "itemCode": null,
+        "itemDescription": "FUTA ER",
+        "isEmployeeTax": false,
+        "checkTaxableWages": 1920.0,
+        "checkDollars": 11.52,
+        "currentDollars": 11.52,
+        "ptdDollars": 11.52,
+        "mtdDollars": 11.52,
+        "qtdDollars": 57.6,
+        "ytdDollars": 230.4,
+        "ftdDollars": 230.4
+      },
+      {
+        "itemCode": null,
+        "itemDescription": "NORTH CAROLINA SUI ER",
+        "isEmployeeTax": false,
+        "checkTaxableWages": 1920.0,
+        "checkDollars": 19.2,
+        "currentDollars": 19.2,
+        "ptdDollars": 19.2,
+        "mtdDollars": 19.2,
+        "qtdDollars": 96.0,
+        "ytdDollars": 384.0,
+        "ftdDollars": 384.0
+      }
+    ],
+    "deductions": [],
+    "garnishments": [],
+    "benefits": [],
+    "directDeposits": [
+      {
+        "account": "XXXXXXXX1111",
+        "depositAmount": 1504.32,
+        "itemDescription": "Savings"
+      }
+    ],
+    "accruals": [],
+    "employeeOrganizations": []
+  }
+}

@@ -9,16 +9,16 @@
    "pay_statements": 8
   },
   "diagnostics": {
-   "warning": 10,
-   "info": 14
+   "info": 15,
+   "warning": 11
   },
   "checks": {
    "pass": 24
   },
   "requests": {
-   "total": 64,
-   "ok": 57,
-   "empty": 0,
+   "total": 90,
+   "ok": 78,
+   "empty": 5,
    "unavailable": 7
   },
   "unavailable": [
@@ -44,6 +44,7 @@
      "provider": "prismhr",
      "tenant_id": "synthetic",
      "endpoints": [
+      "clientMaster/v1/getAllPrismClientContacts",
       "clientMaster/v1/getClientCodes",
       "clientMaster/v1/getClientMaster",
       "clientMaster/v1/getPayrollSchedule"
@@ -76,7 +77,13 @@
      "clientPayrollSchedule[2].weekEndOnDay": "6",
      "clientPayrollSchedule[2].printFaxBack": false,
      "clientPayrollSchedule[2].payDay": "5",
-     "clientPayrollSchedule[2].skipWeekends": true
+     "clientPayrollSchedule[2].skipWeekends": true,
+     "prismClientContactResult.prismClientContact[0].contactAddress": "100 Main St",
+     "prismClientContactResult.prismClientContact[0].contactCity": "Charlotte",
+     "prismClientContactResult.prismClientContact[0].contactState": "NC",
+     "prismClientContactResult.prismClientContact[0].contactZip": "28202",
+     "prismClientContactResult.prismClientContact[0].checksum": "pc-11",
+     "prismClientContactResult.prismClientContact[1].checksum": "pc-12"
     },
     "diagnostics": [
      {
@@ -174,6 +181,40 @@
       "type": "MAIN",
       "address": "payroll@201.example"
      }
+    ],
+    "contacts": [
+     {
+      "source_id": "11",
+      "name": "Robin Example",
+      "title": "Payroll Manager",
+      "contact_type": "PAY",
+      "phones": [
+       {
+        "type": "MAIN",
+        "number": "7045550120",
+        "extension": "12"
+       }
+      ],
+      "emails": [
+       {
+        "type": "MAIN",
+        "address": "payroll@brightside.example"
+       }
+      ]
+     },
+     {
+      "source_id": "12",
+      "name": "Alex Example",
+      "title": "HR Lead",
+      "contact_type": "HR",
+      "phones": [
+       {
+        "type": "MOBILE",
+        "number": "7045550130"
+       }
+      ],
+      "emails": []
+     }
     ]
    },
    {
@@ -250,7 +291,8 @@
       "type": "MAIN",
       "address": "payroll@202.example"
      }
-    ]
+    ],
+    "contacts": []
    }
   ],
   "employees": [
@@ -260,8 +302,12 @@
      "provider": "prismhr",
      "tenant_id": "synthetic",
      "endpoints": [
+      "benefits/v1/getDependents",
+      "employee/v1/checkForGarnishments",
       "employee/v1/getEmployee",
-      "employee/v1/getPayRateHistory"
+      "employee/v1/getHistory",
+      "employee/v1/getPayRateHistory",
+      "payroll/v1/getScheduledPayments"
      ],
      "ids": {
       "clientId": "201",
@@ -281,9 +327,44 @@
      "payRateHistory.payRate[0].changePercent": "0.00",
      "payRateHistory.payRate[0].changeAmount": "0.00",
      "payRateHistory.payRate[1].changePercent": "0.00",
-     "payRateHistory.payRate[1].changeAmount": "0.00"
+     "payRateHistory.payRate[1].changeAmount": "0.00",
+     "dependent[0].relationshipCodeType": "SP",
+     "dependent[0].beneficiaryType": "P",
+     "dependent[0].benefitPercent": "100",
+     "dependent[0].spouse": "Y",
+     "dependent[0].gender": "M",
+     "dependent[0].ssn": "***6789",
+     "dependent[0].statusDate": "2021-04-01",
+     "dependent[1].relationshipCodeType": "CH",
+     "dependent[1].spouse": "N",
+     "dependent[1].birthdate": "****-**-**",
+     "dependent[1].status": "P",
+     "dependent[1].fullTimeStudent": false,
+     "historyRecord[2].type": "payChange",
+     "historyRecord[2].effectiveDate": "2025-01-01",
+     "historyRecord[2].payChange.newPayRate": "2000.00",
+     "historyRecord[2].payChange.payPeriod": "B",
+     "historyRecord[2].payChange.payMethod": "S",
+     "historyRecord[2].payChange.annualPay": "52000.00",
+     "historyRecord[2].payChange.hourlyRate": "25.00",
+     "historyRecord[2].payChange.reason": "Merit",
+     "checkForGarnishments.enrolled": false,
+     "checkForGarnishments.active": false,
+     "scheduledPayment.scheduledPaymentDetail[0].payCode": "BONUS",
+     "scheduledPayment.scheduledPaymentDetail[0].payDesc": "Retention bonus",
+     "scheduledPayment.scheduledPaymentDetail[0].startPayDate": "2026-11-06",
+     "scheduledPayment.scheduledPaymentDetail[0].deductionPeriod": "12345",
+     "scheduledPayment.scheduledPaymentDetail[0].status": "A",
+     "scheduledPayment.scheduledPaymentDetail[0].amount": "150.0"
     },
     "diagnostics": [
+     {
+      "code": "MASKED_AT_SOURCE",
+      "severity": "info",
+      "field": "dependent[1].birthdate",
+      "message": "the provider masked this date; it is kept as sent",
+      "raw": "****-**-**"
+     },
      {
       "code": "UNDOCUMENTED_CODE_EVIDENCED",
       "severity": "info",
@@ -367,12 +448,69 @@
       "source_field": "compensation.citizenshipStatus"
      },
      "preferred_language": "EN",
-     "emergency_contacts": [
+     "contacts": [
       {
-       "name": "Pat Example",
+       "roles": [
+        "EMERGENCY"
+       ],
+       "name": {},
+       "full_name": "Pat Example",
        "relationship": "Sibling",
+       "phones": [],
+       "emails": [],
        "contact_type": "PHONE",
-       "contact_info": "7045550199"
+       "contact_info": "7045550199",
+       "source_field": "person.emergencyContact[0]"
+      },
+      {
+       "source_id": "1",
+       "roles": [
+        "DEPENDENT",
+        "BENEFICIARY"
+       ],
+       "name": {
+        "first": "Sam",
+        "last": "Nair"
+       },
+       "relationship": "Spouse",
+       "relationship_code": "S",
+       "birth_date": "1989-11-20",
+       "phones": [
+        {
+         "type": "HOME",
+         "number": "7045550111"
+        }
+       ],
+       "emails": [
+        {
+         "type": "MAIN",
+         "address": "sam@example.com"
+        }
+       ],
+       "address": {
+        "type": "HOME",
+        "line1": "12 Oak Ave",
+        "city": "Charlotte",
+        "state": "NC",
+        "postal_code": "28202"
+       },
+       "active": true,
+       "source_field": "dependent[0]"
+      },
+      {
+       "source_id": "2",
+       "roles": [
+        "DEPENDENT"
+       ],
+       "name": {
+        "first": "Kai",
+        "last": "Nair"
+       },
+       "relationship": "Child",
+       "relationship_code": "C",
+       "phones": [],
+       "emails": [],
+       "source_field": "dependent[1]"
       }
      ]
     },
@@ -426,7 +564,28 @@
      "start_date": "2021-03-15",
      "seniority_date": "2021-03-15",
      "flsa_exempt": true,
-     "employer_ids": []
+     "employer_ids": [
+      "5"
+     ],
+     "history": [
+      {
+       "kind": "STATUS",
+       "effective_date": "2021-03-15",
+       "status": {
+        "value": "ACTIVE",
+        "raw": "A",
+        "label": "Active",
+        "source_field": "historyRecord[0].statusChange.employeeStatusCode"
+       },
+       "employment_type": {
+        "value": "FULL_TIME",
+        "raw": "FT",
+        "label": "Full Time",
+        "source_field": "historyRecord[0].statusChange.employeeTypeCode"
+       },
+       "source_field": "historyRecord[0]"
+      }
+     ]
     },
     "job": {
      "title": "Baker",
@@ -443,7 +602,17 @@
       "code": "CLT",
       "name": "Charlotte"
      },
-     "pay_group": "BW"
+     "pay_group": "BW",
+     "org_units": [],
+     "history": [
+      {
+       "effective_date": "2021-03-15",
+       "title": "Baker",
+       "job_code": "BAKER",
+       "org_units": [],
+       "source_field": "historyRecord[1]"
+      }
+     ]
     },
     "compensation": {
      "pay_type": {
@@ -582,7 +751,10 @@
      "provider": "prismhr",
      "tenant_id": "synthetic",
      "endpoints": [
+      "benefits/v1/getDependents",
+      "employee/v1/checkForGarnishments",
       "employee/v1/getEmployee",
+      "employee/v1/getHistory",
       "employee/v1/getPayRateHistory"
      ],
      "ids": {
@@ -600,9 +772,30 @@
      "compensation.stateTax[0].filingStatus": "S",
      "compensation.stateTax[0].primaryAllowance": "0",
      "payRateHistory.payRate[0].changePercent": "0.00",
-     "payRateHistory.payRate[0].changeAmount": "0.00"
+     "payRateHistory.payRate[0].changeAmount": "0.00",
+     "dependent[0].beneficiaryType": "C",
+     "dependent[0].benefitPercent": "100",
+     "historyRecord[2].type": "payChange",
+     "historyRecord[2].effectiveDate": "2025-01-01",
+     "historyRecord[2].payChange.newPayRate": "22.50",
+     "historyRecord[2].payChange.payPeriod": "H",
+     "historyRecord[2].payChange.payMethod": "H",
+     "historyRecord[2].payChange.annualPay": "46800.00",
+     "historyRecord[2].payChange.hourlyRate": "22.50",
+     "historyRecord[2].payChange.reason": "Merit",
+     "historyRecord[4].type": "benefitGroupChange",
+     "historyRecord[4].effectiveDate": "2024-01-01",
+     "historyRecord[4].benefitGroupChange.benefitGroupCode": "PT",
+     "checkForGarnishments.enrolled": true,
+     "checkForGarnishments.active": true
     },
     "diagnostics": [
+     {
+      "code": "GARNISHMENTS_NOT_READ",
+      "severity": "warning",
+      "field": "employee/v1/checkForGarnishments",
+      "message": "the employee has garnishments (enrolled and active), but getGarnishmentDetails returned none of them: garnishment elections are missing, not absent (A-83)"
+     },
      {
       "code": "PROVIDER_ANNUALIZED",
       "severity": "info",
@@ -679,12 +872,34 @@
       "source_field": "compensation.citizenshipStatus"
      },
      "preferred_language": "EN",
-     "emergency_contacts": [
+     "contacts": [
       {
-       "name": "Pat Example",
+       "roles": [
+        "EMERGENCY"
+       ],
+       "name": {},
+       "full_name": "Pat Example",
        "relationship": "Sibling",
+       "phones": [],
+       "emails": [],
        "contact_type": "PHONE",
-       "contact_info": "7045550199"
+       "contact_info": "7045550199",
+       "source_field": "person.emergencyContact[0]"
+      },
+      {
+       "source_id": "3",
+       "roles": [
+        "BENEFICIARY"
+       ],
+       "name": {
+        "first": "Lee",
+        "last": "Example"
+       },
+       "relationship_code": "O",
+       "phones": [],
+       "emails": [],
+       "active": true,
+       "source_field": "dependent[0]"
       }
      ]
     },
@@ -738,7 +953,28 @@
      "start_date": "2021-03-15",
      "seniority_date": "2021-03-15",
      "flsa_exempt": false,
-     "employer_ids": []
+     "employer_ids": [
+      "5"
+     ],
+     "history": [
+      {
+       "kind": "STATUS",
+       "effective_date": "2023-06-01",
+       "status": {
+        "value": "ACTIVE",
+        "raw": "A",
+        "label": "Active",
+        "source_field": "historyRecord[0].statusChange.employeeStatusCode"
+       },
+       "employment_type": {
+        "value": "PART_TIME",
+        "raw": "PT",
+        "label": "Part Time",
+        "source_field": "historyRecord[0].statusChange.employeeTypeCode"
+       },
+       "source_field": "historyRecord[0]"
+      }
+     ]
     },
     "job": {
      "title": "Delivery Driver",
@@ -756,7 +992,26 @@
       "name": "Charlotte"
      },
      "manager_employee_id": "prismhr:synthetic:employee:201:E1001",
-     "pay_group": "W"
+     "pay_group": "W",
+     "org_units": [],
+     "history": [
+      {
+       "effective_date": "2023-06-01",
+       "title": "Delivery Driver",
+       "job_code": "DRIVER",
+       "org_units": [],
+       "source_field": "historyRecord[1]"
+      },
+      {
+       "effective_date": "2024-02-01",
+       "department": {
+        "code": "LOG",
+        "name": "Logistics"
+       },
+       "org_units": [],
+       "source_field": "historyRecord[3]"
+      }
+     ]
     },
     "compensation": {
      "pay_type": {
@@ -850,7 +1105,10 @@
      "provider": "prismhr",
      "tenant_id": "synthetic",
      "endpoints": [
+      "benefits/v1/getDependents",
+      "employee/v1/checkForGarnishments",
       "employee/v1/getEmployee",
+      "employee/v1/getHistory",
       "employee/v1/getPayRateHistory"
      ],
      "ids": {
@@ -868,7 +1126,19 @@
      "compensation.stateTax[0].filingStatus": "S",
      "compensation.stateTax[0].primaryAllowance": "0",
      "payRateHistory.payRate[0].changePercent": "0.00",
-     "payRateHistory.payRate[0].changeAmount": "0.00"
+     "payRateHistory.payRate[0].changeAmount": "0.00",
+     "historyRecord[2].type": "payChange",
+     "historyRecord[2].effectiveDate": "2025-01-01",
+     "historyRecord[2].payChange.newPayRate": "30.00",
+     "historyRecord[2].payChange.payPeriod": "H",
+     "historyRecord[2].payChange.payMethod": "H",
+     "historyRecord[2].payChange.annualPay": "62400.00",
+     "historyRecord[2].payChange.hourlyRate": "30.00",
+     "historyRecord[2].payChange.reason": "Merit",
+     "historyRecord[3].termination.rehireOK": "N",
+     "historyRecord[3].termination.explanation": "Relocated",
+     "checkForGarnishments.enrolled": false,
+     "checkForGarnishments.active": false
     },
     "diagnostics": [
      {
@@ -947,12 +1217,19 @@
       "source_field": "compensation.citizenshipStatus"
      },
      "preferred_language": "EN",
-     "emergency_contacts": [
+     "contacts": [
       {
-       "name": "Pat Example",
+       "roles": [
+        "EMERGENCY"
+       ],
+       "name": {},
+       "full_name": "Pat Example",
        "relationship": "Sibling",
+       "phones": [],
+       "emails": [],
        "contact_type": "PHONE",
-       "contact_info": "7045550199"
+       "contact_info": "7045550199",
+       "source_field": "person.emergencyContact[0]"
       }
      ]
     },
@@ -1014,7 +1291,51 @@
       "source_field": "client.termReasonCode"
      },
      "flsa_exempt": false,
-     "employer_ids": []
+     "employer_ids": [
+      "5"
+     ],
+     "history": [
+      {
+       "kind": "STATUS",
+       "effective_date": "2021-03-15",
+       "status": {
+        "value": "ACTIVE",
+        "raw": "A",
+        "label": "Active",
+        "source_field": "historyRecord[0].statusChange.employeeStatusCode"
+       },
+       "employment_type": {
+        "value": "FULL_TIME",
+        "raw": "FT",
+        "label": "Full Time",
+        "source_field": "historyRecord[0].statusChange.employeeTypeCode"
+       },
+       "source_field": "historyRecord[0]"
+      },
+      {
+       "kind": "TERMINATION",
+       "effective_date": "2026-09-30",
+       "status": {
+        "value": "TERMINATED",
+        "raw": "T",
+        "label": "Terminated",
+        "source_field": "historyRecord[3].termination.employeeStatusCode"
+       },
+       "employment_type": {
+        "value": "FULL_TIME",
+        "raw": "FT",
+        "label": "Full Time",
+        "source_field": "historyRecord[3].termination.employeeTypeCode"
+       },
+       "reason": {
+        "value": "UNMAPPED",
+        "raw": "VOL",
+        "label": "Voluntary resignation",
+        "source_field": "historyRecord[3].termination.reason"
+       },
+       "source_field": "historyRecord[3]"
+      }
+     ]
     },
     "job": {
      "title": "Baker",
@@ -1032,7 +1353,17 @@
       "name": "Charlotte"
      },
      "manager_employee_id": "prismhr:synthetic:employee:201:E1001",
-     "pay_group": "BW"
+     "pay_group": "BW",
+     "org_units": [],
+     "history": [
+      {
+       "effective_date": "2021-03-15",
+       "title": "Baker",
+       "job_code": "BAKER",
+       "org_units": [],
+       "source_field": "historyRecord[1]"
+      }
+     ]
     },
     "compensation": {
      "pay_type": {
@@ -1126,7 +1457,10 @@
      "provider": "prismhr",
      "tenant_id": "synthetic",
      "endpoints": [
+      "benefits/v1/getDependents",
+      "employee/v1/checkForGarnishments",
       "employee/v1/getEmployee",
+      "employee/v1/getHistory",
       "employee/v1/getPayRateHistory"
      ],
      "ids": {
@@ -1145,7 +1479,17 @@
      "compensation.stateTax[0].filingStatus": "S",
      "compensation.stateTax[0].primaryAllowance": "0",
      "payRateHistory.payRate[0].changePercent": "0.00",
-     "payRateHistory.payRate[0].changeAmount": "0.00"
+     "payRateHistory.payRate[0].changeAmount": "0.00",
+     "historyRecord[2].type": "payChange",
+     "historyRecord[2].effectiveDate": "2021-03-15",
+     "historyRecord[2].payChange.newPayRate": "5000.00",
+     "historyRecord[2].payChange.payPeriod": "M",
+     "historyRecord[2].payChange.payMethod": "S",
+     "historyRecord[2].payChange.annualPay": "60000.00",
+     "historyRecord[2].payChange.hourlyRate": "28.85",
+     "historyRecord[2].payChange.reason": "Merit",
+     "checkForGarnishments.enrolled": false,
+     "checkForGarnishments.active": false
     },
     "diagnostics": [
      {
@@ -1225,12 +1569,19 @@
       "source_field": "compensation.citizenshipStatus"
      },
      "preferred_language": "EN",
-     "emergency_contacts": [
+     "contacts": [
       {
-       "name": "Pat Example",
+       "roles": [
+        "EMERGENCY"
+       ],
+       "name": {},
+       "full_name": "Pat Example",
        "relationship": "Sibling",
+       "phones": [],
+       "emails": [],
        "contact_type": "PHONE",
-       "contact_info": "7045550199"
+       "contact_info": "7045550199",
+       "source_field": "person.emergencyContact[0]"
       }
      ]
     },
@@ -1284,7 +1635,51 @@
      "start_date": "2021-03-15",
      "seniority_date": "2021-03-15",
      "flsa_exempt": true,
-     "employer_ids": []
+     "employer_ids": [
+      "5"
+     ],
+     "history": [
+      {
+       "kind": "STATUS",
+       "effective_date": "2021-03-15",
+       "status": {
+        "value": "ACTIVE",
+        "raw": "A",
+        "label": "Active",
+        "source_field": "historyRecord[0].statusChange.employeeStatusCode"
+       },
+       "employment_type": {
+        "value": "FULL_TIME",
+        "raw": "FT",
+        "label": "Full Time",
+        "source_field": "historyRecord[0].statusChange.employeeTypeCode"
+       },
+       "source_field": "historyRecord[0]"
+      },
+      {
+       "kind": "LEAVE",
+       "effective_date": "2026-08-01",
+       "status": {
+        "value": "ON_LEAVE",
+        "raw": "L",
+        "label": "Leave of Absence",
+        "source_field": "historyRecord[3].leave.employeeStatusCode"
+       },
+       "employment_type": {
+        "value": "FULL_TIME",
+        "raw": "FT",
+        "label": "Full Time",
+        "source_field": "historyRecord[3].leave.employeeTypeCode"
+       },
+       "reason": {
+        "value": "UNMAPPED",
+        "raw": "MED",
+        "source_field": "historyRecord[3].leave.reason"
+       },
+       "expected_return_date": "2026-11-01",
+       "source_field": "historyRecord[3]"
+      }
+     ]
     },
     "job": {
      "title": "Baker",
@@ -1302,7 +1697,17 @@
       "name": "Charlotte"
      },
      "manager_employee_id": "prismhr:synthetic:employee:201:E1001",
-     "pay_group": "M"
+     "pay_group": "M",
+     "org_units": [],
+     "history": [
+      {
+       "effective_date": "2021-03-15",
+       "title": "Baker",
+       "job_code": "BAKER",
+       "org_units": [],
+       "source_field": "historyRecord[1]"
+      }
+     ]
     },
     "compensation": {
      "pay_type": {
@@ -1402,7 +1807,10 @@
      "provider": "prismhr",
      "tenant_id": "synthetic",
      "endpoints": [
+      "benefits/v1/getDependents",
+      "employee/v1/checkForGarnishments",
       "employee/v1/getEmployee",
+      "employee/v1/getHistory",
       "employee/v1/getPayRateHistory"
      ],
      "ids": {
@@ -1420,7 +1828,17 @@
      "compensation.stateTax[0].filingStatus": "S",
      "compensation.stateTax[0].primaryAllowance": "0",
      "payRateHistory.payRate[0].changePercent": "0.00",
-     "payRateHistory.payRate[0].changeAmount": "0.00"
+     "payRateHistory.payRate[0].changeAmount": "0.00",
+     "historyRecord[2].type": "payChange",
+     "historyRecord[2].effectiveDate": "2025-01-01",
+     "historyRecord[2].payChange.newPayRate": "40.00",
+     "historyRecord[2].payChange.payPeriod": "H",
+     "historyRecord[2].payChange.payMethod": "H",
+     "historyRecord[2].payChange.annualPay": "83200.00",
+     "historyRecord[2].payChange.hourlyRate": "40.00",
+     "historyRecord[2].payChange.reason": "Merit",
+     "checkForGarnishments.enrolled": false,
+     "checkForGarnishments.active": false
     },
     "diagnostics": [
      {
@@ -1499,12 +1917,19 @@
       "source_field": "compensation.citizenshipStatus"
      },
      "preferred_language": "EN",
-     "emergency_contacts": [
+     "contacts": [
       {
-       "name": "Pat Example",
+       "roles": [
+        "EMERGENCY"
+       ],
+       "name": {},
+       "full_name": "Pat Example",
        "relationship": "Sibling",
+       "phones": [],
+       "emails": [],
        "contact_type": "PHONE",
-       "contact_info": "7045550199"
+       "contact_info": "7045550199",
+       "source_field": "person.emergencyContact[0]"
       }
      ]
     },
@@ -1558,7 +1983,28 @@
      "start_date": "2021-03-15",
      "seniority_date": "2021-03-15",
      "flsa_exempt": false,
-     "employer_ids": []
+     "employer_ids": [
+      "5"
+     ],
+     "history": [
+      {
+       "kind": "STATUS",
+       "effective_date": "2021-03-15",
+       "status": {
+        "value": "ACTIVE",
+        "raw": "A",
+        "label": "Active",
+        "source_field": "historyRecord[0].statusChange.employeeStatusCode"
+       },
+       "employment_type": {
+        "value": "FULL_TIME",
+        "raw": "S",
+        "label": "Seasonal",
+        "source_field": "historyRecord[0].statusChange.employeeTypeCode"
+       },
+       "source_field": "historyRecord[0]"
+      }
+     ]
     },
     "job": {
      "title": "Delivery Driver",
@@ -1576,7 +2022,17 @@
       "name": "Charlotte"
      },
      "manager_employee_id": "prismhr:synthetic:employee:201:E1001",
-     "pay_group": "W"
+     "pay_group": "W",
+     "org_units": [],
+     "history": [
+      {
+       "effective_date": "2021-03-15",
+       "title": "Delivery Driver",
+       "job_code": "DRIVER",
+       "org_units": [],
+       "source_field": "historyRecord[1]"
+      }
+     ]
     },
     "compensation": {
      "pay_type": {
@@ -1670,7 +2126,10 @@
      "provider": "prismhr",
      "tenant_id": "synthetic",
      "endpoints": [
+      "benefits/v1/getDependents",
+      "employee/v1/checkForGarnishments",
       "employee/v1/getEmployee",
+      "employee/v1/getHistory",
       "employee/v1/getPayRateHistory"
      ],
      "ids": {
@@ -1688,7 +2147,17 @@
      "compensation.stateTax[0].filingStatus": "S",
      "compensation.stateTax[0].primaryAllowance": "0",
      "payRateHistory.payRate[0].changePercent": "0.00",
-     "payRateHistory.payRate[0].changeAmount": "0.00"
+     "payRateHistory.payRate[0].changeAmount": "0.00",
+     "historyRecords[2].type": "payChange",
+     "historyRecords[2].effectiveDate": "2025-01-01",
+     "historyRecords[2].payChange.newPayRate": "28.00",
+     "historyRecords[2].payChange.payPeriod": "H",
+     "historyRecords[2].payChange.payMethod": "H",
+     "historyRecords[2].payChange.annualPay": "58240.00",
+     "historyRecords[2].payChange.hourlyRate": "28.00",
+     "historyRecords[2].payChange.reason": "Merit",
+     "checkForGarnishments.enrolled": false,
+     "checkForGarnishments.active": false
     },
     "diagnostics": [
      {
@@ -1767,12 +2236,19 @@
       "source_field": "compensation.citizenshipStatus"
      },
      "preferred_language": "EN",
-     "emergency_contacts": [
+     "contacts": [
       {
-       "name": "Pat Example",
+       "roles": [
+        "EMERGENCY"
+       ],
+       "name": {},
+       "full_name": "Pat Example",
        "relationship": "Sibling",
+       "phones": [],
+       "emails": [],
        "contact_type": "PHONE",
-       "contact_info": "7045550199"
+       "contact_info": "7045550199",
+       "source_field": "person.emergencyContact[0]"
       }
      ]
     },
@@ -1826,7 +2302,28 @@
      "start_date": "2021-03-15",
      "seniority_date": "2021-03-15",
      "flsa_exempt": false,
-     "employer_ids": []
+     "employer_ids": [
+      "202"
+     ],
+     "history": [
+      {
+       "kind": "STATUS",
+       "effective_date": "2021-03-15",
+       "status": {
+        "value": "ACTIVE",
+        "raw": "A",
+        "label": "Active",
+        "source_field": "historyRecords[0].statusChange.employeeStatusCode"
+       },
+       "employment_type": {
+        "value": "FULL_TIME",
+        "raw": "FT",
+        "label": "Full Time",
+        "source_field": "historyRecords[0].statusChange.employeeTypeCode"
+       },
+       "source_field": "historyRecords[0]"
+      }
+     ]
     },
     "job": {
      "title": "Baker",
@@ -1844,7 +2341,17 @@
       "name": "Charlotte"
      },
      "manager_employee_id": "prismhr:synthetic:employee:202:E1001",
-     "pay_group": "BW"
+     "pay_group": "BW",
+     "org_units": [],
+     "history": [
+      {
+       "effective_date": "2021-03-15",
+       "title": "Baker",
+       "job_code": "BAKER",
+       "org_units": [],
+       "source_field": "historyRecords[1]"
+      }
+     ]
     },
     "compensation": {
      "pay_type": {

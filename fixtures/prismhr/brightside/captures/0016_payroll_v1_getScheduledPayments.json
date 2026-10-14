@@ -1,0 +1,31 @@
+{
+  "seq": 16,
+  "endpoint": "payroll/v1/getScheduledPayments",
+  "path": "payroll/v1/getScheduledPayments",
+  "params": {
+    "clientId": "201",
+    "employeeId": "E1001"
+  },
+  "status": 200,
+  "body": {
+    "scheduledPayment": {
+      "scheduledPaymentDetail": [
+        {
+          "payCode": "BONUS",
+          "payDesc": "Retention bonus",
+          "startPayDate": "2026-11-06",
+          "endPayDate": null,
+          "deductionPeriod": "12345",
+          "status": "A",
+          "amount": 150.0
+        }
+      ]
+    },
+    "errorCode": "0",
+    "errorMessage": "",
+    "extension": null,
+    "clientId": "201",
+    "employeeId": "E1001",
+    "checksum": "sp-1"
+  }
+}

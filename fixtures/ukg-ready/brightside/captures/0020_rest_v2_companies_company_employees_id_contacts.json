@@ -1,0 +1,42 @@
+{
+  "seq": 20,
+  "endpoint": "rest/v2/companies/{company}/employees/{id}/contacts",
+  "path": "rest/v2/companies/7001/employees/5001/contacts",
+  "params": {},
+  "status": 200,
+  "body": {
+    "contacts": [
+      {
+        "id": 71,
+        "employee": {
+          "account_id": 5001
+        },
+        "primary": true,
+        "emergency": true,
+        "dependent": true,
+        "beneficiary": true,
+        "first_name": "Sam",
+        "last_name": "Lopez",
+        "relationship": "Spouse",
+        "cell_phone": {
+          "number": "704-555-0111",
+          "primary": true
+        },
+        "birthdate": "1989-11-20"
+      },
+      {
+        "id": 72,
+        "employee": {
+          "account_id": 5001
+        },
+        "emergency": false,
+        "dependent": true,
+        "beneficiary": false,
+        "first_name": "Kai",
+        "last_name": "Lopez",
+        "relationship": "Child",
+        "birthdate": "2019-05-04"
+      }
+    ]
+  }
+}

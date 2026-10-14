@@ -22,6 +22,7 @@ from normalization.canonical.records import (
     Company,
     Compensation,
     CompensationChange,
+    Contact,
     ContributionLine,
     DeductionElection,
     DeductionLine,
@@ -32,10 +33,12 @@ from normalization.canonical.records import (
     EmployerRef,
     FrequencyInfo,
     Identifier,
+    OrgAssignment,
     PaymentLine,
     PayrollRun,
     PayStatement,
     PayStatementTotals,
+    PersonName,
     Phone,
     Prenote,
     TaxLine,
@@ -50,6 +53,7 @@ from normalization.canonical.types import (
     Rate,
     Source,
     TaxIdentifier,
+    coded_type,
     company_scope,
 )
 from normalization.output import Output
@@ -64,6 +68,7 @@ from ..common import (
     derived_sum,
     paid_gross,
     tax_type,
+    unmasked_date,
     us_state,
 )
 from . import codes as U
@@ -71,6 +76,15 @@ from . import codes as U
 PROVIDER = "ukg-ready"
 ROOT = "rest/v2/companies/{company}"
 EMP = ROOT + "/employees/{id}"
+# Responses about one employee read into the employee record, besides the employee itself.
+POSITION = ROOT + "/position/assignments/{id}"
+PER_EMPLOYEE = (
+    *(
+        EMP + suffix
+        for suffix in ("/pay-info", "/compensation/history", "/demographics", "/contacts", "/tax-info", "/benefits")
+    ),
+    POSITION,
+)
 RUN = ROOT + "/payrolls/{id}"
 _IDS = re.compile(
     r"rest/v2/companies/(?P<company>[^/]+)"
@@ -79,6 +93,8 @@ _IDS = re.compile(
     r"(?:/pay-statements/(?P<statement>[^/]+))?"
     r"(?:/deductions/(?P<deduction>[^/]+))?"
 )
+# Position Management names the employee's account at the end of its path, not under /employees.
+_POSITION = re.compile(r"rest/v2/companies/[^/]+/position/assignments/(?P<employee>[^/]+)$")
 _TYPE_NAME = re.compile(r"^\s*([^()]*?)\s*(?:\(([^)]*)\))?\s*$")
 # A state tax code: "<tax>:<state>[:<n>]", e.g. SIT:WI, SUTA:WI:2 (A-68)
 _STATE_TAX = re.compile(r"([A-Z_]+):([A-Z]{2})(?::\d+)?")
@@ -92,7 +108,10 @@ PENNY = Decimal("0.01")
 
 def path_ids(capture: Capture) -> dict[str, str]:
     match = _IDS.match(capture.path)
-    return {k: v for k, v in (match.groupdict() if match else {}).items() if v}
+    ids = {k: v for k, v in (match.groupdict() if match else {}).items() if v}
+    if position := _POSITION.match(capture.path):
+        ids["employee"] = position.group("employee")
+    return ids
 
 
 def request_scope(capture: Capture) -> list[tuple[str, dict[str, str]]]:
@@ -174,6 +193,16 @@ class _Company:
             name: {key: row for row in self._rows(f"{ROOT}/lookup/{name}", "items") if (key := text(row.get("id")))}
             for name in ("eins", "pay-types", "employee-types", "jobs")
         }
+        # Cost centers by ID, and each tree's name: its root, which "has only id and name" (A-75).
+        self.cost_centers: dict[str, tuple[str | None, dict]] = {}
+        self.cost_center_trees: dict[str, str | None] = {}
+        for capture in self._captures(f"{ROOT}/config/cost-centers"):
+            tree = text(capture.params.get("tree_index"))
+            for node in self._rows_of(capture, "cost_centers"):
+                if (node_id := text(node.get("id"))) is not None:
+                    self.cost_centers[node_id] = (tree, node)
+                    if text(node.get("parent_id")) is None and tree is not None:
+                        self.cost_center_trees[tree] = text(node.get("name"))
 
     # -------------------------------------------------------------- helpers
 
@@ -200,6 +229,26 @@ class _Company:
             body = capture.body
             rows += (body.get(key) or []) if isinstance(body, dict) else []
         return [r for r in rows if isinstance(r, dict)]
+
+    @staticmethod
+    def _rows_of(capture: Capture, key: str) -> list[dict]:
+        rows = capture.body.get(key) if isinstance(capture.body, dict) else None
+        return [r for r in rows or [] if isinstance(r, dict)]
+
+    def _cost_center_path(self, node_id: str) -> list[str]:
+        """Names from below the tree's root down to the cost center."""
+        names: list[str] = []
+        seen: set[str] = set()
+        current: str | None = node_id
+        while current is not None and current not in seen and current in self.cost_centers:
+            seen.add(current)
+            _, node = self.cost_centers[current]
+            parent = text(node.get("parent_id"))
+            if parent is None:
+                break  # the root is the tree itself: its name is the dimension
+            names.append(text(node.get("name")) or current)
+            current = parent
+        return names[::-1]
 
     def _named(self, lookup: str, ref: Src | None, key: str = "name") -> tuple[str | None, str | None]:
         """(id, name) of a lookup reference such as {"id": 35043008}."""
@@ -325,16 +374,14 @@ class _Company:
         ein_id = text((s.child("ein") or Src({})).get("id"))
         s.mark("ein_name")  # the EIN's name; the company's employers carry it
 
-        address = s.child("address") or Src({})
-        addr = Address(
-            type=C.AddressType.HOME,
-            line1=text(address.get("address_line_1")),
-            line2=text(address.get("address_line_2")),
-            city=text(address.get("city")),
-            state=text(address.first("state_code", "state")),
-            postal_code=text(address.get("zip")),
-            country=text(address.get("country")),
-        )
+        addresses = [
+            a
+            for a in (
+                self._address(C.AddressType.HOME, s.child("address")),
+                self._address(C.AddressType.MAILING, s.child("mailing_address")),
+            )
+            if a
+        ]
         phones_src = s.child("phones") or Src({})
         phones = [
             Phone(type=t, number=n)
@@ -346,6 +393,9 @@ class _Company:
             if n
         ]
         email = text(s.get("primary_email"))
+        # Ranked after primary_email; neither has a stated purpose (A-82).
+        secondary_email = text(s.get("secondary_email"))
+        kept: dict[str, Any] = {}
         managers = sorted(s.children("managers"), key=lambda m: decimal(m.get("index")) or ZERO)
         manager = text(((managers[0].child("empl_ref") or Src({})).get("account_id"))) if managers else None
 
@@ -362,7 +412,7 @@ class _Company:
             company_id=self.company_id,
             legal_entity_id=ein_id,
             source=self._source(
-                [EMP, EMP + "/pay-info", EMP + "/compensation/history"],
+                [EMP] + [e for e in PER_EMPLOYEE if any(True for _ in self._captures(e, employee=employee_id))],
                 companyId=self.cid,
                 accountId=employee_id,
             ),
@@ -374,10 +424,18 @@ class _Company:
                 last=text(s.get("last_name")),
                 preferred=text(s.get("nickname")),
             ),
-            personal=dict(birth_date=iso_date(dates.get("birthday"), "dates.birthday", notes)),
-            addresses=[addr] if any([addr.line1, addr.city, addr.postal_code]) else [],
+            personal=dict(
+                birth_date=iso_date(dates.get("birthday"), "dates.birthday", notes),
+                **self._demographics(employee_id, notes, kept),
+                contacts=self._contacts(employee_id, notes, kept),
+            ),
+            addresses=addresses,
             phones=phones,
-            emails=[Email(type=C.EmailType.MAIN, address=email)] if email else [],
+            emails=[
+                Email(type=t, address=a)
+                for t, a in ((C.EmailType.MAIN, email), (C.EmailType.SECONDARY, secondary_email))
+                if a
+            ],
             employment=dict(
                 status=status,
                 employment_type=unmapped_label(employee_type_id, employee_type, "pay-info.employee_type.id"),
@@ -392,6 +450,7 @@ class _Company:
                 title=job_name,
                 job_code=job_id,
                 manager_employee_id=self._id("employee", manager) if manager else None,
+                org_units=self._org_units(s, notes),
             ),
             compensation=compensation,
             diagnostics=notes.items,
@@ -400,8 +459,111 @@ class _Company:
         extensions = without_links(sanitize_extensions(s.leftovers()))
         extensions.update(without_links(sanitize_extensions(info.leftovers())))
         extensions.update(history_extensions)
+        # Kept unchanged: tax setup, as for the other providers (A-34), benefit plans and position assignments
+        # (A-80).
+        for endpoint, prefix in ((EMP + "/tax-info", "tax-info"), (EMP + "/benefits", ""), (POSITION, "position")):
+            for capture in self._captures(endpoint, employee=employee_id):
+                extensions.update(without_links(sanitize_extensions(Src(capture.body, prefix).leftovers())))
+        extensions.update(kept)
         employee.provider_extensions = extensions
         self.out.add("employees", employee)
+
+    @staticmethod
+    def _address(kind: C.AddressType, a: Src | None) -> Address | None:
+        if a is None:
+            return None
+        address = Address(
+            type=kind,
+            line1=text(a.get("address_line_1")),
+            line2=text(a.get("address_line_2")),
+            city=text(a.get("city")),
+            state=text(a.first("state_code", "state")),
+            postal_code=text(a.get("zip")),
+            country=text(a.get("country")),
+        )
+        return address if any([address.line1, address.city, address.postal_code]) else None
+
+    def _demographics(self, employee_id: str, notes: Notes, kept: dict[str, Any]) -> dict[str, Any]:
+        """Gender, ethnicity and citizenship. UKG documents them as enums without definitions, so they stay
+        UNMAPPED with the value as sent until a mapping file confirms them (A-26, A-79)."""
+        found: dict[str, Any] = {}
+        for capture in self._captures(EMP + "/demographics", employee=employee_id):
+            d = Src(capture.body, "demographics")
+            for field, enum in (("gender", C.Gender), ("citizenship", C.Citizenship)):
+                raw = text(d.get(field))
+                if raw is not None:
+                    notes.warn("UNMAPPED_CODE", f"demographics.{field}", "a documented value with no definition", raw)
+                    found[field] = coded_type(enum)(value=enum.UNMAPPED, raw=raw, source_field=f"demographics.{field}")
+            found["ethnicity"] = unmapped_label(d.get("ethnicity"), None, "demographics.ethnicity")
+            kept.update(without_links(sanitize_extensions(d.leftovers())))
+        return found
+
+    def _contacts(self, employee_id: str, notes: Notes, kept: dict[str, Any]) -> list[Contact]:
+        """Emergency contacts, dependents and beneficiaries (A-77)."""
+        contacts = []
+        for capture in self._captures(EMP + "/contacts", employee=employee_id):
+            body = Src(capture.body)
+            for c in body.children("contacts"):
+                c.mark("employee")  # the employee's own account ID
+                phones = [
+                    Phone(type=t, number=n)
+                    for key, t in (
+                        ("home_phone", C.PhoneType.HOME),
+                        ("cell_phone", C.PhoneType.MOBILE),
+                        ("work_phone", C.PhoneType.WORK),
+                    )
+                    if (n := text((c.child(key) or Src({})).get("number")))
+                ]
+                contacts.append(
+                    Contact(
+                        source_id=text(c.get("id")),
+                        roles=[role for field, role in U.CONTACT_ROLES if flag(c.get(field))],
+                        name=PersonName(
+                            prefix=text(c.get("salutation")),
+                            first=text(c.get("first_name")),
+                            middle=text(c.get("middle_name")),
+                            last=text(c.get("last_name")),
+                            suffix=text(c.get("name_suffix")),
+                        ),
+                        relationship=text(c.get("relationship")),
+                        primary=flag(c.get("primary")),
+                        birth_date=unmasked_date(c, "birthdate", notes),
+                        phones=phones,
+                        source_field=c.path,
+                    )
+                )
+            kept.update(without_links(sanitize_extensions(body.leftovers())))
+        return contacts
+
+    def _org_units(self, s: Src, notes: Notes) -> list[OrgAssignment]:
+        """The employee's default cost centers. Each index is a cost-center tree, named by its root (A-75)."""
+        units = []
+        info = s.child("cost_centers_info")
+        for d in info.children("defaults") if info else []:
+            index = text(d.get("index"))
+            value_id = text((d.child("value") or Src({})).get("id"))
+            if value_id is None:
+                continue
+            tree, node = self.cost_centers.get(value_id, (None, None))
+            if node is None:
+                notes.warn(
+                    "COST_CENTER_UNRESOLVED",
+                    f"{d.path}.value.id",
+                    f"not among the cost centers of tree {index}; kept by ID, without a name",
+                    value_id,
+                )
+            elif tree != index:
+                notes.warn("COST_CENTER_TREE_MISMATCH", f"{d.path}.index", f"the cost center is in tree {tree}", index)
+            units.append(
+                OrgAssignment(
+                    dimension=self.cost_center_trees.get(index or ""),
+                    code=value_id,
+                    name=text(node.get("name")) if node else None,
+                    path=self._cost_center_path(value_id) if node else [],
+                    source_field=f"{d.path}.value.id",
+                )
+            )
+        return units
 
     def _pay_info(self, employee_id: str) -> Src:
         capture = next(self._captures(EMP + "/pay-info", employee=employee_id), None)

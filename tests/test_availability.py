@@ -37,7 +37,8 @@ def test_an_endpoint_the_tenant_lacks_is_reported_on_each_employee_it_would_have
 def test_a_404_the_provider_documents_as_nothing_found_is_an_empty_answer():
     out = normalize(bundle("isolved"))
     requests = out.summary()["requests"]
-    assert (requests["empty"], requests["unavailable"]) == (4, 0)  # e.g. "No employee direct deposits found."
+    # e.g. "No employee direct deposits found.", "No contacts found", "No Employee jobs found."
+    assert (requests["empty"], requests["unavailable"]) == (12, 0)
     assert not any(unavailable(r) for records in out.records.values() for r in records)
 
 

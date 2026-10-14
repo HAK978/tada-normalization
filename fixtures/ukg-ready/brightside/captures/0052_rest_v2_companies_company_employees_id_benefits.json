@@ -1,0 +1,10 @@
+{
+  "seq": 52,
+  "endpoint": "rest/v2/companies/{company}/employees/{id}/benefits",
+  "path": "rest/v2/companies/7001/employees/5004/benefits",
+  "params": {},
+  "status": 200,
+  "body": {
+    "benefits": []
+  }
+}

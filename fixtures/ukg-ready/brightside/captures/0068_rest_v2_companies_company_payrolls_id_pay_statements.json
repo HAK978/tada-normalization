@@ -1,0 +1,62 @@
+{
+  "seq": 68,
+  "endpoint": "rest/v2/companies/{company}/payrolls/{id}/pay-statements",
+  "path": "rest/v2/companies/7001/payrolls/6001/pay-statements",
+  "params": {},
+  "status": 200,
+  "body": {
+    "pay_statements": [
+      {
+        "employee": {
+          "account_id": 5001
+        },
+        "id": 7101,
+        "pay_date": "2026-10-02",
+        "status": "OPEN",
+        "type": {
+          "id": 36656000,
+          "display_name": "Regular"
+        },
+        "pay_period_start": "2026-09-14",
+        "pay_period_end": "2026-09-27",
+        "_links": {
+          "self": "https://example.invalid/ta/rest/v2/companies/7001/payrolls/6001/pay-statements/7101"
+        }
+      },
+      {
+        "employee": {
+          "account_id": 5002
+        },
+        "id": 7102,
+        "pay_date": "2026-10-02",
+        "status": "OPEN",
+        "type": {
+          "id": 36656000,
+          "display_name": "Regular"
+        },
+        "pay_period_start": "2026-09-14",
+        "pay_period_end": "2026-09-27",
+        "_links": {
+          "self": "https://example.invalid/ta/rest/v2/companies/7001/payrolls/6001/pay-statements/7102"
+        }
+      },
+      {
+        "employee": {
+          "account_id": 5004
+        },
+        "id": 7105,
+        "pay_date": "2026-10-02",
+        "status": "OPEN",
+        "type": {
+          "id": 36656000,
+          "display_name": "Regular"
+        },
+        "pay_period_start": "2026-09-14",
+        "pay_period_end": "2026-09-27",
+        "_links": {
+          "self": "https://example.invalid/ta/rest/v2/companies/7001/payrolls/6001/pay-statements/7105"
+        }
+      }
+    ]
+  }
+}

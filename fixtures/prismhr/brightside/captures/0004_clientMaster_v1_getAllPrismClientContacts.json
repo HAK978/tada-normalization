@@ -1,0 +1,40 @@
+{
+  "seq": 4,
+  "endpoint": "clientMaster/v1/getAllPrismClientContacts",
+  "path": "clientMaster/v1/getAllPrismClientContacts",
+  "params": {
+    "clientId": "201"
+  },
+  "status": 200,
+  "body": {
+    "prismClientContactResult": {
+      "prismClientContact": [
+        {
+          "contactId": "11",
+          "contactType": "PAY",
+          "contactName": "Robin Example",
+          "contactTitle": "Payroll Manager",
+          "contactPhone": "7045550120",
+          "contactPhoneExt": "12",
+          "contactEmail": "payroll@brightside.example",
+          "contactAddress": "100 Main St",
+          "contactCity": "Charlotte",
+          "contactState": "NC",
+          "contactZip": "28202",
+          "checksum": "pc-11"
+        },
+        {
+          "contactId": "12",
+          "contactType": "HR",
+          "contactName": "Alex Example",
+          "contactTitle": "HR Lead",
+          "contactCellPhone": "7045550130",
+          "checksum": "pc-12"
+        }
+      ]
+    },
+    "errorCode": "0",
+    "errorMessage": "",
+    "extension": null
+  }
+}

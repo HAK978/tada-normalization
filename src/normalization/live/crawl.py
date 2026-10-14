@@ -108,6 +108,7 @@ def _prismhr(c: ReadOnlyClient, limits: Limits) -> None:
         c.get("clientMaster/v1/getClientCodes", {**base, "options": PRISM_CLIENT_CODE_OPTIONS})
         c.get("clientMaster/v1/getClientCodes", {**base, "options": PRISM_SYSTEM_CODE_OPTIONS})
         c.get("clientMaster/v1/getPayrollSchedule", base)
+        c.get("clientMaster/v1/getAllPrismClientContacts", base)
 
         listing = c.get("employee/v1/getEmployeeList", base)["body"]
         employee_ids = [str(i) for i in (_dig(listing, "employeeList", "employeeId") or [])]
@@ -120,6 +121,11 @@ def _prismhr(c: ReadOnlyClient, limits: Limits) -> None:
         for employee_id in selected:
             person = {**base, "employeeId": employee_id}
             c.get("employee/v1/getPayRateHistory", person)
+            c.get("employee/v1/getHistory", person)
+            c.get("benefits/v1/getDependents", person)
+            # Garnishment details are refused live (A-09); this says whether the employee has any (A-83).
+            c.get("employee/v1/checkForGarnishments", person)
+            c.get("payroll/v1/getScheduledPayments", person)
             c.get("employee/v1/getScheduledDeductions", person)
             c.get("deductions/v1/getDeductions", {**person, "options": ""})
             c.get("deductions/v1/getVoluntaryRecurringDeductions", person)
@@ -185,6 +191,7 @@ def _isolved(c: ReadOnlyClient, limits: Limits) -> None:
         "api/lookup/maritalStatuses",
         "api/lookup/ethnicorigins",
         "api/lookup/citizenships",
+        "api/lookup/ContactRelationshipCodes",
         "api/system/payTypes",
         "api/system/earnings",
     ):
@@ -224,7 +231,18 @@ def _isolved(c: ReadOnlyClient, limits: Limits) -> None:
                     "includeTaxes": "true",
                 },
             )
-            for suffix in ("directdeposits", "salaries", "statuses", "payRates", "payItems", "garnishments"):
+            for suffix in (
+                "directdeposits",
+                "salaries",
+                "statuses",
+                "payRates",
+                "payItems",
+                "garnishments",
+                "jobs",
+                "categories",
+                "contacts",
+                "veteranStatus",
+            ):
                 c.get(f"{person}/{suffix}")
             for template, path in (
                 ("api/clients/{client}/legals/{legal}/employees/{id}/payroll", f"{person}/payroll"),
@@ -275,6 +293,10 @@ def _ukg(c: ReadOnlyClient, limits: Limits) -> None:
             "jobs",
         ):
             c.get(f"{root}/lookup/{lookup}")
+        # Cost-center trees, to name the cost centers on each employee; "tree index must be greater than or
+        # equal to 0 and less than or equal to 8" (A-75).
+        for tree in range(0, 9):
+            c.get(f"{root}/config/cost-centers", {"tree_index": tree})
         # Paychecks are sparse, so find them first and make sure their employees are sampled (A-07).
         listing = c.get(
             f"{root}/payrolls", {"pay_date_from": limits.since.isoformat(), "pay_date_to": limits.until.isoformat()}
@@ -309,6 +331,9 @@ def _ukg(c: ReadOnlyClient, limits: Limits) -> None:
             c.get(person)
             c.get(f"{person}/pay-info")
             c.get(f"{person}/compensation/history")
+            for suffix in ("demographics", "contacts", "tax-info", "benefits"):
+                c.get(f"{person}/{suffix}")
+            c.get(f"{root}/position/assignments/{account_id}", {"req_details": "all"})
             c.get(f"{person}/direct-deposits", headers=UKG_DEPRECATED_DD_HEADERS)
             deductions = c.get(f"{person}/deductions")["body"]
             for deduction_id in _ids(_dig(deductions, "deductions")):

@@ -1,0 +1,25 @@
+{
+  "seq": 23,
+  "endpoint": "rest/v2/companies/{company}/position/assignments/{id}",
+  "path": "rest/v2/companies/7001/position/assignments/5001",
+  "params": {
+    "req_details": "all"
+  },
+  "status": 200,
+  "body": {
+    "assignments": [
+      {
+        "assignment_id": 91,
+        "assignment_number": "A-1",
+        "position_id": 92,
+        "position_number": "P-1",
+        "position_name": "Store Manager",
+        "account_id": 5001,
+        "start_date": "2024-01-01",
+        "assigned_fte": 1.0,
+        "annual_work_hours": 2080,
+        "is_primary_assignment": true
+      }
+    ]
+  }
+}

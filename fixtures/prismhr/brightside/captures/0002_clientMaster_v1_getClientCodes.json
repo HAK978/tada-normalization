@@ -287,6 +287,18 @@
           "reportCode": "H"
         }
       ],
+      "relationCodes": [
+        {
+          "code": "S",
+          "description": "Spouse",
+          "obsolete": false
+        },
+        {
+          "code": "C",
+          "description": "Child",
+          "obsolete": false
+        }
+      ],
       "payGroups": [
         {
           "payGroupCode": "BW",

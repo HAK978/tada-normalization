@@ -2,6 +2,7 @@
 
 from __future__ import annotations
 
+from datetime import date
 from decimal import Decimal
 from typing import Any
 
@@ -20,7 +21,7 @@ from normalization.canonical.records import EarningLine, PayStatement
 from normalization.canonical.types import Coded, Diagnostic, Money
 from normalization.checks import reconcile
 from normalization.sanitize import MASK_CHARS
-from normalization.source import Notes, decimal
+from normalization.source import Notes, Src, decimal, iso_date, text
 
 ZERO = Decimal("0")
 
@@ -48,6 +49,17 @@ def masked(value: str | None) -> bool:
     if not value:
         return False
     return any(ch in MASK_CHARS for ch in value)
+
+
+def unmasked_date(s: Src, field: str, notes: Notes) -> date | None:
+    """A date the provider may mask, such as a contact's birth date. A masked one is not a malformed date:
+    it stays as sent in provider_extensions, with a MASKED_AT_SOURCE note (A-77)."""
+    path = f"{s.path}.{field}" if s.path else field
+    raw = text(s.data.get(field))
+    if raw is not None and masked(raw):
+        notes.info("MASKED_AT_SOURCE", path, "the provider masked this date; it is kept as sent", raw)
+        return None
+    return iso_date(s.get(field), path, notes)
 
 
 def paid_gross(wages: Money | None, earnings: list[EarningLine], source: str, notes: Notes) -> Money | None:

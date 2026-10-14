@@ -1,0 +1,23 @@
+{
+  "seq": 5,
+  "endpoint": "employee/v1/getEmployeeList",
+  "path": "employee/v1/getEmployeeList",
+  "params": {
+    "clientId": "201"
+  },
+  "status": 200,
+  "body": {
+    "employeeList": {
+      "employeeId": [
+        "E1001",
+        "E1002",
+        "E1003",
+        "E1004",
+        "E1005"
+      ]
+    },
+    "errorCode": "0",
+    "errorMessage": "",
+    "extension": null
+  }
+}

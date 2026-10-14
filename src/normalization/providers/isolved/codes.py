@@ -7,6 +7,7 @@ Spec: contracts/isolved/openapi/isolved-v6.swagger.json (the primary snapshot on
 from normalization.canonical.codes import (
     AccountType,
     Citizenship,
+    ContactRole,
     DeductionCategory as Cat,
     DepositStatus,
     EarningCategory,
@@ -21,6 +22,7 @@ from normalization.canonical.codes import (
     PayType,
     TaxTreatment as T,
     TaxType,
+    YesNoDeclined,
 )
 
 # /api/lookup/genders: F Female, M Male, X Non-binary, N Chose not to answer (live lookup)
@@ -68,6 +70,23 @@ CONTRACTOR_PAY_TYPE = "1099"
 # Employment status descriptions that appear as implied system statuses (statusId -1,
 # isImpliedStatus true) in /statuses history (A-48). Customer-defined statuses stay UNMAPPED.
 IMPLIED_STATUS = {"Active": EmploymentStatus.ACTIVE, "Terminated": EmploymentStatus.TERMINATED}
+
+# EmployeeModel/disabilityDescription is "a text description of the current disability status". A declined
+# answer uses the same words as the provider's genders lookup (A-81).
+DISABILITY_DESCRIPTION = {"Chose not to answer": YesNoDeclined.DECLINED}
+
+# True means a veteran: EmployeeModel/protectedVeteran ("the employee is a protected veteran"),
+# isRecentlySeparatedVeteran ("a recently separated veteran"), and PersonVeteranStatusModel's three
+# "if the person is a protected veteran with ..." flags. False says nothing about it (A-81).
+VETERAN_FLAGS = ("protectedVeteran", "isRecentlySeparatedVeteran")
+VETERAN_STATUS_FLAGS = ("activeWartimeOrCampaignBadgeVeteran", "disabledVeteran", "serviceMedalVeteran")
+
+# PersonContactModel: "Contact Is Emergency Contact", "Contact Is A Dependent", "Contact Is A Beneficiary" (A-77)
+CONTACT_ROLES = (
+    ("isEmergencyContact", ContactRole.EMERGENCY),
+    ("isDependent", ContactRole.DEPENDENT),
+    ("isBeneficiary", ContactRole.BENEFICIARY),
+)
 
 # /api/lookup/Frequencies descriptions -> (frequency, periods per year). Matched by description,
 # never by ID; "N Pay Periods Per Year" is parsed (A-27).
@@ -185,11 +204,14 @@ EMPTY_RESPONSES = {
     "api/clients/{client}/payItems": {404: "No pay items found."},
     "api/clients/{client}/legals/{legal}/checks": {404: "No checks found for check date or date range."},
     "api/clients/{client}/legals/{legal}/employees": {404: "No employees found"},
+    "api/clients/{client}/legals/{legal}/employees/{id}/contacts": {404: "No contacts found"},
     "api/clients/{client}/legals/{legal}/employees/{id}/directdeposits": {404: "No employee direct deposits found."},
     "api/clients/{client}/legals/{legal}/employees/{id}/garnishments": {404: "No employee garnishments found."},
+    "api/clients/{client}/legals/{legal}/employees/{id}/jobs": {404: "No Employee jobs found."},
     "api/clients/{client}/legals/{legal}/employees/{id}/payItems": {404: "No employee pay items found"},
     "api/clients/{client}/legals/{legal}/employees/{id}/payRates": {404: "No employee alternate pay rates found."},
     "api/clients/{client}/legals/{legal}/employees/{id}/salaries": {404: "No employee salaries found."},
+    "api/clients/{client}/legals/{legal}/employees/{id}/veteranStatus": {404: "No veteran status selection was found"},
     "api/clients/{client}/legals/{legal}/paygroupId/{id}/payrollRunHistory": {404: "No payroll run history found."},
     "api/corestream/clients/{client}/legals/{legal}/employees/{id}/deductions": {404: "No employee deductions found."},
     "api/lookup/Frequencies": {404: "No frequency records found."},

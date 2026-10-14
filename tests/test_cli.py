@@ -9,7 +9,7 @@ from jsonschema import Draft202012Validator
 
 from normalization.__main__ import main
 from normalization.bundle import Bundle
-from normalization.coverage import measure
+from normalization.coverage import measure, render
 from normalization.live.signin import API_KEY_VARIABLE
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -58,6 +58,23 @@ def test_sqlite_keeps_exact_money_and_the_whole_record(demo):
     assert row[:3] == ("2028.10", "2025.00", "307.6199999999999998")
     assert tax == ("2.4699999999999998",)
     assert json.loads(row[3]) == statement
+
+
+def test_sqlite_lists_contacts_and_organization_units_by_employee(demo):
+    with sqlite3.connect(demo / "canonical.sqlite") as db:
+        roles = db.execute(
+            "SELECT roles FROM employee_contacts WHERE employee_id = ? ORDER BY line",
+            ("ukg-ready:synthetic:employee:5001",),
+        ).fetchall()
+        units = db.execute(
+            "SELECT dimension, name, path FROM employee_org_units WHERE employee_id = ? ORDER BY line",
+            ("ukg-ready:synthetic:employee:5001",),
+        ).fetchall()
+    assert roles == [("EMERGENCY,DEPENDENT,BENEFICIARY",), ("DEPENDENT",)]
+    assert units == [
+        ("Location-Dept", "Production", "Charlotte / Production"),
+        ("Position", "Store Manager", "Store Manager"),
+    ]
 
 
 def test_sqlite_overview_joins_paychecks_to_employees_and_checks(demo):
@@ -131,11 +148,22 @@ def test_coverage_labels_dropped_kept_and_mapped_fields(coverage):
     assert ukg.label(("rest/v2/companies/{company}/employees/{id}", "photo_href")).startswith("dropped: a signed link")
     assert ukg.label(("rest/v2/companies/{company}/employees/{id}", "social_security")) == "mapped"
     isolved = coverage["isolved"]
-    # Status history has no canonical field; the record keeps what it doesn't map.
-    assert isolved.label(("api/clients/{client}/legals/{legal}/employees/{id}/statuses", "[].effectiveDate")) == "kept"
+    # Status history is mapped (A-76); what it has no canonical field for is kept on the record.
+    statuses = "api/clients/{client}/legals/{legal}/employees/{id}/statuses"
+    assert isolved.label((statuses, "[].effectiveDate")) == "mapped"
+    assert isolved.label((statuses, "[].statusId")) == "kept"
     assert (
         isolved.label(("api/clients/{client}/legals/{legal}/employees/{id}/statuses", "[].isImpliedStatus")) == "mapped"
     )
+
+
+def test_coverage_counts_how_many_employees_have_each_canonical_field(coverage):
+    # The count that would have shown fields never fetched: UKG gender was empty for every employee (A-74).
+    ukg = coverage["ukg-ready"]
+    assert ukg.employees == 5
+    assert ukg.employee_fields["personal.gender"] == 4  # one employee's demographics are empty
+    assert ukg.employee_fields["job.department"] == 0  # UKG's organization is in org_units (A-75)
+    assert "| `personal.gender` | 6 | 5 | 4 |" in render(list(coverage.values()))
 
 
 def test_only_crawl_indexes_duplicates_and_unneeded_lookups_go_unread(coverage):

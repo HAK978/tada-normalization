@@ -15,43 +15,52 @@ A field that is mapped in some records and kept in others shows both, with count
 
 Sources:
 
-- prismhr: a live fetch (`20261012T230841Z`) (428 responses)
-- isolved: a live fetch (`20261012T230841Z`) (210 responses)
-- ukg-ready: a live fetch (`20261013T095646Z`) (159 responses)
+- prismhr: a live fetch (`20261014T232557Z`) (2402 responses)
+- isolved: a live fetch (`20261014T232557Z`) (452 responses)
+- ukg-ready: a live fetch (`20261014T232557Z`) (352 responses)
 
 ## Summary
 
 | Provider | Endpoint | Fields | Mapped | Kept | Lost | Dropped | Reference | Unused |
 |---|---|---:|---:|---:|---:|---:|---:|---:|
-| prismhr | `benefits/v1/getActiveBenefitPlans` | 35 | 0 | 34 | 0 | 1 | 0 | 0 |
-| prismhr | `clientMaster/v1/getClientCodes` | 136 | 0 | 0 | 0 | 1 | 135 | 0 |
-| prismhr | `clientMaster/v1/getClientMaster` | 155 | 14 | 140 | 0 | 1 | 0 | 0 |
+| prismhr | `benefits/v1/getActiveBenefitPlans` | 37 | 0 | 36 | 0 | 1 | 0 | 0 |
+| prismhr | `benefits/v1/getDependents` | 27 | 10 | 14 | 0 | 3 | 0 | 0 |
+| prismhr | `clientMaster/v1/getAllPrismClientContacts` | 8 | 6 | 1 | 0 | 1 | 0 | 0 |
+| prismhr | `clientMaster/v1/getClientCodes` | 139 | 0 | 0 | 0 | 1 | 138 | 0 |
+| prismhr | `clientMaster/v1/getClientMaster` | 163 | 14 | 148 | 0 | 1 | 0 | 0 |
 | prismhr | `clientMaster/v1/getPayrollSchedule` | 16 | 4 | 11 | 0 | 1 | 0 | 0 |
 | prismhr | `deductions/v1/getDeductions` | 14 | 12 | 1 | 0 | 1 | 0 | 0 |
 | prismhr | `deductions/v1/getEmployeeLoans` | 17 | 10 | 4 | 0 | 3 | 0 | 0 |
 | prismhr | `deductions/v1/getVoluntaryRecurringDeductions` | 10 | 8 | 0 | 0 | 2 | 0 | 0 |
-| prismhr | `employee/v1/getEmployee` | 179 | 73 | 105 | 0 | 1 | 0 | 0 |
+| prismhr | `employee/v1/checkForGarnishments` | 3 | 0 | 2 | 0 | 1 | 0 | 0 |
+| prismhr | `employee/v1/getEmployee` | 208 | 83 | 124 | 0 | 1 | 0 | 0 |
 | prismhr | `employee/v1/getEmployeeList` | 2 | 0 | 0 | 0 | 1 | 0 | 1 |
-| prismhr | `employee/v1/getPayRateHistory` | 13 | 8 | 2 | 0 | 3 | 0 | 0 |
-| prismhr | `employee/v1/getScheduledDeductions` | 4 | 0 | 0 | 0 | 4 | 0 | 0 |
+| prismhr | `employee/v1/getHistory` | 22 | 9 | 12 | 0 | 1 | 0 | 0 |
+| prismhr | `employee/v1/getPayRateHistory` | 14 | 8 | 3 | 0 | 3 | 0 | 0 |
+| prismhr | `employee/v1/getScheduledDeductions` | 7 | 3 | 0 | 0 | 4 | 0 | 0 |
 | prismhr | `payroll/v1/getBatchInfo` | 17 | 1 | 15 | 0 | 1 | 0 | 0 |
 | prismhr | `payroll/v1/getBatchListByDate` | 10 | 8 | 1 | 0 | 1 | 0 | 0 |
-| prismhr | `payroll/v1/getPayrollVoucherForBatch` | 113 | 65 | 44 | 0 | 4 | 0 | 0 |
+| prismhr | `payroll/v1/getPayrollVoucherForBatch` | 120 | 65 | 51 | 0 | 4 | 0 | 0 |
+| prismhr | `payroll/v1/getScheduledPayments` | 14 | 0 | 10 | 0 | 4 | 0 | 0 |
 | isolved | `api/clients/{client}` | 7 | 2 | 3 | 0 | 2 | 0 | 0 |
 | isolved | `api/clients/{client}/legals/{legal}` | 49 | 16 | 27 | 0 | 6 | 0 | 0 |
 | isolved | `api/clients/{client}/legals/{legal}/checks` | 33 | 11 | 18 | 0 | 4 | 0 | 0 |
 | isolved | `api/clients/{client}/legals/{legal}/employees` | 92 | 0 | 0 | 0 | 13 | 0 | 79 |
-| isolved | `api/clients/{client}/legals/{legal}/employees/{id}` | 126 | 40 | 67 | 0 | 19 | 0 | 0 |
+| isolved | `api/clients/{client}/legals/{legal}/employees/{id}` | 131 | 45 | 67 | 0 | 19 | 0 | 0 |
+| isolved | `api/clients/{client}/legals/{legal}/employees/{id}/categories` | 14 | 4 | 10 | 0 | 0 | 0 | 0 |
 | isolved | `api/clients/{client}/legals/{legal}/employees/{id}/checks/{id}` | 135 | 29 | 104 | 0 | 2 | 0 | 0 |
-| isolved | `api/clients/{client}/legals/{legal}/employees/{id}/directdeposits` | 9 | 9 | 0 | 0 | 0 | 0 | 0 |
-| isolved | `api/clients/{client}/legals/{legal}/employees/{id}/garnishments` | 23 | 12 | 9 | 0 | 2 | 0 | 0 |
-| isolved | `api/clients/{client}/legals/{legal}/employees/{id}/payItems` | 17 | 6 | 8 | 0 | 3 | 0 | 0 |
+| isolved | `api/clients/{client}/legals/{legal}/employees/{id}/directdeposits` | 10 | 10 | 0 | 0 | 0 | 0 | 0 |
+| isolved | `api/clients/{client}/legals/{legal}/employees/{id}/garnishments` | 30 | 13 | 15 | 0 | 2 | 0 | 0 |
+| isolved | `api/clients/{client}/legals/{legal}/employees/{id}/jobs` | 29 | 8 | 19 | 0 | 2 | 0 | 0 |
+| isolved | `api/clients/{client}/legals/{legal}/employees/{id}/payItems` | 18 | 7 | 8 | 0 | 3 | 0 | 0 |
 | isolved | `api/clients/{client}/legals/{legal}/employees/{id}/payRates` | 8 | 0 | 8 | 0 | 0 | 0 | 0 |
 | isolved | `api/clients/{client}/legals/{legal}/employees/{id}/salaries` | 15 | 6 | 7 | 0 | 2 | 0 | 0 |
-| isolved | `api/clients/{client}/legals/{legal}/employees/{id}/statuses` | 8 | 2 | 6 | 0 | 0 | 0 | 0 |
+| isolved | `api/clients/{client}/legals/{legal}/employees/{id}/statuses` | 8 | 5 | 3 | 0 | 0 | 0 | 0 |
+| isolved | `api/clients/{client}/legals/{legal}/employees/{id}/veteranStatus` | 1 | 1 | 0 | 0 | 0 | 0 | 0 |
 | isolved | `api/clients/{client}/legals/{legal}/paygroupId/{id}/payrollRunHistory` | 19 | 8 | 11 | 0 | 0 | 0 | 0 |
 | isolved | `api/clients/{client}/legals/{legal}/paygroupId/{id}/payrollRunHistory/{id}` | 19 | 8 | 11 | 0 | 0 | 0 | 0 |
 | isolved | `api/clients/{client}/payItems` | 12 | 0 | 0 | 0 | 0 | 12 | 0 |
+| isolved | `api/lookup/ContactRelationshipCodes` | 4 | 0 | 0 | 0 | 2 | 2 | 0 |
 | isolved | `api/lookup/Frequencies` | 2 | 0 | 0 | 0 | 0 | 2 | 0 |
 | isolved | `api/lookup/citizenships` | 2 | 0 | 0 | 0 | 0 | 2 | 0 |
 | isolved | `api/lookup/ethnicorigins` | 2 | 0 | 0 | 0 | 0 | 0 | 2 |
@@ -59,11 +68,16 @@ Sources:
 | isolved | `api/lookup/maritalStatuses` | 2 | 0 | 0 | 0 | 0 | 2 | 0 |
 | isolved | `api/system/earnings` | 6 | 0 | 0 | 0 | 2 | 0 | 4 |
 | isolved | `api/system/payTypes` | 2 | 0 | 0 | 0 | 0 | 0 | 2 |
+| ukg-ready | `rest/v2/companies/{company}/config/cost-centers` | 7 | 0 | 0 | 0 | 0 | 7 | 0 |
 | ukg-ready | `rest/v2/companies/{company}/employees` | 18 | 0 | 0 | 0 | 6 | 0 | 12 |
-| ukg-ready | `rest/v2/companies/{company}/employees/{id}` | 73 | 28 | 38 | 0 | 7 | 0 | 0 |
+| ukg-ready | `rest/v2/companies/{company}/employees/{id}` | 73 | 37 | 29 | 0 | 7 | 0 | 0 |
+| ukg-ready | `rest/v2/companies/{company}/employees/{id}/benefits` | 7 | 0 | 7 | 0 | 0 | 0 | 0 |
 | ukg-ready | `rest/v2/companies/{company}/employees/{id}/compensation/history` | 11 | 8 | 2 | 0 | 1 | 0 | 0 |
+| ukg-ready | `rest/v2/companies/{company}/employees/{id}/contacts` | 23 | 11 | 7 | 0 | 5 | 0 | 0 |
+| ukg-ready | `rest/v2/companies/{company}/employees/{id}/demographics` | 5 | 3 | 2 | 0 | 0 | 0 | 0 |
 | ukg-ready | `rest/v2/companies/{company}/employees/{id}/direct-deposits` | 34 | 14 | 8 | 0 | 12 | 0 | 0 |
 | ukg-ready | `rest/v2/companies/{company}/employees/{id}/pay-info` | 15 | 3 | 12 | 0 | 0 | 0 | 0 |
+| ukg-ready | `rest/v2/companies/{company}/employees/{id}/tax-info` | 5 | 0 | 5 | 0 | 0 | 0 | 0 |
 | ukg-ready | `rest/v2/companies/{company}/lookup/deduction-codes` | 4 | 0 | 0 | 0 | 0 | 0 | 4 |
 | ukg-ready | `rest/v2/companies/{company}/lookup/earning-codes` | 4 | 0 | 0 | 0 | 0 | 0 | 4 |
 | ukg-ready | `rest/v2/companies/{company}/lookup/eins` | 4 | 3 | 1 | 0 | 0 | 0 | 0 |
@@ -76,6 +90,69 @@ Sources:
 | ukg-ready | `rest/v2/companies/{company}/payrolls/{id}` | 13 | 11 | 2 | 0 | 0 | 0 | 0 |
 | ukg-ready | `rest/v2/companies/{company}/payrolls/{id}/pay-statements` | 11 | 0 | 0 | 0 | 1 | 0 | 10 |
 | ukg-ready | `rest/v2/companies/{company}/payrolls/{id}/pay-statements/{id}` | 78 | 30 | 48 | 0 | 0 | 0 | 0 |
+| ukg-ready | `rest/v2/companies/{company}/position/assignments/{id}` | 28 | 0 | 28 | 0 | 0 | 0 | 0 |
+
+## Canonical employee fields
+
+How many employee records have each canonical field (two levels deep). A 0 means no employee of that
+provider has it: the provider doesn't send it for these employees, keeps it elsewhere (UKG and isolved
+organization is in `job.org_units`), or sends it with no evidence to map it. ASSUMPTIONS.md summarizes
+the zeros under Employee.
+
+| Field | prismhr (194) | isolved (45) | ukg-ready (25) |
+|---|---:|---:|---:|
+| `addresses` | 193 | 45 | 25 |
+| `compensation.annual_pay` | 194 | 45 | 16 |
+| `compensation.effective_date` | 193 | 45 | 25 |
+| `compensation.history` | 194 | 45 | 25 |
+| `compensation.pay_frequency` | 194 | 45 | 25 |
+| `compensation.pay_type` | 194 | 45 | 25 |
+| `compensation.rates` | 185 | 41 | 25 |
+| `compensation.standard_hours` | 194 | 45 | 25 |
+| `compensation.standard_hours_per` | 194 | 45 | 25 |
+| `emails` | 88 | 27 | 23 |
+| `employment.employer_ids` | 194 | 0 | 25 |
+| `employment.employment_type` | 194 | 45 | 25 |
+| `employment.flsa_exempt` | 194 | 45 | 0 |
+| `employment.hire_date` | 194 | 45 | 25 |
+| `employment.history` | 194 | 45 | 0 |
+| `employment.original_hire_date` | 194 | 45 | 0 |
+| `employment.rehire_date` | 0 | 0 | 4 |
+| `employment.seniority_date` | 194 | 0 | 0 |
+| `employment.start_date` | 194 | 0 | 25 |
+| `employment.status` | 194 | 45 | 25 |
+| `employment.status_date` | 194 | 45 | 0 |
+| `employment.termination_date` | 6 | 1 | 0 |
+| `employment.termination_reason` | 5 | 1 | 0 |
+| `employment.worker_classification` | 194 | 2 | 0 |
+| `identifiers` | 194 | 45 | 25 |
+| `job.department` | 145 | 0 | 0 |
+| `job.division` | 52 | 0 | 0 |
+| `job.history` | 194 | 34 | 0 |
+| `job.job_code` | 194 | 30 | 23 |
+| `job.location` | 194 | 45 | 0 |
+| `job.manager_employee_id` | 33 | 26 | 25 |
+| `job.org_units` | 0 | 31 | 25 |
+| `job.pay_group` | 194 | 45 | 0 |
+| `job.supervisor_employee_id` | 0 | 26 | 0 |
+| `job.title` | 194 | 30 | 23 |
+| `legal_entity_id` | 0 | 0 | 25 |
+| `name.first` | 194 | 45 | 25 |
+| `name.last` | 194 | 45 | 25 |
+| `name.middle` | 5 | 21 | 1 |
+| `name.nickname` | 2 | 0 | 0 |
+| `name.preferred` | 0 | 0 | 13 |
+| `national_id` | 194 | 21 | 25 |
+| `personal.birth_date` | 193 | 30 | 25 |
+| `personal.citizenship` | 136 | 1 | 12 |
+| `personal.contacts` | 36 | 0 | 11 |
+| `personal.disabled` | 194 | 2 | 0 |
+| `personal.ethnicity` | 171 | 30 | 23 |
+| `personal.gender` | 183 | 30 | 25 |
+| `personal.marital_status` | 123 | 29 | 0 |
+| `personal.preferred_language` | 10 | 0 | 0 |
+| `personal.veteran` | 194 | 2 | 0 |
+| `phones` | 89 | 3 | 8 |
 
 ## prismhr
 
@@ -83,7 +160,9 @@ Sources:
 
 | Field | Disposition |
 |---|---|
+| `benefitPlan[].coverageEnd` | kept |
 | `benefitPlan[].coverageStart` | kept |
+| `benefitPlan[].deductionEnd` | kept |
 | `benefitPlan[].deductionStart` | kept |
 | `benefitPlan[].description` | kept |
 | `benefitPlan[].groupTermLife[].gtlAccruedYTD` | kept |
@@ -118,6 +197,51 @@ Sources:
 | `benefitPlan[].seenByDoctor` | kept |
 | `benefitPlan[].status` | kept |
 | `errorCode` | dropped: response envelope |
+
+### `benefits/v1/getDependents`
+
+| Field | Disposition |
+|---|---|
+| `clientId` | dropped: echo of the request parameters |
+| `dependent[].address` | mapped |
+| `dependent[].beneficiaryIsATrust` | kept |
+| `dependent[].birthdate` | kept |
+| `dependent[].checksum` | kept |
+| `dependent[].city` | mapped |
+| `dependent[].dependentId` | mapped |
+| `dependent[].firstName` | mapped |
+| `dependent[].fullTimeStudent` | kept |
+| `dependent[].gender` | kept |
+| `dependent[].isDisabled` | kept |
+| `dependent[].lastName` | mapped |
+| `dependent[].relation` | mapped |
+| `dependent[].relationType` | mapped |
+| `dependent[].relationshipCodeType` | kept |
+| `dependent[].reportedToCarrier` | kept |
+| `dependent[].seenByDoctor` | kept |
+| `dependent[].spouse` | kept |
+| `dependent[].ssn` | kept |
+| `dependent[].ssnAppliedFor` | kept |
+| `dependent[].state` | mapped |
+| `dependent[].status` | mapped |
+| `dependent[].statusDate` | kept |
+| `dependent[].tobaccoUser` | kept |
+| `dependent[].zip` | mapped |
+| `employeeId` | dropped: echo of the request parameters |
+| `errorCode` | dropped: response envelope |
+
+### `clientMaster/v1/getAllPrismClientContacts`
+
+| Field | Disposition |
+|---|---|
+| `errorCode` | dropped: response envelope |
+| `prismClientContactResult.prismClientContact[].checksum` | kept |
+| `prismClientContactResult.prismClientContact[].contactEmail` | mapped |
+| `prismClientContactResult.prismClientContact[].contactId` | mapped |
+| `prismClientContactResult.prismClientContact[].contactName` | mapped |
+| `prismClientContactResult.prismClientContact[].contactPhone` | mapped |
+| `prismClientContactResult.prismClientContact[].contactTitle` | mapped |
+| `prismClientContactResult.prismClientContact[].contactType` | mapped |
 
 ### `clientMaster/v1/getClientCodes`
 
@@ -160,6 +284,8 @@ Sources:
 | `clientCodes.deductionCode[].unionRelated` | reference |
 | `clientCodes.departmentCode[].deptName` | reference |
 | `clientCodes.departmentCode[].deptObsolete` | reference |
+| `clientCodes.departmentCode[].glCode` | reference |
+| `clientCodes.departmentCode[].glSegment2` | reference |
 | `clientCodes.departmentCode[].id` | reference |
 | `clientCodes.departmentCode[].miscGl[].miscGlSegment` | reference |
 | `clientCodes.divisionCode[].divObsolete` | reference |
@@ -174,6 +300,7 @@ Sources:
 | `clientCodes.jobCode[].id` | reference |
 | `clientCodes.jobCode[].indirectTipped` | reference |
 | `clientCodes.jobCode[].jobClass` | reference |
+| `clientCodes.jobCode[].jobDescription` | reference |
 | `clientCodes.jobCode[].jobObsolete` | reference |
 | `clientCodes.jobCode[].jobTitle` | reference |
 | `clientCodes.jobCode[].payGrade` | reference |
@@ -264,6 +391,7 @@ Sources:
 
 | Field | Disposition |
 |---|---|
+| `clientMaster.achHoldThreshold` | kept |
 | `clientMaster.achStatus` | kept |
 | `clientMaster.addressLine1` | mapped |
 | `clientMaster.addressLine2` | mapped |
@@ -279,9 +407,12 @@ Sources:
 | `clientMaster.billBySort` | kept |
 | `clientMaster.billEvent[].billEvtCode` | kept |
 | `clientMaster.billEvent[].billEvtRate` | kept |
+| `clientMaster.billEvent[].billEvtSpecialFrom` | kept |
+| `clientMaster.billEvent[].billEvtSpecialTo` | kept |
 | `clientMaster.billFormat` | kept |
 | `clientMaster.billInvBreakField` | kept |
 | `clientMaster.billTemplate` | kept |
+| `clientMaster.businessDescription` | kept |
 | `clientMaster.cafeteriaPlan` | kept |
 | `clientMaster.calcWcOn1099Emp` | kept |
 | `clientMaster.categoryCode` | kept |
@@ -295,6 +426,7 @@ Sources:
 | `clientMaster.clientName` | mapped |
 | `clientMaster.clientStatusChecksum` | kept |
 | `clientMaster.clientTax[].stateTaxId` | kept |
+| `clientMaster.clientTax[].suiSecondaryId` | kept |
 | `clientMaster.clientTax[].suiState` | kept |
 | `clientMaster.clientTax[].suiStateEmpId` | kept |
 | `clientMaster.commission[].commAmount` | kept |
@@ -366,6 +498,7 @@ Sources:
 | `clientMaster.observedHoliday[].description` | kept |
 | `clientMaster.observedHoliday[].holidayDate[]` | kept |
 | `clientMaster.observedHoliday[].name` | kept |
+| `clientMaster.onDemandChecksAccount` | kept |
 | `clientMaster.paperlessDelivery` | kept |
 | `clientMaster.payCardAccount` | kept |
 | `clientMaster.payCode[].payCodeId` | kept |
@@ -382,6 +515,7 @@ Sources:
 | `clientMaster.receiptCheckAcct` | kept |
 | `clientMaster.recomputeOvertime` | kept |
 | `clientMaster.regRebuild[].regRebuildDate` | kept |
+| `clientMaster.regRebuild[].regRebuildReason` | kept |
 | `clientMaster.regRebuild[].regRebuildUser` | kept |
 | `clientMaster.regRebuild[].regRebuildYear` | kept |
 | `clientMaster.remitCopies` | kept |
@@ -413,6 +547,7 @@ Sources:
 | `clientMaster.wcPolicy` | kept |
 | `clientMaster.wcPolicyEffDate` | kept |
 | `clientMaster.wcResidentBased` | kept |
+| `clientMaster.websiteUrl` | kept |
 | `clientMaster.workGroupRequired` | kept |
 | `clientMaster.worksitePayrollApproval` | kept |
 | `clientMaster.worksiteTimesheetEntry` | kept |
@@ -445,13 +580,13 @@ Sources:
 
 | Field | Disposition |
 |---|---|
-| `employeeDeductions.deduction[].amount` | mapped (136) / kept (1) |
-| `employeeDeductions.deduction[].benefitPlanId` | mapped (31) / kept (1) |
+| `employeeDeductions.deduction[].amount` | mapped (588) / kept (2) |
+| `employeeDeductions.deduction[].benefitPlanId` | mapped (133) / kept (3) |
 | `employeeDeductions.deduction[].deductionCode` | mapped |
 | `employeeDeductions.deduction[].deductionMethod` | mapped |
 | `employeeDeductions.deduction[].deductionType` | mapped |
 | `employeeDeductions.deduction[].description` | mapped |
-| `employeeDeductions.deduction[].lastDedPerAdj` | kept |
+| `employeeDeductions.deduction[].lastDedPerAdj` | mapped (1) / kept (589) |
 | `employeeDeductions.deduction[].loanOrGarnishId` | mapped |
 | `employeeDeductions.deduction[].mandatory` | mapped |
 | `employeeDeductions.deduction[].period` | mapped |
@@ -488,14 +623,22 @@ Sources:
 |---|---|
 | `checksum` | dropped: response envelope |
 | `errorCode` | dropped: response envelope |
-| `voluntaryDeduction.deduction[].amount` | mapped (25) / kept (1) |
-| `voluntaryDeduction.deduction[].benefitPlanId` | mapped (25) / kept (1) |
+| `voluntaryDeduction.deduction[].amount` | mapped (107) / kept (1) |
+| `voluntaryDeduction.deduction[].benefitPlanId` | mapped (105) / kept (2) |
 | `voluntaryDeduction.deduction[].deductionCode` | mapped |
 | `voluntaryDeduction.deduction[].deductionMethod` | mapped |
 | `voluntaryDeduction.deduction[].deductionType` | mapped |
 | `voluntaryDeduction.deduction[].description` | mapped |
 | `voluntaryDeduction.deduction[].period` | mapped |
 | `voluntaryDeduction.deduction[].usePercent` | mapped |
+
+### `employee/v1/checkForGarnishments`
+
+| Field | Disposition |
+|---|---|
+| `active` | kept |
+| `enrolled` | kept |
+| `errorCode` | dropped: response envelope |
 
 ### `employee/v1/getEmployee`
 
@@ -511,6 +654,7 @@ Sources:
 | `employee[].client.childSpouseSupport` | kept |
 | `employee[].client.city` | mapped |
 | `employee[].client.clientChecksum` | kept |
+| `employee[].client.clientEmployeeId` | mapped |
 | `employee[].client.courtOrderMedical` | kept |
 | `employee[].client.electronic1095C` | kept |
 | `employee[].client.electronicOnboard` | kept |
@@ -520,6 +664,7 @@ Sources:
 | `employee[].client.employeeType` | mapped |
 | `employee[].client.firstHireDate` | mapped |
 | `employee[].client.flsaExempt` | mapped |
+| `employee[].client.handbookMailDate` | kept |
 | `employee[].client.homeDepartment` | mapped |
 | `employee[].client.homeDivision` | mapped |
 | `employee[].client.homeLocation` | mapped |
@@ -534,6 +679,8 @@ Sources:
 | `employee[].client.onboardInProgress` | kept |
 | `employee[].client.primaryEmailSource` | kept |
 | `employee[].client.probationDate` | kept |
+| `employee[].client.projCostCenter` | kept |
+| `employee[].client.property[].propertyCode` | kept |
 | `employee[].client.rehireOk` | kept |
 | `employee[].client.reportsTo` | kept |
 | `employee[].client.retirementBenefitGroup` | kept |
@@ -556,14 +703,18 @@ Sources:
 | `employee[].compensation.annualPay` | mapped |
 | `employee[].compensation.autoAcceptTimeSheet` | kept |
 | `employee[].compensation.citizenshipStatus` | mapped |
+| `employee[].compensation.compReviewNextDate` | kept |
 | `employee[].compensation.compensationChecksum` | kept |
 | `employee[].compensation.defaultHours` | kept |
 | `employee[].compensation.deliverCheckHome` | kept |
 | `employee[].compensation.effectiveDate` | mapped |
 | `employee[].compensation.electronicPayStub` | kept |
 | `employee[].compensation.familyMemberMI` | kept |
+| `employee[].compensation.fedDeductions` | kept |
+| `employee[].compensation.fedDependents` | kept |
 | `employee[].compensation.fedFilingStatus` | kept |
 | `employee[].compensation.fedMultipleJobs` | kept |
+| `employee[].compensation.fedOtherIncome` | kept |
 | `employee[].compensation.fedOverrideAmt` | kept |
 | `employee[].compensation.fedOverrideType` | kept |
 | `employee[].compensation.fedW4Filed` | kept |
@@ -572,6 +723,7 @@ Sources:
 | `employee[].compensation.fedWithholdAllowance` | kept |
 | `employee[].compensation.ficaExempt` | kept |
 | `employee[].compensation.formI9Filed` | kept |
+| `employee[].compensation.formI9RenewDate` | kept |
 | `employee[].compensation.healthInsVT` | kept |
 | `employee[].compensation.hourlyPay` | mapped |
 | `employee[].compensation.hourlyPayPeriod` | mapped |
@@ -597,18 +749,25 @@ Sources:
 | `employee[].compensation.perfReviewLastDate` | kept |
 | `employee[].compensation.perfReviewLastRating` | kept |
 | `employee[].compensation.perfReviewLastTitle` | kept |
+| `employee[].compensation.perfReviewNextDate` | kept |
 | `employee[].compensation.probationCodeMO` | kept |
+| `employee[].compensation.profitSharing` | kept |
 | `employee[].compensation.salary` | mapped |
 | `employee[].compensation.ssn` | mapped |
 | `employee[].compensation.standardHours` | mapped |
+| `employee[].compensation.stateTax[].alternateCalc` | kept |
+| `employee[].compensation.stateTax[].deductions` | kept |
+| `employee[].compensation.stateTax[].dependents` | kept |
 | `employee[].compensation.stateTax[].filingStatus` | kept |
 | `employee[].compensation.stateTax[].multipleJobs` | kept |
 | `employee[].compensation.stateTax[].nonResCertFiled` | kept |
+| `employee[].compensation.stateTax[].otherIncome` | kept |
 | `employee[].compensation.stateTax[].overrideAmount` | kept |
 | `employee[].compensation.stateTax[].overrideType` | kept |
 | `employee[].compensation.stateTax[].primaryAllowance` | kept |
 | `employee[].compensation.stateTax[].secondaryAllowance` | kept |
 | `employee[].compensation.stateTax[].stateCode` | kept |
+| `employee[].compensation.stateTax[].stateW4Filed` | kept |
 | `employee[].compensation.taxCreditEmp` | kept |
 | `employee[].compensation.w8Filed` | kept |
 | `employee[].compensation.wagePlanCA` | kept |
@@ -627,6 +786,7 @@ Sources:
 | `employee[].directDeposit.achStatus` | mapped |
 | `employee[].directDeposit.achVoucher[].accountNum` | mapped |
 | `employee[].directDeposit.achVoucher[].accountType` | mapped |
+| `employee[].directDeposit.achVoucher[].amount` | mapped |
 | `employee[].directDeposit.achVoucher[].bankName` | mapped |
 | `employee[].directDeposit.achVoucher[].method` | mapped |
 | `employee[].directDeposit.achVoucher[].status` | mapped |
@@ -655,7 +815,8 @@ Sources:
 | `employee[].person.emergencyContact[].contactInfo` | mapped |
 | `employee[].person.emergencyContact[].contactName` | mapped |
 | `employee[].person.emergencyContact[].contactRelationship` | mapped |
-| `employee[].person.employerId[]` | kept |
+| `employee[].person.emergencyContact[].contactType` | mapped |
+| `employee[].person.employerId[]` | mapped |
 | `employee[].person.ethnicCode` | mapped |
 | `employee[].person.gender` | mapped |
 | `employee[].person.geoCode` | kept |
@@ -663,11 +824,14 @@ Sources:
 | `employee[].person.highlyCompensated` | kept |
 | `employee[].person.hispanic` | kept |
 | `employee[].person.keyEmployee` | kept |
+| `employee[].person.legacyEmployeeId` | kept |
 | `employee[].person.maritalStatus` | mapped |
+| `employee[].person.nickname` | mapped |
 | `employee[].person.ohioFormC112` | kept |
 | `employee[].person.otherProtectedVet` | kept |
 | `employee[].person.peoStartDate` | kept |
 | `employee[].person.personChecksum` | kept |
+| `employee[].person.preferredLanguage` | mapped |
 | `employee[].person.recentlySeparatedVet` | kept |
 | `employee[].person.serviceMedalVet` | kept |
 | `employee[].person.smoker` | kept |
@@ -677,8 +841,16 @@ Sources:
 | `employee[].person.vietnamVet` | kept |
 | `employee[].person.w2ElecForm` | kept |
 | `employee[].person.w2ElecFormDate` | kept |
+| `employee[].person.w2PostalCode` | mapped |
+| `employee[].scheduledDeduction[].checkStubDescription` | mapped |
+| `employee[].scheduledDeduction[].deductionCode` | mapped |
+| `employee[].scheduledDeduction[].status` | mapped |
 | `employee[].skillsAndEducation.osha10Certified` | kept |
 | `employee[].skillsAndEducation.skillChecksum` | kept |
+| `employee[].skillsAndEducation.skill[].certifyDate` | kept |
+| `employee[].skillsAndEducation.skill[].competencyLevel` | kept |
+| `employee[].skillsAndEducation.skill[].renewDate` | kept |
+| `employee[].skillsAndEducation.skill[].skillCode` | kept |
 | `errorCode` | dropped: response envelope |
 
 ### `employee/v1/getEmployeeList`
@@ -687,6 +859,33 @@ Sources:
 |---|---|
 | `employeeList.employeeId[]` | unused |
 | `errorCode` | dropped: response envelope |
+
+### `employee/v1/getHistory`
+
+| Field | Disposition |
+|---|---|
+| `errorCode` | dropped: response envelope |
+| `historyRecord[].benefitGroupChange.benefitGroupCode` | kept |
+| `historyRecord[].effectiveDate` | mapped (405) / kept (371) |
+| `historyRecord[].newPositionCode` | mapped |
+| `historyRecord[].payChange.annualChangeAmt` | kept |
+| `historyRecord[].payChange.annualPay` | kept |
+| `historyRecord[].payChange.hourlyRate` | kept |
+| `historyRecord[].payChange.newPayRate` | kept |
+| `historyRecord[].payChange.newStdHours` | kept |
+| `historyRecord[].payChange.payMethod` | kept |
+| `historyRecord[].payChange.payPeriod` | kept |
+| `historyRecord[].payChange.percentChange` | kept |
+| `historyRecord[].payChange.percentMidpoint` | kept |
+| `historyRecord[].payChange.reason` | kept |
+| `historyRecord[].statusChange.employeeStatusCode` | mapped |
+| `historyRecord[].statusChange.employeeTypeCode` | mapped |
+| `historyRecord[].statusChange.reason` | mapped |
+| `historyRecord[].termination.employeeStatusCode` | mapped |
+| `historyRecord[].termination.employeeTypeCode` | mapped |
+| `historyRecord[].termination.reason` | mapped |
+| `historyRecord[].termination.rehireOK` | kept |
+| `historyRecord[].type` | mapped (405) / kept (371) |
 
 ### `employee/v1/getPayRateHistory`
 
@@ -703,6 +902,7 @@ Sources:
 | `payRateHistory.payRate[].payMethod` | mapped |
 | `payRateHistory.payRate[].payPeriod` | mapped |
 | `payRateHistory.payRate[].payRate` | mapped |
+| `payRateHistory.payRate[].percentMidpoint` | kept |
 | `payRateHistory.payRate[].reason` | mapped |
 | `payRateHistory.payRate[].standardHours` | mapped |
 
@@ -714,6 +914,9 @@ Sources:
 | `clientId` | dropped: echo of the request parameters |
 | `employeeId` | dropped: echo of the request parameters |
 | `errorCode` | dropped: response envelope |
+| `scheduledDeduction[].checkStubDescription` | mapped |
+| `scheduledDeduction[].deductionCode` | mapped |
+| `scheduledDeduction[].status` | mapped |
 
 ### `payroll/v1/getBatchInfo`
 
@@ -768,7 +971,7 @@ Sources:
 | `payrollVoucher[].benefit[].premiumAmt` | mapped |
 | `payrollVoucher[].benefit[].premiumCost` | mapped |
 | `payrollVoucher[].checkAccountACH` | kept |
-| `payrollVoucher[].checkAmt` | mapped (251) / kept (168) |
+| `payrollVoucher[].checkAmt` | mapped (1771) / kept (628) |
 | `payrollVoucher[].checkNumber` | mapped |
 | `payrollVoucher[].companyTax[].comClientSutaRpt` | kept |
 | `payrollVoucher[].companyTax[].comExemptAmount` | kept |
@@ -796,7 +999,7 @@ Sources:
 | `payrollVoucher[].earning[].department` | mapped |
 | `payrollVoucher[].earning[].division` | mapped |
 | `payrollVoucher[].earning[].hoursUnits` | mapped |
-| `payrollVoucher[].earning[].hoursWorked` | mapped (407) / kept (58) |
+| `payrollVoucher[].earning[].hoursWorked` | mapped (2328) / kept (149) |
 | `payrollVoucher[].earning[].jobCode` | mapped |
 | `payrollVoucher[].earning[].location` | mapped |
 | `payrollVoucher[].earning[].payAmount` | mapped |
@@ -816,6 +1019,13 @@ Sources:
 | `payrollVoucher[].employerContributions[].code` | mapped |
 | `payrollVoucher[].employerContributions[].description` | mapped |
 | `payrollVoucher[].fitTaxableAmount` | kept |
+| `payrollVoucher[].fromArrears[].arrearsAmt` | kept |
+| `payrollVoucher[].fromArrears[].arrearsDate` | kept |
+| `payrollVoucher[].fromArrears[].arrearsRefNo` | kept |
+| `payrollVoucher[].fromArrears[].coveragePeriod` | kept |
+| `payrollVoucher[].fromArrears[].dedCode` | kept |
+| `payrollVoucher[].fromArrears[].dedDescription` | kept |
+| `payrollVoucher[].fromArrears[].planId` | kept |
 | `payrollVoucher[].hsaPeoMatch` | kept |
 | `payrollVoucher[].isManualCheck` | kept |
 | `payrollVoucher[].netPay` | mapped |
@@ -869,6 +1079,25 @@ Sources:
 | `payrollVoucher[].workerComp[].wcTaxablePay` | kept |
 | `startpage` | dropped: paging envelope |
 | `total` | dropped: paging envelope |
+
+### `payroll/v1/getScheduledPayments`
+
+| Field | Disposition |
+|---|---|
+| `checksum` | dropped: response envelope |
+| `clientId` | dropped: echo of the request parameters |
+| `employeeId` | dropped: echo of the request parameters |
+| `errorCode` | dropped: response envelope |
+| `scheduledPayment.fsaReimburseDetail[].payCode` | kept |
+| `scheduledPayment.overrideGlAccount[].payCode` | kept |
+| `scheduledPayment.overrideGlAccount[].suppressAlloc` | kept |
+| `scheduledPayment.scheduledPaymentDetail[].amount` | kept |
+| `scheduledPayment.scheduledPaymentDetail[].deductionPeriod` | kept |
+| `scheduledPayment.scheduledPaymentDetail[].endPayDate` | kept |
+| `scheduledPayment.scheduledPaymentDetail[].payCode` | kept |
+| `scheduledPayment.scheduledPaymentDetail[].payDesc` | kept |
+| `scheduledPayment.scheduledPaymentDetail[].startPayDate` | kept |
+| `scheduledPayment.scheduledPaymentDetail[].status` | kept |
 
 
 ## isolved
@@ -943,37 +1172,37 @@ Sources:
 
 | Field | Disposition |
 |---|---|
-| `results[].checkAmount` | mapped (408) / kept (7) / unused (15) |
-| `results[].checkDate` | mapped (415) / unused (15) |
-| `results[].checkNumber` | mapped (415) / unused (15) |
-| `results[].checkSequence` | kept (415) / unused (15) |
-| `results[].directDepositAmount` | mapped (415) / unused (15) |
-| `results[].employeeAddress1` | kept (415) / unused (15) |
-| `results[].employeeAddress2` | kept (99) / unused (4) |
-| `results[].employeeCity` | kept (415) / unused (15) |
-| `results[].employeeFederalExemptions` | kept (415) / unused (15) |
-| `results[].employeeFederalFilingStatus` | kept (415) / unused (15) |
-| `results[].employeeId` | kept (415) / unused (15) |
-| `results[].employeeName` | kept (415) / unused (15) |
-| `results[].employeeNumber` | kept (415) / unused (15) |
-| `results[].employeeSSN` | kept (415) / unused (15) |
-| `results[].employeeState` | kept (415) / unused (15) |
-| `results[].employeeStateExemptions` | kept (373) / unused (14) |
-| `results[].employeeStateFilingStatus` | kept (215) / unused (11) |
-| `results[].employeeZipCode` | kept (415) / unused (15) |
-| `results[].grossPay` | mapped (415) / unused (15) |
-| `results[].grossWages` | mapped (415) / unused (15) |
-| `results[].id` | mapped (415) / unused (15) |
-| `results[].isRemoteWorker` | kept (415) / unused (15) |
-| `results[].legalCompanyName` | kept (415) / unused (15) |
+| `results[].checkAmount` | mapped (383) / kept (7) / unused (40) |
+| `results[].checkDate` | mapped (390) / unused (40) |
+| `results[].checkNumber` | mapped (390) / unused (40) |
+| `results[].checkSequence` | kept (390) / unused (40) |
+| `results[].directDepositAmount` | mapped (390) / unused (40) |
+| `results[].employeeAddress1` | kept (390) / unused (40) |
+| `results[].employeeAddress2` | kept (94) / unused (9) |
+| `results[].employeeCity` | kept (390) / unused (40) |
+| `results[].employeeFederalExemptions` | kept (390) / unused (40) |
+| `results[].employeeFederalFilingStatus` | kept (390) / unused (40) |
+| `results[].employeeId` | kept (390) / unused (40) |
+| `results[].employeeName` | kept (390) / unused (40) |
+| `results[].employeeNumber` | kept (390) / unused (40) |
+| `results[].employeeSSN` | kept (390) / unused (40) |
+| `results[].employeeState` | kept (390) / unused (40) |
+| `results[].employeeStateExemptions` | kept (351) / unused (36) |
+| `results[].employeeStateFilingStatus` | kept (206) / unused (20) |
+| `results[].employeeZipCode` | kept (390) / unused (40) |
+| `results[].grossPay` | mapped (390) / unused (40) |
+| `results[].grossWages` | mapped (390) / unused (40) |
+| `results[].id` | mapped (390) / unused (40) |
+| `results[].isRemoteWorker` | kept (390) / unused (40) |
+| `results[].legalCompanyName` | kept (390) / unused (40) |
 | `results[].links[].href` | dropped: API navigation |
 | `results[].links[].rel` | dropped: API navigation |
-| `results[].netPay` | mapped (415) / unused (15) |
-| `results[].payrollRunNumber` | mapped (415) / unused (15) |
-| `results[].payrollRunType` | kept (415) / unused (15) |
-| `results[].periodBeginDate` | mapped (415) / unused (15) |
-| `results[].periodEndDate` | mapped (415) / unused (15) |
-| `results[].vertexSchoolDistrictCode` | kept (415) / unused (15) |
+| `results[].netPay` | mapped (390) / unused (40) |
+| `results[].payrollRunNumber` | mapped (390) / unused (40) |
+| `results[].payrollRunType` | kept (390) / unused (40) |
+| `results[].periodBeginDate` | mapped (390) / unused (40) |
+| `results[].periodEndDate` | mapped (390) / unused (40) |
+| `results[].vertexSchoolDistrictCode` | kept (390) / unused (40) |
 | `totalItems` | dropped: paging envelope |
 | `totalPages` | dropped: paging envelope |
 
@@ -1092,7 +1321,7 @@ Sources:
 | `assignedSupervisor.legalId` | kept |
 | `birthDate` | mapped |
 | `citizenship` | mapped |
-| `disabilityDescription` | kept |
+| `disabilityDescription` | mapped |
 | `disabledEffectiveDate` | kept |
 | `disabledRequiresAccomodation` | kept |
 | `eligibleForRehire` | kept |
@@ -1105,7 +1334,7 @@ Sources:
 | `ethnicOrigin` | mapped |
 | `gender` | mapped |
 | `hireDate` | mapped |
-| `hourlyRate` | mapped (26) / kept (1) |
+| `hourlyRate` | mapped (39) / kept (3) |
 | `i9Documents.i9Completed` | dropped: identity documents are never kept |
 | `i9Documents.i9CompletedDate` | dropped: identity documents are never kept |
 | `id` | mapped |
@@ -1144,16 +1373,17 @@ Sources:
 | `organizations[].displayOrder` | kept |
 | `organizations[].id` | kept |
 | `organizations[].organizationId` | kept |
-| `organizations[].title` | kept |
-| `organizations[].value` | kept |
-| `organizations[].valueDescription` | kept |
+| `organizations[].title` | mapped |
+| `organizations[].value` | mapped |
+| `organizations[].valueDescription` | mapped |
 | `originalHireDate` | mapped |
 | `payFrequency` | mapped |
 | `payGroup` | mapped |
 | `payRates[].payRateName` | kept |
 | `payRates[].rateValue` | kept |
 | `payType` | mapped |
-| `perPaySalary` | mapped (26) / kept (1) |
+| `perPaySalary` | mapped (41) / kept (1) |
+| `personal.homePhone` | mapped |
 | `personal.id` | kept |
 | `personal.links[].href` | dropped: API navigation |
 | `personal.links[].method` | dropped: API navigation |
@@ -1163,6 +1393,7 @@ Sources:
 | `protectedVeteran` | kept |
 | `salaryEffectiveDate` | mapped |
 | `statusDate` | mapped |
+| `taxExemptStatus` | kept |
 | `taxes.federal.additionalAmount` | kept |
 | `taxes.federal.filingStatus` | kept |
 | `taxes.federal.id` | kept |
@@ -1172,11 +1403,14 @@ Sources:
 | `taxes.federal.multipleJobsOrSpouseWorks` | kept |
 | `taxes.federal.primaryExemptions` | kept |
 | `taxes.federal.taxCategoryId` | kept |
+| `taxes.nonResidentState.exemptionAmount` | kept |
+| `taxes.nonResidentState.filingStatus` | kept |
 | `taxes.nonResidentState.id` | kept |
 | `taxes.nonResidentState.isBlocked` | kept |
 | `taxes.nonResidentState.links[].href` | dropped: API navigation |
 | `taxes.nonResidentState.links[].rel` | dropped: API navigation |
 | `taxes.nonResidentState.multipleJobsOrSpouseWorks` | kept |
+| `taxes.nonResidentState.primaryExemptions` | kept |
 | `taxes.nonResidentState.taxCategoryId` | kept |
 | `taxes.nonResidentState.taxDescription` | kept |
 | `taxes.nonResidentState.taxState` | kept |
@@ -1205,16 +1439,35 @@ Sources:
 | `workLocation` | mapped |
 | `workLocationDashDescription` | mapped |
 
+### `api/clients/{client}/legals/{legal}/employees/{id}/categories`
+
+| Field | Disposition |
+|---|---|
+| `[].corporateOfficer` | kept |
+| `[].effectiveDate` | mapped |
+| `[].employmentCategory.acaEmploymentStatus` | kept |
+| `[].employmentCategory.code` | mapped |
+| `[].employmentCategory.description` | mapped |
+| `[].employmentCategory.id` | kept |
+| `[].employmentId` | kept |
+| `[].employmentPeriod` | kept |
+| `[].highlyCompensated` | kept |
+| `[].id` | mapped |
+| `[].isAcaVariableFullTime` | kept |
+| `[].qualifiedPensionPlan` | kept |
+| `[].replacementEmployee` | kept |
+| `[].statutoryEmployee` | kept |
+
 ### `api/clients/{client}/legals/{legal}/employees/{id}/checks/{id}`
 
 | Field | Disposition |
 |---|---|
-| `benefits[].benefitDescription` | mapped (36) / kept (26) |
-| `benefits[].benefitTitle` | mapped (50) / kept (12) |
+| `benefits[].benefitDescription` | mapped (90) / kept (74) |
+| `benefits[].benefitTitle` | mapped (146) / kept (18) |
 | `benefits[].checkEligibleWages` | kept |
 | `benefits[].checkEmployeeCatchUp` | kept |
-| `benefits[].checkEmployeeDeduction` | mapped (50) / kept (12) |
-| `benefits[].checkEmployerContribution` | mapped (50) / kept (12) |
+| `benefits[].checkEmployeeDeduction` | mapped (146) / kept (18) |
+| `benefits[].checkEmployerContribution` | mapped (146) / kept (18) |
 | `benefits[].checkMatchEligibleWages` | kept |
 | `benefits[].currentEligibleWages` | kept |
 | `benefits[].currentEmployeeCatchUp` | kept |
@@ -1254,21 +1507,21 @@ Sources:
 | `deductions[].checkDollars` | mapped |
 | `deductions[].currentDollars` | kept |
 | `deductions[].id` | kept |
-| `deductions[].itemCode` | mapped |
-| `deductions[].itemDescription` | mapped |
+| `deductions[].itemCode` | mapped (85) / kept (2) |
+| `deductions[].itemDescription` | mapped (85) / kept (2) |
 | `deductions[].mtdDollars` | kept |
 | `deductions[].qtdDollars` | kept |
 | `deductions[].sequence` | kept |
 | `deductions[].ytdDollars` | kept |
 | `directDepositAmount` | mapped |
 | `earnings[].checkDollars` | mapped |
-| `earnings[].checkHours` | mapped (27) / kept (42) |
+| `earnings[].checkHours` | mapped (78) / kept (95) |
 | `earnings[].currentDollars` | kept |
 | `earnings[].currentHours` | kept |
 | `earnings[].id` | kept |
-| `earnings[].isMemoEarning` | mapped (69) / kept (52) |
-| `earnings[].itemCode` | mapped (69) / kept (52) |
-| `earnings[].itemDescription` | mapped (69) / kept (52) |
+| `earnings[].isMemoEarning` | mapped (173) / kept (149) |
+| `earnings[].itemCode` | mapped (173) / kept (149) |
+| `earnings[].itemDescription` | mapped (173) / kept (149) |
 | `earnings[].mtdDollars` | kept |
 | `earnings[].mtdHours` | kept |
 | `earnings[].qtdDollars` | kept |
@@ -1333,8 +1586,8 @@ Sources:
 | `taxes[].currentDollars` | kept |
 | `taxes[].currentTaxableWages` | kept |
 | `taxes[].id` | kept |
-| `taxes[].isEmployeeTax` | mapped (111) / kept (26) |
-| `taxes[].itemDescription` | mapped (111) / kept (26) |
+| `taxes[].isEmployeeTax` | mapped (304) / kept (70) |
+| `taxes[].itemDescription` | mapped (304) / kept (70) |
 | `taxes[].mtdDollars` | kept |
 | `taxes[].mtdTaxableWages` | kept |
 | `taxes[].qtdDollars` | kept |
@@ -1355,6 +1608,7 @@ Sources:
 | `[].bankName` | mapped |
 | `[].frequency` | mapped |
 | `[].id` | mapped |
+| `[].percent` | mapped |
 | `[].routingNumber` | mapped |
 | `[].sequenceNumber` | mapped |
 | `[].status` | mapped |
@@ -1363,6 +1617,7 @@ Sources:
 
 | Field | Disposition |
 |---|---|
+| `[].additionalExemptionAmount` | kept |
 | `[].amount` | mapped |
 | `[].applyArrears` | kept |
 | `[].blockSystemGarnishmentRule` | kept |
@@ -1380,12 +1635,52 @@ Sources:
 | `[].links[].rel` | dropped: API navigation |
 | `[].maximumPercent` | kept |
 | `[].newBalance` | kept |
+| `[].overrideTakeHomeFactor` | kept |
+| `[].percent` | mapped |
 | `[].percentageOf` | mapped |
 | `[].remainingBalance` | mapped |
 | `[].resetNotTakenBalanceToZero` | kept |
+| `[].selectedDeductions[].id` | kept |
+| `[].selectedDeductions[].payItemTitle` | kept |
 | `[].state.id` | mapped |
 | `[].state.stateName` | kept |
 | `[].status` | mapped |
+| `[].thirdPartyPayee.id` | kept |
+| `[].thirdPartyPayee.nameDashPayeeDescription` | kept |
+
+### `api/clients/{client}/legals/{legal}/employees/{id}/jobs`
+
+| Field | Disposition |
+|---|---|
+| `[].clientJob.eeoCategory` | kept |
+| `[].clientJob.id` | kept |
+| `[].clientJob.isFLSAExempt` | kept |
+| `[].clientJob.isInactive` | kept |
+| `[].clientJob.isManagerJob` | kept |
+| `[].clientJob.isSeasonal` | kept |
+| `[].clientJob.isSupervisorJob` | kept |
+| `[].clientJob.isUnion` | kept |
+| `[].clientJob.jobCode` | mapped |
+| `[].clientJob.jobTitle` | mapped |
+| `[].effectiveDate` | mapped |
+| `[].id` | mapped |
+| `[].isWorkersCompExempt` | kept |
+| `[].manager.firstName` | kept |
+| `[].manager.id` | mapped |
+| `[].manager.lastName` | kept |
+| `[].organizations[].clientOrganizationField.displayOrder` | kept |
+| `[].organizations[].clientOrganizationField.id` | kept |
+| `[].organizations[].clientOrganizationField.includeInJob` | kept |
+| `[].organizations[].clientOrganizationField.isLaborField` | kept |
+| `[].organizations[].clientOrganizationField.isRequired` | kept |
+| `[].organizations[].clientOrganizationField.isTeam` | kept |
+| `[].organizations[].clientOrganizationField.links[].href` | dropped: API navigation |
+| `[].organizations[].clientOrganizationField.links[].rel` | dropped: API navigation |
+| `[].organizations[].clientOrganizationField.title` | mapped (62) / kept (6) |
+| `[].organizations[].organizationValue` | mapped |
+| `[].supervisor.firstName` | kept |
+| `[].supervisor.id` | mapped |
+| `[].supervisor.lastName` | kept |
 
 ### `api/clients/{client}/legals/{legal}/employees/{id}/payItems`
 
@@ -1393,21 +1688,22 @@ Sources:
 |---|---|
 | `[].auditId` | kept |
 | `[].balance` | kept |
-| `[].calcParams[].paramType` | mapped (420) / kept (630) |
-| `[].calcParams[].paramValue` | mapped (420) / kept (630) |
+| `[].calcParams[].paramType` | mapped (630) / kept (945) |
+| `[].calcParams[].paramValue` | mapped (630) / kept (945) |
 | `[].employeeId` | mapped |
 | `[].employeeNumber` | mapped |
 | `[].firstName` | mapped |
-| `[].id` | mapped (570) / kept (660) |
+| `[].id` | mapped (855) / kept (990) |
 | `[].lastName` | mapped |
 | `[].links[].href` | dropped: API navigation |
 | `[].links[].method` | dropped: API navigation |
 | `[].links[].rel` | dropped: API navigation |
-| `[].payItemCode` | mapped (420) / kept (420) |
-| `[].payItemId` | mapped (570) / kept (660) |
-| `[].payItemName` | mapped (570) / kept (660) |
-| `[].payItemType` | mapped (570) / kept (660) |
+| `[].payItemCode` | mapped (630) / kept (630) |
+| `[].payItemId` | mapped (855) / kept (990) |
+| `[].payItemName` | mapped (855) / kept (990) |
+| `[].payItemType` | mapped (855) / kept (990) |
 | `[].startDate` | mapped |
+| `[].stopDate` | mapped |
 
 ### `api/clients/{client}/legals/{legal}/employees/{id}/payRates`
 
@@ -1429,7 +1725,7 @@ Sources:
 | `[].effectiveDate` | mapped |
 | `[].frequency.description` | kept |
 | `[].frequency.id` | kept |
-| `[].hourlyRate` | mapped (26) / kept (1) |
+| `[].hourlyRate` | mapped (47) / kept (34) |
 | `[].id` | mapped |
 | `[].isInactive` | kept |
 | `[].lifeEvent` | kept |
@@ -1440,44 +1736,50 @@ Sources:
 | `[].payGroup.id` | kept |
 | `[].payType.description` | mapped |
 | `[].payType.id` | kept |
-| `[].perPaySalary` | mapped (26) / kept (1) |
+| `[].perPaySalary` | mapped (80) / kept (1) |
 
 ### `api/clients/{client}/legals/{legal}/employees/{id}/statuses`
 
 | Field | Disposition |
 |---|---|
-| `[].changeReason` | kept |
-| `[].clientEmploymentStatusDescription` | mapped (30) / kept (1) |
+| `[].changeReason` | mapped |
+| `[].clientEmploymentStatusDescription` | mapped |
 | `[].clientEmploymentStatusId` | kept |
-| `[].effectiveDate` | kept |
+| `[].effectiveDate` | mapped |
 | `[].employeeEmploymentId` | kept |
-| `[].endDate` | kept |
-| `[].isImpliedStatus` | mapped (30) / kept (1) |
+| `[].endDate` | mapped |
+| `[].isImpliedStatus` | mapped |
 | `[].statusId` | kept |
+
+### `api/clients/{client}/legals/{legal}/employees/{id}/veteranStatus`
+
+| Field | Disposition |
+|---|---|
+| `veteranStatus` | mapped |
 
 ### `api/clients/{client}/legals/{legal}/paygroupId/{id}/payrollRunHistory`
 
 | Field | Disposition |
 |---|---|
-| `[].id` | kept (223) / unused (8) |
-| `[].impoundDate` | kept (223) / unused (8) |
-| `[].inputMethod` | kept (223) / unused (8) |
-| `[].payDate` | mapped (223) / unused (8) |
+| `[].id` | kept (217) / unused (14) |
+| `[].impoundDate` | kept (217) / unused (14) |
+| `[].inputMethod` | kept (217) / unused (14) |
+| `[].payDate` | mapped (217) / unused (14) |
 | `[].payOfTheMonth` | mapped (193) / unused (2) |
-| `[].payPeriod` | kept (223) / unused (8) |
-| `[].payrollRunType` | mapped (223) / unused (8) |
-| `[].periodBeginDate` | mapped (223) / unused (8) |
-| `[].periodEndDate` | mapped (223) / unused (8) |
-| `[].processApprovedBy` | kept (30) / unused (6) |
-| `[].processedBy` | kept (30) / unused (6) |
-| `[].regularCheckAutoPay` | kept (223) / unused (8) |
-| `[].runDate` | mapped (223) / unused (8) |
-| `[].runNumber` | mapped (223) / unused (8) |
-| `[].runTime` | kept (223) / unused (8) |
+| `[].payPeriod` | kept (217) / unused (14) |
+| `[].payrollRunType` | mapped (217) / unused (14) |
+| `[].periodBeginDate` | mapped (217) / unused (14) |
+| `[].periodEndDate` | mapped (217) / unused (14) |
+| `[].processApprovedBy` | kept (24) / unused (12) |
+| `[].processedBy` | kept (24) / unused (12) |
+| `[].regularCheckAutoPay` | kept (217) / unused (14) |
+| `[].runDate` | mapped (217) / unused (14) |
+| `[].runNumber` | mapped (217) / unused (14) |
+| `[].runTime` | kept (217) / unused (14) |
 | `[].scheduledPayDate` | kept (192) / unused (2) |
 | `[].scheduledRunDate` | kept (192) / unused (2) |
-| `[].status` | mapped (223) / unused (8) |
-| `[].submittedBy` | kept (30) / unused (6) |
+| `[].status` | mapped (217) / unused (14) |
+| `[].submittedBy` | kept (24) / unused (12) |
 
 ### `api/clients/{client}/legals/{legal}/paygroupId/{id}/payrollRunHistory/{id}`
 
@@ -1519,6 +1821,15 @@ Sources:
 | `[].systemBenefitType` | reference |
 | `[].systemPayItemType` | reference |
 | `[].title` | reference |
+
+### `api/lookup/ContactRelationshipCodes`
+
+| Field | Disposition |
+|---|---|
+| `[].description` | reference |
+| `[].id` | reference |
+| `[].links[].href` | dropped: API navigation |
+| `[].links[].rel` | dropped: API navigation |
 
 ### `api/lookup/Frequencies`
 
@@ -1576,6 +1887,18 @@ Sources:
 
 ## ukg-ready
 
+### `rest/v2/companies/{company}/config/cost-centers`
+
+| Field | Disposition |
+|---|---|
+| `cost_centers[].description` | reference |
+| `cost_centers[].external_id` | reference |
+| `cost_centers[].id` | reference |
+| `cost_centers[].location_code` | reference |
+| `cost_centers[].name` | reference |
+| `cost_centers[].parent_id` | reference |
+| `cost_centers[].payroll_code` | reference |
+
 ### `rest/v2/companies/{company}/employees`
 
 | Field | Disposition |
@@ -1619,8 +1942,8 @@ Sources:
 | `address.state` | mapped |
 | `address.state_code` | mapped |
 | `address.zip` | mapped |
-| `cost_centers_info.defaults[].index` | kept |
-| `cost_centers_info.defaults[].value.id` | kept |
+| `cost_centers_info.defaults[].index` | mapped |
+| `cost_centers_info.defaults[].value.id` | mapped |
 | `cost_centers_info.limits[].index` | kept |
 | `cost_centers_info.limits[].values[].id` | kept |
 | `cost_centers_info.limits[].values[].type` | kept |
@@ -1642,19 +1965,19 @@ Sources:
 | `last_name` | mapped |
 | `locale.id` | kept |
 | `locked` | kept |
-| `mailing_address.address_line_1` | kept |
-| `mailing_address.city` | kept |
-| `mailing_address.country` | kept |
-| `mailing_address.state` | kept |
-| `mailing_address.state_code` | kept |
-| `mailing_address.zip` | kept |
+| `mailing_address.address_line_1` | mapped |
+| `mailing_address.city` | mapped |
+| `mailing_address.country` | mapped |
+| `mailing_address.state` | mapped |
+| `mailing_address.state_code` | mapped |
+| `mailing_address.zip` | mapped |
 | `managed_cost_centers_enabled` | kept |
 | `managed_cost_centers_settings.allow_save_others_cost_centers` | kept |
-| `managers[].empl_ref.account_id` | mapped (15) / kept (11) |
+| `managers[].empl_ref.account_id` | mapped (25) / kept (19) |
 | `managers[].index` | mapped |
 | `middle_name` | mapped |
-| `national_id_numbers[].primary` | mapped (2) / kept (13) |
-| `national_id_numbers[].type` | mapped (2) / kept (13) |
+| `national_id_numbers[].primary` | mapped (3) / kept (22) |
+| `national_id_numbers[].type` | mapped (3) / kept (22) |
 | `national_id_numbers[].value` | kept |
 | `nickname` | mapped |
 | `phones.cell_phone` | mapped |
@@ -1670,28 +1993,78 @@ Sources:
 | `photo_href` | dropped: a signed link that works as a credential |
 | `primary_account_id` | kept |
 | `primary_email` | mapped |
-| `secondary_email` | kept |
+| `secondary_email` | mapped |
 | `social_security` | mapped |
 | `status` | mapped |
 | `timezone` | kept |
 | `use_separate_mailing_address` | kept |
 | `username` | mapped |
 
+### `rest/v2/companies/{company}/employees/{id}/benefits`
+
+| Field | Disposition |
+|---|---|
+| `benefits[].benefit_plan.id` | kept |
+| `benefits[].coverage_effective_from` | kept |
+| `benefits[].coverage_effective_to` | kept |
+| `benefits[].coverage_level` | kept |
+| `benefits[].employee.account_id` | kept |
+| `benefits[].id` | kept |
+| `benefits[].name` | kept |
+
 ### `rest/v2/companies/{company}/employees/{id}/compensation/history`
 
 | Field | Disposition |
 |---|---|
 | `compensations[]._links.self` | dropped: API navigation |
-| `compensations[].amount` | mapped (43) / kept (3) |
-| `compensations[].amount_period` | mapped (43) / kept (3) |
-| `compensations[].currency` | mapped (43) / kept (3) |
+| `compensations[].amount` | mapped (64) / kept (6) |
+| `compensations[].amount_period` | mapped (64) / kept (6) |
+| `compensations[].currency` | mapped (64) / kept (6) |
 | `compensations[].effective_from` | mapped |
 | `compensations[].employee.account_id` | mapped |
-| `compensations[].hourly_pay` | mapped (43) / kept (3) |
+| `compensations[].hourly_pay` | mapped (64) / kept (6) |
 | `compensations[].id` | mapped |
-| `compensations[].num_pp_in_year` | mapped (15) / kept (31) |
+| `compensations[].num_pp_in_year` | mapped (25) / kept (45) |
 | `compensations[].time` | mapped |
-| `compensations[].time_period` | mapped (15) / kept (31) |
+| `compensations[].time_period` | mapped (25) / kept (45) |
+
+### `rest/v2/companies/{company}/employees/{id}/contacts`
+
+| Field | Disposition |
+|---|---|
+| `_links.create` | dropped: API navigation |
+| `contacts[]._links.changeActiveStatus` | dropped: API navigation |
+| `contacts[]._links.delete` | dropped: API navigation |
+| `contacts[]._links.edit` | dropped: API navigation |
+| `contacts[]._links.self` | dropped: API navigation |
+| `contacts[].active` | kept |
+| `contacts[].beneficiary` | mapped |
+| `contacts[].birthdate` | mapped |
+| `contacts[].dependent` | mapped |
+| `contacts[].emergency` | mapped |
+| `contacts[].employee.account_id` | mapped |
+| `contacts[].first_name` | mapped |
+| `contacts[].has_activate_deactivate_permission` | kept |
+| `contacts[].has_delete_permission` | kept |
+| `contacts[].has_emergency_notification_permission` | kept |
+| `contacts[].home_phone.code` | kept |
+| `contacts[].home_phone.number` | mapped |
+| `contacts[].home_phone.primary` | kept |
+| `contacts[].id` | mapped |
+| `contacts[].is_in_any_benefit_plan` | kept |
+| `contacts[].last_name` | mapped |
+| `contacts[].primary` | mapped |
+| `contacts[].relationship` | mapped |
+
+### `rest/v2/companies/{company}/employees/{id}/demographics`
+
+| Field | Disposition |
+|---|---|
+| `citizenship` | mapped |
+| `ethnicity` | mapped |
+| `full_time_student` | kept |
+| `gender` | mapped |
+| `referral.id` | kept |
 
 ### `rest/v2/companies/{company}/employees/{id}/direct-deposits`
 
@@ -1751,6 +2124,16 @@ Sources:
 | `standard_work_day` | kept |
 | `union.id` | kept |
 | `workers_comp_code.external_id` | kept |
+
+### `rest/v2/companies/{company}/employees/{id}/tax-info`
+
+| Field | Disposition |
+|---|---|
+| `employee-tax-type.DRAW` | kept |
+| `employee-tax-type.W2` | kept |
+| `employee-tax-type._1099` | kept |
+| `pension-box-type` | kept |
+| `third-party-sick` | kept |
 
 ### `rest/v2/companies/{company}/lookup/deduction-codes`
 
@@ -1822,19 +2205,19 @@ Sources:
 | Field | Disposition |
 |---|---|
 | `payrolls[]._links.self` | dropped: API navigation |
-| `payrolls[].billable` | kept (75) / unused (14) |
-| `payrolls[].ein.ein_country_id` | mapped (75) / unused (14) |
-| `payrolls[].ein.ein_name` | mapped (75) / unused (14) |
-| `payrolls[].ein.ein_tax_id` | mapped (75) / unused (14) |
-| `payrolls[].ein.id` | mapped (75) / unused (14) |
-| `payrolls[].end_date` | mapped (75) / unused (14) |
-| `payrolls[].id` | mapped (75) / unused (14) |
-| `payrolls[].name` | mapped (75) / unused (14) |
-| `payrolls[].pay_date` | mapped (75) / unused (14) |
-| `payrolls[].start_date` | mapped (75) / unused (14) |
-| `payrolls[].status` | mapped (75) / unused (14) |
-| `payrolls[].type.display_name` | mapped (75) / unused (14) |
-| `payrolls[].type.id` | kept (75) / unused (14) |
+| `payrolls[].billable` | kept (66) / unused (23) |
+| `payrolls[].ein.ein_country_id` | mapped (66) / unused (23) |
+| `payrolls[].ein.ein_name` | mapped (66) / unused (23) |
+| `payrolls[].ein.ein_tax_id` | mapped (66) / unused (23) |
+| `payrolls[].ein.id` | mapped (66) / unused (23) |
+| `payrolls[].end_date` | mapped (66) / unused (23) |
+| `payrolls[].id` | mapped (66) / unused (23) |
+| `payrolls[].name` | mapped (66) / unused (23) |
+| `payrolls[].pay_date` | mapped (66) / unused (23) |
+| `payrolls[].start_date` | mapped (66) / unused (23) |
+| `payrolls[].status` | mapped (66) / unused (23) |
+| `payrolls[].type.display_name` | mapped (66) / unused (23) |
+| `payrolls[].type.id` | kept (66) / unused (23) |
 
 ### `rest/v2/companies/{company}/payrolls/{id}`
 
@@ -1885,7 +2268,7 @@ Sources:
 | `deductions[].cost_centers[].value.name` | kept |
 | `deductions[].cost_centers[].value.payroll_code` | kept |
 | `deductions[].deduction.code` | mapped |
-| `deductions[].deduction.external_id` | mapped (68) / kept (45) |
+| `deductions[].deduction.external_id` | mapped (68) / kept (47) |
 | `deductions[].deduction.id` | kept |
 | `deductions[].deduction.name` | mapped |
 | `deductions[].ee_amount` | mapped |
@@ -1895,26 +2278,26 @@ Sources:
 | `deductions[].er_amount` | mapped |
 | `deductions[].id` | kept |
 | `deductions[].type_name` | kept |
-| `earnings[].base_rate` | mapped (67) / kept (74) |
+| `earnings[].base_rate` | mapped (68) / kept (74) |
 | `earnings[].batch.display_name` | kept |
 | `earnings[].batch.id` | kept |
-| `earnings[].cost_centers[].index` | mapped (405) / kept (16) |
+| `earnings[].cost_centers[].index` | mapped (406) / kept (16) |
 | `earnings[].cost_centers[].value.description` | kept |
-| `earnings[].cost_centers[].value.display_name` | mapped (405) / kept (16) |
+| `earnings[].cost_centers[].value.display_name` | mapped (406) / kept (16) |
 | `earnings[].cost_centers[].value.external_id` | kept |
 | `earnings[].cost_centers[].value.id` | kept |
-| `earnings[].cost_centers[].value.name` | mapped (405) / kept (16) |
+| `earnings[].cost_centers[].value.name` | mapped (406) / kept (16) |
 | `earnings[].cost_centers[].value.payroll_code` | kept |
 | `earnings[].date_range_from` | mapped |
 | `earnings[].date_range_to` | mapped |
-| `earnings[].earning.code` | mapped (154) / kept (6) |
+| `earnings[].earning.code` | mapped (155) / kept (6) |
 | `earnings[].earning.external_id` | kept |
 | `earnings[].earning.id` | kept |
-| `earnings[].earning.name` | mapped (154) / kept (6) |
+| `earnings[].earning.name` | mapped (155) / kept (6) |
 | `earnings[].ee_amount` | mapped |
 | `earnings[].hours` | mapped |
 | `earnings[].id` | kept |
-| `earnings[].type_name` | mapped (154) / kept (6) |
+| `earnings[].type_name` | mapped (155) / kept (6) |
 | `employee.account_id` | mapped |
 | `emptyEarning` | kept |
 | `id` | mapped |
@@ -1929,9 +2312,9 @@ Sources:
 | `pay_period_start` | mapped |
 | `payments[].batch.display_name` | kept |
 | `payments[].batch.id` | kept |
-| `payments[].ee_amount` | mapped (60) / kept (17) |
+| `payments[].ee_amount` | mapped (61) / kept (17) |
 | `payments[].id` | kept |
-| `payments[].type_name` | mapped (60) / kept (24) |
+| `payments[].type_name` | mapped (61) / kept (25) |
 | `status` | mapped |
 | `taxes[].batch.display_name` | kept |
 | `taxes[].batch.id` | kept |
@@ -1943,7 +2326,7 @@ Sources:
 | `taxes[].ee_amount` | mapped |
 | `taxes[].ee_gross_subject_wage` | kept |
 | `taxes[].ee_gross_wage` | kept |
-| `taxes[].ee_subject_wage` | mapped (220) / kept (19) |
+| `taxes[].ee_subject_wage` | mapped (223) / kept (20) |
 | `taxes[].er_amount` | mapped |
 | `taxes[].er_gross_subject_wage` | kept |
 | `taxes[].er_gross_wage` | kept |
@@ -1952,3 +2335,36 @@ Sources:
 | `taxes[].type_name` | kept |
 | `type.display_name` | mapped |
 | `type.id` | kept |
+
+### `rest/v2/companies/{company}/position/assignments/{id}`
+
+| Field | Disposition |
+|---|---|
+| `assignments[].account_id` | kept |
+| `assignments[].account_name` | kept |
+| `assignments[].annual_base_comp` | kept |
+| `assignments[].annual_work_hours` | kept |
+| `assignments[].assigned_fte` | kept |
+| `assignments[].assignee.account_id` | kept |
+| `assignments[].assignee.display_name` | kept |
+| `assignments[].assignee.ein.display_name` | kept |
+| `assignments[].assignee.ein.id` | kept |
+| `assignments[].assignee.employee_id` | kept |
+| `assignments[].assignee.hire_date` | kept |
+| `assignments[].assignee.primary_account_id` | kept |
+| `assignments[].assignment_id` | kept |
+| `assignments[].assignment_number` | kept |
+| `assignments[].cost_center_list[].allow_override` | kept |
+| `assignments[].cost_center_list[].id` | kept |
+| `assignments[].cost_center_list[].name` | kept |
+| `assignments[].cost_center_list[].tree_index` | kept |
+| `assignments[].cost_center_list[].value_id` | kept |
+| `assignments[].cost_center_list[].value_name` | kept |
+| `assignments[].is_primary_assignment` | kept |
+| `assignments[].new_assignment_validate` | kept |
+| `assignments[].position_id` | kept |
+| `assignments[].position_name` | kept |
+| `assignments[].position_number` | kept |
+| `assignments[].read_only` | kept |
+| `assignments[].start_date` | kept |
+| `assignments[].total_base_comp` | kept |

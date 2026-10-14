@@ -1,0 +1,47 @@
+{
+  "seq": 24,
+  "endpoint": "api/clients/{client}/legals/{legal}/employees/{id}/jobs",
+  "path": "api/clients/501/legals/601/employees/9002/jobs",
+  "params": {},
+  "status": 200,
+  "body": [
+    {
+      "id": 900207,
+      "effectiveDate": "2021-03-15T00:00:00",
+      "clientJob": {
+        "id": 31,
+        "jobCode": "BAKER",
+        "jobTitle": "Baker",
+        "eeoCategory": "Service Workers",
+        "isFLSAExempt": false,
+        "isUnion": false
+      },
+      "manager": {
+        "id": 9001,
+        "firstName": "Maria",
+        "lastName": "Example"
+      },
+      "supervisor": {
+        "id": 9004,
+        "firstName": "Devon",
+        "lastName": "Example"
+      },
+      "organizations": [
+        {
+          "clientOrganizationField": {
+            "id": 9944,
+            "title": "Department"
+          },
+          "organizationValue": "LOG"
+        }
+      ],
+      "changeReason": {
+        "id": 3,
+        "code": "NH",
+        "description": "New Hire"
+      },
+      "isWorkersCompExempt": false,
+      "compaRatio": "1.00"
+    }
+  ]
+}

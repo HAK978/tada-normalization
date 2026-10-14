@@ -1,0 +1,16 @@
+{
+  "seq": 31,
+  "endpoint": "rest/v2/companies/{company}/employees/{id}/tax-info",
+  "path": "rest/v2/companies/7001/employees/5002/tax-info",
+  "params": {},
+  "status": 200,
+  "body": {
+    "employee-tax-type": {
+      "W2": true,
+      "_1099": false,
+      "DRAW": false
+    },
+    "pension-box-type": "SYSTEM_RULES",
+    "third-party-sick": "COMPANY_DEFAULT"
+  }
+}

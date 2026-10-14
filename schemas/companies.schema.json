@@ -264,6 +264,76 @@
    "title": "Coded[ServiceArrangement]",
    "type": "object"
   },
+  "CompanyContact": {
+   "additionalProperties": false,
+   "description": "A person the provider lists as a contact at the company (A-84).",
+   "properties": {
+    "contact_type": {
+     "anyOf": [
+      {
+       "type": "string"
+      },
+      {
+       "type": "null"
+      }
+     ],
+     "default": null,
+     "title": "Contact Type"
+    },
+    "emails": {
+     "items": {
+      "$ref": "#/$defs/Email"
+     },
+     "title": "Emails",
+     "type": "array"
+    },
+    "name": {
+     "anyOf": [
+      {
+       "type": "string"
+      },
+      {
+       "type": "null"
+      }
+     ],
+     "default": null,
+     "title": "Name"
+    },
+    "phones": {
+     "items": {
+      "$ref": "#/$defs/Phone"
+     },
+     "title": "Phones",
+     "type": "array"
+    },
+    "source_id": {
+     "anyOf": [
+      {
+       "type": "string"
+      },
+      {
+       "type": "null"
+      }
+     ],
+     "default": null,
+     "title": "Source Id"
+    },
+    "title": {
+     "anyOf": [
+      {
+       "type": "string"
+      },
+      {
+       "type": "null"
+      }
+     ],
+     "default": null,
+     "title": "Title"
+    }
+   },
+   "title": "CompanyContact",
+   "type": "object"
+  },
   "CompanyStatus": {
    "enum": [
     "ACTIVE",
@@ -352,7 +422,8 @@
     "PERSONAL",
     "WORK",
     "BENEFITS",
-    "MAIN"
+    "MAIN",
+    "SECONDARY"
    ],
    "title": "EmailType",
    "type": "string"
@@ -656,6 +727,13 @@
     "$ref": "#/$defs/Address"
    },
    "title": "Addresses",
+   "type": "array"
+  },
+  "contacts": {
+   "items": {
+    "$ref": "#/$defs/CompanyContact"
+   },
+   "title": "Contacts",
    "type": "array"
   },
   "diagnostics": {

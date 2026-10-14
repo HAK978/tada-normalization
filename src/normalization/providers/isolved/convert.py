@@ -21,6 +21,7 @@ from normalization.canonical.records import (
     Company,
     Compensation,
     CompensationChange,
+    Contact,
     ContributionLine,
     DeductionElection,
     DeductionLimits,
@@ -30,15 +31,19 @@ from normalization.canonical.records import (
     Email,
     Employee,
     EmployerRef,
+    EmploymentChange,
     FrequencyInfo,
     GarnishmentDetails,
     Identifier,
+    JobChange,
+    OrgAssignment,
     OrgUnit,
     PayGroup,
     PaymentLine,
     PayrollRun,
     PayStatement,
     PayStatementTotals,
+    PersonName,
     Phone,
     RunPayGroup,
     TaxLine,
@@ -69,6 +74,7 @@ from ..common import (
     line_amount,
     money,
     tax_type,
+    unmasked_date,
     us_state,
 )
 from . import codes as I
@@ -84,6 +90,8 @@ _IDS = re.compile(
 )
 _PERIODS_PER_YEAR = re.compile(r"^(\d+) Pay Periods Per Year$")
 E = "api/clients/{client}/legals/{legal}/employees/{id}"
+# Responses about one employee read into the employee record, besides the employee itself (A-76, A-77, A-81).
+PER_EMPLOYEE = (E + "/salaries", E + "/statuses", E + "/jobs", E + "/categories", E + "/contacts", E + "/veteranStatus")
 
 
 def path_ids(capture: Capture) -> dict[str, str]:
@@ -144,7 +152,7 @@ class _Legal:
                 for capture in bundle.ok(f"api/lookup/{name}")
                 for row in (capture.body if isinstance(capture.body, list) else [])
             }
-            for name in ("genders", "maritalStatuses", "citizenships")
+            for name in ("genders", "maritalStatuses", "citizenships", "ContactRelationshipCodes")
         }
 
     # -------------------------------------------------------------- helpers
@@ -542,7 +550,19 @@ class _Legal:
             )
             if a
         ]
-        disabled = flag(s.get("disabled"))
+        disabled = self._disabled(s, notes)
+        veteran = self._veteran(s, employee_id, notes, history_kept)
+        # Organization fields are customer-defined; each keeps the customer's own title (A-75).
+        org_units = [
+            OrgAssignment(
+                dimension=text(o.get("title")),
+                code=text(o.get("value")),
+                name=text(o.get("valueDescription")),
+                source_field=o.path,
+            )
+            for o in s.children("organizations")
+            if text(o.data.get("value")) or text(o.data.get("valueDescription"))
+        ]
         manager = text((s.child("assignedManager") or Src({})).get("id"))
         supervisor = text((s.child("assignedSupervisor") or Src({})).get("id"))
 
@@ -550,7 +570,7 @@ class _Legal:
             id=self._id("employee", employee_id),
             company_id=self.company_id,
             source=self._source(
-                [E, E + "/salaries", E + "/statuses"],
+                [E] + [e for e in PER_EMPLOYEE if any(True for _ in self._captures(e, employee=employee_id))],
                 clientId=self.client_id,
                 legalId=self.legal_id,
                 employeeId=employee_id,
@@ -577,13 +597,8 @@ class _Legal:
                     C.MaritalStatus.UNMAPPED,
                 ),
                 ethnicity=unmapped_label(s.get("ethnicOrigin"), text(s.data.get("ethnicOrigin")), "ethnicOrigin"),
-                disabled=Coded[C.YesNoDeclined](
-                    value=C.YesNoDeclined.YES if disabled else C.YesNoDeclined.NO,
-                    raw=disabled,
-                    source_field="disabled",
-                )
-                if disabled is not None
-                else None,
+                disabled=disabled,
+                veteran=veteran,
                 citizenship=self._lookup_coded(
                     "citizenships",
                     I.CITIZENSHIP,
@@ -592,6 +607,7 @@ class _Legal:
                     notes,
                     C.Citizenship.UNMAPPED,
                 ),
+                contacts=self._contacts(employee_id, notes, history_kept),
             ),
             addresses=addresses,
             phones=phones,
@@ -611,6 +627,8 @@ class _Legal:
                     s.get("terminationReason"), text(s.data.get("terminationReason")), "terminationReason"
                 ),
                 flsa_exempt=flag(s.get("jobFLSAExempt")),
+                history=self._status_history(statuses, notes)
+                + self._category_history(employee_id, notes, history_kept),
             ),
             job=dict(
                 title=text(s.get("jobTitle")),
@@ -621,6 +639,8 @@ class _Legal:
                 if location_code or location_name
                 else None,
                 pay_group=text(s.get("payGroup")),
+                org_units=org_units,
+                history=self._job_history(employee_id, notes, history_kept),
             ),
             compensation=Compensation(
                 pay_type=pay_type,
@@ -653,6 +673,204 @@ class _Legal:
             extensions.update(without_links(sanitize_extensions(Src(row, f"payRates[{i}]").leftovers())))
         employee.provider_extensions = extensions
         self.out.add("employees", employee)
+
+    def _disabled(self, s: Src, notes: Notes) -> Coded[C.YesNoDeclined] | None:
+        """`disabled` is documented True = Disabled, False = Not Disabled; when it is null, the read-only
+        `disabilityDescription` may still say the employee declined to answer (A-81)."""
+        disabled = flag(s.get("disabled"))
+        if disabled is not None:
+            return Coded[C.YesNoDeclined](
+                value=C.YesNoDeclined.YES if disabled else C.YesNoDeclined.NO, raw=disabled, source_field="disabled"
+            )
+        description = text(s.get("disabilityDescription"))
+        if description is None:
+            return None
+        value = I.DISABILITY_DESCRIPTION.get(description)
+        if value is None:
+            notes.warn("UNMAPPED_CODE", "disabilityDescription", "not a known disability description", description)
+        return Coded[C.YesNoDeclined](
+            value=value or C.YesNoDeclined.UNMAPPED,
+            raw=description,
+            label=description,
+            source_field="disabilityDescription",
+        )
+
+    def _veteran(self, s: Src, employee_id: str, notes: Notes, kept: dict[str, Any]) -> Coded[C.YesNoDeclined] | None:
+        """YES when a documented veteran flag is true; otherwise /veteranStatus's text, which has no documented
+        values, stays UNMAPPED. A false flag says nothing, and veteranStatusNotSpecified is kept raw (A-81)."""
+        flagged = next((f for f in I.VETERAN_FLAGS if flag(s.data.get(f))), None)
+        status: Coded[C.YesNoDeclined] | None = None
+        if flagged:
+            s.get(flagged)
+            status = Coded[C.YesNoDeclined](value=C.YesNoDeclined.YES, raw=True, source_field=flagged)
+        for capture in self._captures(E + "/veteranStatus", employee=employee_id):
+            v = Src(capture.body, "veteranStatus")
+            flag_field = next((f for f in I.VETERAN_STATUS_FLAGS if flag(v.data.get(f))), None)
+            if status is None and flag_field:
+                v.get(flag_field)
+                status = Coded[C.YesNoDeclined](
+                    value=C.YesNoDeclined.YES, raw=True, source_field=f"{v.path}.{flag_field}"
+                )
+            said = text(v.data.get("veteranStatus"))
+            if status is None and said:
+                v.get("veteranStatus")
+                notes.warn("UNMAPPED_CODE", "veteranStatus.veteranStatus", "no documented values", said)
+                status = Coded[C.YesNoDeclined](
+                    value=C.YesNoDeclined.UNMAPPED, raw=said, label=said, source_field="veteranStatus.veteranStatus"
+                )
+            kept.update(without_links(sanitize_extensions(v.leftovers())))
+        return status
+
+    def _status_history(self, statuses: list[Src], notes: Notes) -> list[EmploymentChange]:
+        """Each /statuses row as a status change; implied system statuses map as the current one does (A-48, A-76)."""
+        changes = []
+        for row in statuses:
+            description = text(row.get("clientEmploymentStatusDescription"))
+            implied = flag(row.get("isImpliedStatus"))
+            value = I.IMPLIED_STATUS.get(description or "") if implied else None
+            changes.append(
+                EmploymentChange(
+                    kind=C.EmploymentChangeKind.STATUS,
+                    effective_date=iso_date(row.get("effectiveDate"), f"{row.path}.effectiveDate", notes),
+                    end_date=iso_date(row.get("endDate"), f"{row.path}.endDate", notes),
+                    status=Coded[C.EmploymentStatus](
+                        value=value or C.EmploymentStatus.UNMAPPED,
+                        raw=description,
+                        label=description,
+                        source_field=f"{row.path}.clientEmploymentStatusDescription",
+                    )
+                    if description
+                    else None,
+                    # Change reasons are customer text: kept with their label, not translated (A-35).
+                    reason=unmapped_label(
+                        row.get("changeReason"), text(row.data.get("changeReason")), f"{row.path}.changeReason"
+                    ),
+                    source_field=row.path,
+                )
+            )
+        return changes
+
+    @staticmethod
+    def _reason(row: Src) -> Coded[str] | None:
+        """A client change reason ({code, description}): customer configuration, kept with its label (A-35)."""
+        reason = row.child("changeReason")
+        if reason is None:
+            return None
+        return unmapped_label(reason.get("code"), text(reason.get("description")), f"{reason.path}.code")
+
+    def _category_history(self, employee_id: str, notes: Notes, kept: dict[str, Any]) -> list[EmploymentChange]:
+        """Effective-dated employment categories. Categories are customer codes, like the current one (A-76)."""
+        changes = []
+        for i, row in enumerate(self._body_list(E + "/categories", employee=employee_id)):
+            c = Src(row, f"categories[{i}]")
+            category = c.child("employmentCategory") or Src({})
+            changes.append(
+                EmploymentChange(
+                    kind=C.EmploymentChangeKind.CATEGORY,
+                    source_id=text(c.get("id")),
+                    effective_date=iso_date(c.get("effectiveDate"), f"{c.path}.effectiveDate", notes),
+                    employment_type=unmapped_label(
+                        category.get("code"), text(category.get("description")), f"{c.path}.employmentCategory.code"
+                    ),
+                    reason=self._reason(c),
+                    source_field=c.path,
+                )
+            )
+            kept.update(without_links(sanitize_extensions(c.leftovers())))
+        return changes
+
+    def _job_history(self, employee_id: str, notes: Notes, kept: dict[str, Any]) -> list[JobChange]:
+        """Effective-dated jobs, with their manager, supervisor and organization fields (A-75, A-76)."""
+        jobs = []
+        for i, row in enumerate(self._body_list(E + "/jobs", employee=employee_id)):
+            j = Src(row, f"jobs[{i}]")
+            client_job = j.child("clientJob") or Src({})
+            manager = text((j.child("manager") or Src({})).get("id"))
+            supervisor = text((j.child("supervisor") or Src({})).get("id"))
+            jobs.append(
+                JobChange(
+                    source_id=text(j.get("id")),
+                    effective_date=iso_date(j.get("effectiveDate"), f"{j.path}.effectiveDate", notes),
+                    title=text(client_job.get("jobTitle")),
+                    job_code=text(client_job.get("jobCode")),
+                    org_units=[
+                        OrgAssignment(
+                            dimension=text((o.child("clientOrganizationField") or Src({})).get("title")),
+                            code=text(o.get("organizationValue")),
+                            source_field=o.path,
+                        )
+                        for o in j.children("organizations")
+                        if text(o.data.get("organizationValue"))
+                    ],
+                    manager_employee_id=self._id("employee", manager) if manager else None,
+                    supervisor_employee_id=self._id("employee", supervisor) if supervisor else None,
+                    reason=self._reason(j),
+                    source_field=j.path,
+                )
+            )
+            kept.update(without_links(sanitize_extensions(j.leftovers())))
+        return jobs
+
+    def _contacts(self, employee_id: str, notes: Notes, kept: dict[str, Any]) -> list[Contact]:
+        """Emergency contacts, dependents and beneficiaries (A-77). The unmasked birth date is read; both SSNs
+        stay sanitized to their last 4 (A-23)."""
+        contacts = []
+        for i, row in enumerate(self._body_list(E + "/contacts", employee=employee_id)):
+            c = Src(row, f"contacts[{i}]")
+            # A missing role flag leaves that role unknown, with a warning; it is never read as "no" (A-73).
+            roles = [
+                role
+                for field, role in I.CONTACT_ROLES
+                if known_flag(c.get(field), f"{c.path}.{field}", notes, f"whether the contact is {role.value.lower()}")
+            ]
+            unmasked = text(c.get("birthDateUnmasked"))
+            if unmasked:
+                c.mark("birthDate")  # the masked copy of the same date
+                birth_date = iso_date(unmasked, f"{c.path}.birthDateUnmasked", notes)
+            else:
+                birth_date = unmasked_date(c, "birthDate", notes)
+            relationship = text(c.get("relationshipCode"))
+            email = text(c.get("emailAddress"))
+            address = Address(
+                type=C.AddressType.MAILING,  # "the contact mailing address" (useEmployeeAddress)
+                line1=text(c.get("address1")),
+                line2=text(c.get("address2")),
+                city=text(c.get("city")),
+                state=text(c.get("state")),
+                postal_code=text(c.get("zipCode")),
+            )
+            order = c.get("emergencyCallOrder")
+            contacts.append(
+                Contact(
+                    source_id=text(c.get("id")),
+                    roles=roles,
+                    name=PersonName(
+                        first=text(c.get("firstName")),
+                        middle=text(c.get("middleName")),
+                        last=text(c.get("lastName")),
+                        prefix=text(c.get("prefix")),
+                        suffix=text(c.get("suffix")),
+                    ),
+                    relationship=self._described("ContactRelationshipCodes", relationship),
+                    relationship_code=relationship,
+                    priority=int(order) if isinstance(order, int) and not isinstance(order, bool) else None,
+                    birth_date=birth_date,
+                    phones=[
+                        Phone(type=t, number=n)
+                        for t, n in (
+                            (C.PhoneType.HOME, text(c.get("homePhone"))),
+                            (C.PhoneType.MOBILE, text(c.get("mobilePhone"))),
+                            (C.PhoneType.WORK, text(c.get("workPhone"))),
+                        )
+                        if n
+                    ],
+                    emails=[Email(type=C.EmailType.MAIN, address=email)] if email else [],
+                    address=address if any([address.line1, address.city, address.postal_code]) else None,
+                    source_field=c.path,
+                )
+            )
+            kept.update(without_links(sanitize_extensions(c.leftovers())))
+        return contacts
 
     def _salary_history(self, employee_id: str, notes: Notes, kept: dict[str, Any]) -> list[CompensationChange]:
         """Each salary row as a change; whatever a row has that isn't mapped is added to `kept` (A-62)."""

@@ -34,8 +34,9 @@ class Output:
         requests = self.provenance.get("requests") or {}
         return {
             "counts": {kind: len(records) for kind, records in self.records.items()},
-            "diagnostics": dict(severities),
-            "checks": dict(checks),
+            # Sorted, so the summary doesn't depend on the order records were converted in.
+            "diagnostics": dict(sorted(severities.items())),
+            "checks": dict(sorted(checks.items())),
             # What was asked for and what came back, so "every check passed" comes with what wasn't fetched (A-70).
             "requests": {k: requests[k] for k in ("total", "ok", "empty", "unavailable") if k in requests},
             "unavailable": requests.get("unavailable_by_endpoint", []),

@@ -11,12 +11,14 @@ from normalization.canonical.codes import (
     CalculationMethod as M,
     Citizenship,
     CompanyStatus,
+    ContactRole,
     DeductionCategory as Cat,
     DepositMethod,
     DepositStatus,
     EarningCategory,
     EarningKind,
     ElectionStatus,
+    EmploymentChangeKind,
     EmploymentStatus,
     EmploymentType,
     FundingParty,
@@ -118,6 +120,21 @@ YES_NO_DECLINED = {
     "D": YesNoDeclined.DECLINED,
     "": YesNoDeclined.NOT_SPECIFIED,
 }
+
+# HistoryRecord holds one change, named by the object it carries: StatusChange ("employee status, such as
+# active"), Leave ("leave of absence") or Termination (A-76)
+HISTORY_EVENT = {
+    "statusChange": EmploymentChangeKind.STATUS,
+    "leave": EmploymentChangeKind.LEAVE,
+    "termination": EmploymentChangeKind.TERMINATION,
+}
+
+# Dependents/relationType: "'D' (Dependent) or 'B' (Beneficiary only)" (A-77)
+DEPENDENT_RELATION_TYPE = {"D": (ContactRole.DEPENDENT,), "B": (ContactRole.BENEFICIARY,)}
+# Dependents/beneficiaryType: "'P' (Primary) or 'C' (Contingent)"; either way the person is a beneficiary
+BENEFICIARY_TYPES = frozenset({"P", "C"})
+# Dependents/status: "'A' (Active), 'I' (Inactive), or 'P' (Pending)"; pending is neither, so it stays raw
+DEPENDENT_STATUS = {"A": True, "I": False}
 
 # Compensation/citizenshipStatus documents Z01 (a citizen of the United States), Z02 (a noncitizen national
 # of the United States), Z03 (a lawful permanent resident), Z04 (an alien authorized to work). Live data
@@ -315,4 +332,8 @@ LOCAL_TAX = {
 # generically, but live, getBatchListByDate answers an empty date range with 404 "No batches could be
 # found for the date range specified (...)" (67 requests) and a client without payroll with 400 "No
 # batches exist for client ..." (156 requests). Every other failure leaves its data unknown.
-EMPTY_MESSAGES = {"payroll/v1/getBatchListByDate": ("No batches could be found", "No batches exist")}
+EMPTY_MESSAGES = {
+    "payroll/v1/getBatchListByDate": ("No batches could be found", "No batches exist"),
+    # HTTP 404 "Scheduled payment for employee '<id>' in client '<id>' does not exist." (live, A-70)
+    "payroll/v1/getScheduledPayments": ("Scheduled payment for employee",),
+}

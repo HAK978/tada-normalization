@@ -214,6 +214,11 @@ def _lookups(bundle: FixtureBundle) -> None:
             {"id": "1", "description": "Citizen of the United States"},
             {"id": "5", "description": "National of the United States"},
         ],
+        "api/lookup/ContactRelationshipCodes": [
+            {"id": "SP", "description": "Spouse"},
+            {"id": "CH", "description": "Child"},
+            {"id": "FR", "description": "Friend"},
+        ],
         "api/system/payTypes": [
             {"id": "1", "description": "Hourly"},
             {"id": "2", "description": "Salary"},
@@ -309,7 +314,11 @@ def _worker(bundle: FixtureBundle, w: Worker) -> None:
         "maritalStatus": w.marital,
         "ethnicOrigin": "Hispanic or Latino" if w.first == "Maria" else None,
         "citizenship": "Citizen of the United States",
-        "disabled": False,
+        # A declined answer leaves `disabled` null; only the read-only description says so (A-81).
+        "disabled": None if w.id == "9003" else False,
+        "disabilityDescription": "Chose not to answer" if w.id == "9003" else None,
+        "protectedVeteran": w.id == "9004",
+        "veteranStatusNotSpecified": w.id == "9002",
         "employmentStatus": w.status,
         "statusDate": f"{w.status_date}T00:00:00",
         "terminationDate": f"{w.status_date}T00:00:00" if w.status == "Terminated" else None,
@@ -350,6 +359,25 @@ def _worker(bundle: FixtureBundle, w: Worker) -> None:
             "personalEmailAddress": f"{w.first.lower()}@example.com",
         },
         "assignedManager": {"id": 9001, "employeeName": "Maria"} if w.id != "9001" else None,
+        # Organization fields are customer-defined; their titles are the customer's words (A-75).
+        "organizations": [
+            {
+                "id": int(w.id) * 10 + 1,
+                "organizationId": 9943,
+                "displayOrder": 1,
+                "title": "Location",
+                "value": "CLT",
+                "valueDescription": "Charlotte",
+            },
+            {
+                "id": int(w.id) * 10 + 2,
+                "organizationId": 9944,
+                "displayOrder": 2,
+                "title": "Department",
+                "value": "LOG" if w.pay_group == WEEKLY else "PROD",
+                "valueDescription": "Logistics" if w.pay_group == WEEKLY else "Production",
+            },
+        ],
         "taxes": {"federal": {"filingStatus": "Single", "primaryExemptions": 0}} if not contractor else None,
         "i9Documents": {"documentA": {"documentNumber": "A1234567", "documentCode": "01"}},
         "links": [{"href": f"/{path}", "method": "GET", "rel": "self"}],
@@ -386,6 +414,8 @@ def _worker(bundle: FixtureBundle, w: Worker) -> None:
         }
     ]
     bundle.add(EP + "/employees/{id}/salaries", f"{path}/salaries", {}, salaries)
+    _history(bundle, w, path)
+    _contacts(bundle, w, path)
     bundle.add(EP + "/employees/{id}/payRates", f"{path}/payRates", {}, [])
     deposits = [
         {
@@ -455,6 +485,131 @@ def _worker(bundle: FixtureBundle, w: Worker) -> None:
     else:
         # Live isolved answers 404 when an employee has no garnishments.
         bundle.add(EP + "/employees/{id}/garnishments", f"{path}/garnishments", {}, {"_non_json_body": ""}, status=404)
+
+
+def _history(bundle: FixtureBundle, w: Worker, path: str) -> None:
+    """Job and employment category history (A-76); the 1099 worker has no jobs (a documented empty 404)."""
+    if w.pay_type == "1099":
+        bundle.add(EP + "/employees/{id}/jobs", f"{path}/jobs", {}, {"_non_json_body": ""}, status=404)
+    else:
+        weekly = w.pay_group == WEEKLY
+        bundle.add(
+            EP + "/employees/{id}/jobs",
+            f"{path}/jobs",
+            {},
+            [
+                {
+                    "id": int(w.id) * 100 + 7,
+                    "effectiveDate": "2021-03-15T00:00:00",
+                    "clientJob": {
+                        "id": 31,
+                        "jobCode": "BAKER",
+                        "jobTitle": "Baker",
+                        "eeoCategory": "Service Workers",
+                        "isFLSAExempt": w.pay_type == "Salary",
+                        "isUnion": False,
+                    },
+                    "manager": {"id": 9001, "firstName": "Maria", "lastName": "Example"} if w.id != "9001" else None,
+                    "supervisor": {"id": 9004, "firstName": "Devon", "lastName": "Example"} if weekly else None,
+                    "organizations": [
+                        {
+                            "clientOrganizationField": {"id": 9944, "title": "Department"},
+                            "organizationValue": "LOG" if weekly else "PROD",
+                        },
+                    ],
+                    "changeReason": {"id": 3, "code": "NH", "description": "New Hire"},
+                    "isWorkersCompExempt": False,
+                    "compaRatio": "1.00",
+                }
+            ],
+        )
+    bundle.add(
+        EP + "/employees/{id}/categories",
+        f"{path}/categories",
+        {},
+        [
+            {
+                "id": int(w.id) * 100 + 8,
+                "effectiveDate": "2021-03-15T00:00:00",
+                "employmentCategory": {
+                    "id": 1 if w.category == "FT" else 2,
+                    "code": w.category,
+                    "description": "Full Time" if w.category == "FT" else "Part Time",
+                    "acaEmploymentStatus": "ACA Full Time",
+                },
+                "employmentId": int(w.id) * 10,
+                "fullTimeEquivalent": 1.0 if w.category == "FT" else 0.5,
+                "statutoryEmployee": False,
+                "highlyCompensated": False,
+            }
+        ],
+    )
+    # Veteran status: live answers 200 with every field null, or the text "NoAnswer"; 404 is documented empty.
+    if w.id in ("9001", "9002"):
+        bundle.add(
+            EP + "/employees/{id}/veteranStatus",
+            f"{path}/veteranStatus",
+            {},
+            {
+                "veteranStatus": "NoAnswer" if w.id == "9002" else None,
+                "activeDutySeparationDate": None,
+                "activeWartimeOrCampaignBadgeVeteran": False,
+                "disabledVeteran": False,
+                "serviceMedalVeteran": False,
+            },
+        )
+    else:
+        bundle.add(
+            EP + "/employees/{id}/veteranStatus", f"{path}/veteranStatus", {}, {"_non_json_body": ""}, status=404
+        )
+
+
+def _contacts(bundle: FixtureBundle, w: Worker, path: str) -> None:
+    """Contacts (A-77). No demo employee has any live, so these follow the documented PersonContactModel."""
+    if w.id != "9001":
+        bundle.add(EP + "/employees/{id}/contacts", f"{path}/contacts", {}, {"_non_json_body": ""}, status=404)
+        return
+    bundle.add(
+        EP + "/employees/{id}/contacts",
+        f"{path}/contacts",
+        {},
+        [
+            {
+                "id": 51,
+                "firstName": "Sam",
+                "lastName": "Example",
+                "relationshipCode": "SP",
+                "isEmergencyContact": True,
+                "emergencyCallOrder": 1,
+                "isDependent": True,
+                "isBeneficiary": False,
+                "birthDate": "**/**/1989",
+                "birthDateUnmasked": "1989-11-20T00:00:00",
+                "ssn": "*****6789",
+                "ssnUnmasked": "000006789",
+                "mobilePhone": "7045550111",
+                "emailAddress": "sam@example.com",
+                "useEmployeeAddress": True,
+                "address1": "12 Oak Ave",
+                "city": "Charlotte",
+                "state": "NC",
+                "zipCode": "28202",
+                "genderCode": "M",
+            },
+            {
+                "id": 52,
+                "firstName": "Jo",
+                "lastName": "Friend",
+                "relationshipCode": "FR",
+                "isEmergencyContact": True,
+                "emergencyCallOrder": 2,
+                "birthDate": "**/**/1975",
+                "isDependent": False,
+                "isBeneficiary": False,
+                "homePhone": "7045550122",
+            },
+        ],
+    )
 
 
 # ---------------------------------------------------------------------- payroll

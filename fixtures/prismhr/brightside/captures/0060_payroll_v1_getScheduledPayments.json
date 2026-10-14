@@ -1,0 +1,19 @@
+{
+  "seq": 60,
+  "endpoint": "payroll/v1/getScheduledPayments",
+  "path": "payroll/v1/getScheduledPayments",
+  "params": {
+    "clientId": "201",
+    "employeeId": "E1005"
+  },
+  "status": 404,
+  "body": {
+    "clientId": null,
+    "employeeId": null,
+    "checksum": null,
+    "scheduledPayment": null,
+    "errorCode": "404",
+    "errorMessage": "Scheduled payment for employee 'E1005' in client '201' does not exist.",
+    "extension": null
+  }
+}

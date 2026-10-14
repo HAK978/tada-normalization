@@ -1,0 +1,125 @@
+{
+  "seq": 72,
+  "endpoint": "rest/v2/companies/{company}/payrolls/{id}/pay-statements/{id}",
+  "path": "rest/v2/companies/7001/payrolls/6001/pay-statements/7102",
+  "params": {},
+  "status": 200,
+  "body": {
+    "employee": {
+      "account_id": 5002
+    },
+    "id": 7102,
+    "pay_date": "2026-10-02",
+    "status": "OPEN",
+    "type": {
+      "id": 36656000,
+      "display_name": "Regular"
+    },
+    "pay_period_start": "2026-09-14",
+    "pay_period_end": "2026-09-27",
+    "earnings": [
+      {
+        "id": 3316898287,
+        "type_name": "Earning",
+        "batch": {
+          "id": 4342647435,
+          "display_name": "Regular Earnings"
+        },
+        "earning": {
+          "code": "Regular",
+          "name": "Regular"
+        },
+        "hours": 72000000,
+        "date_range_from": "2026-09-14",
+        "date_range_to": "2026-09-27",
+        "base_rate": 18.0,
+        "ee_amount": 360.0
+      },
+      {
+        "id": 702391358,
+        "type_name": "Earning",
+        "batch": {
+          "id": 4342647435,
+          "display_name": "Regular Earnings"
+        },
+        "earning": {
+          "code": "OT",
+          "name": "Overtime"
+        },
+        "hours": 7200000,
+        "date_range_from": "2026-09-14",
+        "date_range_to": "2026-09-27",
+        "base_rate": 18.0,
+        "ee_amount": 54.0
+      },
+      {
+        "id": 839854465,
+        "type_name": "Earning (Auto)",
+        "batch": {
+          "id": 4342647435,
+          "display_name": "Regular Earnings"
+        },
+        "earning": {
+          "code": "SECA",
+          "name": "SECA"
+        },
+        "base_rate": 18.0
+      }
+    ],
+    "taxes": [
+      {
+        "type_name": "Tax",
+        "company_tax": {
+          "code": "FIT",
+          "name": "Federal Income Tax"
+        },
+        "batch": {
+          "id": 4342647435,
+          "display_name": "Regular Earnings"
+        },
+        "ee_amount": 20.0,
+        "ee_subject_wage": 360.0
+      },
+      {
+        "type_name": "Tax",
+        "company_tax": {
+          "code": "Social Security",
+          "name": "Social Security"
+        },
+        "batch": {
+          "id": 4342647435,
+          "display_name": "Regular Earnings"
+        },
+        "ee_amount": 22.32,
+        "ee_subject_wage": 360.0,
+        "er_amount": 22.32,
+        "er_subject_wage": 360.0
+      },
+      {
+        "type_name": "Tax",
+        "company_tax": {
+          "code": "Medicare",
+          "name": "Medicare"
+        },
+        "batch": {
+          "id": 4342647435,
+          "display_name": "Regular Earnings"
+        },
+        "ee_amount": 5.22,
+        "ee_subject_wage": 360.0,
+        "er_amount": 5.22,
+        "er_subject_wage": 360.0
+      }
+    ],
+    "payments": [
+      {
+        "type_name": "Check",
+        "ee_amount": 366.46,
+        "batch": {
+          "id": 4342647435,
+          "display_name": "Regular Earnings"
+        }
+      }
+    ]
+  }
+}

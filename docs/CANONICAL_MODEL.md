@@ -6,6 +6,8 @@ Status: **implemented, 2026-10-13.**
   in here and in [ASSUMPTIONS.md](../ASSUMPTIONS.md).
 - Building the three converters refined it further, each change recorded in ASSUMPTIONS.md (A-44
   onward).
+- A check of every documented read endpoint against what was fetched (A-74) added contacts, organization
+  units, employment and job history, and company contacts (A-75 to A-84).
 
 Implemented: the model itself (`src/normalization/canonical/`) and the PrismHR, isolved and UKG Ready
 converters. The model is exported as JSON Schema, one file per record type, under `schemas/`
@@ -122,6 +124,7 @@ canonical IDs of the records it belongs to.
 | `service_arrangement` | `serviceType` PEO/ASO/PAY/ASA/COR/HRN (documented) | none | none |
 | `employers[]` (provider terms) | `employerId` + `altEmployer[]`; name and EIN refused (A-09) | the legal company itself | `lookup/eins`, plus EINs only payrolls name (A-60) |
 | `pay_groups[]` | `getClientCodes` PGroups + `getPayrollSchedule` | `payGroups` (frequency via §6) | not available |
+| `contacts[]`: people listed at the company, with title, contact type as sent, phones, emails | `getAllPrismClientContacts` (A-84) | none | none |
 
 ## 4. Employee
 
@@ -129,10 +132,10 @@ canonical IDs of the records it belongs to.
 |---|---|
 | Identity | `identifiers[]` of {type, value}; `national_id` as {type, last4, masked_at_source} |
 | Name | `first`, `middle`, `last`, `preferred`, `prefix`, `suffix` |
-| Personal | `birth_date`; `gender`, `marital_status` and `ethnicity` (coded, label kept); veteran and disability statuses (including "declined"/"not specified"); `citizenship`; `preferred_language`; `emergency_contacts[]` |
-| Contact | `addresses[]`, `phones[]`, `emails[]`, each typed |
-| Employment | `status` (`ACTIVE` `ON_LEAVE` `TERMINATED`) and its date; `employment_type` (`FULL_TIME` `PART_TIME`); `worker_classification` (`EMPLOYEE` `CONTRACTOR_1099`); hire / rehire / start / seniority / termination dates; `termination_reason`; `flsa_exempt`; `employer_ids[]` |
-| Job | `title`, `job_code`, `department`, `division`, `location`, `manager`, `supervisor`, `union`, `cost_centers[]` |
+| Personal | `birth_date`; `gender`, `marital_status` and `ethnicity` (coded, label kept); veteran and disability statuses (including "declined"/"not specified"); `citizenship`; `preferred_language`; `contacts[]`: emergency contacts, dependents and beneficiaries, each with its `roles` (A-77) |
+| Contact | `addresses[]`, `phones[]`, `emails[]`, each typed (an email can be `SECONDARY`: ranked second, no stated purpose, A-82) |
+| Employment | `status` (`ACTIVE` `ON_LEAVE` `TERMINATED`) and its date; `employment_type` (`FULL_TIME` `PART_TIME`); `worker_classification` (`EMPLOYEE` `CONTRACTOR_1099`); hire / rehire / start / seniority / termination dates; `termination_reason`; `flsa_exempt`; `employer_ids[]`; `history[]` of status, leave, termination and category changes (A-76) |
+| Job | `title`, `job_code`, `department`, `division`, `location`, `manager`, `supervisor`, `union`; `org_units[]`, each {`dimension` in the provider's own words, `code`, `name`, `path`} (A-75); `history[]` of job and organization changes (A-76) |
 | Compensation | `pay_type` (`SALARY` `HOURLY` `COMMISSION` `DRIVER`); `pay_frequency` with `periods_per_year`; `rates[]`, each with its own `per`; `annual_pay` (as provided, or derived and flagged); `standard_hours`; `effective_date`; `history[]`, each entry with its own source ID |
 | Tax setup | kept in `provider_extensions` for v1 (§10) |
 
@@ -142,7 +145,11 @@ canonical IDs of the records it belongs to.
 | SSN | `compensation.ssn` (masked live); `person.cobraSSN` is also sanitized | `ssn` is null live; last 4 from `checks[].employeeSSN` (A-50) | `social_security` and `national_id_numbers[]`, returned in full live and reduced to last 4 |
 | Status | `client.statusClass` A/L/T (documented), plus the client status code and label | `employmentStatus`: "Active"/"Terminated" only when `/statuses` shows it as an implied system status (A-48); others `UNMAPPED` with the label | `status`: undocumented, but consistent with `dates.terminated` live |
 | Type | `client.typeClass` F/P (documented filter values) | `employmentCategoryCode`: customer code, `UNMAPPED` | pay-info `employee_type`: tenant label, `UNMAPPED` |
-| Worker class | `client.employee1099` (independent of `payMethod`) | `payType` "1099" gives `CONTRACTOR_1099` and pay type `UNMAPPED` | none |
+| Worker class | `client.employee1099` (independent of `payMethod`) | `payType` "1099" gives `CONTRACTOR_1099` and pay type `UNMAPPED` | none: `tax-info` W2/1099 flags have no definitions and are kept (A-34) |
+| Demographics | `person` gender, marital status, ethnic code, veteran, disability | the employee record; veteran from flags and `/veteranStatus`, disability with its declined answer (A-81) | `/demographics`: documented enums without definitions, `UNMAPPED` with the value as sent until a mapping file confirms them (A-79) |
+| Contacts | `person.emergencyContact[]` (one value each) and `getDependents` (A-77) | `/contacts` | `/contacts` |
+| Organization | department, division and location codes, named from the client's code tables | `organizations[]`, titled by the customer (A-75) | `cost_centers_info`, named from the cost-center trees (A-75) |
+| History | `getHistory`: status, leave, termination, position and organization changes (A-76) | `/statuses`, `/categories`, `/jobs` (A-76) | none beyond compensation history |
 | Pay | `payMethod` S/H/C/D. `salary` is per pay period (A-20). `hourlyPay` is per hour. `hourlyPayRate` is per `hourlyPayPeriod` (live `A` = annual, A-19). | `payType`; `hourlyRate` per hour; `perPaySalary` per pay period; `annualSalary` | compensation `amount` per `amount_period`; `hourly_pay`; `time` in ms per `time_period`; `num_pp_in_year` |
 
 ## 5. DirectDeposit
@@ -328,16 +335,18 @@ A failed check becomes a `RECONCILIATION_MISMATCH` warning; the totals stay as t
 
 | Field | Disposition |
 |---|---|
-| Prism emergency contacts, citizenship status (Z01–Z04, documented), preferred language | mapped (§4 Personal) |
+| Prism emergency contacts and dependents, citizenship status (Z01–Z04, documented), preferred language | mapped (§4 Personal) |
 | Prism and isolved veteran / disability answers, including declined and not specified | mapped as coded values, label kept |
-| Prism skills/education, transfer history, events, property; isolved organizations, labor and misc datasets | `provider_extensions` |
+| Prism skills/education, transfer history, events, property; isolved labor and misc datasets | `provider_extensions` |
+| isolved organizations, UKG cost centers | mapped (§4 Job `org_units[]`, A-75) |
 | Prism deduction arrears, mandatory flag, benefit plan, loan/garnishment reference | mapped (§7) |
 | Prism deduction rate table/tier and linked ACH account | `provider_extensions` |
 | Prism batch per-group periods, weeks worked, deduction period | mapped (§8 `pay_groups[]`) |
 | Prism voucher `otherEarningsDetail`, retirement breakdown, benefit lines | mapped (§8) |
 | isolved deposit `frequency` (required), pay item schedule override and calc parameters | mapped |
 | isolved check benefit lines, labor allocations, reissue details | mapped (§8) |
-| UKG multiple national IDs and managers, EIN and primary-account links, cost centers | mapped (sanitized) |
+| UKG multiple national IDs and managers, EIN and primary-account links | mapped (sanitized) |
+| UKG tax setup, benefit plans and position assignments; PrismHR scheduled payments | `provider_extensions` (A-34, A-74) |
 | UKG deposit frequency, prenote dates, routing type, currency | mapped (§5) |
 | UKG deposit arrearage behavior | `provider_extensions` (enum values without documented meanings) |
 | UKG pay-info pay grade, shift premium, job change, benefit eligibility | `provider_extensions` (eligibility codes are kept raw) |
@@ -349,7 +358,8 @@ A generated `docs/FIELD_COVERAGE.md` will list every response field's dispositio
 **Sensitive data.** A registry of sensitive source fields, plus a pattern sweep over everything
 else, sanitizes these:
 - SSNs: Prism `ssn` and `cobraSSN`; UKG `social_security`, `national_id_numbers[]`,
-  `social_insurance`, `national_insurance` and `bsn`;
+  `social_insurance`, `national_insurance` and `bsn`; contacts' SSNs (Prism dependents' `ssn`, isolved
+  contacts' `ssn` and `ssnUnmasked`); UKG visa numbers;
 - bank account numbers: Prism `accountNum` (deposits, HSA, vouchers); isolved `accountNumber` and
   check `account`; UKG `account_number` and pay-info `bank_account_number`.
 
@@ -370,7 +380,10 @@ Sanitizing keeps at most the last 4 digits, and never invents digits for values 
 ## 10. Scope decisions
 
 1. **Tax withholding setup** is kept in `provider_extensions`, not normalized (A-34).
-2. **Customer-configured labels** stay `UNMAPPED` with the label kept, until a mapping file classifies
+2. **Endpoints:** every read endpoint the specs document is fetched or has a recorded reason it isn't
+   (A-74). Benefit enrollment, time and attendance, hiring and documents are outside the five data
+   types.
+3. **Customer-configured labels** stay `UNMAPPED` with the label kept, until a mapping file classifies
    them (A-35, A-65).
-3. **Output** is JSON per record type plus a SQLite database with the same records linked by ID, each
+4. **Output** is JSON per record type plus a SQLite database with the same records linked by ID, each
    with its provenance (A-36, A-71).

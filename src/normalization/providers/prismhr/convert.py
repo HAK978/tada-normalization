@@ -20,8 +20,10 @@ from normalization.canonical.records import (
     BenefitDetail,
     Calculation,
     Company,
+    CompanyContact,
     Compensation,
     CompensationChange,
+    Contact,
     ContributionLine,
     DeductionElection,
     DeductionLimits,
@@ -29,12 +31,13 @@ from normalization.canonical.records import (
     DirectDeposit,
     EarningLine,
     Email,
-    EmergencyContact,
     Employee,
     EmployerMatch,
     EmployerRef,
+    EmploymentChange,
     FrequencyInfo,
     Identifier,
+    JobChange,
     LoanDetails,
     OrgUnit,
     PayGroup,
@@ -42,6 +45,7 @@ from normalization.canonical.records import (
     PayrollRun,
     PayStatement,
     PayStatementTotals,
+    PersonName,
     Phone,
     RetirementSummary,
     RunPayGroup,
@@ -75,11 +79,19 @@ from ..common import (
     money,
     paid_gross,
     tax_type,
+    unmasked_date,
     us_state,
 )
 from . import codes as P
 
 PROVIDER = "prismhr"
+# Responses about one employee that are read into the employee record, besides getEmployee.
+PER_EMPLOYEE = (
+    "employee/v1/getHistory",
+    "benefits/v1/getDependents",
+    "employee/v1/checkForGarnishments",
+    "payroll/v1/getScheduledPayments",
+)
 
 RETIREMENT_FIELDS = {
     "electiveContributionsPreTax": "employee_pre_tax",
@@ -178,6 +190,7 @@ class _Client:
                 ("locationCode", "id"),
                 ("reasonCode", "id"),
                 ("ethnicCode", "id"),
+                ("relationCodes", "code"),
                 ("unionCodes", "code"),
                 ("payGroups", "payGroupCode"),
             ):
@@ -284,6 +297,9 @@ class _Client:
         ]
         phone = text(s.get("mainPhone"))
         email = text(s.get("emailAddress"))
+        contacts, contact_extras = self._company_contacts()
+        if contacts or contact_extras:
+            endpoints.append("clientMaster/v1/getAllPrismClientContacts")
         self.out.add(
             "companies",
             Company(
@@ -315,10 +331,43 @@ class _Client:
                 if phone
                 else [],
                 emails=[Email(type=C.EmailType.MAIN, address=email)] if email else [],
-                provider_extensions=sanitize_extensions({**s.leftovers(), **schedule_extras}),
+                contacts=contacts,
+                provider_extensions=sanitize_extensions({**s.leftovers(), **schedule_extras, **contact_extras}),
                 diagnostics=notes.items,
             ),
         )
+
+    def _company_contacts(self) -> tuple[list[CompanyContact], dict[str, Any]]:
+        """The client's contacts (A-84); contact types are defined by the service provider and kept as sent."""
+        contacts: list[CompanyContact] = []
+        kept: dict[str, Any] = {}
+        for capture in self.bundle.ok("clientMaster/v1/getAllPrismClientContacts", clientId=self.client_id):
+            body = Src(capture.body)
+            body.mark("errorCode", "errorMessage", "extension")
+            result = body.child("prismClientContactResult") or Src({})
+            # Live key is prismClientContact; the spec documents prismClientContacts (A-78).
+            key = "prismClientContact" if "prismClientContact" in result.data else "prismClientContacts"
+            for row in result.children(key):
+                email = text(row.get("contactEmail"))
+                contacts.append(
+                    CompanyContact(
+                        source_id=text(row.get("contactId")),
+                        name=text(row.get("contactName")),
+                        title=text(row.get("contactTitle")),
+                        contact_type=text(row.get("contactType")),
+                        phones=[
+                            Phone(type=t, number=n, extension=x)
+                            for t, n, x in (
+                                (C.PhoneType.MAIN, text(row.get("contactPhone")), text(row.get("contactPhoneExt"))),
+                                (C.PhoneType.MOBILE, text(row.get("contactCellPhone")), None),
+                            )
+                            if n
+                        ],
+                        emails=[Email(type=C.EmailType.MAIN, address=email)] if email else [],
+                    )
+                )
+            kept.update(body.leftovers())
+        return contacts, kept
 
     def _pay_groups(self) -> tuple[list[PayGroup], dict]:
         groups: dict[str, PayGroup] = {}
@@ -473,7 +522,8 @@ class _Client:
                 "client.termReasonCode",
             ),
             flsa_exempt=flag(client.get("flsaExempt")),
-            employer_ids=[str(x) for x in (person.get("employerIds") or []) if x not in (None, "")],
+            # Documented as employerIds; live sends employerId (A-78).
+            employer_ids=[str(x) for x in (person.first("employerIds", "employerId") or []) if x not in (None, "")],
         )
         contractor = flag(client.get("employee1099"))
         if contractor is not None:
@@ -532,6 +582,8 @@ class _Client:
             if a
         ]
 
+        # Fields of the other per-employee responses that aren't mapped (A-62).
+        kept: dict[str, Any] = {}
         personal = dict(
             birth_date=iso_date(person.get("birthDate"), "person.birthDate", notes),
             gender=coded(P.GENDER, person.get("gender"), "person.gender", notes, C.Gender.UNMAPPED),
@@ -571,18 +623,21 @@ class _Client:
                 C.Citizenship.UNMAPPED,
             ),
             preferred_language=text(person.get("preferredLanguage")),
-            emergency_contacts=[
-                EmergencyContact(
-                    name=text(c.get("contactName")),
+            contacts=[
+                Contact(
+                    roles=[C.ContactRole.EMERGENCY],
+                    full_name=text(c.get("contactName")),
                     relationship=text(c.get("contactRelationship")),
                     contact_type=text(c.get("contactType")),
                     contact_info=text(c.get("contactInfo")),
+                    source_field=c.path,
                 )
                 for c in person.children("emergencyContact")
-            ],
+            ]
+            + self._dependents(employee_id, notes, kept),
         )
 
-        job = dict(
+        job: dict[str, Any] = dict(
             title=self._label("jobCode", client.get("jobCode"), "jobTitle"),
             job_code=text(client.get("jobCode")),
             department=self._org("departmentCode", client.get("homeDepartment"), "deptName"),
@@ -592,6 +647,15 @@ class _Client:
             union=self._org("unionCodes", client.get("unionCode"), "name"),
             pay_group=text(comp.get("payGroup")),
         )
+        employment["history"], job["history"] = self._history(employee_id, notes, kept)
+        self._garnishment_check(employee_id, notes, kept)
+        # Recurring payments set up for future payrolls have no canonical record; they are kept as sent (A-80).
+        for capture in self.bundle.ok(
+            "payroll/v1/getScheduledPayments", clientId=self.client_id, employeeId=employee_id
+        ):
+            scheduled = Src(capture.body)
+            scheduled.mark("errorCode", "errorMessage", "extension", "clientId", "employeeId", "checksum")
+            kept.update(scheduled.leftovers())
 
         history_kept: dict[str, Any] = {}  # pay rate history fields that aren't mapped (A-62)
         compensation = self._compensation(comp, employee_id, notes, history_kept)
@@ -601,7 +665,13 @@ class _Client:
                 id=employee_ref,
                 company_id=self.company_id,
                 source=self._source(
-                    ["employee/v1/getEmployee"] + (["employee/v1/getPayRateHistory"] if compensation.history else []),
+                    ["employee/v1/getEmployee"]
+                    + (["employee/v1/getPayRateHistory"] if compensation.history else [])
+                    + [
+                        e
+                        for e in PER_EMPLOYEE
+                        if any(True for _ in self.bundle.ok(e, clientId=self.client_id, employeeId=employee_id))
+                    ],
                     clientId=self.client_id,
                     employeeId=employee_id,
                 ),
@@ -629,12 +699,189 @@ class _Client:
                 job=job,
                 compensation=compensation,
                 provider_extensions=sanitize_extensions(
-                    {**s.leftovers(), **history_kept, **self._benefit_plans(employee_id)}
+                    {**s.leftovers(), **history_kept, **kept, **self._benefit_plans(employee_id)}
                 ),
                 diagnostics=notes.items,
             ),
         )
         self._deposits(s, employee_id)
+
+    def _dependents(self, employee_id: str, notes: Notes, kept: dict[str, Any]) -> list[Contact]:
+        """Dependents and beneficiaries from getDependents, as contacts (A-77)."""
+        contacts = []
+        for capture in self.bundle.ok("benefits/v1/getDependents", clientId=self.client_id, employeeId=employee_id):
+            body = Src(capture.body)
+            body.mark("errorCode", "errorMessage", "extension", "clientId", "employeeId")
+            for d in body.children("dependent"):
+                relation_type = text(d.get("relationType"))
+                roles = list(P.DEPENDENT_RELATION_TYPE.get(relation_type or "", ()))
+                if relation_type and not roles:
+                    notes.warn("UNMAPPED_CODE", f"{d.path}.relationType", "not a documented type", relation_type)
+                # Read only to add the role: the primary/contingent distinction stays as sent.
+                beneficiary = text(d.data.get("beneficiaryType")) in P.BENEFICIARY_TYPES
+                if beneficiary and C.ContactRole.BENEFICIARY not in roles:
+                    roles.append(C.ContactRole.BENEFICIARY)
+                status = text(d.data.get("status"))
+                if status in P.DEPENDENT_STATUS:
+                    d.get("status")
+                relation = text(d.get("relation"))
+                email = text(d.get("email"))
+                contacts.append(
+                    Contact(
+                        source_id=text(d.get("dependentId")),
+                        roles=roles,
+                        name=PersonName(
+                            first=text(d.get("firstName")),
+                            middle=text(d.get("middleInitial")),
+                            last=text(d.get("lastName")),
+                        ),
+                        relationship=self._label("relationCodes", relation, "description"),
+                        relationship_code=relation,
+                        birth_date=unmasked_date(d, "birthdate", notes),
+                        phones=[
+                            Phone(type=t, number=n)
+                            for t, n in (
+                                (C.PhoneType.HOME, text(d.get("homePhone"))),
+                                (C.PhoneType.WORK, text(d.get("workPhone"))),
+                            )
+                            if n
+                        ],
+                        emails=[Email(type=C.EmailType.MAIN, address=email)] if email else [],
+                        address=self._address(
+                            C.AddressType.HOME, d, "address", "addressLine2", "city", "state", "zip", "zipSuffix"
+                        ),
+                        active=P.DEPENDENT_STATUS.get(status or ""),
+                        source_field=d.path,
+                    )
+                )
+            kept.update(body.leftovers())
+        return contacts
+
+    def _history(
+        self, employee_id: str, notes: Notes, kept: dict[str, Any]
+    ) -> tuple[list[EmploymentChange], list[JobChange]]:
+        """Status, leave, termination, position and organization changes from getHistory (A-76).
+
+        Each row carries one kind of change, named by the object it holds. Pay changes are kept as sent:
+        the compensation history comes from getPayRateHistory. Benefit-group and wellness changes are kept too.
+        """
+        changes: list[EmploymentChange] = []
+        jobs: list[JobChange] = []
+        for capture in self.bundle.ok("employee/v1/getHistory", clientId=self.client_id, employeeId=employee_id):
+            body = Src(capture.body)
+            body.mark("errorCode", "errorMessage", "extension")
+            # Live key is historyRecord; the spec documents historyRecords (A-78).
+            key = "historyRecord" if "historyRecord" in capture.body else "historyRecords"
+            for row in body.children(key):
+                # A row names its kind by the one object it fills; the others arrive null.
+                event = next((k for k in ("statusChange", "leave", "termination") if row.data.get(k)), None)
+                orgs = {
+                    k: row.child(k) for k in ("departmentChange", "divisionChange", "locationChange") if row.data.get(k)
+                }
+                position = text(row.data.get("newPositionCode"))
+                if not (event or orgs or position):
+                    continue  # pay, benefit-group and wellness changes stay in provider_extensions
+                row.get("type")
+                row_effective = iso_date(row.get("effectiveDate"), f"{row.path}.effectiveDate", notes)
+                if event:
+                    e = row.child(event) or Src({})
+                    reason = e.get("reason")
+                    changes.append(
+                        EmploymentChange(
+                            kind=P.HISTORY_EVENT[event],
+                            effective_date=row_effective,
+                            status=self._status_by_code(
+                                e.get("employeeStatusCode"), f"{e.path}.employeeStatusCode", notes
+                            ),
+                            employment_type=self._type_by_code(
+                                e.get("employeeTypeCode"), f"{e.path}.employeeTypeCode", notes
+                            ),
+                            # Reason codes are client-defined: kept with their label, not translated (A-35).
+                            reason=unmapped_label(
+                                reason, self._label("reasonCode", reason, "description"), f"{e.path}.reason"
+                            ),
+                            expected_return_date=iso_date(
+                                e.get("expectedReturnDate"), f"{e.path}.expectedReturnDate", notes
+                            ),
+                            source_field=row.path,
+                        )
+                    )
+                else:
+                    department = orgs.get("departmentChange")
+                    division = orgs.get("divisionChange")
+                    location = orgs.get("locationChange")
+                    row.get("newPositionCode")
+                    jobs.append(
+                        JobChange(
+                            effective_date=row_effective,
+                            title=self._label("jobCode", position, "jobTitle"),
+                            job_code=position,
+                            department=self._org("departmentCode", department.get("departmentCode"), "deptName")
+                            if department
+                            else None,
+                            division=self._org("divisionCode", division.get("divisionCode"), "divisionName")
+                            if division
+                            else None,
+                            location=self._org("locationCode", location.get("locationCode"), "locationName")
+                            if location
+                            else None,
+                            source_field=row.path,
+                        )
+                    )
+            kept.update(body.leftovers())
+        return changes, jobs
+
+    def _status_by_code(self, code: Any, field: str, notes: Notes) -> Coded[C.EmploymentStatus] | None:
+        """A client status code, mapped through its status class in the client's code table (A-76)."""
+        code = text(code)
+        if code is None:
+            return None
+        row = self.codes.get("statusCode", {}).get(code) or {}
+        status_class = text(row.get("statusClass"))
+        value = P.STATUS_CLASS.get(status_class or "")
+        if value is None:
+            notes.warn("UNMAPPED_CODE", field, "status code has no documented status class in getClientCodes", code)
+        return Coded[C.EmploymentStatus](
+            value=value or C.EmploymentStatus.UNMAPPED, raw=code, label=text(row.get("description")), source_field=field
+        )
+
+    def _type_by_code(self, code: Any, field: str, notes: Notes) -> Coded[C.EmploymentType] | None:
+        """A client employment type code, mapped through its type class in the client's code table (A-76)."""
+        code = text(code)
+        if code is None:
+            return None
+        row = self.codes.get("typeCode", {}).get(code) or {}
+        type_class = text(row.get("typeClass"))
+        value = P.TYPE_CLASS.get(type_class or "")
+        if value is None:
+            notes.warn("UNMAPPED_CODE", field, "type code has no documented type class in getClientCodes", code)
+        return Coded[C.EmploymentType](
+            value=value or C.EmploymentType.UNMAPPED, raw=code, label=text(row.get("description")), source_field=field
+        )
+
+    def _garnishment_check(self, employee_id: str, notes: Notes, kept: dict[str, Any]) -> None:
+        """getGarnishmentDetails is refused live (A-09); checkForGarnishments says whether any are missed (A-83)."""
+        for capture in self.bundle.ok(
+            "employee/v1/checkForGarnishments", clientId=self.client_id, employeeId=employee_id
+        ):
+            s = Src(capture.body, "checkForGarnishments")
+            s.mark("errorCode", "errorMessage", "extension")
+            # Peeked, so the answers stay in provider_extensions as sent.
+            has = [f for f in ("enrolled", "active") if flag(s.data.get(f))]
+            read = any(
+                True
+                for _ in self.bundle.ok(
+                    "deductions/v1/getGarnishmentDetails", clientId=self.client_id, employeeId=employee_id
+                )
+            )
+            if has and not read:
+                notes.warn(
+                    "GARNISHMENTS_NOT_READ",
+                    "employee/v1/checkForGarnishments",
+                    f"the employee has garnishments ({' and '.join(has)}), but getGarnishmentDetails returned none "
+                    "of them: garnishment elections are missing, not absent (A-83)",
+                )
+            kept.update(s.leftovers())
 
     def _compensation(self, comp: Src, employee_id: str, notes: Notes, kept: dict[str, Any]) -> Compensation:
         pay_method = text(comp.get("payMethod"))

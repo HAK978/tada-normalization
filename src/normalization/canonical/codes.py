@@ -189,6 +189,24 @@ class EmailType(StrEnum):
     WORK = "WORK"
     BENEFITS = "BENEFITS"
     MAIN = "MAIN"
+    SECONDARY = "SECONDARY"  # ranked second by the provider, with no stated purpose (A-82)
+
+
+class ContactRole(StrEnum):
+    """Why the employee lists a person; one person can have several roles (A-77)."""
+
+    EMERGENCY = "EMERGENCY"
+    DEPENDENT = "DEPENDENT"
+    BENEFICIARY = "BENEFICIARY"
+
+
+class EmploymentChangeKind(StrEnum):
+    """What an employment history row records (A-76)."""
+
+    STATUS = "STATUS"
+    LEAVE = "LEAVE"
+    TERMINATION = "TERMINATION"
+    CATEGORY = "CATEGORY"
 
 
 class DepositPurpose(StrEnum):

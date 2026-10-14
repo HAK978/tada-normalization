@@ -1,0 +1,35 @@
+{
+  "seq": 9,
+  "endpoint": "rest/v2/companies/{company}/config/cost-centers",
+  "path": "rest/v2/companies/7001/config/cost-centers",
+  "params": {
+    "tree_index": 0
+  },
+  "status": 200,
+  "body": {
+    "cost_centers": [
+      {
+        "id": 6100,
+        "name": "Location-Dept"
+      },
+      {
+        "id": 6101,
+        "parent_id": 6100,
+        "name": "Charlotte",
+        "external_id": "CLT"
+      },
+      {
+        "id": 6102,
+        "parent_id": 6101,
+        "name": "Production",
+        "payroll_code": "PROD"
+      },
+      {
+        "id": 6103,
+        "parent_id": 6101,
+        "name": "Logistics",
+        "payroll_code": "LOG"
+      }
+    ]
+  }
+}

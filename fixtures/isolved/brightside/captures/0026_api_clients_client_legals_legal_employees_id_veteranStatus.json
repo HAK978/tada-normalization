@@ -1,0 +1,14 @@
+{
+  "seq": 26,
+  "endpoint": "api/clients/{client}/legals/{legal}/employees/{id}/veteranStatus",
+  "path": "api/clients/501/legals/601/employees/9002/veteranStatus",
+  "params": {},
+  "status": 200,
+  "body": {
+    "veteranStatus": "NoAnswer",
+    "activeDutySeparationDate": null,
+    "activeWartimeOrCampaignBadgeVeteran": false,
+    "disabledVeteran": false,
+    "serviceMedalVeteran": false
+  }
+}

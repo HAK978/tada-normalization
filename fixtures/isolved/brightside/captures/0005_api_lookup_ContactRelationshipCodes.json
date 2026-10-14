@@ -1,0 +1,21 @@
+{
+  "seq": 5,
+  "endpoint": "api/lookup/ContactRelationshipCodes",
+  "path": "api/lookup/ContactRelationshipCodes",
+  "params": {},
+  "status": 200,
+  "body": [
+    {
+      "id": "SP",
+      "description": "Spouse"
+    },
+    {
+      "id": "CH",
+      "description": "Child"
+    },
+    {
+      "id": "FR",
+      "description": "Friend"
+    }
+  ]
+}

@@ -54,6 +54,9 @@ def _employee(
     re_hired: str | None = None,
     manager: int | None = None,
     other_id: str | None = None,
+    cost_centers: tuple[tuple[int, int], ...] = (),
+    mailing: bool = False,
+    secondary_email: bool = False,
 ) -> dict:
     ids = [{"type": "SSN", "value": ssn, "primary": True}]
     if other_id:
@@ -63,7 +66,17 @@ def _employee(
         dates["terminated"] = terminated
     if re_hired:
         dates["re_hired"] = re_hired
+    extra: dict[str, Any] = {}
+    if cost_centers:
+        # index i names cost-center tree i; the value is a cost center of that tree (A-75).
+        extra["cost_centers_info"] = {"defaults": [{"index": i, "value": {"id": v}} for i, v in cost_centers]}
+    if mailing:
+        extra["use_separate_mailing_address"] = True
+        extra["mailing_address"] = {"address_line_1": "PO Box 77", "city": "Charlotte", "state": "NC", "zip": "28201"}
+    if secondary_email:
+        extra["secondary_email"] = f"{first.lower()}.{last.lower()}@example.com"
     return {
+        **extra,
         "id": aid,
         "employee_id": number,
         "username": f"{first[0]}{last}".lower(),
@@ -160,6 +173,7 @@ def _deposit(
 def build() -> FixtureBundle:
     bundle = FixtureBundle("ukg-ready", TENANT, [{"company_id": CID}], as_of=AS_OF)
     _lookups(bundle)
+    _cost_centers(bundle)
     _people(bundle)
     _payroll(bundle)
     for capture in bundle.captures:
@@ -198,7 +212,19 @@ def _people(bundle: FixtureBundle) -> None:
     salaried, hourly = PAY_TYPES["Salaried"], PAY_TYPES["Hourly"]
     people = [
         (
-            _employee(5001, "1001", "Maria", "Lopez", "Active", "2019-08-05", "900-10-6781", other_id="A1234567"),
+            _employee(
+                5001,
+                "1001",
+                "Maria",
+                "Lopez",
+                "Active",
+                "2019-08-05",
+                "900-10-6781",
+                other_id="A1234567",
+                cost_centers=((0, 6102), (2, 6202)),
+                mailing=True,
+                secondary_email=True,
+            ),
             {"employee_type": EMPLOYEE_TYPES["FT Exempt"], "pay_type": salaried, "default_job": JOBS["Store Manager"]},
             [
                 # The 1900-12-31 placeholder row: no amount and 0 pay periods (live has one per employee).
@@ -213,7 +239,18 @@ def _people(bundle: FixtureBundle) -> None:
             ],
         ),
         (
-            _employee(5002, "1002", "James", "Carter", "Active", "2021-03-15", "900-10-6782", manager=5001),
+            _employee(
+                5002,
+                "1002",
+                "James",
+                "Carter",
+                "Active",
+                "2021-03-15",
+                "900-10-6782",
+                manager=5001,
+                cost_centers=((0, 6103),),
+                secondary_email=True,
+            ),
             {"employee_type": EMPLOYEE_TYPES["PT Hourly"], "pay_type": hourly, "default_job": JOBS["Driver"]},
             [
                 ("1900-12-31", D("0"), "HOUR", D("0"), 2080, "YEAR", 0),
@@ -228,7 +265,18 @@ def _people(bundle: FixtureBundle) -> None:
             ],
         ),
         (
-            _employee(5003, "1003", "Ana", "Reyes", "Terminated", "2018-02-01", "900-10-6783", terminated="2026-09-30"),
+            # Points at tree 1, which the company doesn't use: the cost center keeps its ID, without a name (A-75).
+            _employee(
+                5003,
+                "1003",
+                "Ana",
+                "Reyes",
+                "Terminated",
+                "2018-02-01",
+                "900-10-6783",
+                terminated="2026-09-30",
+                cost_centers=((1, 6301),),
+            ),
             {"employee_type": EMPLOYEE_TYPES["FT Exempt"], "pay_type": salaried},
             [("2018-02-01", D("49920"), "YEAR", D("24.00"), 80, "PAY_PERIOD", 26)],
             [],
@@ -294,6 +342,118 @@ def _people(bundle: FixtureBundle) -> None:
         )
         bundle.add(f"{EP}/employees/{{id}}/direct-deposits", f"{path}/direct-deposits", {}, {"deposits": deposits})
         _deductions(bundle, aid, path)
+        _profile(bundle, aid, path)
+
+
+def _cost_centers(bundle: FixtureBundle) -> None:
+    """Cost-center trees: each root "has only id and name" and names its tree (A-75). Tree 1 isn't used."""
+    trees = {
+        0: [
+            {"id": 6100, "name": "Location-Dept"},
+            {"id": 6101, "parent_id": 6100, "name": "Charlotte", "external_id": "CLT"},
+            {"id": 6102, "parent_id": 6101, "name": "Production", "payroll_code": "PROD"},
+            {"id": 6103, "parent_id": 6101, "name": "Logistics", "payroll_code": "LOG"},
+        ],
+        2: [{"id": 6200, "name": "Position"}, {"id": 6202, "parent_id": 6200, "name": "Store Manager"}],
+    }
+    for tree in range(0, 3):
+        endpoint, path, params = f"{EP}/config/cost-centers", f"{ROOT}/config/cost-centers", {"tree_index": tree}
+        if tree in trees:
+            bundle.add(endpoint, path, params, {"cost_centers": trees[tree]})
+        else:
+            unused = {"code": 19515, "message": "Cost Center not used."}
+            body = {"errors": [unused], "user_messages": [{"severity": "ERROR", "text": unused["message"]}]}
+            bundle.add(endpoint, path, params, body, status=400)
+
+
+DEMOGRAPHICS = {
+    5001: {"gender": "FEMALE", "ethnicity": "HISPANIC_OR_LATINO", "citizenship": "US_CITIZEN"},
+    5002: {
+        "gender": "MALE",
+        "ethnicity": "WHITE",
+        "citizenship": "ALIEN_WITH_WORK_PERMIT",
+        "visa": {"type": "H-1B", "number": "YHF25123", "expiration_date": "2027-03-30"},
+    },
+    5003: {"gender": "UNDEFINED"},
+    5004: {"gender": "MALE", "full_time_student": False},
+    5005: {},
+}
+
+
+def _profile(bundle: FixtureBundle, aid: int, path: str) -> None:
+    """Demographics, contacts, tax setup, benefit plans and position assignments (A-77, A-79)."""
+    bundle.add(f"{EP}/employees/{{id}}/demographics", f"{path}/demographics", {}, DEMOGRAPHICS[aid])
+    contacts = []
+    if aid == 5001:
+        contacts = [
+            {
+                "id": 71,
+                "employee": {"account_id": aid},
+                "primary": True,
+                "emergency": True,
+                "dependent": True,
+                "beneficiary": True,
+                "first_name": "Sam",
+                "last_name": "Lopez",
+                "relationship": "Spouse",
+                "cell_phone": {"number": "704-555-0111", "primary": True},
+                "birthdate": "1989-11-20",
+            },
+            {
+                "id": 72,
+                "employee": {"account_id": aid},
+                "emergency": False,
+                "dependent": True,
+                "beneficiary": False,
+                "first_name": "Kai",
+                "last_name": "Lopez",
+                "relationship": "Child",
+                "birthdate": "2019-05-04",
+            },
+        ]
+    bundle.add(f"{EP}/employees/{{id}}/contacts", f"{path}/contacts", {}, {"contacts": contacts})
+    tax = {
+        "employee-tax-type": {"W2": aid != 5005, "_1099": aid == 5005, "DRAW": False},
+        "pension-box-type": "SYSTEM_RULES",
+        "third-party-sick": "COMPANY_DEFAULT",
+    }
+    bundle.add(f"{EP}/employees/{{id}}/tax-info", f"{path}/tax-info", {}, tax)
+    plans = []
+    if aid == 5001:
+        plans = [
+            {
+                "id": 81,
+                "employee": {"account_id": aid},
+                "name": "Dental PPO",
+                "coverage_level": "Employee + Spouse",
+                "benefit_plan": {"id": 82, "currency": "USD"},
+                "coverage_effective_from": "2026-01-01",
+                "coverage_effective_to": "2026-12-31",
+            }
+        ]
+    bundle.add(f"{EP}/employees/{{id}}/benefits", f"{path}/benefits", {}, {"benefits": plans})
+    assignments = []
+    if aid == 5001:
+        assignments = [
+            {
+                "assignment_id": 91,
+                "assignment_number": "A-1",
+                "position_id": 92,
+                "position_number": "P-1",
+                "position_name": "Store Manager",
+                "account_id": aid,
+                "start_date": "2024-01-01",
+                "assigned_fte": 1.0,
+                "annual_work_hours": 2080,
+                "is_primary_assignment": True,
+            }
+        ]
+    bundle.add(
+        f"{EP}/position/assignments/{{id}}",
+        f"{ROOT}/position/assignments/{aid}",
+        {"req_details": "all"},
+        {"assignments": assignments},
+    )
 
 
 def _deductions(bundle: FixtureBundle, aid: int, path: str) -> None:

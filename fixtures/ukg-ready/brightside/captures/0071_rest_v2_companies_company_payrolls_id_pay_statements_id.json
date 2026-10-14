@@ -1,0 +1,234 @@
+{
+  "seq": 71,
+  "endpoint": "rest/v2/companies/{company}/payrolls/{id}/pay-statements/{id}",
+  "path": "rest/v2/companies/7001/payrolls/6001/pay-statements/7101",
+  "params": {},
+  "status": 200,
+  "body": {
+    "employee": {
+      "account_id": 5001
+    },
+    "id": 7101,
+    "pay_date": "2026-10-02",
+    "status": "OPEN",
+    "type": {
+      "id": 36656000,
+      "display_name": "Regular"
+    },
+    "pay_period_start": "2026-09-14",
+    "pay_period_end": "2026-09-27",
+    "earnings": [
+      {
+        "id": 3328979392,
+        "type_name": "Earning (Auto)",
+        "batch": {
+          "id": 4342647435,
+          "display_name": "Regular Earnings"
+        },
+        "earning": {
+          "code": "Salary",
+          "name": "Salary"
+        },
+        "ee_amount": 1800.0
+      },
+      {
+        "id": 842431431,
+        "type_name": "Earning",
+        "batch": {
+          "id": 4342647435,
+          "display_name": "Regular Earnings"
+        },
+        "earning": {
+          "code": "Holiday",
+          "name": "Holiday"
+        },
+        "hours": 28800000,
+        "date_range_from": "2026-09-14",
+        "date_range_to": "2026-09-27",
+        "base_rate": 25.0,
+        "ee_amount": 200.0
+      },
+      {
+        "id": 2642864188,
+        "type_name": "Earning (Fringe, Auto)",
+        "batch": {
+          "id": 4342647435,
+          "display_name": "Regular Earnings"
+        },
+        "earning": {
+          "code": "GTL-Imp Inc",
+          "name": "GTL-Imputed Income"
+        },
+        "ee_amount": 3.1
+      },
+      {
+        "id": 3080662346,
+        "type_name": "Reimbursement(Neg Ded, Auto)",
+        "batch": {
+          "id": 4342647435,
+          "display_name": "Regular Earnings"
+        },
+        "earning": {
+          "code": "Cell Reimb",
+          "name": "Cell Reimb"
+        },
+        "ee_amount": 25.0
+      }
+    ],
+    "taxes": [
+      {
+        "type_name": "Tax",
+        "company_tax": {
+          "code": "FIT",
+          "name": "Federal Income Tax"
+        },
+        "batch": {
+          "id": 4342647435,
+          "display_name": "Regular Earnings"
+        },
+        "ee_amount": 150.0,
+        "ee_subject_wage": 1915.6
+      },
+      {
+        "type_name": "Tax",
+        "company_tax": {
+          "code": "Social Security",
+          "name": "Social Security"
+        },
+        "batch": {
+          "id": 4342647435,
+          "display_name": "Regular Earnings"
+        },
+        "ee_amount": 125.74,
+        "ee_subject_wage": 2028.1,
+        "er_amount": 125.74,
+        "er_subject_wage": 2028.1
+      },
+      {
+        "type_name": "Tax",
+        "company_tax": {
+          "code": "Medicare",
+          "name": "Medicare"
+        },
+        "batch": {
+          "id": 4342647435,
+          "display_name": "Regular Earnings"
+        },
+        "ee_amount": 29.41,
+        "ee_subject_wage": 2028.1,
+        "er_amount": 29.41,
+        "er_subject_wage": 2028.1
+      },
+      {
+        "type_name": "Tax",
+        "company_tax": {
+          "code": "SIT:NC",
+          "name": "North Carolina"
+        },
+        "batch": {
+          "id": 4342647435,
+          "display_name": "Regular Earnings"
+        },
+        "ee_amount": 2.4699999999999998,
+        "ee_subject_wage": 1915.6
+      },
+      {
+        "type_name": "Tax",
+        "company_tax": {
+          "code": "FUTA",
+          "name": "Federal Unemployment Tax"
+        },
+        "batch": {
+          "id": 4342647435,
+          "display_name": "Regular Earnings"
+        },
+        "er_amount": 12.17,
+        "er_subject_wage": 2028.1
+      },
+      {
+        "type_name": "Tax",
+        "company_tax": {
+          "code": "SUTA:NC:2",
+          "name": "ER SUTA North Carolina"
+        },
+        "batch": {
+          "id": 4342647435,
+          "display_name": "Regular Earnings"
+        },
+        "er_amount": 20.28,
+        "er_subject_wage": 2028.1
+      }
+    ],
+    "deductions": [
+      {
+        "type_name": "Deduction (Auto)",
+        "deduction": {
+          "code": "401k",
+          "name": "401k",
+          "external_id": "D20"
+        },
+        "ee_amount": 100.0,
+        "er_amount": 50.0,
+        "batch": {
+          "id": 4342647435,
+          "display_name": "Regular Earnings"
+        }
+      },
+      {
+        "type_name": "Deduction (Auto)",
+        "deduction": {
+          "code": "Dental",
+          "name": "Dental Insurance",
+          "external_id": "D11"
+        },
+        "ee_amount": 12.5,
+        "batch": {
+          "id": 4342647435,
+          "display_name": "Regular Earnings"
+        }
+      }
+    ],
+    "payments": [
+      {
+        "type_name": "Direct Deposit",
+        "ee_amount": 200.0,
+        "batch": {
+          "id": 4342647435,
+          "display_name": "Regular Earnings"
+        }
+      },
+      {
+        "type_name": "Direct Deposit",
+        "ee_amount": 1404.88,
+        "batch": {
+          "id": 4342647435,
+          "display_name": "Regular Earnings"
+        }
+      },
+      {
+        "type_name": "Fringe",
+        "ee_amount": 3.1,
+        "batch": {
+          "id": 4342647435,
+          "display_name": "Regular Earnings"
+        }
+      },
+      {
+        "type_name": "Check",
+        "batch": {
+          "id": 4342647435,
+          "display_name": "Regular Earnings"
+        }
+      }
+    ],
+    "messages": [
+      {
+        "type_name": "Message",
+        "message": {
+          "text": "Missing company bank settings.",
+          "severity": "ERROR"
+        }
+      }
+    ]
+  }
+}

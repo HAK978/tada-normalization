@@ -10,15 +10,15 @@
   },
   "diagnostics": {
    "info": 32,
-   "warning": 7
+   "warning": 14
   },
   "checks": {
    "pass": 2
   },
   "requests": {
-   "total": 45,
-   "ok": 41,
-   "empty": 0,
+   "total": 73,
+   "ok": 68,
+   "empty": 1,
    "unavailable": 4
   },
   "unavailable": [
@@ -87,7 +87,8 @@
     "pay_groups": [],
     "addresses": [],
     "phones": [],
-    "emails": []
+    "emails": [],
+    "contacts": []
    }
   ],
   "employees": [
@@ -98,8 +99,13 @@
      "tenant_id": "synthetic",
      "endpoints": [
       "rest/v2/companies/{company}/employees/{id}",
+      "rest/v2/companies/{company}/employees/{id}/benefits",
       "rest/v2/companies/{company}/employees/{id}/compensation/history",
-      "rest/v2/companies/{company}/employees/{id}/pay-info"
+      "rest/v2/companies/{company}/employees/{id}/contacts",
+      "rest/v2/companies/{company}/employees/{id}/demographics",
+      "rest/v2/companies/{company}/employees/{id}/pay-info",
+      "rest/v2/companies/{company}/employees/{id}/tax-info",
+      "rest/v2/companies/{company}/position/assignments/{id}"
      ],
      "ids": {
       "companyId": "7001",
@@ -107,6 +113,7 @@
      }
     },
     "provider_extensions": {
+     "use_separate_mailing_address": true,
      "primary_account_id": 5001,
      "locked": false,
      "national_id_numbers[0].type": "SSN",
@@ -126,7 +133,31 @@
      "compensation.history[0].num_pp_in_year": 0,
      "compensation.history[0].currency": "USD",
      "compensation.history[2].time_period": "YEAR",
-     "compensation.history[2].num_pp_in_year": 26
+     "compensation.history[2].num_pp_in_year": 26,
+     "tax-info.employee-tax-type.W2": true,
+     "tax-info.employee-tax-type._1099": false,
+     "tax-info.employee-tax-type.DRAW": false,
+     "tax-info.pension-box-type": "SYSTEM_RULES",
+     "tax-info.third-party-sick": "COMPANY_DEFAULT",
+     "benefits[0].id": 81,
+     "benefits[0].employee.account_id": 5001,
+     "benefits[0].name": "Dental PPO",
+     "benefits[0].coverage_level": "Employee + Spouse",
+     "benefits[0].benefit_plan.id": 82,
+     "benefits[0].benefit_plan.currency": "USD",
+     "benefits[0].coverage_effective_from": "2026-01-01",
+     "benefits[0].coverage_effective_to": "2026-12-31",
+     "position.assignments[0].assignment_id": 91,
+     "position.assignments[0].assignment_number": "A-1",
+     "position.assignments[0].position_id": 92,
+     "position.assignments[0].position_number": "P-1",
+     "position.assignments[0].position_name": "Store Manager",
+     "position.assignments[0].account_id": 5001,
+     "position.assignments[0].start_date": "2024-01-01",
+     "position.assignments[0].assigned_fte": "1.0",
+     "position.assignments[0].annual_work_hours": 2080,
+     "position.assignments[0].is_primary_assignment": true,
+     "contacts[0].cell_phone.primary": true
     },
     "diagnostics": [
      {
@@ -135,6 +166,20 @@
       "field": "compensation.history[0].effective_from",
       "message": "kept as a date; no documented meaning (A-25)",
       "raw": "1900-12-31"
+     },
+     {
+      "code": "UNMAPPED_CODE",
+      "severity": "warning",
+      "field": "demographics.gender",
+      "message": "a documented value with no definition",
+      "raw": "FEMALE"
+     },
+     {
+      "code": "UNMAPPED_CODE",
+      "severity": "warning",
+      "field": "demographics.citizenship",
+      "message": "a documented value with no definition",
+      "raw": "US_CITIZEN"
      }
     ],
     "company_id": "ukg-ready:synthetic:company:7001",
@@ -168,7 +213,61 @@
     },
     "personal": {
      "birth_date": "1990-04-12",
-     "emergency_contacts": []
+     "gender": {
+      "value": "UNMAPPED",
+      "raw": "FEMALE",
+      "source_field": "demographics.gender"
+     },
+     "ethnicity": {
+      "value": "UNMAPPED",
+      "raw": "HISPANIC_OR_LATINO",
+      "source_field": "demographics.ethnicity"
+     },
+     "citizenship": {
+      "value": "UNMAPPED",
+      "raw": "US_CITIZEN",
+      "source_field": "demographics.citizenship"
+     },
+     "contacts": [
+      {
+       "source_id": "71",
+       "roles": [
+        "EMERGENCY",
+        "DEPENDENT",
+        "BENEFICIARY"
+       ],
+       "name": {
+        "first": "Sam",
+        "last": "Lopez"
+       },
+       "relationship": "Spouse",
+       "primary": true,
+       "birth_date": "1989-11-20",
+       "phones": [
+        {
+         "type": "MOBILE",
+         "number": "704-555-0111"
+        }
+       ],
+       "emails": [],
+       "source_field": "contacts[0]"
+      },
+      {
+       "source_id": "72",
+       "roles": [
+        "DEPENDENT"
+       ],
+       "name": {
+        "first": "Kai",
+        "last": "Lopez"
+       },
+       "relationship": "Child",
+       "birth_date": "2019-05-04",
+       "phones": [],
+       "emails": [],
+       "source_field": "contacts[1]"
+      }
+     ]
     },
     "addresses": [
      {
@@ -178,6 +277,13 @@
       "state": "NC",
       "postal_code": "28202",
       "country": "USA"
+     },
+     {
+      "type": "MAILING",
+      "line1": "PO Box 77",
+      "city": "Charlotte",
+      "state": "NC",
+      "postal_code": "28201"
      }
     ],
     "phones": [
@@ -190,6 +296,10 @@
      {
       "type": "MAIN",
       "address": "maria@brightside.example"
+     },
+     {
+      "type": "SECONDARY",
+      "address": "maria.lopez@example.com"
      }
     ],
     "employment": {
@@ -209,11 +319,34 @@
      "start_date": "2019-08-05",
      "employer_ids": [
       "801"
-     ]
+     ],
+     "history": []
     },
     "job": {
      "title": "Store Manager",
-     "job_code": "923"
+     "job_code": "923",
+     "org_units": [
+      {
+       "dimension": "Location-Dept",
+       "code": "6102",
+       "name": "Production",
+       "path": [
+        "Charlotte",
+        "Production"
+       ],
+       "source_field": "cost_centers_info.defaults[0].value.id"
+      },
+      {
+       "dimension": "Position",
+       "code": "6202",
+       "name": "Store Manager",
+       "path": [
+        "Store Manager"
+       ],
+       "source_field": "cost_centers_info.defaults[1].value.id"
+      }
+     ],
+     "history": []
     },
     "compensation": {
      "pay_type": {
@@ -354,8 +487,13 @@
      "tenant_id": "synthetic",
      "endpoints": [
       "rest/v2/companies/{company}/employees/{id}",
+      "rest/v2/companies/{company}/employees/{id}/benefits",
       "rest/v2/companies/{company}/employees/{id}/compensation/history",
-      "rest/v2/companies/{company}/employees/{id}/pay-info"
+      "rest/v2/companies/{company}/employees/{id}/contacts",
+      "rest/v2/companies/{company}/employees/{id}/demographics",
+      "rest/v2/companies/{company}/employees/{id}/pay-info",
+      "rest/v2/companies/{company}/employees/{id}/tax-info",
+      "rest/v2/companies/{company}/position/assignments/{id}"
      ],
      "ids": {
       "companyId": "7001",
@@ -377,7 +515,15 @@
      "compensation.history[0].hourly_pay": "0.0",
      "compensation.history[0].time_period": "YEAR",
      "compensation.history[0].num_pp_in_year": 0,
-     "compensation.history[0].currency": "USD"
+     "compensation.history[0].currency": "USD",
+     "tax-info.employee-tax-type.W2": true,
+     "tax-info.employee-tax-type._1099": false,
+     "tax-info.employee-tax-type.DRAW": false,
+     "tax-info.pension-box-type": "SYSTEM_RULES",
+     "tax-info.third-party-sick": "COMPANY_DEFAULT",
+     "demographics.visa.type": "H-1B",
+     "demographics.visa.number": "***5123",
+     "demographics.visa.expiration_date": "2027-03-30"
     },
     "diagnostics": [
      {
@@ -386,6 +532,20 @@
       "field": "compensation.history[0].effective_from",
       "message": "kept as a date; no documented meaning (A-25)",
       "raw": "1900-12-31"
+     },
+     {
+      "code": "UNMAPPED_CODE",
+      "severity": "warning",
+      "field": "demographics.gender",
+      "message": "a documented value with no definition",
+      "raw": "MALE"
+     },
+     {
+      "code": "UNMAPPED_CODE",
+      "severity": "warning",
+      "field": "demographics.citizenship",
+      "message": "a documented value with no definition",
+      "raw": "ALIEN_WITH_WORK_PERMIT"
      },
      {
       "code": "SOURCE_UNAVAILABLE",
@@ -426,7 +586,22 @@
     },
     "personal": {
      "birth_date": "1990-04-12",
-     "emergency_contacts": []
+     "gender": {
+      "value": "UNMAPPED",
+      "raw": "MALE",
+      "source_field": "demographics.gender"
+     },
+     "ethnicity": {
+      "value": "UNMAPPED",
+      "raw": "WHITE",
+      "source_field": "demographics.ethnicity"
+     },
+     "citizenship": {
+      "value": "UNMAPPED",
+      "raw": "ALIEN_WITH_WORK_PERMIT",
+      "source_field": "demographics.citizenship"
+     },
+     "contacts": []
     },
     "addresses": [
      {
@@ -448,6 +623,10 @@
      {
       "type": "MAIN",
       "address": "james@brightside.example"
+     },
+     {
+      "type": "SECONDARY",
+      "address": "james.carter@example.com"
      }
     ],
     "employment": {
@@ -467,12 +646,26 @@
      "start_date": "2021-03-15",
      "employer_ids": [
       "801"
-     ]
+     ],
+     "history": []
     },
     "job": {
      "title": "Driver",
      "job_code": "922",
-     "manager_employee_id": "ukg-ready:synthetic:employee:5001"
+     "manager_employee_id": "ukg-ready:synthetic:employee:5001",
+     "org_units": [
+      {
+       "dimension": "Location-Dept",
+       "code": "6103",
+       "name": "Logistics",
+       "path": [
+        "Charlotte",
+        "Logistics"
+       ],
+       "source_field": "cost_centers_info.defaults[0].value.id"
+      }
+     ],
+     "history": []
     },
     "compensation": {
      "pay_type": {
@@ -553,8 +746,13 @@
      "tenant_id": "synthetic",
      "endpoints": [
       "rest/v2/companies/{company}/employees/{id}",
+      "rest/v2/companies/{company}/employees/{id}/benefits",
       "rest/v2/companies/{company}/employees/{id}/compensation/history",
-      "rest/v2/companies/{company}/employees/{id}/pay-info"
+      "rest/v2/companies/{company}/employees/{id}/contacts",
+      "rest/v2/companies/{company}/employees/{id}/demographics",
+      "rest/v2/companies/{company}/employees/{id}/pay-info",
+      "rest/v2/companies/{company}/employees/{id}/tax-info",
+      "rest/v2/companies/{company}/position/assignments/{id}"
      ],
      "ids": {
       "companyId": "7001",
@@ -570,9 +768,28 @@
      "phones.preferred_phone": "CELL",
      "timezone": "America/New_York",
      "pay-info.standard_work_day": 28800000,
-     "pay-info.payroll_classification": "REGULAR"
+     "pay-info.payroll_classification": "REGULAR",
+     "tax-info.employee-tax-type.W2": true,
+     "tax-info.employee-tax-type._1099": false,
+     "tax-info.employee-tax-type.DRAW": false,
+     "tax-info.pension-box-type": "SYSTEM_RULES",
+     "tax-info.third-party-sick": "COMPANY_DEFAULT"
     },
     "diagnostics": [
+     {
+      "code": "UNMAPPED_CODE",
+      "severity": "warning",
+      "field": "demographics.gender",
+      "message": "a documented value with no definition",
+      "raw": "UNDEFINED"
+     },
+     {
+      "code": "COST_CENTER_UNRESOLVED",
+      "severity": "warning",
+      "field": "cost_centers_info.defaults[0].value.id",
+      "message": "not among the cost centers of tree 1; kept by ID, without a name",
+      "raw": "6301"
+     },
      {
       "code": "SOURCE_UNAVAILABLE",
       "severity": "warning",
@@ -612,7 +829,12 @@
     },
     "personal": {
      "birth_date": "1990-04-12",
-     "emergency_contacts": []
+     "gender": {
+      "value": "UNMAPPED",
+      "raw": "UNDEFINED",
+      "source_field": "demographics.gender"
+     },
+     "contacts": []
     },
     "addresses": [
      {
@@ -654,9 +876,19 @@
      "termination_date": "2026-09-30",
      "employer_ids": [
       "801"
-     ]
+     ],
+     "history": []
     },
-    "job": {},
+    "job": {
+     "org_units": [
+      {
+       "code": "6301",
+       "path": [],
+       "source_field": "cost_centers_info.defaults[0].value.id"
+      }
+     ],
+     "history": []
+    },
     "compensation": {
      "pay_type": {
       "value": "UNMAPPED",
@@ -749,8 +981,13 @@
      "tenant_id": "synthetic",
      "endpoints": [
       "rest/v2/companies/{company}/employees/{id}",
+      "rest/v2/companies/{company}/employees/{id}/benefits",
       "rest/v2/companies/{company}/employees/{id}/compensation/history",
-      "rest/v2/companies/{company}/employees/{id}/pay-info"
+      "rest/v2/companies/{company}/employees/{id}/contacts",
+      "rest/v2/companies/{company}/employees/{id}/demographics",
+      "rest/v2/companies/{company}/employees/{id}/pay-info",
+      "rest/v2/companies/{company}/employees/{id}/tax-info",
+      "rest/v2/companies/{company}/position/assignments/{id}"
      ],
      "ids": {
       "companyId": "7001",
@@ -766,9 +1003,22 @@
      "phones.preferred_phone": "CELL",
      "timezone": "America/New_York",
      "pay-info.standard_work_day": 28800000,
-     "pay-info.payroll_classification": "REGULAR"
+     "pay-info.payroll_classification": "REGULAR",
+     "tax-info.employee-tax-type.W2": true,
+     "tax-info.employee-tax-type._1099": false,
+     "tax-info.employee-tax-type.DRAW": false,
+     "tax-info.pension-box-type": "SYSTEM_RULES",
+     "tax-info.third-party-sick": "COMPANY_DEFAULT",
+     "demographics.full_time_student": false
     },
     "diagnostics": [
+     {
+      "code": "UNMAPPED_CODE",
+      "severity": "warning",
+      "field": "demographics.gender",
+      "message": "a documented value with no definition",
+      "raw": "MALE"
+     },
      {
       "code": "SOURCE_UNAVAILABLE",
       "severity": "warning",
@@ -808,7 +1058,12 @@
     },
     "personal": {
      "birth_date": "1990-04-12",
-     "emergency_contacts": []
+     "gender": {
+      "value": "UNMAPPED",
+      "raw": "MALE",
+      "source_field": "demographics.gender"
+     },
+     "contacts": []
     },
     "addresses": [
      {
@@ -850,11 +1105,14 @@
      "start_date": "2025-03-01",
      "employer_ids": [
       "801"
-     ]
+     ],
+     "history": []
     },
     "job": {
      "title": "Head Baker",
-     "job_code": "921"
+     "job_code": "921",
+     "org_units": [],
+     "history": []
     },
     "compensation": {
      "pay_type": {
@@ -936,8 +1194,13 @@
      "tenant_id": "synthetic",
      "endpoints": [
       "rest/v2/companies/{company}/employees/{id}",
+      "rest/v2/companies/{company}/employees/{id}/benefits",
       "rest/v2/companies/{company}/employees/{id}/compensation/history",
-      "rest/v2/companies/{company}/employees/{id}/pay-info"
+      "rest/v2/companies/{company}/employees/{id}/contacts",
+      "rest/v2/companies/{company}/employees/{id}/demographics",
+      "rest/v2/companies/{company}/employees/{id}/pay-info",
+      "rest/v2/companies/{company}/employees/{id}/tax-info",
+      "rest/v2/companies/{company}/position/assignments/{id}"
      ],
      "ids": {
       "companyId": "7001",
@@ -953,7 +1216,12 @@
      "phones.preferred_phone": "CELL",
      "timezone": "America/New_York",
      "pay-info.standard_work_day": 28800000,
-     "pay-info.payroll_classification": "REGULAR"
+     "pay-info.payroll_classification": "REGULAR",
+     "tax-info.employee-tax-type.W2": false,
+     "tax-info.employee-tax-type._1099": true,
+     "tax-info.employee-tax-type.DRAW": false,
+     "tax-info.pension-box-type": "SYSTEM_RULES",
+     "tax-info.third-party-sick": "COMPANY_DEFAULT"
     },
     "diagnostics": [
      {
@@ -995,7 +1263,7 @@
     },
     "personal": {
      "birth_date": "1990-04-12",
-     "emergency_contacts": []
+     "contacts": []
     },
     "addresses": [
      {
@@ -1036,9 +1304,13 @@
      "start_date": "2026-08-01",
      "employer_ids": [
       "801"
-     ]
+     ],
+     "history": []
     },
-    "job": {},
+    "job": {
+     "org_units": [],
+     "history": []
+    },
     "compensation": {
      "pay_type": {
       "value": "UNMAPPED",

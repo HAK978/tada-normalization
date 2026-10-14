@@ -1,0 +1,321 @@
+{
+  "seq": 74,
+  "endpoint": "clientMaster/v1/getClientCodes",
+  "path": "clientMaster/v1/getClientCodes",
+  "params": {
+    "clientId": "202",
+    "options": "all"
+  },
+  "status": 200,
+  "body": {
+    "clientCodes": {
+      "clientId": "202",
+      "statusCode": [
+        {
+          "id": "A",
+          "description": "Active",
+          "statusClass": "A",
+          "obsolete": false
+        },
+        {
+          "id": "L",
+          "description": "Leave of Absence",
+          "statusClass": "L",
+          "obsolete": false
+        },
+        {
+          "id": "T",
+          "description": "Terminated",
+          "statusClass": "T",
+          "obsolete": false
+        }
+      ],
+      "typeCode": [
+        {
+          "id": "FT",
+          "description": "Full Time",
+          "typeClass": "F",
+          "abbrDescription": null
+        },
+        {
+          "id": "PT",
+          "description": "Part Time",
+          "typeClass": "P",
+          "abbrDescription": null
+        },
+        {
+          "id": "S",
+          "description": "Seasonal",
+          "typeClass": "F",
+          "abbrDescription": null
+        }
+      ],
+      "payCode": [
+        {
+          "id": "REG",
+          "payClass": "E",
+          "payReason": "H",
+          "payDescription": "Regular",
+          "payType": "R",
+          "calcMethod": "S",
+          "rateClass": "S",
+          "talxPayType": "R",
+          "compensationType": null,
+          "w2FormBox": null,
+          "w2FormCode": null,
+          "workCompTaxable": null
+        },
+        {
+          "id": "OT",
+          "payClass": "E",
+          "payReason": "H",
+          "payDescription": "Overtime",
+          "payType": "R",
+          "calcMethod": "S",
+          "rateClass": "P",
+          "talxPayType": "",
+          "compensationType": null,
+          "w2FormBox": null,
+          "w2FormCode": null,
+          "workCompTaxable": null
+        },
+        {
+          "id": "HOL",
+          "payClass": "E",
+          "payReason": "H",
+          "payDescription": "Holiday",
+          "payType": "R",
+          "calcMethod": "S",
+          "rateClass": "S",
+          "talxPayType": "H",
+          "compensationType": null,
+          "w2FormBox": null,
+          "w2FormCode": null,
+          "workCompTaxable": null
+        },
+        {
+          "id": "VAC",
+          "payClass": "E",
+          "payReason": "H",
+          "payDescription": "Vacation",
+          "payType": "R",
+          "calcMethod": "S",
+          "rateClass": "S",
+          "talxPayType": "V",
+          "compensationType": null,
+          "w2FormBox": null,
+          "w2FormCode": null,
+          "workCompTaxable": null
+        },
+        {
+          "id": "BONUS",
+          "payClass": "E",
+          "payReason": "U",
+          "payDescription": "Bonus",
+          "payType": "R",
+          "calcMethod": "S",
+          "rateClass": "S",
+          "talxPayType": "B",
+          "compensationType": null,
+          "w2FormBox": null,
+          "w2FormCode": null,
+          "workCompTaxable": null
+        },
+        {
+          "id": "TIPS",
+          "payClass": "RT",
+          "payReason": "U",
+          "payDescription": "Reported Tips",
+          "payType": "R",
+          "calcMethod": "S",
+          "rateClass": "S",
+          "talxPayType": "T",
+          "compensationType": null,
+          "w2FormBox": null,
+          "w2FormCode": null,
+          "workCompTaxable": null
+        },
+        {
+          "id": "MILE",
+          "payClass": "R",
+          "payReason": "U",
+          "payDescription": "Mileage Reimbursement",
+          "payType": "R",
+          "calcMethod": "S",
+          "rateClass": "S",
+          "talxPayType": "",
+          "compensationType": null,
+          "w2FormBox": null,
+          "w2FormCode": null,
+          "workCompTaxable": null
+        },
+        {
+          "id": "FRINGE",
+          "payClass": "F",
+          "payReason": "U",
+          "payDescription": "Fringe",
+          "payType": "R",
+          "calcMethod": "S",
+          "rateClass": "S",
+          "talxPayType": "",
+          "compensationType": null,
+          "w2FormBox": null,
+          "w2FormCode": null,
+          "workCompTaxable": null
+        }
+      ],
+      "deductionCode": [
+        {
+          "id": "C401K",
+          "type": "K",
+          "calculationMethod": "K",
+          "description": "401(k)"
+        },
+        {
+          "id": "DEN125",
+          "type": "C",
+          "calculationMethod": "F",
+          "description": "Dental Pre-Tax"
+        },
+        {
+          "id": "LIFE",
+          "type": "V",
+          "calculationMethod": "F",
+          "description": "Voluntary Life"
+        },
+        {
+          "id": "UNIFORM",
+          "type": "V",
+          "calculationMethod": "F",
+          "description": "Uniform"
+        },
+        {
+          "id": "LOAN1",
+          "type": "L",
+          "calculationMethod": "F",
+          "description": "Employee Loan"
+        },
+        {
+          "id": "GARN",
+          "type": "G",
+          "calculationMethod": "G",
+          "description": "Garnishment"
+        }
+      ],
+      "jobCode": [
+        {
+          "id": "BAKER",
+          "jobTitle": "Baker",
+          "alaskaJobCode": null,
+          "glSegmentCode": null,
+          "jobClass": null,
+          "jobDescription": null,
+          "payGrade": null,
+          "perDiemPct": null,
+          "prevailWage": null,
+          "priceCode": null,
+          "probationDays": null,
+          "unionCodeOverride": null
+        },
+        {
+          "id": "DRIVER",
+          "jobTitle": "Delivery Driver",
+          "alaskaJobCode": null,
+          "glSegmentCode": null,
+          "jobClass": null,
+          "jobDescription": null,
+          "payGrade": null,
+          "perDiemPct": null,
+          "prevailWage": null,
+          "priceCode": null,
+          "probationDays": null,
+          "unionCodeOverride": null
+        }
+      ],
+      "departmentCode": [
+        {
+          "id": "PROD",
+          "deptName": "Production",
+          "glCode": null,
+          "glSegment2": null,
+          "perDiemPct": null
+        },
+        {
+          "id": "LOG",
+          "deptName": "Logistics",
+          "glCode": null,
+          "glSegment2": null,
+          "perDiemPct": null
+        }
+      ],
+      "divisionCode": [
+        {
+          "id": "MAIN",
+          "divisionName": "Main",
+          "divTransferAcct": null,
+          "glCode": null,
+          "glSegment2": null,
+          "glSegment3": null
+        }
+      ],
+      "locationCode": [
+        {
+          "id": "CLT",
+          "locationName": "Charlotte",
+          "addressLine1": null,
+          "addressLine2": null,
+          "city": null,
+          "county": null,
+          "geoCode": null,
+          "state": null,
+          "workCompState": null,
+          "zipCode": null,
+          "zipSuffix": null
+        }
+      ],
+      "reasonCode": [
+        {
+          "id": "VOL",
+          "description": "Voluntary resignation",
+          "validActions": "T"
+        }
+      ],
+      "ethnicCode": [
+        {
+          "id": "H",
+          "description": "Hispanic or Latino",
+          "reportCode": "H"
+        }
+      ],
+      "relationCodes": [
+        {
+          "code": "S",
+          "description": "Spouse",
+          "obsolete": false
+        },
+        {
+          "code": "C",
+          "description": "Child",
+          "obsolete": false
+        }
+      ],
+      "payGroups": [
+        {
+          "payGroupCode": "BW",
+          "description": "Biweekly"
+        },
+        {
+          "payGroupCode": "W",
+          "description": "Weekly"
+        },
+        {
+          "payGroupCode": "M",
+          "description": "Monthly"
+        }
+      ]
+    },
+    "errorCode": "0",
+    "errorMessage": "",
+    "extension": null
+  }
+}

@@ -1,0 +1,22 @@
+{
+  "seq": 11,
+  "endpoint": "rest/v2/companies/{company}/config/cost-centers",
+  "path": "rest/v2/companies/7001/config/cost-centers",
+  "params": {
+    "tree_index": 2
+  },
+  "status": 200,
+  "body": {
+    "cost_centers": [
+      {
+        "id": 6200,
+        "name": "Position"
+      },
+      {
+        "id": 6202,
+        "parent_id": 6200,
+        "name": "Store Manager"
+      }
+    ]
+  }
+}

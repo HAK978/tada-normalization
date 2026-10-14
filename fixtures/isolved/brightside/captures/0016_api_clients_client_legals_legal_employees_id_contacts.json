@@ -1,0 +1,43 @@
+{
+  "seq": 16,
+  "endpoint": "api/clients/{client}/legals/{legal}/employees/{id}/contacts",
+  "path": "api/clients/501/legals/601/employees/9001/contacts",
+  "params": {},
+  "status": 200,
+  "body": [
+    {
+      "id": 51,
+      "firstName": "Sam",
+      "lastName": "Example",
+      "relationshipCode": "SP",
+      "isEmergencyContact": true,
+      "emergencyCallOrder": 1,
+      "isDependent": true,
+      "isBeneficiary": false,
+      "birthDate": "**/**/1989",
+      "birthDateUnmasked": "1989-11-20T00:00:00",
+      "ssn": "*****6789",
+      "ssnUnmasked": "000006789",
+      "mobilePhone": "7045550111",
+      "emailAddress": "sam@example.com",
+      "useEmployeeAddress": true,
+      "address1": "12 Oak Ave",
+      "city": "Charlotte",
+      "state": "NC",
+      "zipCode": "28202",
+      "genderCode": "M"
+    },
+    {
+      "id": 52,
+      "firstName": "Jo",
+      "lastName": "Friend",
+      "relationshipCode": "FR",
+      "isEmergencyContact": true,
+      "emergencyCallOrder": 2,
+      "birthDate": "**/**/1975",
+      "isDependent": false,
+      "isBeneficiary": false,
+      "homePhone": "7045550122"
+    }
+  ]
+}

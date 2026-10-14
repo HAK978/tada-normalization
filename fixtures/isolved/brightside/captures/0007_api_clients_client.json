@@ -1,0 +1,13 @@
+{
+  "seq": 7,
+  "endpoint": "api/clients/{client}",
+  "path": "api/clients/501",
+  "params": {},
+  "status": 200,
+  "body": {
+    "id": 501,
+    "clientCode": "BRT",
+    "clientName": "Brightside Holdings",
+    "links": []
+  }
+}

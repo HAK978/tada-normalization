@@ -34,10 +34,32 @@ DEVIATIONS = {
     "isolved": {("maxLength", "maritalStatus")},
     "ukg-ready": {("additionalProperties", "ein_name"), ("minimum", "num_pp_in_year")},
 }
-# Live response keys that differ from the spec, translated back for validation only (A-16, A-43).
+# Live response keys that differ from the spec, per endpoint, translated back at any depth of the body for
+# validation only (A-16, A-43, A-78).
 ALIASES = {
-    "prismhr": {"payrollVoucher": "payrollVouchers", "clientPayrollSchedule": "clientPayrollSchedules"},
+    "prismhr": {
+        "payroll/v1/getPayrollVoucherForBatch": {"payrollVoucher": "payrollVouchers"},
+        "clientMaster/v1/getPayrollSchedule": {"clientPayrollSchedule": "clientPayrollSchedules"},
+        "employee/v1/getEmployee": {"employerId": "employerIds"},
+        "employee/v1/getHistory": {"historyRecord": "historyRecords"},
+        "clientMaster/v1/getAllPrismClientContacts": {"prismClientContact": "prismClientContacts"},
+    },
 }
+
+
+def aliases(provider: str, endpoint: str) -> dict[str, str]:
+    return ALIASES.get(provider, {}).get(endpoint, {})
+
+
+def _documented(value: Any, names: dict[str, str]) -> Any:
+    """The body with every live alias renamed to its documented key, wherever it sits."""
+    if isinstance(value, dict):
+        return {
+            (names[k] if k in names and names[k] not in value else k): _documented(v, names) for k, v in value.items()
+        }
+    if isinstance(value, list):
+        return [_documented(v, names) for v in value]
+    return value
 
 
 @lru_cache(maxsize=None)
@@ -121,11 +143,7 @@ def errors(provider: str, endpoint: str, body: Any, allow_null: bool = True) -> 
     Live PrismHR sends null for many typed fields (422 of 428 live responses are valid once
     nulls are allowed, A-47), so null is accepted by default; nothing else is relaxed.
     """
-    body = deepcopy(body)
-    if isinstance(body, dict):
-        for alias, documented in ALIASES.get(provider, {}).items():
-            if alias in body and documented not in body:
-                body[documented] = body.pop(alias)
+    body = _documented(deepcopy(body), aliases(provider, endpoint))
     if provider == "ukg-ready":
         _, schema = _root(provider, endpoint)
         validator = validator_for(schema, default=Draft4Validator)(schema)
@@ -174,4 +192,4 @@ def complete(provider: str, endpoint: str, body: Any) -> Any:
     """Add every required property the body doesn't set, as null: live PrismHR returns all fields,
     mostly empty or null (A-47). Live key aliases are completed against their documented schema."""
     document, schema = _root(provider, endpoint)
-    return _complete(document, schema, deepcopy(body), ALIASES.get(provider, {}))
+    return _complete(document, schema, deepcopy(body), aliases(provider, endpoint))

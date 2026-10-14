@@ -1,0 +1,28 @@
+{
+  "seq": 69,
+  "endpoint": "rest/v2/companies/{company}/payrolls/{id}/pay-statements",
+  "path": "rest/v2/companies/7001/payrolls/6002/pay-statements",
+  "params": {},
+  "status": 200,
+  "body": {
+    "pay_statements": [
+      {
+        "employee": {
+          "account_id": 5005
+        },
+        "id": 7103,
+        "pay_date": "2026-10-02",
+        "status": "OPEN",
+        "type": {
+          "id": 36656008,
+          "display_name": "Comm"
+        },
+        "pay_period_start": "2026-09-14",
+        "pay_period_end": "2026-09-27",
+        "_links": {
+          "self": "https://example.invalid/ta/rest/v2/companies/7001/payrolls/6002/pay-statements/7103"
+        }
+      }
+    ]
+  }
+}
