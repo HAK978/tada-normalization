@@ -19,6 +19,7 @@ from normalization.canonical.codes import (
     PayrollRunType,
     PayStatementType,
     RatePeriod,
+    TaxType,
 )
 
 # employees/{aid} status (#/schemas/106) is undocumented. Live, "Terminated" appears exactly when
@@ -105,3 +106,22 @@ KNOWN_MODIFIERS = frozenset({"Auto", "Auto Reduce", "Manual", "Fringe", "Neg Ded
 # non-cash pay and pay nothing, so they are not payments (A-58).
 PAYMENT_TYPE = {"Check": PaymentKind.CHECK, "Direct Deposit": PaymentKind.DIRECT_DEPOSIT}
 FRINGE_PAYMENT = "Fringe"
+
+# taxes[].company_tax.code (A-68). lookup/tax-codes, "the list of supported tax codes", documents
+# FIT "Federal Income Tax", FUTA "Federal Unemployment Tax", FICA "OASDI", MEDI "Medicare" and
+# "Additional Medicare". Live, "Social Security" and "Medicare" are named so and, like FICA and MEDI,
+# withhold exactly 6.2% and 1.45% of subject wages on every line with an amount.
+TAX_CODE = {
+    "FIT": TaxType.FEDERAL_INCOME,
+    "FICA": TaxType.SOCIAL_SECURITY,
+    "Social Security": TaxType.SOCIAL_SECURITY,
+    "MEDI": TaxType.MEDICARE,
+    "Medicare": TaxType.MEDICARE,
+    "Additional Medicare": TaxType.ADDITIONAL_MEDICARE,
+    "FUTA": TaxType.FEDERAL_UNEMPLOYMENT,
+}
+# State taxes are coded "<tax>:<state>[:<n>]" live (SIT:WI, SIT:WI:2, SUTA:WI:2). SUTA is named "ER SUTA
+# <state>" and is employer-only. SIT is named after the state only; its subject wage equals FIT's on 62
+# of 63 live statements, including all 28 where FIT's differs from Social Security's, so it is taxed
+# on the income-tax wage base (A-68). Other prefixes (SUTA_SC, ...) stay UNMAPPED.
+STATE_TAX_PREFIX = {"SIT": TaxType.STATE_INCOME, "SUTA": TaxType.STATE_UNEMPLOYMENT}

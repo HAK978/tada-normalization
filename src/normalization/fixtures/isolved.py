@@ -494,19 +494,21 @@ def _check(
         []
         if contractor
         else [
-            ("FIT", "Federal Withholding", taxable * D("0.10")),
-            ("SS", "Social Security", wages * D("0.062")),
-            ("MED", "Medicare", wages * D("0.0145")),
-            ("NCSIT", "NC Withholding", taxable * D("0.04")),
+            # Live: itemCode is null and the description is the system tax's (A-68).
+            (None, "FEDERAL WH", taxable * D("0.10")),
+            (None, "SOC SEC EE", wages * D("0.062")),
+            (None, "MED EE", wages * D("0.0145")),
+            (None, "NORTH CAROLINA WH", taxable * D("0.04")),
         ]
     )
     er = (
         []
         if contractor
         else [
-            ("SS-ER", "Social Security Employer", wages * D("0.062")),
-            ("MED-ER", "Medicare Employer", wages * D("0.0145")),
-            ("FUTA", "FUTA", wages * D("0.006")),
+            (None, "SOC SEC ER", wages * D("0.062")),
+            (None, "MED ER", wages * D("0.0145")),
+            (None, "FUTA ER", wages * D("0.006")),
+            (None, "NORTH CAROLINA SUI ER", wages * D("0.01")),
         ]
     )
     ee_total = sum((cents(a) for _, _, a in ee), D("0"))

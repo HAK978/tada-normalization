@@ -53,6 +53,14 @@ FROM deduction_lines d
 JOIN pay_statements s ON s.id = d.pay_statement_id
 JOIN companies c ON c.id = s.company_id
 GROUP BY 1, 2;
+
+-- employee taxes withheld, by canonical tax type and state, across providers
+SELECT t.type, t.state, c.provider, SUM(CAST(t.amount AS REAL))
+FROM tax_lines t
+JOIN pay_statements s ON s.id = t.pay_statement_id
+JOIN companies c ON c.id = s.company_id
+WHERE t.paid_by = 'EMPLOYEE'
+GROUP BY 1, 2, 3;
 ```
 
 ## Commands
@@ -130,6 +138,9 @@ The main conventions:
   tracks what converters read, so converters read only the values they map, and tests check that
   values they don't map survive (A-62).
 - **Sensitive data:** SSNs and account numbers keep at most their last 4 digits, everywhere.
+- **Paycheck lines are classified** in canonical terms: an earning's `kind` (how it is paid) and
+  `category` (what it pays for: regular, overtime, vacation, ...), and a tax's `type` (federal income,
+  Social Security, state unemployment, ...) with its `state` (A-67, A-68).
 - **Diagnostics** on every record explain anything unusual: unmapped codes, invalid dates, data not
   fetched, amounts not finalized.
 - **Reconciliation checks** on every paycheck are reported, never "fixed":
@@ -153,6 +164,13 @@ rule produced, each recorded in [ASSUMPTIONS.md](ASSUMPTIONS.md):
   (A-58).
 - The three providers mask differently: UKG returns full SSNs, PrismHR masks them. The output keeps the
   last 4 digits in every case (A-23).
+- Tax types come from each provider's own codes and descriptions, and the arithmetic agrees: Social
+  Security lines are exactly 6.2% of taxable wages, Medicare 1.45%. UKG names its state income tax
+  only after the state (`SIT:WI` is "Wisconsin"), but it is taxed on the same wage base as federal
+  income tax on 62 of 63 live statements (A-68).
+- PrismHR documents an earning category for each pay code (`talxPayType`), but the live tenant leaves
+  it blank. So PrismHR pay codes, like UKG's, wait for a person to classify them, while isolved's
+  come from its own system earnings (A-67).
 - Live data departs from each provider's own schema in specific, documented ways (A-16, A-47, A-52,
   A-61).
 
@@ -162,7 +180,7 @@ New tenants bring codes no table knows. They come out `UNMAPPED` with a warning,
 guessed. The loop for resolving them needs no code change (A-65):
 
 ```sh
-python -m normalization review .discovery/prismhr/<run>     # 109 warnings -> a list of distinct decisions
+python -m normalization review .discovery/prismhr/<run>     # 6,540 unmapped mentions -> 77 decisions
 # fill in `value` and `evidence` in out/review/mappings-prismhr.json
 python -m normalization normalize .discovery/prismhr/<run> --mappings out/review/mappings-prismhr.json
 ```
@@ -182,7 +200,9 @@ earning line, for example, lets gross pay be derived.
 - **Arithmetic, which is evidence.** For an unknown earning kind, it tests on every paycheck the line
   appears on whether the provider's own totals reconcile with the line as cash or as non-cash. For
   example: "net pay reconciles on 1 of 1 paychecks only if this line is not paid out". This separates
-  cash from non-cash; it can't tell which non-cash kind.
+  cash from non-cash; it can't tell which non-cash kind. For an unknown tax code, it tests whether
+  every line is exactly 6.2%, 1.45% or 0.9% of taxable wages: the Social Security, Medicare and
+  Additional Medicare rates.
 - **Similar names, which are only a hint.** It compares the unknown value and label with texts already
   mapped to the same canonical type, across all providers' code tables and the output. For example,
   "Leave - FMLA" is like ON_LEAVE (0.44). Where arithmetic has narrowed the kind, names only rank
@@ -265,6 +285,9 @@ The details are in [ASSUMPTIONS.md](ASSUMPTIONS.md).
 - **Percent scales** are unproven for isolved and UKG deposits and deductions, so the number stays
   null with its raw value (A-29). Tax withholding setup is kept raw, not mapped (A-34).
 - **Small live samples:** codes that never appeared in them are mapped from documentation only (A-07).
+- **Unclassified codes:** PrismHR and UKG earning codes have no category until a mapping file gives
+  one (A-67). State and local tax numbers that mean different things in different states stay
+  `UNMAPPED`, as do PrismHR's state assessments (A-68).
 - **Next steps for production use:**
   - per-record evidence tests in place of provider-wide rules (A-32 held on 420 vouchers, then one
     voucher broke it);

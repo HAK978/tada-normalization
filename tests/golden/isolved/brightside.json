@@ -2188,7 +2188,13 @@
      "taxes[6].mtdDollars": "9.0",
      "taxes[6].qtdDollars": "45.0",
      "taxes[6].ytdDollars": "180.0",
-     "taxes[6].ftdDollars": "180.0"
+     "taxes[6].ftdDollars": "180.0",
+     "taxes[7].currentDollars": "15.0",
+     "taxes[7].ptdDollars": "15.0",
+     "taxes[7].mtdDollars": "15.0",
+     "taxes[7].qtdDollars": "75.0",
+     "taxes[7].ytdDollars": "300.0",
+     "taxes[7].ftdDollars": "300.0"
     },
     "diagnostics": [],
     "company_id": "isolved:synthetic:company:501:601",
@@ -2233,7 +2239,7 @@
       "formula": "sum(taxes[isEmployeeTax].checkDollars)"
      },
      "employer_taxes": {
-      "amount": "123.75",
+      "amount": "138.75",
       "currency": "USD",
       "derived": true,
       "formula": "sum(taxes[not isEmployeeTax].checkDollars)"
@@ -2261,6 +2267,12 @@
        "label": "Regular",
        "source_field": "clientPayItems[].systemBenefitType+systemPayItemType"
       },
+      "category": {
+       "value": "REGULAR",
+       "raw": "Regular",
+       "label": "Regular",
+       "source_field": "clientPayItems[].systemPayItemType"
+      },
       "in_gross": true,
       "quantity": {
        "value": "50.0",
@@ -2280,8 +2292,12 @@
     ],
     "taxes": [
      {
-      "code": "FIT",
-      "label": "Federal Withholding",
+      "label": "FEDERAL WH",
+      "type": {
+       "value": "FEDERAL_INCOME",
+       "raw": "FEDERAL WH",
+       "source_field": "taxes[].itemDescription"
+      },
       "paid_by": "EMPLOYEE",
       "amount": {
        "amount": "150.00",
@@ -2296,8 +2312,12 @@
       "source_field": "taxes[]"
      },
      {
-      "code": "SS",
-      "label": "Social Security",
+      "label": "SOC SEC EE",
+      "type": {
+       "value": "SOCIAL_SECURITY",
+       "raw": "SOC SEC EE",
+       "source_field": "taxes[].itemDescription"
+      },
       "paid_by": "EMPLOYEE",
       "amount": {
        "amount": "93.00",
@@ -2312,8 +2332,12 @@
       "source_field": "taxes[]"
      },
      {
-      "code": "MED",
-      "label": "Medicare",
+      "label": "MED EE",
+      "type": {
+       "value": "MEDICARE",
+       "raw": "MED EE",
+       "source_field": "taxes[].itemDescription"
+      },
       "paid_by": "EMPLOYEE",
       "amount": {
        "amount": "21.75",
@@ -2328,8 +2352,13 @@
       "source_field": "taxes[]"
      },
      {
-      "code": "NCSIT",
-      "label": "NC Withholding",
+      "label": "NORTH CAROLINA WH",
+      "type": {
+       "value": "STATE_INCOME",
+       "raw": "NORTH CAROLINA WH",
+       "source_field": "taxes[].itemDescription"
+      },
+      "state": "NC",
       "paid_by": "EMPLOYEE",
       "amount": {
        "amount": "60.00",
@@ -2344,8 +2373,12 @@
       "source_field": "taxes[]"
      },
      {
-      "code": "SS-ER",
-      "label": "Social Security Employer",
+      "label": "SOC SEC ER",
+      "type": {
+       "value": "SOCIAL_SECURITY",
+       "raw": "SOC SEC ER",
+       "source_field": "taxes[].itemDescription"
+      },
       "paid_by": "EMPLOYER",
       "amount": {
        "amount": "93.00",
@@ -2360,8 +2393,12 @@
       "source_field": "taxes[]"
      },
      {
-      "code": "MED-ER",
-      "label": "Medicare Employer",
+      "label": "MED ER",
+      "type": {
+       "value": "MEDICARE",
+       "raw": "MED ER",
+       "source_field": "taxes[].itemDescription"
+      },
       "paid_by": "EMPLOYER",
       "amount": {
        "amount": "21.75",
@@ -2376,11 +2413,36 @@
       "source_field": "taxes[]"
      },
      {
-      "code": "FUTA",
-      "label": "FUTA",
+      "label": "FUTA ER",
+      "type": {
+       "value": "FEDERAL_UNEMPLOYMENT",
+       "raw": "FUTA ER",
+       "source_field": "taxes[].itemDescription"
+      },
       "paid_by": "EMPLOYER",
       "amount": {
        "amount": "9.00",
+       "currency": "USD",
+       "derived": false
+      },
+      "taxable_wages": {
+       "amount": "1500.00",
+       "currency": "USD",
+       "derived": false
+      },
+      "source_field": "taxes[]"
+     },
+     {
+      "label": "NORTH CAROLINA SUI ER",
+      "type": {
+       "value": "STATE_UNEMPLOYMENT",
+       "raw": "NORTH CAROLINA SUI ER",
+       "source_field": "taxes[].itemDescription"
+      },
+      "state": "NC",
+      "paid_by": "EMPLOYER",
+      "amount": {
+       "amount": "15.00",
        "currency": "USD",
        "derived": false
       },
@@ -2530,6 +2592,12 @@
      "taxes[6].qtdDollars": "60.09",
      "taxes[6].ytdDollars": "240.37",
      "taxes[6].ftdDollars": "240.37",
+     "taxes[7].currentDollars": "20.03",
+     "taxes[7].ptdDollars": "20.03",
+     "taxes[7].mtdDollars": "20.03",
+     "taxes[7].qtdDollars": "100.16",
+     "taxes[7].ytdDollars": "400.62",
+     "taxes[7].ftdDollars": "400.62",
      "deductions[0].currentDollars": "100.0",
      "deductions[0].ptdDollars": "100.0",
      "deductions[0].mtdDollars": "100.0",
@@ -2586,7 +2654,7 @@
       "formula": "sum(taxes[isEmployeeTax].checkDollars)"
      },
      "employer_taxes": {
-      "amount": "165.25",
+      "amount": "185.28",
       "currency": "USD",
       "derived": true,
       "formula": "sum(taxes[not isEmployeeTax].checkDollars)"
@@ -2614,6 +2682,12 @@
        "label": "Regular",
        "source_field": "clientPayItems[].systemBenefitType+systemPayItemType"
       },
+      "category": {
+       "value": "REGULAR",
+       "raw": "Regular",
+       "label": "Regular",
+       "source_field": "clientPayItems[].systemPayItemType"
+      },
       "in_gross": true,
       "quantity": {
        "value": "72.0",
@@ -2638,6 +2712,12 @@
        "raw": "Leave Accrual / Holiday",
        "label": "Holiday",
        "source_field": "clientPayItems[].systemBenefitType+systemPayItemType"
+      },
+      "category": {
+       "value": "HOLIDAY",
+       "raw": "Holiday",
+       "label": "Holiday",
+       "source_field": "clientPayItems[].systemPayItemType"
       },
       "in_gross": true,
       "quantity": {
@@ -2695,8 +2775,12 @@
     ],
     "taxes": [
      {
-      "code": "FIT",
-      "label": "Federal Withholding",
+      "label": "FEDERAL WH",
+      "type": {
+       "value": "FEDERAL_INCOME",
+       "raw": "FEDERAL WH",
+       "source_field": "taxes[].itemDescription"
+      },
       "paid_by": "EMPLOYEE",
       "amount": {
        "amount": "189.06",
@@ -2711,8 +2795,12 @@
       "source_field": "taxes[]"
      },
      {
-      "code": "SS",
-      "label": "Social Security",
+      "label": "SOC SEC EE",
+      "type": {
+       "value": "SOCIAL_SECURITY",
+       "raw": "SOC SEC EE",
+       "source_field": "taxes[].itemDescription"
+      },
       "paid_by": "EMPLOYEE",
       "amount": {
        "amount": "124.19",
@@ -2727,8 +2815,12 @@
       "source_field": "taxes[]"
      },
      {
-      "code": "MED",
-      "label": "Medicare",
+      "label": "MED EE",
+      "type": {
+       "value": "MEDICARE",
+       "raw": "MED EE",
+       "source_field": "taxes[].itemDescription"
+      },
       "paid_by": "EMPLOYEE",
       "amount": {
        "amount": "29.04",
@@ -2743,8 +2835,13 @@
       "source_field": "taxes[]"
      },
      {
-      "code": "NCSIT",
-      "label": "NC Withholding",
+      "label": "NORTH CAROLINA WH",
+      "type": {
+       "value": "STATE_INCOME",
+       "raw": "NORTH CAROLINA WH",
+       "source_field": "taxes[].itemDescription"
+      },
+      "state": "NC",
       "paid_by": "EMPLOYEE",
       "amount": {
        "amount": "75.62",
@@ -2759,8 +2856,12 @@
       "source_field": "taxes[]"
      },
      {
-      "code": "SS-ER",
-      "label": "Social Security Employer",
+      "label": "SOC SEC ER",
+      "type": {
+       "value": "SOCIAL_SECURITY",
+       "raw": "SOC SEC ER",
+       "source_field": "taxes[].itemDescription"
+      },
       "paid_by": "EMPLOYER",
       "amount": {
        "amount": "124.19",
@@ -2775,8 +2876,12 @@
       "source_field": "taxes[]"
      },
      {
-      "code": "MED-ER",
-      "label": "Medicare Employer",
+      "label": "MED ER",
+      "type": {
+       "value": "MEDICARE",
+       "raw": "MED ER",
+       "source_field": "taxes[].itemDescription"
+      },
       "paid_by": "EMPLOYER",
       "amount": {
        "amount": "29.04",
@@ -2791,11 +2896,36 @@
       "source_field": "taxes[]"
      },
      {
-      "code": "FUTA",
-      "label": "FUTA",
+      "label": "FUTA ER",
+      "type": {
+       "value": "FEDERAL_UNEMPLOYMENT",
+       "raw": "FUTA ER",
+       "source_field": "taxes[].itemDescription"
+      },
       "paid_by": "EMPLOYER",
       "amount": {
        "amount": "12.02",
+       "currency": "USD",
+       "derived": false
+      },
+      "taxable_wages": {
+       "amount": "2003.10",
+       "currency": "USD",
+       "derived": false
+      },
+      "source_field": "taxes[]"
+     },
+     {
+      "label": "NORTH CAROLINA SUI ER",
+      "type": {
+       "value": "STATE_UNEMPLOYMENT",
+       "raw": "NORTH CAROLINA SUI ER",
+       "source_field": "taxes[].itemDescription"
+      },
+      "state": "NC",
+      "paid_by": "EMPLOYER",
+      "amount": {
+       "amount": "20.03",
        "currency": "USD",
        "derived": false
       },
@@ -3002,6 +3132,12 @@
      "taxes[6].qtdDollars": "17.55",
      "taxes[6].ytdDollars": "70.2",
      "taxes[6].ftdDollars": "70.2",
+     "taxes[7].currentDollars": "5.85",
+     "taxes[7].ptdDollars": "5.85",
+     "taxes[7].mtdDollars": "5.85",
+     "taxes[7].qtdDollars": "29.25",
+     "taxes[7].ytdDollars": "117.0",
+     "taxes[7].ftdDollars": "117.0",
      "deductions[0].currentDollars": "8.0",
      "deductions[0].ptdDollars": "8.0",
      "deductions[0].mtdDollars": "8.0",
@@ -3064,7 +3200,7 @@
       "formula": "sum(taxes[isEmployeeTax].checkDollars)"
      },
      "employer_taxes": {
-      "amount": "48.26",
+      "amount": "54.11",
       "currency": "USD",
       "derived": true,
       "formula": "sum(taxes[not isEmployeeTax].checkDollars)"
@@ -3092,6 +3228,12 @@
        "label": "Regular",
        "source_field": "clientPayItems[].systemBenefitType+systemPayItemType"
       },
+      "category": {
+       "value": "REGULAR",
+       "raw": "Regular",
+       "label": "Regular",
+       "source_field": "clientPayItems[].systemPayItemType"
+      },
       "in_gross": true,
       "quantity": {
        "value": "20.0",
@@ -3117,6 +3259,12 @@
        "label": "Overtime @ Flat 1.5",
        "source_field": "clientPayItems[].systemBenefitType+systemPayItemType"
       },
+      "category": {
+       "value": "OVERTIME",
+       "raw": "Overtime @ Flat 1.5",
+       "label": "Overtime",
+       "source_field": "clientPayItems[].systemPayItemType"
+      },
       "in_gross": true,
       "quantity": {
        "value": "4.0",
@@ -3136,8 +3284,12 @@
     ],
     "taxes": [
      {
-      "code": "FIT",
-      "label": "Federal Withholding",
+      "label": "FEDERAL WH",
+      "type": {
+       "value": "FEDERAL_INCOME",
+       "raw": "FEDERAL WH",
+       "source_field": "taxes[].itemDescription"
+      },
       "paid_by": "EMPLOYEE",
       "amount": {
        "amount": "56.00",
@@ -3152,8 +3304,12 @@
       "source_field": "taxes[]"
      },
      {
-      "code": "SS",
-      "label": "Social Security",
+      "label": "SOC SEC EE",
+      "type": {
+       "value": "SOCIAL_SECURITY",
+       "raw": "SOC SEC EE",
+       "source_field": "taxes[].itemDescription"
+      },
       "paid_by": "EMPLOYEE",
       "amount": {
        "amount": "36.27",
@@ -3168,8 +3324,12 @@
       "source_field": "taxes[]"
      },
      {
-      "code": "MED",
-      "label": "Medicare",
+      "label": "MED EE",
+      "type": {
+       "value": "MEDICARE",
+       "raw": "MED EE",
+       "source_field": "taxes[].itemDescription"
+      },
       "paid_by": "EMPLOYEE",
       "amount": {
        "amount": "8.48",
@@ -3184,8 +3344,13 @@
       "source_field": "taxes[]"
      },
      {
-      "code": "NCSIT",
-      "label": "NC Withholding",
+      "label": "NORTH CAROLINA WH",
+      "type": {
+       "value": "STATE_INCOME",
+       "raw": "NORTH CAROLINA WH",
+       "source_field": "taxes[].itemDescription"
+      },
+      "state": "NC",
       "paid_by": "EMPLOYEE",
       "amount": {
        "amount": "22.40",
@@ -3200,8 +3365,12 @@
       "source_field": "taxes[]"
      },
      {
-      "code": "SS-ER",
-      "label": "Social Security Employer",
+      "label": "SOC SEC ER",
+      "type": {
+       "value": "SOCIAL_SECURITY",
+       "raw": "SOC SEC ER",
+       "source_field": "taxes[].itemDescription"
+      },
       "paid_by": "EMPLOYER",
       "amount": {
        "amount": "36.27",
@@ -3216,8 +3385,12 @@
       "source_field": "taxes[]"
      },
      {
-      "code": "MED-ER",
-      "label": "Medicare Employer",
+      "label": "MED ER",
+      "type": {
+       "value": "MEDICARE",
+       "raw": "MED ER",
+       "source_field": "taxes[].itemDescription"
+      },
       "paid_by": "EMPLOYER",
       "amount": {
        "amount": "8.48",
@@ -3232,11 +3405,36 @@
       "source_field": "taxes[]"
      },
      {
-      "code": "FUTA",
-      "label": "FUTA",
+      "label": "FUTA ER",
+      "type": {
+       "value": "FEDERAL_UNEMPLOYMENT",
+       "raw": "FUTA ER",
+       "source_field": "taxes[].itemDescription"
+      },
       "paid_by": "EMPLOYER",
       "amount": {
        "amount": "3.51",
+       "currency": "USD",
+       "derived": false
+      },
+      "taxable_wages": {
+       "amount": "585.00",
+       "currency": "USD",
+       "derived": false
+      },
+      "source_field": "taxes[]"
+     },
+     {
+      "label": "NORTH CAROLINA SUI ER",
+      "type": {
+       "value": "STATE_UNEMPLOYMENT",
+       "raw": "NORTH CAROLINA SUI ER",
+       "source_field": "taxes[].itemDescription"
+      },
+      "state": "NC",
+      "paid_by": "EMPLOYER",
+      "amount": {
+       "amount": "5.85",
        "currency": "USD",
        "derived": false
       },
@@ -3425,7 +3623,13 @@
      "taxes[6].mtdDollars": "11.52",
      "taxes[6].qtdDollars": "57.6",
      "taxes[6].ytdDollars": "230.4",
-     "taxes[6].ftdDollars": "230.4"
+     "taxes[6].ftdDollars": "230.4",
+     "taxes[7].currentDollars": "19.2",
+     "taxes[7].ptdDollars": "19.2",
+     "taxes[7].mtdDollars": "19.2",
+     "taxes[7].qtdDollars": "96.0",
+     "taxes[7].ytdDollars": "384.0",
+     "taxes[7].ftdDollars": "384.0"
     },
     "diagnostics": [],
     "company_id": "isolved:synthetic:company:501:601",
@@ -3470,7 +3674,7 @@
       "formula": "sum(taxes[isEmployeeTax].checkDollars)"
      },
      "employer_taxes": {
-      "amount": "158.40",
+      "amount": "177.60",
       "currency": "USD",
       "derived": true,
       "formula": "sum(taxes[not isEmployeeTax].checkDollars)"
@@ -3498,6 +3702,12 @@
        "label": "Regular",
        "source_field": "clientPayItems[].systemBenefitType+systemPayItemType"
       },
+      "category": {
+       "value": "REGULAR",
+       "raw": "Regular",
+       "label": "Regular",
+       "source_field": "clientPayItems[].systemPayItemType"
+      },
       "in_gross": true,
       "quantity": {
        "value": "64.0",
@@ -3517,8 +3727,12 @@
     ],
     "taxes": [
      {
-      "code": "FIT",
-      "label": "Federal Withholding",
+      "label": "FEDERAL WH",
+      "type": {
+       "value": "FEDERAL_INCOME",
+       "raw": "FEDERAL WH",
+       "source_field": "taxes[].itemDescription"
+      },
       "paid_by": "EMPLOYEE",
       "amount": {
        "amount": "192.00",
@@ -3533,8 +3747,12 @@
       "source_field": "taxes[]"
      },
      {
-      "code": "SS",
-      "label": "Social Security",
+      "label": "SOC SEC EE",
+      "type": {
+       "value": "SOCIAL_SECURITY",
+       "raw": "SOC SEC EE",
+       "source_field": "taxes[].itemDescription"
+      },
       "paid_by": "EMPLOYEE",
       "amount": {
        "amount": "119.04",
@@ -3549,8 +3767,12 @@
       "source_field": "taxes[]"
      },
      {
-      "code": "MED",
-      "label": "Medicare",
+      "label": "MED EE",
+      "type": {
+       "value": "MEDICARE",
+       "raw": "MED EE",
+       "source_field": "taxes[].itemDescription"
+      },
       "paid_by": "EMPLOYEE",
       "amount": {
        "amount": "27.84",
@@ -3565,8 +3787,13 @@
       "source_field": "taxes[]"
      },
      {
-      "code": "NCSIT",
-      "label": "NC Withholding",
+      "label": "NORTH CAROLINA WH",
+      "type": {
+       "value": "STATE_INCOME",
+       "raw": "NORTH CAROLINA WH",
+       "source_field": "taxes[].itemDescription"
+      },
+      "state": "NC",
       "paid_by": "EMPLOYEE",
       "amount": {
        "amount": "76.80",
@@ -3581,8 +3808,12 @@
       "source_field": "taxes[]"
      },
      {
-      "code": "SS-ER",
-      "label": "Social Security Employer",
+      "label": "SOC SEC ER",
+      "type": {
+       "value": "SOCIAL_SECURITY",
+       "raw": "SOC SEC ER",
+       "source_field": "taxes[].itemDescription"
+      },
       "paid_by": "EMPLOYER",
       "amount": {
        "amount": "119.04",
@@ -3597,8 +3828,12 @@
       "source_field": "taxes[]"
      },
      {
-      "code": "MED-ER",
-      "label": "Medicare Employer",
+      "label": "MED ER",
+      "type": {
+       "value": "MEDICARE",
+       "raw": "MED ER",
+       "source_field": "taxes[].itemDescription"
+      },
       "paid_by": "EMPLOYER",
       "amount": {
        "amount": "27.84",
@@ -3613,11 +3848,36 @@
       "source_field": "taxes[]"
      },
      {
-      "code": "FUTA",
-      "label": "FUTA",
+      "label": "FUTA ER",
+      "type": {
+       "value": "FEDERAL_UNEMPLOYMENT",
+       "raw": "FUTA ER",
+       "source_field": "taxes[].itemDescription"
+      },
       "paid_by": "EMPLOYER",
       "amount": {
        "amount": "11.52",
+       "currency": "USD",
+       "derived": false
+      },
+      "taxable_wages": {
+       "amount": "1920.00",
+       "currency": "USD",
+       "derived": false
+      },
+      "source_field": "taxes[]"
+     },
+     {
+      "label": "NORTH CAROLINA SUI ER",
+      "type": {
+       "value": "STATE_UNEMPLOYMENT",
+       "raw": "NORTH CAROLINA SUI ER",
+       "source_field": "taxes[].itemDescription"
+      },
+      "state": "NC",
+      "paid_by": "EMPLOYER",
+      "amount": {
+       "amount": "19.20",
        "currency": "USD",
        "derived": false
       },
@@ -3781,6 +4041,12 @@
        "label": "1099M Non EE Comp",
        "source_field": "clientPayItems[].systemBenefitType+systemPayItemType"
       },
+      "category": {
+       "value": "NON_EMPLOYEE_COMPENSATION",
+       "raw": "1099M Non EE Comp",
+       "label": "1099 Comp",
+       "source_field": "clientPayItems[].systemPayItemType"
+      },
       "in_gross": true,
       "amount": {
        "amount": "1200.00",
@@ -3900,6 +4166,12 @@
      "taxes[6].qtdDollars": "15.0",
      "taxes[6].ytdDollars": "60.0",
      "taxes[6].ftdDollars": "60.0",
+     "taxes[7].currentDollars": "5.0",
+     "taxes[7].ptdDollars": "5.0",
+     "taxes[7].mtdDollars": "5.0",
+     "taxes[7].qtdDollars": "25.0",
+     "taxes[7].ytdDollars": "100.0",
+     "taxes[7].ftdDollars": "100.0",
      "deductions[0].currentDollars": "25.0",
      "deductions[0].ptdDollars": "25.0",
      "deductions[0].mtdDollars": "25.0",
@@ -3957,7 +4229,7 @@
       "formula": "sum(taxes[isEmployeeTax].checkDollars)"
      },
      "employer_taxes": {
-      "amount": "41.25",
+      "amount": "46.25",
       "currency": "USD",
       "derived": true,
       "formula": "sum(taxes[not isEmployeeTax].checkDollars)"
@@ -3985,6 +4257,12 @@
        "label": "Bonus",
        "source_field": "clientPayItems[].systemBenefitType+systemPayItemType"
       },
+      "category": {
+       "value": "BONUS",
+       "raw": "Bonus",
+       "label": "Bonus",
+       "source_field": "clientPayItems[].systemPayItemType"
+      },
       "in_gross": true,
       "amount": {
        "amount": "500.00",
@@ -3998,8 +4276,12 @@
     ],
     "taxes": [
      {
-      "code": "FIT",
-      "label": "Federal Withholding",
+      "label": "FEDERAL WH",
+      "type": {
+       "value": "FEDERAL_INCOME",
+       "raw": "FEDERAL WH",
+       "source_field": "taxes[].itemDescription"
+      },
       "paid_by": "EMPLOYEE",
       "amount": {
        "amount": "47.50",
@@ -4014,8 +4296,12 @@
       "source_field": "taxes[]"
      },
      {
-      "code": "SS",
-      "label": "Social Security",
+      "label": "SOC SEC EE",
+      "type": {
+       "value": "SOCIAL_SECURITY",
+       "raw": "SOC SEC EE",
+       "source_field": "taxes[].itemDescription"
+      },
       "paid_by": "EMPLOYEE",
       "amount": {
        "amount": "31.00",
@@ -4030,8 +4316,12 @@
       "source_field": "taxes[]"
      },
      {
-      "code": "MED",
-      "label": "Medicare",
+      "label": "MED EE",
+      "type": {
+       "value": "MEDICARE",
+       "raw": "MED EE",
+       "source_field": "taxes[].itemDescription"
+      },
       "paid_by": "EMPLOYEE",
       "amount": {
        "amount": "7.25",
@@ -4046,8 +4336,13 @@
       "source_field": "taxes[]"
      },
      {
-      "code": "NCSIT",
-      "label": "NC Withholding",
+      "label": "NORTH CAROLINA WH",
+      "type": {
+       "value": "STATE_INCOME",
+       "raw": "NORTH CAROLINA WH",
+       "source_field": "taxes[].itemDescription"
+      },
+      "state": "NC",
       "paid_by": "EMPLOYEE",
       "amount": {
        "amount": "19.00",
@@ -4062,8 +4357,12 @@
       "source_field": "taxes[]"
      },
      {
-      "code": "SS-ER",
-      "label": "Social Security Employer",
+      "label": "SOC SEC ER",
+      "type": {
+       "value": "SOCIAL_SECURITY",
+       "raw": "SOC SEC ER",
+       "source_field": "taxes[].itemDescription"
+      },
       "paid_by": "EMPLOYER",
       "amount": {
        "amount": "31.00",
@@ -4078,8 +4377,12 @@
       "source_field": "taxes[]"
      },
      {
-      "code": "MED-ER",
-      "label": "Medicare Employer",
+      "label": "MED ER",
+      "type": {
+       "value": "MEDICARE",
+       "raw": "MED ER",
+       "source_field": "taxes[].itemDescription"
+      },
       "paid_by": "EMPLOYER",
       "amount": {
        "amount": "7.25",
@@ -4094,11 +4397,36 @@
       "source_field": "taxes[]"
      },
      {
-      "code": "FUTA",
-      "label": "FUTA",
+      "label": "FUTA ER",
+      "type": {
+       "value": "FEDERAL_UNEMPLOYMENT",
+       "raw": "FUTA ER",
+       "source_field": "taxes[].itemDescription"
+      },
       "paid_by": "EMPLOYER",
       "amount": {
        "amount": "3.00",
+       "currency": "USD",
+       "derived": false
+      },
+      "taxable_wages": {
+       "amount": "500.00",
+       "currency": "USD",
+       "derived": false
+      },
+      "source_field": "taxes[]"
+     },
+     {
+      "label": "NORTH CAROLINA SUI ER",
+      "type": {
+       "value": "STATE_UNEMPLOYMENT",
+       "raw": "NORTH CAROLINA SUI ER",
+       "source_field": "taxes[].itemDescription"
+      },
+      "state": "NC",
+      "paid_by": "EMPLOYER",
+      "amount": {
+       "amount": "5.00",
        "currency": "USD",
        "derived": false
       },

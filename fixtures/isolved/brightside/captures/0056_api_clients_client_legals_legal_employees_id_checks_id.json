@@ -42,8 +42,8 @@
     ],
     "taxes": [
       {
-        "itemCode": "FIT",
-        "itemDescription": "Federal Withholding",
+        "itemCode": null,
+        "itemDescription": "FEDERAL WH",
         "isEmployeeTax": true,
         "checkTaxableWages": 475.0,
         "checkDollars": 47.5,
@@ -55,8 +55,8 @@
         "ftdDollars": 950.0
       },
       {
-        "itemCode": "SS",
-        "itemDescription": "Social Security",
+        "itemCode": null,
+        "itemDescription": "SOC SEC EE",
         "isEmployeeTax": true,
         "checkTaxableWages": 475.0,
         "checkDollars": 31.0,
@@ -68,8 +68,8 @@
         "ftdDollars": 620.0
       },
       {
-        "itemCode": "MED",
-        "itemDescription": "Medicare",
+        "itemCode": null,
+        "itemDescription": "MED EE",
         "isEmployeeTax": true,
         "checkTaxableWages": 475.0,
         "checkDollars": 7.25,
@@ -81,8 +81,8 @@
         "ftdDollars": 145.0
       },
       {
-        "itemCode": "NCSIT",
-        "itemDescription": "NC Withholding",
+        "itemCode": null,
+        "itemDescription": "NORTH CAROLINA WH",
         "isEmployeeTax": true,
         "checkTaxableWages": 475.0,
         "checkDollars": 19.0,
@@ -94,8 +94,8 @@
         "ftdDollars": 380.0
       },
       {
-        "itemCode": "SS-ER",
-        "itemDescription": "Social Security Employer",
+        "itemCode": null,
+        "itemDescription": "SOC SEC ER",
         "isEmployeeTax": false,
         "checkTaxableWages": 500.0,
         "checkDollars": 31.0,
@@ -107,8 +107,8 @@
         "ftdDollars": 620.0
       },
       {
-        "itemCode": "MED-ER",
-        "itemDescription": "Medicare Employer",
+        "itemCode": null,
+        "itemDescription": "MED ER",
         "isEmployeeTax": false,
         "checkTaxableWages": 500.0,
         "checkDollars": 7.25,
@@ -120,8 +120,8 @@
         "ftdDollars": 145.0
       },
       {
-        "itemCode": "FUTA",
-        "itemDescription": "FUTA",
+        "itemCode": null,
+        "itemDescription": "FUTA ER",
         "isEmployeeTax": false,
         "checkTaxableWages": 500.0,
         "checkDollars": 3.0,
@@ -131,6 +131,19 @@
         "qtdDollars": 15.0,
         "ytdDollars": 60.0,
         "ftdDollars": 60.0
+      },
+      {
+        "itemCode": null,
+        "itemDescription": "NORTH CAROLINA SUI ER",
+        "isEmployeeTax": false,
+        "checkTaxableWages": 500.0,
+        "checkDollars": 5.0,
+        "currentDollars": 5.0,
+        "ptdDollars": 5.0,
+        "mtdDollars": 5.0,
+        "qtdDollars": 25.0,
+        "ytdDollars": 100.0,
+        "ftdDollars": 100.0
       }
     ],
     "deductions": [

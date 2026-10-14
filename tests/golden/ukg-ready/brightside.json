@@ -1873,6 +1873,9 @@
      "taxes[4].type_name": "Tax",
      "taxes[4].batch.id": 4342647435,
      "taxes[4].batch.display_name": "Regular Earnings",
+     "taxes[5].type_name": "Tax",
+     "taxes[5].batch.id": 4342647435,
+     "taxes[5].batch.display_name": "Regular Earnings",
      "deductions[0].type_name": "Deduction (Auto)",
      "deductions[0].batch.id": 4342647435,
      "deductions[0].batch.display_name": "Regular Earnings",
@@ -1956,7 +1959,7 @@
       "formula": "sum(taxes[].ee_amount)"
      },
      "employer_taxes": {
-      "amount": "167.32",
+      "amount": "187.60",
       "currency": "USD",
       "derived": true,
       "formula": "sum(taxes[].er_amount)"
@@ -1983,6 +1986,12 @@
        "raw": "Earning (Auto)",
        "source_field": "earnings[].type_name"
       },
+      "category": {
+       "value": "UNMAPPED",
+       "raw": "Salary",
+       "label": "Salary",
+       "source_field": "earnings[].earning.code"
+      },
       "in_gross": true,
       "amount": {
        "amount": "1800.00",
@@ -2000,6 +2009,12 @@
        "value": "EARNINGS",
        "raw": "Earning",
        "source_field": "earnings[].type_name"
+      },
+      "category": {
+       "value": "UNMAPPED",
+       "raw": "Holiday",
+       "label": "Holiday",
+       "source_field": "earnings[].earning.code"
       },
       "in_gross": true,
       "quantity": {
@@ -2071,6 +2086,12 @@
      {
       "code": "FIT",
       "label": "Federal Income Tax",
+      "type": {
+       "value": "FEDERAL_INCOME",
+       "raw": "FIT",
+       "label": "Federal Income Tax",
+       "source_field": "taxes[].company_tax.code"
+      },
       "paid_by": "EMPLOYEE",
       "amount": {
        "amount": "150.00",
@@ -2089,6 +2110,12 @@
      {
       "code": "Social Security",
       "label": "Social Security",
+      "type": {
+       "value": "SOCIAL_SECURITY",
+       "raw": "Social Security",
+       "label": "Social Security",
+       "source_field": "taxes[].company_tax.code"
+      },
       "paid_by": "EMPLOYEE",
       "amount": {
        "amount": "125.74",
@@ -2107,6 +2134,12 @@
      {
       "code": "Social Security",
       "label": "Social Security",
+      "type": {
+       "value": "SOCIAL_SECURITY",
+       "raw": "Social Security",
+       "label": "Social Security",
+       "source_field": "taxes[].company_tax.code"
+      },
       "paid_by": "EMPLOYER",
       "amount": {
        "amount": "125.74",
@@ -2125,6 +2158,12 @@
      {
       "code": "Medicare",
       "label": "Medicare",
+      "type": {
+       "value": "MEDICARE",
+       "raw": "Medicare",
+       "label": "Medicare",
+       "source_field": "taxes[].company_tax.code"
+      },
       "paid_by": "EMPLOYEE",
       "amount": {
        "amount": "29.41",
@@ -2143,6 +2182,12 @@
      {
       "code": "Medicare",
       "label": "Medicare",
+      "type": {
+       "value": "MEDICARE",
+       "raw": "Medicare",
+       "label": "Medicare",
+       "source_field": "taxes[].company_tax.code"
+      },
       "paid_by": "EMPLOYER",
       "amount": {
        "amount": "29.41",
@@ -2160,7 +2205,14 @@
      },
      {
       "code": "SIT:NC",
-      "label": "NC Income Tax",
+      "label": "North Carolina",
+      "type": {
+       "value": "STATE_INCOME",
+       "raw": "SIT:NC",
+       "label": "North Carolina",
+       "source_field": "taxes[].company_tax.code"
+      },
+      "state": "NC",
       "paid_by": "EMPLOYEE",
       "amount": {
        "amount": "2.4699999999999998",
@@ -2169,7 +2221,7 @@
        "source_field": "taxes[].ee_amount"
       },
       "taxable_wages": {
-       "amount": "2028.10",
+       "amount": "1915.60",
        "currency": "USD",
        "derived": false,
        "source_field": "taxes[].ee_subject_wage"
@@ -2178,10 +2230,41 @@
      },
      {
       "code": "FUTA",
-      "label": "FUTA",
+      "label": "Federal Unemployment Tax",
+      "type": {
+       "value": "FEDERAL_UNEMPLOYMENT",
+       "raw": "FUTA",
+       "label": "Federal Unemployment Tax",
+       "source_field": "taxes[].company_tax.code"
+      },
       "paid_by": "EMPLOYER",
       "amount": {
        "amount": "12.17",
+       "currency": "USD",
+       "derived": false,
+       "source_field": "taxes[].er_amount"
+      },
+      "taxable_wages": {
+       "amount": "2028.10",
+       "currency": "USD",
+       "derived": false,
+       "source_field": "taxes[].er_subject_wage"
+      },
+      "source_field": "taxes[]"
+     },
+     {
+      "code": "SUTA:NC:2",
+      "label": "ER SUTA North Carolina",
+      "type": {
+       "value": "STATE_UNEMPLOYMENT",
+       "raw": "SUTA:NC:2",
+       "label": "ER SUTA North Carolina",
+       "source_field": "taxes[].company_tax.code"
+      },
+      "state": "NC",
+      "paid_by": "EMPLOYER",
+      "amount": {
+       "amount": "20.28",
        "currency": "USD",
        "derived": false,
        "source_field": "taxes[].er_amount"
@@ -2418,6 +2501,12 @@
        "raw": "Earning",
        "source_field": "earnings[].type_name"
       },
+      "category": {
+       "value": "UNMAPPED",
+       "raw": "Regular",
+       "label": "Regular",
+       "source_field": "earnings[].earning.code"
+      },
       "in_gross": true,
       "quantity": {
        "value": "20",
@@ -2455,6 +2544,12 @@
        "raw": "Earning",
        "source_field": "earnings[].type_name"
       },
+      "category": {
+       "value": "UNMAPPED",
+       "raw": "OT",
+       "label": "Overtime",
+       "source_field": "earnings[].earning.code"
+      },
       "in_gross": true,
       "quantity": {
        "value": "2",
@@ -2482,6 +2577,12 @@
      {
       "code": "FIT",
       "label": "Federal Income Tax",
+      "type": {
+       "value": "FEDERAL_INCOME",
+       "raw": "FIT",
+       "label": "Federal Income Tax",
+       "source_field": "taxes[].company_tax.code"
+      },
       "paid_by": "EMPLOYEE",
       "amount": {
        "amount": "20.00",
@@ -2500,6 +2601,12 @@
      {
       "code": "Social Security",
       "label": "Social Security",
+      "type": {
+       "value": "SOCIAL_SECURITY",
+       "raw": "Social Security",
+       "label": "Social Security",
+       "source_field": "taxes[].company_tax.code"
+      },
       "paid_by": "EMPLOYEE",
       "amount": {
        "amount": "22.32",
@@ -2518,6 +2625,12 @@
      {
       "code": "Social Security",
       "label": "Social Security",
+      "type": {
+       "value": "SOCIAL_SECURITY",
+       "raw": "Social Security",
+       "label": "Social Security",
+       "source_field": "taxes[].company_tax.code"
+      },
       "paid_by": "EMPLOYER",
       "amount": {
        "amount": "22.32",
@@ -2536,6 +2649,12 @@
      {
       "code": "Medicare",
       "label": "Medicare",
+      "type": {
+       "value": "MEDICARE",
+       "raw": "Medicare",
+       "label": "Medicare",
+       "source_field": "taxes[].company_tax.code"
+      },
       "paid_by": "EMPLOYEE",
       "amount": {
        "amount": "5.22",
@@ -2554,6 +2673,12 @@
      {
       "code": "Medicare",
       "label": "Medicare",
+      "type": {
+       "value": "MEDICARE",
+       "raw": "Medicare",
+       "label": "Medicare",
+       "source_field": "taxes[].company_tax.code"
+      },
       "paid_by": "EMPLOYER",
       "amount": {
        "amount": "5.22",
@@ -2721,6 +2846,12 @@
        "raw": "Earning",
        "source_field": "earnings[].type_name"
       },
+      "category": {
+       "value": "UNMAPPED",
+       "raw": "Commission",
+       "label": "Commission",
+       "source_field": "earnings[].earning.code"
+      },
       "in_gross": true,
       "amount": {
        "amount": "1200.00",
@@ -2739,6 +2870,12 @@
        "raw": "Earning (Memo)",
        "source_field": "earnings[].type_name"
       },
+      "category": {
+       "value": "UNMAPPED",
+       "raw": "Tips Memo",
+       "label": "Tips Memo",
+       "source_field": "earnings[].earning.code"
+      },
       "in_gross": true,
       "amount": {
        "amount": "50.00",
@@ -2754,6 +2891,12 @@
      {
       "code": "FIT",
       "label": "Federal Income Tax",
+      "type": {
+       "value": "FEDERAL_INCOME",
+       "raw": "FIT",
+       "label": "Federal Income Tax",
+       "source_field": "taxes[].company_tax.code"
+      },
       "paid_by": "EMPLOYEE",
       "amount": {
        "amount": "100.00",

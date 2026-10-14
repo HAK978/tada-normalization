@@ -6,6 +6,7 @@ not mapped here is kept in provider_extensions; field meanings come from codes.p
 
 from __future__ import annotations
 
+import re
 from dataclasses import replace
 from datetime import date
 from decimal import Decimal
@@ -62,7 +63,18 @@ from normalization.output import Output
 from normalization.sanitize import last4, sanitize_extensions
 from normalization.source import Notes, Src, coded, decimal, flag, iso_date, text, unmapped_label
 
-from ..common import ZERO, attach_checks, derived_sum, masked, money, paid_gross
+from ..common import (
+    ZERO,
+    attach_checks,
+    categorized,
+    customer_category,
+    derived_sum,
+    masked,
+    money,
+    paid_gross,
+    tax_type,
+    us_state,
+)
 from . import codes as P
 
 PROVIDER = "prismhr"
@@ -1153,6 +1165,40 @@ class _Client:
             source_field = "clientCodes.payCode[].payClass"
         return coded(P.PAY_CLASS, raw, source_field, notes, C.EarningKind.UNMAPPED, empty_is_none=False)
 
+    def _earning_category(
+        self, code: str | None, kind: Coded[C.EarningKind], notes: Notes
+    ) -> Coded[C.EarningCategory] | None:
+        """PrismHR's own category of the pay code (talxPayType), or Doubletime from its rate class; a pay
+        code with neither is the customer's own, left UNMAPPED for review (A-67)."""
+        if not categorized(kind):
+            return None
+        definition = self.codes.get("payCode", {}).get(str(code)) or {}
+        talx, rate_class = text(definition.get("talxPayType")), text(definition.get("rateClass"))
+        if rate_class == P.RATE_CLASS_DOUBLETIME and talx in (None, "O"):
+            return Coded[C.EarningCategory](
+                value=C.EarningCategory.DOUBLE_TIME, raw=rate_class, source_field="clientCodes.payCode[].rateClass"
+            )
+        if talx is not None:
+            return coded(P.TALX_PAY_TYPE, talx, "clientCodes.payCode[].talxPayType", notes, C.EarningCategory.UNMAPPED)
+        return customer_category(code, self._label("payCode", code, "payDescription"), "clientCodes.payCode[].id")
+
+    @staticmethod
+    def _tax_type(
+        code: str | None, label: str | None, field: str, notes: Notes
+    ) -> tuple[Coded[C.TaxType] | None, str | None]:
+        """Federal codes exactly; state and local codes by their tax number (A-68). A state tax's state is
+        the one its description starts with ("WI Income Tax", "ALASKA SUTA EE")."""
+        found: tuple[C.TaxType, str | None] | None = None
+        if code in P.FEDERAL_TAX:
+            found = (P.FEDERAL_TAX[code], None)
+        elif (state_code := re.fullmatch(r"(\d{2})-(\d{2})", code or "")) and state_code[1] != "00":
+            value = P.STATE_TAX.get(state_code[2])
+            found = (value, _leading_state(label)) if value else None
+        elif local_code := re.fullmatch(r"\d{5}(?:\d{4})?-(\d{2})", code or ""):
+            value = P.LOCAL_TAX.get(local_code[1])
+            found = (value, None) if value else None
+        return tax_type(found, code, field, notes, label)
+
     def _quantity_unit(self, code: Any) -> C.QuantityUnit:
         reason = text((self.codes.get("payCode", {}).get(str(code)) or {}).get("payReason"))
         return P.PAY_REASON.get(reason or "", C.QuantityUnit.UNKNOWN)
@@ -1193,12 +1239,14 @@ class _Client:
                 if (v := text(line.get(k)))
             }
             worked = decimal(line.get("hoursWorked"))
+            kind = self._pay_class(code, line.get("payClass"), "earning[].payClass", notes)
             earnings.append(
                 EarningLine(
                     code=code,
                     label=self._label("payCode", code, "payDescription") or text(line.get("payClassDescription")),
                     in_gross=True,
-                    kind=self._pay_class(code, line.get("payClass"), "earning[].payClass", notes),
+                    kind=kind,
+                    category=self._earning_category(code, kind, notes),
                     quantity=Quantity(value=quantity, unit=unit, source_field="earning[].hoursUnits")
                     if quantity is not None
                     else None,
@@ -1221,12 +1269,14 @@ class _Client:
             )
         for line in s.children("otherEarningsDetail"):
             code = text(line.get("otherEarnCode"))
+            kind = self._pay_class(code, None, "otherEarningsDetail[].otherEarnCode", notes)
             earnings.append(
                 EarningLine(
                     code=code,
                     label=text(line.get("otherEarnsDesc")) or self._label("payCode", code, "payDescription"),
                     in_gross=True,
-                    kind=self._pay_class(code, None, "otherEarningsDetail[].otherEarnCode", notes),
+                    kind=kind,
+                    category=self._earning_category(code, kind, notes),
                     amount=Money(
                         amount=decimal(line.get("otherEarnAmount")) or ZERO,
                         source_field="otherEarningsDetail[].otherEarnAmount",
@@ -1242,28 +1292,26 @@ class _Client:
                 ",".join(sorted(c for c in unknown_units if c)),
             )
 
-        taxes = [
-            TaxLine(
-                code=text(t.get("empTaxDeductCode")),
-                label=text(t.get("empTaxDeductCodeDesc")),
-                paid_by=C.TaxPaidBy.EMPLOYEE,
-                amount=Money(amount=decimal(t.get("empTaxAmount")) or ZERO),
-                taxable_wages=money(t.get("empTaxableAmount")),
-                source_field="employeeTax[]",
-            )
-            for t in s.children("employeeTax")
-        ]
-        taxes += [
-            TaxLine(
-                code=text(t.get("comTaxDeductCode")),
-                label=text(t.get("comTaxDeductCodeDesc")),
-                paid_by=C.TaxPaidBy.EMPLOYER,
-                amount=Money(amount=decimal(t.get("comTaxAmount")) or ZERO),
-                taxable_wages=money(t.get("comTaxableAmount")),
-                source_field="companyTax[]",
-            )
-            for t in s.children("companyTax")
-        ]
+        taxes = []
+        for side, prefix, paid_by in (
+            ("employeeTax", "emp", C.TaxPaidBy.EMPLOYEE),
+            ("companyTax", "com", C.TaxPaidBy.EMPLOYER),
+        ):
+            for t in s.children(side):
+                code, label = text(t.get(f"{prefix}TaxDeductCode")), text(t.get(f"{prefix}TaxDeductCodeDesc"))
+                tax_kind, state = self._tax_type(code, label, f"{side}[].{prefix}TaxDeductCode", notes)
+                taxes.append(
+                    TaxLine(
+                        code=code,
+                        label=label,
+                        type=tax_kind,
+                        state=state,
+                        paid_by=paid_by,
+                        amount=Money(amount=decimal(t.get(f"{prefix}TaxAmount")) or ZERO),
+                        taxable_wages=money(t.get(f"{prefix}TaxableAmount")),
+                        source_field=f"{side}[]",
+                    )
+                )
 
         deductions = []
         for d in s.children("deduction"):
@@ -1413,3 +1461,12 @@ class _Client:
         )
         attach_checks(statement)
         self.out.add("pay_statements", statement)
+
+
+def _leading_state(label: str | None) -> str | None:
+    """The state a tax description starts with, as a USPS code or a full name ("WI Income Tax", "ALASKA SUTA EE")."""
+    words = (label or "").replace(",", " ").split()
+    for n in range(min(3, len(words)), 0, -1):
+        if state := us_state(" ".join(words[:n])):
+            return state
+    return None

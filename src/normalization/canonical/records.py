@@ -18,6 +18,7 @@ from .codes import (
     DepositMethod,
     DepositPurpose,
     DepositStatus,
+    EarningCategory,
     EarningKind,
     ElectionStatus,
     EmailType,
@@ -41,6 +42,7 @@ from .codes import (
     ServiceArrangement,
     TaxPaidBy,
     TaxTreatment,
+    TaxType,
     WorkerClassification,
     YesNoDeclined,
 )
@@ -363,6 +365,9 @@ class EarningLine(Model):
     code: str | None = None
     label: str | None = None
     kind: Coded[EarningKind]
+    # What the pay is for (A-67). Set on earnings lines only: reimbursement, fringe, tips and memo
+    # lines are already specific. UNMAPPED with the earning code as raw when the provider doesn't say.
+    category: Coded[EarningCategory] | None = None
     # Whether the provider counts this line in gross wages (Prism: all lines, A-32; isolved: not memo, A-28).
     in_gross: bool | None = None
     quantity: Quantity | None = None
@@ -377,6 +382,8 @@ class EarningLine(Model):
 class TaxLine(Model):
     code: str | None = None
     label: str | None = None
+    type: Coded[TaxType] | None = None  # A-68
+    state: str | None = None  # USPS code, for a state-level type when the provider's code or label names it
     paid_by: TaxPaidBy
     amount: Money
     taxable_wages: Money | None = None

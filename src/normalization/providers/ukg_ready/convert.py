@@ -55,7 +55,16 @@ from normalization.output import Output
 from normalization.sanitize import last4, sanitize_extensions
 from normalization.source import Notes, Src, coded, decimal, flag, iso_date, text, unmapped_label
 
-from ..common import ZERO, attach_checks, derived_sum, paid_gross
+from ..common import (
+    ZERO,
+    attach_checks,
+    categorized,
+    customer_category,
+    derived_sum,
+    paid_gross,
+    tax_type,
+    us_state,
+)
 from . import codes as U
 
 PROVIDER = "ukg-ready"
@@ -70,6 +79,8 @@ _IDS = re.compile(
     r"(?:/deductions/(?P<deduction>[^/]+))?"
 )
 _TYPE_NAME = re.compile(r"^\s*([^()]*?)\s*(?:\(([^)]*)\))?\s*$")
+# A state tax code: "<tax>:<state>[:<n>]", e.g. SIT:WI, SUTA:WI:2 (A-68)
+_STATE_TAX = re.compile(r"([A-Z_]+):([A-Z]{2})(?::\d+)?")
 MS_PER_HOUR = Decimal(3_600_000)
 # Foundations.html: "beginning of time" and "end of time" (A-25).
 OPEN_START, OPEN_END = date(1900, 1, 1), date(3000, 1, 1)
@@ -740,6 +751,17 @@ class _Company:
         return Coded[C.EarningKind](value=value, raw=type_name, source_field="earnings[].type_name")
 
     @staticmethod
+    def _tax_type(code: str | None, label: str | None, notes: Notes) -> tuple[Coded[C.TaxType] | None, str | None]:
+        """Documented and evidenced codes exactly; state taxes as "<tax>:<state>[:<n>]" (A-68)."""
+        found: tuple[C.TaxType, str | None] | None = None
+        if code in U.TAX_CODE:
+            found = (U.TAX_CODE[code], None)
+        elif (match := _STATE_TAX.fullmatch(code or "")) and (state := us_state(match[2])):
+            value = U.STATE_TAX_PREFIX.get(match[1])
+            found = (value, state) if value else None
+        return tax_type(found, code, "taxes[].company_tax.code", notes, label)
+
+    @staticmethod
     def _line_rate(line: Src, quantity: Quantity | None, value: Money, notes: Notes) -> Rate | None:
         """base_rate is the employee's base hourly rate. It is this line's rate only where hours x base_rate =
         amount; premium lines multiply it (overtime: 1.5 on every live line) and keep it raw (A-24)."""
@@ -792,11 +814,15 @@ class _Company:
             item = line.child("earning") or Src({})
             quantity = hours(line.get("hours"), "earnings[].hours")
             rate = self._line_rate(line, quantity, value, notes)
+            code, label = text(item.get("code")), text(item.get("name"))
+            kind = self._earning_kind(text(line.get("type_name")), notes)
             earnings.append(
                 EarningLine(
-                    code=text(item.get("code")),
-                    label=text(item.get("name")),
-                    kind=self._earning_kind(text(line.get("type_name")), notes),
+                    code=code,
+                    label=label,
+                    kind=kind,
+                    # UKG doesn't classify earning codes: the tenant's own, left for review (A-67)
+                    category=customer_category(code, label, "earnings[].earning.code") if categorized(kind) else None,
                     in_gross=True,  # gross wages are derived as the sum of every line (A-54)
                     quantity=quantity,
                     rate=rate,
@@ -816,6 +842,7 @@ class _Company:
         for line in s.children("taxes"):
             tax = line.child("company_tax") or Src({})
             code, label = text(tax.get("code")), text(tax.get("name"))
+            tax_kind, state = self._tax_type(code, label, notes)
             for paid_by, prefix in ((C.TaxPaidBy.EMPLOYEE, "ee"), (C.TaxPaidBy.EMPLOYER, "er")):
                 value = amount(line.get(f"{prefix}_amount"), f"taxes[].{prefix}_amount", notes)
                 if value is not None:
@@ -823,6 +850,8 @@ class _Company:
                         TaxLine(
                             code=code,
                             label=label,
+                            type=tax_kind,
+                            state=state,
                             paid_by=paid_by,
                             amount=value,
                             taxable_wages=amount(

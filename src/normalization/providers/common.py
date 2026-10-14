@@ -5,9 +5,19 @@ from __future__ import annotations
 from decimal import Decimal
 from typing import Any
 
-from normalization.canonical.codes import NON_CASH_EARNING_KINDS, CheckResult, EarningKind, Severity
+from normalization.canonical.codes import (
+    CATEGORIZED_EARNING_KINDS,
+    NON_CASH_EARNING_KINDS,
+    US_STATE_BY_NAME,
+    US_STATES,
+    CheckResult,
+    EarningCategory,
+    EarningKind,
+    Severity,
+    TaxType,
+)
 from normalization.canonical.records import EarningLine, PayStatement
-from normalization.canonical.types import Diagnostic, Money
+from normalization.canonical.types import Coded, Diagnostic, Money
 from normalization.checks import reconcile
 from normalization.sanitize import MASK_CHARS
 from normalization.source import Notes, decimal
@@ -45,6 +55,41 @@ def paid_gross(wages: Money | None, earnings: list[EarningLine], source: str, no
     return Money(
         amount=wages.amount - sum(non_cash, ZERO), derived=True, formula=f"{source} - sum(non-cash earning lines)"
     )
+
+
+def categorized(kind: Coded[EarningKind]) -> bool:
+    """Whether an earning line of this kind gets a category: earnings, or a line of unknown kind (A-67)."""
+    return EarningKind(kind.value) in CATEGORIZED_EARNING_KINDS
+
+
+def customer_category(code: str | None, label: str | None, field: str) -> Coded[EarningCategory] | None:
+    """An earning code the provider doesn't classify: UNMAPPED with the code as raw, for the review queue.
+
+    No warning per line: like other customer-configured codes (A-35), it is one decision per code for a
+    person to make in a mapping file (A-65), not a data problem on each paycheck.
+    """
+    if code is None:
+        return None
+    return Coded[EarningCategory](value=EarningCategory.UNMAPPED, raw=code, label=label, source_field=field)
+
+
+def tax_type(
+    found: tuple[TaxType, str | None] | None, raw: str | None, field: str, notes: Notes, label: str | None = None
+) -> tuple[Coded[TaxType] | None, str | None]:
+    """The tax type and state a provider rule found for a tax code; a code no rule covers stays UNMAPPED (A-68)."""
+    if raw is None:
+        return None, None
+    if found is None:
+        notes.warn("UNMAPPED_CODE", field, "no documented or evidenced tax type for this code", raw)
+        return Coded[TaxType](value=TaxType.UNMAPPED, raw=raw, label=label, source_field=field), None
+    value, state = found
+    return Coded[TaxType](value=value, raw=raw, label=label, source_field=field), state
+
+
+def us_state(name: str | None) -> str | None:
+    """The USPS code of a state given by its code or its full name, in any case; None for anything else."""
+    key = " ".join((name or "").upper().split())
+    return key if key in US_STATES else US_STATE_BY_NAME.get(key)
 
 
 def attach_checks(statement: PayStatement) -> None:

@@ -123,26 +123,39 @@
         "type_name": "Tax",
         "company_tax": {
           "code": "SIT:NC",
-          "name": "NC Income Tax"
+          "name": "North Carolina"
         },
         "batch": {
           "id": 4342647435,
           "display_name": "Regular Earnings"
         },
         "ee_amount": 2.4699999999999998,
-        "ee_subject_wage": 2028.1
+        "ee_subject_wage": 1915.6
       },
       {
         "type_name": "Tax",
         "company_tax": {
           "code": "FUTA",
-          "name": "FUTA"
+          "name": "Federal Unemployment Tax"
         },
         "batch": {
           "id": 4342647435,
           "display_name": "Regular Earnings"
         },
         "er_amount": 12.17,
+        "er_subject_wage": 2028.1
+      },
+      {
+        "type_name": "Tax",
+        "company_tax": {
+          "code": "SUTA:NC:2",
+          "name": "ER SUTA North Carolina"
+        },
+        "batch": {
+          "id": 4342647435,
+          "display_name": "Regular Earnings"
+        },
+        "er_amount": 20.28,
         "er_subject_wage": 2028.1
       }
     ],

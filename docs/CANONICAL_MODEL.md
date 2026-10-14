@@ -272,12 +272,22 @@ not a provider one.
   - `gross_pay` is the part actually paid: gross wages minus non-cash earnings (`NON_CASH_FRINGE`,
     `REPORTED_TIPS`, and `MEMO` lines counted in gross).
 - **`earnings[]`:**
-  - code, label and `kind` (`EARNINGS` `REIMBURSEMENT` `NON_CASH_FRINGE` `REPORTED_TIPS` `MEMO`);
+  - code, label and `kind` (`EARNINGS` `REIMBURSEMENT` `NON_CASH_FRINGE` `REPORTED_TIPS` `MEMO`): how
+    the line is paid;
+  - `category`, what an earnings line pays for (A-67): `REGULAR` `OVERTIME` `DOUBLE_TIME`
+    `SHIFT_DIFFERENTIAL` `VACATION` `SICK` `HOLIDAY` `PAID_TIME_OFF` `BONUS` `COMMISSION` `TIPS`
+    `SEVERANCE` `PENSION` `WORKERS_COMPENSATION` `NON_EMPLOYEE_COMPENSATION` `OTHER`. Null on lines
+    whose kind already says it all (reimbursement, fringe, tips, memo). `UNMAPPED`, with the earning
+    code as raw, where the provider doesn't classify the code;
   - `in_gross`: whether the provider counts the line in gross wages (Prism: every line, A-32;
     isolved: every non-memo line, A-28);
   - `quantity` (value with unit `HOURS`/`UNITS`/`UNKNOWN`) and `hours_worked`;
   - rate, amount, line date range and allocations.
 - **`taxes[]`:** code, label, `paid_by`, amount, and employee and employer wage bases kept separate.
+  - `type` (A-68): `FEDERAL_INCOME` `SOCIAL_SECURITY` `MEDICARE` `ADDITIONAL_MEDICARE`
+    `FEDERAL_UNEMPLOYMENT` `STATE_INCOME` `STATE_UNEMPLOYMENT` `STATE_DISABILITY` `STATE_PAID_LEAVE`
+    `LOCAL_INCOME` `OTHER`;
+  - `state`: the USPS code of a state-level tax, when the provider's code or description names it.
 - **`deductions[]`:** code, external ID, label, category, and employee and employer amounts.
 - **`employer_contributions[]`.**
 - **`benefit_details[]`:** premium, employee and employer amounts, coverage period. These are
@@ -295,7 +305,9 @@ not a provider one.
 | Quantity | `hoursUnits`, which is "hours or units paid": the unit comes from the pay code's documented `payReason` H/U, else `UNKNOWN`. Plus `hoursWorked` (A-38). | `checkHours` and `checkUnits` | `hours` in ms, converted to hours (A-24); `quantity` unit `UNKNOWN` |
 | Line amount | `payAmount` = quantity × `unitRate` (A-18) | `checkDollars` | `ee_amount` |
 | Earning kind | `payClass` E/R/F/RT/M (documented) | `isMemoEarning`, else the client pay item's system earning (A-53) | `type_name`: Earning, Earning (Fringe), Reimbursement (A-58) |
+| Earning category | the pay code's `talxPayType` (documented; blank live), or `rateClass` D; else `UNMAPPED` for review (A-67) | the client pay item's system earning, else its "Leave Accrual" benefit type (A-67) | none: the tenant's codes, `UNMAPPED` for review (A-67) |
 | Taxes | `employeeTax[]`, `companyTax[]` | `taxes[]` + `isEmployeeTax` | `taxes[]` with `ee_*` and `er_*` amounts and wage bases |
+| Tax type | federal codes `00-NN`; state `<state>-<tax number>`, local `<locality>-<tax number>`, by tax number (A-68) | the system tax description: "FEDERAL WH", "<state> WH", "<state> SUI ER" (A-68) | documented codes FIT, FICA (OASDI), MEDI, FUTA; `SIT:<state>`, `SUTA:<state>` (A-68) |
 | Deductions | `deduction[]` (`deductType`), `otherDeduction[]` | `deductions[]`, `garnishments[]` | `deductions[]`: code, external ID, name |
 | Employer contributions | `employerContributions[]` | `benefits[].checkEmployerContribution` | `deductions[].er_amount` |
 | Payments | `checkAmt` + `directDeposit[]` | `checkAmount` + `directDeposits[]` | `payments[]` (`type_name` "Check" / "Direct Deposit"; "Fringe" rows balance non-cash pay and are not payments, A-58) |

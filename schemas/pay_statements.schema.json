@@ -174,6 +174,54 @@
    "title": "Coded[DeductionCategory]",
    "type": "object"
   },
+  "Coded_EarningCategory_": {
+   "additionalProperties": false,
+   "properties": {
+    "label": {
+     "anyOf": [
+      {
+       "type": "string"
+      },
+      {
+       "type": "null"
+      }
+     ],
+     "default": null,
+     "title": "Label"
+    },
+    "raw": {
+     "anyOf": [
+      {
+       "type": "string"
+      },
+      {
+       "type": "integer"
+      },
+      {
+       "type": "boolean"
+      },
+      {
+       "type": "null"
+      }
+     ],
+     "default": null,
+     "title": "Raw"
+    },
+    "source_field": {
+     "title": "Source Field",
+     "type": "string"
+    },
+    "value": {
+     "$ref": "#/$defs/EarningCategory"
+    }
+   },
+   "required": [
+    "value",
+    "source_field"
+   ],
+   "title": "Coded[EarningCategory]",
+   "type": "object"
+  },
   "Coded_EarningKind_": {
    "additionalProperties": false,
    "properties": {
@@ -316,6 +364,54 @@
     "source_field"
    ],
    "title": "Coded[PaymentKind]",
+   "type": "object"
+  },
+  "Coded_TaxType_": {
+   "additionalProperties": false,
+   "properties": {
+    "label": {
+     "anyOf": [
+      {
+       "type": "string"
+      },
+      {
+       "type": "null"
+      }
+     ],
+     "default": null,
+     "title": "Label"
+    },
+    "raw": {
+     "anyOf": [
+      {
+       "type": "string"
+      },
+      {
+       "type": "integer"
+      },
+      {
+       "type": "boolean"
+      },
+      {
+       "type": "null"
+      }
+     ],
+     "default": null,
+     "title": "Raw"
+    },
+    "source_field": {
+     "title": "Source Field",
+     "type": "string"
+    },
+    "value": {
+     "$ref": "#/$defs/TaxType"
+    }
+   },
+   "required": [
+    "value",
+    "source_field"
+   ],
+   "title": "Coded[TaxType]",
    "type": "object"
   },
   "Coded_str_": {
@@ -598,6 +694,30 @@
    "title": "Diagnostic",
    "type": "object"
   },
+  "EarningCategory": {
+   "description": "What an earnings line pays for (A-67). The kind says how it is paid; this says why.",
+   "enum": [
+    "REGULAR",
+    "OVERTIME",
+    "DOUBLE_TIME",
+    "SHIFT_DIFFERENTIAL",
+    "VACATION",
+    "SICK",
+    "HOLIDAY",
+    "PAID_TIME_OFF",
+    "BONUS",
+    "COMMISSION",
+    "TIPS",
+    "SEVERANCE",
+    "PENSION",
+    "WORKERS_COMPENSATION",
+    "NON_EMPLOYEE_COMPENSATION",
+    "OTHER",
+    "UNMAPPED"
+   ],
+   "title": "EarningCategory",
+   "type": "string"
+  },
   "EarningKind": {
    "enum": [
     "EARNINGS",
@@ -622,6 +742,17 @@
     },
     "amount": {
      "$ref": "#/$defs/Money"
+    },
+    "category": {
+     "anyOf": [
+      {
+       "$ref": "#/$defs/Coded_EarningCategory_"
+      },
+      {
+       "type": "null"
+      }
+     ],
+     "default": null
     },
     "code": {
      "anyOf": [
@@ -1213,10 +1344,33 @@
      "title": "Source Field",
      "type": "string"
     },
+    "state": {
+     "anyOf": [
+      {
+       "type": "string"
+      },
+      {
+       "type": "null"
+      }
+     ],
+     "default": null,
+     "title": "State"
+    },
     "taxable_wages": {
      "anyOf": [
       {
        "$ref": "#/$defs/Money"
+      },
+      {
+       "type": "null"
+      }
+     ],
+     "default": null
+    },
+    "type": {
+     "anyOf": [
+      {
+       "$ref": "#/$defs/Coded_TaxType_"
       },
       {
        "type": "null"
@@ -1249,6 +1403,25 @@
     "UNSPECIFIED"
    ],
    "title": "TaxTreatment",
+   "type": "string"
+  },
+  "TaxType": {
+   "description": "Which tax a tax line is (A-68). The level is part of the name; `TaxLine.state` names the state.",
+   "enum": [
+    "FEDERAL_INCOME",
+    "SOCIAL_SECURITY",
+    "MEDICARE",
+    "ADDITIONAL_MEDICARE",
+    "FEDERAL_UNEMPLOYMENT",
+    "STATE_INCOME",
+    "STATE_UNEMPLOYMENT",
+    "STATE_DISABILITY",
+    "STATE_PAID_LEAVE",
+    "LOCAL_INCOME",
+    "OTHER",
+    "UNMAPPED"
+   ],
+   "title": "TaxType",
    "type": "string"
   }
  },

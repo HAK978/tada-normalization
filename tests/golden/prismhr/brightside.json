@@ -3128,19 +3128,19 @@
      "companyTax[1].comTaxEntity": "P",
      "companyTax[1].comExemptAmount": "0.0",
      "companyTax[1].comShelteredAmount": "0.0",
-     "companyTax[1].comTaxType": "9F",
+     "companyTax[1].comTaxType": "8F",
      "companyTax[1].comOvrLimit": "0.0",
      "companyTax[1].comTaxRate": "0.062",
      "companyTax[2].comTaxEntity": "P",
      "companyTax[2].comExemptAmount": "0.0",
      "companyTax[2].comShelteredAmount": "0.0",
-     "companyTax[2].comTaxType": "9F",
+     "companyTax[2].comTaxType": "4F",
      "companyTax[2].comOvrLimit": "0.0",
      "companyTax[2].comTaxRate": "0.006",
      "companyTax[3].comTaxEntity": "P",
      "companyTax[3].comExemptAmount": "0.0",
      "companyTax[3].comShelteredAmount": "0.0",
-     "companyTax[3].comTaxType": "9F",
+     "companyTax[3].comTaxType": "4S",
      "companyTax[3].comOvrLimit": "0.0",
      "companyTax[3].comTaxRate": "0.027",
      "deduction[0].planId": "401K",
@@ -3224,6 +3224,11 @@
        "raw": "E",
        "source_field": "earning[].payClass"
       },
+      "category": {
+       "value": "REGULAR",
+       "raw": "R",
+       "source_field": "clientCodes.payCode[].talxPayType"
+      },
       "in_gross": true,
       "quantity": {
        "value": "72.0",
@@ -3266,6 +3271,11 @@
        "value": "EARNINGS",
        "raw": "E",
        "source_field": "earning[].payClass"
+      },
+      "category": {
+       "value": "HOLIDAY",
+       "raw": "H",
+       "source_field": "clientCodes.payCode[].talxPayType"
       },
       "in_gross": true,
       "quantity": {
@@ -3325,6 +3335,12 @@
      {
       "code": "00-10",
       "label": "Federal Income Tax",
+      "type": {
+       "value": "FEDERAL_INCOME",
+       "raw": "00-10",
+       "label": "Federal Income Tax",
+       "source_field": "employeeTax[].empTaxDeductCode"
+      },
       "paid_by": "EMPLOYEE",
       "amount": {
        "amount": "189.08",
@@ -3341,6 +3357,12 @@
      {
       "code": "00-11",
       "label": "Medicare - Employee",
+      "type": {
+       "value": "MEDICARE",
+       "raw": "00-11",
+       "label": "Medicare - Employee",
+       "source_field": "employeeTax[].empTaxDeductCode"
+      },
       "paid_by": "EMPLOYEE",
       "amount": {
        "amount": "28.87",
@@ -3357,6 +3379,12 @@
      {
       "code": "00-12",
       "label": "Soc Security - Employee",
+      "type": {
+       "value": "SOCIAL_SECURITY",
+       "raw": "00-12",
+       "label": "Soc Security - Employee",
+       "source_field": "employeeTax[].empTaxDeductCode"
+      },
       "paid_by": "EMPLOYEE",
       "amount": {
        "amount": "123.43",
@@ -3371,8 +3399,15 @@
       "source_field": "employeeTax[]"
      },
      {
-      "code": "NC-20",
+      "code": "34-20",
       "label": "NC Income Tax",
+      "type": {
+       "value": "STATE_INCOME",
+       "raw": "34-20",
+       "label": "NC Income Tax",
+       "source_field": "employeeTax[].empTaxDeductCode"
+      },
+      "state": "NC",
       "paid_by": "EMPLOYEE",
       "amount": {
        "amount": "75.63",
@@ -3389,6 +3424,12 @@
      {
       "code": "00-15",
       "label": "Medicare - Employer",
+      "type": {
+       "value": "MEDICARE",
+       "raw": "00-15",
+       "label": "Medicare - Employer",
+       "source_field": "companyTax[].comTaxDeductCode"
+      },
       "paid_by": "EMPLOYER",
       "amount": {
        "amount": "28.87",
@@ -3405,6 +3446,12 @@
      {
       "code": "00-16",
       "label": "Soc Security - Employer",
+      "type": {
+       "value": "SOCIAL_SECURITY",
+       "raw": "00-16",
+       "label": "Soc Security - Employer",
+       "source_field": "companyTax[].comTaxDeductCode"
+      },
       "paid_by": "EMPLOYER",
       "amount": {
        "amount": "123.43",
@@ -3420,7 +3467,13 @@
      },
      {
       "code": "00-17",
-      "label": "FUTA",
+      "label": "Fed Unemployment",
+      "type": {
+       "value": "FEDERAL_UNEMPLOYMENT",
+       "raw": "00-17",
+       "label": "Fed Unemployment",
+       "source_field": "companyTax[].comTaxDeductCode"
+      },
       "paid_by": "EMPLOYER",
       "amount": {
        "amount": "12.02",
@@ -3435,8 +3488,15 @@
       "source_field": "companyTax[]"
      },
      {
-      "code": "NC-SUI",
-      "label": "NC SUTA",
+      "code": "34-24",
+      "label": "NC Unemployment",
+      "type": {
+       "value": "STATE_UNEMPLOYMENT",
+       "raw": "34-24",
+       "label": "NC Unemployment",
+       "source_field": "companyTax[].comTaxDeductCode"
+      },
+      "state": "NC",
       "paid_by": "EMPLOYER",
       "amount": {
        "amount": "54.09",
@@ -3616,19 +3676,19 @@
      "companyTax[1].comTaxEntity": "P",
      "companyTax[1].comExemptAmount": "0.0",
      "companyTax[1].comShelteredAmount": "0.0",
-     "companyTax[1].comTaxType": "9F",
+     "companyTax[1].comTaxType": "8F",
      "companyTax[1].comOvrLimit": "0.0",
      "companyTax[1].comTaxRate": "0.062",
      "companyTax[2].comTaxEntity": "P",
      "companyTax[2].comExemptAmount": "0.0",
      "companyTax[2].comShelteredAmount": "0.0",
-     "companyTax[2].comTaxType": "9F",
+     "companyTax[2].comTaxType": "4F",
      "companyTax[2].comOvrLimit": "0.0",
      "companyTax[2].comTaxRate": "0.006",
      "companyTax[3].comTaxEntity": "P",
      "companyTax[3].comExemptAmount": "0.0",
      "companyTax[3].comShelteredAmount": "0.0",
-     "companyTax[3].comTaxType": "9F",
+     "companyTax[3].comTaxType": "4S",
      "companyTax[3].comOvrLimit": "0.0",
      "companyTax[3].comTaxRate": "0.027",
      "otherDeduction[0].otherDeductOneTimeSwitch": "Y",
@@ -3711,6 +3771,11 @@
        "raw": "E",
        "source_field": "earning[].payClass"
       },
+      "category": {
+       "value": "REGULAR",
+       "raw": "R",
+       "source_field": "clientCodes.payCode[].talxPayType"
+      },
       "in_gross": true,
       "quantity": {
        "value": "20.0",
@@ -3753,6 +3818,12 @@
        "value": "EARNINGS",
        "raw": "E",
        "source_field": "earning[].payClass"
+      },
+      "category": {
+       "value": "UNMAPPED",
+       "raw": "OT",
+       "label": "Overtime",
+       "source_field": "clientCodes.payCode[].id"
       },
       "in_gross": true,
       "quantity": {
@@ -3868,6 +3939,12 @@
      {
       "code": "00-10",
       "label": "Federal Income Tax",
+      "type": {
+       "value": "FEDERAL_INCOME",
+       "raw": "00-10",
+       "label": "Federal Income Tax",
+       "source_field": "employeeTax[].empTaxDeductCode"
+      },
       "paid_by": "EMPLOYEE",
       "amount": {
        "amount": "70.86",
@@ -3884,6 +3961,12 @@
      {
       "code": "00-11",
       "label": "Medicare - Employee",
+      "type": {
+       "value": "MEDICARE",
+       "raw": "00-11",
+       "label": "Medicare - Employee",
+       "source_field": "employeeTax[].empTaxDeductCode"
+      },
       "paid_by": "EMPLOYEE",
       "amount": {
        "amount": "10.27",
@@ -3900,6 +3983,12 @@
      {
       "code": "00-12",
       "label": "Soc Security - Employee",
+      "type": {
+       "value": "SOCIAL_SECURITY",
+       "raw": "00-12",
+       "label": "Soc Security - Employee",
+       "source_field": "employeeTax[].empTaxDeductCode"
+      },
       "paid_by": "EMPLOYEE",
       "amount": {
        "amount": "43.93",
@@ -3914,8 +4003,15 @@
       "source_field": "employeeTax[]"
      },
      {
-      "code": "NC-20",
+      "code": "34-20",
       "label": "NC Income Tax",
+      "type": {
+       "value": "STATE_INCOME",
+       "raw": "34-20",
+       "label": "NC Income Tax",
+       "source_field": "employeeTax[].empTaxDeductCode"
+      },
+      "state": "NC",
       "paid_by": "EMPLOYEE",
       "amount": {
        "amount": "28.34",
@@ -3932,6 +4028,12 @@
      {
       "code": "00-15",
       "label": "Medicare - Employer",
+      "type": {
+       "value": "MEDICARE",
+       "raw": "00-15",
+       "label": "Medicare - Employer",
+       "source_field": "companyTax[].comTaxDeductCode"
+      },
       "paid_by": "EMPLOYER",
       "amount": {
        "amount": "10.27",
@@ -3948,6 +4050,12 @@
      {
       "code": "00-16",
       "label": "Soc Security - Employer",
+      "type": {
+       "value": "SOCIAL_SECURITY",
+       "raw": "00-16",
+       "label": "Soc Security - Employer",
+       "source_field": "companyTax[].comTaxDeductCode"
+      },
       "paid_by": "EMPLOYER",
       "amount": {
        "amount": "43.93",
@@ -3963,7 +4071,13 @@
      },
      {
       "code": "00-17",
-      "label": "FUTA",
+      "label": "Fed Unemployment",
+      "type": {
+       "value": "FEDERAL_UNEMPLOYMENT",
+       "raw": "00-17",
+       "label": "Fed Unemployment",
+       "source_field": "companyTax[].comTaxDeductCode"
+      },
       "paid_by": "EMPLOYER",
       "amount": {
        "amount": "4.25",
@@ -3978,8 +4092,15 @@
       "source_field": "companyTax[]"
      },
      {
-      "code": "NC-SUI",
-      "label": "NC SUTA",
+      "code": "34-24",
+      "label": "NC Unemployment",
+      "type": {
+       "value": "STATE_UNEMPLOYMENT",
+       "raw": "34-24",
+       "label": "NC Unemployment",
+       "source_field": "companyTax[].comTaxDeductCode"
+      },
+      "state": "NC",
       "paid_by": "EMPLOYER",
       "amount": {
        "amount": "19.13",
@@ -4176,19 +4297,19 @@
      "companyTax[1].comTaxEntity": "P",
      "companyTax[1].comExemptAmount": "0.0",
      "companyTax[1].comShelteredAmount": "0.0",
-     "companyTax[1].comTaxType": "9F",
+     "companyTax[1].comTaxType": "8F",
      "companyTax[1].comOvrLimit": "0.0",
      "companyTax[1].comTaxRate": "0.062",
      "companyTax[2].comTaxEntity": "P",
      "companyTax[2].comExemptAmount": "0.0",
      "companyTax[2].comShelteredAmount": "0.0",
-     "companyTax[2].comTaxType": "9F",
+     "companyTax[2].comTaxType": "4F",
      "companyTax[2].comOvrLimit": "0.0",
      "companyTax[2].comTaxRate": "0.006",
      "companyTax[3].comTaxEntity": "P",
      "companyTax[3].comExemptAmount": "0.0",
      "companyTax[3].comShelteredAmount": "0.0",
-     "companyTax[3].comTaxType": "9F",
+     "companyTax[3].comTaxType": "4S",
      "companyTax[3].comOvrLimit": "0.0",
      "companyTax[3].comTaxRate": "0.027",
      "bankAccount": "OPER",
@@ -4270,6 +4391,11 @@
        "raw": "E",
        "source_field": "earning[].payClass"
       },
+      "category": {
+       "value": "REGULAR",
+       "raw": "R",
+       "source_field": "clientCodes.payCode[].talxPayType"
+      },
       "in_gross": true,
       "quantity": {
        "value": "64.0",
@@ -4310,6 +4436,12 @@
      {
       "code": "00-10",
       "label": "Federal Income Tax",
+      "type": {
+       "value": "FEDERAL_INCOME",
+       "raw": "00-10",
+       "label": "Federal Income Tax",
+       "source_field": "employeeTax[].empTaxDeductCode"
+      },
       "paid_by": "EMPLOYEE",
       "amount": {
        "amount": "192.00",
@@ -4326,6 +4458,12 @@
      {
       "code": "00-11",
       "label": "Medicare - Employee",
+      "type": {
+       "value": "MEDICARE",
+       "raw": "00-11",
+       "label": "Medicare - Employee",
+       "source_field": "employeeTax[].empTaxDeductCode"
+      },
       "paid_by": "EMPLOYEE",
       "amount": {
        "amount": "27.84",
@@ -4342,6 +4480,12 @@
      {
       "code": "00-12",
       "label": "Soc Security - Employee",
+      "type": {
+       "value": "SOCIAL_SECURITY",
+       "raw": "00-12",
+       "label": "Soc Security - Employee",
+       "source_field": "employeeTax[].empTaxDeductCode"
+      },
       "paid_by": "EMPLOYEE",
       "amount": {
        "amount": "119.04",
@@ -4356,8 +4500,15 @@
       "source_field": "employeeTax[]"
      },
      {
-      "code": "NC-20",
+      "code": "34-20",
       "label": "NC Income Tax",
+      "type": {
+       "value": "STATE_INCOME",
+       "raw": "34-20",
+       "label": "NC Income Tax",
+       "source_field": "employeeTax[].empTaxDeductCode"
+      },
+      "state": "NC",
       "paid_by": "EMPLOYEE",
       "amount": {
        "amount": "76.80",
@@ -4374,6 +4525,12 @@
      {
       "code": "00-15",
       "label": "Medicare - Employer",
+      "type": {
+       "value": "MEDICARE",
+       "raw": "00-15",
+       "label": "Medicare - Employer",
+       "source_field": "companyTax[].comTaxDeductCode"
+      },
       "paid_by": "EMPLOYER",
       "amount": {
        "amount": "27.84",
@@ -4390,6 +4547,12 @@
      {
       "code": "00-16",
       "label": "Soc Security - Employer",
+      "type": {
+       "value": "SOCIAL_SECURITY",
+       "raw": "00-16",
+       "label": "Soc Security - Employer",
+       "source_field": "companyTax[].comTaxDeductCode"
+      },
       "paid_by": "EMPLOYER",
       "amount": {
        "amount": "119.04",
@@ -4405,7 +4568,13 @@
      },
      {
       "code": "00-17",
-      "label": "FUTA",
+      "label": "Fed Unemployment",
+      "type": {
+       "value": "FEDERAL_UNEMPLOYMENT",
+       "raw": "00-17",
+       "label": "Fed Unemployment",
+       "source_field": "companyTax[].comTaxDeductCode"
+      },
       "paid_by": "EMPLOYER",
       "amount": {
        "amount": "11.52",
@@ -4420,8 +4589,15 @@
       "source_field": "companyTax[]"
      },
      {
-      "code": "NC-SUI",
-      "label": "NC SUTA",
+      "code": "34-24",
+      "label": "NC Unemployment",
+      "type": {
+       "value": "STATE_UNEMPLOYMENT",
+       "raw": "34-24",
+       "label": "NC Unemployment",
+       "source_field": "companyTax[].comTaxDeductCode"
+      },
+      "state": "NC",
       "paid_by": "EMPLOYER",
       "amount": {
        "amount": "51.84",
@@ -4579,6 +4755,11 @@
        "value": "EARNINGS",
        "raw": "E",
        "source_field": "earning[].payClass"
+      },
+      "category": {
+       "value": "REGULAR",
+       "raw": "R",
+       "source_field": "clientCodes.payCode[].talxPayType"
       },
       "in_gross": true,
       "quantity": {
@@ -4759,6 +4940,11 @@
        "raw": "E",
        "source_field": "earning[].payClass"
       },
+      "category": {
+       "value": "REGULAR",
+       "raw": "R",
+       "source_field": "clientCodes.payCode[].talxPayType"
+      },
       "in_gross": true,
       "quantity": {
        "value": "2.0",
@@ -4870,19 +5056,19 @@
      "companyTax[1].comTaxEntity": "P",
      "companyTax[1].comExemptAmount": "0.0",
      "companyTax[1].comShelteredAmount": "0.0",
-     "companyTax[1].comTaxType": "9F",
+     "companyTax[1].comTaxType": "8F",
      "companyTax[1].comOvrLimit": "0.0",
      "companyTax[1].comTaxRate": "0.062",
      "companyTax[2].comTaxEntity": "P",
      "companyTax[2].comExemptAmount": "0.0",
      "companyTax[2].comShelteredAmount": "0.0",
-     "companyTax[2].comTaxType": "9F",
+     "companyTax[2].comTaxType": "4F",
      "companyTax[2].comOvrLimit": "0.0",
      "companyTax[2].comTaxRate": "0.006",
      "companyTax[3].comTaxEntity": "P",
      "companyTax[3].comExemptAmount": "0.0",
      "companyTax[3].comShelteredAmount": "0.0",
-     "companyTax[3].comTaxType": "9F",
+     "companyTax[3].comTaxType": "4S",
      "companyTax[3].comOvrLimit": "0.0",
      "companyTax[3].comTaxRate": "0.027",
      "deduction[0].planId": "401K",
@@ -4966,6 +5152,11 @@
        "raw": "E",
        "source_field": "earning[].payClass"
       },
+      "category": {
+       "value": "VACATION",
+       "raw": "V",
+       "source_field": "clientCodes.payCode[].talxPayType"
+      },
       "in_gross": true,
       "quantity": {
        "value": "40.0",
@@ -5006,6 +5197,12 @@
      {
       "code": "00-10",
       "label": "Federal Income Tax",
+      "type": {
+       "value": "FEDERAL_INCOME",
+       "raw": "00-10",
+       "label": "Federal Income Tax",
+       "source_field": "employeeTax[].empTaxDeductCode"
+      },
       "paid_by": "EMPLOYEE",
       "amount": {
        "amount": "95.00",
@@ -5022,6 +5219,12 @@
      {
       "code": "00-11",
       "label": "Medicare - Employee",
+      "type": {
+       "value": "MEDICARE",
+       "raw": "00-11",
+       "label": "Medicare - Employee",
+       "source_field": "employeeTax[].empTaxDeductCode"
+      },
       "paid_by": "EMPLOYEE",
       "amount": {
        "amount": "14.50",
@@ -5038,6 +5241,12 @@
      {
       "code": "00-12",
       "label": "Soc Security - Employee",
+      "type": {
+       "value": "SOCIAL_SECURITY",
+       "raw": "00-12",
+       "label": "Soc Security - Employee",
+       "source_field": "employeeTax[].empTaxDeductCode"
+      },
       "paid_by": "EMPLOYEE",
       "amount": {
        "amount": "62.00",
@@ -5052,8 +5261,15 @@
       "source_field": "employeeTax[]"
      },
      {
-      "code": "NC-20",
+      "code": "34-20",
       "label": "NC Income Tax",
+      "type": {
+       "value": "STATE_INCOME",
+       "raw": "34-20",
+       "label": "NC Income Tax",
+       "source_field": "employeeTax[].empTaxDeductCode"
+      },
+      "state": "NC",
       "paid_by": "EMPLOYEE",
       "amount": {
        "amount": "38.00",
@@ -5070,6 +5286,12 @@
      {
       "code": "00-15",
       "label": "Medicare - Employer",
+      "type": {
+       "value": "MEDICARE",
+       "raw": "00-15",
+       "label": "Medicare - Employer",
+       "source_field": "companyTax[].comTaxDeductCode"
+      },
       "paid_by": "EMPLOYER",
       "amount": {
        "amount": "14.50",
@@ -5086,6 +5308,12 @@
      {
       "code": "00-16",
       "label": "Soc Security - Employer",
+      "type": {
+       "value": "SOCIAL_SECURITY",
+       "raw": "00-16",
+       "label": "Soc Security - Employer",
+       "source_field": "companyTax[].comTaxDeductCode"
+      },
       "paid_by": "EMPLOYER",
       "amount": {
        "amount": "62.00",
@@ -5101,7 +5329,13 @@
      },
      {
       "code": "00-17",
-      "label": "FUTA",
+      "label": "Fed Unemployment",
+      "type": {
+       "value": "FEDERAL_UNEMPLOYMENT",
+       "raw": "00-17",
+       "label": "Fed Unemployment",
+       "source_field": "companyTax[].comTaxDeductCode"
+      },
       "paid_by": "EMPLOYER",
       "amount": {
        "amount": "6.00",
@@ -5116,8 +5350,15 @@
       "source_field": "companyTax[]"
      },
      {
-      "code": "NC-SUI",
-      "label": "NC SUTA",
+      "code": "34-24",
+      "label": "NC Unemployment",
+      "type": {
+       "value": "STATE_UNEMPLOYMENT",
+       "raw": "34-24",
+       "label": "NC Unemployment",
+       "source_field": "companyTax[].comTaxDeductCode"
+      },
+      "state": "NC",
       "paid_by": "EMPLOYER",
       "amount": {
        "amount": "27.00",
@@ -5275,19 +5516,19 @@
      "companyTax[1].comTaxEntity": "P",
      "companyTax[1].comExemptAmount": "0.0",
      "companyTax[1].comShelteredAmount": "0.0",
-     "companyTax[1].comTaxType": "9F",
+     "companyTax[1].comTaxType": "8F",
      "companyTax[1].comOvrLimit": "0.0",
      "companyTax[1].comTaxRate": "0.062",
      "companyTax[2].comTaxEntity": "P",
      "companyTax[2].comExemptAmount": "0.0",
      "companyTax[2].comShelteredAmount": "0.0",
-     "companyTax[2].comTaxType": "9F",
+     "companyTax[2].comTaxType": "4F",
      "companyTax[2].comOvrLimit": "0.0",
      "companyTax[2].comTaxRate": "0.006",
      "companyTax[3].comTaxEntity": "P",
      "companyTax[3].comExemptAmount": "0.0",
      "companyTax[3].comShelteredAmount": "0.0",
-     "companyTax[3].comTaxType": "9F",
+     "companyTax[3].comTaxType": "4S",
      "companyTax[3].comOvrLimit": "0.0",
      "companyTax[3].comTaxRate": "0.027",
      "bankAccount": "OPER",
@@ -5369,6 +5610,11 @@
        "raw": "E",
        "source_field": "earning[].payClass"
       },
+      "category": {
+       "value": "BONUS",
+       "raw": "B",
+       "source_field": "clientCodes.payCode[].talxPayType"
+      },
       "in_gross": true,
       "quantity": {
        "value": "1.0",
@@ -5403,6 +5649,12 @@
      {
       "code": "00-10",
       "label": "Federal Income Tax",
+      "type": {
+       "value": "FEDERAL_INCOME",
+       "raw": "00-10",
+       "label": "Federal Income Tax",
+       "source_field": "employeeTax[].empTaxDeductCode"
+      },
       "paid_by": "EMPLOYEE",
       "amount": {
        "amount": "2.00",
@@ -5419,6 +5671,12 @@
      {
       "code": "00-11",
       "label": "Medicare - Employee",
+      "type": {
+       "value": "MEDICARE",
+       "raw": "00-11",
+       "label": "Medicare - Employee",
+       "source_field": "employeeTax[].empTaxDeductCode"
+      },
       "paid_by": "EMPLOYEE",
       "amount": {
        "amount": "0.29",
@@ -5435,6 +5693,12 @@
      {
       "code": "00-12",
       "label": "Soc Security - Employee",
+      "type": {
+       "value": "SOCIAL_SECURITY",
+       "raw": "00-12",
+       "label": "Soc Security - Employee",
+       "source_field": "employeeTax[].empTaxDeductCode"
+      },
       "paid_by": "EMPLOYEE",
       "amount": {
        "amount": "1.24",
@@ -5449,8 +5713,15 @@
       "source_field": "employeeTax[]"
      },
      {
-      "code": "NC-20",
+      "code": "34-20",
       "label": "NC Income Tax",
+      "type": {
+       "value": "STATE_INCOME",
+       "raw": "34-20",
+       "label": "NC Income Tax",
+       "source_field": "employeeTax[].empTaxDeductCode"
+      },
+      "state": "NC",
       "paid_by": "EMPLOYEE",
       "amount": {
        "amount": "0.80",
@@ -5467,6 +5738,12 @@
      {
       "code": "00-15",
       "label": "Medicare - Employer",
+      "type": {
+       "value": "MEDICARE",
+       "raw": "00-15",
+       "label": "Medicare - Employer",
+       "source_field": "companyTax[].comTaxDeductCode"
+      },
       "paid_by": "EMPLOYER",
       "amount": {
        "amount": "0.29",
@@ -5483,6 +5760,12 @@
      {
       "code": "00-16",
       "label": "Soc Security - Employer",
+      "type": {
+       "value": "SOCIAL_SECURITY",
+       "raw": "00-16",
+       "label": "Soc Security - Employer",
+       "source_field": "companyTax[].comTaxDeductCode"
+      },
       "paid_by": "EMPLOYER",
       "amount": {
        "amount": "1.24",
@@ -5498,7 +5781,13 @@
      },
      {
       "code": "00-17",
-      "label": "FUTA",
+      "label": "Fed Unemployment",
+      "type": {
+       "value": "FEDERAL_UNEMPLOYMENT",
+       "raw": "00-17",
+       "label": "Fed Unemployment",
+       "source_field": "companyTax[].comTaxDeductCode"
+      },
       "paid_by": "EMPLOYER",
       "amount": {
        "amount": "0.12",
@@ -5513,8 +5802,15 @@
       "source_field": "companyTax[]"
      },
      {
-      "code": "NC-SUI",
-      "label": "NC SUTA",
+      "code": "34-24",
+      "label": "NC Unemployment",
+      "type": {
+       "value": "STATE_UNEMPLOYMENT",
+       "raw": "34-24",
+       "label": "NC Unemployment",
+       "source_field": "companyTax[].comTaxDeductCode"
+      },
+      "state": "NC",
       "paid_by": "EMPLOYER",
       "amount": {
        "amount": "0.54",
@@ -5636,19 +5932,19 @@
      "companyTax[1].comTaxEntity": "P",
      "companyTax[1].comExemptAmount": "0.0",
      "companyTax[1].comShelteredAmount": "0.0",
-     "companyTax[1].comTaxType": "9F",
+     "companyTax[1].comTaxType": "8F",
      "companyTax[1].comOvrLimit": "0.0",
      "companyTax[1].comTaxRate": "0.062",
      "companyTax[2].comTaxEntity": "P",
      "companyTax[2].comExemptAmount": "0.0",
      "companyTax[2].comShelteredAmount": "0.0",
-     "companyTax[2].comTaxType": "9F",
+     "companyTax[2].comTaxType": "4F",
      "companyTax[2].comOvrLimit": "0.0",
      "companyTax[2].comTaxRate": "0.006",
      "companyTax[3].comTaxEntity": "P",
      "companyTax[3].comExemptAmount": "0.0",
      "companyTax[3].comShelteredAmount": "0.0",
-     "companyTax[3].comTaxType": "9F",
+     "companyTax[3].comTaxType": "4S",
      "companyTax[3].comOvrLimit": "0.0",
      "companyTax[3].comTaxRate": "0.027",
      "bankAccount": "OPER",
@@ -5730,6 +6026,11 @@
        "raw": "E",
        "source_field": "earning[].payClass"
       },
+      "category": {
+       "value": "REGULAR",
+       "raw": "R",
+       "source_field": "clientCodes.payCode[].talxPayType"
+      },
       "in_gross": true,
       "quantity": {
        "value": "80.0",
@@ -5770,6 +6071,12 @@
      {
       "code": "00-10",
       "label": "Federal Income Tax",
+      "type": {
+       "value": "FEDERAL_INCOME",
+       "raw": "00-10",
+       "label": "Federal Income Tax",
+       "source_field": "employeeTax[].empTaxDeductCode"
+      },
       "paid_by": "EMPLOYEE",
       "amount": {
        "amount": "224.00",
@@ -5786,6 +6093,12 @@
      {
       "code": "00-11",
       "label": "Medicare - Employee",
+      "type": {
+       "value": "MEDICARE",
+       "raw": "00-11",
+       "label": "Medicare - Employee",
+       "source_field": "employeeTax[].empTaxDeductCode"
+      },
       "paid_by": "EMPLOYEE",
       "amount": {
        "amount": "32.48",
@@ -5802,6 +6115,12 @@
      {
       "code": "00-12",
       "label": "Soc Security - Employee",
+      "type": {
+       "value": "SOCIAL_SECURITY",
+       "raw": "00-12",
+       "label": "Soc Security - Employee",
+       "source_field": "employeeTax[].empTaxDeductCode"
+      },
       "paid_by": "EMPLOYEE",
       "amount": {
        "amount": "138.88",
@@ -5816,8 +6135,15 @@
       "source_field": "employeeTax[]"
      },
      {
-      "code": "NC-20",
+      "code": "34-20",
       "label": "NC Income Tax",
+      "type": {
+       "value": "STATE_INCOME",
+       "raw": "34-20",
+       "label": "NC Income Tax",
+       "source_field": "employeeTax[].empTaxDeductCode"
+      },
+      "state": "NC",
       "paid_by": "EMPLOYEE",
       "amount": {
        "amount": "89.60",
@@ -5834,6 +6160,12 @@
      {
       "code": "00-15",
       "label": "Medicare - Employer",
+      "type": {
+       "value": "MEDICARE",
+       "raw": "00-15",
+       "label": "Medicare - Employer",
+       "source_field": "companyTax[].comTaxDeductCode"
+      },
       "paid_by": "EMPLOYER",
       "amount": {
        "amount": "32.48",
@@ -5850,6 +6182,12 @@
      {
       "code": "00-16",
       "label": "Soc Security - Employer",
+      "type": {
+       "value": "SOCIAL_SECURITY",
+       "raw": "00-16",
+       "label": "Soc Security - Employer",
+       "source_field": "companyTax[].comTaxDeductCode"
+      },
       "paid_by": "EMPLOYER",
       "amount": {
        "amount": "138.88",
@@ -5865,7 +6203,13 @@
      },
      {
       "code": "00-17",
-      "label": "FUTA",
+      "label": "Fed Unemployment",
+      "type": {
+       "value": "FEDERAL_UNEMPLOYMENT",
+       "raw": "00-17",
+       "label": "Fed Unemployment",
+       "source_field": "companyTax[].comTaxDeductCode"
+      },
       "paid_by": "EMPLOYER",
       "amount": {
        "amount": "13.44",
@@ -5880,8 +6224,15 @@
       "source_field": "companyTax[]"
      },
      {
-      "code": "NC-SUI",
-      "label": "NC SUTA",
+      "code": "34-24",
+      "label": "NC Unemployment",
+      "type": {
+       "value": "STATE_UNEMPLOYMENT",
+       "raw": "34-24",
+       "label": "NC Unemployment",
+       "source_field": "companyTax[].comTaxDeductCode"
+      },
+      "state": "NC",
       "paid_by": "EMPLOYER",
       "amount": {
        "amount": "60.48",

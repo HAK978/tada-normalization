@@ -21,16 +21,18 @@ from .validate import complete
 TENANT = "synthetic"
 SEED = 2026
 
-# payCode -> (payClass, payReason, description). payClass/payReason meanings are documented (A-32, A-38).
+# payCode -> (payClass, payReason, description, rateClass, talxPayType). payClass/payReason meanings are
+# documented (A-32, A-38). talxPayType is PrismHR's own category of the code (A-67); live tenants leave it
+# blank, as OT does here, which makes the code the customer's own to classify.
 PAY_CODES = {
-    "REG": ("E", "H", "Regular"),
-    "OT": ("E", "H", "Overtime"),
-    "HOL": ("E", "H", "Holiday"),
-    "VAC": ("E", "H", "Vacation"),
-    "BONUS": ("E", "U", "Bonus"),
-    "TIPS": ("RT", "U", "Reported Tips"),
-    "MILE": ("R", "U", "Mileage Reimbursement"),
-    "FRINGE": ("F", "U", "Fringe"),
+    "REG": ("E", "H", "Regular", "S", "R"),
+    "OT": ("E", "H", "Overtime", "P", ""),
+    "HOL": ("E", "H", "Holiday", "S", "H"),
+    "VAC": ("E", "H", "Vacation", "S", "V"),
+    "BONUS": ("E", "U", "Bonus", "S", "B"),
+    "TIPS": ("RT", "U", "Reported Tips", "S", "T"),
+    "MILE": ("R", "U", "Mileage Reimbursement", "S", ""),
+    "FRINGE": ("F", "U", "Fringe", "S", ""),
 }
 # deductionCode -> (deductionType, calculationMethod, description)
 DEDUCTION_CODES = {
@@ -293,8 +295,10 @@ def _client_codes(client_id: str) -> dict:
                     "payDescription": desc,
                     "payType": "R",
                     "calcMethod": "S",
+                    "rateClass": rate_class,
+                    "talxPayType": talx,
                 }
-                for code, (cls, reason, desc) in PAY_CODES.items()
+                for code, (cls, reason, desc, rate_class, talx) in PAY_CODES.items()
             ],
             "deductionCode": [
                 {"id": code, "type": dtype, "calculationMethod": method, "description": desc}
@@ -631,17 +635,18 @@ def _taxes(gross: D, pre_k: D, s125: D, contractor: bool) -> tuple[list[dict], l
     if contractor:
         return [], []
     taxable, fica = gross - pre_k - s125, gross - s125
+    # Live code shapes (A-68): federal 00-NN; state <state number>-<tax number>, NC being 34.
     employee = [
         ("00-10", "Federal Income Tax", D("0.10"), taxable),
         ("00-11", "Medicare - Employee", D("0.0145"), fica),
         ("00-12", "Soc Security - Employee", D("0.062"), fica),
-        ("NC-20", "NC Income Tax", D("0.04"), taxable),
+        ("34-20", "NC Income Tax", D("0.04"), taxable),
     ]
     employer = [
-        ("00-15", "Medicare - Employer", D("0.0145"), fica),
-        ("00-16", "Soc Security - Employer", D("0.062"), fica),
-        ("00-17", "FUTA", D("0.006"), gross),
-        ("NC-SUI", "NC SUTA", D("0.027"), gross),
+        ("00-15", "Medicare - Employer", D("0.0145"), fica, "9F"),
+        ("00-16", "Soc Security - Employer", D("0.062"), fica, "8F"),
+        ("00-17", "Fed Unemployment", D("0.006"), gross, "4F"),
+        ("34-24", "NC Unemployment", D("0.027"), gross, "4S"),
     ]
     ee = [
         {
@@ -661,13 +666,13 @@ def _taxes(gross: D, pre_k: D, s125: D, contractor: bool) -> tuple[list[dict], l
             "comExemptAmount": 0.0,
             "comShelteredAmount": 0.0,
             "comTaxableAmount": float(base),
-            "comTaxType": "9F",
+            "comTaxType": basis,
             "comTaxAmount": float(cents(base * r)),
             "comOvrLimit": 0.0,
             "comTaxRate": float(r),
             "comClientSutaRpt": "",
         }
-        for c, d, r, base in employer
+        for c, d, r, base, basis in employer
     ]
     return ee, er
 

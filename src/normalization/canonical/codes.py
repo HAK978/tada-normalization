@@ -333,9 +333,119 @@ class EarningKind(StrEnum):
 NON_CASH_EARNING_KINDS = frozenset({EarningKind.NON_CASH_FRINGE, EarningKind.REPORTED_TIPS, EarningKind.MEMO})
 
 
+class EarningCategory(StrEnum):
+    """What an earnings line pays for (A-67). The kind says how it is paid; this says why."""
+
+    REGULAR = "REGULAR"
+    OVERTIME = "OVERTIME"
+    DOUBLE_TIME = "DOUBLE_TIME"
+    SHIFT_DIFFERENTIAL = "SHIFT_DIFFERENTIAL"
+    VACATION = "VACATION"
+    SICK = "SICK"
+    HOLIDAY = "HOLIDAY"
+    PAID_TIME_OFF = "PAID_TIME_OFF"
+    BONUS = "BONUS"
+    COMMISSION = "COMMISSION"
+    TIPS = "TIPS"
+    SEVERANCE = "SEVERANCE"
+    PENSION = "PENSION"
+    WORKERS_COMPENSATION = "WORKERS_COMPENSATION"
+    NON_EMPLOYEE_COMPENSATION = "NON_EMPLOYEE_COMPENSATION"
+    OTHER = "OTHER"
+    UNMAPPED = "UNMAPPED"
+
+
+# Earning kinds that get a category; the other kinds already say what the line is (A-67).
+CATEGORIZED_EARNING_KINDS = frozenset({EarningKind.EARNINGS, EarningKind.UNMAPPED})
+
+
 class TaxPaidBy(StrEnum):
     EMPLOYEE = "EMPLOYEE"
     EMPLOYER = "EMPLOYER"
+
+
+class TaxType(StrEnum):
+    """Which tax a tax line is (A-68). The level is part of the name; `TaxLine.state` names the state."""
+
+    FEDERAL_INCOME = "FEDERAL_INCOME"
+    SOCIAL_SECURITY = "SOCIAL_SECURITY"
+    MEDICARE = "MEDICARE"
+    ADDITIONAL_MEDICARE = "ADDITIONAL_MEDICARE"
+    FEDERAL_UNEMPLOYMENT = "FEDERAL_UNEMPLOYMENT"
+    STATE_INCOME = "STATE_INCOME"
+    STATE_UNEMPLOYMENT = "STATE_UNEMPLOYMENT"
+    STATE_DISABILITY = "STATE_DISABILITY"
+    STATE_PAID_LEAVE = "STATE_PAID_LEAVE"
+    LOCAL_INCOME = "LOCAL_INCOME"
+    OTHER = "OTHER"
+    UNMAPPED = "UNMAPPED"
+
+
+STATE_TAX_TYPES = frozenset(
+    {TaxType.STATE_INCOME, TaxType.STATE_UNEMPLOYMENT, TaxType.STATE_DISABILITY, TaxType.STATE_PAID_LEAVE}
+)
+
+# USPS codes of the states, DC and the territories that run their own payroll taxes. Reference data (the
+# USPS abbreviation list), used only to recognize a state a provider's tax code or label names (A-68).
+US_STATES = {
+    "AL": "ALABAMA",
+    "AK": "ALASKA",
+    "AZ": "ARIZONA",
+    "AR": "ARKANSAS",
+    "CA": "CALIFORNIA",
+    "CO": "COLORADO",
+    "CT": "CONNECTICUT",
+    "DE": "DELAWARE",
+    "DC": "DISTRICT OF COLUMBIA",
+    "FL": "FLORIDA",
+    "GA": "GEORGIA",
+    "HI": "HAWAII",
+    "ID": "IDAHO",
+    "IL": "ILLINOIS",
+    "IN": "INDIANA",
+    "IA": "IOWA",
+    "KS": "KANSAS",
+    "KY": "KENTUCKY",
+    "LA": "LOUISIANA",
+    "ME": "MAINE",
+    "MD": "MARYLAND",
+    "MA": "MASSACHUSETTS",
+    "MI": "MICHIGAN",
+    "MN": "MINNESOTA",
+    "MS": "MISSISSIPPI",
+    "MO": "MISSOURI",
+    "MT": "MONTANA",
+    "NE": "NEBRASKA",
+    "NV": "NEVADA",
+    "NH": "NEW HAMPSHIRE",
+    "NJ": "NEW JERSEY",
+    "NM": "NEW MEXICO",
+    "NY": "NEW YORK",
+    "NC": "NORTH CAROLINA",
+    "ND": "NORTH DAKOTA",
+    "OH": "OHIO",
+    "OK": "OKLAHOMA",
+    "OR": "OREGON",
+    "PA": "PENNSYLVANIA",
+    "RI": "RHODE ISLAND",
+    "SC": "SOUTH CAROLINA",
+    "SD": "SOUTH DAKOTA",
+    "TN": "TENNESSEE",
+    "TX": "TEXAS",
+    "UT": "UTAH",
+    "VT": "VERMONT",
+    "VA": "VIRGINIA",
+    "WA": "WASHINGTON",
+    "WV": "WEST VIRGINIA",
+    "WI": "WISCONSIN",
+    "WY": "WYOMING",
+    "AS": "AMERICAN SAMOA",
+    "GU": "GUAM",
+    "MP": "NORTHERN MARIANA ISLANDS",
+    "PR": "PUERTO RICO",
+    "VI": "VIRGIN ISLANDS",
+}
+US_STATE_BY_NAME = {name: code for code, name in US_STATES.items()}
 
 
 class PaymentKind(StrEnum):

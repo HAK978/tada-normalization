@@ -9,6 +9,7 @@ from normalization.canonical.codes import (
     Citizenship,
     DeductionCategory as Cat,
     DepositStatus,
+    EarningCategory,
     EarningKind,
     EmploymentStatus,
     Gender,
@@ -19,6 +20,7 @@ from normalization.canonical.codes import (
     PayStatementType,
     PayType,
     TaxTreatment as T,
+    TaxType,
 )
 
 # /api/lookup/genders: F Female, M Male, X Non-binary, N Chose not to answer (live lookup)
@@ -120,6 +122,47 @@ EARNING_CLASS = {
     "Other Hrs or Dollars": EarningKind.EARNINGS,
     "ShiftDiff": EarningKind.EARNINGS,
     "Misc Non Taxable": EarningKind.REIMBURSEMENT,
+}
+
+# Category of an earnings line, from the system earning its client pay item is built on (A-67): each
+# system earning's title and description in /api/system/earnings (quoted in A-53 and A-67).
+EARNING_CATEGORY = {
+    "Regular": EarningCategory.REGULAR,
+    "Overtime @ Flat 1.5": EarningCategory.OVERTIME,  # "Overtime paid at 1.5 ee hourly rate."
+    "Overtime - Blended Rate": EarningCategory.OVERTIME,  # "Blended rate used to pay OT hours"
+    "Vacation": EarningCategory.VACATION,
+    "Sick": EarningCategory.SICK,
+    "Holiday": EarningCategory.HOLIDAY,
+    "Bonus": EarningCategory.BONUS,
+    "Commission": EarningCategory.COMMISSION,
+    "ShiftDiff": EarningCategory.SHIFT_DIFFERENTIAL,  # "Shift Diff"
+    "Other Hrs or Dollars": EarningCategory.OTHER,  # "Use for any earnings where entry of hr / dollars is needed."
+    "1099M Earnings- Hrs or Dollars": EarningCategory.NON_EMPLOYEE_COMPENSATION,  # "1099M earnings ... Box 7"
+    "1099M Non EE Comp": EarningCategory.NON_EMPLOYEE_COMPENSATION,  # "1099M non employee compensation (box 7)"
+}
+# A system benefit type that classifies a pay item whose system earning isn't listed above: live, the
+# Vacation, Sick and Holiday items all sit under "Leave Accrual", which pays accrued leave.
+EARNING_BENEFIT_CATEGORY = {"Leave Accrual": EarningCategory.PAID_TIME_OFF}
+
+# CheckTaxAccumulationModel/itemDescription (A-68). itemCode is null live; the description is the
+# system tax's ("taxDescription: Description of the system tax", LegalTaxModel). Federal taxes exactly;
+# SOC SEC and MED withhold exactly 6.2% and 1.45% of taxable wages on all 40 live checks.
+FEDERAL_TAX = {
+    "FEDERAL WH": TaxType.FEDERAL_INCOME,
+    "SOC SEC EE": TaxType.SOCIAL_SECURITY,
+    "SOC SEC ER": TaxType.SOCIAL_SECURITY,
+    "MED EE": TaxType.MEDICARE,
+    "MED ER": TaxType.MEDICARE,
+    "FUTA ER": TaxType.FEDERAL_UNEMPLOYMENT,
+}
+# State taxes are "<state> <tax>", the state as a USPS code or full name ("PA WH", "CALIFORNIA WH",
+# "PENNSYLVANIA SUI ER"). Anything else, local taxes included, stays UNMAPPED.
+STATE_TAX = {
+    "WH": TaxType.STATE_INCOME,
+    "SUI EE": TaxType.STATE_UNEMPLOYMENT,
+    "SUI ER": TaxType.STATE_UNEMPLOYMENT,
+    "SDI EE": TaxType.STATE_DISABILITY,
+    "SDI ER": TaxType.STATE_DISABILITY,
 }
 
 # PayrollRunHistoryModel/payrollRunType and /status descriptions (live values)

@@ -370,7 +370,8 @@ entry says so.
 ### A-35 Customer-configured labels stay unmapped
 - **Issue:** some values are names a customer chose, for example UKG employee type "FT Exempt" or the
   isolved category code "FT". No provider documents what they mean.
-- **Decision:** they map to `UNMAPPED`, keeping the label and raw value. There is no per-tenant mapping file.
+- **Decision:** they map to `UNMAPPED`, keeping the label and raw value, with no warning on each
+  record. A per-tenant mapping file can resolve them with evidence (A-65).
 - **Why:** reading "full-time" out of a customer's naming is a guess, not evidence (model principle 3).
 
 ### A-36 Output: JSON and SQLite
@@ -891,6 +892,9 @@ entries below are new.
       gives `EARNINGS`/`REIMBURSEMENT`, non-cash gives `MEMO`/`NON_CASH_FRINGE`/`REPORTED_TIPS`.
       Arithmetic can't choose within a class.
     - Disagreement is reported as contradictory, with no candidate.
+    - For an unknown tax code (A-68), each line with money is tested against the fixed federal rates:
+      Social Security 6.2%, Medicare 1.45%, Additional Medicare 0.9% (26 U.S.C. 3101 and 3111). If
+      every line matches the same one, it is suggested, with the line count.
   - **Similar names (a hint, labeled "not evidence"):**
     - The unknown raw value and label are compared with texts already mapped to the same canonical type:
       every provider's code tables, values mapped in the reviewed output, and the canonical value
@@ -898,7 +902,8 @@ entries below are new.
     - The score is the higher of an IDF-weighted word overlap and a character-trigram overlap. Up to
       three values scoring at least 0.3 are listed.
     - When arithmetic has narrowed the class, only values in it are ranked.
-    - Open codes, with no canonical list, get no suggestion.
+    - Open codes, with no canonical list, get no suggestion. Neither do texts without letters, such as
+      the tax code `24-26`: before this rule it scored 1.00 against `26-24`, on shared digits alone.
 - **Results:**
   - On the synthetic scenarios: UKG "Earning (Memo)" reads as not paid out (1 of 1 paychecks), and
     MEMO ranks first by name. isolved "1099M Non EE Comp" reads as paid in cash. "Leave - FMLA" is
@@ -910,3 +915,115 @@ entries below are new.
 - **Why:** arithmetic on the provider's own totals is the strongest evidence available offline. Names
   speed a person up but must not decide. A local LLM could be added as a third suggester under the
   same rules: proposals only, data never leaving the machine.
+
+## Classifying earnings and taxes (2026-10-14)
+
+### A-67 Earning categories: what a line pays for, from the provider's own classification
+- **Issue:** an earning line's kind (A-32, A-53, A-58) says how it is paid: cash, reimbursement,
+  non-cash. It doesn't say what it pays for, so overtime or vacation pay can't be compared across
+  providers. The codes themselves are the customer's (`REG`, `OT`, `Holiday`), and their names are not
+  evidence.
+- **Evidence:**
+  - **PrismHR:** each pay code carries `talxPayType`, "download code used for employment
+    verification", documented with its values (Prism
+    `#/components/schemas/GetPaycodeDetailsResponse.PayCode/properties/talxPayType`): R Regular,
+    V Vacation, S Sick, B Bonus, E Severance, H Holiday, P Pension, W Wages, O Overtime,
+    C Commissions, T Tips, M Miscellaneous, K Workers' Compensation. `getClientCodes` sends the same
+    field. Live, it is blank on every pay code of all 25 clients.
+    - `rateClass` is documented as 'S' (Straight), 'P' (Premium), 'D' (Doubletime), 'O' (Other).
+      Live, both "Overtime" (`OT`) and "Half Time" (`HALF`) are Premium, and another "Overtime" code
+      (`O/T1`) is Straight.
+    - `payType` R/V/S is documented as Regular, Vacation, Supplemental. Live, code `Sick2` has
+      `payType` V, so payType reads as a withholding class, not a category.
+  - **isolved:** each client pay item names the system earning it is built on (A-53), and
+    `/api/system/earnings` describes each one: "Overtime @ Flat 1.5" is "Overtime paid at 1.5 ee
+    hourly rate"; "Overtime - Blended Rate" is "Blended rate used to pay OT hours"; "1099M Non EE
+    Comp" is "Used to enter 1099M non employee compensation (box 7)". Live, the Vacation, Sick and
+    Holiday items all sit under system benefit type "Leave Accrual".
+  - **UKG Ready:** `lookup/earning-codes` lists only name, code and ID. Nothing classifies a code.
+- **Decision:** `EarningLine.category`: `REGULAR` `OVERTIME` `DOUBLE_TIME` `SHIFT_DIFFERENTIAL`
+  `VACATION` `SICK` `HOLIDAY` `PAID_TIME_OFF` `BONUS` `COMMISSION` `TIPS` `SEVERANCE` `PENSION`
+  `WORKERS_COMPENSATION` `NON_EMPLOYEE_COMPENSATION` `OTHER`.
+  - It is set on lines of kind `EARNINGS`, or of unknown kind. Reimbursement, fringe, tips and memo
+    lines are already specific, so their category is null.
+  - **PrismHR:** from `talxPayType` (`TALX_PAY_TYPE`); Wages and Miscellaneous are `OTHER`. Rate class
+    'D' gives `DOUBLE_TIME` when the TALX type is blank or Overtime. Premium and Straight set nothing.
+  - **isolved:** from the system earning (`EARNING_CATEGORY`); a "Leave Accrual" item whose system
+    earning isn't listed is `PAID_TIME_OFF`. An unknown system earning is `UNMAPPED` with a warning:
+    it is a provider value.
+  - **Otherwise,** the category is `UNMAPPED`, with the earning code as raw value and its name as label
+    (`clientCodes.payCode[].id`, `earnings[].earning.code`). As with other customer codes (A-35),
+    there is no warning on each paycheck. It is one decision per code, made in a mapping file (A-65).
+- **Result:** on the 2026-10-13 live fetch:
+  - isolved: every earnings line gets a category: Regular 40, Holiday 19, Overtime 10, Vacation 5,
+    Shift differential 3, Sick 1.
+  - PrismHR (TALX blank) and UKG come to 9 and 6 review decisions. The name hints for them are good
+    (`REG` like REGULAR 1.00, `OT` like OVERTIME 1.00) but stay hints.
+- **Why:** PrismHR's TALX type and isolved's system earnings are each provider's own classification,
+  set by the provider or the PEO, not the customer's naming. A PrismHR tenant that fills in
+  `talxPayType` gets categories with no further work.
+
+### A-68 Tax types: the provider's own codes and descriptions, checked against statutory rates
+- **Issue:** tax lines carried only the provider's code, label and who paid. Social Security withheld
+  could not be summed across providers.
+- **Evidence:**
+  - **PrismHR:** the spec documents the voucher tax code only as "tax deduction code", but every line
+    carries PrismHR's own description, identical across all 25 live clients.
+    - Federal codes: 00-10 "Federal Income Tax", 00-11 "Medicare - Employee", 00-12 "Soc Security -
+      Employee", 00-15 "Medicare - Employer", 00-16 "Soc Security - Employer", 00-17 "Fed
+      Unemployment". The arithmetic agrees: 00-12 takes exactly 6.2% of taxable wages on 2,263 of
+      2,273 lines and 00-11 1.45% on 2,254. The employer lines carry `comTaxRate` 0.062, 0.0145 and
+      0.006.
+    - State codes are `<2-digit state>-<2-digit tax>`. Some tax numbers mean the same thing in every
+      state they appear in:
+      - `20` "<ST> Income Tax": 35 of 35 states;
+      - `24` "<ST> Unemployment": 40 of 40;
+      - `21` disability: 4 of 4; `25` employer disability: 3 of 3;
+      - `22` employee unemployment: 3 of 3; `40` paid family and medical leave: 5 of 5.
+
+      Others mix meanings. For example, `41` is paid family leave in MA, OR and WA, but "BOND" in CO
+      and "NV PAYROLL EXCISE TAX" in NV. `26` and `28` are assorted state assessments, some with no
+      description.
+    - Local codes are `<5- or 9-digit locality>-<2-digit tax>`. Tax number `31` reads "<city>, <ST>
+      CIWT" (city income withholding tax) in 22 of 22 localities, and `39` is a resident CIWT.
+  - **isolved:** `itemCode` is null live. The description is the system tax's: the spec defines a
+    legal's taxes as system taxes, with "taxDescription: Description of the system tax". Federal
+    lines read "FEDERAL WH", "SOC SEC EE/ER", "MED EE/ER" and "FUTA ER". SOC SEC is exactly 6.2% and
+    MED 1.45% of taxable wages on all 40 live checks. State lines read "<state> WH", "<state> SUI
+    ER/EE" or "<state> SDI EE", with the state as a USPS code or full name ("PA WH", "CALIFORNIA WH").
+  - **UKG Ready:** `lookup/tax-codes` is "the list of supported tax codes". Its documented sample
+    gives FIT "Federal Income Tax", FUTA "Federal Unemployment Tax", FICA "OASDI", MEDI "Medicare"
+    and "Additional Medicare".
+    - Live, the codes "Social Security" and "Medicare" also appear, at exactly 6.2% and 1.45%, as do
+      FICA and MEDI.
+    - State codes read `<tax>:<state>[:<n>]`. `SUTA:WI:2` is named "ER SUTA Wisconsin" and has
+      employer amounts only.
+    - `SIT:WI` is named just "Wisconsin". Its subject wage equals FIT's on 62 of 63 live statements,
+      including all 28 where FIT's differs from Social Security's, so it is taxed on the income-tax
+      wage base.
+- **Decision:** `TaxLine.type`: `FEDERAL_INCOME` `SOCIAL_SECURITY` `MEDICARE` `ADDITIONAL_MEDICARE`
+  `FEDERAL_UNEMPLOYMENT` `STATE_INCOME` `STATE_UNEMPLOYMENT` `STATE_DISABILITY` `STATE_PAID_LEAVE`
+  `LOCAL_INCOME` `OTHER`. `TaxLine.state` holds the USPS code of a state-level tax.
+  - Mapped exactly: the federal codes above. Mapped by structure: only the PrismHR tax numbers
+    listed, the isolved "<state> <tax>" forms, and UKG `SIT:`/`SUTA:`.
+  - A state must be a real one from the USPS list ("KANSAS CITY WH" is not a state tax). The state
+    comes from the code (UKG), the description (isolved), or the start of the description (PrismHR:
+    "WI Income Tax", "ALASKA SUTA EE").
+  - Anything else is `UNMAPPED` with an `UNMAPPED_CODE` warning: tax codes are the provider's, not the
+    customer's. `review` lists each code once and, where every line is taxed at exactly 6.2%, 1.45%
+    or 0.9%, suggests that tax (A-66).
+  - A mapping file can set the type, but not the state.
+- **Result:** on the 2026-10-13 live fetch:
+  - PrismHR: 18,020 of 18,891 tax lines are typed. The other 871 are 51 codes, mostly state
+    assessments and local non-income taxes.
+  - isolved: 262 of 304 typed. Three local taxes and Oregon's workers' benefit fund (employee and
+    employer) are not.
+  - UKG: 362 of 370 typed. Three Minnesota codes are not.
+  - Every state-level line has its state. PrismHR's warnings go from 109 to 980: the 871 new ones are
+    those 51 codes, one warning per paycheck line.
+  - `review` on the three live bundles now lists 133 decisions, up from 59: these 59 tax codes and the
+    15 earning codes of A-67.
+- **Why:** each rule rests on the provider's own code and description, and the federal ones on exact
+  statutory arithmetic as well. A tax number that means different things in different states stays
+  unmapped rather than being right most of the time.
+

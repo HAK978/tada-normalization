@@ -5,12 +5,15 @@ Two local, deterministic methods, used by `python -m normalization review`:
 - **arithmetic**: an unknown earning kind decides whether a line is paid in cash. On every paycheck
   the line appears on, test whether the provider's own totals reconcile with it treated as cash or
   as non-cash. This is live arithmetic, the kind of evidence the rules accept, but it only separates
-  cash kinds from non-cash kinds; it can't tell MEMO from NON_CASH_FRINGE.
+  cash kinds from non-cash kinds; it can't tell MEMO from NON_CASH_FRINGE. For an unknown tax code,
+  test whether every line is taxed at exactly a fixed federal rate: Social Security (6.2%), Medicare
+  (1.45%) or Additional Medicare (0.9%) (A-68).
 - **similarity**: compare the unknown raw value and label with texts already mapped to the same
   canonical type: the code tables of every provider, the values mapped in the reviewed output, and
   the canonical value names. Similar names are a hint for the reviewer, never evidence (mapping from
   names alone is exactly what the evidence rule forbids). When arithmetic has narrowed the kind,
-  similarity only ranks within it.
+  similarity only ranks within it. Texts without letters (codes like 24-26) are not names and are
+  skipped.
 """
 
 from __future__ import annotations
@@ -24,7 +27,7 @@ from enum import Enum
 from importlib import import_module
 from typing import Any, cast
 
-from .canonical.codes import NON_CASH_EARNING_KINDS, EarningKind
+from .canonical.codes import NON_CASH_EARNING_KINDS, EarningKind, TaxType
 from .canonical.records import PayStatement
 from .canonical.types import Coded
 from .checks import TOLERANCE
@@ -36,6 +39,14 @@ CASH_KINDS = (EarningKind.EARNINGS.value, EarningKind.REIMBURSEMENT.value)
 NON_CASH_KINDS = tuple(sorted(k.value for k in NON_CASH_EARNING_KINDS))
 MIN_SIMILARITY = 0.3
 _WORDS = re.compile(r"[a-z]+|\d+")
+_LETTERS = re.compile(r"[a-z]")
+# Federal rates fixed by statute (26 U.S.C. 3101 and 3111): a tax taken at exactly one of these on
+# every line is that tax. FUTA depends on state credits and income taxes vary, so they are not here.
+STATUTORY_RATES = {
+    Decimal("0.062"): TaxType.SOCIAL_SECURITY,
+    Decimal("0.0145"): TaxType.MEDICARE,
+    Decimal("0.009"): TaxType.ADDITIONAL_MEDICARE,
+}
 
 
 @dataclass
@@ -48,7 +59,7 @@ class Suggestion:
 
 def suggest(items: list[Unmapped], outputs: list[tuple[str, Output]]) -> None:
     """Attach suggestions to each review item that has a canonical type."""
-    arithmetic = _arithmetic(outputs)
+    arithmetic = _arithmetic(outputs) | _tax_rates(outputs)
     kinds = {item.kind for item in items if _is_enum(item.kind)}
     vocabulary = _vocabulary(outputs, kinds)
     for item in items:
@@ -144,6 +155,38 @@ def _test(statement: Any, counted: list) -> str:
     return "neither"
 
 
+def _tax_rates(outputs: list[tuple[str, Output]]) -> dict[tuple[str, str, str], Suggestion]:
+    """For each unknown tax code: is every line with money taxed at exactly one statutory rate?"""
+    tally: dict[tuple[str, str, str], Counter] = defaultdict(Counter)
+    for provider, output in outputs:
+        for statement in cast("list[PayStatement]", output.records["pay_statements"]):
+            for line in statement.taxes:
+                if line.type is None or not _unmapped(line.type):
+                    continue
+                key = (provider, _field(line.type.source_field), _key(line.type.raw))
+                base = line.taxable_wages.amount if line.taxable_wages else None
+                if not base or not line.amount.amount:
+                    tally[key]["untested"] += 1  # nothing taxed (e.g. over a wage base): can't test
+                    continue
+                rates = [r for r in STATUTORY_RATES if abs(base * r - line.amount.amount) <= TOLERANCE]
+                tally[key][rates[0] if len(rates) == 1 else "other"] += 1
+    found = {}
+    for key, counts in tally.items():
+        tested = sum(v for k, v in counts.items() if k != "untested")
+        rates = [k for k in counts if isinstance(k, Decimal)]
+        if tested and len(rates) == 1 and counts[rates[0]] == tested:
+            rate, value = rates[0], STATUTORY_RATES[rates[0]]
+            skipped = f"; {counts['untested']} lines had nothing to test" if counts["untested"] else ""
+            found[key] = Suggestion(
+                "arithmetic",
+                [value.value],
+                1.0,
+                f"amount = {(rate * 100).normalize():f}% of taxable wages on {tested} of {tested} lines, the statutory "
+                f"{value.value.replace('_', ' ').lower()} rate{skipped}",
+            )
+    return found
+
+
 # ---------------------------------------------------------------- similarity
 
 
@@ -158,7 +201,7 @@ def _vocabulary(outputs: list[tuple[str, Output]], kinds: set[type[Enum]]) -> di
             for key, value in table.items():
                 member = value[0] if isinstance(value, tuple) and value else value
                 text = " ".join(k for k in key if isinstance(k, str)) if isinstance(key, tuple) else key
-                if isinstance(member, Enum) and type(member) in kinds and isinstance(text, str) and text.strip():
+                if isinstance(member, Enum) and type(member) in kinds and isinstance(text, str) and _is_name(text):
                     vocabulary[type(member)].append((text, member.value, f"{provider} {name}"))
     for provider, output in outputs:
         for records in output.records.values():
@@ -168,7 +211,7 @@ def _vocabulary(outputs: list[tuple[str, Output]], kinds: set[type[Enum]]) -> di
                     if kind not in kinds or _unmapped(coded):
                         continue
                     for text in (coded.raw, coded.label):
-                        if isinstance(text, str) and text.strip():
+                        if isinstance(text, str) and _is_name(text):
                             vocabulary[kind].append((text, value_of(coded), f"{provider} {coded.source_field}"))
     for kind in kinds:
         for member in kind:
@@ -178,7 +221,7 @@ def _vocabulary(outputs: list[tuple[str, Output]], kinds: set[type[Enum]]) -> di
 
 
 def _similar(item: Unmapped, known: list[tuple[str, str, str]], within: set[str] | None) -> Suggestion | None:
-    texts = [t for t in (item.raw, *item.labels) if t and _WORDS.search(t.lower())]
+    texts = [t for t in (item.raw, *item.labels) if t and _is_name(t)]
     candidates = [k for k in known if within is None or k[1] in within]
     if not texts or not candidates:
         return None
@@ -229,6 +272,11 @@ def _trigram(a: str, b: str) -> float:
 
 
 # ---------------------------------------------------------------- helpers
+
+
+def _is_name(text: str) -> bool:
+    """A text worth comparing as a name: it has letters (24-26 or 00-10 is a code, not a name)."""
+    return bool(_LETTERS.search(text.lower()))
 
 
 def _is_enum(kind: Any) -> bool:

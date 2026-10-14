@@ -14,6 +14,7 @@ from normalization.canonical.codes import (
     DeductionCategory as Cat,
     DepositMethod,
     DepositStatus,
+    EarningCategory,
     EarningKind,
     ElectionStatus,
     EmploymentStatus,
@@ -33,6 +34,7 @@ from normalization.canonical.codes import (
     Rounding,
     ServiceArrangement,
     TaxTreatment as T,
+    TaxType,
     YesNoDeclined,
 )
 
@@ -257,3 +259,54 @@ PAY_CLASS = {
 
 # ClientCodes-PayCode/payReason: hours (H) or units (U) (A-38)
 PAY_REASON = {"H": QuantityUnit.HOURS, "U": QuantityUnit.UNITS}
+
+# ClientCodes-PayCode/talxPayType, "download code used for employment verification" (documented on
+# GetPaycodeDetailsResponse.PayCode; getClientCodes sends the same field): PrismHR's own category of a
+# pay code (A-67). Wages and Miscellaneous are known but not specific, so they are OTHER.
+TALX_PAY_TYPE = {
+    "R": EarningCategory.REGULAR,
+    "V": EarningCategory.VACATION,
+    "S": EarningCategory.SICK,
+    "B": EarningCategory.BONUS,
+    "E": EarningCategory.SEVERANCE,
+    "H": EarningCategory.HOLIDAY,
+    "P": EarningCategory.PENSION,
+    "W": EarningCategory.OTHER,
+    "O": EarningCategory.OVERTIME,
+    "C": EarningCategory.COMMISSION,
+    "T": EarningCategory.TIPS,
+    "M": EarningCategory.OTHER,
+    "K": EarningCategory.WORKERS_COMPENSATION,
+}
+# ClientCodes-PayCode/rateClass: 'D' (Doubletime). The other rate classes don't say what the pay is
+# for ('P' Premium is used live by both "Overtime" and "Half Time"), so they set no category (A-67).
+RATE_CLASS_DOUBLETIME = "D"
+
+# Voucher employeeTax[].empTaxDeductCode / companyTax[].comTaxDeductCode, documented only as "tax
+# deduction code". The meaning comes from PrismHR's own description of each code
+# (empTaxDeductCodeDesc / comTaxDeductCodeDesc), identical for all 25 live clients, and the amounts
+# agree with the statutory rates (A-68). Federal codes, exactly:
+FEDERAL_TAX = {
+    "00-10": TaxType.FEDERAL_INCOME,  # "Federal Income Tax"
+    "00-11": TaxType.MEDICARE,  # "Medicare - Employee": 1.45% of taxable on 2,254 of 2,273 lines
+    "00-12": TaxType.SOCIAL_SECURITY,  # "Soc Security - Employee": 6.2% on 2,263 of 2,273
+    "00-15": TaxType.MEDICARE,  # "Medicare - Employer": comTaxRate 0.0145
+    "00-16": TaxType.SOCIAL_SECURITY,  # "Soc Security - Employer": comTaxRate 0.062
+    "00-17": TaxType.FEDERAL_UNEMPLOYMENT,  # "Fed Unemployment": comTaxRate 0.006
+}
+# State codes are "<2-digit state>-<2-digit tax>". A tax number is listed only where it means the
+# same thing in every state it was seen in live; the rest (26, 27, 28, 41, 42, ...) mix different
+# taxes or have no description, so they stay UNMAPPED.
+STATE_TAX = {
+    "20": TaxType.STATE_INCOME,  # "<ST> Income Tax": 35 of 35 states
+    "21": TaxType.STATE_DISABILITY,  # "CA/NJ/NY Disability", "PR DISABILITY INSURANCE": 4 of 4
+    "22": TaxType.STATE_UNEMPLOYMENT,  # "PA SUI EMPLOYEE TAX", "NJ UI/WF", "ALASKA SUTA EE": 3 of 3
+    "24": TaxType.STATE_UNEMPLOYMENT,  # "<ST> Unemployment" (NJ "SUTA/WF/HC"): 40 of 40
+    "25": TaxType.STATE_DISABILITY,  # "HAWAII SDI TAX", "NJ ER SDI", "PR DISABILTY INSURANCE": 3 of 3
+    "40": TaxType.STATE_PAID_LEAVE,  # "<state> Paid Family Medical Leave": 5 of 5
+}
+# Local codes are "<5- or 9-digit locality>-<2-digit tax>". CIWT is the city income withholding tax.
+LOCAL_TAX = {
+    "31": TaxType.LOCAL_INCOME,  # "<city>, <ST> CIWT": 22 of 22 localities
+    "39": TaxType.LOCAL_INCOME,  # "Philadelphia, Philadelphia, PA Resident CIWT"
+}

@@ -59,7 +59,16 @@ from normalization.output import Output
 from normalization.sanitize import last4, sanitize_extensions
 from normalization.source import Notes, Src, coded, decimal, flag, iso_date, text, unmapped_label
 
-from ..common import ZERO, attach_checks, derived_sum, money
+from ..common import (
+    ZERO,
+    attach_checks,
+    categorized,
+    customer_category,
+    derived_sum,
+    money,
+    tax_type,
+    us_state,
+)
 from . import codes as I
 
 PROVIDER = "isolved"
@@ -232,6 +241,43 @@ class _Legal:
             label=kind,
             source_field="clientPayItems[].systemBenefitType+systemPayItemType",
         )
+
+    def _earning_category(
+        self, title: str | None, kind: Coded[C.EarningKind], notes: Notes
+    ) -> Coded[C.EarningCategory] | None:
+        """From the system earning the client pay item is built on, else its system benefit type (A-67)."""
+        if not categorized(kind):
+            return None
+        item = self.pay_items.get(title or "") or {}
+        benefit, system = text(item.get("systemBenefitType")), text(item.get("systemPayItemType"))
+        if system is None and benefit is None:  # no client pay item to classify it; the kind already warns
+            return customer_category(title, None, "earnings[].itemDescription")
+        value = I.EARNING_CATEGORY.get(system or "") or I.EARNING_BENEFIT_CATEGORY.get(benefit or "")
+        if value is None:
+            notes.warn(
+                "UNMAPPED_CODE", "clientPayItems[].systemPayItemType", "no category for this system earning", system
+            )
+        return Coded[C.EarningCategory](
+            value=value or C.EarningCategory.UNMAPPED,
+            raw=system or benefit,
+            label=title,
+            source_field="clientPayItems[].systemPayItemType",
+        )
+
+    @staticmethod
+    def _tax_type(description: str | None, notes: Notes) -> tuple[Coded[C.TaxType] | None, str | None]:
+        """Federal taxes by exact description, state taxes as "<state> <tax>" (A-68)."""
+        found: tuple[C.TaxType, str | None] | None = None
+        words = (description or "").split()
+        if description in I.FEDERAL_TAX:
+            found = (I.FEDERAL_TAX[description], None)
+        else:
+            for n in (2, 1):  # "SUI ER" before "WH"
+                tax, state = " ".join(words[-n:]), us_state(" ".join(words[:-n]))
+                if len(words) > n and tax in I.STATE_TAX and state:
+                    found = (I.STATE_TAX[tax], state)
+                    break
+        return tax_type(found, description, "taxes[].itemDescription", notes)
 
     # -------------------------------------------------------------- run
 
@@ -973,11 +1019,13 @@ class _Legal:
                 line.get("checkUnits")
                 quantity = Quantity(value=units, unit=C.QuantityUnit.UNITS, source_field="earnings[].checkUnits")
             title = text(line.get("itemDescription"))
+            kind = self._earning_kind(title, memo, notes)
             earnings.append(
                 EarningLine(
                     code=text(line.get("itemCode")),
                     label=title,
-                    kind=self._earning_kind(title, memo, notes),
+                    kind=kind,
+                    category=self._earning_category(title, kind, notes),
                     # grossWages is the sum of the non-memo lines (A-28)
                     in_gross=not memo,
                     quantity=quantity,
@@ -987,17 +1035,22 @@ class _Legal:
                     source_field="earnings[]",
                 )
             )
-        taxes = [
-            TaxLine(
-                code=text(t.get("itemCode")),
-                label=text(t.get("itemDescription")),
-                paid_by=C.TaxPaidBy.EMPLOYEE if flag(t.get("isEmployeeTax")) else C.TaxPaidBy.EMPLOYER,
-                amount=Money(amount=decimal(t.get("checkDollars")) or ZERO),
-                taxable_wages=money(t.get("checkTaxableWages")),
-                source_field="taxes[]",
+        taxes = []
+        for t in self._lines(s, "taxes"):
+            description = text(t.get("itemDescription"))
+            tax, state = self._tax_type(description, notes)
+            taxes.append(
+                TaxLine(
+                    code=text(t.get("itemCode")),
+                    label=description,
+                    type=tax,
+                    state=state,
+                    paid_by=C.TaxPaidBy.EMPLOYEE if flag(t.get("isEmployeeTax")) else C.TaxPaidBy.EMPLOYER,
+                    amount=Money(amount=decimal(t.get("checkDollars")) or ZERO),
+                    taxable_wages=money(t.get("checkTaxableWages")),
+                    source_field="taxes[]",
+                )
             )
-            for t in self._lines(s, "taxes")
-        ]
         deductions = []
         for d in self._lines(s, "deductions"):
             label = text(d.get("itemDescription"))

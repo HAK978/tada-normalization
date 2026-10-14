@@ -441,8 +441,10 @@ def _payroll(bundle: FixtureBundle) -> None:
                 _tax("FIT", "Federal Income Tax", D("150"), None, gross - D("100") - D("12.50")),
                 _tax("Social Security", "Social Security", D("125.74"), D("125.74"), gross),
                 _tax("Medicare", "Medicare", D("29.41"), D("29.41"), gross),
-                _tax("SIT:NC", "NC Income Tax", float_tax, None, gross),
-                _tax("FUTA", "FUTA", None, D("12.17"), gross),
+                # Live: a state income tax is named after the state and taxed on FIT's wage base (A-68).
+                _tax("SIT:NC", "North Carolina", float_tax, None, gross - D("100") - D("12.50")),
+                _tax("FUTA", "Federal Unemployment Tax", None, D("12.17"), gross),
+                _tax("SUTA:NC:2", "ER SUTA North Carolina", None, D("20.28"), gross),
             ],
             "deductions": [
                 {
