@@ -21,7 +21,7 @@ Python 3.11 or newer.
 python3 -m venv .venv && source .venv/bin/activate
 pip install -e ".[dev]"
 python -m normalization demo    # normalize every provider's synthetic scenario
-pytest                          # 126 tests, offline
+pytest                          # 132 tests, offline
 ```
 
 `demo` prints one line per provider:
@@ -62,6 +62,7 @@ GROUP BY 1, 2;
 | `python -m normalization normalize BUNDLE` | Normalizes one raw bundle, a fixture or a live fetch, into `out/`. `--as-of` fixes the date for time-dependent values. |
 | `python -m normalization fetch --provider P` | Read-only fetch from the live demo tenants (`all` for every provider). `--normalize` also normalizes the result. |
 | `python -m normalization write EMPLOYEES_JSON` | Dry run: the UKG Ready requests that would create these employees, validated against UKG's request schemas. Nothing is sent. |
+| `python -m normalization review BUNDLE ...` | Collects every value still `UNMAPPED` into distinct decisions, and writes a report plus a mapping-file template per provider. |
 | `python -m normalization schema` | Writes the canonical model's JSON Schemas to `schemas/`. |
 | `python -m normalization coverage [BUNDLE ...]` | Writes [docs/FIELD_COVERAGE.md](docs/FIELD_COVERAGE.md): what happens to every source field. |
 | `python scripts/generate_fixtures.py [--check]` | Regenerates the synthetic fixtures and golden files, or (`--check`) proves they are reproducible. |
@@ -154,6 +155,27 @@ rule produced, each recorded in [ASSUMPTIONS.md](ASSUMPTIONS.md):
 - Live data departs from each provider's own schema in specific, documented ways (A-16, A-47, A-52,
   A-61).
 
+### Unknown values: review, then map with evidence
+
+New tenants bring codes no table knows. They come out `UNMAPPED` with a warning, and are never
+guessed. The loop for resolving them needs no code change (A-65):
+
+```sh
+python -m normalization review .discovery/prismhr/<run>     # 109 warnings -> a list of distinct decisions
+# fill in `value` and `evidence` in out/review/mappings-prismhr.json
+python -m normalization normalize .discovery/prismhr/<run> --mappings out/review/mappings-prismhr.json
+```
+
+The rules for mapping files:
+
+- A mapping only fills a value that would otherwise be `UNMAPPED`; it never overrides a documented
+  code table.
+- Every entry must carry written evidence, and the value must be valid for that field.
+- Each resolved record notes which mapping and evidence resolved it.
+
+Because a mapping takes effect during conversion, everything downstream uses it: a newly classified
+earning line, for example, lets gross pay be derived.
+
 ## How it was built
 
 1. **Discovery first.** We read the specs, then made read-only calls to each live demo tenant. Every
@@ -177,7 +199,7 @@ counted live evidence.
 
 ## Testing
 
-`pytest` runs 126 offline tests (plus parametrized subtests). Nothing needs credentials or network.
+`pytest` runs 132 offline tests (plus parametrized subtests). Nothing needs credentials or network.
 
 - **Synthetic scenarios** (`fixtures/<provider>/brightside`) come from a seeded generator, and every
   response is validated against the provider's own published schema. They are full of real-world
@@ -204,6 +226,7 @@ src/normalization/
   checks.py           paycheck reconciliation
   export.py           JSON and SQLite output
   coverage.py         the field coverage report
+  mappings.py         mapping files and the review queue for unmapped values
   source.py           tracked field access and value parsing
   sanitize.py         last-4 masking of sensitive values
 fixtures/             generated synthetic bundles (committed)
@@ -226,5 +249,12 @@ The details are in [ASSUMPTIONS.md](ASSUMPTIONS.md).
 - **Percent scales** are unproven for isolved and UKG deposits and deductions, so the number stays
   null with its raw value (A-29). Tax withholding setup is kept raw, not mapped (A-34).
 - **Small live samples:** codes that never appeared in them are mapped from documentation only (A-07).
+- **Next steps for production use:**
+  - per-record evidence tests in place of provider-wide rules (A-32 held on 420 vouchers, then one
+    voucher broke it);
+  - failed checks that name the likely missing component;
+  - drift alerts from comparing each fetch's field coverage with the last;
+  - mapping suggestions for a person to approve, never applied automatically;
+  - full pagination and incremental sync for large tenants.
 - **Write path:** a dry run into UKG Ready only. The full SSN is not available by design, because the
   model keeps the last 4 digits (A-63).

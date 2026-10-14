@@ -5,6 +5,7 @@ from __future__ import annotations
 from collections.abc import Callable
 from datetime import date
 from importlib import import_module
+from pathlib import Path
 from typing import TYPE_CHECKING
 
 if TYPE_CHECKING:
@@ -21,6 +22,12 @@ def converter(provider: str) -> Callable[..., Output]:
     return import_module(f"{__name__}.{PROVIDERS[provider]}").normalize
 
 
-def normalize(bundle: Bundle, as_of: date | None = None) -> Output:
-    """Normalize a bundle with its own provider's converter."""
-    return converter(bundle.provider)(bundle, as_of)
+def normalize(bundle: Bundle, as_of: date | None = None, mapping_files: list[Path] | None = None) -> Output:
+    """Normalize a bundle with its own provider's converter, resolving UNMAPPED values from mapping files (A-65)."""
+    from normalization.mappings import Mappings, active, annotate
+
+    mappings = Mappings.load(mapping_files or [], bundle.provider)
+    with active(mappings):
+        output = converter(bundle.provider)(bundle, as_of)
+    annotate(output, mappings)
+    return output

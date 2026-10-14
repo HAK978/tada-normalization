@@ -845,3 +845,25 @@ entries below are new.
       export keeps the previous database.
     - The exact-number JSON writer marks decimals with a random per-call token, so no source string
       can be mistaken for a number.
+
+### A-65 Unknown values are resolved by mapping files with evidence, not by code changes
+- **Issue:** a larger live fetch (A-21, A-32, A-45) showed the long tail. Every tenant brings codes
+  no code table knows, such as citizenship `Y` and new batch statuses. They were handled safely, as
+  `UNMAPPED` with a warning, but resolving one meant editing Python, and the warnings were scattered
+  over thousands of records.
+- **Decision:**
+  - `python -m normalization review` collects every still-unmapped value into distinct decisions:
+    provider, field, raw value, label, record count and examples. Array positions in a field don't
+    count as different fields. On the 2026-10-13 fetch, 4,486 record mentions came down to 59
+    decisions. It also writes a mapping-file template per provider.
+  - A mapping file (`--mappings`) resolves values as data. The rules:
+    - It fills only values that would otherwise be `UNMAPPED`, and never overrides a code table
+      built from documentation.
+    - Every entry needs written evidence, and the value must be valid for the field's canonical enum.
+      A bad entry stops the run with a clear error.
+    - It applies during conversion, so everything downstream uses the resolved value: derived gross
+      pay and the checks, for example.
+    - Each record it touched gets a `MAPPED_BY_FILE` note quoting the evidence, in place of its
+      `UNMAPPED_CODE` warning.
+- **Why:** the evidence rule stays the same, but the person with the evidence (a tenant admin, an
+  analyst reading the provider's setup) can apply it without a release, and every use is traceable.

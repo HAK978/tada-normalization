@@ -6,6 +6,7 @@
     python -m normalization schema                write the canonical model's JSON Schemas
     python -m normalization coverage [BUNDLE ...]  report what happens to every source field
     python -m normalization write EMPLOYEES_JSON   dry run: the UKG Ready requests that would create them
+    python -m normalization review BUNDLE ...     list unmapped values to decide, with mapping-file templates
 
 Normalized output goes under out/ (gitignored): one JSON file per record type, summary.json,
 and canonical.sqlite. Only `fetch` uses the network; it needs DEMO_SIGNIN_API_KEY (A-04).
@@ -53,6 +54,7 @@ def main(argv: list[str] | None = None) -> int:
     run.add_argument("--out", type=Path, help="output folder (default: out/<provider>/<bundle folder>)")
     run.add_argument("--as-of", type=date.fromisoformat, help="evaluate time-dependent values at this date (A-33)")
     run.add_argument("--no-sqlite", action="store_true", help="write JSON only")
+    run.add_argument("--mappings", type=Path, action="append", default=[], help="mapping file (A-65); repeatable")
 
     today = date.today()
     fetch = commands.add_parser("fetch", help="read-only fetch from the live demo tenants (needs the API key)")
@@ -67,6 +69,7 @@ def main(argv: list[str] | None = None) -> int:
     fetch.add_argument("--out", type=Path, default=ROOT / ".discovery", help="where raw bundles go (gitignored)")
     fetch.add_argument("--env-file", type=Path, default=ROOT / ".env", help="read DEMO_SIGNIN_API_KEY from here")
     fetch.add_argument("--normalize", action="store_true", help="also normalize each fetched bundle into out/")
+    fetch.add_argument("--mappings", type=Path, action="append", default=[], help="mapping file (A-65); repeatable")
 
     schema = commands.add_parser("schema", help="write the JSON Schema of every canonical record type")
     schema.add_argument("--out", type=Path, default=ROOT / "schemas")
@@ -83,8 +86,14 @@ def main(argv: list[str] | None = None) -> int:
     write.add_argument("--ein-id", type=int, help="destination EIN ID, for multi-EIN companies")
     write.add_argument("--out", type=Path, default=ROOT / "out" / "write")
 
+    review = commands.add_parser("review", help="list unmapped values to decide, with mapping-file templates")
+    review.add_argument("bundles", type=Path, nargs="+", help="raw bundles to normalize and review")
+    review.add_argument("--mappings", type=Path, action="append", default=[], help="mapping files already in use")
+    review.add_argument("--out", type=Path, default=ROOT / "out" / "review")
+
     args = parser.parse_args(argv)
     handlers = {
+        "review": _review,
         "demo": _demo,
         "normalize": _normalize,
         "fetch": _fetch,
@@ -111,7 +120,7 @@ def _demo(args: argparse.Namespace) -> int:
 def _normalize(args: argparse.Namespace) -> int:
     try:
         bundle = Bundle.load(args.bundle)
-        output = normalize(bundle, args.as_of)
+        output = normalize(bundle, args.as_of, args.mappings)
     except (OSError, KeyError, ValueError) as exc:
         print(f"cannot normalize {args.bundle}: {exc}", file=sys.stderr)
         return 1
@@ -141,7 +150,7 @@ def _fetch(args: argparse.Namespace) -> int:
         results = []
         for folder in bundles:
             bundle = Bundle.load(folder)
-            output = normalize(bundle)
+            output = normalize(bundle, mapping_files=args.mappings)
             _write(output, ROOT / "out" / bundle.provider / folder.name, sqlite=True)
             results.append((bundle.provider, output))
         _report(results)
@@ -191,6 +200,31 @@ def _write_dry_run(args: argparse.Namespace) -> int:
         gaps = ", ".join(g["field"] for g in result.gaps) or "none"
         print(f"{employee['id']}: {len(result.requests)} requests, {verdict}; gaps: {gaps}")
     print(f"\ndry run only, nothing sent. Plans: {out}")
+    return 0
+
+
+def _review(args: argparse.Namespace) -> int:
+    from .mappings import render, review, template
+
+    try:
+        outputs = []
+        for folder in args.bundles:
+            bundle = Bundle.load(folder)
+            outputs.append((bundle.provider, normalize(bundle, mapping_files=args.mappings)))
+    except (OSError, KeyError, ValueError) as exc:
+        print(f"cannot review: {exc}", file=sys.stderr)
+        return 1
+    items = review(outputs)
+    args.out.mkdir(parents=True, exist_ok=True)
+    (args.out / "UNMAPPED_REVIEW.md").write_text(render(items), encoding="utf-8")
+    for provider, data in template(items).items():
+        (args.out / f"mappings-{provider}.json").write_text(json.dumps(data, indent=1) + "\n", encoding="utf-8")
+    records = sum(u.records for u in items)
+    print(f"{len(items)} distinct unmapped values across {records} record mentions")
+    for u in items[:15]:
+        label = f" ({u.labels.most_common(1)[0][0]})" if u.labels else ""
+        print(f"  {u.provider:9} {u.field} = {u.raw!r}{label}: {u.records} records")
+    print(f"\nreport and mapping-file templates: {args.out}")
     return 0
 
 

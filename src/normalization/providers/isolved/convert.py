@@ -217,11 +217,17 @@ class _Legal:
         item = self.pay_items.get(title or "") or {}
         benefit, kind = text(item.get("systemBenefitType")), text(item.get("systemPayItemType"))
         value = I.EARNING_BENEFIT_CLASS.get(benefit or "") or I.EARNING_CLASS.get(kind or "")
+        raw = " / ".join(v for v in (benefit, kind) if v) or None
         if value is None:
-            notes.warn("UNMAPPED_CODE", "earnings[].itemDescription", "no system earning classification", title)
+            notes.warn(
+                "UNMAPPED_CODE",
+                "clientPayItems[].systemBenefitType+systemPayItemType",
+                f"no system earning classification for pay item {title!r}",
+                raw,
+            )
         return Coded[C.EarningKind](
             value=value or C.EarningKind.UNMAPPED,
-            raw=" / ".join(v for v in (benefit, kind) if v) or None,
+            raw=raw,
             label=kind,
             source_field="clientPayItems[].systemBenefitType+systemPayItemType",
         )

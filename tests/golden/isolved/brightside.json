@@ -3706,9 +3706,9 @@
      {
       "code": "UNMAPPED_CODE",
       "severity": "warning",
-      "field": "earnings[].itemDescription",
-      "message": "no system earning classification",
-      "raw": "1099 Comp"
+      "field": "clientPayItems[].systemBenefitType+systemPayItemType",
+      "message": "no system earning classification for pay item '1099 Comp'",
+      "raw": "1099M Non EE Comp"
      }
     ],
     "company_id": "isolved:synthetic:company:501:601",

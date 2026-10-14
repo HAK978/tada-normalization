@@ -2,11 +2,13 @@
 
 from __future__ import annotations
 
+from collections.abc import Callable
+from contextvars import ContextVar
 from datetime import date
 from decimal import Decimal
 from typing import Annotated, Any, Generic, TypeVar
 
-from pydantic import BaseModel, ConfigDict, Field, PlainSerializer, WithJsonSchema
+from pydantic import BaseModel, ConfigDict, Field, PlainSerializer, WithJsonSchema, model_validator
 
 from .codes import (
     CalculationBasis,
@@ -44,6 +46,10 @@ class Model(BaseModel):
 E = TypeVar("E")
 
 
+# Set while mapping files are active (normalization.mappings): (source_field, raw) -> canonical value or None.
+MAPPING_OVERRIDE: ContextVar[Callable[[str, Raw], str | None] | None] = ContextVar("mapping_override", default=None)
+
+
 class Coded(Model, Generic[E]):
     """A canonical code plus exactly what the provider sent and where it came from."""
 
@@ -51,6 +57,25 @@ class Coded(Model, Generic[E]):
     raw: Raw = None
     label: str | None = None
     source_field: str
+
+    @model_validator(mode="after")
+    def _apply_mapping_file(self) -> Coded:
+        """An UNMAPPED value resolved by an active mapping file (A-65); never otherwise changed."""
+        lookup = MAPPING_OVERRIDE.get()
+        if lookup is None or str(getattr(self.value, "value", self.value)) != "UNMAPPED":
+            return self
+        target = lookup(self.source_field, self.raw)
+        if target is not None:
+            kind = type(self).__pydantic_generic_metadata__["args"]
+            enum = kind[0] if kind else str
+            try:
+                value = target if enum is str else enum(target)
+            except ValueError as exc:
+                raise ValueError(
+                    f"mapping file: {target!r} is not a valid {enum.__name__} for {self.source_field}"
+                ) from exc
+            object.__setattr__(self, "value", value)
+        return self
 
 
 class Money(Model):
