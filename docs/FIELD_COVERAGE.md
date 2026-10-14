@@ -6,6 +6,7 @@ the converter does with it. It shows field paths only, never values; array posit
 - **mapped**: read into a canonical record. Some are read into another record, such as a deposit built
   from the employee response.
 - **kept**: not mapped, so it is kept, sanitized, in the record's `provider_extensions`.
+- **lost**: neither mapped nor kept. This must never happen, and the command fails if it does.
 - **dropped**: deliberately not kept, for the reason given.
 - **reference**: a lookup table the converter reads by code, not field by field.
 - **unused**: a response the converter doesn't read, such as a crawl index.
@@ -20,61 +21,61 @@ Sources:
 
 ## Summary
 
-| Provider | Endpoint | Fields | Mapped | Kept | Dropped | Reference | Unused |
-|---|---|---:|---:|---:|---:|---:|---:|
-| prismhr | `benefits/v1/getActiveBenefitPlans` | 35 | 0 | 34 | 1 | 0 | 0 |
-| prismhr | `clientMaster/v1/getClientCodes` | 136 | 0 | 0 | 1 | 135 | 0 |
-| prismhr | `clientMaster/v1/getClientMaster` | 155 | 14 | 140 | 1 | 0 | 0 |
-| prismhr | `clientMaster/v1/getPayrollSchedule` | 16 | 4 | 11 | 1 | 0 | 0 |
-| prismhr | `deductions/v1/getDeductions` | 14 | 12 | 1 | 1 | 0 | 0 |
-| prismhr | `deductions/v1/getEmployeeLoans` | 17 | 10 | 4 | 3 | 0 | 0 |
-| prismhr | `deductions/v1/getVoluntaryRecurringDeductions` | 10 | 8 | 0 | 2 | 0 | 0 |
-| prismhr | `employee/v1/getEmployee` | 179 | 73 | 105 | 1 | 0 | 0 |
-| prismhr | `employee/v1/getEmployeeList` | 2 | 0 | 0 | 1 | 0 | 1 |
-| prismhr | `employee/v1/getPayRateHistory` | 13 | 8 | 2 | 3 | 0 | 0 |
-| prismhr | `employee/v1/getScheduledDeductions` | 4 | 0 | 0 | 4 | 0 | 0 |
-| prismhr | `payroll/v1/getBatchInfo` | 17 | 1 | 15 | 1 | 0 | 0 |
-| prismhr | `payroll/v1/getBatchListByDate` | 10 | 8 | 1 | 1 | 0 | 0 |
-| prismhr | `payroll/v1/getPayrollVoucherForBatch` | 113 | 65 | 44 | 4 | 0 | 0 |
-| isolved | `api/clients/{client}` | 7 | 2 | 3 | 2 | 0 | 0 |
-| isolved | `api/clients/{client}/legals/{legal}` | 49 | 16 | 27 | 6 | 0 | 0 |
-| isolved | `api/clients/{client}/legals/{legal}/checks` | 33 | 11 | 18 | 4 | 0 | 0 |
-| isolved | `api/clients/{client}/legals/{legal}/employees` | 92 | 0 | 0 | 13 | 0 | 79 |
-| isolved | `api/clients/{client}/legals/{legal}/employees/{id}` | 126 | 40 | 67 | 19 | 0 | 0 |
-| isolved | `api/clients/{client}/legals/{legal}/employees/{id}/checks/{id}` | 135 | 30 | 103 | 2 | 0 | 0 |
-| isolved | `api/clients/{client}/legals/{legal}/employees/{id}/directdeposits` | 9 | 9 | 0 | 0 | 0 | 0 |
-| isolved | `api/clients/{client}/legals/{legal}/employees/{id}/garnishments` | 23 | 12 | 9 | 2 | 0 | 0 |
-| isolved | `api/clients/{client}/legals/{legal}/employees/{id}/payItems` | 17 | 6 | 8 | 3 | 0 | 0 |
-| isolved | `api/clients/{client}/legals/{legal}/employees/{id}/payRates` | 8 | 0 | 8 | 0 | 0 | 0 |
-| isolved | `api/clients/{client}/legals/{legal}/employees/{id}/salaries` | 15 | 6 | 7 | 2 | 0 | 0 |
-| isolved | `api/clients/{client}/legals/{legal}/employees/{id}/statuses` | 8 | 2 | 6 | 0 | 0 | 0 |
-| isolved | `api/clients/{client}/legals/{legal}/paygroupId/{id}/payrollRunHistory` | 19 | 8 | 11 | 0 | 0 | 0 |
-| isolved | `api/clients/{client}/legals/{legal}/paygroupId/{id}/payrollRunHistory/{id}` | 19 | 8 | 11 | 0 | 0 | 0 |
-| isolved | `api/clients/{client}/payItems` | 12 | 0 | 0 | 0 | 12 | 0 |
-| isolved | `api/lookup/Frequencies` | 2 | 0 | 0 | 0 | 2 | 0 |
-| isolved | `api/lookup/citizenships` | 2 | 0 | 0 | 0 | 2 | 0 |
-| isolved | `api/lookup/ethnicorigins` | 2 | 0 | 0 | 0 | 0 | 2 |
-| isolved | `api/lookup/genders` | 2 | 0 | 0 | 0 | 2 | 0 |
-| isolved | `api/lookup/maritalStatuses` | 2 | 0 | 0 | 0 | 2 | 0 |
-| isolved | `api/system/earnings` | 6 | 0 | 0 | 2 | 0 | 4 |
-| isolved | `api/system/payTypes` | 2 | 0 | 0 | 0 | 0 | 2 |
-| ukg-ready | `rest/v2/companies/{company}/employees` | 18 | 0 | 0 | 6 | 0 | 12 |
-| ukg-ready | `rest/v2/companies/{company}/employees/{id}` | 73 | 28 | 38 | 7 | 0 | 0 |
-| ukg-ready | `rest/v2/companies/{company}/employees/{id}/compensation/history` | 11 | 8 | 2 | 1 | 0 | 0 |
-| ukg-ready | `rest/v2/companies/{company}/employees/{id}/direct-deposits` | 34 | 14 | 8 | 12 | 0 | 0 |
-| ukg-ready | `rest/v2/companies/{company}/employees/{id}/pay-info` | 15 | 3 | 12 | 0 | 0 | 0 |
-| ukg-ready | `rest/v2/companies/{company}/lookup/deduction-codes` | 4 | 0 | 0 | 0 | 0 | 4 |
-| ukg-ready | `rest/v2/companies/{company}/lookup/earning-codes` | 4 | 0 | 0 | 0 | 0 | 4 |
-| ukg-ready | `rest/v2/companies/{company}/lookup/eins` | 4 | 3 | 1 | 0 | 0 | 0 |
-| ukg-ready | `rest/v2/companies/{company}/lookup/employee-types` | 2 | 0 | 0 | 0 | 2 | 0 |
-| ukg-ready | `rest/v2/companies/{company}/lookup/jobs` | 5 | 0 | 0 | 0 | 5 | 0 |
-| ukg-ready | `rest/v2/companies/{company}/lookup/pay-statement-types` | 2 | 0 | 0 | 0 | 0 | 2 |
-| ukg-ready | `rest/v2/companies/{company}/lookup/pay-types` | 2 | 0 | 0 | 0 | 2 | 0 |
-| ukg-ready | `rest/v2/companies/{company}/lookup/payroll-types` | 2 | 0 | 0 | 0 | 0 | 2 |
-| ukg-ready | `rest/v2/companies/{company}/payrolls` | 14 | 11 | 2 | 1 | 0 | 0 |
-| ukg-ready | `rest/v2/companies/{company}/payrolls/{id}` | 13 | 11 | 2 | 0 | 0 | 0 |
-| ukg-ready | `rest/v2/companies/{company}/payrolls/{id}/pay-statements` | 11 | 0 | 0 | 1 | 0 | 10 |
-| ukg-ready | `rest/v2/companies/{company}/payrolls/{id}/pay-statements/{id}` | 78 | 30 | 48 | 0 | 0 | 0 |
+| Provider | Endpoint | Fields | Mapped | Kept | Lost | Dropped | Reference | Unused |
+|---|---|---:|---:|---:|---:|---:|---:|---:|
+| prismhr | `benefits/v1/getActiveBenefitPlans` | 35 | 0 | 34 | 0 | 1 | 0 | 0 |
+| prismhr | `clientMaster/v1/getClientCodes` | 136 | 0 | 0 | 0 | 1 | 135 | 0 |
+| prismhr | `clientMaster/v1/getClientMaster` | 155 | 14 | 140 | 0 | 1 | 0 | 0 |
+| prismhr | `clientMaster/v1/getPayrollSchedule` | 16 | 4 | 11 | 0 | 1 | 0 | 0 |
+| prismhr | `deductions/v1/getDeductions` | 14 | 12 | 1 | 0 | 1 | 0 | 0 |
+| prismhr | `deductions/v1/getEmployeeLoans` | 17 | 10 | 4 | 0 | 3 | 0 | 0 |
+| prismhr | `deductions/v1/getVoluntaryRecurringDeductions` | 10 | 8 | 0 | 0 | 2 | 0 | 0 |
+| prismhr | `employee/v1/getEmployee` | 179 | 73 | 105 | 0 | 1 | 0 | 0 |
+| prismhr | `employee/v1/getEmployeeList` | 2 | 0 | 0 | 0 | 1 | 0 | 1 |
+| prismhr | `employee/v1/getPayRateHistory` | 13 | 8 | 2 | 0 | 3 | 0 | 0 |
+| prismhr | `employee/v1/getScheduledDeductions` | 4 | 0 | 0 | 0 | 4 | 0 | 0 |
+| prismhr | `payroll/v1/getBatchInfo` | 17 | 1 | 15 | 0 | 1 | 0 | 0 |
+| prismhr | `payroll/v1/getBatchListByDate` | 10 | 8 | 1 | 0 | 1 | 0 | 0 |
+| prismhr | `payroll/v1/getPayrollVoucherForBatch` | 113 | 65 | 44 | 0 | 4 | 0 | 0 |
+| isolved | `api/clients/{client}` | 7 | 2 | 3 | 0 | 2 | 0 | 0 |
+| isolved | `api/clients/{client}/legals/{legal}` | 49 | 16 | 27 | 0 | 6 | 0 | 0 |
+| isolved | `api/clients/{client}/legals/{legal}/checks` | 33 | 11 | 18 | 0 | 4 | 0 | 0 |
+| isolved | `api/clients/{client}/legals/{legal}/employees` | 92 | 0 | 0 | 0 | 13 | 0 | 79 |
+| isolved | `api/clients/{client}/legals/{legal}/employees/{id}` | 126 | 40 | 67 | 0 | 19 | 0 | 0 |
+| isolved | `api/clients/{client}/legals/{legal}/employees/{id}/checks/{id}` | 135 | 29 | 104 | 0 | 2 | 0 | 0 |
+| isolved | `api/clients/{client}/legals/{legal}/employees/{id}/directdeposits` | 9 | 9 | 0 | 0 | 0 | 0 | 0 |
+| isolved | `api/clients/{client}/legals/{legal}/employees/{id}/garnishments` | 23 | 12 | 9 | 0 | 2 | 0 | 0 |
+| isolved | `api/clients/{client}/legals/{legal}/employees/{id}/payItems` | 17 | 6 | 8 | 0 | 3 | 0 | 0 |
+| isolved | `api/clients/{client}/legals/{legal}/employees/{id}/payRates` | 8 | 0 | 8 | 0 | 0 | 0 | 0 |
+| isolved | `api/clients/{client}/legals/{legal}/employees/{id}/salaries` | 15 | 6 | 7 | 0 | 2 | 0 | 0 |
+| isolved | `api/clients/{client}/legals/{legal}/employees/{id}/statuses` | 8 | 2 | 6 | 0 | 0 | 0 | 0 |
+| isolved | `api/clients/{client}/legals/{legal}/paygroupId/{id}/payrollRunHistory` | 19 | 8 | 11 | 0 | 0 | 0 | 0 |
+| isolved | `api/clients/{client}/legals/{legal}/paygroupId/{id}/payrollRunHistory/{id}` | 19 | 8 | 11 | 0 | 0 | 0 | 0 |
+| isolved | `api/clients/{client}/payItems` | 12 | 0 | 0 | 0 | 0 | 12 | 0 |
+| isolved | `api/lookup/Frequencies` | 2 | 0 | 0 | 0 | 0 | 2 | 0 |
+| isolved | `api/lookup/citizenships` | 2 | 0 | 0 | 0 | 0 | 2 | 0 |
+| isolved | `api/lookup/ethnicorigins` | 2 | 0 | 0 | 0 | 0 | 0 | 2 |
+| isolved | `api/lookup/genders` | 2 | 0 | 0 | 0 | 0 | 2 | 0 |
+| isolved | `api/lookup/maritalStatuses` | 2 | 0 | 0 | 0 | 0 | 2 | 0 |
+| isolved | `api/system/earnings` | 6 | 0 | 0 | 0 | 2 | 0 | 4 |
+| isolved | `api/system/payTypes` | 2 | 0 | 0 | 0 | 0 | 0 | 2 |
+| ukg-ready | `rest/v2/companies/{company}/employees` | 18 | 0 | 0 | 0 | 6 | 0 | 12 |
+| ukg-ready | `rest/v2/companies/{company}/employees/{id}` | 73 | 28 | 38 | 0 | 7 | 0 | 0 |
+| ukg-ready | `rest/v2/companies/{company}/employees/{id}/compensation/history` | 11 | 8 | 2 | 0 | 1 | 0 | 0 |
+| ukg-ready | `rest/v2/companies/{company}/employees/{id}/direct-deposits` | 34 | 14 | 8 | 0 | 12 | 0 | 0 |
+| ukg-ready | `rest/v2/companies/{company}/employees/{id}/pay-info` | 15 | 3 | 12 | 0 | 0 | 0 | 0 |
+| ukg-ready | `rest/v2/companies/{company}/lookup/deduction-codes` | 4 | 0 | 0 | 0 | 0 | 0 | 4 |
+| ukg-ready | `rest/v2/companies/{company}/lookup/earning-codes` | 4 | 0 | 0 | 0 | 0 | 0 | 4 |
+| ukg-ready | `rest/v2/companies/{company}/lookup/eins` | 4 | 3 | 1 | 0 | 0 | 0 | 0 |
+| ukg-ready | `rest/v2/companies/{company}/lookup/employee-types` | 2 | 0 | 0 | 0 | 0 | 2 | 0 |
+| ukg-ready | `rest/v2/companies/{company}/lookup/jobs` | 5 | 0 | 0 | 0 | 0 | 5 | 0 |
+| ukg-ready | `rest/v2/companies/{company}/lookup/pay-statement-types` | 2 | 0 | 0 | 0 | 0 | 0 | 2 |
+| ukg-ready | `rest/v2/companies/{company}/lookup/pay-types` | 2 | 0 | 0 | 0 | 0 | 2 | 0 |
+| ukg-ready | `rest/v2/companies/{company}/lookup/payroll-types` | 2 | 0 | 0 | 0 | 0 | 0 | 2 |
+| ukg-ready | `rest/v2/companies/{company}/payrolls` | 14 | 11 | 2 | 0 | 1 | 0 | 0 |
+| ukg-ready | `rest/v2/companies/{company}/payrolls/{id}` | 13 | 11 | 2 | 0 | 0 | 0 | 0 |
+| ukg-ready | `rest/v2/companies/{company}/payrolls/{id}/pay-statements` | 11 | 0 | 0 | 0 | 1 | 0 | 10 |
+| ukg-ready | `rest/v2/companies/{company}/payrolls/{id}/pay-statements/{id}` | 78 | 30 | 48 | 0 | 0 | 0 | 0 |
 
 ## prismhr
 
@@ -767,7 +768,7 @@ Sources:
 | `payrollVoucher[].benefit[].premiumAmt` | mapped |
 | `payrollVoucher[].benefit[].premiumCost` | mapped |
 | `payrollVoucher[].checkAccountACH` | kept |
-| `payrollVoucher[].checkAmt` | mapped |
+| `payrollVoucher[].checkAmt` | mapped (251) / kept (168) |
 | `payrollVoucher[].checkNumber` | mapped |
 | `payrollVoucher[].companyTax[].comClientSutaRpt` | kept |
 | `payrollVoucher[].companyTax[].comExemptAmount` | kept |
@@ -795,7 +796,7 @@ Sources:
 | `payrollVoucher[].earning[].department` | mapped |
 | `payrollVoucher[].earning[].division` | mapped |
 | `payrollVoucher[].earning[].hoursUnits` | mapped |
-| `payrollVoucher[].earning[].hoursWorked` | mapped |
+| `payrollVoucher[].earning[].hoursWorked` | mapped (407) / kept (58) |
 | `payrollVoucher[].earning[].jobCode` | mapped |
 | `payrollVoucher[].earning[].location` | mapped |
 | `payrollVoucher[].earning[].payAmount` | mapped |
@@ -942,7 +943,7 @@ Sources:
 
 | Field | Disposition |
 |---|---|
-| `results[].checkAmount` | mapped (415) / unused (15) |
+| `results[].checkAmount` | mapped (408) / kept (7) / unused (15) |
 | `results[].checkDate` | mapped (415) / unused (15) |
 | `results[].checkNumber` | mapped (415) / unused (15) |
 | `results[].checkSequence` | kept (415) / unused (15) |
@@ -1104,7 +1105,7 @@ Sources:
 | `ethnicOrigin` | mapped |
 | `gender` | mapped |
 | `hireDate` | mapped |
-| `hourlyRate` | mapped |
+| `hourlyRate` | mapped (26) / kept (1) |
 | `i9Documents.i9Completed` | dropped: identity documents are never kept |
 | `i9Documents.i9CompletedDate` | dropped: identity documents are never kept |
 | `id` | mapped |
@@ -1152,7 +1153,7 @@ Sources:
 | `payRates[].payRateName` | kept |
 | `payRates[].rateValue` | kept |
 | `payType` | mapped |
-| `perPaySalary` | mapped |
+| `perPaySalary` | mapped (26) / kept (1) |
 | `personal.id` | kept |
 | `personal.links[].href` | dropped: API navigation |
 | `personal.links[].method` | dropped: API navigation |
@@ -1209,11 +1210,11 @@ Sources:
 | Field | Disposition |
 |---|---|
 | `benefits[].benefitDescription` | mapped (36) / kept (26) |
-| `benefits[].benefitTitle` | mapped |
+| `benefits[].benefitTitle` | mapped (50) / kept (12) |
 | `benefits[].checkEligibleWages` | kept |
-| `benefits[].checkEmployeeCatchUp` | mapped |
-| `benefits[].checkEmployeeDeduction` | mapped |
-| `benefits[].checkEmployerContribution` | mapped |
+| `benefits[].checkEmployeeCatchUp` | kept |
+| `benefits[].checkEmployeeDeduction` | mapped (50) / kept (12) |
+| `benefits[].checkEmployerContribution` | mapped (50) / kept (12) |
 | `benefits[].checkMatchEligibleWages` | kept |
 | `benefits[].currentEligibleWages` | kept |
 | `benefits[].currentEmployeeCatchUp` | kept |
@@ -1428,7 +1429,7 @@ Sources:
 | `[].effectiveDate` | mapped |
 | `[].frequency.description` | kept |
 | `[].frequency.id` | kept |
-| `[].hourlyRate` | mapped |
+| `[].hourlyRate` | mapped (26) / kept (1) |
 | `[].id` | mapped |
 | `[].isInactive` | kept |
 | `[].lifeEvent` | kept |
@@ -1439,7 +1440,7 @@ Sources:
 | `[].payGroup.id` | kept |
 | `[].payType.description` | mapped |
 | `[].payType.id` | kept |
-| `[].perPaySalary` | mapped |
+| `[].perPaySalary` | mapped (26) / kept (1) |
 
 ### `api/clients/{client}/legals/{legal}/employees/{id}/statuses`
 

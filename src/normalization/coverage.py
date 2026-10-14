@@ -5,6 +5,8 @@ The converter runs with tracing on, then every saved 200 response is walked leaf
 - mapped: the converter read it into a canonical record (possibly another record, such as a
   deposit built from the employee response);
 - kept: not mapped, so it is kept, sanitized, in the record's provider_extensions;
+- lost: not mapped, and not kept either: the converter never collected the leftovers of the object it
+  sits in. This must never happen (A-62); the coverage command fails if it does;
 - dropped: deliberately not kept, for the reason given;
 - reference: a lookup table the converter reads by code rather than field by field;
 - unused: the converter doesn't read that response (crawl indexes, refused endpoints).
@@ -61,7 +63,7 @@ REFERENCE = {
         "rest/v2/companies/{company}/lookup/jobs",
     },
 }
-STATUSES = ("mapped", "kept", "dropped", "reference", "unused")
+STATUSES = ("mapped", "kept", "lost", "dropped", "reference", "unused")
 
 
 @dataclass
@@ -74,6 +76,11 @@ class Coverage:
     reasons: dict[tuple[str, str], str] = field(default_factory=dict)
     # Source paths a converter returned as leftovers and then read: mapped and kept twice. Should be empty.
     read_after_kept: list[str] = field(default_factory=list)
+
+    @property
+    def lost(self) -> list[tuple[str, str]]:
+        """(endpoint, field) read by no converter and kept by none either. Should be empty."""
+        return sorted(key for key, counts in self.fields.items() if counts["lost"])
 
     def label(self, key: tuple[str, str]) -> str:
         counts = self.fields[key]
@@ -93,12 +100,14 @@ def measure(bundle: Bundle, source: str) -> Coverage:
             by_data.setdefault(id(node), []).append((root, rel))
     result = Coverage(bundle.provider, source, sum(1 for c in bundle.captures if c.status == 200))
     result.read_after_kept = sorted(traced.read_after_kept())
+    # A tracked object's unread fields are kept only if a converter asked it for its leftovers.
+    collected = {id(used) for used, _ in traced.given}
     dropped = DROPPED.get(bundle.provider, [])
     for capture in bundle.captures:
         if capture.status != 200:
             continue
         reference = capture.endpoint in REFERENCE.get(bundle.provider, set())
-        for path, status in _walk(capture.body, "", by_data, []):
+        for path, status in _walk(capture.body, "", by_data, [], collected):
             folded = re.sub(r"\[\d+\]", "[]", path)
             reason = next((why for pattern, why in dropped if re.search(pattern, folded)), None)
             if reason:
@@ -123,22 +132,31 @@ def _objects(node: Any, rel: str):
             yield from _objects(value, f"{rel}[{i}]")
 
 
-def _walk(node: Any, path: str, by_data: dict[int, list[tuple[Src, str]]], active: list[tuple[Src, str]]):
-    """Yield (path, mapped|kept|unused) for every leaf; the innermost tracked object decides."""
+def _walk(
+    node: Any,
+    path: str,
+    by_data: dict[int, list[tuple[Src, str]]],
+    active: list[tuple[Src, str]],
+    collected: set[int],
+):
+    """Yield (path, mapped|kept|lost|unused) for every leaf; the innermost tracked object decides."""
     if isinstance(node, dict) and id(node) in by_data:
         active = list(by_data[id(node)])
     if isinstance(node, dict):
         for key, value in node.items():
             inner = [(root, f"{rel}.{key}" if rel else key) for root, rel in active]
-            yield from _walk(value, f"{path}.{key}" if path else key, by_data, inner)
+            yield from _walk(value, f"{path}.{key}" if path else key, by_data, inner, collected)
     elif isinstance(node, list):
         for i, value in enumerate(node):
-            yield from _walk(value, f"{path}[{i}]", by_data, [(r, f"{rel}[{i}]") for r, rel in active])
+            inner = [(r, f"{rel}[{i}]") for r, rel in active]
+            yield from _walk(value, f"{path}[{i}]", by_data, inner, collected)
     elif node not in (None, ""):
         if not active:
             yield path, "unused"
+        elif any(covered(root, rel) for root, rel in active):
+            yield path, "mapped"
         else:
-            yield path, "mapped" if any(covered(root, rel) for root, rel in active) else "kept"
+            yield path, "kept" if any(id(root.used) in collected for root, _ in active) else "lost"
 
 
 def render(results: list[Coverage]) -> str:
@@ -151,6 +169,7 @@ def render(results: list[Coverage]) -> str:
         "- **mapped**: read into a canonical record. Some are read into another record, such as a deposit built",
         "  from the employee response.",
         "- **kept**: not mapped, so it is kept, sanitized, in the record's `provider_extensions`.",
+        "- **lost**: neither mapped nor kept. This must never happen, and the command fails if it does.",
         "- **dropped**: deliberately not kept, for the reason given.",
         "- **reference**: a lookup table the converter reads by code, not field by field.",
         "- **unused**: a response the converter doesn't read, such as a crawl index.",
@@ -165,8 +184,8 @@ def render(results: list[Coverage]) -> str:
         "",
         "## Summary",
         "",
-        "| Provider | Endpoint | Fields | Mapped | Kept | Dropped | Reference | Unused |",
-        "|---|---|---:|---:|---:|---:|---:|---:|",
+        "| Provider | Endpoint | Fields | Mapped | Kept | Lost | Dropped | Reference | Unused |",
+        "|---|---|---:|---:|---:|---:|---:|---:|---:|",
     ]
     for r in results:
         for endpoint in sorted({e for e, _ in r.fields}):

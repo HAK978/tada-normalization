@@ -58,7 +58,7 @@ from normalization.canonical.types import (
 )
 from normalization.output import Output
 from normalization.sanitize import last4, sanitize_extensions
-from normalization.source import Notes, Src, coded, decimal, flag, iso_date, text, unmapped_label
+from normalization.source import Notes, Src, coded, decimal, flag, iso_date, known_flag, text, unmapped_label
 
 from ..common import (
     ZERO,
@@ -401,6 +401,7 @@ class _Legal:
 
     def _employee(self, s: Src, employee_id: str, checks: list[tuple[dict, bool]]) -> None:
         notes = Notes()
+        history_kept: dict[str, Any] = {}  # salary history fields that aren't mapped (A-62)
         s.get("id")
         # Identity documents and images are never kept (model §9); links are navigation.
         s.mark("i9Documents", "profilePicture", "attachments", "links", "directDeposits")
@@ -488,11 +489,16 @@ class _Legal:
                 )
             pay_type = Coded[C.PayType](value=value, raw=pay_type_text, label=pay_type_text, source_field="payType")
 
+        # isolved sends 0 for a rate that doesn't apply (A-73): only a nonzero rate is read and mapped, so a
+        # 0 stays as sent in provider_extensions.
         rates = []
         for field, per in (("hourlyRate", C.RatePeriod.HOUR), ("perPaySalary", C.RatePeriod.PAY_PERIOD)):
-            amount = decimal(s.get(field))
+            amount = decimal(s.data.get(field))
             if amount is not None and amount != ZERO:
+                s.get(field)
                 rates.append(Rate(amount=amount, per=per, source_field=field))
+        if not rates:
+            notes.info("NO_PAY_RATE", "hourlyRate", "no nonzero hourly rate or per-pay salary; isolved's 0 means none")
         normal_hours = decimal(s.get("normalHours"))
         override = s.child("overrideAddress") or Src({})
         addresses = [
@@ -626,7 +632,7 @@ class _Legal:
                 else None,
                 standard_hours_per="PAY_PERIOD" if normal_hours is not None else None,
                 effective_date=iso_date(s.get("salaryEffectiveDate"), "salaryEffectiveDate", notes),
-                history=self._salary_history(employee_id, notes),
+                history=self._salary_history(employee_id, notes, history_kept),
             ),
             diagnostics=notes.items,
         )
@@ -639,7 +645,8 @@ class _Legal:
                 item = Src(row, f"payItems[{i}]")
                 item.mark("firstName", "lastName", "employeeId", "employeeNumber")
                 extensions.update(without_links(sanitize_extensions(item.leftovers())))
-        # Status history and alternate pay rates have no canonical field of their own; they are kept too.
+        # Status history, salary history fields not mapped and alternate pay rates are kept too.
+        extensions.update(history_kept)
         for history_row in statuses:
             extensions.update(without_links(sanitize_extensions(history_row.leftovers())))
         for i, row in enumerate(self._body_list(E + "/payRates", employee=employee_id)):
@@ -647,16 +654,17 @@ class _Legal:
         employee.provider_extensions = extensions
         self.out.add("employees", employee)
 
-    def _salary_history(self, employee_id: str, notes: Notes) -> list[CompensationChange]:
+    def _salary_history(self, employee_id: str, notes: Notes, kept: dict[str, Any]) -> list[CompensationChange]:
+        """Each salary row as a change; whatever a row has that isn't mapped is added to `kept` (A-62)."""
         changes = []
         for i, row in enumerate(self._body_list(E + "/salaries", employee=employee_id)):
             h = Src(row, f"salaries[{i}]")
             pay_type = text((h.child("payType") or Src({})).get("description"))
-            rates = [
-                Rate(amount=a, per=per, source_field=f"{h.path}.{f}")
-                for f, per in (("hourlyRate", C.RatePeriod.HOUR), ("perPaySalary", C.RatePeriod.PAY_PERIOD))
-                if (a := decimal(h.get(f))) is not None and a != ZERO
-            ]
+            rates = []
+            for f, per in (("hourlyRate", C.RatePeriod.HOUR), ("perPaySalary", C.RatePeriod.PAY_PERIOD)):
+                if (a := decimal(h.data.get(f))) is not None and a != ZERO:  # a 0 means none (A-73) and stays raw
+                    h.get(f)
+                    rates.append(Rate(amount=a, per=per, source_field=f"{h.path}.{f}"))
             hours = decimal(h.get("normalHours"))
             changes.append(
                 CompensationChange(
@@ -679,6 +687,7 @@ class _Legal:
                     reason=text((h.child("changeReason") or Src({})).get("description")),
                 )
             )
+            kept.update(without_links(sanitize_extensions(h.leftovers())))
         return changes
 
     # -------------------------------------------------------------- direct deposits
@@ -853,7 +862,16 @@ class _Legal:
             s = Src(row)
             garnishment_id = text(s.get("id")) or ""
             kind = s.child("garnishmentType") or Src({})
-            amount, percent = decimal(s.get("amount")), decimal(s.get("percent"))
+            # A garnishment is an amount or a percent; a 0 is "not this one" and stays as sent (A-73). With
+            # neither, how it is calculated is unknown, not a fixed amount.
+            amount, percent = (
+                v if (v := decimal(s.data.get(k))) not in (None, ZERO) else None for k in ("amount", "percent")
+            )
+            for key, value in (("amount", amount), ("percent", percent)):
+                if value is not None:
+                    s.get(key)
+            if amount is None and percent is None:
+                notes.warn("AMOUNT_MISSING", "amount/percent", "neither an amount nor a percent was sent")
             basis_raw = text(s.get("percentageOf"))
             basis = {
                 "Gross Pay": C.CalculationBasis.GROSS_PAY,
@@ -864,14 +882,16 @@ class _Legal:
             calculation = Calculation(
                 method=Coded[C.CalculationMethod](
                     value=C.CalculationMethod.PERCENT
-                    if percent not in (None, ZERO)
-                    else C.CalculationMethod.FIXED_AMOUNT,
+                    if percent is not None
+                    else C.CalculationMethod.FIXED_AMOUNT
+                    if amount is not None
+                    else C.CalculationMethod.UNMAPPED,
                     source_field="amount/percent",
                 ),
                 basis=basis,
-                amount=Money(amount=amount) if amount not in (None, ZERO) else None,
+                amount=Money(amount=amount) if amount is not None else None,
                 percent=Percent(percent=None, basis=basis, scale=C.PercentScale.UNVERIFIED, raw=str(percent))
-                if percent not in (None, ZERO)
+                if percent is not None
                 else None,
             )
             type_label = text(kind.get("typeDescription"))
@@ -1021,7 +1041,9 @@ class _Legal:
 
         earnings = []
         for line in self._lines(s, "earnings"):
-            memo = bool(flag(line.get("isMemoEarning")))
+            memo = known_flag(
+                line.get("isMemoEarning"), "earnings[].isMemoEarning", notes, "whether the line counts in gross wages"
+            )
             # One quantity per line: hours if set, else units. Only the one used is read, so the other
             # (when both are set) stays in provider_extensions.
             hours, units = decimal(line.data.get("checkHours")), decimal(line.data.get("checkUnits"))
@@ -1033,15 +1055,15 @@ class _Legal:
                 line.get("checkUnits")
                 quantity = Quantity(value=units, unit=C.QuantityUnit.UNITS, source_field="earnings[].checkUnits")
             title = text(line.get("itemDescription"))
-            kind = self._earning_kind(title, memo, notes)
+            kind = self._earning_kind(title, bool(memo), notes)
             earnings.append(
                 EarningLine(
                     code=text(line.get("itemCode")),
                     label=title,
                     kind=kind,
                     category=self._earning_category(title, kind, notes),
-                    # grossWages is the sum of the non-memo lines (A-28)
-                    in_gross=not memo,
+                    # grossWages is the sum of the non-memo lines (A-28); unknown when the flag is (A-73)
+                    in_gross=None if memo is None else not memo,
                     quantity=quantity,
                     amount=line_amount(line.get("checkDollars"), "earnings[].checkDollars", notes),
                     source_field="earnings[]",
@@ -1051,13 +1073,18 @@ class _Legal:
         for t in self._lines(s, "taxes"):
             description = text(t.get("itemDescription"))
             tax, state = self._tax_type(description, notes)
+            employee_tax = known_flag(t.get("isEmployeeTax"), "taxes[].isEmployeeTax", notes, "who paid the tax")
             taxes.append(
                 TaxLine(
                     code=text(t.get("itemCode")),
                     label=description,
                     type=tax,
                     state=state,
-                    paid_by=C.TaxPaidBy.EMPLOYEE if flag(t.get("isEmployeeTax")) else C.TaxPaidBy.EMPLOYER,
+                    paid_by=C.TaxPaidBy.UNMAPPED
+                    if employee_tax is None
+                    else C.TaxPaidBy.EMPLOYEE
+                    if employee_tax
+                    else C.TaxPaidBy.EMPLOYER,
                     amount=line_amount(t.get("checkDollars"), "taxes[].checkDollars", notes),
                     taxable_wages=money(t.get("checkTaxableWages")),
                     source_field="taxes[]",
@@ -1091,8 +1118,16 @@ class _Legal:
             )
         contributions, benefits = [], []
         for b in s.children("benefits"):
+            employer, employee, catch_up = (
+                decimal(b.data.get(k))
+                for k in ("checkEmployerContribution", "checkEmployeeDeduction", "checkEmployeeCatchUp")
+            )
+            if all(v in (None, ZERO) for v in (employer, employee, catch_up)):
+                continue  # nothing on this check: the line stays as sent in provider_extensions (A-73)
             title = text(b.get("benefitTitle"))
-            employer = decimal(b.get("checkEmployerContribution"))
+            for key, value in (("checkEmployerContribution", employer), ("checkEmployeeDeduction", employee)):
+                if value is not None:
+                    b.get(key)
             if employer not in (None, ZERO):
                 contributions.append(
                     ContributionLine(
@@ -1102,18 +1137,17 @@ class _Legal:
                         source_field="benefits[]",
                     )
                 )
-            employee = decimal(b.get("checkEmployeeDeduction"))
-            catch_up = decimal(b.get("checkEmployeeCatchUp"))
-            if any(v not in (None, ZERO) for v in (employer, employee, catch_up)):
-                benefits.append(
-                    BenefitDetail(
-                        plan=title,
-                        employee_deduction=Money(amount=employee) if employee is not None else None,
-                        employee_contribution=Money(amount=catch_up) if catch_up not in (None, ZERO) else None,
-                        employer_contribution=Money(amount=employer) if employer is not None else None,
-                        source_field="benefits[]",
-                    )
+            if catch_up not in (None, ZERO):  # a 0 catch-up is none, and stays as sent (A-73)
+                b.get("checkEmployeeCatchUp")
+            benefits.append(
+                BenefitDetail(
+                    plan=title,
+                    employee_deduction=Money(amount=employee) if employee is not None else None,
+                    employee_contribution=Money(amount=catch_up) if catch_up not in (None, ZERO) else None,
+                    employer_contribution=Money(amount=employer) if employer is not None else None,
+                    source_field="benefits[]",
                 )
+            )
         payments = []
         for d in s.children("directDeposits"):
             account = text(d.get("account"))
@@ -1137,8 +1171,9 @@ class _Legal:
                     source_field="directDepositAmount",
                 )
             )
-        check_amount = decimal(s.get("checkAmount"))
-        if check_amount not in (None, ZERO):
+        check_amount = decimal(s.data.get("checkAmount"))
+        if check_amount not in (None, ZERO):  # a 0 is no paper check, and stays as sent (A-73)
+            s.get("checkAmount")
             payments.append(
                 PaymentLine(
                     kind=Coded[C.PaymentKind](value=C.PaymentKind.CHECK, source_field="checkAmount"),

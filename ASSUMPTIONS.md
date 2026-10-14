@@ -749,6 +749,7 @@ entries below are new.
 ## Field coverage (2026-10-13)
 
 ### A-62 Every source field is mapped, kept or dropped for a stated reason
+*Refined by A-73: the report now checks that every unread field was actually kept, not just unread.*
 - **Method:** `python -m normalization coverage` runs the converters with tracing on and walks every
   saved response leaf by leaf ([docs/FIELD_COVERAGE.md](docs/FIELD_COVERAGE.md), generated from the
   live fetches). Each field is labeled:
@@ -1142,4 +1143,52 @@ data.
   `AMOUNT_MISSING` warning saying the 0 wasn't sent.
 - **Why:** a property that holds over thousands of generated inputs is evidence the code isn't fitted
   to its examples; a failing one names a minimal counterexample.
+
+### A-73 Missing is never read as zero, no or none
+- **Issue:** A-70 found an unavailable request passing for an empty answer. A systematic sweep then
+  looked for the same family everywhere: places where "the provider didn't say" can't be told apart
+  from "zero", "no" or "none".
+  - For each of the 253 numbers and yes/no values in the synthetic scenarios, it normalizes once with
+    the value deleted and once with it set to 0 or false. If the outputs are identical, the two
+    readings have merged. 73 values merged.
+  - Separately, the coverage report (A-62) assumed every field a converter didn't read was kept,
+    without checking.
+- **Found and fixed:**
+  - **Three flags that decide meaning were defaulted when missing:**
+    - isolved `isEmployeeTax` made the tax the employer's;
+    - isolved `isMemoEarning` counted the line in gross;
+    - PrismHR `usePercent` read the amount as dollars.
+
+    Now a missing flag gets a `FLAG_MISSING` warning and the value stays unknown: `paid_by` is
+    `UNMAPPED`, `in_gross` is null, and the amount stays as sent in `provider_extensions`. Live data
+    sends all three on every line, so no live output changes.
+  - **Two history readers dropped what they didn't map,** while the coverage report called those
+    fields kept:
+    - isolved salary history: frequency, pay group, the inactive flag, the life event;
+    - PrismHR pay rate history: change amount, change percent, percent of midpoint.
+
+    Both now keep them. The report checks it too: a field neither mapped nor collected is now "lost",
+    and the coverage command fails on it.
+  - **Where a 0 means "none", the 0 now stays as sent in `provider_extensions` instead of being used
+    up:** isolved rates, paper check amounts, hours worked, retirement catch-up, a garnishment's
+    amount or percent, and benefit lines with nothing on the check. Zero stays distinguishable from
+    missing.
+    - Live, isolved sends a 0 rate for 6 of 45 employees. Four have no nonzero rate at all (two
+      contractors, one hourly and one salaried employee) and now get a `NO_PAY_RATE` note.
+  - A garnishment with neither an amount nor a percent was read as a fixed amount. Its method is now
+    `UNMAPPED`, with `AMOUNT_MISSING`.
+  - A check that an unknown value blocks is reported as not applicable, with the reason, instead of
+    being left out.
+- **What stays merged:** the other 57 are each reviewed in `tests/test_missing_vs_zero.py`, with a
+  reason:
+  - IDs, where 0 is never a real one;
+  - paging metadata;
+  - code-table rows;
+  - list rows that their fetched detail replaces;
+  - a second source repeating the first.
+
+  A new merge fails that test until someone keeps the two apart or writes the reason down. A reason
+  that no longer applies fails it too.
+- **Why:** this asks the A-70 question of every field instead of one endpoint. The sweep only sees
+  code paths the scenarios exercise, so list-only rows have their own test.
 

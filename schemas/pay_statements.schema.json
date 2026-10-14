@@ -1390,7 +1390,8 @@
   "TaxPaidBy": {
    "enum": [
     "EMPLOYEE",
-    "EMPLOYER"
+    "EMPLOYER",
+    "UNMAPPED"
    ],
    "title": "TaxPaidBy",
    "type": "string"

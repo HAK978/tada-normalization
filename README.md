@@ -21,7 +21,7 @@ Python 3.11 or newer.
 python3 -m venv .venv && source .venv/bin/activate
 pip install -e ".[dev]"
 python -m normalization demo    # normalize every provider's synthetic scenario
-pytest                          # 190 tests, offline
+pytest                          # 202 tests, offline
 mypy                            # static type check: no issues
 ```
 
@@ -249,7 +249,7 @@ counted live evidence.
 
 ## Testing
 
-`pytest` runs 190 offline tests (plus parametrized subtests). Nothing needs credentials or network.
+`pytest` runs 202 offline tests (plus parametrized subtests). Nothing needs credentials or network.
 
 - **Synthetic scenarios** (`fixtures/<provider>/brightside`) come from a seeded generator, and every
   response is validated against the provider's own published schema. They are full of real-world
@@ -258,10 +258,14 @@ counted live evidence.
   "sequence 0 is the remainder account" or "the fringe is in gross wages but not gross pay".
 - **Determinism:** `scripts/generate_fixtures.py --check` regenerates everything and compares it byte
   for byte.
-- **Coverage and schema tests** check three things:
+- **Coverage and schema tests** check four things:
   - no field is both mapped and kept;
+  - no field is lost, neither mapped nor kept (A-73);
   - only crawl indexes and unneeded lookups go unread;
   - every golden record matches the exported JSON Schema.
+- **Missing is never zero** (`tests/test_missing_vs_zero.py`, A-73): every number and yes/no in the
+  scenarios is deleted in one run and set to 0 or false in another, and the two outputs must differ.
+  Each place where they may agree has a written reason; a new one fails the test.
 - **Live client tests** reproduce scope, redirect and scrubbing attacks against a fake HTTP client.
 - **Property tests** (`tests/test_properties.py`, Hypothesis) check rules that must hold for any
   input, not just the fixtures' (A-72):

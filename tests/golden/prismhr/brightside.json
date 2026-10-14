@@ -277,7 +277,11 @@
      "compensation.fedFilingStatus": "SS",
      "compensation.stateTax[0].stateCode": "NC",
      "compensation.stateTax[0].filingStatus": "S",
-     "compensation.stateTax[0].primaryAllowance": "0"
+     "compensation.stateTax[0].primaryAllowance": "0",
+     "payRateHistory.payRate[0].changePercent": "0.00",
+     "payRateHistory.payRate[0].changeAmount": "0.00",
+     "payRateHistory.payRate[1].changePercent": "0.00",
+     "payRateHistory.payRate[1].changeAmount": "0.00"
     },
     "diagnostics": [
      {
@@ -594,7 +598,9 @@
      "compensation.fedFilingStatus": "SS",
      "compensation.stateTax[0].stateCode": "NC",
      "compensation.stateTax[0].filingStatus": "S",
-     "compensation.stateTax[0].primaryAllowance": "0"
+     "compensation.stateTax[0].primaryAllowance": "0",
+     "payRateHistory.payRate[0].changePercent": "0.00",
+     "payRateHistory.payRate[0].changeAmount": "0.00"
     },
     "diagnostics": [
      {
@@ -860,7 +866,9 @@
      "compensation.fedFilingStatus": "SS",
      "compensation.stateTax[0].stateCode": "NC",
      "compensation.stateTax[0].filingStatus": "S",
-     "compensation.stateTax[0].primaryAllowance": "0"
+     "compensation.stateTax[0].primaryAllowance": "0",
+     "payRateHistory.payRate[0].changePercent": "0.00",
+     "payRateHistory.payRate[0].changeAmount": "0.00"
     },
     "diagnostics": [
      {
@@ -1135,7 +1143,9 @@
      "compensation.fedFilingStatus": "SS",
      "compensation.stateTax[0].stateCode": "NC",
      "compensation.stateTax[0].filingStatus": "S",
-     "compensation.stateTax[0].primaryAllowance": "0"
+     "compensation.stateTax[0].primaryAllowance": "0",
+     "payRateHistory.payRate[0].changePercent": "0.00",
+     "payRateHistory.payRate[0].changeAmount": "0.00"
     },
     "diagnostics": [
      {
@@ -1408,7 +1418,9 @@
      "compensation.fedFilingStatus": "SS",
      "compensation.stateTax[0].stateCode": "NC",
      "compensation.stateTax[0].filingStatus": "S",
-     "compensation.stateTax[0].primaryAllowance": "0"
+     "compensation.stateTax[0].primaryAllowance": "0",
+     "payRateHistory.payRate[0].changePercent": "0.00",
+     "payRateHistory.payRate[0].changeAmount": "0.00"
     },
     "diagnostics": [
      {
@@ -1674,7 +1686,9 @@
      "compensation.fedFilingStatus": "SS",
      "compensation.stateTax[0].stateCode": "NC",
      "compensation.stateTax[0].filingStatus": "S",
-     "compensation.stateTax[0].primaryAllowance": "0"
+     "compensation.stateTax[0].primaryAllowance": "0",
+     "payRateHistory.payRate[0].changePercent": "0.00",
+     "payRateHistory.payRate[0].changeAmount": "0.00"
     },
     "diagnostics": [
      {
@@ -3196,6 +3210,7 @@
      "companyTax[3].comTaxRate": "0.027",
      "deduction[0].planId": "401K",
      "bankAccount": "OPER",
+     "checkAmt": "0.0",
      "payStubType": "Electronic",
      "checkAccountACH": "ACH1",
      "retirement.planYearPeriod": "2026",
@@ -3729,8 +3744,10 @@
      "earning[1].chargeDate": "2026-09-27",
      "earning[2].payClassDescription": "Earnings",
      "earning[2].chargeDate": "2026-09-27",
+     "earning[2].hoursWorked": "0.0",
      "earning[3].payClassDescription": "Earnings",
      "earning[3].chargeDate": "2026-09-27",
+     "earning[3].hoursWorked": "0.0",
      "companyTax[0].comTaxEntity": "P",
      "companyTax[0].comExemptAmount": "0.0",
      "companyTax[0].comShelteredAmount": "0.0",
@@ -3757,6 +3774,7 @@
      "companyTax[3].comTaxRate": "0.027",
      "otherDeduction[0].otherDeductOneTimeSwitch": "Y",
      "bankAccount": "OPER",
+     "checkAmt": "0.0",
      "payStubType": "Electronic",
      "checkAccountACH": "ACH1",
      "isManualCheck": false,
@@ -4391,6 +4409,7 @@
      "companyTax[3].comOvrLimit": "0.0",
      "companyTax[3].comTaxRate": "0.027",
      "bankAccount": "OPER",
+     "checkAmt": "0.0",
      "payStubType": "Electronic",
      "checkAccountACH": "ACH1",
      "isManualCheck": false,
@@ -5160,6 +5179,7 @@
      "companyTax[3].comTaxRate": "0.027",
      "deduction[0].planId": "401K",
      "bankAccount": "OPER",
+     "checkAmt": "0.0",
      "payStubType": "Electronic",
      "checkAccountACH": "ACH1",
      "retirement.planYearPeriod": "2026",
@@ -5606,6 +5626,7 @@
      "wcState": "NC",
      "earning[0].payClassDescription": "Earnings",
      "earning[0].chargeDate": "2026-09-27",
+     "earning[0].hoursWorked": "0.0",
      "companyTax[0].comTaxEntity": "P",
      "companyTax[0].comExemptAmount": "0.0",
      "companyTax[0].comShelteredAmount": "0.0",
@@ -5631,6 +5652,7 @@
      "companyTax[3].comOvrLimit": "0.0",
      "companyTax[3].comTaxRate": "0.027",
      "bankAccount": "OPER",
+     "checkAmt": "0.0",
      "payStubType": "Electronic",
      "checkAccountACH": "ACH1",
      "isManualCheck": false,
@@ -6058,6 +6080,7 @@
      "companyTax[3].comOvrLimit": "0.0",
      "companyTax[3].comTaxRate": "0.027",
      "bankAccount": "OPER",
+     "checkAmt": "0.0",
      "payStubType": "Electronic",
      "checkAccountACH": "ACH1",
      "isManualCheck": false,

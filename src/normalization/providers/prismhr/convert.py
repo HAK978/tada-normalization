@@ -62,7 +62,7 @@ from normalization.canonical.types import (
 )
 from normalization.output import Output
 from normalization.sanitize import last4, sanitize_extensions
-from normalization.source import Notes, Src, coded, decimal, flag, iso_date, text, unmapped_label
+from normalization.source import Notes, Src, coded, decimal, flag, iso_date, known_flag, text, unmapped_label
 
 from ..common import (
     ZERO,
@@ -593,7 +593,8 @@ class _Client:
             pay_group=text(comp.get("payGroup")),
         )
 
-        compensation = self._compensation(comp, employee_id, notes)
+        history_kept: dict[str, Any] = {}  # pay rate history fields that aren't mapped (A-62)
+        compensation = self._compensation(comp, employee_id, notes, history_kept)
         self.out.add(
             "employees",
             Employee(
@@ -627,13 +628,15 @@ class _Client:
                 employment=employment,
                 job=job,
                 compensation=compensation,
-                provider_extensions=sanitize_extensions({**s.leftovers(), **self._benefit_plans(employee_id)}),
+                provider_extensions=sanitize_extensions(
+                    {**s.leftovers(), **history_kept, **self._benefit_plans(employee_id)}
+                ),
                 diagnostics=notes.items,
             ),
         )
         self._deposits(s, employee_id)
 
-    def _compensation(self, comp: Src, employee_id: str, notes: Notes) -> Compensation:
+    def _compensation(self, comp: Src, employee_id: str, notes: Notes, kept: dict[str, Any]) -> Compensation:
         pay_method = text(comp.get("payMethod"))
         rates: list[Rate] = []
         salary = decimal(comp.get("salary"))
@@ -679,10 +682,11 @@ class _Client:
             else None,
             standard_hours_per="PAY_PERIOD" if standard is not None else None,
             effective_date=iso_date(comp.get("effectiveDate"), "compensation.effectiveDate", notes),
-            history=self._pay_history(employee_id, notes),
+            history=self._pay_history(employee_id, notes, kept),
         )
 
-    def _pay_history(self, employee_id: str, notes: Notes) -> list[CompensationChange]:
+    def _pay_history(self, employee_id: str, notes: Notes, kept: dict[str, Any]) -> list[CompensationChange]:
+        """Each pay rate change; whatever a row has that isn't mapped is added to `kept` (A-62)."""
         changes = []
         for capture in self.bundle.ok("employee/v1/getPayRateHistory", clientId=self.client_id, employeeId=employee_id):
             for i, row in enumerate(((capture.body.get("payRateHistory") or {}).get("payRate")) or []):
@@ -727,6 +731,7 @@ class _Client:
                         reason=text(h.get("reason")),
                     )
                 )
+                kept.update(h.leftovers())
         return changes
 
     # -------------------------------------------------------------- direct deposits
@@ -928,7 +933,7 @@ class _Client:
         )
         basis = mapped[1] if mapped else C.CalculationBasis.UNSPECIFIED
         calc = Calculation(method=method, basis=basis, rounding=mapped[2] if mapped else None)
-        if value is None:
+        if value is None or use_percent is None:
             return calc
         if use_percent:
             # usePercent amounts of 3.0 and 12.0 live can only be points: a fraction scale would mean 300% (A-29).
@@ -943,9 +948,17 @@ class _Client:
         notes = Notes()
         code = text(s.get("deductionCode")) or ""
         category, treatment, catch_up = self._category(s.get("deductionType"), f"{s.path}.deductionType", notes)
-        amount = decimal(s.get("amount"))
+        # Whether the amount is dollars or a percent decides what it means. Without the flag it is left raw
+        # in provider_extensions instead of guessed (A-73).
+        amount, use_percent = decimal(s.data.get("amount")), None
+        if amount is not None:
+            use_percent = known_flag(
+                s.get("usePercent"), f"{s.path}.usePercent", notes, "whether the amount is dollars or a percent"
+            )
+            if use_percent is not None:
+                s.get("amount")
         calculation = self._calculation(
-            s.get("deductionMethod"), f"{s.path}.deductionMethod", amount, flag(s.get("usePercent")), notes
+            s.get("deductionMethod"), f"{s.path}.deductionMethod", amount, use_percent, notes
         )
         match_method = text(s.get("matchMethod"))
         match = None
@@ -1266,7 +1279,9 @@ class _Client:
                 )
                 if (v := text(line.get(k)))
             }
-            worked = decimal(line.get("hoursWorked"))
+            worked = decimal(line.data.get("hoursWorked"))
+            if worked not in (None, ZERO):  # 0 hours worked is reported as none; the 0 stays as sent (A-73)
+                line.get("hoursWorked")
             kind = self._pay_class(code, line.get("payClass"), "earning[].payClass", notes)
             earnings.append(
                 EarningLine(
@@ -1422,8 +1437,9 @@ class _Client:
                     source_field="directDeposit[]",
                 )
             )
-        check_amount = decimal(s.get("checkAmt"))
-        if check_amount is not None and check_amount != ZERO:
+        check_amount = decimal(s.data.get("checkAmt"))
+        if check_amount is not None and check_amount != ZERO:  # a 0 is no paper check, and stays as sent (A-73)
+            s.get("checkAmt")
             payments.append(
                 PaymentLine(
                     kind=Coded[C.PaymentKind](value=C.PaymentKind.CHECK, source_field="checkAmt"),

@@ -137,7 +137,11 @@ def test_the_gross_comparison_needs_every_line_classified():
         totals=PayStatementTotals(gross_wages=Money(amount=Decimal("103")), gross_pay=Money(amount=Decimal("100"))),
         earnings=[line(C.EarningKind.EARNINGS, "100"), line(C.EarningKind.UNMAPPED, "3")],
     )
-    assert [c.rule for c in reconcile(statement)] == ["gross wages = sum of earning lines counted in gross"]
+    # The comparison with gross pay can't stand on an unknown kind: reported as not applicable, not left out (A-73).
+    assert [(c.rule, c.result.value) for c in reconcile(statement)] == [
+        ("gross wages = sum of earning lines counted in gross", "pass"),
+        ("gross wages - non-cash earnings = gross pay", "not_applicable"),
+    ]
 
 
 def test_a_string_that_looks_like_the_number_marker_stays_a_string():

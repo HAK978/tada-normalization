@@ -362,6 +362,7 @@ CATEGORIZED_EARNING_KINDS = frozenset({EarningKind.EARNINGS, EarningKind.UNMAPPE
 class TaxPaidBy(StrEnum):
     EMPLOYEE = "EMPLOYEE"
     EMPLOYER = "EMPLOYER"
+    UNMAPPED = "UNMAPPED"  # the provider didn't say who paid (A-73)
 
 
 class TaxType(StrEnum):

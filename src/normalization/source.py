@@ -160,6 +160,15 @@ def flag(value: Any) -> bool | None:
     return lookup.get(str(value).strip().lower()) if value not in _EMPTY else None
 
 
+def known_flag(value: Any, field: str, notes: Notes, unknown: str) -> bool | None:
+    """A yes/no that decides what a line means. Missing, or not a yes/no, stays unknown with a FLAG_MISSING
+    warning naming what is therefore unknown; it is never read as "no" (A-73)."""
+    result = flag(value)
+    if result is None:
+        notes.warn("FLAG_MISSING", field, f"missing or not a yes/no, so {unknown} is unknown", raw_scalar(value))
+    return result
+
+
 _DATE = re.compile(r"^(\d{4})-(\d{2})-(\d{2})(?:[T ](\d{2}):(\d{2}):(\d{2})(?:\.\d+)?)?(Z|[+-]\d{2}:?\d{2})?$")
 
 

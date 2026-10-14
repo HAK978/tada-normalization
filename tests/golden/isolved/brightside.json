@@ -13,7 +13,8 @@
    "warning": 1
   },
   "checks": {
-   "pass": 24
+   "pass": 24,
+   "not_applicable": 1
   },
   "requests": {
    "total": 58,
@@ -157,6 +158,13 @@
      "payItems[2].startDate": "2025-01-01T00:00:00",
      "payItems[2].calcParams[0].paramType": "Amount",
      "payItems[2].calcParams[0].paramValue": "0.0",
+     "salaries[0].isInactive": false,
+     "salaries[0].frequency.id": 26,
+     "salaries[0].frequency.description": "Bi-Weekly",
+     "salaries[0].payType.id": "2",
+     "salaries[0].payGroup.id": 701,
+     "salaries[0].payGroup.description": "Biweekly",
+     "salaries[0].changeReason.id": 1,
      "statuses[0].statusId": -1,
      "statuses[0].clientEmploymentStatusId": -1,
      "statuses[0].effectiveDate": "2021-03-15T00:00:00",
@@ -381,6 +389,7 @@
      }
     },
     "provider_extensions": {
+     "perPaySalary": "0.0",
      "assignedManager.employeeName": "Maria",
      "taxes.federal.filingStatus": "Single",
      "taxes.federal.primaryExemptions": 0,
@@ -391,6 +400,14 @@
      "payItems[2].startDate": "2025-01-01T00:00:00",
      "payItems[2].calcParams[0].paramType": "Amount",
      "payItems[2].calcParams[0].paramValue": "0.0",
+     "salaries[0].perPaySalary": "0.0",
+     "salaries[0].isInactive": false,
+     "salaries[0].frequency.id": 52,
+     "salaries[0].frequency.description": "Weekly",
+     "salaries[0].payType.id": "1",
+     "salaries[0].payGroup.id": 702,
+     "salaries[0].payGroup.description": "Weekly",
+     "salaries[0].changeReason.id": 1,
      "statuses[0].statusId": -1,
      "statuses[0].clientEmploymentStatusId": -1,
      "statuses[0].effectiveDate": "2023-06-01T00:00:00",
@@ -597,6 +614,7 @@
     },
     "provider_extensions": {
      "terminationType": "Voluntary Termination",
+     "perPaySalary": "0.0",
      "assignedManager.employeeName": "Maria",
      "taxes.federal.filingStatus": "Single",
      "taxes.federal.primaryExemptions": 0,
@@ -607,6 +625,14 @@
      "payItems[0].startDate": "2025-01-01T00:00:00",
      "payItems[0].calcParams[0].paramType": "Amount",
      "payItems[0].calcParams[0].paramValue": "0.0",
+     "salaries[0].perPaySalary": "0.0",
+     "salaries[0].isInactive": false,
+     "salaries[0].frequency.id": 26,
+     "salaries[0].frequency.description": "Bi-Weekly",
+     "salaries[0].payType.id": "1",
+     "salaries[0].payGroup.id": 701,
+     "salaries[0].payGroup.description": "Biweekly",
+     "salaries[0].changeReason.id": 1,
      "statuses[0].statusId": -1,
      "statuses[0].clientEmploymentStatusId": -1,
      "statuses[0].effectiveDate": "2026-09-30T00:00:00",
@@ -829,6 +855,13 @@
      "payItems[0].startDate": "2025-01-01T00:00:00",
      "payItems[0].calcParams[0].paramType": "Amount",
      "payItems[0].calcParams[0].paramValue": "0.0",
+     "salaries[0].isInactive": false,
+     "salaries[0].frequency.id": 26,
+     "salaries[0].frequency.description": "Bi-Weekly",
+     "salaries[0].payType.id": "2",
+     "salaries[0].payGroup.id": 701,
+     "salaries[0].payGroup.description": "Biweekly",
+     "salaries[0].changeReason.id": 1,
      "statuses[0].statusId": 55,
      "statuses[0].clientEmploymentStatusId": 55,
      "statuses[0].clientEmploymentStatusDescription": "Leave - FMLA",
@@ -1051,6 +1084,7 @@
      }
     },
     "provider_extensions": {
+     "perPaySalary": "0.0",
      "assignedManager.employeeName": "Maria",
      "payItems[0].id": -1,
      "payItems[0].payItemId": -1,
@@ -1059,6 +1093,14 @@
      "payItems[0].startDate": "2025-01-01T00:00:00",
      "payItems[0].calcParams[0].paramType": "Amount",
      "payItems[0].calcParams[0].paramValue": "0.0",
+     "salaries[0].perPaySalary": "0.0",
+     "salaries[0].isInactive": false,
+     "salaries[0].frequency.id": 52,
+     "salaries[0].frequency.description": "Weekly",
+     "salaries[0].payType.id": "1",
+     "salaries[0].payGroup.id": 702,
+     "salaries[0].payGroup.description": "Weekly",
+     "salaries[0].changeReason.id": 1,
      "statuses[0].statusId": -1,
      "statuses[0].clientEmploymentStatusId": -1,
      "statuses[0].effectiveDate": "2026-05-01T00:00:00",
@@ -2147,6 +2189,7 @@
      "employeeName": "Ana Price",
      "employeeSSN": "***6786",
      "legalCompanyName": "Brightside Bakery LLC",
+     "checkAmount": "0.0",
      "directDepositAmount": "1175.25",
      "earnings[0].currentDollars": "1500.0",
      "earnings[0].ptdDollars": "1500.0",
@@ -2535,6 +2578,7 @@
      "employeeName": "Maria Chen",
      "employeeSSN": "***6788",
      "legalCompanyName": "Brightside Bakery LLC",
+     "checkAmount": "0.0",
      "directDepositAmount": "1469.59",
      "earnings[0].currentDollars": "1800.0",
      "earnings[0].ptdDollars": "1800.0",
@@ -2625,7 +2669,8 @@
      "deductions[1].mtdDollars": "12.5",
      "deductions[1].qtdDollars": "62.5",
      "deductions[1].ytdDollars": "250.0",
-     "deductions[1].ftdDollars": "250.0"
+     "deductions[1].ftdDollars": "250.0",
+     "benefits[0].checkEmployeeCatchUp": "0.0"
     },
     "diagnostics": [],
     "company_id": "isolved:synthetic:company:501:601",
@@ -3105,6 +3150,7 @@
      "employeeName": "James Nair",
      "employeeSSN": "***6787",
      "legalCompanyName": "Brightside Bakery LLC",
+     "checkAmount": "0.0",
      "directDepositAmount": "378.85",
      "earnings[0].currentDollars": "450.0",
      "earnings[0].ptdDollars": "450.0",
@@ -3616,6 +3662,7 @@
      "employeeName": "Ana Price",
      "employeeSSN": "***6786",
      "legalCompanyName": "Brightside Bakery LLC",
+     "checkAmount": "0.0",
      "directDepositAmount": "1504.32",
      "earnings[0].currentDollars": "1920.0",
      "earnings[0].ptdDollars": "1920.0",
@@ -4133,6 +4180,11 @@
       "detail": "1200.0 vs 1200.0"
      },
      {
+      "rule": "gross wages - non-cash earnings = gross pay",
+      "result": "not_applicable",
+      "detail": "a line's kind, or whether it counts in gross, is unknown"
+     },
+     {
       "rule": "gross pay - employee taxes - deductions = net",
       "result": "pass",
       "detail": "1200.0 - 0 - 0 = 1200.0; net 1200.0"
@@ -4167,6 +4219,7 @@
      "employeeName": "Maria Chen",
      "employeeSSN": "***6788",
      "legalCompanyName": "Brightside Bakery LLC",
+     "checkAmount": "0.0",
      "directDepositAmount": "370.25",
      "earnings[0].currentDollars": "500.0",
      "earnings[0].ptdDollars": "500.0",
@@ -4595,7 +4648,8 @@
      "employeeNumber": "1002",
      "employeeName": "James Nair",
      "employeeSSN": "***6787",
-     "legalCompanyName": "Brightside Bakery LLC"
+     "legalCompanyName": "Brightside Bakery LLC",
+     "checkAmount": "0.0"
     },
     "diagnostics": [
      {

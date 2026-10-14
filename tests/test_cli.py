@@ -120,6 +120,12 @@ def test_no_field_is_both_mapped_and_kept(coverage, provider):
     assert coverage[provider].read_after_kept == []
 
 
+@pytest.mark.parametrize("provider", PROVIDERS)
+def test_no_field_is_lost_neither_mapped_nor_kept(coverage, provider):
+    # Before A-73, isolved salary history and PrismHR pay rate history dropped what they didn't map.
+    assert coverage[provider].lost == []
+
+
 def test_coverage_labels_dropped_kept_and_mapped_fields(coverage):
     ukg = coverage["ukg-ready"]
     assert ukg.label(("rest/v2/companies/{company}/employees/{id}", "photo_href")).startswith("dropped: a signed link")
