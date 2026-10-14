@@ -178,3 +178,21 @@ CHECK_TYPE = {
     "Adjustment": PayStatementType.ADJUSTMENT,
     "Manual": PayStatementType.MANUAL,
 }
+
+# GET responses the spec documents as "nothing found" (A-70): a 404 from these lists is an empty
+# result, not missing data. Quoted from each operation's 404 response description.
+EMPTY_RESPONSES = {
+    "api/clients/{client}/payItems": {404: "No pay items found."},
+    "api/clients/{client}/legals/{legal}/checks": {404: "No checks found for check date or date range."},
+    "api/clients/{client}/legals/{legal}/employees": {404: "No employees found"},
+    "api/clients/{client}/legals/{legal}/employees/{id}/directdeposits": {404: "No employee direct deposits found."},
+    "api/clients/{client}/legals/{legal}/employees/{id}/garnishments": {404: "No employee garnishments found."},
+    "api/clients/{client}/legals/{legal}/employees/{id}/payItems": {404: "No employee pay items found"},
+    "api/clients/{client}/legals/{legal}/employees/{id}/payRates": {404: "No employee alternate pay rates found."},
+    "api/clients/{client}/legals/{legal}/employees/{id}/salaries": {404: "No employee salaries found."},
+    "api/clients/{client}/legals/{legal}/paygroupId/{id}/payrollRunHistory": {404: "No payroll run history found."},
+    "api/corestream/clients/{client}/legals/{legal}/employees/{id}/deductions": {404: "No employee deductions found."},
+    "api/lookup/Frequencies": {404: "No frequency records found."},
+    "api/system/earnings": {404: "No system earnings found."},
+    "api/system/payTypes": {404: "No system pay types were found."},
+}

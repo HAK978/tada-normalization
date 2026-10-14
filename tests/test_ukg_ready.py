@@ -8,7 +8,7 @@ from pathlib import Path
 import pytest
 
 from normalization.bundle import Bundle
-from normalization.providers.ukg_ready import normalize
+from normalization.providers import normalize
 
 ROOT = Path(__file__).resolve().parents[1]
 FIXTURE = ROOT / "fixtures/ukg-ready/brightside"

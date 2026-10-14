@@ -116,7 +116,7 @@ def test_a_prism_error_inside_http_200_is_reported():
     master.body = {"errorCode": "403", "errorMessage": "Synthetic permission failure"}
     company = one(normalize(b), "companies", f":{master.params['clientId']}")
     assert company.name is None
-    assert any(d.code == "SOURCE_ERROR" and d.raw == "403" for d in company.diagnostics)
+    assert any(d.code == "SOURCE_UNAVAILABLE" and d.raw == "403" for d in company.diagnostics)  # A-70
 
 
 def test_the_gross_comparison_needs_every_line_classified():

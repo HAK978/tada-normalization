@@ -19,19 +19,20 @@ from normalization.fixtures import (
     ukg_ready as ukg_fixtures,
 )
 from normalization.fixtures.validate import errors
-from normalization.providers import isolved, prismhr, ukg_ready
+from normalization.providers import normalize
 
 ROOT = Path(__file__).resolve().parents[1]
+# The golden output is the whole pipeline's, the one the CLI runs (providers.normalize).
 SCENARIOS = {
-    ("prismhr", "brightside"): (prismhr_fixtures.build, prismhr.normalize),
-    ("isolved", "brightside"): (isolved_fixtures.build, isolved.normalize),
-    ("ukg-ready", "brightside"): (ukg_fixtures.build, ukg_ready.normalize),
+    ("prismhr", "brightside"): prismhr_fixtures.build,
+    ("isolved", "brightside"): isolved_fixtures.build,
+    ("ukg-ready", "brightside"): ukg_fixtures.build,
 }
 
 
 def generate(root: Path) -> list[Path]:
     written: list[Path] = []
-    for (provider, scenario), (build, normalize) in SCENARIOS.items():
+    for (provider, scenario), build in SCENARIOS.items():
         bundle = build()
         problems = [
             (c["endpoint"], e)

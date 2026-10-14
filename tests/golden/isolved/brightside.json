@@ -14,7 +14,14 @@
   },
   "checks": {
    "pass": 24
-  }
+  },
+  "requests": {
+   "total": 58,
+   "ok": 54,
+   "empty": 4,
+   "unavailable": 0
+  },
+  "unavailable": []
  },
  "records": {
   "companies": [

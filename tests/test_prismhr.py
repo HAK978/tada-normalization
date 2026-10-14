@@ -9,7 +9,7 @@ import pytest
 
 from normalization.bundle import Bundle
 from normalization.canonical.codes import NON_CASH_EARNING_KINDS
-from normalization.providers.prismhr import normalize
+from normalization.providers import normalize
 
 ROOT = Path(__file__).resolve().parents[1]
 FIXTURE = ROOT / "fixtures/prismhr/brightside"
@@ -170,7 +170,8 @@ def test_company_is_the_business_and_employer_fields_stay_separate(out):
     assert bakery.service_arrangement.value.value == "PEO"
     assert [(e.kind.value, e.provider_id) for e in bakery.employers] == [("ASSIGNED", "5"), ("ALTERNATE", "20")]
     assert (bakery.own_tax_id.value, bakery.own_tax_id.masked_at_source) == (None, True)
-    assert {"EMPLOYER_DETAILS_REFUSED", "GARNISHMENT_DETAILS_REFUSED"} <= codes(bakery)
+    unavailable = {d.field for d in bakery.diagnostics if d.code == "SOURCE_UNAVAILABLE"}
+    assert unavailable == {"system/v1/getEmployerDetails"}  # refused: employer names unknown, not empty (A-70)
     assert (logistics.service_arrangement.value.value, logistics.employers[0].provider_id) == ("ASO", "202")
 
 

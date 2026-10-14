@@ -310,3 +310,9 @@ LOCAL_TAX = {
     "31": TaxType.LOCAL_INCOME,  # "<city>, <ST> CIWT": 22 of 22 localities
     "39": TaxType.LOCAL_INCOME,  # "Philadelphia, Philadelphia, PA Resident CIWT"
 }
+
+# Failures whose message says there is nothing to return (A-70). The spec documents 400 and 404 only
+# generically, but live, getBatchListByDate answers an empty date range with 404 "No batches could be
+# found for the date range specified (...)" (67 requests) and a client without payroll with 400 "No
+# batches exist for client ..." (156 requests). Every other failure leaves its data unknown.
+EMPTY_MESSAGES = {"payroll/v1/getBatchListByDate": ("No batches could be found", "No batches exist")}

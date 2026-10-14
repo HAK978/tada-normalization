@@ -28,14 +28,17 @@ mypy                            # static type check: no issues
 `demo` prints one line per provider:
 
 ```
-provider   companies  employees  deposits  elections  runs  paychecks  checks pass/fail  warnings
-prismhr            2          6         8          5     6          8              24/0         3
-isolved            1          5         5          5     6          7              24/0         1
-ukg-ready          1          5         6          2     4          4               2/0         3
+provider   companies  employees  deposits  elections  runs  paychecks  checks pass/fail  warnings  unavailable
+prismhr            2          6         8          5     6          8              24/0        10            7
+isolved            1          5         5          5     6          7              24/0         1            0
+ukg-ready          1          5         6          2     4          4               2/0         7            4
 ```
 
 The warnings are deliberate traps in the synthetic data: an invalid placeholder date, codes nobody
-documents, a customer-named pay statement type. Each one is reported, not guessed.
+documents, a customer-named pay statement type, and endpoints that refuse or don't exist, as on the
+live tenants. Each one is reported, not guessed. "Unavailable" counts requests that returned no data
+when data may exist. Their records say so, so an empty list in the output always means "none"
+(A-70).
 
 It writes:
 
@@ -143,6 +146,9 @@ The main conventions:
   Social Security, state unemployment, ...) with its `state` (A-67, A-68).
 - **Diagnostics** on every record explain anything unusual: unmapped codes, invalid dates, data not
   fetched, amounts not finalized.
+- **Unavailable is not empty:** a request that was refused or failed is reported on the records it
+  would have fed, so their missing data reads as unknown, not none. A failure counts as an empty
+  answer only where the provider documents or says so (A-70).
 - **Reconciliation checks** on every paycheck are reported, never "fixed":
   - gross wages = the sum of the earning lines;
   - gross wages − non-cash earnings = gross pay;

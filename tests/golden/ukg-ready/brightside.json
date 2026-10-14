@@ -10,11 +10,25 @@
   },
   "diagnostics": {
    "info": 32,
-   "warning": 3
+   "warning": 7
   },
   "checks": {
    "pass": 2
-  }
+  },
+  "requests": {
+   "total": 45,
+   "ok": 41,
+   "empty": 0,
+   "unavailable": 4
+  },
+  "unavailable": [
+   {
+    "endpoint": "rest/v2/companies/{company}/employees/{id}/deductions",
+    "status": "HTTP 404",
+    "requests": 4,
+    "unattributed": 0
+   }
+  ]
  },
  "records": {
   "companies": [
@@ -372,6 +386,13 @@
       "field": "compensation.history[0].effective_from",
       "message": "kept as a date; no documented meaning (A-25)",
       "raw": "1900-12-31"
+     },
+     {
+      "code": "SOURCE_UNAVAILABLE",
+      "severity": "warning",
+      "field": "rest/v2/companies/{company}/employees/{id}/deductions",
+      "message": "HTTP 404: Unresolvable URL; what this request returns is unknown for this record, not empty (A-70)",
+      "raw": "404"
      }
     ],
     "company_id": "ukg-ready:synthetic:company:7001",
@@ -551,7 +572,15 @@
      "pay-info.standard_work_day": 28800000,
      "pay-info.payroll_classification": "REGULAR"
     },
-    "diagnostics": [],
+    "diagnostics": [
+     {
+      "code": "SOURCE_UNAVAILABLE",
+      "severity": "warning",
+      "field": "rest/v2/companies/{company}/employees/{id}/deductions",
+      "message": "HTTP 404: Unresolvable URL; what this request returns is unknown for this record, not empty (A-70)",
+      "raw": "404"
+     }
+    ],
     "company_id": "ukg-ready:synthetic:company:7001",
     "legal_entity_id": "801",
     "identifiers": [
@@ -739,7 +768,15 @@
      "pay-info.standard_work_day": 28800000,
      "pay-info.payroll_classification": "REGULAR"
     },
-    "diagnostics": [],
+    "diagnostics": [
+     {
+      "code": "SOURCE_UNAVAILABLE",
+      "severity": "warning",
+      "field": "rest/v2/companies/{company}/employees/{id}/deductions",
+      "message": "HTTP 404: Unresolvable URL; what this request returns is unknown for this record, not empty (A-70)",
+      "raw": "404"
+     }
+    ],
     "company_id": "ukg-ready:synthetic:company:7001",
     "legal_entity_id": "801",
     "identifiers": [
@@ -918,7 +955,15 @@
      "pay-info.standard_work_day": 28800000,
      "pay-info.payroll_classification": "REGULAR"
     },
-    "diagnostics": [],
+    "diagnostics": [
+     {
+      "code": "SOURCE_UNAVAILABLE",
+      "severity": "warning",
+      "field": "rest/v2/companies/{company}/employees/{id}/deductions",
+      "message": "HTTP 404: Unresolvable URL; what this request returns is unknown for this record, not empty (A-70)",
+      "raw": "404"
+     }
+    ],
     "company_id": "ukg-ready:synthetic:company:7001",
     "legal_entity_id": "801",
     "identifiers": [

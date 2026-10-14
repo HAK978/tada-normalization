@@ -102,11 +102,13 @@ entry says so.
 - **Evidence:** `deductions/v1/getGarnishmentDetails` returns HTTP 403 with "this user session is not
   authorized for the method specified" for every employee.
 - **Decision:** garnishments come only from deduction codes of type `G` and from voucher deduction
-  lines. Docket, payee and limit details are a documented gap.
+  lines. Docket, payee and limit details are a documented gap, and each employee whose details were
+  refused carries a `SOURCE_UNAVAILABLE` warning (A-70).
 
 ### A-09 PrismHR employer names and EINs are refused
 - **Evidence:** `system/v1/getEmployerDetails` returns 403 for all six referenced employer IDs.
 - **Decision:** a company's `employers[]` keeps the employer IDs only, and the name and EIN stay null.
+  The company carries a `SOURCE_UNAVAILABLE` warning saying so (A-70).
 
 ### A-10 isolved's payroll list and "corestream" deduction endpoints are refused
 - **Evidence:** these return 401 "Authorization has been denied for this request", even immediately
@@ -115,7 +117,8 @@ entry says so.
   - `/api/corestream/.../employees/{e}/deductions`;
   - `/api/corestream/.../paygroups/{pg}/payrolls/{id}`.
 - **Decision:** deduction setup comes from `/employees/{e}/payItems` (570 deduction items live), and
-  payroll deductions come from check details.
+  payroll deductions come from check details. Each refused request is still reported on the employee
+  or company it was for (A-70).
 - **Why:** the alternative endpoints are documented and readable, so nothing is lost.
 
 ### A-11 isolved has only historical, imported payroll
@@ -133,7 +136,8 @@ entry says so.
   (detail): frequencies, annual limits, calculation methods and dates. The live demo tenant returns
   404 "Unresolvable URL" for all 15 employees.
 - **Decision:** the UKG converter supports the documented endpoints and is tested on synthetic data.
-  For this tenant, no UKG `DeductionElection` records are produced, and the gap is reported.
+  For this tenant, no UKG `DeductionElection` records are produced, and each employee carries a
+  `SOURCE_UNAVAILABLE` warning, so their deductions read as unknown, not none (A-70).
   Deductions still appear on pay statements.
 - **Setup amounts:** `annual_max_amount` and the calculation `amount` fields are typed integer, and
   nothing says whether they are dollars or cents. They stay raw in `provider_extensions`, with an
@@ -840,7 +844,9 @@ entries below are new.
     the first is mapped, the other values are kept, and a `SOURCE_CONFLICT` warning names them.
     Before, a different amount produced two records with the same ID.
   - **Failures inside HTTP 200:** a PrismHR response with a nonzero `errorCode` is treated as failed,
-    not as data, and its company gets a `SOURCE_ERROR` warning with the code and message.
+    not as data. It is reported like any other unavailable request: a `SOURCE_UNAVAILABLE` warning,
+    with the code and message, on the records it would have fed (A-70; this was `SOURCE_ERROR` on
+    the company).
   - **Output safety:**
     - A SQLite export is built beside the destination and swapped in only on success, so a failed
       export keeps the previous database.
@@ -1056,4 +1062,35 @@ data.
     mistyped company ID shows up there instead of silently doing nothing.
 - **Why:** this follows Finch, whose custom rules apply to one customer connection. Evidence about one
   company's code says nothing about another company's code that happens to share the name.
+
+### A-70 Unavailable is not empty
+- **Issue:** a request that returned no data left no trace in the output. On the live fetch, UKG's
+  deduction setup answered 404 for all 25 employees, and those employees simply had no deduction
+  elections. A reader would conclude they have none. Only this file said otherwise. The FHIR standard
+  keeps the same distinction, with a reason for every missing value.
+- **Evidence:** failed requests mean different things. Some providers document or state that the
+  answer is empty; others refuse, or the endpoint doesn't exist:
+  - isolved documents a 404 from many list endpoints as "nothing found", e.g. `/directdeposits`: "No
+    employee direct deposits found." Live, 61 requests answered so, including 15 direct-deposit and
+    43 garnishment lists.
+  - PrismHR's batch list answers 400 or 404 with "No batches exist for client ..." or "No batches
+    could be found for the date range ..." (223 requests). Its spec describes 400 and 404 only
+    generically.
+  - UKG's deduction setup answers 404 "Unresolvable URL", which is a missing endpoint, not an empty
+    list. isolved's 401s and PrismHR's 403s are refusals.
+- **Decision:**
+  - Every request is classed as answered, empty or unavailable. It is empty only where the provider
+    documents that status as "nothing found" (`EMPTY_RESPONSES` in its codes module) or says so in
+    its message (`EMPTY_MESSAGES`). Every other failure is unavailable, including a PrismHR
+    `errorCode` inside an HTTP 200 (A-64).
+  - An unavailable request becomes a `SOURCE_UNAVAILABLE` warning on the records it would have fed:
+    the employee its path or parameters name, otherwise its company. The warning gives the status
+    and what the provider said. PrismHR's employer lookups are keyed by employer, so the converter
+    places those itself (A-09).
+  - `summary.json` counts requests as answered, empty or unavailable, and lists the unavailable ones
+    by endpoint and status. The CLI report adds an "unavailable" column.
+- **Result:** on the live fetch, 25 UKG employees now say their deduction setup is unknown. Two
+  isolved employees and one company carry the three refusals. The 61 documented and 223 stated empty
+  answers raise nothing.
+- **Why:** an empty list has to mean "none". Otherwise a consumer can't trust any of them.
 

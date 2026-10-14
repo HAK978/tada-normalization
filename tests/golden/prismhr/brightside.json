@@ -9,12 +9,32 @@
    "pay_statements": 8
   },
   "diagnostics": {
-   "info": 17,
-   "warning": 3
+   "warning": 10,
+   "info": 14
   },
   "checks": {
    "pass": 24
-  }
+  },
+  "requests": {
+   "total": 64,
+   "ok": 57,
+   "empty": 0,
+   "unavailable": 7
+  },
+  "unavailable": [
+   {
+    "endpoint": "deductions/v1/getGarnishmentDetails",
+    "status": "HTTP 403",
+    "requests": 6,
+    "unattributed": 0
+   },
+   {
+    "endpoint": "system/v1/getEmployerDetails",
+    "status": "HTTP 403",
+    "requests": 1,
+    "unattributed": 1
+   }
+  ]
  },
  "records": {
   "companies": [
@@ -60,15 +80,10 @@
     },
     "diagnostics": [
      {
-      "code": "EMPLOYER_DETAILS_REFUSED",
-      "severity": "info",
-      "field": "employers",
-      "message": "employer names and EINs were refused (A-09)"
-     },
-     {
-      "code": "GARNISHMENT_DETAILS_REFUSED",
-      "severity": "info",
-      "message": "garnishment details were refused (A-08)"
+      "code": "SOURCE_UNAVAILABLE",
+      "severity": "warning",
+      "field": "system/v1/getEmployerDetails",
+      "message": "refused: the employers' names and EINs are unknown, not empty (A-09, A-70)"
      }
     ],
     "name": "Brightside Bakery",
@@ -182,13 +197,7 @@
      "regRebuild[0].regRebuildDate": "2025-02-13T18:29:31Z",
      "categoryCode": "FREIGHT"
     },
-    "diagnostics": [
-     {
-      "code": "GARNISHMENT_DETAILS_REFUSED",
-      "severity": "info",
-      "message": "garnishment details were refused (A-08)"
-     }
-    ],
+    "diagnostics": [],
     "name": "Harborview Logistics",
     "legal_name": "Harborview Logistics LLC",
     "status": {
@@ -284,6 +293,13 @@
       "field": "payRateHistory.payRate[0].effectiveDate",
       "message": "kept as a date; no documented meaning (A-25)",
       "raw": "9999-12-31"
+     },
+     {
+      "code": "SOURCE_UNAVAILABLE",
+      "severity": "warning",
+      "field": "deductions/v1/getGarnishmentDetails",
+      "message": "HTTP 403: this user session is not authorized for the method specified; what this request returns is unknown for this record, not empty (A-70)",
+      "raw": "403"
      }
     ],
     "company_id": "prismhr:synthetic:company:201",
@@ -593,6 +609,13 @@
       "field": "payRateHistory.payRate[0].effectiveDate",
       "message": "kept as a date; no documented meaning (A-25)",
       "raw": "9999-12-31"
+     },
+     {
+      "code": "SOURCE_UNAVAILABLE",
+      "severity": "warning",
+      "field": "deductions/v1/getGarnishmentDetails",
+      "message": "HTTP 403: this user session is not authorized for the method specified; what this request returns is unknown for this record, not empty (A-70)",
+      "raw": "403"
      }
     ],
     "company_id": "prismhr:synthetic:company:201",
@@ -852,6 +875,13 @@
       "field": "payRateHistory.payRate[0].effectiveDate",
       "message": "kept as a date; no documented meaning (A-25)",
       "raw": "9999-12-31"
+     },
+     {
+      "code": "SOURCE_UNAVAILABLE",
+      "severity": "warning",
+      "field": "deductions/v1/getGarnishmentDetails",
+      "message": "HTTP 403: this user session is not authorized for the method specified; what this request returns is unknown for this record, not empty (A-70)",
+      "raw": "403"
      }
     ],
     "company_id": "prismhr:synthetic:company:201",
@@ -1121,6 +1151,13 @@
       "field": "payRateHistory.payRate[0].effectiveDate",
       "message": "kept as a date; no documented meaning (A-25)",
       "raw": "9999-12-31"
+     },
+     {
+      "code": "SOURCE_UNAVAILABLE",
+      "severity": "warning",
+      "field": "deductions/v1/getGarnishmentDetails",
+      "message": "HTTP 403: this user session is not authorized for the method specified; what this request returns is unknown for this record, not empty (A-70)",
+      "raw": "403"
      }
     ],
     "company_id": "prismhr:synthetic:company:201",
@@ -1386,6 +1423,13 @@
       "field": "payRateHistory.payRate[0].effectiveDate",
       "message": "kept as a date; no documented meaning (A-25)",
       "raw": "9999-12-31"
+     },
+     {
+      "code": "SOURCE_UNAVAILABLE",
+      "severity": "warning",
+      "field": "deductions/v1/getGarnishmentDetails",
+      "message": "HTTP 403: this user session is not authorized for the method specified; what this request returns is unknown for this record, not empty (A-70)",
+      "raw": "403"
      }
     ],
     "company_id": "prismhr:synthetic:company:201",
@@ -1645,6 +1689,13 @@
       "field": "payRateHistory.payRate[0].effectiveDate",
       "message": "kept as a date; no documented meaning (A-25)",
       "raw": "9999-12-31"
+     },
+     {
+      "code": "SOURCE_UNAVAILABLE",
+      "severity": "warning",
+      "field": "deductions/v1/getGarnishmentDetails",
+      "message": "HTTP 403: this user session is not authorized for the method specified; what this request returns is unknown for this record, not empty (A-70)",
+      "raw": "403"
      }
     ],
     "company_id": "prismhr:synthetic:company:202",

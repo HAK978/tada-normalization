@@ -90,6 +90,16 @@ def path_ids(capture: Capture) -> dict[str, str]:
     return {k: v for k, v in (match.groupdict() if match else {}).items() if v}
 
 
+def request_scope(capture: Capture) -> list[tuple[str, dict[str, str]]]:
+    """The records a request feeds, by the IDs in their Source.ids: its employee, else its company (A-70)."""
+    ids = path_ids(capture)
+    if not ids.get("client"):
+        return []  # system lookups
+    company = {"clientId": ids["client"]} | ({"legalId": ids["legal"]} if ids.get("legal") else {})
+    employee = [("employees", company | {"employeeId": ids["employee"]})] if ids.get("employee") else []
+    return employee + [("companies", company)]
+
+
 def without_links(extensions: dict[str, Any]) -> dict[str, Any]:
     """Hypermedia links are API navigation, not data, and are not kept (model §9)."""
     return {k: v for k, v in extensions.items() if not re.search(r"(^|\.)links\[", k)}

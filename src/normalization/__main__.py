@@ -240,8 +240,9 @@ def _write(output: Output, out: Path, *, sqlite: bool) -> None:
 
 
 def _report(results: list[tuple[str, Output]]) -> None:
-    """One line per provider: record counts, reconciliation checks and warnings."""
-    header = ["provider", *COLUMNS, "checks pass/fail", "warnings"]
+    """One line per provider: record counts, reconciliation checks, warnings and requests that came back
+    without data although data may exist (A-70)."""
+    header = ["provider", *COLUMNS, "checks pass/fail", "warnings", "unavailable"]
     rows = [header]
     for provider, output in results:
         summary = output.summary()
@@ -252,6 +253,7 @@ def _report(results: list[tuple[str, Output]]) -> None:
                 *(str(summary["counts"][kind]) for kind in COLUMNS.values()),
                 f"{checks.get('pass', 0)}/{checks.get('fail', 0)}",
                 str(summary["diagnostics"].get("warning", 0)),
+                str(summary["requests"].get("unavailable", 0)),
             ]
         )
     widths = [max(len(row[i]) for row in rows) for i in range(len(header))]

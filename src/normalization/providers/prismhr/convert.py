@@ -12,7 +12,7 @@ from datetime import date
 from decimal import Decimal
 from typing import Any
 
-from normalization.bundle import Bundle
+from normalization.bundle import Bundle, Capture
 from normalization.canonical import codes as C
 from normalization.canonical.records import (
     Address,
@@ -98,17 +98,34 @@ RETIREMENT_FIELDS = {
 def normalize(bundle: Bundle, as_of: date | None = None) -> Output:
     out = Output()
     # PrismHR can report a failure inside an HTTP 200 (errorCode). Such a response is not data: it is
-    # taken out of the successful ones and reported on its company.
-    failed = [c for c in bundle.captures if c.status == 200 and _error_code(c.body)]
+    # taken out of the successful ones here, and reported on the records it would have fed (A-70).
+    failed = [c for c in bundle.captures if error_in_body(c)]
     if failed:
         bundle = replace(bundle, captures=[replace(c, status=-1) if c in failed else c for c in bundle.captures])
     clients = {str(c["client_id"]) for c in bundle.companies if c.get("client_id")}
     clients |= {str(c.params["clientId"]) for c in bundle.captures if c.params.get("clientId")}
     for client_id in sorted(clients):
-        client = _Client(bundle, client_id, out, [c for c in failed if str(c.params.get("clientId")) == client_id])
+        client = _Client(bundle, client_id, out)
         with company_scope(client.company_id):
             client.run()
     return out
+
+
+def request_scope(capture: Capture) -> list[tuple[str, dict[str, str]]]:
+    """The records a request feeds, by the IDs in their Source.ids: its employees, else its client (A-70)."""
+    client = text(capture.params.get("clientId"))
+    if client is None:
+        return []  # e.g. employer lookups, keyed by employer ID; reported by the converter (A-09)
+    employees = capture.params.get("employeeId")
+    ids = employees if isinstance(employees, list) else [employees] if employees not in (None, "") else []
+    return [("employees", {"clientId": client, "employeeId": str(e)}) for e in ids] + [
+        ("companies", {"clientId": client})
+    ]
+
+
+def error_in_body(capture: Capture) -> str | None:
+    """PrismHR can report a failure inside an HTTP 200: a nonzero errorCode (A-64)."""
+    return _error_code(capture.body) if capture.status == 200 else None
 
 
 def _error_code(body: Any) -> str | None:
@@ -121,9 +138,8 @@ def _codes_table(rows: Any, key: str = "id") -> dict[str, dict]:
 
 
 class _Client:
-    def __init__(self, bundle: Bundle, client_id: str, out: Output, failed: list | None = None):
+    def __init__(self, bundle: Bundle, client_id: str, out: Output):
         self.bundle, self.client_id, self.out = bundle, client_id, out
-        self.failed = failed or []
         self.tenant = bundle.tenant_id
         self.company_id = self._id("company", client_id)
         self.codes = self._load_codes()
@@ -204,13 +220,6 @@ class _Client:
         s = Src((capture.body or {}).get("clientMaster") if capture else {})
         if capture is None:
             notes.warn("SOURCE_MISSING", None, "getClientMaster is not in the bundle; company fields are empty")
-        for failure in self.failed:
-            notes.warn(
-                "SOURCE_ERROR",
-                failure.endpoint,
-                f"returned errorCode {_error_code(failure.body)}: {text(failure.body.get('errorMessage'))}",
-                _error_code(failure.body),
-            )
         fein = text(s.get("federalIdNumber"))
         employers = []
         if text(s.get("employerId")):
@@ -224,10 +233,13 @@ class _Client:
                 )
             )
         # Employer lookups are keyed by employer ID, not client ID (A-05).
+        # Keyed by employer ID, not client, so the general report can't place it (A-70); it is placed here.
         if any(self._refused("system/v1/getEmployerDetails", employerId=e.provider_id) for e in employers):
-            notes.info("EMPLOYER_DETAILS_REFUSED", "employers", "employer names and EINs were refused (A-09)")
-        if self._refused("deductions/v1/getGarnishmentDetails"):
-            notes.info("GARNISHMENT_DETAILS_REFUSED", None, "garnishment details were refused (A-08)")
+            notes.warn(
+                "SOURCE_UNAVAILABLE",
+                "system/v1/getEmployerDetails",
+                "refused: the employers' names and EINs are unknown, not empty (A-09, A-70)",
+            )
         pay_groups, schedule_extras = self._pay_groups()
         if pay_groups:
             endpoints += ["clientMaster/v1/getPayrollSchedule", "clientMaster/v1/getClientCodes"]
