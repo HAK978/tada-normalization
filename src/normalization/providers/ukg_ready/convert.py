@@ -146,7 +146,8 @@ class _Company:
         self.tenant = bundle.tenant_id
         self.company_id = self._id("company", cid)
         self.lookups = {
-            name: {text(row.get("id")): row for row in self._rows(f"{ROOT}/lookup/{name}", "items")}
+            # A row without an ID can't be referenced, so it is not part of the lookup.
+            name: {key: row for row in self._rows(f"{ROOT}/lookup/{name}", "items") if (key := text(row.get("id")))}
             for name in ("eins", "pay-types", "employee-types", "jobs")
         }
 
@@ -234,16 +235,18 @@ class _Company:
         # Payrolls can name EINs that lookup/eins doesn't list (A-60).
         for row, _ in self._run_rows().values():
             ein = Src(row.get("ein") or {}, "payrolls[].ein")
-            ein_id = text(ein.get("id"))
-            if ein_id and ein_id not in employers:
+            payroll_ein = text(ein.get("id"))
+            if payroll_ein and payroll_ein not in employers:
                 tax_id = text(ein.get("ein_tax_id"))
-                employers[ein_id] = EmployerRef(
+                employers[payroll_ein] = EmployerRef(
                     kind=C.EmployerKind.EIN,
-                    provider_id=ein_id,
+                    provider_id=payroll_ein,
                     name=text(ein.get("ein_name")),
                     tax_id=TaxIdentifier(value=tax_id, source_field="payrolls[].ein.ein_tax_id") if tax_id else None,
                 )
-                notes.info("EIN_FROM_PAYROLL", "payrolls[].ein", "named by payrolls, not listed by lookup/eins", ein_id)
+                notes.info(
+                    "EIN_FROM_PAYROLL", "payrolls[].ein", "named by payrolls, not listed by lookup/eins", payroll_ein
+                )
         self.out.add(
             "companies",
             Company(
@@ -444,7 +447,7 @@ class _Company:
 
     def _rates(self, h: Src) -> list[Rate]:
         """amount per amount_period, plus hourly_pay; live they agree on all 27 records (A-56)."""
-        rates = []
+        rates: list[Rate] = []
         if self._placeholder(h):
             return rates  # its fields stay raw in provider_extensions
         value, period = decimal(h.get("amount")), text(h.get("amount_period"))
@@ -664,8 +667,8 @@ class _Company:
         """Payrolls by ID: the detail when fetched, else the row from the payroll list."""
         rows: dict[str, tuple[dict, bool]] = {}
         for row in self._rows(ROOT + "/payrolls", "payrolls"):
-            if text(row.get("id")):
-                rows.setdefault(text(row.get("id")), (row, False))
+            if payroll_id := text(row.get("id")):
+                rows.setdefault(payroll_id, (row, False))
         for capture in self._captures(RUN):
             payroll_id = path_ids(capture).get("payroll")
             if payroll_id and isinstance(capture.body, dict):
@@ -715,8 +718,8 @@ class _Company:
             payroll_id = path_ids(capture).get("payroll")
             rows = capture.body.get("pay_statements") if isinstance(capture.body, dict) else None
             for row in rows or []:
-                if isinstance(row, dict) and text(row.get("id")):
-                    found.setdefault(text(row.get("id")), (row, False, payroll_id))
+                if isinstance(row, dict) and (statement_id := text(row.get("id"))):
+                    found.setdefault(statement_id, (row, False, payroll_id))
         for capture in self._captures(RUN + "/pay-statements/{id}"):
             ids = path_ids(capture)
             if ids.get("statement") and isinstance(capture.body, dict):

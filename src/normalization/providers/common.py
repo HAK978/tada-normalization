@@ -25,7 +25,9 @@ def derived_sum(amounts: list[Decimal], formula: str) -> Money:
 
 
 def masked(value: str | None) -> bool:
-    return bool(value) and any(ch in MASK_CHARS for ch in value)
+    if not value:
+        return False
+    return any(ch in MASK_CHARS for ch in value)
 
 
 def paid_gross(wages: Money | None, earnings: list[EarningLine], source: str, notes: Notes) -> Money | None:

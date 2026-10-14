@@ -29,7 +29,8 @@ def _plain(value: Decimal) -> str:
 
 def _money(value: Decimal) -> str:
     # Pad to cents without ever dropping digits: 2375.0 -> "2375.00", 59.375 stays "59.375".
-    if value.as_tuple().exponent > -2:
+    exponent = value.as_tuple().exponent
+    if isinstance(exponent, int) and exponent > -2:  # NaN/Infinity have no numeric exponent
         value = value.quantize(Decimal("0.01"))
     return format(value, "f")
 
@@ -76,6 +77,11 @@ class Coded(Model, Generic[E]):
                 ) from exc
             object.__setattr__(self, "value", value)
         return self
+
+
+def coded_type(kind: type) -> Any:
+    """Coded parametrized at runtime with a canonical enum (or str), e.g. for the enum of an UNMAPPED value."""
+    return Coded[kind]  # type: ignore[valid-type]  # the parameter is a runtime value, by design
 
 
 class Money(Model):

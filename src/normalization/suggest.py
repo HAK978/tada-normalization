@@ -22,9 +22,10 @@ from dataclasses import dataclass
 from decimal import Decimal
 from enum import Enum
 from importlib import import_module
-from typing import Any
+from typing import Any, cast
 
 from .canonical.codes import NON_CASH_EARNING_KINDS, EarningKind
+from .canonical.records import PayStatement
 from .canonical.types import Coded
 from .checks import TOLERANCE
 from .mappings import Unmapped, _field, _key, coded_values, kind_of, value_of
@@ -67,7 +68,7 @@ def suggest(items: list[Unmapped], outputs: list[tuple[str, Output]]) -> None:
 def _arithmetic(outputs: list[tuple[str, Output]]) -> dict[tuple[str, str, str], Suggestion]:
     tally: dict[tuple[str, str, str], Counter] = defaultdict(Counter)
     for provider, output in outputs:
-        for statement in output.records["pay_statements"]:
+        for statement in cast("list[PayStatement]", output.records["pay_statements"]):
             counted = [line for line in statement.earnings if line.in_gross is not False]
             unknown = {
                 (provider, _field(line.kind.source_field), _key(line.kind.raw))
@@ -146,7 +147,7 @@ def _test(statement: Any, counted: list) -> str:
 # ---------------------------------------------------------------- similarity
 
 
-def _vocabulary(outputs: list[tuple[str, Output]], kinds: set[type]) -> dict[type, list[tuple[str, str, str]]]:
+def _vocabulary(outputs: list[tuple[str, Output]], kinds: set[type[Enum]]) -> dict[type, list[tuple[str, str, str]]]:
     """Known (text, canonical value, where it comes from) per canonical type."""
     vocabulary: dict[type, list[tuple[str, str, str]]] = defaultdict(list)
     for provider, package in PROVIDERS.items():

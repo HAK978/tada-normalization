@@ -289,17 +289,17 @@ class _Client:
             # Live key is clientPayrollSchedule; the spec documents clientPayrollSchedules (A-16).
             key = "clientPayrollSchedule" if "clientPayrollSchedule" in capture.body else "clientPayrollSchedules"
             schedule = Src(capture.body)
-            for row in schedule.children(key):
-                code = text(row.get("groupId"))
-                if not code:
+            for entry in schedule.children(key):
+                group_code = text(entry.get("groupId"))
+                if not group_code:
                     continue
                 notes = Notes()
                 frequency = self._frequency(
-                    row.get("payPeriod"), f"{key}[].payPeriod", notes, label=text(row.get("payPeriodDesc"))
+                    entry.get("payPeriod"), f"{key}[].payPeriod", notes, label=text(entry.get("payPeriodDesc"))
                 )
-                groups[code] = PayGroup(
-                    code=code,
-                    name=text(row.get("groupDesc")) or (groups.get(code).name if code in groups else None),
+                groups[group_code] = PayGroup(
+                    code=group_code,
+                    name=text(entry.get("groupDesc")) or (groups[group_code].name if group_code in groups else None),
                     frequency=frequency,
                 )
             schedule.mark("errorCode", "errorMessage", "extension")
@@ -403,7 +403,7 @@ class _Client:
         type_code = text(client.get("employeeType"))
         status_class = text(client.get("statusClass"))
         status_date = iso_date(client.get("statusDate"), "client.statusDate", notes)
-        employment = dict(
+        employment: dict[str, Any] = dict(
             status=coded(
                 P.STATUS_CLASS,
                 status_class,
@@ -911,7 +911,14 @@ class _Client:
         match = None
         if match_method:
             value = decimal(s.get("matchAmount"))
-            m = coded(P.MATCH_METHOD, match_method, f"{s.path}.matchMethod", notes, C.CalculationMethod.UNMAPPED)
+            m = coded(
+                P.MATCH_METHOD,
+                match_method,
+                f"{s.path}.matchMethod",
+                notes,
+                C.CalculationMethod.UNMAPPED,
+                empty_is_none=False,
+            )
             match = EmployerMatch(
                 method=m,
                 description=text(s.get("matchDescription")),
@@ -1315,9 +1322,9 @@ class _Client:
         r = s.child("retirement")
         if r is not None:
             amounts = {
-                name: Money(amount=v, source_field=f"retirement.{field}")
+                name: Money(amount=amt, source_field=f"retirement.{field}")
                 for field, name in RETIREMENT_FIELDS.items()
-                if (v := decimal(r.get(field))) is not None
+                if (amt := decimal(r.get(field))) is not None
             }
             plan = text(r.get("planId"))
             if plan or any(m.amount != ZERO for m in amounts.values()):

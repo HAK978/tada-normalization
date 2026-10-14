@@ -143,3 +143,26 @@ def test_the_gross_comparison_needs_every_line_classified():
 def test_a_string_that_looks_like_the_number_marker_stays_a_string():
     text = exactjson.dumps({"raw": "\u0000exact-number:123", "n": Decimal("0.123456789123456789")})
     assert exactjson.loads(text) == {"raw": "\u0000exact-number:123", "n": Decimal("0.123456789123456789")}
+
+
+# Found by the type checker (mypy): inputs that used to crash a run.
+
+
+def test_nan_and_infinity_are_not_amounts():
+    from normalization.source import decimal
+
+    assert [decimal(v) for v in ("NaN", "Infinity", "-inf", "sNaN")] == [None, None, None, None]
+    b = bundle("ukg-ready")
+    statement = capture(b, "rest/v2/companies/{company}/payrolls/{id}/pay-statements/{id}", "/7101")
+    statement.body["taxes"][0]["ee_amount"] = "NaN"
+    record = one(normalize(b), "pay_statements", ":7101")
+    assert record.model_dump_json()  # serializes instead of crashing
+    # "NaN" is no amount, so there is no FIT line; the paycheck no longer adds up, and that is reported.
+    assert "FIT" not in {t.code for t in record.taxes} and "RECONCILIATION_MISMATCH" in codes(record)
+
+
+def test_a_ukg_lookup_row_without_an_id_is_skipped():
+    b = bundle("ukg-ready")
+    capture(b, "rest/v2/companies/{company}/lookup/eins").body["items"].append({"ein_name": "No ID"})
+    company = one(normalize(b), "companies", ":7001")
+    assert [e.provider_id for e in company.employers] == ["801", "802"]

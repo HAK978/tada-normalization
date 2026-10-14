@@ -845,6 +845,13 @@ entries below are new.
       export keeps the previous database.
     - The exact-number JSON writer marks decimals with a random per-call token, so no source string
       can be mistaken for a number.
+  - **Found by the type checker:** running `mypy` (now a dev tool, clean on all 41 modules) found two
+    more inputs that crashed a run:
+    - a provider number "NaN" or "Infinity" parsed as a decimal and broke money formatting; now it is
+      no value, like unparseable text;
+    - a UKG lookup row without an `id` broke sorting; it is now skipped.
+
+    Each has a regression test.
 
 ### A-65 Unknown values are resolved by mapping files with evidence, not by code changes
 - **Issue:** a larger live fetch (A-21, A-32, A-45) showed the long tail. Every tenant brings codes

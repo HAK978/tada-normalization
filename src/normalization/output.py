@@ -4,9 +4,10 @@ from __future__ import annotations
 
 from collections import Counter
 from dataclasses import dataclass, field
+from typing import cast
 
 from . import exactjson
-from .canonical.records import RECORD_TYPES, dump
+from .canonical.records import RECORD_TYPES, PayStatement, dump
 from .canonical.types import Record
 
 
@@ -26,7 +27,8 @@ class Output:
         severities = Counter(
             d.severity.value for records in self.records.values() for r in records for d in r.diagnostics
         )
-        checks = Counter(c.result.value for r in self.records["pay_statements"] for c in r.checks)
+        statements = cast("list[PayStatement]", self.records["pay_statements"])
+        checks = Counter(c.result.value for r in statements for c in r.checks)
         return {
             "counts": {kind: len(records) for kind, records in self.records.items()},
             "diagnostics": dict(severities),

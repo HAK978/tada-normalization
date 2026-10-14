@@ -12,13 +12,13 @@ from dataclasses import dataclass, field
 from datetime import date
 from decimal import Decimal, InvalidOperation
 from enum import Enum
-from typing import Any, Iterator, Mapping, TypeVar
+from typing import Any, Iterator, Literal, Mapping, TypeVar, overload
 
 from .canonical.codes import Severity
-from .canonical.types import Coded, Diagnostic, Raw
+from .canonical.types import Coded, Diagnostic, Raw, coded_type
 
 _MISSING = object()
-_EMPTY = (None, "", [], {})
+_EMPTY: tuple[Any, ...] = (None, "", [], {})
 
 
 @dataclass
@@ -145,9 +145,11 @@ def decimal(value: Any) -> Decimal | None:
     if value in _EMPTY or isinstance(value, bool):
         return None
     try:
-        return Decimal(str(value).replace(",", "").strip())
+        parsed = Decimal(str(value).replace(",", "").strip())
     except InvalidOperation:
         return None
+    # "NaN" and "Infinity" parse as decimals but are not amounts; like unparseable text, they are no value.
+    return parsed if parsed.is_finite() else None
 
 
 def flag(value: Any) -> bool | None:
@@ -206,6 +208,32 @@ def iso_date(value: Any, field: str, notes: Notes) -> date | None:
 E = TypeVar("E", bound=Enum)
 
 
+@overload
+def coded(
+    table: Mapping[str, E],
+    value: Any,
+    field: str,
+    notes: Notes,
+    unmapped: E,
+    label: str | None = ...,
+    *,
+    empty_is_none: Literal[False],
+) -> Coded[E]: ...
+
+
+@overload
+def coded(
+    table: Mapping[str, E],
+    value: Any,
+    field: str,
+    notes: Notes,
+    unmapped: E,
+    label: str | None = ...,
+    *,
+    empty_is_none: bool = ...,
+) -> Coded[E] | None: ...
+
+
 def coded(
     table: Mapping[str, E],
     value: Any,
@@ -221,10 +249,10 @@ def coded(
     if raw is None and empty_is_none:
         return None
     key = "" if raw is None else raw
-    if key in table:
-        return Coded[type(unmapped)](value=table[key], raw=raw_scalar(value), label=label, source_field=field)
+    if isinstance(key, str) and key in table:
+        return coded_type(type(unmapped))(value=table[key], raw=raw_scalar(value), label=label, source_field=field)
     notes.warn("UNMAPPED_CODE", field, "no documented or evidenced meaning for this code", value)
-    return Coded[type(unmapped)](value=unmapped, raw=raw_scalar(value), label=label, source_field=field)
+    return coded_type(type(unmapped))(value=unmapped, raw=raw_scalar(value), label=label, source_field=field)
 
 
 def unmapped_label(value: Any, label: str | None, field: str) -> Coded[str] | None:

@@ -10,8 +10,10 @@ ambiguous, a year-to-date-only line, and a check seen only in the list.
 from __future__ import annotations
 
 import random
+from collections.abc import Sequence
 from dataclasses import dataclass, field
 from decimal import Decimal as D
+from typing import Any
 
 from . import FixtureBundle, cents
 from .validate import complete
@@ -66,7 +68,7 @@ BIWEEKLY, WEEKLY = ("701", "Biweekly", 26), ("702", "Weekly", 52)
 def workers(rng: random.Random) -> list[Worker]:
     last = ["Lopez", "Chen", "Silva", "Price", "Nair"]
     rng.shuffle(last)
-    common = dict(implied=True, category="FT")
+    common: dict[str, Any] = dict(implied=True, category="FT")
     return [
         Worker(
             id="9001",
@@ -478,8 +480,8 @@ def _check(
     earnings: list[tuple[str, D, D | None]],
     deductions: list[tuple[str, D]],
     garnishments: list[tuple[str, D]],
-    memo: list[tuple[str, D]] = (),
-    non_cash: list[tuple[str, D]] = (),
+    memo: Sequence[tuple[str, D]] = (),
+    non_cash: Sequence[tuple[str, D]] = (),
     ytd_only: bool = False,
 ) -> dict:
     # Live: grossWages - grossPay = the group-term life lines, which are taxed but not paid (A-28).
@@ -647,14 +649,14 @@ def _payroll(bundle: FixtureBundle, staff: dict[str, Worker]) -> None:
             {},
             row,
         )
-    for group in (BIWEEKLY, WEEKLY):
+    for pay_group in (BIWEEKLY, WEEKLY):
         rows = [
             {"id": int(r[1]), "runNumber": r[2], "payDate": f"{r[3]}T00:00:00", "payrollRunType": r[4], "status": r[5]}
             for r in RUNS
-            if r[0] == group
+            if r[0] == pay_group
         ]
         bundle.add(
-            EP + "/paygroupId/{id}/payrollRunHistory", f"{BASE}/paygroupId/{group[0]}/payrollRunHistory", {}, rows
+            EP + "/paygroupId/{id}/payrollRunHistory", f"{BASE}/paygroupId/{pay_group[0]}/payrollRunHistory", {}, rows
         )
 
     maria, james, ana, priya = staff["9001"], staff["9002"], staff["9003"], staff["9005"]

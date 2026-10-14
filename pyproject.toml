@@ -15,7 +15,7 @@ dependencies = [
 ]
 
 [project.optional-dependencies]
-dev = ["pytest>=8", "ruff>=0.6"]
+dev = ["pytest>=8", "ruff>=0.6", "mypy>=1.10"]
 
 [project.scripts]
 tada-normalize = "normalization.__main__:main"
@@ -41,3 +41,11 @@ select = ["E", "F", "W", "B", "I"]
 
 [tool.ruff.lint.isort]
 combine-as-imports = true
+
+[tool.mypy]
+python_version = "3.11"
+files = ["src/normalization"]
+plugins = ["pydantic.mypy"]
+# The organizer's starter file keeps its own (untyped) style (A-02).
+exclude = ["src/normalization/references\\.py"]
+ignore_missing_imports = true

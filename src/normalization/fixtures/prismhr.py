@@ -10,6 +10,7 @@ masked SSNs and accounts, non-cash pay, hours vs units, HSA "PN", and a refused 
 from __future__ import annotations
 
 import random
+from collections.abc import Sequence
 from dataclasses import dataclass, field
 from decimal import Decimal as D
 from typing import Any
@@ -705,7 +706,7 @@ def _voucher(
     lines: list[Line],
     other: list[tuple[str, D]],
     deductions: list[tuple[str, D]],
-    other_deductions: list[tuple[str, D]] = (),
+    other_deductions: Sequence[tuple[str, D]] = (),
     void_date: str = "",
     hide_other_total: bool = False,
 ) -> dict:

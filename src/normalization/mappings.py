@@ -19,12 +19,13 @@ the evidence, and the UNMAPPED_CODE warning it resolved is removed.
 
 from __future__ import annotations
 
+import dataclasses
 import json
 import re
 from collections import Counter, defaultdict
 from collections.abc import Iterator
 from contextlib import contextmanager
-from dataclasses import dataclass, field
+from dataclasses import dataclass
 from enum import Enum
 from pathlib import Path
 from typing import Any
@@ -58,8 +59,8 @@ class Mappings:
     """Mapping entries for one provider, keyed by (source field, raw value)."""
 
     provider: str
-    entries: dict[tuple[str, str], Mapping] = field(default_factory=dict)
-    used: set[tuple[str, str]] = field(default_factory=set)
+    entries: dict[tuple[str, str], Mapping] = dataclasses.field(default_factory=dict)
+    used: set[tuple[str, str]] = dataclasses.field(default_factory=set)
 
     @classmethod
     def load(cls, paths: list[Path], provider: str) -> Mappings:
@@ -159,11 +160,11 @@ class Unmapped:
     provider: str
     field: str
     raw: str
-    labels: Counter = field(default_factory=Counter)
+    labels: Counter = dataclasses.field(default_factory=Counter)
     records: int = 0
-    examples: list[str] = field(default_factory=list)
+    examples: list[str] = dataclasses.field(default_factory=list)
     kind: Any = str  # the canonical type: an enum, or str for an open code
-    suggestions: list = field(default_factory=list)  # filled by normalization.suggest
+    suggestions: list = dataclasses.field(default_factory=list)  # filled by normalization.suggest
 
     @property
     def allowed(self) -> list[str] | None:

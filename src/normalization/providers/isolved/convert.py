@@ -53,6 +53,7 @@ from normalization.canonical.types import (
     Rate,
     Source,
     TaxIdentifier,
+    coded_type,
 )
 from normalization.output import Output
 from normalization.sanitize import last4, sanitize_extensions
@@ -136,7 +137,7 @@ class _Legal:
             ids={k: str(v) for k, v in ids.items() if v not in (None, "")},
         )
 
-    def _captures(self, endpoint: str, legal: bool = True, **want: str):
+    def _captures(self, endpoint: str, *, legal: bool = True, **want: str):
         for capture in self.bundle.ok(endpoint):
             ids = path_ids(capture)
             if ids.get("client") != self.client_id or (legal and ids.get("legal") != self.legal_id):
@@ -146,7 +147,7 @@ class _Legal:
 
     def _body_list(self, endpoint: str, **want: str) -> list[dict]:
         rows: list[dict] = []
-        for capture in self._captures(endpoint, **want):
+        for capture in self._captures(endpoint, legal=True, **want):
             body = capture.body
             rows += body if isinstance(body, list) else (body.get("results") or [])
         return [r for r in rows if isinstance(r, dict)]
@@ -183,7 +184,7 @@ class _Legal:
         description = self._described(lookup, raw)
         if description not in table:
             notes.warn("UNMAPPED_CODE", field, "not in the provider lookup table", raw)
-        return Coded[type(unmapped)](
+        return coded_type(type(unmapped))(
             value=table.get(description, unmapped), raw=raw, label=description, source_field=field
         )
 
@@ -579,8 +580,8 @@ class _Legal:
                 item.mark("firstName", "lastName", "employeeId", "employeeNumber")
                 extensions.update(without_links(sanitize_extensions(item.leftovers())))
         # Status history and alternate pay rates have no canonical field of their own; they are kept too.
-        for row in statuses:
-            extensions.update(without_links(sanitize_extensions(row.leftovers())))
+        for history_row in statuses:
+            extensions.update(without_links(sanitize_extensions(history_row.leftovers())))
         for i, row in enumerate(self._body_list(E + "/payRates", employee=employee_id)):
             extensions.update(without_links(sanitize_extensions(Src(row, f"payRates[{i}]").leftovers())))
         employee.provider_extensions = extensions

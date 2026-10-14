@@ -12,6 +12,7 @@ from __future__ import annotations
 
 import zlib
 from decimal import Decimal as D
+from typing import Any
 
 from . import FixtureBundle, cents
 from .validate import complete
@@ -374,7 +375,7 @@ def _earning(code: str, name: str, type_name: str, amount: D | None, hours: int 
 
 
 def _tax(code: str, name: str, ee: D | float | None, er: D | None, wages: D) -> dict:
-    line = {"type_name": "Tax", "company_tax": {"code": code, "name": name}, "batch": _line_batch()}
+    line: dict[str, Any] = {"type_name": "Tax", "company_tax": {"code": code, "name": name}, "batch": _line_batch()}
     if ee is not None:
         line |= {"ee_amount": ee if isinstance(ee, float) else _money(ee), "ee_subject_wage": _money(wages)}
     if er is not None:
