@@ -6,10 +6,11 @@ Each entry has four parts: **issue**, **evidence**, **decision** and **why**.
   - **Prism** = `contracts/prismhr/openapi/prismhr-2025.09.openapi.json`
   - **isolved** = `contracts/isolved/openapi/isolved-v6.swagger.json` (the primary snapshot only)
   - **UKG** = `contracts/ukg-ready/reference-schemas.json`, plus HTML pages under `contracts/ukg-ready/reference-docs/`
-- **Live evidence** comes from read-only requests to the demo tenants on **2026-10-12**, plus a second
-  UKG fetch on **2026-10-13** (A-07). The raw
-  responses stay on the machine that fetched them and are never committed, so this file quotes counts
-  and code values only.
+- **Live evidence** comes from read-only requests to the demo tenants on **2026-10-12**, and full
+  fetches of all three on **2026-10-13** (A-07). A full re-fetch on **2026-10-14** returned the same 2,657
+  responses. Run through the final code, 9,582 of 9,587 records were identical. The other 5 differ only
+  in a note that names the evaluation date. The raw responses stay on the machine that fetched them and
+  are never committed, so this file quotes counts and code values only.
 
 Entries were written as each decision was made, from discovery through the three converters. They are
 grouped by when they arose, so a later entry can refine an earlier one; where it does, the earlier
