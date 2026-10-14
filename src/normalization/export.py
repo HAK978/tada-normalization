@@ -20,6 +20,7 @@ from typing import Any
 from . import exactjson
 from .canonical.records import dump
 from .output import Output
+from .provenance import document
 
 SCHEMA = """
 CREATE TABLE companies (
@@ -243,6 +244,17 @@ CREATE INDEX payroll_runs_company ON payroll_runs(company_id);
 CREATE INDEX pay_statements_employee ON pay_statements(employee_id);
 CREATE INDEX pay_statements_run ON pay_statements(payroll_run_id);
 CREATE INDEX diagnostics_code ON diagnostics(code);
+CREATE TABLE sources (
+    provider TEXT NOT NULL,
+    tenant_id TEXT NOT NULL,
+    bundle TEXT,
+    bundle_sha256 TEXT,
+    as_of TEXT,
+    requests_unavailable INTEGER,
+    tool_version TEXT,
+    tool_commit TEXT,
+    provenance TEXT NOT NULL
+);
 CREATE VIEW pay_statement_overview AS
 SELECT s.id, c.provider, s.employee_id, e.first_name, e.last_name, s.pay_date,
        s.gross_wages, s.gross_pay, s.net_pay,
@@ -255,7 +267,7 @@ LEFT JOIN employees e ON e.id = s.employee_id;
 
 
 def write_json(output: Output, directory: Path) -> list[Path]:
-    """<directory>/<record type>.json (records sorted by id) and summary.json."""
+    """<directory>/<record type>.json (records sorted by id), summary.json and provenance.json (A-71)."""
     directory.mkdir(parents=True, exist_ok=True)
     written = []
     for kind, records in output.records.items():
@@ -265,7 +277,9 @@ def write_json(output: Output, directory: Path) -> list[Path]:
         written.append(path)
     summary = directory / "summary.json"
     summary.write_text(json.dumps(output.summary(), indent=1) + "\n", encoding="utf-8")
-    return [*written, summary]
+    provenance = directory / "provenance.json"
+    provenance.write_text(json.dumps(document(output), indent=1) + "\n", encoding="utf-8")
+    return [*written, summary, provenance]
 
 
 def write_sqlite(outputs: Iterable[Output], path: Path) -> Path:
@@ -287,6 +301,21 @@ def _fill(path: Path, outputs: Iterable[Output]) -> None:
     with closing(sqlite3.connect(path)) as db:
         db.executescript(SCHEMA)
         for output in outputs:
+            about = document(output)
+            bundle = about.get("bundle") or {}
+            _insert(
+                db,
+                "sources",
+                provider=bundle.get("provider", ""),
+                tenant_id=bundle.get("tenant", ""),
+                bundle=bundle.get("name"),
+                bundle_sha256=bundle.get("sha256"),
+                as_of=about.get("as_of"),
+                requests_unavailable=(about.get("requests") or {}).get("unavailable"),
+                tool_version=about["tool"]["version"],
+                tool_commit=about["tool"]["commit"],
+                provenance=json.dumps(about),
+            )
             for kind, records in output.records.items():
                 for record in sorted(records, key=lambda r: r.id):
                     data = dump(record)

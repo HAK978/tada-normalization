@@ -33,7 +33,18 @@ def normalize(bundle: Bundle, as_of: date | None = None, mapping_files: list[Pat
         output = converter(bundle.provider)(bundle, as_of)
     annotate(output, mappings)
     requests = assess(bundle, output, PROVIDERS[bundle.provider])  # unavailable is not empty (A-70)
+    effective = as_of or bundle.as_of
     output.provenance |= {
+        # The snapshot and the date the records were evaluated at, so a result can be reproduced (A-71).
+        "bundle": {
+            "provider": bundle.provider,
+            "tenant": bundle.tenant_id,
+            "name": bundle.name,
+            "saved_at": bundle.saved_at,
+            "captures": len(bundle.captures),
+            "sha256": bundle.sha256,
+        },
+        "as_of": effective.isoformat() if effective else None,
         "requests": requests,
         "mapping_files": mappings.report(),
         "mapping_files_skipped": mappings.skipped,

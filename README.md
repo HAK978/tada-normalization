@@ -43,7 +43,11 @@ when data may exist. Their records say so, so an empty list in the output always
 It writes:
 
 - `out/demo/<provider>/<record type>.json` and `summary.json`: canonical records, sorted by ID;
-- `out/demo/canonical.sqlite`: all three providers in one database, linked by canonical IDs.
+- `out/demo/<provider>/provenance.json`: what produced them: the bundle snapshot (with a SHA-256 of
+  its files), the as-of date, the request outcomes, each mapping file (with its SHA-256), and the
+  code version and git commit (A-71);
+- `out/demo/canonical.sqlite`: all three providers in one database, linked by canonical IDs, with a
+  `sources` table holding the same provenance.
 
 ```sql
 -- every paycheck, with its employee and its reconciliation result

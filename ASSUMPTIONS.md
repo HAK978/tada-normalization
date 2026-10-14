@@ -1094,3 +1094,22 @@ data.
   answers raise nothing.
 - **Why:** an empty list has to mean "none". Otherwise a consumer can't trust any of them.
 
+### A-71 Every output records what produced it
+- **Issue:** an output said which records it held and their checks, but not what produced them. A
+  result that changed between two runs couldn't be explained. Data platforms record this lineage
+  for the same reason.
+- **Decision:** each output carries its provenance, written to `provenance.json` beside
+  `summary.json` and to a `sources` table in SQLite:
+  - the bundle: provider, tenant, folder name, save time, number of captures, and a SHA-256 over
+    every file;
+  - the as-of date the records were evaluated at (A-33);
+  - the request outcomes (A-70);
+  - each mapping file used, with its SHA-256 and any rule that matched nothing (A-69), and any file
+    skipped;
+  - the code: package version and, when run from a git checkout, the commit and whether the working
+    tree had uncommitted changes.
+- **Not in `summary.json`:** the commit and the write time change on every run, and the summary is
+  compared with the golden files.
+- **Why:** with the snapshot hash, the date, the mapping-file hashes and the commit, any output can
+  be reproduced, or its difference from another explained.
+

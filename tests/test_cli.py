@@ -73,7 +73,10 @@ def test_normalize_writes_the_same_records_as_the_golden_file(tmp_path):
     bundle = ROOT / "fixtures/isolved/brightside"
     assert main(["normalize", str(bundle), "--out", str(tmp_path), "--no-sqlite"]) == 0
     expected = golden("isolved")["records"]
-    assert {p.name for p in tmp_path.iterdir()} == {f"{kind}.json" for kind in expected} | {"summary.json"}
+    assert {p.name for p in tmp_path.iterdir()} == {f"{kind}.json" for kind in expected} | {
+        "summary.json",
+        "provenance.json",
+    }
     assert json.loads((tmp_path / "employees.json").read_text(encoding="utf-8")) == expected["employees"]
 
 

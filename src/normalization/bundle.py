@@ -7,6 +7,7 @@ Layout (same for both sources):
 
 from __future__ import annotations
 
+import hashlib
 from dataclasses import dataclass, field
 from datetime import date
 from pathlib import Path
@@ -33,13 +34,21 @@ class Bundle:
     captures: list[Capture] = field(default_factory=list)
     # The date time-dependent values are evaluated at (A-33): a fixture's fixed date, else the fetch date.
     as_of: date | None = None
+    # Which snapshot this is (A-71): the folder name, when it was saved, and a SHA-256 of every file.
+    name: str | None = None
+    saved_at: str | None = None
+    sha256: str | None = None
 
     @classmethod
     def load(cls, root: Path) -> Bundle:
-        session = exactjson.loads((root / "session.json").read_text(encoding="utf-8"))
+        text = (root / "session.json").read_text(encoding="utf-8")
+        digest = hashlib.sha256(text.encode("utf-8"))
+        session = exactjson.loads(text)
         captures = []
         for file in sorted((root / "captures").glob("*.json")):
-            data = exactjson.loads(file.read_text(encoding="utf-8"))
+            text = file.read_text(encoding="utf-8")
+            digest.update(file.name.encode("utf-8") + b"\0" + text.encode("utf-8"))
+            data = exactjson.loads(text)
             captures.append(
                 Capture(
                     data["endpoint"],
@@ -57,6 +66,9 @@ class Bundle:
             session.get("companies") or [],
             captures,
             date.fromisoformat(as_of) if as_of else None,
+            root.name,
+            str(session["saved_at"]) if session.get("saved_at") else None,
+            digest.hexdigest(),
         )
 
     def find(self, endpoint: str, **params: Any) -> Iterator[Capture]:
