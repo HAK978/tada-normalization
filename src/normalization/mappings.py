@@ -25,6 +25,7 @@ from collections import Counter, defaultdict
 from collections.abc import Iterator
 from contextlib import contextmanager
 from dataclasses import dataclass, field
+from enum import Enum
 from pathlib import Path
 from typing import Any
 
@@ -128,6 +129,16 @@ def annotate(output: Output, mappings: Mappings | None) -> None:
                 )
 
 
+def value_of(coded: Coded) -> str:
+    return str(getattr(coded.value, "value", coded.value))
+
+
+def kind_of(coded: Coded) -> type:
+    """The canonical type of a coded value: an enum, or str for an open code."""
+    args = type(coded).__pydantic_generic_metadata__["args"]
+    return args[0] if args else str
+
+
 def coded_values(node: Any) -> Iterator[Coded]:
     """Every Coded value anywhere inside a record."""
     if isinstance(node, Coded):
@@ -151,6 +162,14 @@ class Unmapped:
     labels: Counter = field(default_factory=Counter)
     records: int = 0
     examples: list[str] = field(default_factory=list)
+    kind: Any = str  # the canonical type: an enum, or str for an open code
+    suggestions: list = field(default_factory=list)  # filled by normalization.suggest
+
+    @property
+    def allowed(self) -> list[str] | None:
+        if isinstance(self.kind, type) and issubclass(self.kind, Enum):
+            return [m.value for m in self.kind if m.value != "UNMAPPED"]
+        return None
 
 
 def review(outputs: list[tuple[str, Output]]) -> list[Unmapped]:
@@ -161,10 +180,10 @@ def review(outputs: list[tuple[str, Output]]) -> list[Unmapped]:
             for record in records:
                 seen = set()
                 for c in coded_values(record):
-                    if str(getattr(c.value, "value", c.value)) != "UNMAPPED" or c.raw is None:
+                    if value_of(c) != "UNMAPPED" or c.raw is None:
                         continue
                     key = (provider, _field(c.source_field), _key(c.raw))
-                    item = found.setdefault(key, Unmapped(*key))
+                    item = found.setdefault(key, Unmapped(*key, kind=kind_of(c)))
                     if c.label:
                         item.labels[c.label] += 1
                     if key not in seen:
@@ -186,6 +205,8 @@ def template(items: list[Unmapped]) -> dict[str, dict]:
                 "raw": u.raw,
                 "label": u.labels.most_common(1)[0][0] if u.labels else None,
                 "records": u.records,
+                "allowed": u.allowed,
+                "suggestions": [s.__dict__ for s in u.suggestions],
                 "value": None,
                 "evidence": None,
             }
@@ -200,13 +221,18 @@ def render(items: list[Unmapped]) -> str:
         "Each row is one decision: a provider value no code table or mapping file resolves yet. Fill in",
         "`value` and `evidence` in the matching mapping-file template, then normalize with `--mappings`.",
         "",
-        "| Provider | Field | Raw value | Label | Records | Examples |",
-        "|---|---|---|---|---:|---|",
+        "Suggestions are proposals only: arithmetic on the provider's own totals is evidence of cash vs",
+        "non-cash; similar names are a hint for you, not evidence. Nothing is applied until a mapping file",
+        "says so.",
+        "",
+        "| Provider | Field | Raw value | Label | Records | Suggestions | Examples |",
+        "|---|---|---|---|---:|---|---|",
     ]
     for u in items:
         label = u.labels.most_common(1)[0][0] if u.labels else ""
+        hints = "<br>".join(f"**{s.method}**: {' / '.join(s.values) or 'none'}. {s.reasoning}" for s in u.suggestions)
         lines.append(
-            f"| {u.provider} | `{u.field}` | `{u.raw}` | {label} | {u.records} | "
+            f"| {u.provider} | `{u.field}` | `{u.raw}` | {label} | {u.records} | {hints} | "
             + ", ".join(f"`{e}`" for e in u.examples)
             + " |"
         )

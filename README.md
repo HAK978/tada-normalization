@@ -21,7 +21,7 @@ Python 3.11 or newer.
 python3 -m venv .venv && source .venv/bin/activate
 pip install -e ".[dev]"
 python -m normalization demo    # normalize every provider's synthetic scenario
-pytest                          # 132 tests, offline
+pytest                          # 138 tests, offline
 ```
 
 `demo` prints one line per provider:
@@ -62,7 +62,7 @@ GROUP BY 1, 2;
 | `python -m normalization normalize BUNDLE` | Normalizes one raw bundle, a fixture or a live fetch, into `out/`. `--as-of` fixes the date for time-dependent values. |
 | `python -m normalization fetch --provider P` | Read-only fetch from the live demo tenants (`all` for every provider). `--normalize` also normalizes the result. |
 | `python -m normalization write EMPLOYEES_JSON` | Dry run: the UKG Ready requests that would create these employees, validated against UKG's request schemas. Nothing is sent. |
-| `python -m normalization review BUNDLE ...` | Collects every value still `UNMAPPED` into distinct decisions, and writes a report plus a mapping-file template per provider. |
+| `python -m normalization review BUNDLE ...` | Collects every value still `UNMAPPED` into distinct decisions, with suggestions, and writes a report plus a mapping-file template per provider. |
 | `python -m normalization schema` | Writes the canonical model's JSON Schemas to `schemas/`. |
 | `python -m normalization coverage [BUNDLE ...]` | Writes [docs/FIELD_COVERAGE.md](docs/FIELD_COVERAGE.md): what happens to every source field. |
 | `python scripts/generate_fixtures.py [--check]` | Regenerates the synthetic fixtures and golden files, or (`--check`) proves they are reproducible. |
@@ -176,6 +176,20 @@ The rules for mapping files:
 Because a mapping takes effect during conversion, everything downstream uses it: a newly classified
 earning line, for example, lets gross pay be derived.
 
+`review` also suggests values, locally and deterministically, without ever applying them (A-66):
+
+- **Arithmetic, which is evidence.** For an unknown earning kind, it tests on every paycheck the line
+  appears on whether the provider's own totals reconcile with the line as cash or as non-cash. For
+  example: "net pay reconciles on 1 of 1 paychecks only if this line is not paid out". This separates
+  cash from non-cash; it can't tell which non-cash kind.
+- **Similar names, which are only a hint.** It compares the unknown value and label with texts already
+  mapped to the same canonical type, across all providers' code tables and the output. For example,
+  "Leave - FMLA" is like ON_LEAVE (0.44). Where arithmetic has narrowed the kind, names only rank
+  within it.
+
+The template lists each field's allowed values and these suggestions. `value` and `evidence` stay
+empty until a person fills them in.
+
 ## How it was built
 
 1. **Discovery first.** We read the specs, then made read-only calls to each live demo tenant. Every
@@ -199,7 +213,7 @@ counted live evidence.
 
 ## Testing
 
-`pytest` runs 132 offline tests (plus parametrized subtests). Nothing needs credentials or network.
+`pytest` runs 138 offline tests (plus parametrized subtests). Nothing needs credentials or network.
 
 - **Synthetic scenarios** (`fixtures/<provider>/brightside`) come from a seeded generator, and every
   response is validated against the provider's own published schema. They are full of real-world
@@ -227,6 +241,7 @@ src/normalization/
   export.py           JSON and SQLite output
   coverage.py         the field coverage report
   mappings.py         mapping files and the review queue for unmapped values
+  suggest.py          suggestions for that queue: arithmetic evidence and similar names
   source.py           tracked field access and value parsing
   sanitize.py         last-4 masking of sensitive values
 fixtures/             generated synthetic bundles (committed)
@@ -254,7 +269,8 @@ The details are in [ASSUMPTIONS.md](ASSUMPTIONS.md).
     voucher broke it);
   - failed checks that name the likely missing component;
   - drift alerts from comparing each fetch's field coverage with the last;
-  - mapping suggestions for a person to approve, never applied automatically;
+  - an optional local LLM (for example via Ollama) as a third suggester, still proposing only, so the
+    data never leaves the machine;
   - full pagination and incremental sync for large tenants.
 - **Write path:** a dry run into UKG Ready only. The full SSN is not available by design, because the
   model keeps the last 4 digits (A-63).

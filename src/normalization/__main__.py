@@ -205,6 +205,7 @@ def _write_dry_run(args: argparse.Namespace) -> int:
 
 def _review(args: argparse.Namespace) -> int:
     from .mappings import render, review, template
+    from .suggest import suggest
 
     try:
         outputs = []
@@ -215,6 +216,7 @@ def _review(args: argparse.Namespace) -> int:
         print(f"cannot review: {exc}", file=sys.stderr)
         return 1
     items = review(outputs)
+    suggest(items, outputs)  # proposals only; nothing is applied without a mapping file (A-66)
     args.out.mkdir(parents=True, exist_ok=True)
     (args.out / "UNMAPPED_REVIEW.md").write_text(render(items), encoding="utf-8")
     for provider, data in template(items).items():
@@ -224,6 +226,8 @@ def _review(args: argparse.Namespace) -> int:
     for u in items[:15]:
         label = f" ({u.labels.most_common(1)[0][0]})" if u.labels else ""
         print(f"  {u.provider:9} {u.field} = {u.raw!r}{label}: {u.records} records")
+        for s in u.suggestions:
+            print(f"      {s.method}: {' / '.join(s.values) or 'no candidate'} ({s.confidence:.2f})")
     print(f"\nreport and mapping-file templates: {args.out}")
     return 0
 

@@ -867,3 +867,39 @@ entries below are new.
       `UNMAPPED_CODE` warning.
 - **Why:** the evidence rule stays the same, but the person with the evidence (a tenant admin, an
   analyst reading the provider's setup) can apply it without a release, and every use is traceable.
+
+### A-66 Suggestions for unmapped values: arithmetic first, similar names as a hint, never applied
+- **Issue:** the review queue (A-65) lists decisions, but each one starts from nothing. The project must
+  run locally, and the evidence rule forbids mapping from names.
+- **Decision:** `review` attaches suggestions that a person accepts or rejects. Nothing is applied
+  until a mapping file says so. Both methods are local, use the standard library only, and are
+  deterministic.
+  - **Arithmetic (evidence):**
+    - For an earning line of unknown kind, each paycheck it appears on is tested: do the provider's own
+      totals reconcile with the line paid in cash, or not paid out? The test uses
+      `gross wages − non-cash − employee taxes − deductions = net`, plus `gross wages − non-cash =
+      gross pay` where the provider reports gross pay.
+    - Paychecks with several unknown lines, or no net pay, are skipped as inconclusive.
+    - If every tested paycheck agrees, the suggestion is that class, with the paycheck count: cash
+      gives `EARNINGS`/`REIMBURSEMENT`, non-cash gives `MEMO`/`NON_CASH_FRINGE`/`REPORTED_TIPS`.
+      Arithmetic can't choose within a class.
+    - Disagreement is reported as contradictory, with no candidate.
+  - **Similar names (a hint, labeled "not evidence"):**
+    - The unknown raw value and label are compared with texts already mapped to the same canonical type:
+      every provider's code tables, values mapped in the reviewed output, and the canonical value
+      names.
+    - The score is the higher of an IDF-weighted word overlap and a character-trigram overlap. Up to
+      three values scoring at least 0.3 are listed.
+    - When arithmetic has narrowed the class, only values in it are ranked.
+    - Open codes, with no canonical list, get no suggestion.
+- **Results:**
+  - On the synthetic scenarios: UKG "Earning (Memo)" reads as not paid out (1 of 1 paychecks), and
+    MEMO ranks first by name. isolved "1099M Non EE Comp" reads as paid in cash. "Leave - FMLA" is
+    like ON_LEAVE (0.44).
+  - On the large live fetch, 15 of 59 decisions get name hints. No live earning kind was unknown, so
+    arithmetic had nothing to test.
+  - Values with no resemblance to anything known, such as `Y` and `TS.READY`, get nothing rather than
+    a forced guess.
+- **Why:** arithmetic on the provider's own totals is the strongest evidence available offline. Names
+  speed a person up but must not decide. A local LLM could be added as a third suggester under the
+  same rules: proposals only, data never leaving the machine.
