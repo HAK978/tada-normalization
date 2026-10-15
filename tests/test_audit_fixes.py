@@ -170,3 +170,13 @@ def test_a_ukg_lookup_row_without_an_id_is_skipped():
     capture(b, "rest/v2/companies/{company}/lookup/eins").body["items"].append({"ein_name": "No ID"})
     company = one(normalize(b), "companies", ":7001")
     assert [e.provider_id for e in company.employers] == ["801", "802"]
+
+
+def test_a_prism_pay_card_account_keeps_only_its_last_4():
+    # clientMaster.payCardAccount, "Account used to pay cards/debit cards", is a full account number live.
+    from normalization.sanitize import sanitize_extensions, sweep
+
+    assert sanitize_extensions({"clientMaster.payCardAccount": "123456789"}) == {
+        "clientMaster.payCardAccount": "***6789"
+    }
+    assert sweep({"clientMaster": {"payCardAccount": 123456789}}) == {"clientMaster": {"payCardAccount": "***6789"}}

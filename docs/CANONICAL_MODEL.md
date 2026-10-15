@@ -77,8 +77,8 @@ Vacation in a voucher type, and Reversal in payroll history.
 ```
 
 When the scale is unverified, `percent` stays null and only `raw` is given, so no consumer can
-mistake a possible 500% for 5% (A-29). Live data proves points for PrismHR deduction and deposit percents
-and isolved deposit percents; every other percent is unverified.
+mistake a possible 500% for 5% (A-29). Only PrismHR deduction percents are proven, by arithmetic on their
+paycheck lines; every other percent is unverified.
 
 **A derived value:** `{"amount": "1880.00", "currency": "USD", "derived": true, "formula": "sum(earnings[].amount)"}`
 
@@ -124,7 +124,7 @@ canonical IDs of the records it belongs to.
 | `name`, `legal_name` | `clientName`, `legalName` | `dbaName`, `legalName` | none: no company endpoint (A-15) |
 | `parent` | none | the isolved client (id, name) | none |
 | `status` (`ACTIVE` `PENDING` `INACTIVE` `TERMINATING` `TERMINATED`) | `statusClass` A/P/I/C/T (documented) | `status` text | none |
-| `own_tax_id`: a business FEIN, kept as returned; masked values stay masked | `federalIdNumber` (fully masked live) | `federalEIN` | none |
+| `own_tax_id`: a business FEIN, kept as returned; a masked one has no value, only `masked_at_source` | `federalIdNumber` (fully masked live) | `federalEIN` | none |
 | `service_arrangement` | `serviceType` PEO/ASO/PAY/ASA/COR/HRN (documented) | none | none |
 | `employers[]` (provider terms) | `employerId` + `altEmployer[]`; name and EIN refused (A-09) | the legal company itself | `lookup/eins`, plus EINs only payrolls name (A-60) |
 | `pay_groups[]` | `getClientCodes` PGroups + `getPayrollSchedule` | `payGroups` (frequency via §6) | not available |
@@ -147,7 +147,7 @@ canonical IDs of the records it belongs to.
 |---|---|---|---|
 | IDs | response `id` (the request parameter is `employeeId`); `client.clientEmployeeId`; `client.clockNum` | `id`; `employeeNumber`; `timeclockId`; `uniqueId` | `id` (account); `employee_id`; `external_id` |
 | SSN | `compensation.ssn` (masked live); `person.cobraSSN` is also sanitized | `ssn` is null live; last 4 from `checks[].employeeSSN` (A-50) | `social_security` and `national_id_numbers[]`, returned in full live and reduced to last 4 |
-| Status | `client.statusClass` A/L/T (documented), plus the client status code and label | `employmentStatus`: "Active"/"Terminated" only when `/statuses` shows it as an implied system status (A-48); others `UNMAPPED` with the label | `status`: undocumented, but consistent with `dates.terminated` live |
+| Status | `client.statusClass` A/L/T (documented); the client's own status and type codes stay as sent, a separate domain (A-89) | `employmentStatus`: "Active"/"Terminated" only when `/statuses` shows it as an implied system status (A-48); others `UNMAPPED` with the label | `status`: undocumented, but consistent with `dates.terminated` live |
 | Type | `client.typeClass` F/P (documented filter values) | `employmentCategoryCode`: customer code, `UNMAPPED` | pay-info `employee_type`: tenant label, `UNMAPPED` |
 | Worker class | `client.employee1099` (independent of `payMethod`) | `payType` "1099" gives `CONTRACTOR_1099` and pay type `UNMAPPED`; "1099 (Hours Based)" gives `CONTRACTOR_1099` and `HOURLY` (A-39) | none: `tax-info` W2/1099 flags have no definitions and are kept (A-34) |
 | Demographics | `person` gender (M, F, X, D, defined in NewHireEmployee, A-44), marital status, ethnic code, veteran, disability | the employee record; veteran from flags and `/veteranStatus`, disability with its declined answer (A-81) | `/demographics`: documented enums without definitions, `UNMAPPED` with the value as sent until a mapping file confirms them; the demo tenant's reviewed file does (A-79, A-86) |

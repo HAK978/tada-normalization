@@ -49,16 +49,11 @@ def test_sequence_zero_is_the_net_pay_remainder_not_the_first_account(out):
     )  # sent in full, kept as last 4
 
 
-def test_percent_deposits_are_points_as_the_live_data_shows(out):
-    # Live, an isolved deposit of 30.0 percent can only be points: as a fraction it would be 3,000% (A-29).
+def test_percent_deposit_scale_is_not_guessed(out):
+    # No fetched check pays a percent deposit, so the scale can't be checked; the size of 30.0 is no evidence (A-29).
     deposit = next(d for d in out.records["direct_deposits"] if d.employee_id.endswith(":9002") and d.sequence == 1)
     assert deposit.method.value.value == "PERCENT_BASE_UNSPECIFIED" and deposit.is_remainder is False
-    assert (deposit.percent.percent, deposit.percent.scale.value, deposit.percent.raw) == (
-        Decimal("30.0"),
-        "VERIFIED_POINTS",
-        "30.0",
-    )
-    assert "PERCENT_SCALE_UNVERIFIED" not in {d.code for d in deposit.diagnostics}
+    assert (deposit.percent.percent, deposit.percent.scale.value, deposit.percent.raw) == (None, "UNVERIFIED", "30.0")
 
 
 def test_memo_is_outside_gross_and_group_term_life_is_in_wages_but_not_pay(out):

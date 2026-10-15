@@ -9,7 +9,7 @@
    "pay_statements": 7
   },
   "diagnostics": {
-   "info": 5,
+   "info": 6,
    "warning": 2
   },
   "checks": {
@@ -1943,7 +1943,15 @@
     "provider_extensions": {
      "description": "Checking"
     },
-    "diagnostics": [],
+    "diagnostics": [
+     {
+      "code": "PERCENT_SCALE_UNVERIFIED",
+      "severity": "info",
+      "field": "percent",
+      "message": "no fetched check pays a percent deposit, so the scale can't be checked (A-29)",
+      "raw": "30.0"
+     }
+    ],
     "employee_id": "isolved:synthetic:employee:9002",
     "company_id": "isolved:synthetic:company:501:601",
     "purpose": "NET_PAY",
@@ -1964,9 +1972,8 @@
      "source_field": "sequenceNumber/amount/percent"
     },
     "percent": {
-     "percent": "30.0",
      "basis": "UNSPECIFIED",
-     "scale": "VERIFIED_POINTS",
+     "scale": "UNVERIFIED",
      "raw": "30.0",
      "source_field": "percent"
     },

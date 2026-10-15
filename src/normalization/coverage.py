@@ -219,7 +219,7 @@ def render(results: list[Coverage]) -> str:
         "Sources:",
         "",
     ]
-    lines += [f"- {r.provider}: {r.source} ({r.captures} responses)" for r in results]
+    lines += [f"- {r.provider}: {r.source} ({r.captures} successful responses, HTTP 200)" for r in results]
     lines += [
         "",
         "## Summary",

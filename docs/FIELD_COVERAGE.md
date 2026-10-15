@@ -15,9 +15,9 @@ A field that is mapped in some records and kept in others shows both, with count
 
 Sources:
 
-- prismhr: a live fetch (`20261015T091713Z`) (2427 responses)
-- isolved: a live fetch (`20261015T091715Z`) (452 responses)
-- ukg-ready: a live fetch (`20261015T091716Z`) (352 responses)
+- prismhr: a live fetch (`20261015T091713Z`) (2427 successful responses, HTTP 200)
+- isolved: a live fetch (`20261015T091715Z`) (452 successful responses, HTTP 200)
+- ukg-ready: a live fetch (`20261015T091716Z`) (352 successful responses, HTTP 200)
 
 ## Summary
 
@@ -34,7 +34,7 @@ Sources:
 | prismhr | `deductions/v1/getEmployeeLoans` | 17 | 10 | 4 | 0 | 3 | 0 | 0 |
 | prismhr | `deductions/v1/getVoluntaryRecurringDeductions` | 10 | 0 | 0 | 0 | 10 | 0 | 0 |
 | prismhr | `employee/v1/checkForGarnishments` | 3 | 0 | 2 | 0 | 1 | 0 | 0 |
-| prismhr | `employee/v1/getEmployee` | 208 | 76 | 128 | 0 | 4 | 0 | 0 |
+| prismhr | `employee/v1/getEmployee` | 208 | 74 | 130 | 0 | 4 | 0 | 0 |
 | prismhr | `employee/v1/getEmployeeList` | 2 | 0 | 0 | 0 | 1 | 0 | 1 |
 | prismhr | `employee/v1/getHistory` | 22 | 9 | 12 | 0 | 1 | 0 | 0 |
 | prismhr | `employee/v1/getPayRateHistory` | 14 | 8 | 3 | 0 | 3 | 0 | 0 |
@@ -103,7 +103,7 @@ the zeros under Employee.
 | Field | prismhr (194) | isolved (45) | ukg-ready (25) |
 |---|---:|---:|---:|
 | `addresses` | 193 | 45 | 25 |
-| `compensation.annual_pay` | 194 | 45 | 16 |
+| `compensation.annual_pay` | 185 | 41 | 16 |
 | `compensation.effective_date` | 193 | 45 | 25 |
 | `compensation.history` | 194 | 45 | 25 |
 | `compensation.pay_frequency` | 194 | 45 | 25 |
@@ -677,8 +677,8 @@ the zeros under Employee.
 | `employee[].client.electronicOnboard` | kept |
 | `employee[].client.electronicOnboardDate` | kept |
 | `employee[].client.employee1099` | mapped |
-| `employee[].client.employeeStatus` | mapped |
-| `employee[].client.employeeType` | mapped |
+| `employee[].client.employeeStatus` | kept |
+| `employee[].client.employeeType` | kept |
 | `employee[].client.firstHireDate` | mapped |
 | `employee[].client.flsaExempt` | mapped |
 | `employee[].client.handbookMailDate` | kept |
@@ -717,7 +717,7 @@ the zeros under Employee.
 | `employee[].client.workShift` | kept |
 | `employee[].client.zip` | mapped |
 | `employee[].client.zipSuffix` | mapped |
-| `employee[].compensation.annualPay` | mapped |
+| `employee[].compensation.annualPay` | mapped (185) / kept (9) |
 | `employee[].compensation.autoAcceptTimeSheet` | kept |
 | `employee[].compensation.citizenshipStatus` | mapped |
 | `employee[].compensation.compReviewNextDate` | kept |
@@ -1325,7 +1325,7 @@ the zeros under Employee.
 | Field | Disposition |
 |---|---|
 | `acaEmploymentStatus` | kept |
-| `annualSalary` | mapped |
+| `annualSalary` | mapped (41) / kept (4) |
 | `assignedManager.employeeName` | kept |
 | `assignedManager.employeeNumber` | kept |
 | `assignedManager.id` | mapped |

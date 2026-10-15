@@ -1,7 +1,7 @@
 # Assumptions, decisions and limitations
 
 Every judgment call in this project is recorded here as issue, evidence, decision and why. Entries are
-grouped by topic. Their IDs (A-01 to A-88) are stable references used in the code, the tests and the
+grouped by topic. Their IDs (A-01 to A-90) are stable references used in the code, the tests and the
 other docs, so they don't run in order. [Known limitations](#known-limitations) are summarized at the end.
 
 **Evidence** comes from two places:
@@ -18,11 +18,11 @@ other docs, so they don't run in order. [Known limitations](#known-limitations) 
 | [How the data was obtained, safely](#how-the-data-was-obtained-safely) | A-01 to A-07, A-74, A-85 |
 | [Rules that apply everywhere](#rules-that-apply-everywhere) | A-64, A-70, A-73, A-35, A-23, A-25, A-29, A-31, A-33, A-59 |
 | [Company](#company) | A-30, A-09, A-15, A-60, A-84 |
-| [Employee](#employee) | A-48, A-55, A-44, A-45, A-39, A-50, A-20, A-19, A-27, A-56, A-46, A-34, A-75, A-76, A-77, A-79, A-80, A-81, A-82 |
+| [Employee](#employee) | A-48, A-89, A-55, A-44, A-45, A-39, A-50, A-20, A-19, A-27, A-56, A-46, A-34, A-75, A-76, A-77, A-79, A-80, A-81, A-82 |
 | [Direct deposits](#direct-deposits) | A-37, A-26, A-14 |
 | [Deductions](#deductions) | A-41, A-49, A-12, A-08, A-83, A-10, A-17, A-87, A-88 |
 | [Payroll runs and paychecks](#payroll-runs-and-paychecks) | A-54, A-32, A-28, A-58, A-51, A-42, A-18, A-38, A-24, A-53, A-67, A-68, A-40, A-21, A-57, A-13, A-11 |
-| [Where live data differs from the specs](#where-live-data-differs-from-the-specs) | A-16, A-78, A-22, A-47, A-52, A-61 |
+| [Where live data differs from the specs](#where-live-data-differs-from-the-specs) | A-90, A-16, A-78, A-22, A-47, A-52, A-61 |
 | [Unknown values: review and mapping files](#unknown-values-review-and-mapping-files) | A-65, A-69, A-66, A-86 |
 | [Output, provenance and tests](#output-provenance-and-tests) | A-36, A-71, A-62, A-72, A-43 |
 | [Optional extension: writing an employee](#optional-extension-writing-an-employee) | A-63 |
@@ -180,7 +180,9 @@ other docs, so they don't run in order. [Known limitations](#known-limitations) 
   - Request options weren't inventoried. The one the audit named, `getClientCodes` with `I9Docs`, was
     asked live and only confirms the documented citizenship codes (A-45).
 - **Result:** 22 PrismHR, 30 isolved and 25 UKG endpoints are fetched, up from 16, 25 and 19 actually
-  requested before the endpoint check (isolved's count had included the check list). Of the 855:
+  requested before the endpoint check (isolved's count had included the check list). "Fetched" means
+  the crawl requests it whenever the data to reach it exists: UKG's deduction detail is requested for each
+  listed deduction, but the live tenant's list answers 404 (A-12), so live it never is. Of the 855:
   77 are fetched, 63 return records already fetched, 4 return full SSNs and are not called, 17 are
   workflow steps, 195 are configuration or code lists, 11 are unreachable, 10 were empty and 2 refused
   live, and 476 belong to topics outside the five data types: benefit enrollment, time and attendance,
@@ -275,7 +277,7 @@ other docs, so they don't run in order. [Known limitations](#known-limitations) 
     isn't a yes/no leaves the amount as sent, with `FLAG_MISSING`. Live data sends all three on every
     line.
   - **A 0 that means "none" stays as sent** in `provider_extensions` instead of being used up: isolved
-    and PrismHR rates (current and in the history), paper check amounts, hours worked, retirement
+    and PrismHR rates (current and in the history) and annual pay, paper check amounts, hours worked, retirement
     catch-up, a garnishment's amount, percent or maximum, and benefit lines with nothing on the check. An
     employee left with no nonzero rate gets `NO_PAY_RATE`: 4 of 45 isolved employees (two contractors,
     one hourly and one salaried) and 9 of 194 PrismHR employees. The audit found PrismHR's zeros had been
@@ -343,24 +345,26 @@ other docs, so they don't run in order. [Known limitations](#known-limitations) 
     an assumption, noted in diagnostics.
 
 ### A-29 Percent scale (5 vs 0.05)
+- **Rule:** a scale is proven only by arithmetic on the provider's own amounts, never by how large a value
+  is. The organizer's reference audit says not to infer units from a numeric value's magnitude.
 - **Evidence:**
-  - PrismHR deductions with `usePercent = true` have amounts 3.0 and 12.0.
-  - Live direct deposits: PrismHR's methods are B 59 times, F 4 and P once, at 10.00; isolved has 3
-    percent deposits, 30.0, 1.0 and 1.0, and 2 fixed ones; UKG's are all `FULL`.
-  - As fractions, 3.0, 10.00, 12.0 and 30.0 would mean 300%, 1,000%, 1,200% and 3,000% of pay, which is
-    impossible.
+  - PrismHR deductions with `usePercent = true`: on the final fetch, all 19 such elections (every one a
+    401(k)) match their paycheck lines exactly: deducted amount = percent ÷ 100 × the voucher's retirement
+    base earnings, on 214 of 214 lines.
+  - Live direct deposits: PrismHR has one P deposit (10.00) and isolved three percent deposits (30.0, 1.0
+    and 1.0), but none of their owners has a fetched paycheck, so nothing shows how the percent is applied.
   - isolved deduction "Percent" parameters are all 0.0, and no UKG percent was seen live.
 - **Decision:**
-  - Verified percentage points (`scale: VERIFIED_POINTS`, with `percent` set): PrismHR deduction percents,
-    PrismHR direct-deposit percents (methods P and PN, one `amount` field), and isolved direct-deposit
-    percents.
-  - Every other percent keeps its raw value with `scale: UNVERIFIED` and `percent: null`: PrismHR HSA
-    deposits (another field, with no live percent) and employer match percents, isolved deduction
-    percents and all UKG percents. No converted number is published for them.
+  - PrismHR deduction percents are verified percentage points: `scale: VERIFIED_POINTS`, with `percent`
+    set.
+  - Every other percent keeps its raw value with `scale: UNVERIFIED` and `percent: null`: all deposit
+    percents, PrismHR employer match percents, isolved deduction percents and all UKG percents. No
+    converted number is published for them.
   - Synthetic fixtures cover percent allocations.
-- **Correction:** until an outside audit on 2026-10-15, this entry said no live deposit used a
-  percentage. That was true of the first sample only, and the output told the 4 percent deposits there
-  were "no live percent deposits to verify the scale".
+- **Correction:** this entry first argued from value size ("3.0 can't be a fraction, that would be 300%
+  of pay") and, after the first outside audit, extended that argument to deposits. A second audit pointed
+  out that the organizer forbids reasoning from magnitude. The deduction evidence is now the arithmetic
+  above, and deposits are unverified again.
 - **Why:** a warning next to a possibly wrong number still lets a consumer use the wrong number.
   Withholding the conversion makes the uncertainty impossible to miss.
 
@@ -373,8 +377,9 @@ other docs, so they don't run in order. [Known limitations](#known-limitations) 
 ### A-33 Time-dependent fields use an explicit `as_of` date
 - **Decision:** values like "is this deposit active?" (UKG `active` plus dates) are evaluated against
   `as_of`. That date defaults to the fetch date for live data (`session.json` `saved_at`) and is fixed for
-  fixtures (`session.json` `as_of`). Every evaluation leaves an `EVALUATED_AT_AS_OF` diagnostic, and a
-  missing date gives `AS_OF_UNKNOWN` instead of a guess.
+  fixtures (`session.json` `as_of`). A deposit's status evaluation leaves an `EVALUATED_AT_AS_OF`
+  diagnostic; the choice of UKG's current pay record shows in the record's `effective_date`, with every
+  other record in `history`. A missing date gives `AS_OF_UNKNOWN` instead of a guess.
 - **Why:** the output must be reproducible, so it can't depend on today's date.
 
 ### A-59 One amount arrived as a binary floating-point number
@@ -435,8 +440,8 @@ employment status and dates with their history, job and organization with their 
 compensation with its history. Every other field is kept unchanged (sanitized, A-23) in the record's
 `provider_extensions`, and the field coverage report shows each field's fate (A-62). The kept fields are
 mostly tax withholding setup (A-34), onboarding and compliance flags, benefit-group memberships, and
-provider bookkeeping such as checksums and last-change dates. For PrismHR's employee response, 76 fields
-are normalized and 128 kept; isolved's, 45 and 67; UKG's, 36 and 29. A few more are dropped for a stated
+provider bookkeeping such as checksums and last-change dates. For PrismHR's employee response, 74 fields
+are normalized and 130 kept; isolved's, 45 and 67; UKG's, 36 and 29. A few more are dropped for a stated
 reason, such as PrismHR's copy of the scheduled deductions its own endpoint returns (A-62).
 
 The coverage report also counts how many employees have each canonical field, per provider (A-74). Its
@@ -465,6 +470,19 @@ zeros on the full fetch:
   diagnostic.
 - **Why:** implied statuses are isolved's own, so their meaning is fixed. Customer statuses are
   configurable labels (A-35); "on leave" can't be read from a name.
+
+### A-89 PrismHR status and type: the documented class, not the client's code
+- **Evidence:** PrismHR employees carry two status fields and two type fields. `client.statusClass` and
+  `client.typeClass` are PrismHR's documented classes (A/L/T, F/P). `client.employeeStatus` and
+  `client.employeeType` are the client's own codes from its code tables. The organizer's reference audit
+  calls them "separate domains" that candidates "must preserve". Live, the type code (FT, PT) differs from
+  the class (F, P) for all 194 employees.
+- **Decision:** the class maps to the canonical status and type. The client's code stays as sent in
+  `provider_extensions`, and its description is not attached to the class: a client code's label
+  describes the code, not the class. History rows keep the client code as their raw value (A-76).
+- **Correction:** the converter used to read the client code only to borrow its label for the class, so
+  the code itself was lost for every employee, and the synthetic E1005 had class F labeled "Seasonal" (the
+  label of code S). A second outside audit found it.
 
 ### A-55 UKG employee status
 - **Evidence:** `#/schemas/106` documents `status` only as "This field is only used for GET". Live,
@@ -559,7 +577,8 @@ zeros on the full fetch:
     including records dated after `as_of`. A real pay of 0 is kept; only the placeholders are skipped
     (A-64).
   - Rates keep their period, and `hourly_pay` is added as a rate per hour. `time` becomes standard hours,
-    derived, with the raw milliseconds kept, per `time_period`.
+    derived, with the raw milliseconds kept, per `time_period`. Pay-info `standard_work_day`, also in
+    milliseconds (8 hours for every live employee), is kept as sent: the model has no field for it.
   - `num_pp_in_year` sets the pay frequency: 52 is weekly, 26 biweekly, 24 semimonthly, 12 monthly,
     because each count is that frequency's definition. Any other count is `OTHER` with the count, and 0
     means not set.
@@ -1192,6 +1211,14 @@ zeros on the full fetch:
 
 ## Where live data differs from the specs
 
+### A-90 PrismHR payroll schedule: the code and its description are swapped
+- **Evidence:** `#/components/schemas/ClientPayrollSchedule` documents `payPeriod` as a "pay period number"
+  and puts the codes on `payPeriodDesc`: "'D' (Daily), 'W' (Weekly), 'B' (Biweekly), 'S'
+  (Semi-monthly), 'M' (Monthly), ...". Live, `payPeriod` holds the code and `payPeriodDesc` the description.
+- **Decision:** follow the live data: `payPeriod` is read as the code, through the documented list, and
+  `payPeriodDesc` is its label. This list is also the evidence for what the employee's pay period codes
+  mean, so the swap matters beyond the schedule itself.
+
 ### A-16 PrismHR response keys differ from the spec
 - **Evidence:**
   - Live `getPayrollVoucherForBatch` returns `payrollVoucher`; PrismHR
@@ -1283,8 +1310,9 @@ zeros on the full fetch:
   - A mapping file (`--mappings`) resolves values as data, for one tenant (A-69):
     - It fills only values that would otherwise be `UNMAPPED`, and never overrides a code table built from
       documentation.
-    - Every entry needs written evidence, and the value must be valid for the field's canonical enum. A bad
-      entry stops the run with a clear error.
+    - Every entry needs written evidence, and the value must be valid for the field's canonical enum. An
+      entry missing a part stops loading with a clear error; a value the enum doesn't have stops the run
+      when a record reaches that rule.
     - It applies during conversion, so everything downstream uses the resolved value: derived gross pay
       and the checks, for example.
     - Each record it touched gets a `MAPPED_BY_FILE` note quoting the evidence, in place of its
@@ -1543,8 +1571,8 @@ zeros on the full fetch:
   the history mapping rests on few live examples and the documentation (A-76).
 - **The live payroll isn't typical:** isolved's is historical, imported data (A-11), and every UKG payroll
   is still open (A-13).
-- **Not normalized:** tax withholding setup is kept raw (A-34). Percent scales are unproven for PrismHR
-  HSA deposits, isolved deductions and everything UKG, so those percents stay raw (A-29). isolved's
+- **Not normalized:** tax withholding setup is kept raw (A-34). Percent scales are unproven for every
+  deposit, isolved deductions and everything UKG, so those percents stay raw (A-29). isolved's
   garnishment "Limit" has no stated basis and stays raw (A-88).
 - **Customer-configured codes need a person:**
   - statuses, types, and PrismHR and UKG earning codes stay `UNMAPPED` until a mapping file classifies

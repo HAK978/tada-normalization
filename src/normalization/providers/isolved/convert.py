@@ -652,7 +652,7 @@ class _Legal:
                 pay_type=pay_type,
                 pay_frequency=self._frequency(s.get("payFrequency"), "payFrequency", notes),
                 rates=rates,
-                annual_pay=money(s.get("annualSalary"), "annualSalary"),
+                annual_pay=Money(amount=a, source_field="annualSalary") if (a := nonzero(s, "annualSalary")) else None,
                 standard_hours=Quantity(value=normal_hours, unit=C.QuantityUnit.HOURS, source_field="normalHours")
                 if normal_hours is not None
                 else None,
@@ -931,6 +931,12 @@ class _Legal:
                 method = C.DepositMethod.FIXED_AMOUNT
             elif percent is not None:
                 method = C.DepositMethod.PERCENT_BASE_UNSPECIFIED
+                notes.info(
+                    "PERCENT_SCALE_UNVERIFIED",
+                    "percent",
+                    "no fetched check pays a percent deposit, so the scale can't be checked (A-29)",
+                    str(percent),
+                )
             else:
                 method = C.DepositMethod.UNMAPPED
                 notes.warn("NO_ALLOCATION", None, "neither amount, percent nor the net-pay sequence (0) is set")
@@ -972,10 +978,8 @@ class _Legal:
                         source_field="sequenceNumber/amount/percent",
                     ),
                     amount=Money(amount=amount, source_field="amount") if amount is not None else None,
-                    # Live percent deposits of 30.0, 1.0 and 1.0: 30.0 can only be points, since as a fraction
-                    # it would be 3,000% of pay (A-29).
                     percent=Percent(
-                        percent=percent, scale=C.PercentScale.VERIFIED_POINTS, raw=str(percent), source_field="percent"
+                        percent=None, scale=C.PercentScale.UNVERIFIED, raw=str(percent), source_field="percent"
                     )
                     if percent is not None
                     else None,

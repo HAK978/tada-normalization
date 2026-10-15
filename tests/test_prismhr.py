@@ -116,16 +116,11 @@ def test_deposit_methods_keep_their_documented_meaning(out):
         "EMPLOYEE",
         "PERCENT_OF_NET_AFTER_TAXES",
     )  # HSA PN is "after taxes"
-    # Live, a P deposit of 10.00 can only be points (as a fraction, 1,000% of pay); HSA deposits are another
-    # field with no live percent example, so theirs stays unproven (A-29).
+    # No fetched paycheck pays a percent deposit, so no deposit scale is verified (A-29).
     assert (hsa.percent.percent, hsa.percent.scale.value) == (None, "UNVERIFIED")
     percent = deposits["201:E1002:net_pay:1"]
     assert percent.method.value.value == "PERCENT_BASE_UNSPECIFIED"
-    assert (percent.percent.percent, percent.percent.scale.value, percent.percent.raw) == (
-        Decimal("30.0"),
-        "VERIFIED_POINTS",
-        "30.0",
-    )
+    assert (percent.percent.percent, percent.percent.scale.value, percent.percent.raw) == (None, "UNVERIFIED", "30.0")
     assert percent.limit.amount == Decimal("500.0")
     assert deposits["201:E1002:net_pay:2"].method.value.value == "PERCENT_OF_NET_AFTER_FIXED"  # ordinary PN
     assert deposits["201:E1002:net_pay:3"].account.type.value.value == "INSTANT_PAY"
@@ -165,10 +160,10 @@ def test_employment_status_type_and_classification(out):
     )
     assert devon.employment.status.value.value == "ON_LEAVE" and "INVALID_DATE" in codes(devon)
     assert priya.employment.worker_classification.value.value == "CONTRACTOR_1099"
-    assert (priya.employment.employment_type.value.value, priya.employment.employment_type.label) == (
-        "FULL_TIME",
-        "Seasonal",
-    )
+    # The class (F) is PrismHR's; the client's own type code (S, "Seasonal") is a separate domain and stays
+    # as sent, never borrowed as the class's label (A-89).
+    assert (priya.employment.employment_type.raw, priya.employment.employment_type.label) == ("F", None)
+    assert priya.provider_extensions["client.employeeType"] == "S"
     assert james.employment.employment_type.value.value == "PART_TIME"
     assert one(out, "employees", ":201:E1001").personal.citizenship.value.value == "US_CITIZEN"
 

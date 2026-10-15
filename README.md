@@ -42,10 +42,10 @@ A ten-minute tour:
 Python 3.11 or newer.
 
 ```sh
-python3 -m venv .venv && source .venv/bin/activate
+python3.11 -m venv .venv && source .venv/bin/activate   # or any Python 3.11+
 pip install -e ".[dev]"
 python -m normalization demo    # normalize every provider's synthetic scenario
-pytest                          # 236 tests, offline
+pytest                          # 237 tests, offline
 mypy                            # static type check: no issues
 ```
 
@@ -62,9 +62,9 @@ The warnings are deliberate traps in the synthetic data: an invalid placeholder 
 documents or defines, a customer-named pay statement type, a cost center no tree names, an employee with
 garnishments that can't be read, and endpoints that refuse or don't exist, as on the live tenants. Each
 one is reported, not guessed. UKG values that are documented only by name (account types, gender,
-citizenship) are confirmed by the reviewed mapping file in `mappings/`, and each record says so (A-86). "Unavailable" counts requests that returned no data
-when data may exist. Their records say so, so an empty list in the output always means "none"
-(A-70).
+citizenship) are confirmed by the reviewed mapping file in `mappings/`, and each record says so (A-86).
+"Unavailable" counts requests that returned no data when data may exist. Their records say so, so an
+empty list in the output always means "none" (A-70).
 
 It writes:
 
@@ -302,8 +302,8 @@ empty until a person fills them in.
      mapping file instead (A-26, A-86);
    - PrismHR pay rates of 0 had been dropped without a trace, and deposit settings vanished for
      employees with no account (A-62, A-73);
-   - deposit percents that live data proves are now verified (A-29), and unknown yes/no values stay null
-     (A-73);
+   - percent scales rest on arithmetic only, never on how large a value is (A-29), and unknown yes/no
+     values stay null (A-73);
    - PrismHR retirement loans are fetched (A-87), and several statements in these docs were corrected.
 
 AI assistance was used throughout, as the brief allows. Every mapping rests on cited spec text or
@@ -311,7 +311,7 @@ counted live evidence.
 
 ## Testing
 
-`pytest` runs 236 offline tests (plus parametrized subtests). Nothing needs credentials or network.
+`pytest` runs 237 offline tests (plus parametrized subtests). Nothing needs credentials or network.
 
 - **Synthetic scenarios** (`fixtures/<provider>/brightside`) come from a seeded generator, and every
   response is validated against the provider's own published schema. They are full of real-world
@@ -402,8 +402,8 @@ The full list is in [ASSUMPTIONS.md](ASSUMPTIONS.md#known-limitations).
   only endpoint with the digits returns full SSNs, which this project deliberately doesn't call (A-23).
 - **Payroll history:** live isolved payroll is historical, imported data, and all live UKG payrolls are
   still open (A-11, A-13).
-- **Percent scales** are unproven for PrismHR HSA deposits, isolved deductions and everything UKG, so
-  those numbers stay null with their raw value (A-29). Tax withholding setup is kept raw, not mapped
+- **Percent scales** are proven only for PrismHR deductions, by arithmetic on their paychecks. Deposit,
+  isolved deduction and UKG percents stay null with their raw value (A-29). Tax withholding setup is kept raw, not mapped
   (A-34).
 - **A sample of each tenant:** the crawl takes at most 25 employees per company: 194 of 668 PrismHR, 45
   of 138 isolved and 25 of 103 UKG employees. So 926 PrismHR and 6 UKG paychecks, and 3 retirement loans,

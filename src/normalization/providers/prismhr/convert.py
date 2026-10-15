@@ -502,8 +502,9 @@ class _Client:
         ssn = text(comp.get("ssn"))
         ssn_last4, ssn_masked = last4(ssn)
 
-        status_code = text(client.get("employeeStatus"))
-        type_code = text(client.get("employeeType"))
+        # employeeStatus and employeeType are the client's own codes, a separate domain from PrismHR's documented
+        # status and type classes (REFERENCE_AUDIT). They aren't read here, so they stay as sent in
+        # provider_extensions, and their labels aren't attached to the class codes (A-89).
         status_class = text(client.get("statusClass"))
         status_date = iso_date(client.get("statusDate"), "client.statusDate", notes)
         employment: dict[str, Any] = dict(
@@ -513,7 +514,6 @@ class _Client:
                 "client.statusClass",
                 notes,
                 C.EmploymentStatus.UNMAPPED,
-                label=self._label("statusCode", status_code, "description"),
             ),
             status_date=status_date,
             employment_type=coded(
@@ -522,7 +522,6 @@ class _Client:
                 "client.typeClass",
                 notes,
                 C.EmploymentType.UNMAPPED,
-                label=self._label("typeCode", type_code, "description"),
             ),
             original_hire_date=iso_date(client.get("firstHireDate"), "client.firstHireDate", notes),
             hire_date=iso_date(client.get("lastHireDate"), "client.lastHireDate", notes),
@@ -935,7 +934,7 @@ class _Client:
             )
         if not rates:
             notes.info("NO_PAY_RATE", "compensation", "no nonzero salary, hourly pay or pay rate; a 0 stays as sent")
-        annual = decimal(comp.get("annualPay"))
+        annual = nonzero(comp, "annualPay")  # 0 with no rate is no annual pay, like the rates (A-73)
         if annual is not None and pay_method == "H" and hourly and annual == hourly * 2080:
             notes.info(
                 "PROVIDER_ANNUALIZED",
@@ -1087,14 +1086,12 @@ class _Client:
             C.DepositMethod.PERCENT_OF_NET_AFTER_FIXED,
             C.DepositMethod.PERCENT_OF_NET_AFTER_TAXES,
         )
-        # A live percent deposit of 10.00 can only be points: as a fraction it would be 1,000% of pay (A-29).
-        # HSA deposits are another field, with no live percent example, so their scale stays unproven.
-        points = is_percent and not hsa
-        if is_percent and hsa and value is not None:
+        # No fetched paycheck shows a percent deposit being paid, so its scale can't be checked (A-29).
+        if is_percent and value is not None:
             notes.info(
                 "PERCENT_SCALE_UNVERIFIED",
                 f"{prefix}.amount",
-                "no live percent HSA deposit to verify the scale (A-29)",
+                "no fetched paycheck pays a percent deposit, so the scale can't be checked (A-29)",
                 str(value),
             )
         account_number = text(s.get("accountNum"))
@@ -1135,8 +1132,8 @@ class _Client:
                 if value is not None and not is_percent
                 else None,
                 percent=Percent(
-                    percent=value if points else None,
-                    scale=C.PercentScale.VERIFIED_POINTS if points else C.PercentScale.UNVERIFIED,
+                    percent=None,
+                    scale=C.PercentScale.UNVERIFIED,
                     raw=str(value),
                     source_field=f"{prefix}.amount",
                 )
@@ -1227,7 +1224,7 @@ class _Client:
         if value is None or use_percent is None:
             return calc
         if use_percent:
-            # usePercent amounts of 3.0 and 12.0 live can only be points: a fraction scale would mean 300% (A-29).
+            # Live, every percent deduction's paycheck lines equal percent / 100 x its base: points (A-29).
             calc.percent = Percent(percent=value, basis=basis, scale=C.PercentScale.VERIFIED_POINTS, raw=str(value))
         elif method.value is C.CalculationMethod.RATE_PER_HOUR:
             calc.rate = Rate(amount=value, per=C.RatePeriod.HOUR)

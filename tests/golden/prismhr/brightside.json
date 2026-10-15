@@ -9,7 +9,7 @@
    "pay_statements": 8
   },
   "diagnostics": {
-   "info": 13,
+   "info": 15,
    "warning": 11
   },
   "checks": {
@@ -319,6 +319,8 @@
      "person.vehicleDetails[0].vehicleModel": "Van",
      "person.vehicleDetails[0].vehicleYear": "2020",
      "person.cobraSSN": "***3456",
+     "client.employeeStatus": "A",
+     "client.employeeType": "FT",
      "client.typeDate": "2021-03-15",
      "compensation.fedFilingStatus": "SS",
      "compensation.stateTax[0].stateCode": "NC",
@@ -544,14 +546,12 @@
      "status": {
       "value": "ACTIVE",
       "raw": "A",
-      "label": "Active",
       "source_field": "client.statusClass"
      },
      "status_date": "2021-03-15",
      "employment_type": {
       "value": "FULL_TIME",
       "raw": "F",
-      "label": "Full Time",
       "source_field": "client.typeClass"
      },
      "worker_classification": {
@@ -766,6 +766,8 @@
      "person.vehicleDetails[0].vehicleMake": "Example",
      "person.vehicleDetails[0].vehicleModel": "Van",
      "person.vehicleDetails[0].vehicleYear": "2020",
+     "client.employeeStatus": "A",
+     "client.employeeType": "PT",
      "client.typeDate": "2023-06-01",
      "compensation.fedFilingStatus": "SS",
      "compensation.stateTax[0].stateCode": "NC",
@@ -934,14 +936,12 @@
      "status": {
       "value": "ACTIVE",
       "raw": "A",
-      "label": "Active",
       "source_field": "client.statusClass"
      },
      "status_date": "2023-06-01",
      "employment_type": {
       "value": "PART_TIME",
       "raw": "P",
-      "label": "Part Time",
       "source_field": "client.typeClass"
      },
      "worker_classification": {
@@ -1121,6 +1121,8 @@
      "person.vehicleDetails[0].vehicleMake": "Example",
      "person.vehicleDetails[0].vehicleModel": "Van",
      "person.vehicleDetails[0].vehicleYear": "2020",
+     "client.employeeStatus": "T",
+     "client.employeeType": "FT",
      "client.typeDate": "2026-09-30",
      "compensation.fedFilingStatus": "SS",
      "compensation.stateTax[0].stateCode": "NC",
@@ -1265,14 +1267,12 @@
      "status": {
       "value": "TERMINATED",
       "raw": "T",
-      "label": "Terminated",
       "source_field": "client.statusClass"
      },
      "status_date": "2026-09-30",
      "employment_type": {
       "value": "FULL_TIME",
       "raw": "F",
-      "label": "Full Time",
       "source_field": "client.typeClass"
      },
      "worker_classification": {
@@ -1474,6 +1474,8 @@
      "person.vehicleDetails[0].vehicleMake": "Example",
      "person.vehicleDetails[0].vehicleModel": "Van",
      "person.vehicleDetails[0].vehicleYear": "2020",
+     "client.employeeStatus": "L",
+     "client.employeeType": "FT",
      "client.typeDate": "2026-08-01",
      "client.returnDate": "2026-11-01",
      "compensation.fedFilingStatus": "SS",
@@ -1622,14 +1624,12 @@
      "status": {
       "value": "ON_LEAVE",
       "raw": "L",
-      "label": "Leave of Absence",
       "source_field": "client.statusClass"
      },
      "status_date": "2026-08-01",
      "employment_type": {
       "value": "FULL_TIME",
       "raw": "F",
-      "label": "Full Time",
       "source_field": "client.typeClass"
      },
      "worker_classification": {
@@ -1829,6 +1829,8 @@
      "person.vehicleDetails[0].vehicleMake": "Example",
      "person.vehicleDetails[0].vehicleModel": "Van",
      "person.vehicleDetails[0].vehicleYear": "2020",
+     "client.employeeStatus": "A",
+     "client.employeeType": "S",
      "client.typeDate": "2026-05-01",
      "compensation.fedFilingStatus": "SS",
      "compensation.stateTax[0].stateCode": "NC",
@@ -1975,14 +1977,12 @@
      "status": {
       "value": "ACTIVE",
       "raw": "A",
-      "label": "Active",
       "source_field": "client.statusClass"
      },
      "status_date": "2026-05-01",
      "employment_type": {
       "value": "FULL_TIME",
       "raw": "F",
-      "label": "Seasonal",
       "source_field": "client.typeClass"
      },
      "worker_classification": {
@@ -2153,6 +2153,8 @@
      "person.vehicleDetails[0].vehicleMake": "Example",
      "person.vehicleDetails[0].vehicleModel": "Van",
      "person.vehicleDetails[0].vehicleYear": "2020",
+     "client.employeeStatus": "A",
+     "client.employeeType": "FT",
      "client.typeDate": "2022-02-01",
      "compensation.fedFilingStatus": "SS",
      "compensation.stateTax[0].stateCode": "NC",
@@ -2295,14 +2297,12 @@
      "status": {
       "value": "ACTIVE",
       "raw": "A",
-      "label": "Active",
       "source_field": "client.statusClass"
      },
      "status_date": "2022-02-01",
      "employment_type": {
       "value": "FULL_TIME",
       "raw": "F",
-      "label": "Full Time",
       "source_field": "client.typeClass"
      },
      "worker_classification": {
@@ -2476,7 +2476,7 @@
       "code": "PERCENT_SCALE_UNVERIFIED",
       "severity": "info",
       "field": "hsa.hsaDepositSettings[].amount",
-      "message": "no live percent HSA deposit to verify the scale (A-29)",
+      "message": "no fetched paycheck pays a percent deposit, so the scale can't be checked (A-29)",
       "raw": "2.0"
      }
     ],
@@ -2659,7 +2659,15 @@
      "directDeposit.suppressAccountPrint": false,
      "directDeposit.directDepositChecksum": "c-1"
     },
-    "diagnostics": [],
+    "diagnostics": [
+     {
+      "code": "PERCENT_SCALE_UNVERIFIED",
+      "severity": "info",
+      "field": "directDeposit.achVoucher[].amount",
+      "message": "no fetched paycheck pays a percent deposit, so the scale can't be checked (A-29)",
+      "raw": "30.0"
+     }
+    ],
     "employee_id": "prismhr:synthetic:employee:201:E1002",
     "company_id": "prismhr:synthetic:company:201",
     "purpose": "NET_PAY",
@@ -2679,9 +2687,8 @@
      "source_field": "directDeposit.achVoucher[].method"
     },
     "percent": {
-     "percent": "30.0",
      "basis": "UNSPECIFIED",
-     "scale": "VERIFIED_POINTS",
+     "scale": "UNVERIFIED",
      "raw": "30.0",
      "source_field": "directDeposit.achVoucher[].amount"
     },
@@ -2730,7 +2737,15 @@
      "directDeposit.suppressAccountPrint": false,
      "directDeposit.directDepositChecksum": "c-1"
     },
-    "diagnostics": [],
+    "diagnostics": [
+     {
+      "code": "PERCENT_SCALE_UNVERIFIED",
+      "severity": "info",
+      "field": "directDeposit.achVoucher[].amount",
+      "message": "no fetched paycheck pays a percent deposit, so the scale can't be checked (A-29)",
+      "raw": "50.0"
+     }
+    ],
     "employee_id": "prismhr:synthetic:employee:201:E1002",
     "company_id": "prismhr:synthetic:company:201",
     "purpose": "NET_PAY",
@@ -2750,9 +2765,8 @@
      "source_field": "directDeposit.achVoucher[].method"
     },
     "percent": {
-     "percent": "50.0",
      "basis": "UNSPECIFIED",
-     "scale": "VERIFIED_POINTS",
+     "scale": "UNVERIFIED",
      "raw": "50.0",
      "source_field": "directDeposit.achVoucher[].amount"
     },
