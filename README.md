@@ -45,7 +45,7 @@ Python 3.11 or newer.
 python3 -m venv .venv && source .venv/bin/activate
 pip install -e ".[dev]"
 python -m normalization demo    # normalize every provider's synthetic scenario
-pytest                          # 202 tests, offline
+pytest                          # 212 tests, offline
 mypy                            # static type check: no issues
 ```
 
@@ -53,14 +53,15 @@ mypy                            # static type check: no issues
 
 ```
 provider   companies  employees  deposits  elections  runs  paychecks  checks pass/fail  warnings  unavailable
-prismhr            2          6         8          5     6          8              24/0        10            7
-isolved            1          5         5          5     6          7              24/0         1            0
-ukg-ready          1          5         6          2     4          4               2/0         7            4
+prismhr            2          6         8          5     6          8              24/0        11            7
+isolved            1          5         5          5     6          7              24/0         2            0
+ukg-ready          1          5         6          2     4          4               2/0        14            4
 ```
 
 The warnings are deliberate traps in the synthetic data: an invalid placeholder date, codes nobody
-documents, a customer-named pay statement type, and endpoints that refuse or don't exist, as on the
-live tenants. Each one is reported, not guessed. "Unavailable" counts requests that returned no data
+documents or defines (UKG's demographics among them), a customer-named pay statement type, a cost center
+no tree names, an employee with garnishments that can't be read, and endpoints that refuse or don't exist,
+as on the live tenants. Each one is reported, not guessed. "Unavailable" counts requests that returned no data
 when data may exist. Their records say so, so an empty list in the output always means "none"
 (A-70).
 
@@ -351,15 +352,22 @@ contracts/            the organizer's provider specs (untouched, hash-checked)
 
 The full list is in [ASSUMPTIONS.md](ASSUMPTIONS.md#known-limitations).
 
-- **Refused or empty endpoints:** some endpoints are refused for the demo credentials, such as
-  PrismHR garnishment and employer details and isolved's payroll and "corestream" endpoints (A-08 to
-  A-10). UKG deduction setup returns 404 on the demo tenant. The converter supports it and is tested
-  on synthetic data (A-12).
-- **Endpoints with no live data:** some documented employee data is empty for every demo employee
-  (PrismHR deduction arrears, UKG additional compensation, among others) or refused, so it isn't fetched;
-  each is recorded with its reason (A-74). isolved contacts are fetched but empty live, so their mapping
-  rests on the documentation (A-77). UKG demographics arrive as enums without definitions and stay
-  `UNMAPPED` until a mapping file confirms them (A-79).
+- **Endpoints that fail on the demo tenants** are still called, and each failure is reported on the
+  records it affects (A-70):
+  - refused for the demo credentials: PrismHR garnishment details and employer names and EINs (A-08,
+    A-09), and isolved's payroll list and "corestream" endpoints (A-10);
+  - UKG deduction setup returns 404 on the demo tenant; the converter supports it and is tested on
+    synthetic data (A-12).
+
+  Because garnishment details are refused, 3 live PrismHR employees have garnishments the output can't
+  show; their records say so (A-83).
+- **Endpoints not called:** documented employee data that was empty for every demo employee (PrismHR
+  deduction arrears, UKG additional compensation, among others) or refused (isolved's year-to-date
+  accumulations) when tried during the endpoint check. Each is recorded with its reason (A-74).
+- **Mapped from documentation only:** isolved contacts are called but empty for every demo employee
+  (A-77).
+- **UKG demographics** arrive as enums without definitions, so they stay `UNMAPPED` until a mapping file
+  confirms them (A-79).
 - **Payroll history:** live isolved payroll is historical, imported data, and all live UKG payrolls are
   still open (A-11, A-13).
 - **Percent scales** are unproven for isolved and UKG deposits and deductions, so the number stays

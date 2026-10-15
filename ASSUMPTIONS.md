@@ -684,8 +684,10 @@ zeros on the full fetch:
 - **Evidence:** `deductions/v1/getGarnishmentDetails` returns HTTP 403 ("this user session is not
   authorized for the method specified") for every employee.
 - **Decision:** garnishments come from deduction codes of type `G` and from voucher deduction lines.
-  Docket, payee and limit details are a known gap, and each employee whose details were refused carries a
-  `SOURCE_UNAVAILABLE` warning (A-70).
+  Docket, payee and limit details are a known gap. The fetch stops asking after the first refusal (one
+  request on the full fetch), so only that employee carries a `SOURCE_UNAVAILABLE` warning (A-70). For
+  every employee, `checkForGarnishments` now says whether there are garnishments to miss: 3 live employees
+  have some, and carry `GARNISHMENTS_NOT_READ` (A-83).
 
 ### A-83 PrismHR: whether an employee has garnishments
 - **Issue:** garnishment details are refused (A-08), so an employee without garnishment elections might
@@ -1328,7 +1330,10 @@ zeros on the full fetch:
   - isolved's payroll list and "corestream" endpoints (A-10);
   - UKG deduction setup, which is supported and tested on synthetic data (A-12).
 
-  Each is reported on the records it affects (A-70).
+  Each is reported on the records it affects (A-70). Because garnishment details are refused, 3 live
+  PrismHR employees have garnishments the output can't show; their records say so (A-83). isolved's
+  year-to-date accumulations and Corestream payroll schedules, refused during the endpoint check, aren't
+  fetched (A-74).
 - **Documented data with nothing in it live** isn't fetched: PrismHR deduction arrears, garnishment
   payment history and override rates, isolved benefit elections, UKG additional compensation, among
   others. Each is recorded with its reason, and would be fetched and kept the same way for a tenant that
