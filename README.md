@@ -366,6 +366,11 @@ The full list is in [ASSUMPTIONS.md](ASSUMPTIONS.md#known-limitations).
 - **Endpoints not called:** documented employee data that was empty for every demo employee (PrismHR
   deduction arrears, UKG additional compensation, among others) or refused (isolved's year-to-date
   accumulations) when tried during the endpoint check. Each is recorded with its reason (A-74).
+- **Out of scope:** HR areas the brief doesn't name (skills, education, certifications, training, time
+  off and benefit enrollment) aren't normalized. Its employee data is profile and contact, employment
+  status and dates, job and organization, and compensation; benefits appear in it only as contributions
+  on paychecks, which are covered. What a provider sends inside the employee record anyway, such as
+  PrismHR's skills, is kept (A-62, A-74).
 - **Mapped from documentation only:** isolved contacts are called but empty for every demo employee
   (A-77).
 - **UKG demographics** arrive as enums without definitions, so they stay `UNMAPPED` until a mapping file
