@@ -1,0 +1,34 @@
+{
+  "seq": 23,
+  "endpoint": "employee/v1/getPayRateHistory",
+  "path": "employee/v1/getPayRateHistory",
+  "params": {
+    "clientId": "201",
+    "employeeId": "E1002"
+  },
+  "status": 200,
+  "body": {
+    "payRateHistory": {
+      "employeeId": "E1002",
+      "clientId": "201",
+      "payRate": [
+        {
+          "effectiveDate": "9999-12-31",
+          "payRate": "22.50",
+          "payPeriod": "H",
+          "annualPay": "46800.00",
+          "standardHours": "80.00",
+          "changePercent": "0.00",
+          "changeAmount": "0.00",
+          "reason": "Promo",
+          "percentMidpoint": null,
+          "payMethod": "H",
+          "hourlyRate": "22.50"
+        }
+      ]
+    },
+    "errorCode": "0",
+    "errorMessage": "",
+    "extension": null
+  }
+}

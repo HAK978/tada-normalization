@@ -32,6 +32,7 @@ UNREACHABLE = "UNREACHABLE"  # needs an ID or scope that /signin doesn't give
 EMPTY_LIVE = "EMPTY_LIVE"  # asked live on 2026-10-14: no data for any demo employee or company
 REFUSED_LIVE = "REFUSED_LIVE"  # asked live on 2026-10-14: refused for the demo API user
 OUT = "OUT"  # a topic outside the five data types
+PRIVATE = "PRIVATE"  # returns personal data the model deliberately doesn't hold (full SSNs): never called (A-23)
 UNDECIDED = "UNDECIDED"  # holds one of the five data types, with no decision recorded: the test fails
 
 TOPICS = {
@@ -76,7 +77,12 @@ DECISIONS: dict[tuple[str, str], tuple[str, str]] = {
         "international-address flag",
     ),
     (P, "/employee/v1/getEmployeeEvents"): (SAME, "getEmployee's EmployeeEvents option returns the same model"),
-    (P, "/employee/v1/getEmployeeSSNList"): (SAME, "IDs with full SSNs; only the last 4 are ever stored (A-23)"),
+    (P, "/employee/v1/getEmployeeSSNList"): (
+        PRIVATE,
+        "employee IDs with full SSNs. getEmployee masks the whole SSN, so this is the only source of its last 4, "
+        "but the model keeps no more than 4 digits, and pulling full SSNs from a live system to keep 4 isn't "
+        "worth the exposure (A-23, A-50)",
+    ),
     (P, "/employee/v1/getEmployersInfo"): (
         SAME,
         "the employee's employer, also in getEmployee's person.employerId (A-78); the same for all 35 employees asked",
@@ -196,11 +202,20 @@ DECISIONS: dict[tuple[str, str], tuple[str, str]] = {
     ),
     (ISO, IE + "/eeoStatus"): (SAME, "gender and ethnicity, also in the employee record"),
     (ISO, "/api/clients/{clientId}/employees"): (SAME, "the client-wide employee list, in the same model"),
-    (ISO, "/api/clients/{clientId}/employeesWithSSN"): (SAME, "the client-wide list with full SSNs"),
-    (ISO, IL + "/employeesWithSSN"): (SAME, "the employee list with full SSNs"),
+    (ISO, "/api/clients/{clientId}/employeesWithSSN"): (
+        PRIVATE,
+        "the client-wide employee list with full SSNs; the last 4 come from checks instead (A-23, A-50)",
+    ),
+    (ISO, IL + "/employeesWithSSN"): (
+        PRIVATE,
+        "the employee list with full SSNs; the last 4 come from checks instead (A-23, A-50)",
+    ),
     (ISO, IL + "/employeesMinimal"): (SAME, "a minimal employee list"),
     (ISO, "/api/clients/{clientId}/employeesMinimal"): (SAME, "a minimal employee list"),
-    (ISO, IL + "/employeesWithSSN/{id}"): (SAME, "the employee record with its full SSN"),
+    (ISO, IL + "/employeesWithSSN/{id}"): (
+        PRIVATE,
+        "the employee record with its full SSN; the last 4 come from checks instead (A-23, A-50)",
+    ),
     (ISO, IE + "/employments/{employmentId}/categories"): (
         SAME,
         "the categories of one employment; /categories lists all",
@@ -222,6 +237,10 @@ DECISIONS: dict[tuple[str, str], tuple[str, str]] = {
     # ------------------------------------------------------------------ isolved: payroll
     (ISO, IE + "/checks/years"): (SAME, "the years that have checks"),
     (ISO, IL + "/payGroups/{payGroupId}/checks"): (SAME, "checks by pay group, in the same model as /checks"),
+    (ISO, IE + "/checks"): (
+        SAME,
+        "one employee's checks, in the same model as the legal-level /checks the crawl pages through",
+    ),
     (ISO, IE + "/checks/{id}/checkStubReport"): (WORKFLOW, "starts a report job"),
     (ISO, IE + "/checks/preview"): (WORKFLOW, "a preview of a future check"),
     (ISO, "/api/corestream/clients/{clientId}/legals/{legalId}/legalAndPayGroupsWithPayrollSchedules"): (

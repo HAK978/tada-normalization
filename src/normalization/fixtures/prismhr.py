@@ -323,6 +323,28 @@ def _client_codes(client_id: str) -> dict:
     )
 
 
+def _retirement_loan(loan_id: str, employee_id: str, loan_date: str, starts: str, tpa: str) -> dict:
+    return {
+        "loanId": loan_id,
+        "employeeId": employee_id,
+        "loanAmount": 5000.0,
+        "loanDate": loan_date,
+        "interestRate": "4.50",
+        "loanReason": "",
+        "paymentAmount": 104.17,
+        "paybackAmount": 5416.84,
+        "amtPaidBackToDate": 1250.04,
+        "planId401k": "401k",
+        "tpaLoanId": tpa,
+        "overridePaymentAmt": None,
+        "overridePayFrom": None,
+        "overridePayTo": None,
+        "deductionStarts": starts,
+        "paidbackAdjust": [],
+        "checksum": f"RL{loan_id}",
+    }
+
+
 def _schedule() -> dict:
     # Live key is clientPayrollSchedule (singular); the spec documents clientPayrollSchedules (A-16).
     rows = [("BW", "Biweekly", "B", "Biweekly"), ("W", "Weekly", "W", "Weekly"), ("M", "Monthly", "M", "Monthly")]
@@ -1157,6 +1179,13 @@ def _client_201(bundle: FixtureBundle, staff: list[Person], rng: random.Random) 
         {"clientId": c},
         _company_contacts(live_key=True),
     )
+    # One loan against the 401(k) plan (A-87).
+    bundle.add(
+        "benefits/v1/getRetirementLoans",
+        "benefits/v1/getRetirementLoans",
+        {"clientId": c},
+        _envelope(retirementLoan=[_retirement_loan("1", maria.id, "2025-03-03", "2025-03-14", "TPA-0417")]),
+    )
     bundle.add(
         "employee/v1/getEmployeeList",
         "employee/v1/getEmployeeList",
@@ -1324,6 +1353,12 @@ def _client_202(bundle: FixtureBundle, staff: list[Person], rng: random.Random) 
         "clientMaster/v1/getAllPrismClientContacts",
         {"clientId": c},
         _company_contacts(live_key=False),
+    )
+    bundle.add(
+        "benefits/v1/getRetirementLoans",
+        "benefits/v1/getRetirementLoans",
+        {"clientId": c},
+        _envelope(retirementLoan=[]),
     )
     bundle.add(
         "employee/v1/getEmployee",

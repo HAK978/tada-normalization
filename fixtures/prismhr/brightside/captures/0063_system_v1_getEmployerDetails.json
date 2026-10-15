@@ -1,0 +1,15 @@
+{
+  "seq": 63,
+  "endpoint": "system/v1/getEmployerDetails",
+  "path": "system/v1/getEmployerDetails",
+  "params": {
+    "employerId": "5"
+  },
+  "status": 403,
+  "body": {
+    "employerInfo": null,
+    "errorCode": "1",
+    "errorMessage": "this user session is not authorized for the method specified",
+    "extension": null
+  }
+}

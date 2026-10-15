@@ -1,0 +1,20 @@
+{
+  "seq": 10,
+  "endpoint": "employee/v1/getScheduledDeductions",
+  "path": "employee/v1/getScheduledDeductions",
+  "params": {
+    "clientId": "201",
+    "employeeId": "E1001"
+  },
+  "status": 200,
+  "body": {
+    "scheduledDeduction": [],
+    "errorCode": "0",
+    "errorMessage": "",
+    "extension": null,
+    "sessionId": "",
+    "clientId": "201",
+    "employeeId": "E1001",
+    "checksum": "s-1"
+  }
+}

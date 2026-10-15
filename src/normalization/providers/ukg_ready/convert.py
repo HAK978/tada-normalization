@@ -66,6 +66,7 @@ from ..common import (
     categorized,
     customer_category,
     derived_sum,
+    is_remainder,
     paid_gross,
     tax_type,
     unmasked_date,
@@ -307,9 +308,11 @@ class _Company:
             extensions.update(e.leftovers())
         # Payrolls can name EINs that lookup/eins doesn't list (A-60).
         for row, _ in self._run_rows().values():
-            ein = Src(row.get("ein") or {}, "payrolls[].ein")
-            payroll_ein = text(ein.get("id"))
+            data = row.get("ein") or {}
+            payroll_ein = text(data.get("id"))
             if payroll_ein and payroll_ein not in employers:
+                ein = Src(data, f"payroll_eins[{payroll_ein}]")
+                ein.get("id")
                 tax_id = text(ein.get("ein_tax_id"))
                 employers[payroll_ein] = EmployerRef(
                     kind=C.EmployerKind.EIN,
@@ -317,6 +320,7 @@ class _Company:
                     name=text(ein.get("ein_name")),
                     tax_id=TaxIdentifier(value=tax_id, source_field="payrolls[].ein.ein_tax_id") if tax_id else None,
                 )
+                extensions.update(ein.leftovers())  # what else payrolls say about it, as for listed EINs
                 notes.info(
                     "EIN_FROM_PAYROLL", "payrolls[].ein", "named by payrolls, not listed by lookup/eins", payroll_ein
                 )
@@ -372,7 +376,7 @@ class _Company:
         status_raw = text(s.get("status"))
         status = coded(U.EMPLOYEE_STATUS, status_raw, "status", notes, C.EmploymentStatus.UNMAPPED, label=status_raw)
         ein_id = text((s.child("ein") or Src({})).get("id"))
-        s.mark("ein_name")  # the EIN's name; the company's employers carry it
+        s.mark("ein_name", why="the EIN's name, which the company's employers carry")
 
         addresses = [
             a
@@ -422,7 +426,7 @@ class _Company:
                 first=text(s.get("first_name")),
                 middle=text(s.get("middle_name")),
                 last=text(s.get("last_name")),
-                preferred=text(s.get("nickname")),
+                nickname=text(s.get("nickname")),
             ),
             personal=dict(
                 birth_date=iso_date(dates.get("birthday"), "dates.birthday", notes),
@@ -504,7 +508,7 @@ class _Company:
         for capture in self._captures(EMP + "/contacts", employee=employee_id):
             body = Src(capture.body)
             for c in body.children("contacts"):
-                c.mark("employee")  # the employee's own account ID
+                c.mark("employee", why="the employee's own account ID")
                 phones = [
                     Phone(type=t, number=n)
                     for key, t in (
@@ -582,7 +586,8 @@ class _Company:
         history: list[tuple[date | None, Src, CompensationChange]] = []
         for i, row in enumerate(rows):
             h = Src(row, f"compensation.history[{i}]")
-            h.mark("_links", "employee")
+            h.mark("_links")
+            h.mark("employee", why="the employee's own account ID")
             effective = span_date(h.get("effective_from"), f"{h.path}.effective_from", notes)
             history.append(
                 (
@@ -591,7 +596,7 @@ class _Company:
                     CompensationChange(
                         source_id=text(h.get("id")),
                         effective_date=effective,
-                        rates=self._rates(h),
+                        rates=self._rates(h, notes),
                         annual_pay=self._annual(h),
                         standard_hours=hours(h.get("time"), f"{h.path}.time"),
                     ),
@@ -631,16 +636,23 @@ class _Company:
         """The 1900-12-31 rows with no amount and 0 pay periods (A-56); a real zero pay is kept."""
         return decimal(h.data.get("amount")) in (None, ZERO) and decimal(h.data.get("num_pp_in_year")) in (None, ZERO)
 
-    def _rates(self, h: Src) -> list[Rate]:
+    def _rates(self, h: Src, notes: Notes) -> list[Rate]:
         """amount per amount_period, plus hourly_pay; live they agree on all 27 records (A-56)."""
         rates: list[Rate] = []
         if self._placeholder(h):
             return rates  # its fields stay raw in provider_extensions
-        value, period = decimal(h.get("amount")), text(h.get("amount_period"))
+        value, period = decimal(h.get("amount")), text(h.data.get("amount_period"))
         currency = text(h.get("currency")) or "USD"
         if value is not None:
-            per = U.RATE_PERIOD.get(period or "", C.RatePeriod.UNMAPPED)
-            rates.append(Rate(amount=value, currency=currency, per=per, source_field=f"{h.path}.amount"))
+            # An undefined period is not read, so it stays as sent in provider_extensions next to an UNMAPPED rate.
+            per = U.RATE_PERIOD.get(period or "")
+            if per is not None:
+                h.get("amount_period")
+            else:
+                notes.warn("UNMAPPED_CODE", f"{h.path}.amount_period", "a documented value with no definition", period)
+            rates.append(
+                Rate(amount=value, currency=currency, per=per or C.RatePeriod.UNMAPPED, source_field=f"{h.path}.amount")
+            )
         hourly = decimal(h.get("hourly_pay"))
         if hourly is not None and period != "HOUR":
             rates.append(
@@ -686,7 +698,9 @@ class _Company:
             pct = decimal(s.get("percentage"))
             kind = text(s.get("type"))
             if kind == U.RESERVE_LIVE_CHECK:
-                account_type = Coded[C.AccountType](value=C.AccountType.PAPER_CHECK, raw=kind, source_field="type")
+                account_type = coded(
+                    U.DD_ACCOUNT_TYPE, kind, "type", notes, C.AccountType.UNMAPPED, empty_is_none=False
+                )
             else:
                 account_type = coded(
                     U.DD_ACCOUNT_TYPE,
@@ -727,7 +741,7 @@ class _Company:
                     amount=value,
                     percent=self._percent(pct, "percentage"),
                     sequence=int(seq) if (seq := decimal(s.get("sequence"))) is not None else None,
-                    is_remainder=method.value is C.DepositMethod.REMAINDER,
+                    is_remainder=is_remainder(method.value),
                     status=Coded[C.DepositStatus](
                         value=C.DepositStatus.UNMAPPED
                         if live is None
@@ -865,7 +879,13 @@ class _Company:
         for payroll_id, (body, detailed) in sorted(self._run_rows().items()):
             notes = Notes()
             s = Src(body)
-            s.mark("_links", "ein.ein_name", "ein.ein_tax_id", "ein.ein_country_id")  # on the company's employers
+            s.mark("_links")
+            s.mark(
+                "ein.ein_name",
+                "ein.ein_tax_id",
+                "ein.ein_country_id",
+                why="the EIN's details, on the company's employers",
+            )
             s.get("id")
             run_type = s.child("type") or Src({})
             type_name = text(run_type.get("display_name"))
@@ -1091,8 +1111,8 @@ class _Company:
             )
 
         has_lines = bool(earnings or taxes or deductions)
-        wages = derived_sum([e.amount.amount for e in earnings], "sum(earnings[].ee_amount)") if earnings else None
-        cash = [p.amount.amount for p in payments if p.kind.value is not C.PaymentKind.UNMAPPED]
+        wages = derived_sum([e.amount for e in earnings], "sum(earnings[].ee_amount)") if earnings else None
+        cash = [p.amount for p in payments if p.kind.value is not C.PaymentKind.UNMAPPED]
         if any(p.kind.value is C.PaymentKind.UNMAPPED for p in payments):
             # A payment of unknown kind may or may not be cash, so net pay can't be derived (A-58).
             cash = []
@@ -1124,23 +1144,21 @@ class _Company:
                 gross_pay=paid_gross(wages, earnings, "sum(earnings[].ee_amount)", notes),
                 net_pay=derived_sum(cash, "sum(payments[Check, Direct Deposit].ee_amount)") if cash else None,
                 employee_taxes=derived_sum(
-                    [t.amount.amount for t in taxes if t.paid_by is C.TaxPaidBy.EMPLOYEE], "sum(taxes[].ee_amount)"
+                    [t.amount for t in taxes if t.paid_by is C.TaxPaidBy.EMPLOYEE], "sum(taxes[].ee_amount)"
                 )
                 if has_lines
                 else None,
                 employer_taxes=derived_sum(
-                    [t.amount.amount for t in taxes if t.paid_by is C.TaxPaidBy.EMPLOYER], "sum(taxes[].er_amount)"
+                    [t.amount for t in taxes if t.paid_by is C.TaxPaidBy.EMPLOYER], "sum(taxes[].er_amount)"
                 )
                 if has_lines
                 else None,
                 deductions=derived_sum(
-                    [d.employee_amount.amount for d in deductions if d.employee_amount], "sum(deductions[].ee_amount)"
+                    [d.employee_amount for d in deductions if d.employee_amount], "sum(deductions[].ee_amount)"
                 )
                 if has_lines
                 else None,
-                employer_contributions=derived_sum(
-                    [c.amount.amount for c in contributions], "sum(deductions[].er_amount)"
-                )
+                employer_contributions=derived_sum([c.amount for c in contributions], "sum(deductions[].er_amount)")
                 if has_lines
                 else None,
             ),

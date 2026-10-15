@@ -109,6 +109,8 @@ def _prismhr(c: ReadOnlyClient, limits: Limits) -> None:
         c.get("clientMaster/v1/getClientCodes", {**base, "options": PRISM_SYSTEM_CODE_OPTIONS})
         c.get("clientMaster/v1/getPayrollSchedule", base)
         c.get("clientMaster/v1/getAllPrismClientContacts", base)
+        # Retirement loans for the whole client, "for the specified employee or a client" (A-87).
+        c.get("benefits/v1/getRetirementLoans", base)
 
         listing = c.get("employee/v1/getEmployeeList", base)["body"]
         employee_ids = [str(i) for i in (_dig(listing, "employeeList", "employeeId") or [])]

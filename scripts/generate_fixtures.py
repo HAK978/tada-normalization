@@ -19,10 +19,12 @@ from normalization.fixtures import (
     ukg_ready as ukg_fixtures,
 )
 from normalization.fixtures.validate import errors
+from normalization.mappings import reviewed
 from normalization.providers import normalize
 
 ROOT = Path(__file__).resolve().parents[1]
-# The golden output is the whole pipeline's, the one the CLI runs (providers.normalize).
+# The golden output is the whole pipeline's, the one the CLI runs (providers.normalize), with the reviewed
+# mapping files applied as the CLI applies them (A-86).
 SCENARIOS = {
     ("prismhr", "brightside"): prismhr_fixtures.build,
     ("isolved", "brightside"): isolved_fixtures.build,
@@ -46,7 +48,7 @@ def generate(root: Path) -> list[Path]:
         written += bundle.write(target)
         golden = root / "tests" / "golden" / provider / f"{scenario}.json"
         golden.parent.mkdir(parents=True, exist_ok=True)
-        golden.write_text(normalize(Bundle.load(target)).to_json(), encoding="utf-8")
+        golden.write_text(normalize(Bundle.load(target), mapping_files=reviewed()).to_json(), encoding="utf-8")
         written.append(golden)
     return written
 

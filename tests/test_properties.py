@@ -270,6 +270,59 @@ def test_a_field_no_converter_knows_is_kept_in_provider_extensions(place, key, v
     assert record(normalize(b), kind, suffix).provider_extensions.get(key) == value
 
 
+def prism_deposit_settings(accounts: bool):
+    """The settings PrismHR sends for all of an employee's accounts, for an employee with or without accounts."""
+
+    def place(b: Bundle) -> dict:
+        employee = next(
+            e
+            for c in b.captures
+            if c.endpoint == "employee/v1/getEmployee"
+            for e in c.body["employee"]
+            if (e.get("directDeposit") or {}).get("achVoucher")
+        )
+        if not accounts:
+            employee["directDeposit"]["achVoucher"] = []
+        return employee["directDeposit"]
+
+    return place
+
+
+def ukg_employee_phones(b: Bundle) -> dict:
+    return capture(b, "employees/5001").body["phones"]
+
+
+def isolved_check_line(b: Bundle) -> dict:
+    return capture(b, "/checks/70001").body["earnings"][0]
+
+
+NESTED = {
+    "prismhr deposit settings": ("prismhr", prism_deposit_settings(True), "directDeposit."),
+    "prismhr settings, no account": ("prismhr", prism_deposit_settings(False), "directDeposit."),
+    "ukg employee phones": ("ukg-ready", ukg_employee_phones, "phones."),
+    "isolved check line": ("isolved", isolved_check_line, "earnings[0]."),
+}
+
+
+@pytest.mark.parametrize("place", NESTED, ids=list(NESTED))
+@EXAMPLES
+@given(key=st.text(alphabet=PLAIN, min_size=1, max_size=8).map("zz".__add__), value=st.text(PLAIN, min_size=1))
+def test_a_field_no_converter_knows_inside_a_nested_object_is_kept(place, key, value):
+    # An unknown field below the top level is kept too: on the record it belongs to, or, for settings shared by
+    # all of an employee's deposit accounts, on each deposit record, or on the employee when there is none.
+    provider, where, prefix = NESTED[place]
+    b = fresh(provider)
+    where(b)[key] = value
+    out = normalize(b)
+    found = [
+        r.provider_extensions[prefix + key]
+        for records in out.records.values()
+        for r in records
+        if prefix + key in r.provider_extensions
+    ]
+    assert found and set(found) == {value}
+
+
 # ---------------------------------------------------------------- mapping files stay in scope
 
 

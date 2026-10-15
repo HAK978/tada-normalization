@@ -71,8 +71,10 @@ from ..common import (
     categorized,
     customer_category,
     derived_sum,
+    is_remainder,
     line_amount,
     money,
+    nonzero,
     tax_type,
     unmasked_date,
     us_state,
@@ -329,7 +331,8 @@ class _Legal:
         client_src = Src(client.body if client else {}, "client")
         client_src.get("id")
         client_name = text(client_src.get("clientName"))
-        s.mark("client", "links", "logoData")  # client: the parent below; logoData: an image (model §9)
+        s.mark("links", "logoData")  # logoData: an image (model §9)
+        s.mark("client", why="the parent client, which the company takes from /api/clients/{client}")
         fein = text(s.get("federalEIN"))
         pay_groups = []
         for g in s.children("payGroups"):
@@ -365,7 +368,7 @@ class _Legal:
                 legal_name=legal_name,
                 parent=OrgUnit(code=self.client_id, name=client_name),
                 status=coded(
-                    {"Active": C.CompanyStatus.ACTIVE},
+                    I.COMPANY_STATUS,
                     status_raw,
                     "status",
                     notes,
@@ -412,7 +415,8 @@ class _Legal:
         history_kept: dict[str, Any] = {}  # salary history fields that aren't mapped (A-62)
         s.get("id")
         # Identity documents and images are never kept (model §9); links are navigation.
-        s.mark("i9Documents", "profilePicture", "attachments", "links", "directDeposits")
+        s.mark("i9Documents", "profilePicture", "attachments", "links")
+        s.mark("directDeposits", why="the employee's deposits, read from /directdeposits instead")
         name = s.child("nameAddress") or Src({})
         personal = s.child("personal") or Src({})
 
@@ -484,14 +488,14 @@ class _Legal:
 
         pay_type_text = text(s.get("payType"))
         worker = None
-        if pay_type_text == I.CONTRACTOR_PAY_TYPE:
+        if pay_type_text in I.CONTRACTOR_PAY_TYPES:
             worker = Coded[C.WorkerClassification](
                 value=C.WorkerClassification.CONTRACTOR_1099, raw=pay_type_text, source_field="payType"
             )
         pay_type = None
         if pay_type_text:
             value = I.PAY_TYPE.get(pay_type_text, C.PayType.UNMAPPED)
-            if value is C.PayType.UNMAPPED and pay_type_text != I.CONTRACTOR_PAY_TYPE:
+            if value is C.PayType.UNMAPPED and pay_type_text not in I.CONTRACTOR_PAY_TYPES:
                 notes.warn(
                     "UNMAPPED_CODE", "payType", "pay type description not in the system pay types table", pay_type_text
                 )
@@ -520,8 +524,10 @@ class _Legal:
                     state=text(name.get("state")),
                     postal_code=text(name.get("zipCode")),
                 ),
+                # EmployeeW2OverrideAddressModel: "An optional address override for use in tax forms or pay
+                # checks", so it is typed as the W-2 address, as PrismHR's is.
                 Address(
-                    type=C.AddressType.MAILING,
+                    type=C.AddressType.W2,
                     line1=text(override.get("address1")),
                     line2=text(override.get("address2")),
                     city=text(override.get("city")),
@@ -663,7 +669,9 @@ class _Legal:
         for i, row in enumerate(self._body_list(E + "/payItems", employee=employee_id)):
             if text(row.get("payItemType")) != "Deduction":
                 item = Src(row, f"payItems[{i}]")
-                item.mark("firstName", "lastName", "employeeId", "employeeNumber")
+                item.mark(
+                    "firstName", "lastName", "employeeId", "employeeNumber", why="the employee's own name and IDs"
+                )
                 extensions.update(without_links(sanitize_extensions(item.leftovers())))
         # Status history, salary history fields not mapped and alternate pay rates are kept too.
         extensions.update(history_kept)
@@ -825,7 +833,7 @@ class _Legal:
             ]
             unmasked = text(c.get("birthDateUnmasked"))
             if unmasked:
-                c.mark("birthDate")  # the masked copy of the same date
+                c.mark("birthDate", why="a masked copy of the birth date the contact already has unmasked")
                 birth_date = iso_date(unmasked, f"{c.path}.birthDateUnmasked", notes)
             else:
                 birth_date = unmasked_date(c, "birthDate", notes)
@@ -923,12 +931,6 @@ class _Legal:
                 method = C.DepositMethod.FIXED_AMOUNT
             elif percent is not None:
                 method = C.DepositMethod.PERCENT_BASE_UNSPECIFIED
-                notes.info(
-                    "PERCENT_SCALE_UNVERIFIED",
-                    "percent",
-                    "no live percent deposits to verify the scale (A-29)",
-                    str(percent),
-                )
             else:
                 method = C.DepositMethod.UNMAPPED
                 notes.warn("NO_ALLOCATION", None, "neither amount, percent nor the net-pay sequence (0) is set")
@@ -970,13 +972,15 @@ class _Legal:
                         source_field="sequenceNumber/amount/percent",
                     ),
                     amount=Money(amount=amount, source_field="amount") if amount is not None else None,
+                    # Live percent deposits of 30.0, 1.0 and 1.0: 30.0 can only be points, since as a fraction
+                    # it would be 3,000% of pay (A-29).
                     percent=Percent(
-                        percent=None, scale=C.PercentScale.UNVERIFIED, raw=str(percent), source_field="percent"
+                        percent=percent, scale=C.PercentScale.VERIFIED_POINTS, raw=str(percent), source_field="percent"
                     )
                     if percent is not None
                     else None,
                     sequence=sequence if isinstance(sequence, int) else None,
-                    is_remainder=method is C.DepositMethod.REMAINDER,
+                    is_remainder=is_remainder(method),
                     status=coded(
                         I.DD_STATUS,
                         s.get("status"),
@@ -1038,7 +1042,9 @@ class _Legal:
             notes = Notes()
             s = Src(row)
             item_id, name = text(s.get("id")) or str(i), text(s.get("payItemName"))
-            s.mark("payItemType", "payItemId", "firstName", "lastName", "employeeId", "employeeNumber", "links")
+            s.mark("links")
+            s.mark("payItemType", why="always Deduction: the filter that selected this row")
+            s.mark("firstName", "lastName", "employeeId", "employeeNumber", why="the employee's own name and IDs")
             category, treatment = self._classify(name)
             if category is None:
                 notes.warn("UNCLASSIFIED", "payItemName", "no client pay item with this title to classify it", name)
@@ -1091,12 +1097,7 @@ class _Legal:
             if amount is None and percent is None:
                 notes.warn("AMOUNT_MISSING", "amount/percent", "neither an amount nor a percent was sent")
             basis_raw = text(s.get("percentageOf"))
-            basis = {
-                "Gross Pay": C.CalculationBasis.GROSS_PAY,
-                "Gross Wages": C.CalculationBasis.GROSS_WAGES,
-                "Net Pay": C.CalculationBasis.NET_PAY,
-                "Disposable Income": C.CalculationBasis.DISPOSABLE_INCOME,
-            }.get(basis_raw or "", C.CalculationBasis.UNSPECIFIED)
+            basis = I.PERCENTAGE_OF.get(basis_raw or "", C.CalculationBasis.UNSPECIFIED)
             calculation = Calculation(
                 method=Coded[C.CalculationMethod](
                     value=C.CalculationMethod.PERCENT
@@ -1113,6 +1114,7 @@ class _Legal:
                 else None,
             )
             type_label = text(kind.get("typeDescription"))
+            maximum = nonzero(s, "maximumAmount")
             payee = s.child("garnishmentPayee") or Src({})
             status_raw = text(s.get("status"))
             self.out.add(
@@ -1134,9 +1136,12 @@ class _Legal:
                         value=C.DeductionCategory.GARNISHMENT, source_field="garnishments[]"
                     ),
                     calculation=calculation,
-                    limits=DeductionLimits(per_period=money(s.get("limit")), maximum=money(s.get("maximumAmount"))),
+                    # Documented only as "Limit" and "Maximum Amount": a maximum with no stated basis is mapped as
+                    # one, but "Limit" could be per check, per year or in total, so it stays as sent. A 0 is no
+                    # limit (A-73, A-88).
+                    limits=DeductionLimits(maximum=Money(amount=maximum)) if maximum is not None else None,
                     status=coded(
-                        {"Active": C.ElectionStatus.ACTIVE, "Inactive": C.ElectionStatus.INACTIVE},
+                        I.GARNISHMENT_STATUS,
                         status_raw,
                         "status",
                         notes,
@@ -1361,7 +1366,7 @@ class _Legal:
                 BenefitDetail(
                     plan=title,
                     employee_deduction=Money(amount=employee) if employee is not None else None,
-                    employee_contribution=Money(amount=catch_up) if catch_up not in (None, ZERO) else None,
+                    employee_catch_up=Money(amount=catch_up) if catch_up not in (None, ZERO) else None,
                     employer_contribution=Money(amount=employer) if employer is not None else None,
                     source_field="benefits[]",
                 )
@@ -1431,25 +1436,25 @@ class _Legal:
                 gross_wages=Money(amount=wages, source_field="grossWages") if wages is not None else None,
                 net_pay=Money(amount=net, source_field="netPay") if net is not None else None,
                 employee_taxes=derived_sum(
-                    [t.amount.amount for t in taxes if t.paid_by is C.TaxPaidBy.EMPLOYEE],
+                    [t.amount for t in taxes if t.paid_by is C.TaxPaidBy.EMPLOYEE],
                     "sum(taxes[isEmployeeTax].checkDollars)",
                 )
                 if has_lines
                 else None,
                 employer_taxes=derived_sum(
-                    [t.amount.amount for t in taxes if t.paid_by is C.TaxPaidBy.EMPLOYER],
+                    [t.amount for t in taxes if t.paid_by is C.TaxPaidBy.EMPLOYER],
                     "sum(taxes[not isEmployeeTax].checkDollars)",
                 )
                 if has_lines
                 else None,
                 deductions=derived_sum(
-                    [d.employee_amount.amount for d in deductions if d.employee_amount],
+                    [d.employee_amount for d in deductions if d.employee_amount],
                     "sum(deductions[].checkDollars) + sum(garnishments[].checkDollars)",
                 )
                 if has_lines
                 else None,
                 employer_contributions=derived_sum(
-                    [c.amount.amount for c in contributions], "sum(benefits[].checkEmployerContribution)"
+                    [c.amount for c in contributions], "sum(benefits[].checkEmployerContribution)"
                 )
                 if has_lines
                 else None,

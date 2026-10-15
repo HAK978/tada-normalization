@@ -104,13 +104,15 @@ def plan(employee: dict, company: str = "{cid}", ein_id: int | None = None) -> P
         "first_name": name.get("first"),
         "middle_name": name.get("middle"),
         "last_name": name.get("last"),
-        "nickname": name.get("preferred"),
+        # UKG has one nickname field: its own nickname round-trips, otherwise the name the person goes by.
+        "nickname": name.get("nickname") or name.get("preferred"),
         "suffix": name.get("suffix"),
         "employee_id": _first(identifiers, "value", "EMPLOYEE_NUMBER"),
         # Where the record came from, so the destination can be traced back to the source.
         "external_id": employee["id"],
         "primary_email": _first(employee.get("emails", []), "address", "MAIN", "WORK"),
-        "secondary_email": _first(employee.get("emails", []), "address", "PERSONAL"),
+        # UKG's own second email comes back as SECONDARY (A-82); from another provider, the personal one.
+        "secondary_email": _first(employee.get("emails", []), "address", "SECONDARY", "PERSONAL"),
     }
     if body["username"] is None:
         gap("username", "UKG requires a username and the source has none; one is never made up")

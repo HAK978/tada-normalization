@@ -64,6 +64,7 @@ PRISM_OPERATIONS = frozenset(
         "deductions/v1/getGarnishmentDetails",
         "benefits/v1/getActiveBenefitPlans",
         "benefits/v1/getDependents",
+        "benefits/v1/getRetirementLoans",
         "payroll/v1/getBatchListByDate",
         "payroll/v1/getBatchInfo",
         "payroll/v1/getPayrollVoucherForBatch",
@@ -89,7 +90,6 @@ ISOLVED_TEMPLATES = (
     "api/clients/{client}/legals/{legal}/employees/{id}/payItems",
     "api/clients/{client}/legals/{legal}/employees/{id}/garnishments",
     "api/clients/{client}/legals/{legal}/employees/{id}/payroll",
-    "api/clients/{client}/legals/{legal}/employees/{id}/checks",
     "api/clients/{client}/legals/{legal}/employees/{id}/checks/{id}",
     "api/clients/{client}/legals/{legal}/employees/{id}/contacts",
     "api/clients/{client}/legals/{legal}/employees/{id}/veteranStatus",
@@ -140,6 +140,12 @@ UKG_TEMPLATES = (
 # A path segment may not start with "." so "." and ".." can never match.
 _SEGMENT = r"([A-Za-z0-9_~-][A-Za-z0-9_.~-]*)"
 
+# Query parameters that could name a company or employer. PrismHR's clientId and employerId are checked
+# against /signin; any other spelling of them, and any of these on isolved or UKG (whose paths carry the
+# company), is refused, so a request can't name a second company that the check above never saw.
+_SCOPE_PARAMS = frozenset({"clientid", "legalid", "companyid", "cid", "employerid", "peoid"})
+_PRISM_CHECKED = frozenset({"clientId", "employerId"})
+
 
 def _compile(template: str) -> tuple[re.Pattern[str], tuple[str, ...]]:
     names, parts = [], []
@@ -165,11 +171,14 @@ def check(
     url: str,
     params: dict | None = None,
     employers: frozenset[str] = frozenset(),
+    method: str = "GET",
 ) -> str:
     """Return the matched endpoint id, or raise ScopeError without sending anything.
 
     employers: PrismHR employer IDs referenced by the demo clients' own getClientMaster responses.
     """
+    if method.upper() != "GET":
+        raise ScopeError(f"{method} refused: only GET requests are sent")
     base, target = urlsplit(base_url), urlsplit(url)
     if (target.scheme, target.netloc.lower()) != (base.scheme, base.netloc.lower()):
         raise ScopeError(f"{url} is not on the /signin base URL host")
@@ -180,9 +189,14 @@ def check(
         raise ScopeError(f"{target.path} is outside the /signin base URL path")
     relative = target.path[len(prefix) :].rstrip("/")
     params = params or {}
+    named = [key for key in params if str(key).lower() in _SCOPE_PARAMS]
     if provider == "prismhr":
+        if any(key not in _PRISM_CHECKED for key in named):
+            raise ScopeError(f"parameter {named} names a company in a spelling the check doesn't read")
         return _check_prism(relative, params, companies, employers)
     if provider in _TEMPLATES:
+        if named:
+            raise ScopeError(f"parameter {named} would name a company outside the checked path")
         return _check_template(provider, relative, companies)
     raise ScopeError(f"unknown provider {provider!r}")
 

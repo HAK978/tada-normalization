@@ -74,9 +74,11 @@ from ..common import (
     categorized,
     customer_category,
     derived_sum,
+    is_remainder,
     line_amount,
     masked,
     money,
+    nonzero,
     paid_gross,
     tax_type,
     unmasked_date,
@@ -235,6 +237,18 @@ class _Client:
                             raw=employee_id,
                         )
                     )
+        for election in self._retirement_loans():
+            if election.source.ids.get("employeeId") not in employee_ids:
+                election.diagnostics.append(
+                    Diagnostic(
+                        code="EMPLOYEE_NOT_IN_BUNDLE",
+                        severity=C.Severity.INFO,
+                        field="employeeId",
+                        message="employee record was not fetched into this bundle",
+                        raw=election.source.ids.get("employeeId"),
+                    )
+                )
+            self.out.add("deduction_elections", election)
         runs = self._payroll_runs()
         self._pay_statements(runs, employee_ids)
 
@@ -657,6 +671,12 @@ class _Client:
             scheduled.mark("errorCode", "errorMessage", "extension", "clientId", "employeeId", "checksum")
             kept.update(scheduled.leftovers())
 
+        # Settings that apply to all of an employee's accounts are copied onto each deposit record. With no
+        # account there is no deposit record, so they stay with the employee instead (A-62).
+        deposit_settings = self._deposit_settings(s)
+        for shared, rows, _ in deposit_settings.values():
+            if not rows:
+                kept.update(shared)
         history_kept: dict[str, Any] = {}  # pay rate history fields that aren't mapped (A-62)
         compensation = self._compensation(comp, employee_id, notes, history_kept)
         self.out.add(
@@ -704,7 +724,7 @@ class _Client:
                 diagnostics=notes.items,
             ),
         )
-        self._deposits(s, employee_id)
+        self._deposits(employee_id, deposit_settings)
 
     def _dependents(self, employee_id: str, notes: Notes, kept: dict[str, Any]) -> list[Contact]:
         """Dependents and beneficiaries from getDependents, as contacts (A-77)."""
@@ -885,16 +905,20 @@ class _Client:
 
     def _compensation(self, comp: Src, employee_id: str, notes: Notes, kept: dict[str, Any]) -> Compensation:
         pay_method = text(comp.get("payMethod"))
+        # A rate of 0 is no rate: only a nonzero one is read and mapped, so a 0 stays as sent in
+        # provider_extensions (A-73), as for isolved.
         rates: list[Rate] = []
-        salary = decimal(comp.get("salary"))
-        if salary is not None and salary != ZERO:
+        salary = nonzero(comp, "salary")
+        if salary is not None:
             rates.append(Rate(amount=salary, per=C.RatePeriod.PAY_PERIOD, source_field="compensation.salary"))
-        hourly = decimal(comp.get("hourlyPay"))
-        if hourly is not None and hourly != ZERO:
+        hourly = nonzero(comp, "hourlyPay")
+        if hourly is not None:
             rates.append(Rate(amount=hourly, per=C.RatePeriod.HOUR, source_field="compensation.hourlyPay"))
-        basis_raw = text(comp.get("hourlyPayPeriod"))
-        basis_rate = decimal(comp.get("hourlyPayRate"))
+        basis_raw = text(comp.data.get("hourlyPayPeriod"))
+        basis_rate = decimal(comp.data.get("hourlyPayRate"))
         if basis_rate is not None and basis_rate != ZERO and basis_raw:
+            comp.get("hourlyPayRate")
+            comp.get("hourlyPayPeriod")
             per = P.HOURLY_PAY_PERIOD.get(basis_raw)
             if per is None:
                 notes.warn("UNMAPPED_CODE", "compensation.hourlyPayPeriod", "unknown pay-rate basis", basis_raw)
@@ -909,6 +933,8 @@ class _Client:
             rates.append(
                 Rate(amount=basis_rate, per=per or C.RatePeriod.UNMAPPED, source_field="compensation.hourlyPayRate")
             )
+        if not rates:
+            notes.info("NO_PAY_RATE", "compensation", "no nonzero salary, hourly pay or pay rate; a 0 stays as sent")
         annual = decimal(comp.get("annualPay"))
         if annual is not None and pay_method == "H" and hourly and annual == hourly * 2080:
             notes.info(
@@ -948,7 +974,8 @@ class _Client:
                     )
                 period = text(h.get("payPeriod"))
                 rates = []
-                rate = decimal(h.get("payRate"))
+                # As for the current rates, a 0 is no rate and stays as sent (A-73).
+                rate = nonzero(h, "payRate")
                 if rate is not None:
                     rates.append(
                         Rate(
@@ -957,7 +984,7 @@ class _Client:
                             source_field=h.path + ".payRate",
                         )
                     )
-                hourly = decimal(h.get("hourlyRate"))
+                hourly = nonzero(h, "hourlyRate")
                 if hourly is not None:
                     rates.append(Rate(amount=hourly, per=C.RatePeriod.HOUR, source_field=h.path + ".hourlyRate"))
                 standard = decimal(h.get("standardHours"))
@@ -983,21 +1010,29 @@ class _Client:
 
     # -------------------------------------------------------------- direct deposits
 
-    def _deposits(self, employee: Src, employee_id: str) -> None:
+    @staticmethod
+    def _deposit_settings(employee: Src) -> dict[str, tuple[dict[str, Any], list[Any], str | None]]:
+        """For directDeposit and hsa: the settings that apply to all their accounts (as sent), the account
+        rows, and the voucherType that scopes every direct deposit account."""
+        found = {}
+        for block, rows_key in (("directDeposit", "achVoucher"), ("hsa", "hsaDepositSettings")):
+            data = employee.data.get(block)
+            if not isinstance(data, dict):
+                continue
+            settings = Src(data, block)
+            settings.mark(rows_key)
+            rows = data.get(rows_key) or []
+            # Read only when there are accounts for it to scope; otherwise it stays with the other settings.
+            scope = text(settings.get("voucherType")) if rows and block == "directDeposit" else None
+            found[block] = (settings.leftovers(), rows, scope)
+        return found
+
+    def _deposits(self, employee_id: str, settings: dict[str, tuple[dict[str, Any], list[Any], str | None]]) -> None:
         employee_ref = self._id("employee", self.client_id, employee_id)
-        dd = employee.data.get("directDeposit") or {}
-        scope = text(dd.get("voucherType"))
-        shared = {
-            f"directDeposit.{k}": v
-            for k, v in dd.items()
-            if k not in ("achVoucher", "voucherType") and v not in (None, "")
-        }
-        for i, row in enumerate(dd.get("achVoucher") or []):
-            self._deposit(Src(row), employee_ref, employee_id, C.DepositPurpose.NET_PAY, i + 1, scope, shared)
-        hsa = employee.data.get("hsa") or {}
-        shared_hsa = {f"hsa.{k}": v for k, v in hsa.items() if k != "hsaDepositSettings" and v not in (None, "")}
-        for i, row in enumerate(hsa.get("hsaDepositSettings") or []):
-            self._deposit(Src(row), employee_ref, employee_id, C.DepositPurpose.HSA, i + 1, None, shared_hsa)
+        for block, purpose in (("directDeposit", C.DepositPurpose.NET_PAY), ("hsa", C.DepositPurpose.HSA)):
+            shared, rows, scope = settings.get(block, ({}, [], None))
+            for i, row in enumerate(rows):
+                self._deposit(Src(row), employee_ref, employee_id, purpose, i + 1, scope, shared)
 
     def _deposit(
         self,
@@ -1052,11 +1087,14 @@ class _Client:
             C.DepositMethod.PERCENT_OF_NET_AFTER_FIXED,
             C.DepositMethod.PERCENT_OF_NET_AFTER_TAXES,
         )
-        if is_percent and value is not None:
+        # A live percent deposit of 10.00 can only be points: as a fraction it would be 1,000% of pay (A-29).
+        # HSA deposits are another field, with no live percent example, so their scale stays unproven.
+        points = is_percent and not hsa
+        if is_percent and hsa and value is not None:
             notes.info(
                 "PERCENT_SCALE_UNVERIFIED",
                 f"{prefix}.amount",
-                "no live percent deposits to verify the scale (A-29)",
+                "no live percent HSA deposit to verify the scale (A-29)",
                 str(value),
             )
         account_number = text(s.get("accountNum"))
@@ -1097,13 +1135,16 @@ class _Client:
                 if value is not None and not is_percent
                 else None,
                 percent=Percent(
-                    percent=None, scale=C.PercentScale.UNVERIFIED, raw=str(value), source_field=f"{prefix}.amount"
+                    percent=value if points else None,
+                    scale=C.PercentScale.VERIFIED_POINTS if points else C.PercentScale.UNVERIFIED,
+                    raw=str(value),
+                    source_field=f"{prefix}.amount",
                 )
                 if value is not None and is_percent
                 else None,
                 limit=money(s.get("limit"), f"{prefix}.limit"),
                 sequence=sequence,
-                is_remainder=method.value is C.DepositMethod.REMAINDER,
+                is_remainder=is_remainder(method.value),
                 status=coded(P.DD_STATUS, s.get("status"), f"{prefix}.status", notes, C.DepositStatus.UNMAPPED),
                 applies_to_pay_types=[a for a in applies if a],
                 # Last, so every field read above is already marked.
@@ -1128,7 +1169,10 @@ class _Client:
                     if key in seen:
                         # The same election from a second endpoint: keep only the fields that differ.
                         repeat = Src(row, f"{body_key}.deduction[{i}]")
-                        repeat.mark(*(k for k, v in row.items() if first[key].get(k) == v))
+                        repeat.mark(
+                            *(k for k, v in row.items() if first[key].get(k) == v),
+                            why="the same value the first endpoint sent for this election",
+                        )
                         differing = sanitize_extensions(repeat.leftovers())
                         seen[key].provider_extensions.update(differing)
                         if differing:
@@ -1195,13 +1239,22 @@ class _Client:
         notes = Notes()
         code = text(s.get("deductionCode")) or ""
         category, treatment, catch_up = self._category(s.get("deductionType"), f"{s.path}.deductionType", notes)
-        # Whether the amount is dollars or a percent decides what it means. Without the flag it is left raw
-        # in provider_extensions instead of guessed (A-73).
+        # Whether the amount is dollars or a percent decides what it means. The flag is documented "The default
+        # is False", so a missing flag means dollars, said in a note; one that isn't a yes/no leaves the amount
+        # raw in provider_extensions instead of guessed (A-73).
         amount, use_percent = decimal(s.data.get("amount")), None
         if amount is not None:
-            use_percent = known_flag(
-                s.get("usePercent"), f"{s.path}.usePercent", notes, "whether the amount is dollars or a percent"
-            )
+            if s.data.get("usePercent") in (None, ""):
+                use_percent = False
+                notes.info(
+                    "DOCUMENTED_DEFAULT",
+                    f"{s.path}.usePercent",
+                    "not sent; documented default False, so the amount is dollars (EmployeeDeductions-Deduction)",
+                )
+            else:
+                use_percent = known_flag(
+                    s.get("usePercent"), f"{s.path}.usePercent", notes, "whether the amount is dollars or a percent"
+                )
             if use_percent is not None:
                 s.get("amount")
         calculation = self._calculation(
@@ -1350,6 +1403,59 @@ class _Client:
             provider_extensions=sanitize_extensions(s.leftovers()),
             diagnostics=notes.items,
         )
+
+    def _retirement_loans(self) -> list[DeductionElection]:
+        """Loans against a retirement plan, for the whole client. Each is repaid by a payroll deduction:
+        paymentAmount is the "amount employee will pay back per pay period", starting on deductionStarts. The
+        response names no deduction code, so `code` is empty and the plan is `benefit_plan_id` (A-87)."""
+        elections = []
+        for capture in self.bundle.ok("benefits/v1/getRetirementLoans", clientId=self.client_id):
+            for i, row in enumerate(capture.body.get("retirementLoan") or []):
+                notes = Notes()
+                s = Src(row, f"retirementLoan[{i}]")
+                employee_id = text(s.get("employeeId")) or ""
+                loan_id = text(s.get("loanId")) or ""
+                payment = money(s.get("paymentAmount"), f"{s.path}.paymentAmount")
+                elections.append(
+                    DeductionElection(
+                        id=self._id("deduction_election", self.client_id, employee_id, "retirement-loan", loan_id),
+                        source=self._source(
+                            ["benefits/v1/getRetirementLoans"],
+                            clientId=self.client_id,
+                            employeeId=employee_id,
+                            loanId=loan_id,
+                        ),
+                        employee_id=self._id("employee", self.client_id, employee_id),
+                        company_id=self.company_id,
+                        code="",
+                        label=text(s.get("loanReason")),
+                        category=Coded[C.DeductionCategory](
+                            value=C.DeductionCategory.RETIREMENT_LOAN, source_field="retirementLoan[]"
+                        ),
+                        calculation=Calculation(
+                            method=Coded[C.CalculationMethod](
+                                value=C.CalculationMethod.FIXED_AMOUNT, source_field=f"{s.path}.paymentAmount"
+                            ),
+                            amount=payment,
+                        )
+                        if payment is not None
+                        else None,
+                        effective_from=iso_date(s.get("deductionStarts"), f"{s.path}.deductionStarts", notes),
+                        benefit_plan_id=text(s.get("planId401k")),
+                        loan_or_garnishment_id=loan_id or None,
+                        loan=LoanDetails(
+                            principal=money(s.get("loanAmount"), f"{s.path}.loanAmount"),
+                            payback_amount=money(s.get("paybackAmount"), f"{s.path}.paybackAmount"),
+                            paid_to_date=money(s.get("amtPaidBackToDate"), f"{s.path}.amtPaidBackToDate"),
+                            payment_amount=payment,
+                            loan_date=iso_date(s.get("loanDate"), f"{s.path}.loanDate", notes),
+                            reason=text(s.data.get("loanReason")),
+                        ),
+                        provider_extensions=sanitize_extensions(s.leftovers()),
+                        diagnostics=notes.items,
+                    )
+                )
+        return elections
 
     # -------------------------------------------------------------- payroll runs
 
@@ -1703,17 +1809,17 @@ class _Client:
             gross_pay=paid_gross(wages, earnings, "totalEarnings", notes),
             net_pay=Money(amount=net, source_field="netPay") if net is not None else None,
             employee_taxes=derived_sum(
-                [t.amount.amount for t in taxes if t.paid_by is C.TaxPaidBy.EMPLOYEE], "sum(employeeTax[].empTaxAmount)"
+                [t.amount for t in taxes if t.paid_by is C.TaxPaidBy.EMPLOYEE], "sum(employeeTax[].empTaxAmount)"
             ),
             employer_taxes=derived_sum(
-                [t.amount.amount for t in taxes if t.paid_by is C.TaxPaidBy.EMPLOYER], "sum(companyTax[].comTaxAmount)"
+                [t.amount for t in taxes if t.paid_by is C.TaxPaidBy.EMPLOYER], "sum(companyTax[].comTaxAmount)"
             ),
             deductions=derived_sum(
-                [d.employee_amount.amount for d in deductions if d.employee_amount],
+                [d.employee_amount for d in deductions if d.employee_amount],
                 "sum(deduction[].deductAmount) + sum(otherDeduction[].otherDeductAmount)",
             ),
             employer_contributions=derived_sum(
-                [c.amount.amount for c in contributions], "sum(employerContributions[].amount)"
+                [c.amount for c in contributions], "sum(employerContributions[].amount)"
             ),
         )
         void_date = iso_date(s.get("voidDate"), "voidDate", notes)

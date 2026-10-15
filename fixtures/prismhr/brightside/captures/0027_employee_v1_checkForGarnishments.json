@@ -1,0 +1,17 @@
+{
+  "seq": 27,
+  "endpoint": "employee/v1/checkForGarnishments",
+  "path": "employee/v1/checkForGarnishments",
+  "params": {
+    "clientId": "201",
+    "employeeId": "E1002"
+  },
+  "status": 200,
+  "body": {
+    "enrolled": true,
+    "active": true,
+    "errorCode": "0",
+    "errorMessage": "",
+    "extension": null
+  }
+}

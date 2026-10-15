@@ -12,6 +12,7 @@ from normalization.canonical.codes import (
     US_STATE_BY_NAME,
     US_STATES,
     CheckResult,
+    DepositMethod,
     EarningCategory,
     EarningKind,
     Severity,
@@ -19,7 +20,7 @@ from normalization.canonical.codes import (
 )
 from normalization.canonical.records import EarningLine, PayStatement
 from normalization.canonical.types import Coded, Diagnostic, Money
-from normalization.checks import reconcile
+from normalization.checks import MISSING_AMOUNT, placeholder, reconcile
 from normalization.sanitize import MASK_CHARS
 from normalization.source import Notes, Src, decimal, iso_date, text
 
@@ -31,18 +32,37 @@ def money(value: Any, field: str | None = None) -> Money | None:
     return None if amount is None else Money(amount=amount, source_field=field)
 
 
+def is_remainder(method: Any) -> bool | None:
+    """Whether a deposit takes what is left. Unknown when its method is: it could be either (A-73)."""
+    return None if method is DepositMethod.UNMAPPED else method is DepositMethod.REMAINDER
+
+
+def nonzero(s: Src, field: str) -> Decimal | None:
+    """A number that only means something when it isn't 0, such as a pay rate or a limit. Read when nonzero;
+    a 0 is left unread, so it stays as sent in provider_extensions instead of being mapped (A-73)."""
+    value = decimal(s.data.get(field))
+    if value is None or value == ZERO:
+        return None
+    s.get(field)
+    return value
+
+
 def line_amount(value: Any, field: str | None, notes: Notes) -> Money:
-    """A paycheck line's amount. A line sent without one keeps a 0 placeholder, so its code and other
-    values stay, and an AMOUNT_MISSING warning says the 0 was not sent: missing is never zero (A-72)."""
+    """A paycheck line's amount. A line sent without one keeps a 0 stand-in, so its code and other values
+    stay. The stand-in is marked derived, with a formula saying it was not sent, and an AMOUNT_MISSING
+    warning says so too; sums and checks that would include it are left unknown (A-73)."""
     amount = decimal(value)
     if amount is None:
         notes.warn("AMOUNT_MISSING", field, "the line has no amount; the 0 here stands in for it and was not sent")
-        return Money(amount=ZERO, source_field=field)
+        return Money(amount=ZERO, derived=True, formula=MISSING_AMOUNT, source_field=field)
     return Money(amount=amount, source_field=field)
 
 
-def derived_sum(amounts: list[Decimal], formula: str) -> Money:
-    return Money(amount=sum(amounts, ZERO), derived=True, formula=formula)
+def derived_sum(amounts: list[Money], formula: str) -> Money | None:
+    """The sum of line amounts, marked derived. Unknown when one of them wasn't sent (A-73)."""
+    if any(placeholder(m) for m in amounts):
+        return None
+    return Money(amount=sum((m.amount for m in amounts), ZERO), derived=True, formula=formula)
 
 
 def masked(value: str | None) -> bool:
@@ -72,6 +92,9 @@ def paid_gross(wages: Money | None, earnings: list[EarningLine], source: str, no
         return None
     if any(EarningKind(line.kind.value) is EarningKind.UNMAPPED for line in counted):
         notes.info("GROSS_PAY_NOT_DERIVED", "earnings", "an earning line counted in gross has an unmapped kind")
+        return None
+    if any(placeholder(line.amount) for line in counted):
+        notes.info("GROSS_PAY_NOT_DERIVED", "earnings", "an earning line counted in gross has no amount")
         return None
     non_cash = [line.amount.amount for line in counted if EarningKind(line.kind.value) in NON_CASH_EARNING_KINDS]
     return Money(

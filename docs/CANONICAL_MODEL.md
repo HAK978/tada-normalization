@@ -1,6 +1,6 @@
 # Canonical model
 
-Status: **implemented, 2026-10-13.**
+Status: **implemented; last revised 2026-10-15.**
 - v1 had review decisions (§10).
 - An independent design audit raised 15 findings. All were verified against the specs and folded
   in here and in [ASSUMPTIONS.md](../ASSUMPTIONS.md).
@@ -8,6 +8,9 @@ Status: **implemented, 2026-10-13.**
   onward).
 - A check of every documented read endpoint against what was fetched (A-74) added contacts, organization
   units, employment and job history, and company contacts (A-75 to A-84).
+- An outside audit (2026-10-15) found codes mapped by name alone, zeros and unknowns read as values, and
+  percents left unverified that live data proves. Each fix is in ASSUMPTIONS.md (A-26, A-29, A-73, A-86 to
+  A-88).
 
 Implemented: the model itself (`src/normalization/canonical/`) and the PrismHR, isolved and UKG Ready
 converters. The model is exported as JSON Schema, one file per record type, under `schemas/`
@@ -74,7 +77,8 @@ Vacation in a voucher type, and Reversal in payroll history.
 ```
 
 When the scale is unverified, `percent` stays null and only `raw` is given, so no consumer can
-mistake a possible 500% for 5% (A-29).
+mistake a possible 500% for 5% (A-29). Live data proves points for PrismHR deduction and deposit percents
+and isolved deposit percents; every other percent is unverified.
 
 **A derived value:** `{"amount": "1880.00", "currency": "USD", "derived": true, "formula": "sum(earnings[].amount)"}`
 
@@ -101,7 +105,7 @@ canonical IDs of the records it belongs to.
 | Company | `clientId` | `clientId` + `legalId` | company id |
 | Employee | `clientId` + employee `id` | employee `id` | account `id` |
 | DirectDeposit | employee + position in `achVoucher[]` / `hsaDepositSettings[]` (no deposit ID; accounts fully masked) | deposit `id` | deposit `id` |
-| DeductionElection | employee + `deductionCode` + `startDate`; loans by `loanId` | pay item `id`; garnishment `id` | deduction `id` |
+| DeductionElection | employee + `deductionCode` + `startDate` + `stopDate`; loans and retirement loans by `loanId` | pay item `id`; garnishment `id` | deduction `id` |
 | PayrollRun | `batchId` | pay group + run history `id` | payroll `id` |
 | PayStatement | `voucherId` | check `id` | pay statement `id` |
 
@@ -131,7 +135,7 @@ canonical IDs of the records it belongs to.
 | Group | Fields |
 |---|---|
 | Identity | `identifiers[]` of {type, value}; `national_id` as {type, last4, masked_at_source} |
-| Name | `first`, `middle`, `last`, `preferred`, `prefix`, `suffix` |
+| Name | `first`, `middle`, `last`, `preferred`, `nickname`, `prefix`, `suffix` |
 | Personal | `birth_date`; `gender`, `marital_status` and `ethnicity` (coded, label kept); veteran and disability statuses (including "declined"/"not specified"); `citizenship`; `preferred_language`; `contacts[]`: emergency contacts, dependents and beneficiaries, each with its `roles` (A-77) |
 | Contact | `addresses[]`, `phones[]`, `emails[]`, each typed (an email can be `SECONDARY`: ranked second, no stated purpose, A-82) |
 | Employment | `status` (`ACTIVE` `ON_LEAVE` `TERMINATED`) and its date; `employment_type` (`FULL_TIME` `PART_TIME`); `worker_classification` (`EMPLOYEE` `CONTRACTOR_1099`); hire / rehire / start / seniority / termination dates; `termination_reason`; `flsa_exempt`; `employer_ids[]`; `history[]` of status, leave, termination and category changes (A-76) |
@@ -145,8 +149,8 @@ canonical IDs of the records it belongs to.
 | SSN | `compensation.ssn` (masked live); `person.cobraSSN` is also sanitized | `ssn` is null live; last 4 from `checks[].employeeSSN` (A-50) | `social_security` and `national_id_numbers[]`, returned in full live and reduced to last 4 |
 | Status | `client.statusClass` A/L/T (documented), plus the client status code and label | `employmentStatus`: "Active"/"Terminated" only when `/statuses` shows it as an implied system status (A-48); others `UNMAPPED` with the label | `status`: undocumented, but consistent with `dates.terminated` live |
 | Type | `client.typeClass` F/P (documented filter values) | `employmentCategoryCode`: customer code, `UNMAPPED` | pay-info `employee_type`: tenant label, `UNMAPPED` |
-| Worker class | `client.employee1099` (independent of `payMethod`) | `payType` "1099" gives `CONTRACTOR_1099` and pay type `UNMAPPED` | none: `tax-info` W2/1099 flags have no definitions and are kept (A-34) |
-| Demographics | `person` gender, marital status, ethnic code, veteran, disability | the employee record; veteran from flags and `/veteranStatus`, disability with its declined answer (A-81) | `/demographics`: documented enums without definitions, `UNMAPPED` with the value as sent until a mapping file confirms them (A-79) |
+| Worker class | `client.employee1099` (independent of `payMethod`) | `payType` "1099" gives `CONTRACTOR_1099` and pay type `UNMAPPED`; "1099 (Hours Based)" gives `CONTRACTOR_1099` and `HOURLY` (A-39) | none: `tax-info` W2/1099 flags have no definitions and are kept (A-34) |
+| Demographics | `person` gender (M, F, X, D, defined in NewHireEmployee, A-44), marital status, ethnic code, veteran, disability | the employee record; veteran from flags and `/veteranStatus`, disability with its declined answer (A-81) | `/demographics`: documented enums without definitions, `UNMAPPED` with the value as sent until a mapping file confirms them; the demo tenant's reviewed file does (A-79, A-86) |
 | Contacts | `person.emergencyContact[]` (one value each) and `getDependents` (A-77) | `/contacts` | `/contacts` |
 | Organization | department, division and location codes, named from the client's code tables | `organizations[]`, titled by the customer (A-75) | `cost_centers_info`, named from the cost-center trees (A-75) |
 | History | `getHistory`: status, leave, termination, position and organization changes (A-76) | `/statuses`, `/categories`, `/jobs` (A-76) | none beyond compensation history |
@@ -159,7 +163,7 @@ canonical IDs of the records it belongs to.
 - `funding`: `EMPLOYEE` or `EMPLOYER`, for HSA only.
 - `account`: type, routing number, last 4, bank name and routing type.
 - Allocation: `method`, `amount`, `percent` (§2), `limit`.
-- `sequence`, `is_remainder`, `status`.
+- `sequence`, `is_remainder` (null when the method is unknown, A-73), `status`.
 - `prenote`: status, sent date and expiration date.
 - `effective_from` and `effective_to` (§6).
 - `frequency`, `applies_to_pay_types` and `currency`.
@@ -179,11 +183,14 @@ Methods are mapped per **full source field**:
 
 | Canonical account type | Source |
 |---|---|
-| `CHECKING` | isolved "Checking"; UKG CHECKING; Prism HSA HE/HC ("to Checking") |
-| `SAVINGS` | Prism S; isolved "Savings"; UKG SAVINGS; Prism HSA HES/HCS ("to Savings") |
+| `CHECKING` | isolved "Checking"; Prism HSA HE/HC ("to Checking"); UKG CHECKING through a reviewed mapping file (A-86) |
+| `SAVINGS` | Prism S; isolved "Savings"; Prism HSA HES/HCS ("to Savings"); UKG SAVINGS through a reviewed mapping file (A-86) |
 | `CHECKING_OR_PAY_CARD` | Prism C only: documented as "checking account or pay card" |
 | `INSTANT_PAY` | Prism IP |
-| `PAPER_CHECK` | UKG RESERVE_LIVE_CHECK, which reserves a paper check rather than naming an account |
+| `PAPER_CHECK` | UKG RESERVE_LIVE_CHECK through a reviewed mapping file: the row names no bank account (A-86) |
+
+UKG documents its account types and deposit types as enum names with no definition, so without a mapping
+file they stay `UNMAPPED` with the value as sent (A-26).
 
 - **Prism HSA funding:** HE/HES are employee-funded and HC/HCS are company-funded (documented).
 - **Status:** Prism D/I/P and isolved "Active"/"Inactive" map directly. UKG status is derived from
@@ -271,7 +278,8 @@ not a provider one.
   value (A-21).
 
 **PayStatement:**
-- **Header:** pay date, period, check number, type, status, plus void and reissue details.
+- **Header:** pay date, period, check number, type, status, plus void and reissue details. `voided` is
+  null where the provider sends no void indicator (isolved, UKG): unknown, not "no" (A-73).
 - **Totals:** `gross_wages`, `gross_pay`, `net_pay`, employee and employer taxes, deductions, and
   employer contributions. Each is either provided or derived and flagged. The two gross figures mean
   the same thing for every provider (A-54):
@@ -297,8 +305,8 @@ not a provider one.
   - `state`: the USPS code of a state-level tax, when the provider's code or description names it.
 - **`deductions[]`:** code, external ID, label, category, and employee and employer amounts.
 - **`employer_contributions[]`.**
-- **`benefit_details[]`:** premium, employee and employer amounts, coverage period. These are
-  informational and never added into totals.
+- **`benefit_details[]`:** premium, employee and employer amounts, a retirement catch-up on its own
+  (isolved), coverage period. These are informational and never added into totals.
 - **`retirement`:** pre-tax, catch-up, Roth, post-tax, employer match, non-elective, safe-harbor and
   loan amounts (Prism).
 - **`payments[]`:** `DIRECT_DEPOSIT` or `CHECK`, amount, last 4.
@@ -340,6 +348,8 @@ A failed check becomes a `RECONCILIATION_MISMATCH` warning; the totals stay as t
 | Prism skills/education, transfer history, events, property; isolved labor and misc datasets | `provider_extensions` |
 | isolved organizations, UKG cost centers | mapped (§4 Job `org_units[]`, A-75) |
 | Prism deduction arrears, mandatory flag, benefit plan, loan/garnishment reference | mapped (§7) |
+| Prism retirement loans (`getRetirementLoans`) | mapped (§7, `RETIREMENT_LOAN`, A-87) |
+| isolved garnishment `limit` ("Limit", no stated basis) | `provider_extensions` (A-88) |
 | Prism deduction rate table/tier and linked ACH account | `provider_extensions` |
 | Prism batch per-group periods, weeks worked, deduction period | mapped (§8 `pay_groups[]`) |
 | Prism voucher `otherEarningsDetail`, retirement breakdown, benefit lines | mapped (§8) |
@@ -353,7 +363,9 @@ A failed check becomes a `RECONCILIATION_MISMATCH` warning; the totals stay as t
 | UKG pay-statement line dates, batches, allocations, wage bases, payment types | mapped (§8) |
 | Year-to-date and accumulator buckets; workers' comp; GL distributions | `provider_extensions` |
 
-A generated `docs/FIELD_COVERAGE.md` will list every response field's disposition.
+[FIELD_COVERAGE.md](FIELD_COVERAGE.md) lists every response field's disposition, generated from the live
+fetch. A field a converter only marks as handled elsewhere counts as mapped or kept only where another
+reader maps or keeps it; otherwise it is dropped with the reason the mark gives, or lost (A-62).
 
 **Sensitive data.** A registry of sensitive source fields, plus a pattern sweep over everything
 else, sanitizes these:

@@ -108,7 +108,13 @@ class ReadOnlyClient:
         params = {k: v for k, v in (params or {}).items() if v is not None}
         url = f"{self.session.base_url.rstrip('/')}/{path.lstrip('/')}"
         endpoint = scope.check(
-            self.provider, self.session.base_url, self.session.companies, url, params, frozenset(self.employers)
+            self.provider,
+            self.session.base_url,
+            self.session.companies,
+            url,
+            params,
+            frozenset(self.employers),
+            method="GET",
         )
         started = time.monotonic()
         response = self._send(endpoint, url, params, headers or {})
@@ -169,7 +175,13 @@ class ReadOnlyClient:
                 )
             url = str(target.copy_with(query=None))
             scope.check(
-                self.provider, self.session.base_url, self.session.companies, url, params, frozenset(self.employers)
+                self.provider,
+                self.session.base_url,
+                self.session.companies,
+                url,
+                params,
+                frozenset(self.employers),
+                method="GET",
             )
         return response
 

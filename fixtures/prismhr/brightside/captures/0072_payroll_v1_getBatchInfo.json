@@ -1,0 +1,34 @@
+{
+  "seq": 72,
+  "endpoint": "payroll/v1/getBatchInfo",
+  "path": "payroll/v1/getBatchInfo",
+  "params": {
+    "clientId": "201",
+    "batchId": "30119"
+  },
+  "status": 200,
+  "body": {
+    "batchControl": {
+      "batchStatus": "TS.READY",
+      "batchId": "30119",
+      "payDate": "2026-10-16",
+      "batchDescription": "30119 - 2026-10-16",
+      "batchType": "R",
+      "processor": "synthetic",
+      "deliveryMethod": "ELEC",
+      "voucher": [
+        {
+          "payGroupId": "BW",
+          "periodStart": "2026-09-14",
+          "periodEnd": "2026-09-27",
+          "weeksWorked": 1.0,
+          "deductPeriod": "1",
+          "payPeriod": "40"
+        }
+      ]
+    },
+    "errorCode": "0",
+    "errorMessage": "",
+    "extension": null
+  }
+}

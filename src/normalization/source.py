@@ -16,6 +16,7 @@ from typing import Any, Iterator, Literal, Mapping, TypeVar, overload
 
 from .canonical.codes import Severity
 from .canonical.types import Coded, Diagnostic, Raw, coded_type
+from .sanitize import sweep
 
 _MISSING = object()
 _EMPTY: tuple[Any, ...] = (None, "", [], {})
@@ -39,12 +40,17 @@ _TRACE: Trace | None = None
 class Src:
     """One source object plus the shared record of which paths a converter has read."""
 
-    def __init__(self, data: Any, path: str = "", used: set[str] | None = None):
+    def __init__(
+        self, data: Any, path: str = "", used: set[str] | None = None, marked: dict[str, str | None] | None = None
+    ):
         self.data = data if isinstance(data, dict) else {}
         self.path = path
         if used is None and _TRACE is not None:
             _TRACE.roots.append(self)
         self.used = used if used is not None else set()
+        # Paths marked instead of read, with why they aren't needed here (or None when another reader takes
+        # them). The coverage report checks where each went.
+        self.marked = marked if marked is not None else {}
 
     def _full(self, key: str) -> str:
         return f"{self.path}.{key}" if self.path else key
@@ -73,22 +79,28 @@ class Src:
                 found = value
         return found
 
-    def mark(self, *keys: str) -> None:
-        """Mark subtrees as handled elsewhere (for example by a separate deposit record)."""
+    def mark(self, *keys: str, why: str | None = None) -> None:
+        """Mark subtrees as not needed here, so leftovers() leaves them out. With `why` they are dropped on
+        purpose (an echo, a copy of a value mapped elsewhere); without it another reader must map or keep them
+        (a separate deposit record, say), or the coverage report calls them lost."""
         for key in keys:
             if self._walk(key) is not _MISSING:
                 self.used.add(self._full(key))
+                if why or self._full(key) not in self.marked:
+                    self.marked[self._full(key)] = why
 
     def child(self, key: str) -> Src | None:
         node = self._walk(key)
-        return Src(node, self._full(key), self.used) if isinstance(node, dict) else None
+        return Src(node, self._full(key), self.used, self.marked) if isinstance(node, dict) else None
 
     def children(self, key: str) -> list[Src]:
         node = self._walk(key)
         if not isinstance(node, list):
             return []
         base = self._full(key)
-        return [Src(item, f"{base}[{i}]", self.used) for i, item in enumerate(node) if isinstance(item, dict)]
+        return [
+            Src(item, f"{base}[{i}]", self.used, self.marked) for i, item in enumerate(node) if isinstance(item, dict)
+        ]
 
     def leftovers(self) -> dict[str, Any]:
         """Every non-empty leaf under this object that no converter read."""
@@ -99,8 +111,19 @@ class Src:
 
 
 def covered(src: Src, relative: str) -> bool:
-    """Whether the converter read this path (relative to the Src's own data) or a parent of it."""
+    """Whether the converter read or marked this path (relative to the Src's own data) or a parent of it."""
     return _covered(src._full(relative) if relative else src.path, src.used)
+
+
+def read(src: Src, relative: str) -> bool:
+    """Whether the converter read this path or a parent of it, not just marked it."""
+    return _covered(src._full(relative) if relative else src.path, src.used - set(src.marked))
+
+
+def why_marked(src: Src, relative: str) -> str | None:
+    """The reason a marked path (or a marked parent of it) isn't needed, if the mark gave one."""
+    path = src._full(relative) if relative else src.path
+    return next((why for prefix, why in src.marked.items() if why and _covered(path, {prefix})), None)
 
 
 @contextmanager
@@ -185,7 +208,9 @@ class Notes:
         self.items: list[Diagnostic] = []
 
     def add(self, code: str, severity: Severity, field: str | None, message: str, raw: Any = None) -> None:
-        self.items.append(Diagnostic(code=code, severity=severity, field=field, message=message, raw=raw_scalar(raw)))
+        # A raw value can be sensitive too, e.g. an unparseable SSN: it is masked like any other output (A-23).
+        clean = sweep(raw_scalar(raw), field or "")
+        self.items.append(Diagnostic(code=code, severity=severity, field=field, message=message, raw=clean))
 
     def info(self, code: str, field: str | None, message: str, raw: Any = None) -> None:
         self.add(code, Severity.INFO, field, message, raw)

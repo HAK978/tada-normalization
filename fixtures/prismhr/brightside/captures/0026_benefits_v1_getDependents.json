@@ -1,0 +1,31 @@
+{
+  "seq": 26,
+  "endpoint": "benefits/v1/getDependents",
+  "path": "benefits/v1/getDependents",
+  "params": {
+    "clientId": "201",
+    "employeeId": "E1002"
+  },
+  "status": 200,
+  "body": {
+    "dependent": [
+      {
+        "dependentId": "3",
+        "firstName": "Lee",
+        "lastName": "Example",
+        "relation": "O",
+        "relationType": "B",
+        "beneficiaryType": "C",
+        "benefitPercent": "100",
+        "status": "A",
+        "checksum": null,
+        "spouse": null
+      }
+    ],
+    "errorCode": "0",
+    "errorMessage": "",
+    "extension": null,
+    "clientId": "201",
+    "employeeId": "E1002"
+  }
+}

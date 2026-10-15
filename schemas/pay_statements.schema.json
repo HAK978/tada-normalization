@@ -16,6 +16,17 @@
      "default": null,
      "title": "Coverage Period"
     },
+    "employee_catch_up": {
+     "anyOf": [
+      {
+       "$ref": "#/$defs/Money"
+      },
+      {
+       "type": "null"
+      }
+     ],
+     "default": null
+    },
     "employee_contribution": {
      "anyOf": [
       {
@@ -1587,9 +1598,16 @@
    "title": "Void Date"
   },
   "voided": {
-   "default": false,
-   "title": "Voided",
-   "type": "boolean"
+   "anyOf": [
+    {
+     "type": "boolean"
+    },
+    {
+     "type": "null"
+    }
+   ],
+   "default": null,
+   "title": "Voided"
   }
  },
  "required": [

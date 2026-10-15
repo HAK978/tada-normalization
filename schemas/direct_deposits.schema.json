@@ -814,8 +814,16 @@
    "type": "string"
   },
   "is_remainder": {
-   "title": "Is Remainder",
-   "type": "boolean"
+   "anyOf": [
+    {
+     "type": "boolean"
+    },
+    {
+     "type": "null"
+    }
+   ],
+   "default": null,
+   "title": "Is Remainder"
   },
   "limit": {
    "anyOf": [
@@ -895,8 +903,7 @@
   "company_id",
   "purpose",
   "account",
-  "method",
-  "is_remainder"
+  "method"
  ],
  "title": "DirectDeposit",
  "type": "object"

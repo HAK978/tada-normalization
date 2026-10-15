@@ -6,12 +6,15 @@ Spec: contracts/isolved/openapi/isolved-v6.swagger.json (the primary snapshot on
 
 from normalization.canonical.codes import (
     AccountType,
+    CalculationBasis,
     Citizenship,
+    CompanyStatus,
     ContactRole,
     DeductionCategory as Cat,
     DepositStatus,
     EarningCategory,
     EarningKind,
+    ElectionStatus,
     EmploymentStatus,
     Gender,
     MaritalStatus,
@@ -55,17 +58,26 @@ CITIZENSHIP = {
 }
 
 # /api/system/payTypes descriptions (live lookup). Draw and Bonus are not a pay basis; 1099 is a
-# worker classification, not a pay type (A-39).
+# worker classification, not a pay type (A-39). The lookup's other descriptions ("Salary Auto Plant",
+# "Piecework", "Guarantee", ...) stay UNMAPPED for a mapping file to decide.
 PAY_TYPE = {
     "Hourly": PayType.HOURLY,
+    "Hourly - Exempt": PayType.HOURLY,
     "Auto Hourly": PayType.HOURLY,
     "Salary": PayType.SALARY,
     "Salary (Variable Hours)": PayType.SALARY,
     "Salary (Variable Entered Hours)": PayType.SALARY,
     "Salary Non-Exempt": PayType.SALARY,
+    "Salary-Exempt": PayType.SALARY,
     "Commission": PayType.COMMISSION,
+    "1099 (Hours Based)": PayType.HOURLY,
 }
-CONTRACTOR_PAY_TYPE = "1099"
+# Pay types that make the worker a 1099 contractor. "1099R" is not one: a 1099-R reports retirement
+# distributions, not contract pay.
+CONTRACTOR_PAY_TYPES = frozenset({"1099", "1099 (Hours Based)"})
+
+# LegalModel/status, live value
+COMPANY_STATUS = {"Active": CompanyStatus.ACTIVE}
 
 # Employment status descriptions that appear as implied system statuses (statusId -1,
 # isImpliedStatus true) in /statuses history (A-48). Customer-defined statuses stay UNMAPPED.
@@ -105,6 +117,18 @@ DD_ACCOUNT_TYPE = {"Checking": AccountType.CHECKING, "Savings": AccountType.SAVI
 
 # EmployeeDirectDepositModel/status ("Direct Deposit Status Description"), live values
 DD_STATUS = {"Active": DepositStatus.ACTIVE, "Inactive": DepositStatus.INACTIVE}
+
+# EmployeeGarnishmentModel/percentageOf: "Represents value taken as a percentage of Gross Pay, Gross
+# Wages, Net Pay, or Disposable Income"
+PERCENTAGE_OF = {
+    "Gross Pay": CalculationBasis.GROSS_PAY,
+    "Gross Wages": CalculationBasis.GROSS_WAGES,
+    "Net Pay": CalculationBasis.NET_PAY,
+    "Disposable Income": CalculationBasis.DISPOSABLE_INCOME,
+}
+
+# EmployeeGarnishmentModel/status, live values
+GARNISHMENT_STATUS = {"Active": ElectionStatus.ACTIVE, "Inactive": ElectionStatus.INACTIVE}
 
 # ClientPayItemModel/systemBenefitType + systemPayItemType: provider-level classification of a
 # pay item (A-49). Keyed by (benefit type, pay item type); None matches any pay item type.

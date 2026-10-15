@@ -1,0 +1,66 @@
+{
+  "seq": 8,
+  "endpoint": "deductions/v1/getDeductions",
+  "path": "deductions/v1/getDeductions",
+  "params": {
+    "clientId": "201",
+    "employeeId": "E1001",
+    "options": ""
+  },
+  "status": 200,
+  "body": {
+    "employeeDeductions": {
+      "deduction": [
+        {
+          "deductionCode": "C401K",
+          "deductionType": "K",
+          "deductionMethod": "K",
+          "description": "401(k)",
+          "usePercent": true,
+          "amount": 5.0,
+          "period": "12345",
+          "startDate": "2021-04-01",
+          "stopDate": "",
+          "trackArrears": false,
+          "mandatory": false,
+          "loanOrGarnishId": "",
+          "benefitPlanId": "",
+          "limit": 0.0,
+          "maximum": 0.0,
+          "basis": "",
+          "matchMethod": "P",
+          "matchAmount": 3.0,
+          "matchDescription": "401(k) match",
+          "cutbackPayeeCode": "",
+          "detailsChecksum": "d-1"
+        },
+        {
+          "deductionCode": "DEN125",
+          "deductionType": "C",
+          "deductionMethod": "F",
+          "description": "Dental Pre-Tax",
+          "usePercent": false,
+          "amount": 12.5,
+          "period": "12345",
+          "startDate": "2021-04-01",
+          "stopDate": "",
+          "trackArrears": false,
+          "mandatory": false,
+          "loanOrGarnishId": "",
+          "benefitPlanId": "",
+          "limit": 0.0,
+          "maximum": 0.0,
+          "basis": "",
+          "matchMethod": "",
+          "matchAmount": 0.0,
+          "matchDescription": "",
+          "cutbackPayeeCode": "",
+          "detailsChecksum": "d-1"
+        }
+      ]
+    },
+    "errorCode": "0",
+    "errorMessage": "",
+    "extension": null
+  }
+}

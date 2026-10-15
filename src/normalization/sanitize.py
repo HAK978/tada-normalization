@@ -1,7 +1,9 @@
 """Sensitive values keep at most their last 4 digits, everywhere in the output (A-23).
 
-Known sensitive fields are listed by source path. A second sweep catches SSN-shaped strings
-anywhere else. A value that arrived masked yields no last 4: digits are never invented.
+Known sensitive fields are listed by source path, and masked whether they arrive as text or a number. A
+second sweep catches SSN-shaped strings (123-45-6789) anywhere else; nine digits without dashes are not
+caught there, since routing numbers and IDs look the same. Diagnostics are swept too. A value that arrived
+masked yields no last 4: digits are never invented.
 """
 
 from __future__ import annotations
@@ -38,21 +40,21 @@ def redacted(value: Any) -> str:
 
 
 def sweep(value: Any, path: str = "") -> Any:
-    """Sanitize a nested structure: sensitive fields by name, SSN-shaped strings anywhere."""
+    """Sanitize a nested structure: sensitive fields by name, whether text or a number, and SSN-shaped
+    strings anywhere."""
     if isinstance(value, dict):
         return {k: sweep(v, f"{path}.{k}" if path else k) for k, v in value.items()}
     if isinstance(value, list):
         return [sweep(v, f"{path}[{i}]") for i, v in enumerate(value)]
+    if value is None or isinstance(value, bool):
+        return value
+    if SENSITIVE_FIELDS.search(path):
+        return redacted(value)
     if isinstance(value, str):
-        if SENSITIVE_FIELDS.search(path):
-            return redacted(value)
         return _SSN.sub(lambda m: "***-**-" + m.group(0)[-4:], value)
     return value
 
 
 def sanitize_extensions(leftovers: dict[str, Any]) -> dict[str, Any]:
     """provider_extensions are flat {source path: value}; each path is checked on its own."""
-    return {
-        path: (redacted(v) if isinstance(v, str) and SENSITIVE_FIELDS.search(path) else sweep(v, path))
-        for path, v in leftovers.items()
-    }
+    return {path: sweep(v, path) for path, v in leftovers.items()}

@@ -8,6 +8,7 @@ from pathlib import Path
 import pytest
 
 from normalization.bundle import Bundle
+from normalization.mappings import reviewed
 from normalization.providers import normalize
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -31,7 +32,7 @@ def codes(record):
 
 
 def test_output_matches_the_golden_file(out):
-    assert out.to_json() == GOLDEN.read_text(encoding="utf-8")
+    assert normalize(Bundle.load(FIXTURE), mapping_files=reviewed()).to_json() == GOLDEN.read_text(encoding="utf-8")
 
 
 def test_the_bundle_fixes_the_as_of_date():
@@ -120,8 +121,30 @@ def test_deposit_status_needs_the_flag_and_the_span(out):
 def test_unlabeled_methods_and_paper_checks(out):
     unlabeled = one(out, "direct_deposits", ":4006")
     assert unlabeled.method.value.value == "UNMAPPED" and "UNMAPPED_CODE" in codes(unlabeled)
+    assert unlabeled.is_remainder is None  # an unknown method could take the remainder or not (A-73)
     paper = one(out, "direct_deposits", ":4005")
-    assert (paper.account.type.value.value, paper.amount.amount) == ("PAPER_CHECK", Decimal("100.00"))
+    assert (paper.account.type.value.value, paper.account.type.raw, paper.amount.amount) == (
+        "UNMAPPED",
+        "RESERVE_LIVE_CHECK",
+        Decimal("100.00"),
+    )
+
+
+def test_name_only_codes_wait_for_the_reviewed_mapping_file(out):
+    # UKG documents these enums without definitions, so the converter doesn't map them by name (A-26, A-79).
+    savings, paper = one(out, "direct_deposits", ":4001"), one(out, "direct_deposits", ":4005")
+    assert (savings.account.type.value.value, savings.account.type.raw) == ("UNMAPPED", "SAVINGS")
+    assert "UNMAPPED_CODE" in codes(savings)
+    assert one(out, "employees", ":5001").personal.gender.value.value == "UNMAPPED"
+    # The reviewed mapping file for this tenant confirms them, and each record says so (A-86).
+    mapped = normalize(Bundle.load(FIXTURE), mapping_files=reviewed())
+    savings, paper = one(mapped, "direct_deposits", ":4001"), one(mapped, "direct_deposits", ":4005")
+    assert (savings.account.type.value.value, paper.account.type.value.value) == ("SAVINGS", "PAPER_CHECK")
+    assert "MAPPED_BY_FILE" in codes(savings) and "UNMAPPED_CODE" not in codes(savings)
+    maria = one(mapped, "employees", ":5001").personal
+    assert (maria.gender.value.value, maria.citizenship.value.value) == ("FEMALE", "US_CITIZEN")
+    # UNDEFINED says nothing a person could confirm, so the file leaves it for a decision.
+    assert one(mapped, "employees", ":5003").personal.gender.value.value == "UNMAPPED"
 
 
 def test_deduction_setup_keeps_open_methods_and_unverified_amounts_raw(out):

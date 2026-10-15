@@ -21,7 +21,7 @@ import sys
 from datetime import date
 from pathlib import Path
 
-from . import exactjson
+from . import exactjson, mappings
 from .bundle import Bundle
 from .canonical.schema import write_schemas
 from .coverage import measure, render
@@ -48,13 +48,14 @@ def main(argv: list[str] | None = None) -> int:
 
     demo = commands.add_parser("demo", help="normalize every provider's synthetic scenario (offline)")
     demo.add_argument("--out", type=Path, default=ROOT / "out" / "demo")
+    _mapping_options(demo)
 
     run = commands.add_parser("normalize", help="normalize one raw bundle: a fixture or a live fetch")
     run.add_argument("bundle", type=Path, help="a bundle folder: session.json and captures/")
     run.add_argument("--out", type=Path, help="output folder (default: out/<provider>/<bundle folder>)")
     run.add_argument("--as-of", type=date.fromisoformat, help="evaluate time-dependent values at this date (A-33)")
     run.add_argument("--no-sqlite", action="store_true", help="write JSON only")
-    run.add_argument("--mappings", type=Path, action="append", default=[], help="mapping file (A-65); repeatable")
+    _mapping_options(run)
 
     today = date.today()
     fetch = commands.add_parser("fetch", help="read-only fetch from the live demo tenants (needs the API key)")
@@ -69,14 +70,18 @@ def main(argv: list[str] | None = None) -> int:
     fetch.add_argument("--out", type=Path, default=ROOT / ".discovery", help="where raw bundles go (gitignored)")
     fetch.add_argument("--env-file", type=Path, default=ROOT / ".env", help="read DEMO_SIGNIN_API_KEY from here")
     fetch.add_argument("--normalize", action="store_true", help="also normalize each fetched bundle into out/")
-    fetch.add_argument("--mappings", type=Path, action="append", default=[], help="mapping file (A-65); repeatable")
+    _mapping_options(fetch)
 
     schema = commands.add_parser("schema", help="write the JSON Schema of every canonical record type")
     schema.add_argument("--out", type=Path, default=ROOT / "schemas")
 
     coverage = commands.add_parser("coverage", help="report what the converters do with every source field")
     coverage.add_argument("bundles", type=Path, nargs="*", help="raw bundles (default: every synthetic scenario)")
-    coverage.add_argument("--out", type=Path, default=ROOT / "docs" / "FIELD_COVERAGE.md")
+    coverage.add_argument(
+        "--out",
+        type=Path,
+        help="default: docs/FIELD_COVERAGE.md for live bundles; out/FIELD_COVERAGE.md for the synthetic scenarios",
+    )
 
     write = commands.add_parser("write", help="dry run: the UKG Ready requests that would create these employees")
     write.add_argument("employees", type=Path, help="an employees.json written by `demo` or `normalize`")
@@ -88,7 +93,7 @@ def main(argv: list[str] | None = None) -> int:
 
     review = commands.add_parser("review", help="list unmapped values to decide, with mapping-file templates")
     review.add_argument("bundles", type=Path, nargs="+", help="raw bundles to normalize and review")
-    review.add_argument("--mappings", type=Path, action="append", default=[], help="mapping files already in use")
+    _mapping_options(review)
     review.add_argument("--out", type=Path, default=ROOT / "out" / "review")
 
     args = parser.parse_args(argv)
@@ -104,10 +109,25 @@ def main(argv: list[str] | None = None) -> int:
     return handlers[args.command](args)
 
 
+def _mapping_options(command: argparse.ArgumentParser) -> None:
+    command.add_argument("--mappings", type=Path, action="append", default=[], help="mapping file (A-65); repeatable")
+    command.add_argument(
+        "--no-reviewed-mappings",
+        action="store_true",
+        help="leave out the reviewed mapping files in mappings/, which otherwise apply to their own tenants (A-86)",
+    )
+
+
+def mapping_files(args: argparse.Namespace) -> list[Path]:
+    """The reviewed mapping files in mappings/ unless left out, then any given with --mappings."""
+    reviewed = [] if args.no_reviewed_mappings else mappings.reviewed()
+    return reviewed + [p for p in args.mappings if p.resolve() not in {r.resolve() for r in reviewed}]
+
+
 def _demo(args: argparse.Namespace) -> int:
     results = []
     for provider in PROVIDERS:
-        output = normalize(Bundle.load(ROOT / "fixtures" / provider / SCENARIO))
+        output = normalize(Bundle.load(ROOT / "fixtures" / provider / SCENARIO), mapping_files=mapping_files(args))
         write_json(output, args.out / provider)
         results.append((provider, output))
     database = write_sqlite([output for _, output in results], args.out / "canonical.sqlite")
@@ -120,7 +140,7 @@ def _demo(args: argparse.Namespace) -> int:
 def _normalize(args: argparse.Namespace) -> int:
     try:
         bundle = Bundle.load(args.bundle)
-        output = normalize(bundle, args.as_of, args.mappings)
+        output = normalize(bundle, args.as_of, mapping_files(args))
     except (OSError, KeyError, ValueError) as exc:
         print(f"cannot normalize {args.bundle}: {exc}", file=sys.stderr)
         return 1
@@ -150,7 +170,7 @@ def _fetch(args: argparse.Namespace) -> int:
         results = []
         for folder in bundles:
             bundle = Bundle.load(folder)
-            output = normalize(bundle, mapping_files=args.mappings)
+            output = normalize(bundle, mapping_files=mapping_files(args))
             _write(output, ROOT / "out" / bundle.provider / folder.name, sqlite=True)
             results.append((bundle.provider, output))
         _report(results)
@@ -171,15 +191,17 @@ def _coverage(args: argparse.Namespace) -> int:
         synthetic = folder.resolve().is_relative_to(ROOT / "fixtures")
         source = f"`{folder.resolve().relative_to(ROOT)}`" if synthetic else f"a live fetch (`{folder.name}`)"
         results.append(measure(bundle, source))
-    args.out.parent.mkdir(parents=True, exist_ok=True)
-    args.out.write_text(render(results), encoding="utf-8")
+    # The committed report describes the live fetch, so a run on the synthetic scenarios never replaces it.
+    out = args.out or ROOT / ("docs" if args.bundles else "out") / "FIELD_COVERAGE.md"
+    out.parent.mkdir(parents=True, exist_ok=True)
+    out.write_text(render(results), encoding="utf-8")
     twice = [(r.provider, path) for r in results for path in r.read_after_kept]
     for provider, path in twice:
         print(f"[{provider}] {path} is both mapped and kept in provider_extensions", file=sys.stderr)
     lost = [(r.provider, endpoint, path) for r in results for endpoint, path in r.lost]
     for provider, endpoint, path in lost:
         print(f"[{provider}] {endpoint} {path} is neither mapped nor kept: lost", file=sys.stderr)
-    print(f"written to {args.out}")
+    print(f"written to {out}")
     return 1 if twice or lost else 0
 
 
@@ -214,7 +236,7 @@ def _review(args: argparse.Namespace) -> int:
         outputs = []
         for folder in args.bundles:
             bundle = Bundle.load(folder)
-            outputs.append((bundle.provider, normalize(bundle, mapping_files=args.mappings)))
+            outputs.append((bundle.provider, normalize(bundle, mapping_files=mapping_files(args))))
     except (OSError, KeyError, ValueError) as exc:
         print(f"cannot review: {exc}", file=sys.stderr)
         return 1

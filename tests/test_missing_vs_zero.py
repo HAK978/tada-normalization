@@ -1,6 +1,7 @@
 """Missing is never zero (A-73).
 
-For every number and yes/no in the synthetic scenarios, normalizing with the field deleted must give a
+For every number (sent as a number or as text) and yes/no in the synthetic scenarios, normalizing with the
+field deleted must give a
 different output from normalizing with it set to 0 or false: otherwise "the provider didn't say" and "the
 provider said zero" have become the same thing. Where the two may agree, a reviewed reason below says
 why. A new field where they agree fails this test until someone keeps them apart or writes the reason
@@ -8,6 +9,7 @@ down, and a reason that no longer applies fails it too.
 """
 
 import copy
+import re
 from decimal import Decimal
 from pathlib import Path
 
@@ -17,6 +19,7 @@ from normalization.bundle import Bundle
 from normalization.providers import PROVIDERS, normalize
 
 ROOT = Path(__file__).resolve().parents[1]
+NUMBER = re.compile(r"-?\d+(?:\.\d+)?")
 
 ID = "an ID: 0 is never a real one, and the record takes its ID from the request path or another field"
 PAGING = "paging metadata about the response, not data"
@@ -24,6 +27,32 @@ LOOKUP = "a row of a code table, read by code or name; not a record of its own"
 SECOND = "the second source of an election also in getDeductions: repeating or leaving out a value is no conflict"
 DETAIL = "a list row whose detail this scenario also fetched, which replaces it (list-only rows: tested below)"
 CONTACT_DEFAULT = "documented with a default of false (#/schemas/124), so a missing role flag is a false one (A-77)"
+ENVELOPE = 'the response envelope\'s status, not data: "0" and none both mean no error was reported (A-70)'
+ECHO = "an echo of the request's own clientId; records take their client from the request"
+NOT_KEPT = "identity documents are never kept (model §9), so nothing about them reaches the output"
+# PrismHR endpoints whose responses carry the errorCode envelope in the synthetic scenario.
+ENVELOPED = (
+    "benefits/v1/getActiveBenefitPlans",
+    "benefits/v1/getDependents",
+    "benefits/v1/getRetirementLoans",
+    "clientMaster/v1/getAllPrismClientContacts",
+    "clientMaster/v1/getClientCodes",
+    "clientMaster/v1/getClientMaster",
+    "clientMaster/v1/getPayrollSchedule",
+    "deductions/v1/getDeductions",
+    "deductions/v1/getEmployeeLoans",
+    "deductions/v1/getVoluntaryRecurringDeductions",
+    "employee/v1/checkForGarnishments",
+    "employee/v1/getEmployee",
+    "employee/v1/getEmployeeList",
+    "employee/v1/getHistory",
+    "employee/v1/getPayRateHistory",
+    "employee/v1/getScheduledDeductions",
+    "payroll/v1/getBatchInfo",
+    "payroll/v1/getBatchListByDate",
+    "payroll/v1/getPayrollVoucherForBatch",
+    "payroll/v1/getScheduledPayments",
+)
 
 AGREE = {
     "prismhr": {
@@ -38,6 +67,13 @@ AGREE = {
         ("payroll/v1/getPayrollVoucherForBatch", "total"): PAGING,
         ("payroll/v1/getPayrollVoucherForBatch", "startpage"): PAGING,
         ("payroll/v1/getPayrollVoucherForBatch", "count"): PAGING,
+        **{(endpoint, "errorCode"): ENVELOPE for endpoint in ENVELOPED},
+        ("benefits/v1/getDependents", "clientId"): ECHO,
+        ("clientMaster/v1/getClientCodes", "clientCodes.clientId"): ECHO,
+        ("deductions/v1/getEmployeeLoans", "clientId"): ECHO,
+        ("employee/v1/getPayRateHistory", "payRateHistory.clientId"): ECHO,
+        ("employee/v1/getScheduledDeductions", "clientId"): ECHO,
+        ("payroll/v1/getScheduledPayments", "clientId"): ECHO,
     },
     "isolved": {
         ("api/lookup/Frequencies", "[].id"): "frequencies are matched by description, never by ID (A-27)",
@@ -53,7 +89,6 @@ AGREE = {
             "which already says unknown"
         ),
         ("api/clients/{client}/legals/{legal}/employees/{id}/payItems", "[].id"): ID,
-        ("api/clients/{client}/legals/{legal}/employees/{id}/payItems", "[].payItemId"): ID,
         ("api/clients/{client}/legals/{legal}/employees/{id}/payItems", "[].employeeId"): ID,
         ("api/clients/{client}/legals/{legal}/paygroupId/{id}/payrollRunHistory/{id}", "runNumber"): (
             "a run number only links checks to runs (A-40); 0 matches no check, as a missing one doesn't"
@@ -70,6 +105,14 @@ AGREE = {
         ("api/clients/{client}/legals/{legal}/checks", "results[].directDepositAmount"): DETAIL,
         ("api/clients/{client}/legals/{legal}/checks", "totalItems"): PAGING,
         ("api/clients/{client}/legals/{legal}/checks", "totalPages"): PAGING,
+        ("api/clients/{client}/legals/{legal}/checks", "results[].employeeNumber"): DETAIL,
+        ("api/clients/{client}/legals/{legal}/employees/{id}", "i9Documents.documentA.documentCode"): NOT_KEPT,
+        ("api/clients/{client}/legals/{legal}/employees/{id}/payItems", "[].employeeNumber"): (
+            "the employee's own number, repeated on each of their pay items; the employee record has it"
+        ),
+        ("api/lookup/citizenships", "[].id"): "citizenships are matched by description, never by ID",
+        ("api/system/payTypes", "[].id"): LOOKUP,
+        ("api/system/payTypes", "[].description"): LOOKUP,
     },
     "ukg-ready": {
         ("rest/v2/companies/{company}/lookup/pay-types", "items[].id"): LOOKUP,
@@ -81,6 +124,7 @@ AGREE = {
         ("rest/v2/companies/{company}/lookup/earning-codes", "items[].id"): LOOKUP,
         ("rest/v2/companies/{company}/lookup/deduction-codes", "items[].id"): LOOKUP,
         ("rest/v2/companies/{company}/employees", "employees[].id"): DETAIL,
+        ("rest/v2/companies/{company}/employees", "employees[].employee_id"): DETAIL,
         ("rest/v2/companies/{company}/employees/{id}", "id"): ID,
         ("rest/v2/companies/{company}/employees/{id}/compensation/history", "compensations[].employee.account_id"): ID,
         ("rest/v2/companies/{company}/employees/{id}/direct-deposits", "deposits[].id"): ID,
@@ -137,6 +181,8 @@ def agreeing_fields(provider: str) -> set[tuple[str, str]]:
                 falsy: object = False
             elif isinstance(value, (int, float, Decimal)):
                 falsy = 0
+            elif isinstance(value, str) and NUMBER.fullmatch(value):
+                falsy = "0"  # PrismHR sends most numbers as text
             else:
                 continue
             key = (capture.endpoint, _fold(path))
@@ -218,16 +264,33 @@ def test_an_isolved_line_without_its_memo_flag_may_or_may_not_count_in_gross():
     assert checks(statement)["gross wages = sum of earning lines counted in gross"] == "not_applicable"
 
 
-def test_a_prism_deduction_amount_without_its_percent_flag_stays_raw():
-    b = fixture("prismhr")
-    row = next(
+def _prism_deduction(b: Bundle) -> dict:
+    return next(
         r
         for c in b.captures
         if c.endpoint == "deductions/v1/getDeductions"
         for r in c.body["employeeDeductions"]["deduction"]
         if r.get("amount")
     )
+
+
+def test_a_prism_deduction_without_its_percent_flag_uses_the_documented_default():
+    # usePercent: "Valid values are T (True) or F (False). The default is False." (EmployeeDeductions-Deduction)
+    b = fixture("prismhr")
+    row = _prism_deduction(b)
     del row["usePercent"]
+    election = next(
+        e
+        for e in normalize(b).records["deduction_elections"]
+        if f":{row['deductionCode']}:" in e.id and "DOCUMENTED_DEFAULT" in codes(e)
+    )
+    assert election.calculation.amount is not None and election.calculation.percent is None  # dollars, as documented
+
+
+def test_a_prism_deduction_percent_flag_that_isnt_a_yes_no_leaves_the_amount_raw():
+    b = fixture("prismhr")
+    row = _prism_deduction(b)
+    row["usePercent"] = "maybe"
     election = next(
         e
         for e in normalize(b).records["deduction_elections"]

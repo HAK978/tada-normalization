@@ -1,0 +1,56 @@
+{
+  "seq": 15,
+  "endpoint": "benefits/v1/getDependents",
+  "path": "benefits/v1/getDependents",
+  "params": {
+    "clientId": "201",
+    "employeeId": "E1001"
+  },
+  "status": 200,
+  "body": {
+    "dependent": [
+      {
+        "dependentId": "1",
+        "firstName": "Sam",
+        "lastName": "Nair",
+        "middleInitial": "",
+        "relation": "S",
+        "relationType": "D",
+        "relationshipCodeType": "SP",
+        "beneficiaryType": "P",
+        "benefitPercent": "100",
+        "spouse": "Y",
+        "gender": "M",
+        "birthdate": "1989-11-20",
+        "ssn": "***-**-6789",
+        "status": "A",
+        "statusDate": "2021-04-01",
+        "homePhone": "7045550111",
+        "email": "sam@example.com",
+        "address": "12 Oak Ave",
+        "city": "Charlotte",
+        "state": "NC",
+        "zip": "28202",
+        "checksum": null
+      },
+      {
+        "dependentId": "2",
+        "firstName": "Kai",
+        "lastName": "Nair",
+        "relation": "C",
+        "relationType": "D",
+        "relationshipCodeType": "CH",
+        "spouse": "N",
+        "birthdate": "****-**-**",
+        "status": "P",
+        "fullTimeStudent": false,
+        "checksum": null
+      }
+    ],
+    "errorCode": "0",
+    "errorMessage": "",
+    "extension": null,
+    "clientId": "201",
+    "employeeId": "E1001"
+  }
+}

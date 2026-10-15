@@ -1,0 +1,35 @@
+{
+  "seq": 5,
+  "endpoint": "benefits/v1/getRetirementLoans",
+  "path": "benefits/v1/getRetirementLoans",
+  "params": {
+    "clientId": "201"
+  },
+  "status": 200,
+  "body": {
+    "retirementLoan": [
+      {
+        "loanId": "1",
+        "employeeId": "E1001",
+        "loanAmount": 5000.0,
+        "loanDate": "2025-03-03",
+        "interestRate": "4.50",
+        "loanReason": "",
+        "paymentAmount": 104.17,
+        "paybackAmount": 5416.84,
+        "amtPaidBackToDate": 1250.04,
+        "planId401k": "401k",
+        "tpaLoanId": "TPA-0417",
+        "overridePaymentAmt": null,
+        "overridePayFrom": null,
+        "overridePayTo": null,
+        "deductionStarts": "2025-03-14",
+        "paidbackAdjust": [],
+        "checksum": "RL1"
+      }
+    ],
+    "errorCode": "0",
+    "errorMessage": "",
+    "extension": null
+  }
+}

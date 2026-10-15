@@ -9,7 +9,7 @@
    "pay_statements": 7
   },
   "diagnostics": {
-   "info": 6,
+   "info": 5,
    "warning": 2
   },
   "checks": {
@@ -1943,15 +1943,7 @@
     "provider_extensions": {
      "description": "Checking"
     },
-    "diagnostics": [
-     {
-      "code": "PERCENT_SCALE_UNVERIFIED",
-      "severity": "info",
-      "field": "percent",
-      "message": "no live percent deposits to verify the scale (A-29)",
-      "raw": "30.0"
-     }
-    ],
+    "diagnostics": [],
     "employee_id": "isolved:synthetic:employee:9002",
     "company_id": "isolved:synthetic:company:501:601",
     "purpose": "NET_PAY",
@@ -1972,8 +1964,9 @@
      "source_field": "sequenceNumber/amount/percent"
     },
     "percent": {
+     "percent": "30.0",
      "basis": "UNSPECIFIED",
-     "scale": "UNVERIFIED",
+     "scale": "VERIFIED_POINTS",
      "raw": "30.0",
      "source_field": "percent"
     },
@@ -2121,7 +2114,9 @@
       "payItemId": "-1"
      }
     },
-    "provider_extensions": {},
+    "provider_extensions": {
+     "payItemId": -1
+    },
     "diagnostics": [],
     "employee_id": "isolved:synthetic:employee:9001",
     "company_id": "isolved:synthetic:company:501:601",
@@ -2171,7 +2166,9 @@
       "payItemId": "-2"
      }
     },
-    "provider_extensions": {},
+    "provider_extensions": {
+     "payItemId": -2
+    },
     "diagnostics": [],
     "employee_id": "isolved:synthetic:employee:9001",
     "company_id": "isolved:synthetic:company:501:601",
@@ -2222,6 +2219,7 @@
     },
     "provider_extensions": {
      "garnishmentSequence": 1,
+     "limit": "0.0",
      "garnishmentPayee.id": 7,
      "state.stateName": "NC"
     },
@@ -2248,11 +2246,6 @@
      }
     },
     "limits": {
-     "per_period": {
-      "amount": "0.00",
-      "currency": "USD",
-      "derived": false
-     },
      "maximum": {
       "amount": "2000.00",
       "currency": "USD",
@@ -2310,7 +2303,9 @@
       "payItemId": "-1"
      }
     },
-    "provider_extensions": {},
+    "provider_extensions": {
+     "payItemId": -1
+    },
     "diagnostics": [],
     "employee_id": "isolved:synthetic:employee:9002",
     "company_id": "isolved:synthetic:company:501:601",
@@ -2360,7 +2355,9 @@
       "payItemId": "-2"
      }
     },
-    "provider_extensions": {},
+    "provider_extensions": {
+     "payItemId": -2
+    },
     "diagnostics": [],
     "employee_id": "isolved:synthetic:employee:9002",
     "company_id": "isolved:synthetic:company:501:601",
@@ -2776,7 +2773,6 @@
      "label": "Adjustment",
      "source_field": "checkTypeDescription"
     },
-    "voided": false,
     "totals": {
      "gross_pay": {
       "amount": "1500.00",
@@ -3202,7 +3198,6 @@
      "label": "Regular",
      "source_field": "checkTypeDescription"
     },
-    "voided": false,
     "totals": {
      "gross_pay": {
       "amount": "2000.00",
@@ -3761,7 +3756,6 @@
      "label": "Regular",
      "source_field": "checkTypeDescription"
     },
-    "voided": false,
     "totals": {
      "gross_pay": {
       "amount": "585.00",
@@ -4249,7 +4243,6 @@
      "label": "Regular",
      "source_field": "checkTypeDescription"
     },
-    "voided": false,
     "totals": {
      "gross_pay": {
       "amount": "1920.00",
@@ -4597,7 +4590,6 @@
      "label": "Regular",
      "source_field": "checkTypeDescription"
     },
-    "voided": false,
     "totals": {
      "gross_pay": {
       "amount": "1200.00",
@@ -4819,7 +4811,6 @@
      "label": "Regular",
      "source_field": "checkTypeDescription"
     },
-    "voided": false,
     "totals": {
      "gross_pay": {
       "amount": "500.00",
@@ -5191,7 +5182,6 @@
      "value": "UNMAPPED",
      "source_field": "checkTypeDescription"
     },
-    "voided": false,
     "totals": {
      "gross_pay": {
       "amount": "400.00",

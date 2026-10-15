@@ -100,8 +100,10 @@ PAY_RATE_PERIOD = {
     "H": RatePeriod.HOUR,
 }
 
-# Person/gender lists "M, F, X or D"; only M and F carry an unambiguous meaning (A-44).
-GENDER = {"M": Gender.MALE, "F": Gender.FEMALE}
+# Person/gender lists "M, F, X or D" without meanings; NewHireEmployee/gender, the same employee field when it
+# is set, defines them: "'M' (male), 'F' (female), 'X' (non-binary), 'D' (declined) or 'U' (unknown)" (A-44).
+# U isn't in Person's list, and the canonical enum has no "unknown" (that is a missing value), so it stays UNMAPPED.
+GENDER = {"M": Gender.MALE, "F": Gender.FEMALE, "X": Gender.NON_BINARY, "D": Gender.DECLINED}
 
 # Person/maritalStatus
 MARITAL = {

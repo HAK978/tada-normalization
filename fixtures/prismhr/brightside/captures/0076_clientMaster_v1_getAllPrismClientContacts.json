@@ -1,0 +1,17 @@
+{
+  "seq": 76,
+  "endpoint": "clientMaster/v1/getAllPrismClientContacts",
+  "path": "clientMaster/v1/getAllPrismClientContacts",
+  "params": {
+    "clientId": "202"
+  },
+  "status": 200,
+  "body": {
+    "prismClientContactResult": {
+      "prismClientContacts": []
+    },
+    "errorCode": "0",
+    "errorMessage": "",
+    "extension": null
+  }
+}

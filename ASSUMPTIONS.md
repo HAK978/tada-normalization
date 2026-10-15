@@ -1,7 +1,7 @@
 # Assumptions, decisions and limitations
 
 Every judgment call in this project is recorded here as issue, evidence, decision and why. Entries are
-grouped by topic. Their IDs (A-01 to A-85) are stable references used in the code, the tests and the
+grouped by topic. Their IDs (A-01 to A-88) are stable references used in the code, the tests and the
 other docs, so they don't run in order. [Known limitations](#known-limitations) are summarized at the end.
 
 **Evidence** comes from two places:
@@ -20,10 +20,10 @@ other docs, so they don't run in order. [Known limitations](#known-limitations) 
 | [Company](#company) | A-30, A-09, A-15, A-60, A-84 |
 | [Employee](#employee) | A-48, A-55, A-44, A-45, A-39, A-50, A-20, A-19, A-27, A-56, A-46, A-34, A-75, A-76, A-77, A-79, A-80, A-81, A-82 |
 | [Direct deposits](#direct-deposits) | A-37, A-26, A-14 |
-| [Deductions](#deductions) | A-41, A-49, A-12, A-08, A-83, A-10, A-17 |
+| [Deductions](#deductions) | A-41, A-49, A-12, A-08, A-83, A-10, A-17, A-87, A-88 |
 | [Payroll runs and paychecks](#payroll-runs-and-paychecks) | A-54, A-32, A-28, A-58, A-51, A-42, A-18, A-38, A-24, A-53, A-67, A-68, A-40, A-21, A-57, A-13, A-11 |
 | [Where live data differs from the specs](#where-live-data-differs-from-the-specs) | A-16, A-78, A-22, A-47, A-52, A-61 |
-| [Unknown values: review and mapping files](#unknown-values-review-and-mapping-files) | A-65, A-69, A-66 |
+| [Unknown values: review and mapping files](#unknown-values-review-and-mapping-files) | A-65, A-69, A-66, A-86 |
 | [Output, provenance and tests](#output-provenance-and-tests) | A-36, A-71, A-62, A-72, A-43 |
 | [Optional extension: writing an employee](#optional-extension-writing-an-employee) | A-63 |
 
@@ -67,6 +67,10 @@ other docs, so they don't run in order. [Known limitations](#known-limitations) 
   - Saved captures, the index and log lines are scrubbed of the API key, the session's tokens and
     embedded signed tokens. Headers that carry credentials are dropped.
   - Numbers are saved exactly as the provider wrote them (`normalization.exactjson`).
+  - The check itself refuses any method but GET, so read-only doesn't rest on the client having no other
+    method. It also refuses a query parameter that could name a company in a form it doesn't check: a
+    second spelling of PrismHR's `clientId` (`ClientId`), or a company ID on isolved and UKG, whose paths
+    carry the company.
 
   Offline tests reproduce each attack and fail if its guard is removed.
 - **Why:** these are real provider test systems, so a mistake must be impossible, not merely unlikely.
@@ -106,11 +110,22 @@ other docs, so they don't run in order. [Known limitations](#known-limitations) 
 - **Re-fetch (2026-10-14).** The same 2,657 responses. Run through the final code, 9,582 of 9,587 records
   were identical; the other 5 differ only in a note that names the evaluation date.
 - **Endpoint check and full fetch (2026-10-14).** A probe asked every candidate endpoint for 35 PrismHR
-  employees and every isolved and UKG employee (A-74). The full fetch with the 16 added endpoints made
+  employees and every fetched isolved and UKG employee (A-74). The full fetch with the 16 added endpoints made
   2,823 PrismHR, 572 isolved and 378 UKG requests. Every deposit, election, run and paycheck came out
   identical to the previous fetch's, and so did every company except the 7 PrismHR clients that gained
   contacts; every employee gained fields. Entries from A-74 on count on this fetch, or say they count on
   the probe.
+- **Re-fetch and final fetch (2026-10-15).** A re-fetch at 04:43 UTC returned the same responses, and every
+  record came out identical. After an outside audit, the final fetch added PrismHR retirement loans
+  (A-87): 2,848 PrismHR, 572 isolved and 378 UKG responses. Normalized with the final code, every record
+  matches the re-fetch's, plus the 3 loans. The field coverage report and the live counts in the README
+  come from it.
+- **Sample size.** The crawl takes at most 25 employees per company (`--max-employees`); isolved and UKG
+  take each paycheck's owner first. The tenants list 668 PrismHR, 138 isolved and 103 UKG employees, and
+  194, 45 and 25 were fetched. So 926 of the 2,403 PrismHR paychecks, 6 of the 63 UKG paychecks and the 3
+  PrismHR retirement loans (A-87) belong to employees whose records weren't fetched. Each such record
+  says so (`EMPLOYEE_NOT_IN_BUNDLE`), and its canonical employee ID is the one that employee's record
+  would have, so a larger fetch links it. "Every employee" elsewhere in this file means every fetched one.
 - **Limitation:** codes that never appeared live are mapped from the documentation only.
 
 ### A-74 Every documented read endpoint is fetched or has a recorded reason
@@ -125,13 +140,14 @@ other docs, so they don't run in order. [Known limitations](#known-limitations) 
     index; 260 of them have an extracted schema). Each was sorted by topic.
   - Each one in the five data types that wasn't fetched was compared, field by field, with what was.
   - Every candidate was asked live on 2026-10-14, read-only, for the demo companies only and through the
-    scope guard (A-04): 35 PrismHR employees in 13 clients, and all 45 isolved and 25 UKG employees.
+    scope guard (A-04): 35 PrismHR employees in 13 clients, and the 45 isolved and 25 UKG employees fetched.
 - **Decision:**
   - `src/normalization/live/endpoints.py` records a decision for every documented read endpoint, and
     `tests/test_endpoint_inventory.py` fails when one in the five data types has none. The decisions:
     fetched; the same records as a fetched endpoint (another filter, a bulk or single form, a subset); a
-    workflow step; configuration; unreachable from the demo scope; empty or refused when asked live; or a
-    topic outside the five data types.
+    workflow step; configuration; unreachable from the demo scope; empty or refused when asked live;
+    personal data the model deliberately doesn't hold (full SSNs, A-23); or a topic outside the five data
+    types.
   - 16 endpoints were added, each with live data:
     - PrismHR: `getHistory` (A-76), `getDependents` (A-77), `checkForGarnishments` (A-83),
       `getAllPrismClientContacts` (A-84) and `getScheduledPayments` (A-80);
@@ -144,18 +160,31 @@ other docs, so they don't run in order. [Known limitations](#known-limitations) 
   - The coverage report now also counts, per provider, how many employees have each canonical field
     ([docs/FIELD_COVERAGE.md](docs/FIELD_COVERAGE.md)): the count that would have shown this gap.
 - **Asked live and not fetched:**
-  - empty for every demo employee: PrismHR deduction arrears, garnishment payment history, staffing
+  - empty for every employee asked: PrismHR deduction arrears, garnishment payment history, staffing
     placements, override and position rates, ACH deductions and custom field values; isolved benefit
     elections; UKG additional compensation and custom HR fields;
   - refused: isolved's period and year-to-date accumulations and Corestream payroll schedules (A-10);
   - the same data as a fetched endpoint: for example PrismHR `getEmployersInfo` (the employee record's
     employer, for all 35 employees asked), isolved `/eeoStatus` and `/disabilityStatus`, UKG total
     compensation.
-- **Result:** the fetched endpoints went from 16 to 21 for PrismHR, 26 to 31 for isolved and 19 to 25 for
-  UKG. Of the 855: 77 are fetched, 66 return records already fetched, 17 are workflow steps, 195 are
-  configuration or code lists, 11 are unreachable, 10 were empty and 2 refused live, and 477 belong to
-  topics outside the five data types: benefit enrollment, time and attendance, hiring and documents, tax
-  forms, the provider's own billing, and system plumbing.
+- **After an outside audit (2026-10-15):**
+  - "Fetched" had meant "allowlisted": isolved's per-employee check list was allowlisted but never
+    requested, since the crawl pages the legal company's check list. It is now recorded as the same
+    records, and dropped from the allowlist.
+  - PrismHR `getRetirementLoans` had been left out with the benefits topic, but a retirement loan is
+    repaid by payroll deduction. Asked live for the 25 clients, it returned 3 loans, so it is fetched
+    (A-87).
+  - The 4 endpoints that return full SSNs (PrismHR `getEmployeeSSNList`, isolved `employeesWithSSN`) had
+    been filed as "the same records". They aren't: they hold the only SSN digits PrismHR sends. They are
+    now recorded as deliberately not called, a privacy decision (A-23, A-50).
+  - Request options weren't inventoried. The one the audit named, `getClientCodes` with `I9Docs`, was
+    asked live and only confirms the documented citizenship codes (A-45).
+- **Result:** 22 PrismHR, 30 isolved and 25 UKG endpoints are fetched, up from 16, 25 and 19 actually
+  requested before the endpoint check (isolved's count had included the check list). Of the 855:
+  77 are fetched, 63 return records already fetched, 4 return full SSNs and are not called, 17 are
+  workflow steps, 195 are configuration or code lists, 11 are unreachable, 10 were empty and 2 refused
+  live, and 476 belong to topics outside the five data types: benefit enrollment, time and attendance,
+  hiring and documents, tax forms, the provider's own billing, and system plumbing.
 - **Why:** "cover all available employee fields" is a statement about the provider's API, not about a
   plan. Only a check against the specs shows what was left out, and a test keeps it shown.
 
@@ -212,7 +241,8 @@ other docs, so they don't run in order. [Known limitations](#known-limitations) 
   - PrismHR's batch list answers 400 or 404 with "No batches exist for client ..." or "No batches could
     be found for the date range ..." (223 requests), and its scheduled payments 404 with "Scheduled
     payment for employee ... does not exist." (191). Its spec describes 400 and 404 only generically.
-  - UKG answers a cost-center tree the company doesn't use with 400 "Cost Center not used." (A-75).
+  - UKG answers cost-center tree 1 with 400 "Cost Center not used.", yet 8 employees are assigned cost
+    centers in it, so that answer isn't taken as an empty tree (A-75).
   - UKG's deduction setup answers 404 "Unresolvable URL": a missing endpoint, not an empty list.
     isolved's 401s and PrismHR's 403s are refusals.
 - **Decision:**
@@ -225,33 +255,44 @@ other docs, so they don't run in order. [Known limitations](#known-limitations) 
     company. PrismHR employer lookups are keyed by employer, so the converter places those itself (A-09).
   - `summary.json` counts requests as answered, empty or unavailable, and lists the unavailable ones by
     endpoint and status. The CLI report has an "unavailable" column.
-- **Result:** on the full fetch, 25 UKG employees say their deduction setup is unknown, and two isolved
-  employees and one company carry its three refusals. The 117 documented and 415 stated empty answers
-  raise nothing.
+- **Result:** on the final fetch, 25 UKG employees say their deduction setup is unknown, the UKG company
+  says its cost-center tree 1 is (A-75), and two isolved employees and one company carry its three
+  refusals. The 117 documented and 414 stated empty answers raise nothing.
 - **Why:** an empty list has to mean "none", or no empty list can be trusted.
 
 ### A-73 Missing is never read as zero, no or none
 - **Issue:** the question of A-70, asked of every field: can "the provider didn't say" be told apart from
-  "zero", "no" or "none"? A sweep normalizes each of the 253 numbers and yes/no values in the synthetic
-  scenarios twice, once deleted and once set to 0 or false. Identical outputs mean the two readings
-  merged; 73 had.
+  "zero", "no" or "none"? A sweep normalizes each number and yes/no value in the synthetic scenarios
+  twice, once deleted and once set to 0 or false. Identical outputs mean the two readings merged. It first
+  covered the 253 values sent as JSON numbers and booleans, of which 73 had merged. After an outside audit
+  it also covers numbers sent as text, as PrismHR sends most amounts: 432 fields in all.
 - **Decision:**
-  - **A flag that decides meaning is never defaulted.** If isolved `isEmployeeTax` or `isMemoEarning`, or
-    PrismHR `usePercent`, is missing, a `FLAG_MISSING` warning says so and the value stays unknown: the
-    tax's `paid_by` is `UNMAPPED`, the line's `in_gross` is null, the deduction amount stays as sent in
-    `provider_extensions`. Live data sends all three on every line.
+  - **A flag that decides meaning is never defaulted, unless the provider documents the default.**
+    isolved `isEmployeeTax` and `isMemoEarning` have none: if one is missing, a `FLAG_MISSING` warning
+    says so and the value stays unknown (the tax's `paid_by` is `UNMAPPED`, the line's `in_gross` is
+    null). PrismHR `usePercent` is documented "The default is False": a missing one means dollars, with a
+    `DOCUMENTED_DEFAULT` note, as UKG contact role flags documented false by default are (A-77). One that
+    isn't a yes/no leaves the amount as sent, with `FLAG_MISSING`. Live data sends all three on every
+    line.
   - **A 0 that means "none" stays as sent** in `provider_extensions` instead of being used up: isolved
-    rates, paper check amounts, hours worked, retirement catch-up, a garnishment's amount or percent, and
-    benefit lines with nothing on the check. isolved sends a 0 rate for 6 of 45 employees; the 4 left
-    with no nonzero rate (two contractors, one hourly and one salaried employee) get `NO_PAY_RATE`.
-  - **A required line amount that wasn't sent** keeps a 0 placeholder, so the line's code and other
-    values stay, with an `AMOUNT_MISSING` warning that the 0 wasn't sent. A garnishment with neither an
-    amount nor a percent gets an `UNMAPPED` method, not a fixed amount.
+    and PrismHR rates (current and in the history), paper check amounts, hours worked, retirement
+    catch-up, a garnishment's amount, percent or maximum, and benefit lines with nothing on the check. An
+    employee left with no nonzero rate gets `NO_PAY_RATE`: 4 of 45 isolved employees (two contractors,
+    one hourly and one salaried) and 9 of 194 PrismHR employees. The audit found PrismHR's zeros had been
+    dropped without a trace, because the sweep didn't yet try numbers sent as text.
+  - **A required line amount that wasn't sent** keeps a 0 stand-in, so the line's code and other values
+    stay. The stand-in is marked derived, with a formula saying it wasn't sent, and an `AMOUNT_MISSING`
+    warning says so too. A total that would include it isn't derived, and a check that would use it is
+    not applicable. A garnishment with neither an amount nor a percent gets an `UNMAPPED` method, not a
+    fixed amount.
+  - **An unknown yes/no stays null.** `voided` is null where the provider sends no void indicator (isolved
+    and UKG paychecks), and `is_remainder` is null when a deposit's method is unknown.
   - **A check an unknown value blocks** is reported as not applicable, with the reason, not left out.
-  - **The other 57 merges are reviewed** one by one in `tests/test_missing_vs_zero.py`, each with its
-    reason: IDs (0 is never a real one), paging metadata, code-table rows, list rows that their fetched
-    detail replaces, and a second source repeating the first. A new merge fails that test until someone
-    keeps the two apart or writes the reason down, and a reason that no longer applies fails it too.
+  - **The other merges are reviewed** one by one in `tests/test_missing_vs_zero.py`, 94 of them, each with
+    its reason: IDs (0 is never a real one), paging metadata, response envelopes, echoes of the request,
+    code-table rows, list rows that their fetched detail replaces, and a second source repeating the
+    first. A new merge fails that test until someone keeps the two apart or writes the reason down, and
+    a reason that no longer applies fails it too.
 - **Why:** a consumer must be able to trust that a zero was sent as a zero. The sweep only sees the code
   paths the scenarios exercise, so list-only rows have their own test.
 
@@ -267,16 +308,26 @@ other docs, so they don't run in order. [Known limitations](#known-limitations) 
   - PrismHR SSNs come back fully masked (`***-**-****`), and so do its bank account numbers (all
     asterisks, no last 4). Birth dates come back **unmasked**, although
     `#/paths/~1employee~1v1~1getEmployee/get/description` says they are masked by default.
-  - isolved returns full direct-deposit account numbers, and no SSN from the employee endpoint.
+  - isolved returns full direct-deposit account numbers, and no SSN from the employee endpoint; its checks
+    carry the last 4 (A-50).
   - UKG returns full SSNs. Its employee `photo_href` links each carry a signed token.
+  - PrismHR `getEmployeeSSNList` and isolved `employeesWithSSN` return full SSNs.
 - **Decision:**
   - SSNs and bank account numbers keep at most their last 4 digits **everywhere** in the output:
     canonical fields, `provider_extensions`, raw values and diagnostics. Values the provider already
     masked yield no last 4; nothing is invented.
   - A registry of sensitive source fields, plus a pattern sweep, enforces this. The registry includes
-    PrismHR `cobraSSN` and UKG pay-info `bank_account_number`.
+    PrismHR `cobraSSN` and UKG pay-info `bank_account_number`, and masks a value sent as a number as well
+    as text. Diagnostics are swept as they're written. The pattern catches SSNs written 123-45-6789;
+    nine digits without dashes aren't caught by it, because routing numbers and IDs look the same, so a
+    sensitive field has to be in the registry.
+  - The endpoints that return full SSNs are never called (A-74). PrismHR employees therefore have no
+    last 4: `getEmployee` masks every digit.
   - `photo_href` is dropped. Birth dates are kept as employee data.
-- **Why:** keeping fields verbatim in `provider_extensions` would otherwise undo the masking.
+- **Why:** keeping fields verbatim in `provider_extensions` would otherwise undo the masking. Calling an
+  endpoint to receive full SSNs, only to keep 4 digits of each, isn't worth the exposure on a live system.
+  Commercial payroll APIs make the same call: Finch returns SSNs only to an application granted a
+  separate permission that asks for them on each request.
 
 ### A-25 Open-ended dates and span boundaries
 - **Evidence:** UKG `reference-docs/Foundations.html` ("Conventions related to time") documents
@@ -293,16 +344,23 @@ other docs, so they don't run in order. [Known limitations](#known-limitations) 
 
 ### A-29 Percent scale (5 vs 0.05)
 - **Evidence:**
-  - No live direct deposit uses a percentage: PrismHR's are all method B, isolved's are fixed or net
-    accounts, and UKG's are all `FULL`.
-  - isolved "Percent" parameters are all 0.0.
-  - PrismHR deductions with `usePercent = true` have amounts 3.0 and 12.0. A fraction scale would mean
-    300% and 1200% of pay, which is impossible.
+  - PrismHR deductions with `usePercent = true` have amounts 3.0 and 12.0.
+  - Live direct deposits: PrismHR's methods are B 59 times, F 4 and P once, at 10.00; isolved has 3
+    percent deposits, 30.0, 1.0 and 1.0, and 2 fixed ones; UKG's are all `FULL`.
+  - As fractions, 3.0, 10.00, 12.0 and 30.0 would mean 300%, 1,000%, 1,200% and 3,000% of pay, which is
+    impossible.
+  - isolved deduction "Percent" parameters are all 0.0, and no UKG percent was seen live.
 - **Decision:**
-  - PrismHR deduction percents are verified percentage points: `scale: VERIFIED_POINTS`.
-  - Every other percent keeps its raw value with `scale: UNVERIFIED` and `percent: null`. No converted
-    number is published.
+  - Verified percentage points (`scale: VERIFIED_POINTS`, with `percent` set): PrismHR deduction percents,
+    PrismHR direct-deposit percents (methods P and PN, one `amount` field), and isolved direct-deposit
+    percents.
+  - Every other percent keeps its raw value with `scale: UNVERIFIED` and `percent: null`: PrismHR HSA
+    deposits (another field, with no live percent) and employer match percents, isolved deduction
+    percents and all UKG percents. No converted number is published for them.
   - Synthetic fixtures cover percent allocations.
+- **Correction:** until an outside audit on 2026-10-15, this entry said no live deposit used a
+  percentage. That was true of the first sample only, and the output told the 4 percent deposits there
+  were "no live percent deposits to verify the scale".
 - **Why:** a warning next to a possibly wrong number still lets a consumer use the wrong number.
   Withholding the conversion makes the uncertainty impossible to miss.
 
@@ -377,8 +435,9 @@ employment status and dates with their history, job and organization with their 
 compensation with its history. Every other field is kept unchanged (sanitized, A-23) in the record's
 `provider_extensions`, and the field coverage report shows each field's fate (A-62). The kept fields are
 mostly tax withholding setup (A-34), onboarding and compliance flags, benefit-group memberships, and
-provider bookkeeping such as checksums and last-change dates. For PrismHR's employee response, 83 fields
-are normalized and 124 kept; isolved's, 45 and 67; UKG's, 37 and 29.
+provider bookkeeping such as checksums and last-change dates. For PrismHR's employee response, 76 fields
+are normalized and 128 kept; isolved's, 45 and 67; UKG's, 36 and 29. A few more are dropped for a stated
+reason, such as PrismHR's copy of the scheduled deductions its own endpoint returns (A-62).
 
 The coverage report also counts how many employees have each canonical field, per provider (A-74). Its
 zeros on the full fetch:
@@ -415,33 +474,50 @@ zeros on the full fetch:
   `UNMAPPED` with its text.
 
 ### A-44 PrismHR gender codes
-- **Evidence:** `#/components/schemas/Person/properties/gender` lists "M, F, X or D" with no meanings.
-- **Decision:** M maps to `MALE` and F to `FEMALE`. X and D stay `UNMAPPED` with the raw value kept,
-  because their meanings aren't stated.
+- **Evidence:** `#/components/schemas/Person/properties/gender` lists "M, F, X or D" without meanings.
+  `#/components/schemas/NewHireEmployee/properties/gender`, the same field when an employee is created,
+  defines them: "'M' (male), 'F' (female), 'X' (non-binary), 'D' (declined) or 'U' (unknown)". Live: M 94,
+  F 89, none 11.
+- **Decision:** M, F, X and D map to `MALE`, `FEMALE`, `NON_BINARY` and `DECLINED`. U, which Person
+  doesn't list, would stay `UNMAPPED`: the canonical enum has no "unknown", since an unknown gender is a
+  missing one.
+- **Correction:** this entry used to cite Person alone and leave X and D unmapped. An outside audit
+  (2026-10-15) found the definitions in NewHireEmployee.
 
 ### A-45 PrismHR citizenship arrives as the documented description, not the code
 - **Evidence:** `#/components/schemas/Compensation/properties/citizenshipStatus` documents codes Z01–Z04
   with their meanings. All 18 values in the first sample are the description text itself, e.g. "A
   citizen of the United States". On the full fetch, 45 employees have `Y`, which is neither a documented
   code nor a description.
+- **Checked live (2026-10-15):** `NewHireEmployee/citizenStatus` says the "Allowed values can be obtained
+  by calling ClientMaster.getClientCodes with 'I9Docs' option". Asked for all 25 clients, that table
+  (sent as `citizenshipStatusCode`, documented as `citizenshipStatusCodes`) holds exactly Z01–Z04 with the
+  documented descriptions, in every client. `Y` isn't a client code either.
 - **Decision:** both the codes and their exact documented descriptions map to the canonical values.
-  Anything else stays `UNMAPPED`, including `Y`, whose meaning isn't documented.
+  Anything else stays `UNMAPPED`, including `Y`, whose meaning isn't documented. The I9Docs table isn't
+  fetched routinely: it only repeats the documented list.
 
 ### A-39 Contractor status is not a pay type
 - **Evidence:** PrismHR `#/components/schemas/Client/properties/employee1099` is independent of
   `#/components/schemas/Compensation/properties/payMethod`. isolved puts "1099" inside `payType`.
 - **Decision:** employees get a separate `worker_classification` (`EMPLOYEE`/`CONTRACTOR_1099`). isolved
-  "1099" sets it, and leaves `pay_type` `UNMAPPED`.
+  "1099" sets it, and leaves `pay_type` `UNMAPPED`. isolved's pay type lookup also has "1099 (Hours
+  Based)", which sets it with pay type `HOURLY`. "1099R" doesn't: a 1099-R reports retirement
+  distributions, not contract pay. The lookup's "Salary-Exempt" and "Hourly - Exempt" map like "Salary
+  Non-Exempt", to the pay basis they name; its other descriptions (Draw, Piecework, Guarantee, ...) stay
+  `UNMAPPED` for a mapping file.
 
 ### A-50 isolved SSN last 4 comes from check records
 - **Evidence:** `EmployeeModel.ssn` is required ("Employee SSN or identification type value") but is null
   on all 30 employees in the first sample. `CheckModel.employeeSSN` ("Employee Social Security Number")
   arrives masked as `XXX-XX-` plus the last four digits, on all 430 listed checks and all 15 check details.
 - **Decision:** when the employee record has no SSN, `national_id.last4` comes from the employee's checks,
-  with `source_field` `checks[].employeeSSN` and `masked_at_source` true. Employees with no checks have no
-  national ID.
-- **Why:** the last four digits are all any record keeps (A-23), and checks are the only place isolved
-  returns them.
+  with `source_field` `checks[].employeeSSN` and `masked_at_source` true. Employees with no fetched check
+  have no national ID: on the full fetch, 21 of 45 have one.
+- **Why:** the last four digits are all any record keeps (A-23). isolved's `employeesWithSSN` endpoints
+  return the full SSN; they are deliberately not called (A-23, A-74), which leaves checks the only source
+  of the last 4. (This entry used to say checks were the only place isolved returns them; an outside
+  audit corrected it.)
 
 ### A-20 PrismHR `salary` is per pay period
 - **Evidence:** PrismHR `#/components/schemas/Compensation/properties/salary` documents it.
@@ -487,8 +563,10 @@ zeros on the full fetch:
   - `num_pp_in_year` sets the pay frequency: 52 is weekly, 26 biweekly, 24 semimonthly, 12 monthly,
     because each count is that frequency's definition. Any other count is `OTHER` with the count, and 0
     means not set.
-  - Pay type and employee type stay `UNMAPPED` with their names (A-35). `WEEK` and `MONTH` amounts weren't
-    seen live.
+  - Pay type and employee type stay `UNMAPPED` with their names (A-35).
+  - The arithmetic covers the three periods seen live: HOUR (27 records), YEAR (33) and PAY_PERIOD (10).
+    `WEEK` and `MONTH` are documented without a definition and never seen, so a rate in one is `UNMAPPED`,
+    with an `UNMAPPED_CODE` warning and the period kept as sent (A-26). They used to be mapped by name.
 
 ### A-46 PrismHR placeholder dates
 - **Evidence:** live `compensation.effectiveDate` and pay-rate history contain `0000-01-01`, which is not
@@ -518,14 +596,16 @@ zeros on the full fetch:
     node has only `id` and `name`" (the cost-center page). Live, the trees are named "Location-Dept",
     "Position", "Default Settings", "Stipend", "Job Codes", "Certified Jobs", "Work Classification" and
     "Grants". Every employee cost center at index *i* that resolves is a node of tree *i* (41 of 41). The
-    other 8 point at tree 1, which answers HTTP 400 "Cost Center not used.".
+    other 8 point at tree 1, which answers HTTP 400 "Cost Center not used.": the answer and the employees
+    disagree.
 - **Decision:**
   - `job.org_units[]` holds each assignment as {`dimension`, `code`, `name`, `path`}. `dimension` is the
     provider's own name: the isolved title, or the name of the UKG tree's root. It is never interpreted: a
     dimension called "Department" isn't copied into `job.department`.
   - A UKG cost center is named from its tree, with the path of names from below the root down. An ID no
-    tree holds keeps its ID, with a `COST_CENTER_UNRESOLVED` warning. A tree the company doesn't use is an
-    empty answer, not a failure (A-70).
+    tree holds keeps its ID, with a `COST_CENTER_UNRESOLVED` warning.
+  - Tree 1's "Cost Center not used." is unavailable data, not an empty tree (A-70): 8 employees use it.
+    It was counted as empty until an outside audit pointed out the contradiction.
 - **Why:** the brief asks for organization details, and these are them. The dimension names are customer
   configuration, so mapping them onto canonical department or location would infer meaning from labels.
 
@@ -560,8 +640,8 @@ zeros on the full fetch:
     each with a default of false, behind the documented `contact_type` filter "EMERGENCY, DEPENDENT,
     BENEFICIARY". Live: 19 contacts for 11 of 25 employees.
   - isolved `PersonContactModel`: "Contact Is Emergency Contact", "Contact Is A Dependent", "Contact Is A
-    Beneficiary", and an emergency call order. Live, "No contacts found" for all 45 employees, so this
-    mapping rests on the documentation and the fixtures.
+    Beneficiary", and an emergency call order. Live, "No contacts found" for all 45 fetched employees, so
+    this mapping rests on the documentation and the fixtures.
   - PrismHR `#/components/schemas/Dependents`: `relationType` 'D' (Dependent) or 'B' (Beneficiary only),
     `beneficiaryType` 'P' or 'C', and `status` 'A', 'I' or 'P'. Live: 14 dependents of 8 of the 194
     employees, besides 33 emergency contacts. 12 of the dependents' birth dates arrive masked
@@ -584,8 +664,10 @@ zeros on the full fetch:
   documented), ethnicity for 23 and citizenship for 12.
 - **Decision:** as for UKG deposit methods (A-26): no label, no mapping. Gender and citizenship are
   `UNMAPPED`, with the value as sent and an `UNMAPPED_CODE` warning. Ethnicity is a coded value with its
-  raw, as for the other providers. The review queue lists them with suggestions (A-66), and one mapping
-  file maps them (A-65). Visa type and dates are kept; the visa number keeps only its last 4 (A-23).
+  raw, as for the other providers. The review queue lists them with suggestions (A-66). A reviewed
+  mapping file confirms the plain values for the demo tenant: MALE, FEMALE, NON_BINARY and the four
+  citizenship values; UNDEFINED stays `UNMAPPED` (A-86). Visa type and dates are kept; the visa number
+  keeps only its last 4 (A-23).
 - **Why:** the names look self-explanatory, but the same rule kept `NET_PAY` from being guessed (A-26), and
   it can't make exceptions by how obvious a name looks. The values are there, with their source.
 
@@ -604,7 +686,8 @@ zeros on the full fetch:
     have no `disabled` value and the description "Chose not to answer": the words the genders lookup uses
     for a declined answer.
   - `protectedVeteran` ("the employee is a protected veteran"), `isRecentlySeparatedVeteran`, and
-    `/veteranStatus`'s three "if the person is a protected veteran with ..." flags are false for all 45.
+    `/veteranStatus`'s three "if the person is a protected veteran with ..." flags are false for all 45
+    fetched.
     `/veteranStatus`'s text has no documented values; live it is "NoAnswer" for the same 2 employees.
   - `veteranStatusNotSpecified` is documented as "a veteran of unspecified status", but live it is true
     exactly for those 2 employees: the documentation and the data disagree.
@@ -620,6 +703,11 @@ zeros on the full fetch:
   a mailing address (and the flag), 14 a second email. Both were kept raw.
 - **Decision:** the mailing address is an address of type `MAILING`. The second email is an email of the
   new type `SECONDARY`: ranked second by the provider, with no stated purpose, where `MAIN` is the first.
+  The write path sends a `SECONDARY` email back as UKG's `secondary_email` (A-63).
+- **Also:** UKG's `nickname` is `name.nickname`, as PrismHR's is; it used to fill `name.preferred`, which
+  holds a preferred name (PrismHR and isolved `preferredName`). isolved's override address,
+  `EmployeeW2OverrideAddressModel` ("for use in tax forms or pay checks"), is typed `W2`, as PrismHR's W-2
+  address is, not `MAILING`. An outside audit found both inconsistencies.
 - **Why:** the model has fields for both; the type says only what UKG says.
 
 ## Direct deposits
@@ -639,9 +727,20 @@ zeros on the full fetch:
   `DIRECT_DEPOSIT_PER_OF_REMAINDER` have no label anywhere.
 - **Decision:** `FULL`, `FLAT_AMOUNT` and `GROSS_EARNING` map to `REMAINDER`, `FIXED_AMOUNT` and
   `PERCENT_OF_GROSS`. `NET_PAY` and `DIRECT_DEPOSIT_PER_OF_REMAINDER` map to `UNMAPPED`, keeping the raw
-  type and its `display_name`.
+  type and its `display_name`, and such a deposit's `is_remainder` is null (A-73).
+- **The same rule, everywhere:** a code maps only where the provider defines it: a description, a label in
+  a response or sample, a documented process that produces it, or live evidence. An outside audit found
+  codes that had been mapped by their names alone, the exception A-79 refuses; they are `UNMAPPED` now:
+  - UKG deposit `account_type` (CHECKING, SAVINGS) and deposit `type` RESERVE_LIVE_CHECK;
+  - UKG rate periods WEEK and MONTH (A-56) and payroll statuses `*_FAILED` (A-57);
+  - isolved garnishment `limit`, documented only as "Limit", which had been read as a per-period limit
+    (A-88).
+
+  A person can still confirm a plain name, in a reviewed mapping file with the reason written down
+  (A-86); the demo tenant's file confirms CHECKING, SAVINGS and RESERVE_LIVE_CHECK.
 - **Why:** enum names are the provider's words but carry no definition. Labels are evidence; names alone
-  are not.
+  are not. The brief's own reference files take the same line: "undocumented meanings remain unknown"
+  (README), and "Per-code meanings are not inferred from enum labels" (UKG lookup reference).
 
 ### A-14 UKG's deprecated direct-deposit endpoint still works
 - **Evidence:** the docs show the endpoint was deprecated 2023-04-13, with enforcement for "new
@@ -666,10 +765,11 @@ zeros on the full fetch:
     Calc") but no category. Client pay items (`ClientPayItemModel`) add `systemBenefitType` and
     `systemPayItemType`: the system item the client's item is built on. The spec describes them only as
     "System Benefit Type" and "System Pay Item Type".
-  - Live, all 1,230 employee pay items (150 earnings, 570 deductions, 510 memo calculations) link to a
-    client pay item by title (`payItemName` = `title`). Titles are unique per client (56 of 56) but codes
-    are not (41 distinct codes across 56 items), so linking by code would pick a different item for 360 of
-    the 1,230. `payItemId` is documented as deprecated and matches no client item ID.
+  - Live, all 1,845 employee pay items on the full fetch (225 earnings, 855 deductions, 765 memo
+    calculations) link to a client pay item by title (`payItemName` = `title`). Titles are unique per
+    client (56 of 56) but codes are not (41 distinct codes across 56 items), so linking by code would pick
+    a different item for 540 of the 1,845. `payItemId` is documented as deprecated and matches no client
+    item ID; it is kept as sent.
   - Check lines link the same way. On all 154 live earning and deduction lines, `itemDescription` is a
     client item's title and `itemCode` is that item's code. Garnishment lines (4) don't link.
 - **Decision:**
@@ -723,7 +823,7 @@ zeros on the full fetch:
 - **Evidence:** these return 401 "Authorization has been denied for this request", even right after a
   fresh sign-in: `/employees/{e}/payroll`, `/api/corestream/.../employees/{e}/deductions` and
   `/api/corestream/.../paygroups/{pg}/payrolls/{id}`.
-- **Decision:** deduction setup comes from `/employees/{e}/payItems` (570 deduction items live), and
+- **Decision:** deduction setup comes from `/employees/{e}/payItems` (855 deduction items live), and
   payroll deductions come from check details. Each refused request is still reported on the employee or
   company it was for (A-70).
 - **Why:** the alternative endpoints are documented and readable, so nothing is lost.
@@ -733,6 +833,32 @@ zeros on the full fetch:
   loan fields) say "YYYY-DD-MM". Live payment dates include `2014-10-17`, which is impossible as YYYY-DD-MM
   (there is no month 17), and every payment date falls on a Friday.
 - **Decision:** parse them as YYYY-MM-DD, with a diagnostic if a value is ambiguous and conflicts.
+
+### A-87 PrismHR retirement loans
+- **Issue:** `benefits/v1/getRetirementLoans` was first left out with the benefits topic (A-74), but a loan
+  against a retirement plan is repaid by payroll deduction, which is deduction setup.
+- **Evidence:** `#/components/schemas/RetirementLoan` documents each loan: `paymentAmount`, "amount
+  employee will pay back per pay period"; `paybackAmount`, which "can include principal and interest";
+  `amtPaidBackToDate`; `deductionStarts`, "date on which the deduction begins"; and `planId401k`, the plan
+  the loan was taken against. Asked live for the 25 clients on 2026-10-15: 3 loans, all in client 102,
+  each against plan "401k", and none of their employees among those fetched (A-07).
+- **Decision:** fetched once per client, and each loan is a deduction election of category
+  `RETIREMENT_LOAN`: a fixed amount per pay period, starting on `deductionStarts`, with the loan's
+  details (amount, payback amount, paid to date, loan date) and the plan as `benefit_plan_id`. The
+  response names no deduction code, so `code` is empty. `interestRate` has no documented unit and stays
+  as sent, as do the override payment fields and the TPA loan ID.
+- **Why:** the brief asks for deduction setup, and these are deductions with documented amounts and
+  dates.
+
+### A-88 isolved garnishment limits
+- **Evidence:** `EmployeeGarnishmentModel` documents `limit` as "Limit", `maximumAmount` as "Maximum
+  Amount", `maximumPercent` as "Maximum Percent" and `ytdLimit` as "Year to Date Limit". Live, the 3
+  garnishments have no nonzero `limit`, `maximumAmount` or `ytdLimit`, and 2 have a `maximumPercent`.
+- **Decision:** a nonzero `maximumAmount` is the election's maximum, with no basis, since none is stated.
+  `limit` stays as sent: it could be per check, per year or in total. The others stay as sent too, and a
+  0 is no limit (A-73).
+- **Correction:** `limit` used to be read as a per-period limit, and a 0 as a limit of zero. An outside
+  audit found the first, and the second followed from it.
 
 ## Payroll runs and paychecks
 
@@ -1043,8 +1169,10 @@ zeros on the full fetch:
 - **Decision:**
   - Payroll types map by name, never by ID: Regular, Void, Correction and Historical.
   - Pay statement types map only for the documented sample names Regular, Manual and Historical.
-  - Payroll statuses: OPEN, CLOSED and SUBMITTED map to themselves, FINALIZED to `COMPLETED`, and the
-    `*_FAILED` values to `FAILED`. NEW stays `UNMAPPED`.
+  - Payroll statuses: OPEN, CLOSED and SUBMITTED map to themselves and FINALIZED to `COMPLETED`, each
+    being a state a documented action requires or produces ("Performs the submit process on the
+    specified payrolls if closed"). NEW and the four `*_FAILED` values stay `UNMAPPED`: nothing defines
+    them. They used to map to `FAILED` by name, until an outside audit (A-26).
   - Anything not finalized gets a `NOT_FINALIZED` diagnostic (A-13).
 
 ### A-13 UKG payroll runs are all open
@@ -1149,8 +1277,9 @@ zeros on the full fetch:
 - **Decision:**
   - `python -m normalization review` collects every still-unmapped value into distinct decisions:
     provider, tenant, field, raw value, label, record count, the companies it appears in, and examples.
-    Array positions in a field don't count as different fields. On the full fetch, 7,911 record mentions
-    come down to 133 decisions. It also writes a mapping-file template per tenant.
+    Array positions in a field don't count as different fields. On the final fetch, 7,995 record mentions
+    come down to 151 decisions, with the reviewed mapping files applied (A-86). It also writes a
+    mapping-file template per tenant.
   - A mapping file (`--mappings`) resolves values as data, for one tenant (A-69):
     - It fills only values that would otherwise be `UNMAPPED`, and never overrides a code table built from
       documentation.
@@ -1213,12 +1342,45 @@ zeros on the full fetch:
   - On the synthetic scenarios, UKG "Earning (Memo)" reads as not paid out (1 of 1 paychecks), and MEMO
     ranks first by name. isolved "1099M Non EE Comp" reads as paid in cash. "Leave - FMLA" is like
     ON_LEAVE (0.44).
-  - On the full fetch, 69 of the 133 decisions get a name hint. None gets an arithmetic suggestion,
+  - On the final fetch, 76 of the 151 decisions get a name hint. None gets an arithmetic suggestion,
     because no live earning kind or Social Security or Medicare code is unknown.
   - Values that resemble nothing known, such as `Y` and `TS.READY`, get nothing rather than a forced guess.
 - **Why:** arithmetic on the provider's own totals is the strongest evidence available offline. Names
   speed a person up but must not decide. A local LLM could be added as a third suggester under the same
   rules: proposals only, data never leaving the machine.
+
+### A-86 Codes documented only by name are confirmed by a person, in a reviewed mapping file
+- **Issue:** UKG documents several enums as bare names, with no definition in its reference and no label
+  in any response: deposit account types (CHECKING, SAVINGS), the deposit type RESERVE_LIVE_CHECK, gender
+  and citizenship (A-79). The converters don't map names (A-26), so these come out `UNMAPPED`, though
+  "CHECKING" plainly names a checking account. An outside audit (2026-10-15) found the rule applied
+  unevenly: account types and a few other codes had been mapped by name while gender hadn't.
+- **Evidence for the approach:**
+  - The brief: "undocumented meanings remain unknown ... Discover the mappings and define your own
+    canonical enums", with an assumption documented wherever the data is unclear. The organizer's UKG
+    lookup reference: "Per-code meanings are not inferred from enum labels."
+  - Commercial payroll APIs map plain values into their own enums and keep the provider's value at hand:
+    Merge treats such enums as open, passing a value it doesn't map through and returning the original on
+    request. Finch leaves a field empty when it "can't infer a reasonable value".
+- **Decision:**
+  - The converters keep the rule: nothing is mapped from its name.
+  - `mappings/` holds reviewed mapping files (A-65), one per tenant (A-69). Each rule is a person's
+    decision that the name states the meaning, with the reason written next to it: the value is the
+    canonical term word for word, names one of the four Form I-9 citizenship categories, or, for
+    RESERVE_LIVE_CHECK, a "live check" is a paper paycheck and the documented row names no bank account.
+  - The live demo tenant's file confirms CHECKING, SAVINGS, RESERVE_LIVE_CHECK, MALE, FEMALE, NON_BINARY
+    and the four citizenship values. The synthetic tenant gets the same rules, so the demo shows them
+    applied. Left out on purpose, because their names don't say enough: gender UNDEFINED, the deposit
+    methods NET_PAY and DIRECT_DEPOSIT_PER_OF_REMAINDER, the rate periods WEEK and MONTH and the
+    `*_FAILED` payroll statuses.
+  - Every command applies the files in `mappings/` to their own tenants by default, and
+    `--no-reviewed-mappings` shows the converters' output alone. Each record a rule resolved carries a
+    `MAPPED_BY_FILE` note quoting the reason, and the output lists the files used, with their hashes and
+    any rule that matched nothing (A-71).
+- **Result:** on the live fetch, the file resolves 7 deposit account types, 24 genders and 12
+  citizenships; 5 of its 10 rules match nothing there yet.
+- **Why:** the evidence rule stays exact, and the call a person makes is recorded where it can be
+  reviewed, changed or dropped, instead of being buried in a code table.
 
 ## Output, provenance and tests
 
@@ -1266,7 +1428,14 @@ zeros on the full fetch:
 - **Two failures are checked, and the command and the tests fail on either:**
   - a field both mapped and kept, which means it was read after the leftovers were taken;
   - a field "lost": neither mapped nor kept, because the leftovers of its object were never collected
-    (A-73).
+    (A-73), or because a converter marked it as handled elsewhere and nothing else took it.
+- **Marked is not read.** A converter can mark a subtree it doesn't read, such as the deposit settings in
+  PrismHR's employee response. A marked field counts as mapped or kept only where another reader maps or
+  keeps it; otherwise it is dropped with the reason the mark gives (an echo of the employee's own ID, a
+  copy of a value mapped elsewhere), or lost. An outside audit showed why: marked fields had all counted
+  as mapped, which hid that PrismHR's shared deposit settings vanished for employees with no account.
+  They are now kept on each deposit record, or on the employee when there is no account. The property
+  tests also put unknown fields inside nested objects, not only at the top level (A-72).
 - **What is kept where:** responses with no record of their own are kept with the record they describe:
   PrismHR active benefit plans and pay-rate history on the employee (there is no benefit plan record,
   model §7); isolved status, salary and alternate-rate history on the employee; the isolved client record
@@ -1337,6 +1506,11 @@ zeros on the full fetch:
     hourly ones, otherwise the first rate whose period UKG supports. Standard hours become UKG's
     milliseconds, and pay periods per year come from the canonical pay frequency.
   - `external_id` carries the canonical ID, so a created employee can be traced back to its source.
+  - UKG's own `nickname` and second email round-trip: `name.nickname` (else the preferred name) and the
+    `SECONDARY` email (else a personal one) fill UKG's `nickname` and `secondary_email` (A-82).
+  - The plan only creates. The brief says "create or update"; an update would also need the
+    destination's current record to compare against, which a dry run without a live destination doesn't
+    have.
   - A non-active source status becomes a note, because UKG's `status` is read-only on create.
 - **Results on the synthetic scenarios:** UKG employees round-trip into valid requests. PrismHR employees
   are valid, except one whose effective date was invalid at the source. isolved employees are rejected for
@@ -1358,23 +1532,30 @@ zeros on the full fetch:
   others. Each is recorded with its reason, and would be fetched and kept the same way for a tenant that
   has it (A-74). isolved contacts are fetched but empty live, so their mapping rests on the documentation
   (A-77).
-- **Unconfirmed enums:** UKG's gender and citizenship are documented without definitions, so they stay
-  `UNMAPPED` with the value as sent until a mapping file confirms them (A-79). UKG's W-2 and 1099 flags
-  are kept for the same reason, which leaves its worker classification empty (A-34).
+- **Values documented only by name:** UKG's gender, citizenship, deposit account types and a few other
+  codes have no definition, so the converter leaves them `UNMAPPED`; the demo tenant's reviewed mapping
+  file confirms the plain ones (A-79, A-86). A new UKG tenant needs its own file. UKG's W-2 and 1099
+  flags are kept as sent for the same reason, which leaves its worker classification empty (A-34).
+- **SSNs:** PrismHR employees have no last 4 digits: `getEmployee` masks every digit, and the endpoint
+  with the digits returns full SSNs, which is deliberately not called. isolved employees get theirs from
+  a fetched check, 21 of 45 (A-23, A-50).
 - **History is shallow live:** most demo employees have one row of status, job or category history, so
   the history mapping rests on few live examples and the documentation (A-76).
 - **The live payroll isn't typical:** isolved's is historical, imported data (A-11), and every UKG payroll
   is still open (A-13).
-- **Not normalized:** tax withholding setup is kept raw (A-34), and percent scales are unproven for
-  isolved and UKG, so those percents stay raw (A-29).
+- **Not normalized:** tax withholding setup is kept raw (A-34). Percent scales are unproven for PrismHR
+  HSA deposits, isolved deductions and everything UKG, so those percents stay raw (A-29). isolved's
+  garnishment "Limit" has no stated basis and stays raw (A-88).
 - **Customer-configured codes need a person:**
   - statuses, types, and PrismHR and UKG earning codes stay `UNMAPPED` until a mapping file classifies
     them (A-35, A-65, A-67);
   - so do the state and local tax numbers that mean different things in different states (A-68).
-- **Small tenants:** codes that never appeared live are mapped from documentation only (A-07). The demo
-  tenants are small and were fetched nearly in full, so behavior on other tenants rests on the evidence
-  rules and the tests (A-72, A-73), not on more examples.
+- **A sample of each tenant:** the crawl takes at most 25 employees per company, 264 of 909 listed, so
+  926 PrismHR and 6 UKG paychecks and 3 retirement loans belong to employees whose records weren't
+  fetched; each says so (A-07). Codes that never appeared live are mapped from documentation only, so
+  behavior on other tenants rests on the evidence rules and the tests (A-72, A-73), not on more
+  examples.
 - **Provider risk:** UKG's deprecated direct-deposit endpoint can stop working (A-14), and UKG offers no
   company details (A-15).
 - **Assumed:** PrismHR and isolved amounts are USD (A-31), and their end dates are inclusive (A-25).
-- **Write path:** a dry run into UKG Ready only (A-63).
+- **Write path:** a dry run into UKG Ready only, creating employees, not updating them (A-63).

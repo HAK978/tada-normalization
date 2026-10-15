@@ -1,0 +1,67 @@
+{
+ "provider": "ukg-ready",
+ "tenant": "synthetic",
+ "note": "Reviewed decisions for UKG Ready values that UKG documents only as enum names, with no definition anywhere in its reference (A-26, A-79). The converter never maps a value by its name alone; each rule below is a person's decision that the name states the meaning, recorded with its reason (A-86). A rule applies only to this tenant (A-69) and only fills a value that would otherwise be UNMAPPED (A-65). UNDEFINED gender, NET_PAY and DIRECT_DEPOSIT_PER_OF_REMAINDER deposits and the *_FAILED payroll statuses are left out on purpose: their names don't say what they mean. This file is for the synthetic test tenant.",
+ "mappings": [
+  {
+   "field": "account_type",
+   "raw": "CHECKING",
+   "value": "CHECKING",
+   "evidence": "UKG documents direct-deposit account_type only as the enum CHECKING, SAVINGS (#/schemas/137). Reviewed 2026-10-15: the value is the canonical account type, word for word (A-86)."
+  },
+  {
+   "field": "account_type",
+   "raw": "SAVINGS",
+   "value": "SAVINGS",
+   "evidence": "UKG documents direct-deposit account_type only as the enum CHECKING, SAVINGS (#/schemas/137). Reviewed 2026-10-15: the value is the canonical account type, word for word (A-86)."
+  },
+  {
+   "field": "type",
+   "raw": "RESERVE_LIVE_CHECK",
+   "value": "PAPER_CHECK",
+   "evidence": "UKG documents the deposit type enum DIRECT_DEPOSIT, RESERVE_LIVE_CHECK without definitions; its documented sample shows a RESERVE_LIVE_CHECK row with an amount and no bank account. Reviewed 2026-10-15: a 'live check' is a paper paycheck in payroll usage, so the row reserves part of the pay for one (A-86)."
+  },
+  {
+   "field": "demographics.gender",
+   "raw": "MALE",
+   "value": "MALE",
+   "evidence": "UKG documents gender as MALE, FEMALE, UNDEFINED without definitions (#/schemas/134); NON_BINARY is sent live though undocumented. Reviewed 2026-10-15: the value is the canonical gender, word for word (A-86)."
+  },
+  {
+   "field": "demographics.gender",
+   "raw": "FEMALE",
+   "value": "FEMALE",
+   "evidence": "UKG documents gender as MALE, FEMALE, UNDEFINED without definitions (#/schemas/134); NON_BINARY is sent live though undocumented. Reviewed 2026-10-15: the value is the canonical gender, word for word (A-86)."
+  },
+  {
+   "field": "demographics.gender",
+   "raw": "NON_BINARY",
+   "value": "NON_BINARY",
+   "evidence": "UKG documents gender as MALE, FEMALE, UNDEFINED without definitions (#/schemas/134); NON_BINARY is sent live though undocumented. Reviewed 2026-10-15: the value is the canonical gender, word for word (A-86)."
+  },
+  {
+   "field": "demographics.citizenship",
+   "raw": "US_CITIZEN",
+   "value": "US_CITIZEN",
+   "evidence": "UKG documents citizenship as US_CITIZEN, PERMANENT_RESIDENT, ALIEN_WITH_WORK_PERMIT, NONCITIZEN_NATIONAL_OF_US without definitions (#/schemas/134). Reviewed 2026-10-15: each names one of the four Form I-9 citizenship categories the canonical enum holds (A-86)."
+  },
+  {
+   "field": "demographics.citizenship",
+   "raw": "NONCITIZEN_NATIONAL_OF_US",
+   "value": "US_NONCITIZEN_NATIONAL",
+   "evidence": "UKG documents citizenship as US_CITIZEN, PERMANENT_RESIDENT, ALIEN_WITH_WORK_PERMIT, NONCITIZEN_NATIONAL_OF_US without definitions (#/schemas/134). Reviewed 2026-10-15: each names one of the four Form I-9 citizenship categories the canonical enum holds (A-86)."
+  },
+  {
+   "field": "demographics.citizenship",
+   "raw": "PERMANENT_RESIDENT",
+   "value": "LAWFUL_PERMANENT_RESIDENT",
+   "evidence": "UKG documents citizenship as US_CITIZEN, PERMANENT_RESIDENT, ALIEN_WITH_WORK_PERMIT, NONCITIZEN_NATIONAL_OF_US without definitions (#/schemas/134). Reviewed 2026-10-15: each names one of the four Form I-9 citizenship categories the canonical enum holds (A-86)."
+  },
+  {
+   "field": "demographics.citizenship",
+   "raw": "ALIEN_WITH_WORK_PERMIT",
+   "value": "AUTHORIZED_ALIEN",
+   "evidence": "UKG documents citizenship as US_CITIZEN, PERMANENT_RESIDENT, ALIEN_WITH_WORK_PERMIT, NONCITIZEN_NATIONAL_OF_US without definitions (#/schemas/134). Reviewed 2026-10-15: each names one of the four Form I-9 citizenship categories the canonical enum holds (A-86)."
+  }
+ ]
+}

@@ -15,9 +15,9 @@ A field that is mapped in some records and kept in others shows both, with count
 
 Sources:
 
-- prismhr: a live fetch (`20261014T232557Z`) (2402 responses)
-- isolved: a live fetch (`20261014T232557Z`) (452 responses)
-- ukg-ready: a live fetch (`20261014T232557Z`) (352 responses)
+- prismhr: a live fetch (`20261015T091713Z`) (2427 responses)
+- isolved: a live fetch (`20261015T091715Z`) (452 responses)
+- ukg-ready: a live fetch (`20261015T091716Z`) (352 responses)
 
 ## Summary
 
@@ -25,15 +25,16 @@ Sources:
 |---|---|---:|---:|---:|---:|---:|---:|---:|
 | prismhr | `benefits/v1/getActiveBenefitPlans` | 37 | 0 | 36 | 0 | 1 | 0 | 0 |
 | prismhr | `benefits/v1/getDependents` | 27 | 10 | 14 | 0 | 3 | 0 | 0 |
+| prismhr | `benefits/v1/getRetirementLoans` | 12 | 9 | 2 | 0 | 1 | 0 | 0 |
 | prismhr | `clientMaster/v1/getAllPrismClientContacts` | 8 | 6 | 1 | 0 | 1 | 0 | 0 |
 | prismhr | `clientMaster/v1/getClientCodes` | 139 | 0 | 0 | 0 | 1 | 138 | 0 |
 | prismhr | `clientMaster/v1/getClientMaster` | 163 | 14 | 148 | 0 | 1 | 0 | 0 |
 | prismhr | `clientMaster/v1/getPayrollSchedule` | 16 | 4 | 11 | 0 | 1 | 0 | 0 |
 | prismhr | `deductions/v1/getDeductions` | 14 | 12 | 1 | 0 | 1 | 0 | 0 |
 | prismhr | `deductions/v1/getEmployeeLoans` | 17 | 10 | 4 | 0 | 3 | 0 | 0 |
-| prismhr | `deductions/v1/getVoluntaryRecurringDeductions` | 10 | 8 | 0 | 0 | 2 | 0 | 0 |
+| prismhr | `deductions/v1/getVoluntaryRecurringDeductions` | 10 | 0 | 0 | 0 | 10 | 0 | 0 |
 | prismhr | `employee/v1/checkForGarnishments` | 3 | 0 | 2 | 0 | 1 | 0 | 0 |
-| prismhr | `employee/v1/getEmployee` | 208 | 83 | 124 | 0 | 1 | 0 | 0 |
+| prismhr | `employee/v1/getEmployee` | 208 | 76 | 128 | 0 | 4 | 0 | 0 |
 | prismhr | `employee/v1/getEmployeeList` | 2 | 0 | 0 | 0 | 1 | 0 | 1 |
 | prismhr | `employee/v1/getHistory` | 22 | 9 | 12 | 0 | 1 | 0 | 0 |
 | prismhr | `employee/v1/getPayRateHistory` | 14 | 8 | 3 | 0 | 3 | 0 | 0 |
@@ -43,7 +44,7 @@ Sources:
 | prismhr | `payroll/v1/getPayrollVoucherForBatch` | 120 | 65 | 51 | 0 | 4 | 0 | 0 |
 | prismhr | `payroll/v1/getScheduledPayments` | 14 | 0 | 10 | 0 | 4 | 0 | 0 |
 | isolved | `api/clients/{client}` | 7 | 2 | 3 | 0 | 2 | 0 | 0 |
-| isolved | `api/clients/{client}/legals/{legal}` | 49 | 16 | 27 | 0 | 6 | 0 | 0 |
+| isolved | `api/clients/{client}/legals/{legal}` | 49 | 11 | 27 | 0 | 11 | 0 | 0 |
 | isolved | `api/clients/{client}/legals/{legal}/checks` | 33 | 11 | 18 | 0 | 4 | 0 | 0 |
 | isolved | `api/clients/{client}/legals/{legal}/employees` | 92 | 0 | 0 | 0 | 13 | 0 | 79 |
 | isolved | `api/clients/{client}/legals/{legal}/employees/{id}` | 131 | 45 | 67 | 0 | 19 | 0 | 0 |
@@ -52,7 +53,7 @@ Sources:
 | isolved | `api/clients/{client}/legals/{legal}/employees/{id}/directdeposits` | 10 | 10 | 0 | 0 | 0 | 0 | 0 |
 | isolved | `api/clients/{client}/legals/{legal}/employees/{id}/garnishments` | 30 | 13 | 15 | 0 | 2 | 0 | 0 |
 | isolved | `api/clients/{client}/legals/{legal}/employees/{id}/jobs` | 29 | 8 | 19 | 0 | 2 | 0 | 0 |
-| isolved | `api/clients/{client}/legals/{legal}/employees/{id}/payItems` | 18 | 7 | 8 | 0 | 3 | 0 | 0 |
+| isolved | `api/clients/{client}/legals/{legal}/employees/{id}/payItems` | 18 | 3 | 8 | 0 | 7 | 0 | 0 |
 | isolved | `api/clients/{client}/legals/{legal}/employees/{id}/payRates` | 8 | 0 | 8 | 0 | 0 | 0 | 0 |
 | isolved | `api/clients/{client}/legals/{legal}/employees/{id}/salaries` | 15 | 6 | 7 | 0 | 2 | 0 | 0 |
 | isolved | `api/clients/{client}/legals/{legal}/employees/{id}/statuses` | 8 | 5 | 3 | 0 | 0 | 0 | 0 |
@@ -70,10 +71,10 @@ Sources:
 | isolved | `api/system/payTypes` | 2 | 0 | 0 | 0 | 0 | 0 | 2 |
 | ukg-ready | `rest/v2/companies/{company}/config/cost-centers` | 7 | 0 | 0 | 0 | 0 | 7 | 0 |
 | ukg-ready | `rest/v2/companies/{company}/employees` | 18 | 0 | 0 | 0 | 6 | 0 | 12 |
-| ukg-ready | `rest/v2/companies/{company}/employees/{id}` | 73 | 37 | 29 | 0 | 7 | 0 | 0 |
+| ukg-ready | `rest/v2/companies/{company}/employees/{id}` | 73 | 36 | 29 | 0 | 8 | 0 | 0 |
 | ukg-ready | `rest/v2/companies/{company}/employees/{id}/benefits` | 7 | 0 | 7 | 0 | 0 | 0 | 0 |
-| ukg-ready | `rest/v2/companies/{company}/employees/{id}/compensation/history` | 11 | 8 | 2 | 0 | 1 | 0 | 0 |
-| ukg-ready | `rest/v2/companies/{company}/employees/{id}/contacts` | 23 | 11 | 7 | 0 | 5 | 0 | 0 |
+| ukg-ready | `rest/v2/companies/{company}/employees/{id}/compensation/history` | 11 | 7 | 2 | 0 | 2 | 0 | 0 |
+| ukg-ready | `rest/v2/companies/{company}/employees/{id}/contacts` | 23 | 10 | 7 | 0 | 6 | 0 | 0 |
 | ukg-ready | `rest/v2/companies/{company}/employees/{id}/demographics` | 5 | 3 | 2 | 0 | 0 | 0 | 0 |
 | ukg-ready | `rest/v2/companies/{company}/employees/{id}/direct-deposits` | 34 | 14 | 8 | 0 | 12 | 0 | 0 |
 | ukg-ready | `rest/v2/companies/{company}/employees/{id}/pay-info` | 15 | 3 | 12 | 0 | 0 | 0 | 0 |
@@ -86,8 +87,8 @@ Sources:
 | ukg-ready | `rest/v2/companies/{company}/lookup/pay-statement-types` | 2 | 0 | 0 | 0 | 0 | 0 | 2 |
 | ukg-ready | `rest/v2/companies/{company}/lookup/pay-types` | 2 | 0 | 0 | 0 | 0 | 2 | 0 |
 | ukg-ready | `rest/v2/companies/{company}/lookup/payroll-types` | 2 | 0 | 0 | 0 | 0 | 0 | 2 |
-| ukg-ready | `rest/v2/companies/{company}/payrolls` | 14 | 11 | 2 | 0 | 1 | 0 | 0 |
-| ukg-ready | `rest/v2/companies/{company}/payrolls/{id}` | 13 | 11 | 2 | 0 | 0 | 0 | 0 |
+| ukg-ready | `rest/v2/companies/{company}/payrolls` | 14 | 8 | 2 | 0 | 4 | 0 | 0 |
+| ukg-ready | `rest/v2/companies/{company}/payrolls/{id}` | 13 | 8 | 2 | 0 | 3 | 0 | 0 |
 | ukg-ready | `rest/v2/companies/{company}/payrolls/{id}/pay-statements` | 11 | 0 | 0 | 0 | 1 | 0 | 10 |
 | ukg-ready | `rest/v2/companies/{company}/payrolls/{id}/pay-statements/{id}` | 78 | 30 | 48 | 0 | 0 | 0 | 0 |
 | ukg-ready | `rest/v2/companies/{company}/position/assignments/{id}` | 28 | 0 | 28 | 0 | 0 | 0 | 0 |
@@ -140,8 +141,7 @@ the zeros under Employee.
 | `name.first` | 194 | 45 | 25 |
 | `name.last` | 194 | 45 | 25 |
 | `name.middle` | 5 | 21 | 1 |
-| `name.nickname` | 2 | 0 | 0 |
-| `name.preferred` | 0 | 0 | 13 |
+| `name.nickname` | 2 | 0 | 13 |
 | `national_id` | 194 | 21 | 25 |
 | `personal.birth_date` | 193 | 30 | 25 |
 | `personal.citizenship` | 136 | 1 | 12 |
@@ -229,6 +229,23 @@ the zeros under Employee.
 | `dependent[].zip` | mapped |
 | `employeeId` | dropped: echo of the request parameters |
 | `errorCode` | dropped: response envelope |
+
+### `benefits/v1/getRetirementLoans`
+
+| Field | Disposition |
+|---|---|
+| `errorCode` | dropped: response envelope |
+| `retirementLoan[].amtPaidBackToDate` | mapped |
+| `retirementLoan[].checksum` | kept |
+| `retirementLoan[].deductionStarts` | mapped |
+| `retirementLoan[].employeeId` | mapped |
+| `retirementLoan[].loanAmount` | mapped |
+| `retirementLoan[].loanDate` | mapped |
+| `retirementLoan[].loanId` | mapped |
+| `retirementLoan[].paybackAmount` | mapped |
+| `retirementLoan[].paymentAmount` | mapped |
+| `retirementLoan[].planId401k` | mapped |
+| `retirementLoan[].tpaLoanId` | kept |
 
 ### `clientMaster/v1/getAllPrismClientContacts`
 
@@ -580,19 +597,19 @@ the zeros under Employee.
 
 | Field | Disposition |
 |---|---|
-| `employeeDeductions.deduction[].amount` | mapped (588) / kept (2) |
+| `employeeDeductions.deduction[].amount` | mapped (587) / kept (2) / dropped (1) |
 | `employeeDeductions.deduction[].benefitPlanId` | mapped (133) / kept (3) |
-| `employeeDeductions.deduction[].deductionCode` | mapped |
-| `employeeDeductions.deduction[].deductionMethod` | mapped |
-| `employeeDeductions.deduction[].deductionType` | mapped |
-| `employeeDeductions.deduction[].description` | mapped |
-| `employeeDeductions.deduction[].lastDedPerAdj` | mapped (1) / kept (589) |
+| `employeeDeductions.deduction[].deductionCode` | mapped (587) / dropped (3) |
+| `employeeDeductions.deduction[].deductionMethod` | mapped (587) / dropped (3) |
+| `employeeDeductions.deduction[].deductionType` | mapped (587) / dropped (3) |
+| `employeeDeductions.deduction[].description` | mapped (587) / dropped (3) |
+| `employeeDeductions.deduction[].lastDedPerAdj` | kept (589) / dropped (1) |
 | `employeeDeductions.deduction[].loanOrGarnishId` | mapped |
 | `employeeDeductions.deduction[].mandatory` | mapped |
-| `employeeDeductions.deduction[].period` | mapped |
+| `employeeDeductions.deduction[].period` | mapped (587) / dropped (3) |
 | `employeeDeductions.deduction[].startDate` | mapped |
 | `employeeDeductions.deduction[].trackArrears` | mapped |
-| `employeeDeductions.deduction[].usePercent` | mapped |
+| `employeeDeductions.deduction[].usePercent` | mapped (587) / dropped (3) |
 | `errorCode` | dropped: response envelope |
 
 ### `deductions/v1/getEmployeeLoans`
@@ -623,14 +640,14 @@ the zeros under Employee.
 |---|---|
 | `checksum` | dropped: response envelope |
 | `errorCode` | dropped: response envelope |
-| `voluntaryDeduction.deduction[].amount` | mapped (107) / kept (1) |
-| `voluntaryDeduction.deduction[].benefitPlanId` | mapped (105) / kept (2) |
-| `voluntaryDeduction.deduction[].deductionCode` | mapped |
-| `voluntaryDeduction.deduction[].deductionMethod` | mapped |
-| `voluntaryDeduction.deduction[].deductionType` | mapped |
-| `voluntaryDeduction.deduction[].description` | mapped |
-| `voluntaryDeduction.deduction[].period` | mapped |
-| `voluntaryDeduction.deduction[].usePercent` | mapped |
+| `voluntaryDeduction.deduction[].amount` | kept (1) / dropped (107) |
+| `voluntaryDeduction.deduction[].benefitPlanId` | kept (2) / dropped (105) |
+| `voluntaryDeduction.deduction[].deductionCode` | dropped: the same value the first endpoint sent for this election |
+| `voluntaryDeduction.deduction[].deductionMethod` | dropped: the same value the first endpoint sent for this election |
+| `voluntaryDeduction.deduction[].deductionType` | dropped: the same value the first endpoint sent for this election |
+| `voluntaryDeduction.deduction[].description` | dropped: the same value the first endpoint sent for this election |
+| `voluntaryDeduction.deduction[].period` | dropped: the same value the first endpoint sent for this election |
+| `voluntaryDeduction.deduction[].usePercent` | dropped: the same value the first endpoint sent for this election |
 
 ### `employee/v1/checkForGarnishments`
 
@@ -725,8 +742,8 @@ the zeros under Employee.
 | `employee[].compensation.formI9Filed` | kept |
 | `employee[].compensation.formI9RenewDate` | kept |
 | `employee[].compensation.healthInsVT` | kept |
-| `employee[].compensation.hourlyPay` | mapped |
-| `employee[].compensation.hourlyPayPeriod` | mapped |
+| `employee[].compensation.hourlyPay` | mapped (185) / kept (9) |
+| `employee[].compensation.hourlyPayPeriod` | mapped (185) / kept (9) |
 | `employee[].compensation.hourlyPayRate` | mapped |
 | `employee[].compensation.lastChangeAmt` | kept |
 | `employee[].compensation.lastChangePct` | kept |
@@ -752,7 +769,7 @@ the zeros under Employee.
 | `employee[].compensation.perfReviewNextDate` | kept |
 | `employee[].compensation.probationCodeMO` | kept |
 | `employee[].compensation.profitSharing` | kept |
-| `employee[].compensation.salary` | mapped |
+| `employee[].compensation.salary` | mapped (108) / kept (1) |
 | `employee[].compensation.ssn` | mapped |
 | `employee[].compensation.standardHours` | mapped |
 | `employee[].compensation.stateTax[].alternateCalc` | kept |
@@ -783,7 +800,7 @@ the zeros under Employee.
 | `employee[].contactInformation.state` | mapped |
 | `employee[].contactInformation.zipSuffix` | mapped |
 | `employee[].contactInformation.zipcode` | mapped |
-| `employee[].directDeposit.achStatus` | mapped |
+| `employee[].directDeposit.achStatus` | kept |
 | `employee[].directDeposit.achVoucher[].accountNum` | mapped |
 | `employee[].directDeposit.achVoucher[].accountType` | mapped |
 | `employee[].directDeposit.achVoucher[].amount` | mapped |
@@ -792,13 +809,13 @@ the zeros under Employee.
 | `employee[].directDeposit.achVoucher[].status` | mapped |
 | `employee[].directDeposit.achVoucher[].transitNum` | mapped |
 | `employee[].directDeposit.achVoucher[].voucherTypeOverride` | mapped |
-| `employee[].directDeposit.directDepositChecksum` | mapped |
-| `employee[].directDeposit.suppressAccountPrint` | mapped |
-| `employee[].directDeposit.voucherType` | mapped |
+| `employee[].directDeposit.directDepositChecksum` | kept |
+| `employee[].directDeposit.suppressAccountPrint` | kept |
+| `employee[].directDeposit.voucherType` | mapped (58) / kept (2) |
 | `employee[].enrollmentInProgress.enrollmentInProgress` | kept |
 | `employee[].enrollmentInProgress.enrollmentType` | kept |
 | `employee[].firstName` | mapped |
-| `employee[].hsa.achChecksum` | mapped |
+| `employee[].hsa.achChecksum` | kept |
 | `employee[].id` | mapped |
 | `employee[].lastName` | mapped |
 | `employee[].middleInitial` | mapped |
@@ -842,9 +859,9 @@ the zeros under Employee.
 | `employee[].person.w2ElecForm` | kept |
 | `employee[].person.w2ElecFormDate` | kept |
 | `employee[].person.w2PostalCode` | mapped |
-| `employee[].scheduledDeduction[].checkStubDescription` | mapped |
-| `employee[].scheduledDeduction[].deductionCode` | mapped |
-| `employee[].scheduledDeduction[].status` | mapped |
+| `employee[].scheduledDeduction[].checkStubDescription` | dropped: the same records employee/v1/getScheduledDeductions returns, which are the ones converted |
+| `employee[].scheduledDeduction[].deductionCode` | dropped: the same records employee/v1/getScheduledDeductions returns, which are the ones converted |
+| `employee[].scheduledDeduction[].status` | dropped: the same records employee/v1/getScheduledDeductions returns, which are the ones converted |
 | `employee[].skillsAndEducation.osha10Certified` | kept |
 | `employee[].skillsAndEducation.skillChecksum` | kept |
 | `employee[].skillsAndEducation.skill[].certifyDate` | kept |
@@ -898,7 +915,7 @@ the zeros under Employee.
 | `payRateHistory.payRate[].changeAmount` | kept |
 | `payRateHistory.payRate[].changePercent` | kept |
 | `payRateHistory.payRate[].effectiveDate` | mapped |
-| `payRateHistory.payRate[].hourlyRate` | mapped |
+| `payRateHistory.payRate[].hourlyRate` | mapped (343) / kept (18) |
 | `payRateHistory.payRate[].payMethod` | mapped |
 | `payRateHistory.payRate[].payPeriod` | mapped |
 | `payRateHistory.payRate[].payRate` | mapped |
@@ -1119,13 +1136,13 @@ the zeros under Employee.
 | Field | Disposition |
 |---|---|
 | `allowRemoteWorkers` | kept |
-| `client.clientCode` | mapped |
-| `client.clientName` | mapped |
-| `client.id` | mapped |
+| `client.clientCode` | dropped: the parent client, which the company takes from /api/clients/{client} |
+| `client.clientName` | dropped: the parent client, which the company takes from /api/clients/{client} |
+| `client.id` | dropped: the parent client, which the company takes from /api/clients/{client} |
 | `client.links[].href` | dropped: API navigation |
 | `client.links[].rel` | dropped: API navigation |
-| `client.securityServiceGroup.id` | mapped |
-| `client.securityServiceGroup.name` | mapped |
+| `client.securityServiceGroup.id` | dropped: the parent client, which the company takes from /api/clients/{client} |
+| `client.securityServiceGroup.name` | dropped: the parent client, which the company takes from /api/clients/{client} |
 | `federalEIN` | mapped |
 | `forceDirectDepositPrenote` | kept |
 | `iSolvedTimeEnabled` | kept |
@@ -1690,18 +1707,18 @@ the zeros under Employee.
 | `[].balance` | kept |
 | `[].calcParams[].paramType` | mapped (630) / kept (945) |
 | `[].calcParams[].paramValue` | mapped (630) / kept (945) |
-| `[].employeeId` | mapped |
-| `[].employeeNumber` | mapped |
-| `[].firstName` | mapped |
+| `[].employeeId` | dropped: the employee's own name and IDs |
+| `[].employeeNumber` | dropped: the employee's own name and IDs |
+| `[].firstName` | dropped: the employee's own name and IDs |
 | `[].id` | mapped (855) / kept (990) |
-| `[].lastName` | mapped |
+| `[].lastName` | dropped: the employee's own name and IDs |
 | `[].links[].href` | dropped: API navigation |
 | `[].links[].method` | dropped: API navigation |
 | `[].links[].rel` | dropped: API navigation |
 | `[].payItemCode` | mapped (630) / kept (630) |
-| `[].payItemId` | mapped (855) / kept (990) |
+| `[].payItemId` | kept |
 | `[].payItemName` | mapped (855) / kept (990) |
-| `[].payItemType` | mapped (855) / kept (990) |
+| `[].payItemType` | kept (990) / dropped (855) |
 | `[].startDate` | mapped |
 | `[].stopDate` | mapped |
 
@@ -1953,7 +1970,7 @@ the zeros under Employee.
 | `dates.review` | kept |
 | `dates.started` | mapped |
 | `ein.id` | mapped |
-| `ein_name` | mapped |
+| `ein_name` | dropped: the EIN's name, which the company's employers carry |
 | `employee_id` | mapped |
 | `first_name` | mapped |
 | `first_screen.id` | kept |
@@ -2021,7 +2038,7 @@ the zeros under Employee.
 | `compensations[].amount_period` | mapped (64) / kept (6) |
 | `compensations[].currency` | mapped (64) / kept (6) |
 | `compensations[].effective_from` | mapped |
-| `compensations[].employee.account_id` | mapped |
+| `compensations[].employee.account_id` | dropped: the employee's own account ID |
 | `compensations[].hourly_pay` | mapped (64) / kept (6) |
 | `compensations[].id` | mapped |
 | `compensations[].num_pp_in_year` | mapped (25) / kept (45) |
@@ -2042,7 +2059,7 @@ the zeros under Employee.
 | `contacts[].birthdate` | mapped |
 | `contacts[].dependent` | mapped |
 | `contacts[].emergency` | mapped |
-| `contacts[].employee.account_id` | mapped |
+| `contacts[].employee.account_id` | dropped: the employee's own account ID |
 | `contacts[].first_name` | mapped |
 | `contacts[].has_activate_deactivate_permission` | kept |
 | `contacts[].has_delete_permission` | kept |
@@ -2206,9 +2223,9 @@ the zeros under Employee.
 |---|---|
 | `payrolls[]._links.self` | dropped: API navigation |
 | `payrolls[].billable` | kept (66) / unused (23) |
-| `payrolls[].ein.ein_country_id` | mapped (66) / unused (23) |
-| `payrolls[].ein.ein_name` | mapped (66) / unused (23) |
-| `payrolls[].ein.ein_tax_id` | mapped (66) / unused (23) |
+| `payrolls[].ein.ein_country_id` | kept (1) / dropped (65) / unused (23) |
+| `payrolls[].ein.ein_name` | mapped (1) / dropped (65) / unused (23) |
+| `payrolls[].ein.ein_tax_id` | mapped (1) / dropped (65) / unused (23) |
 | `payrolls[].ein.id` | mapped (66) / unused (23) |
 | `payrolls[].end_date` | mapped (66) / unused (23) |
 | `payrolls[].id` | mapped (66) / unused (23) |
@@ -2224,9 +2241,9 @@ the zeros under Employee.
 | Field | Disposition |
 |---|---|
 | `billable` | kept |
-| `ein.ein_country_id` | mapped |
-| `ein.ein_name` | mapped |
-| `ein.ein_tax_id` | mapped |
+| `ein.ein_country_id` | dropped: the EIN's details, on the company's employers |
+| `ein.ein_name` | dropped: the EIN's details, on the company's employers |
+| `ein.ein_tax_id` | dropped: the EIN's details, on the company's employers |
 | `ein.id` | mapped |
 | `end_date` | mapped |
 | `id` | mapped |

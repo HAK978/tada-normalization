@@ -341,7 +341,8 @@ class DirectDeposit(Record):
     percent: Percent | None = None
     limit: Money | None = None
     sequence: int | None = None
-    is_remainder: bool
+    # Whether this deposit takes what is left; null when its method is unknown, since that could be either.
+    is_remainder: bool | None = None
     status: Coded[DepositStatus] | None = None
     effective_from: date | None = None
     effective_to: date | None = None
@@ -499,6 +500,8 @@ class BenefitDetail(Model):
     premium_cost: Money | None = None
     employee_contribution: Money | None = None
     employee_deduction: Money | None = None
+    # A retirement catch-up contribution on this check, reported apart from the regular one (isolved).
+    employee_catch_up: Money | None = None
     employer_contribution: Money | None = None
     source_field: str
 
@@ -540,7 +543,8 @@ class PayStatement(Record):
     check_number: str | None = None
     type: Coded[PayStatementType]
     status: Coded[str] | None = None
-    voided: bool = False
+    # Null when the provider sends no void indicator: an unknown is not a "no" (A-73).
+    voided: bool | None = None
     void_date: date | None = None
     totals: PayStatementTotals = Field(default_factory=PayStatementTotals)
     earnings: list[EarningLine] = Field(default_factory=list)

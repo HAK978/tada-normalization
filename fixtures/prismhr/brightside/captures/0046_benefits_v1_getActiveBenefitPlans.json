@@ -1,0 +1,16 @@
+{
+  "seq": 46,
+  "endpoint": "benefits/v1/getActiveBenefitPlans",
+  "path": "benefits/v1/getActiveBenefitPlans",
+  "params": {
+    "clientId": "201",
+    "employeeId": "E1004"
+  },
+  "status": 200,
+  "body": {
+    "benefitPlans": [],
+    "errorCode": "0",
+    "errorMessage": "",
+    "extension": null
+  }
+}

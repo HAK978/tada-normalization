@@ -45,6 +45,14 @@ from .canonical.codes import Severity
 from .canonical.types import MAPPING_COMPANY, MAPPING_OVERRIDE, Coded, Diagnostic, Raw
 from .output import Output
 
+# Reviewed mapping files shipped with the project (A-86). Each applies only to the tenant it names (A-69).
+REVIEWED = Path(__file__).resolve().parents[2] / "mappings"
+
+
+def reviewed() -> list[Path]:
+    """The reviewed mapping files, in a fixed order."""
+    return sorted(REVIEWED.glob("*.json"))
+
 
 def _key(raw: Raw) -> str:
     return raw if isinstance(raw, str) else json.dumps(raw)

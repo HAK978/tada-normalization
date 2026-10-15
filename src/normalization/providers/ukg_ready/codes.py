@@ -41,12 +41,11 @@ CONTACT_ROLES = (
 # national_id_numbers[].type (#/schemas/106 enum); only SSN is named for the US.
 NATIONAL_ID_TYPE = {"SSN": NationalIdType.SSN}
 
-# compensation/history amount_period (#/schemas/122). Live, amount / hours per period = hourly_pay
-# on all 27 records with an amount (A-56). WEEK and MONTH weren't seen live.
+# compensation/history amount_period (#/schemas/122). Live, amount / hours per period = hourly_pay on every
+# record with an amount, for each of these three periods (A-56). WEEK and MONTH are documented without a
+# definition and never seen live, so they stay UNMAPPED (A-26).
 RATE_PERIOD = {
     "HOUR": RatePeriod.HOUR,
-    "WEEK": RatePeriod.WEEK,
-    "MONTH": RatePeriod.MONTH,
     "YEAR": RatePeriod.YEAR,
     "PAY_PERIOD": RatePeriod.PAY_PERIOD,
 }
@@ -70,22 +69,22 @@ DD_METHOD = {
     "FLAT_AMOUNT": DepositMethod.FIXED_AMOUNT,
     "GROSS_EARNING": DepositMethod.PERCENT_OF_GROSS,
 }
-DD_ACCOUNT_TYPE = {"CHECKING": AccountType.CHECKING, "SAVINGS": AccountType.SAVINGS}
-# deposits[].type: reserves a paper ("live") check instead of naming a bank account.
+# direct-deposits account_type (CHECKING, SAVINGS) and type (DIRECT_DEPOSIT, RESERVE_LIVE_CHECK) are
+# documented enums with no definition, and no response labels them, so there is deliberately no table: they
+# stay UNMAPPED with the value as sent until a mapping file confirms them (A-26, A-86).
+DD_ACCOUNT_TYPE: dict[str, AccountType] = {}
+# A RESERVE_LIVE_CHECK row names no bank account (documented sample), so its type stands in for one.
 RESERVE_LIVE_CHECK = "RESERVE_LIVE_CHECK"
 
-# payrolls status (#/schemas/360). OPEN -> CLOSED -> FINALIZED are the documented close and
-# finalize steps ("Performs the finalize process on the specified payrolls if closed"); the
-# *_FAILED values name a failed step. NEW stays UNMAPPED (A-57).
+# payrolls status (#/schemas/360). The documented payroll actions name these states: "Performs closing
+# process", "Performs the submit process on the specified payrolls if closed", "Performs the finalize
+# process on the specified payrolls if closed", "Performs reopening process" (live: every payroll is OPEN).
+# NEW and the *_FAILED values have no definition anywhere, so they stay UNMAPPED (A-57).
 RUN_STATUS = {
     "OPEN": PayrollRunStatus.OPEN,
     "CLOSED": PayrollRunStatus.CLOSED,
     "SUBMITTED": PayrollRunStatus.SUBMITTED,
     "FINALIZED": PayrollRunStatus.COMPLETED,
-    "OPEN_FAILED": PayrollRunStatus.FAILED,
-    "CLOSE_FAILED": PayrollRunStatus.FAILED,
-    "ROLLBACK_FAILED": PayrollRunStatus.FAILED,
-    "FINALIZE_FAILED": PayrollRunStatus.FAILED,
 }
 
 # lookup/payroll-types is "the list of supported payroll types". The documented sample and the live
@@ -138,6 +137,7 @@ TAX_CODE = {
 # on the income-tax wage base (A-68). Other prefixes (SUTA_SC, ...) stay UNMAPPED.
 STATE_TAX_PREFIX = {"SIT": TaxType.STATE_INCOME, "SUTA": TaxType.STATE_UNEMPLOYMENT}
 
-# Failed requests that mean "nothing here" (A-70). A cost-center tree the company doesn't use answers HTTP
-# 400 "Cost Center not used." (live, tree 1): there is no tree, not an unknown one (A-75).
-EMPTY_MESSAGES = {"rest/v2/companies/{company}/config/cost-centers": ("Cost Center not used.",)}
+# Failed requests that mean "nothing here" (A-70). None so far: live, cost-center tree 1 answers HTTP 400
+# "Cost Center not used.", yet 8 employees are assigned cost centers in it, so that answer is unavailable
+# data, not an empty tree (A-75).
+EMPTY_MESSAGES: dict[str, tuple[str, ...]] = {}

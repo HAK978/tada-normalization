@@ -38,6 +38,6 @@ def test_every_recorded_decision_is_for_a_documented_endpoint_that_isnt_fetched(
 
 
 def test_decisions_use_the_known_reasons():
-    known = {E.SAME, E.WORKFLOW, E.CONFIG, E.UNREACHABLE, E.EMPTY_LIVE, E.REFUSED_LIVE, E.OUT}
+    known = {E.SAME, E.WORKFLOW, E.CONFIG, E.UNREACHABLE, E.EMPTY_LIVE, E.REFUSED_LIVE, E.OUT, E.PRIVATE}
     assert {disposition for disposition, _ in E.DECISIONS.values()} <= known
     assert all(reason.strip() for _, reason in E.DECISIONS.values())

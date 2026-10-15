@@ -9,6 +9,7 @@ import pytest
 
 from normalization.bundle import Bundle
 from normalization.canonical.codes import NON_CASH_EARNING_KINDS
+from normalization.mappings import reviewed
 from normalization.providers import normalize
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -32,7 +33,7 @@ def codes(record):
 
 
 def test_output_matches_the_golden_file(out):
-    assert out.to_json() == GOLDEN.read_text(encoding="utf-8")
+    assert normalize(Bundle.load(FIXTURE), mapping_files=reviewed()).to_json() == GOLDEN.read_text(encoding="utf-8")
 
 
 def test_salary_is_per_pay_period_and_undocumented_basis_a_is_annual(out):
@@ -115,9 +116,16 @@ def test_deposit_methods_keep_their_documented_meaning(out):
         "EMPLOYEE",
         "PERCENT_OF_NET_AFTER_TAXES",
     )  # HSA PN is "after taxes"
+    # Live, a P deposit of 10.00 can only be points (as a fraction, 1,000% of pay); HSA deposits are another
+    # field with no live percent example, so theirs stays unproven (A-29).
+    assert (hsa.percent.percent, hsa.percent.scale.value) == (None, "UNVERIFIED")
     percent = deposits["201:E1002:net_pay:1"]
     assert percent.method.value.value == "PERCENT_BASE_UNSPECIFIED"
-    assert (percent.percent.percent, percent.percent.scale.value, percent.percent.raw) == (None, "UNVERIFIED", "30.0")
+    assert (percent.percent.percent, percent.percent.scale.value, percent.percent.raw) == (
+        Decimal("30.0"),
+        "VERIFIED_POINTS",
+        "30.0",
+    )
     assert percent.limit.amount == Decimal("500.0")
     assert deposits["201:E1002:net_pay:2"].method.value.value == "PERCENT_OF_NET_AFTER_FIXED"  # ordinary PN
     assert deposits["201:E1002:net_pay:3"].account.type.value.value == "INSTANT_PAY"

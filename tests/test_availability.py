@@ -29,9 +29,18 @@ def test_an_endpoint_the_tenant_lacks_is_reported_on_each_employee_it_would_have
         assert unavailable(employee) == {(deductions, "404")}
         assert not [e for e in out.records["deduction_elections"] if e.employee_id == employee.id]
     assert not unavailable(one(out, "employees", ":5001"))  # fetched: its elections are real
-    assert out.summary()["unavailable"] == [
-        {"endpoint": deductions, "status": "HTTP 404", "requests": 4, "unattributed": 0}
+    assert {"endpoint": deductions, "status": "HTTP 404", "requests": 4, "unattributed": 0} in out.summary()[
+        "unavailable"
     ]
+
+
+def test_a_cost_center_tree_said_to_be_unused_is_unavailable_not_empty():
+    # Live, tree 1 answers 400 "Cost Center not used." while 8 employees are assigned cost centers in it, so
+    # the answer can't be taken as an empty tree (A-75).
+    out = normalize(bundle("ukg-ready"))
+    cost_centers = "rest/v2/companies/{company}/config/cost-centers"
+    assert (cost_centers, "400") in unavailable(one(out, "companies", ":7001"))
+    assert out.summary()["requests"]["empty"] == 0
 
 
 def test_a_404_the_provider_documents_as_nothing_found_is_an_empty_answer():

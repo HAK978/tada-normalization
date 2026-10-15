@@ -80,3 +80,30 @@ def test_prism_employer_details_only_for_referenced_employers():
     for params, employers in (({"employerId": "7"}, referenced), ({}, referenced), ({"employerId": "5"}, frozenset())):
         with pytest.raises(ScopeError):
             check("prismhr", PRISM_BASE, PRISM, url, params, employers)
+
+
+@pytest.mark.parametrize(
+    "params",
+    [
+        {"clientId": "100", "ClientId": "999"},  # a second spelling the check would not read
+        {"clientId": "100", "CLIENTID": "999"},
+        {"employerId": "5", "clientid": "999"},
+    ],
+)
+def test_prism_refuses_company_ids_in_other_spellings(params):
+    with pytest.raises(ScopeError):
+        check("prismhr", PRISM_BASE, PRISM, PRISM_BASE + "/employee/v1/getEmployee", params, frozenset({"5"}))
+
+
+@pytest.mark.parametrize("key", ["clientId", "legalId", "companyId", "cid"])
+def test_isolved_and_ukg_refuse_company_ids_in_query_parameters(key):
+    with pytest.raises(ScopeError):
+        check("isolved", ISOLVED_BASE, ISOLVED, ISOLVED_BASE + "/api/clients/7/legals/70/employees", {key: "8"})
+    with pytest.raises(ScopeError):
+        check("ukg-ready", UKG_BASE, UKG, UKG_BASE + "/rest/v2/companies/33/employees", {key: "34"})
+
+
+@pytest.mark.parametrize("method", ["POST", "PUT", "PATCH", "DELETE"])
+def test_only_get_passes_the_check(method):
+    with pytest.raises(ScopeError):
+        check("ukg-ready", UKG_BASE, UKG, UKG_BASE + "/rest/v2/companies/33/employees", method=method)

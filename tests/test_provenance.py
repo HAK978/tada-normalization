@@ -39,7 +39,7 @@ def test_provenance_names_the_snapshot_date_mapping_files_and_code(tmp_path):
         "sha256": bundle.sha256,
     }
     assert about["as_of"] == bundle.as_of.isoformat()
-    assert about["requests"]["unavailable"] == 4
+    assert about["requests"]["unavailable"] == 5  # 4 deduction setups and the cost-center tree (A-70, A-75)
     assert (about["mapping_files"][0]["path"], about["mapping_files"][0]["applied"]) == (str(mapping), 1)
     assert about["tool"]["name"] == "tada-normalization" and about["tool"]["version"]
     assert about["tool"]["commit"] is None or len(about["tool"]["commit"]) == 40
@@ -63,5 +63,5 @@ def test_sqlite_has_a_source_row_per_output(tmp_path):
         rows = db.execute("SELECT provider, bundle_sha256, requests_unavailable FROM sources ORDER BY 1").fetchall()
     assert rows == [
         ("prismhr", Bundle.load(ROOT / "fixtures/prismhr/brightside").sha256, 7),
-        ("ukg-ready", Bundle.load(UKG).sha256, 4),
+        ("ukg-ready", Bundle.load(UKG).sha256, 5),
     ]

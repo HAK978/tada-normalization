@@ -28,8 +28,8 @@ A ten-minute tour:
    - gross pay and gross wages mean the same thing for every provider (A-54). That is what makes
      paychecks reconcile: 7,408 of 7,411 checks pass on the live data.
    - UKG's pay-statement hours are milliseconds. Only arithmetic on live paychecks revealed it (A-24).
-   - A code nobody documents stays `UNMAPPED` with its raw value. It is never guessed from its name
-     (A-35, A-64).
+   - A code nobody documents stays `UNMAPPED` with its raw value. It is never guessed from its name;
+     a person can confirm a plain one in a reviewed mapping file, with the reason recorded (A-35, A-86).
    - A refused request is not an empty answer, and a missing value is not zero (A-70, A-73).
    - A company is the business, not the legal employer, which the data can't name (A-30).
    - Every read endpoint the specs document, 855 of them, is fetched or has a recorded reason it isn't,
@@ -45,7 +45,7 @@ Python 3.11 or newer.
 python3 -m venv .venv && source .venv/bin/activate
 pip install -e ".[dev]"
 python -m normalization demo    # normalize every provider's synthetic scenario
-pytest                          # 218 tests, offline
+pytest                          # 236 tests, offline
 mypy                            # static type check: no issues
 ```
 
@@ -53,15 +53,16 @@ mypy                            # static type check: no issues
 
 ```
 provider   companies  employees  deposits  elections  runs  paychecks  checks pass/fail  warnings  unavailable
-prismhr            2          6         8          5     6          8              24/0        11            7
+prismhr            2          6         8          6     6          8              24/0        11            7
 isolved            1          5         5          5     6          7              24/0         2            0
-ukg-ready          1          5         6          2     4          4               2/0        14            4
+ukg-ready          1          5         6          2     4          4               2/0        10            5
 ```
 
 The warnings are deliberate traps in the synthetic data: an invalid placeholder date, codes nobody
-documents or defines (UKG's demographics among them), a customer-named pay statement type, a cost center
-no tree names, an employee with garnishments that can't be read, and endpoints that refuse or don't exist,
-as on the live tenants. Each one is reported, not guessed. "Unavailable" counts requests that returned no data
+documents or defines, a customer-named pay statement type, a cost center no tree names, an employee with
+garnishments that can't be read, and endpoints that refuse or don't exist, as on the live tenants. Each
+one is reported, not guessed. UKG values that are documented only by name (account types, gender,
+citizenship) are confirmed by the reviewed mapping file in `mappings/`, and each record says so (A-86). "Unavailable" counts requests that returned no data
 when data may exist. Their records say so, so an empty list in the output always means "none"
 (A-70).
 
@@ -105,8 +106,12 @@ GROUP BY 1, 2, 3;
 | `python -m normalization write EMPLOYEES_JSON` | Dry run: the UKG Ready requests that would create these employees, validated against UKG's request schemas. Nothing is sent. |
 | `python -m normalization review BUNDLE ...` | Collects every value still `UNMAPPED` into distinct decisions, with suggestions, and writes a report plus a mapping-file template per tenant. |
 | `python -m normalization schema` | Writes the canonical model's JSON Schemas to `schemas/`. |
-| `python -m normalization coverage [BUNDLE ...]` | Writes [docs/FIELD_COVERAGE.md](docs/FIELD_COVERAGE.md): what happens to every source field, and how many employees have each canonical field. The committed report comes from the live fetch; with no bundles, the command reports on the synthetic fixtures instead (`--out` writes elsewhere). |
+| `python -m normalization coverage [BUNDLE ...]` | What happens to every source field, and how many employees have each canonical field. Given live bundles, it writes [docs/FIELD_COVERAGE.md](docs/FIELD_COVERAGE.md), the committed report; with no bundles, it reports on the synthetic fixtures into `out/FIELD_COVERAGE.md`. `--out` writes elsewhere. |
 | `python scripts/generate_fixtures.py [--check]` | Regenerates the synthetic fixtures and golden files, or (`--check`) proves they are reproducible. |
+
+`demo`, `normalize`, `fetch --normalize` and `review` apply the reviewed mapping files in `mappings/`, each
+to its own tenant only. `--mappings FILE` adds another, and `--no-reviewed-mappings` shows the converters'
+output alone (A-86).
 
 ### Live data (optional)
 
@@ -120,17 +125,19 @@ The demo tenants are real provider test systems, and their tokens can write, so 
 locked down (A-04):
 
 - Every request passes a scope guard before it is sent: GET only, on the base URL `/signin`
-  returned, to allowlisted read endpoints, for the demo company IDs only. Redirects are re-checked hop
-  by hop.
+  returned, to allowlisted read endpoints, for the demo company IDs only. It refuses any other method
+  itself, and any query parameter that could name another company. Redirects are re-checked hop by hop.
+- The crawl takes at most 25 employees per company (`--max-employees`), to keep the load on the shared
+  test systems small. Paychecks and loans of employees outside that sample are kept and say so (A-07).
 - Credentials are scrubbed from everything saved.
 - Raw responses go to `.discovery/` and normalized output to `out/`. Both are gitignored and never
   committed.
 
-The full live fetch (2026-10-14, with the endpoints A-74 added) normalizes like this:
+The final live fetch (2026-10-15) normalizes like this:
 
 | Provider | Companies | Employees | Deposits | Elections | Runs | Paychecks | Checks passed |
 |---|---:|---:|---:|---:|---:|---:|---:|
-| PrismHR | 25 | 194 | 64 | 590 | 4,525 | 2,403 | 6,804 of 6,807 |
+| PrismHR | 25 | 194 | 64 | 593 | 4,525 | 2,403 | 6,804 of 6,807 |
 | isolved | 2 | 45 | 35 | 858 | 231 | 430 | 543 of 543 |
 | UKG Ready | 1 | 25 | 7 | 0 (the tenant returns 404, A-12) | 89 | 63 | 61 of 61 |
 
@@ -150,6 +157,8 @@ synthetic generator -------------> raw bundle        (one per          (Output)
   converters can't tell the two apart.
 - Each **converter** lives in `src/normalization/providers/<provider>/`. `codes.py` holds every code
   table, and each table cites its evidence. `convert.py` maps responses to records.
+- **Reviewed mapping files** (`mappings/`) hold the decisions a person made about values the provider
+  documents only by name, each with its reason, one file per tenant (A-86).
 
 ### The canonical model
 
@@ -164,14 +173,16 @@ The main conventions:
 - **Money** is an exact decimal string, never a float and never rounded.
 - **Rates** always carry their period (`per`). **Quantities** carry a unit: hours, units or unknown.
 - **Percents** carry a scale. When a provider's scale (5 vs 0.05) isn't proven, the number stays null
-  and the raw value is kept.
+  and the raw value is kept. Live data proves it for PrismHR deductions and deposits and isolved deposits
+  (A-29).
 - **Derived values** are flagged, with their formula: UKG's gross and net, for example.
 - **Time-dependent values** (is this deposit active? which pay record is current?) are evaluated at an
   explicit `as_of` date: the fetch date, or a fixed date for fixtures.
 - **Lossless:** converters read every source field through a tracker, and whatever a record doesn't
   map goes into its `provider_extensions`, sanitized. The coverage report shows each field's fate, and
   fails if any field is neither mapped nor kept (A-62).
-- **Sensitive data:** SSNs and account numbers keep at most their last 4 digits, everywhere.
+- **Sensitive data:** SSNs and account numbers keep at most their last 4 digits, everywhere. Endpoints
+  that return full SSNs are deliberately not called (A-23).
 - **Paycheck lines are classified** in canonical terms: an earning's `kind` (how it is paid) and
   `category` (what it pays for: regular, overtime, vacation, ...), and a tax's `type` (federal income,
   Social Security, state unemployment, ...) with its `state` (A-67, A-68).
@@ -205,8 +216,8 @@ rule produced, each recorded in [ASSUMPTIONS.md](ASSUMPTIONS.md):
 - UKG Ready's hours are milliseconds (A-24), and its `base_rate` is the employee's base rate: overtime
   lines pay 1.5 times it (A-24). Its "Fringe" payment lines balance non-cash pay and pay nothing
   (A-58).
-- The three providers mask differently: UKG returns full SSNs, PrismHR masks them. The output keeps the
-  last 4 digits in every case (A-23).
+- The three providers mask differently: UKG returns full SSNs, isolved shows the last 4 on checks, and
+  PrismHR masks every digit. The output keeps at most the last 4 (A-23, A-50).
 - Tax types come from each provider's own codes and descriptions, and the arithmetic agrees: Social
   Security lines are exactly 6.2% of taxable wages, Medicare 1.45%. UKG names its state income tax
   only after the state (`SIT:WI` is "Wisconsin"), but it is taxed on the same wage base as federal
@@ -223,7 +234,7 @@ New tenants bring codes no table knows. They come out `UNMAPPED` with a warning,
 guessed. The loop for resolving them needs no code change (A-65):
 
 ```sh
-python -m normalization review .discovery/prismhr/<run>     # 6,540 unmapped mentions -> 77 decisions
+python -m normalization review .discovery/prismhr/<run>     # 6,552 unmapped mentions -> 83 decisions
 # fill in `value` and `evidence` in out/review/mappings-prismhr-<tenant>.json
 python -m normalization normalize .discovery/prismhr/<run> --mappings out/review/mappings-prismhr-<tenant>.json
 ```
@@ -284,13 +295,23 @@ empty until a person fills them in.
    named (UKG demographics and contacts, isolved job history, among others) was missing, and every check
    so far had looked only at fetched responses. 16 endpoints were added, and the endpoint inventory now
    ties every documented endpoint to a decision (A-74).
+6. **An outside audit.** A separate model audited the finished project against the code, the specs and
+   the live data. Every finding was checked before it was acted on. The confirmed ones were fixed and
+   recorded:
+   - codes that had been mapped by their names alone are `UNMAPPED` again, and confirmed in a reviewed
+     mapping file instead (A-26, A-86);
+   - PrismHR pay rates of 0 had been dropped without a trace, and deposit settings vanished for
+     employees with no account (A-62, A-73);
+   - deposit percents that live data proves are now verified (A-29), and unknown yes/no values stay null
+     (A-73);
+   - PrismHR retirement loans are fetched (A-87), and several statements in these docs were corrected.
 
 AI assistance was used throughout, as the brief allows. Every mapping rests on cited spec text or
 counted live evidence.
 
 ## Testing
 
-`pytest` runs 218 offline tests (plus parametrized subtests). Nothing needs credentials or network.
+`pytest` runs 236 offline tests (plus parametrized subtests). Nothing needs credentials or network.
 
 - **Synthetic scenarios** (`fixtures/<provider>/brightside`) come from a seeded generator, and every
   response is validated against the provider's own published schema. They are full of real-world
@@ -304,9 +325,10 @@ counted live evidence.
   - no field is lost, neither mapped nor kept (A-73);
   - only crawl indexes and unneeded lookups go unread;
   - every golden record matches the exported JSON Schema.
-- **Missing is never zero** (`tests/test_missing_vs_zero.py`, A-73): every number and yes/no in the
-  scenarios is deleted in one run and set to 0 or false in another, and the two outputs must differ.
-  Each place where they may agree has a written reason; a new one fails the test.
+- **Missing is never zero** (`tests/test_missing_vs_zero.py`, A-73): every number (sent as a number or
+  as text) and yes/no in the scenarios is deleted in one run and set to 0 or false in another, and the
+  two outputs must differ. Each place where they may agree has a written reason; a new one fails the
+  test.
 - **Endpoint inventory** (`tests/test_endpoint_inventory.py`, A-74): every read endpoint in the specs must
   be fetched or carry a recorded reason, and every recorded reason must name a documented endpoint.
 - **Lookup references** (`tests/test_lookup_references.py`, A-85): the code tables must agree with the
@@ -318,7 +340,7 @@ counted live evidence.
   - amounts stay exact to the cent;
   - the output doesn't depend on the order of captures;
   - a partial bundle never crashes and every dangling link is explained;
-  - a field no converter knows is kept;
+  - a field no converter knows is kept, at the top level or inside a nested object;
   - a mapping rule reaches exactly the companies it names.
 
   They run derandomized, so the suite stays deterministic. `PROPERTY_EXAMPLES=500 pytest
@@ -363,7 +385,7 @@ The full list is in [ASSUMPTIONS.md](ASSUMPTIONS.md#known-limitations).
 
   Because garnishment details are refused, 3 live PrismHR employees have garnishments the output can't
   show; their records say so (A-83).
-- **Endpoints not called:** documented employee data that was empty for every demo employee (PrismHR
+- **Endpoints not called:** documented employee data that was empty for every employee asked (PrismHR
   deduction arrears, UKG additional compensation, among others) or refused (isolved's year-to-date
   accumulations) when tried during the endpoint check. Each is recorded with its reason (A-74).
 - **Out of scope:** HR areas the brief doesn't name (skills, education, certifications, training, time
@@ -371,17 +393,23 @@ The full list is in [ASSUMPTIONS.md](ASSUMPTIONS.md#known-limitations).
   status and dates, job and organization, and compensation; benefits appear in it only as contributions
   on paychecks, which are covered. What a provider sends inside the employee record anyway, such as
   PrismHR's skills, is kept (A-62, A-74).
-- **Mapped from documentation only:** isolved contacts are called but empty for every demo employee
+- **Mapped from documentation only:** isolved contacts are called but empty for every fetched employee
   (A-77).
-- **UKG demographics** arrive as enums without definitions, so they stay `UNMAPPED` until a mapping file
-  confirms them (A-79).
+- **Values documented only by name:** UKG demographics, deposit account types and a few others are
+  `UNMAPPED` from the converter, and confirmed per tenant by a reviewed mapping file (A-79, A-86). A new
+  UKG tenant needs its own file, or its values stay `UNMAPPED`.
+- **SSNs:** PrismHR employees have no last 4 digits at all. `getEmployee` masks every digit, and the
+  only endpoint with the digits returns full SSNs, which this project deliberately doesn't call (A-23).
 - **Payroll history:** live isolved payroll is historical, imported data, and all live UKG payrolls are
   still open (A-11, A-13).
-- **Percent scales** are unproven for isolved and UKG deposits and deductions, so the number stays
-  null with its raw value (A-29). Tax withholding setup is kept raw, not mapped (A-34).
-- **Small tenants:** codes that never appeared live are mapped from documentation only (A-07). The
-  demo tenants were fetched nearly in full, so behavior on other tenants rests on the evidence rules and
-  the tests (A-72, A-73).
+- **Percent scales** are unproven for PrismHR HSA deposits, isolved deductions and everything UKG, so
+  those numbers stay null with their raw value (A-29). Tax withholding setup is kept raw, not mapped
+  (A-34).
+- **A sample of each tenant:** the crawl takes at most 25 employees per company: 194 of 668 PrismHR, 45
+  of 138 isolved and 25 of 103 UKG employees. So 926 PrismHR and 6 UKG paychecks, and 3 retirement loans,
+  belong to employees whose records weren't fetched; each says so (A-07). Codes that never appeared live
+  are mapped from documentation only, so behavior on other tenants rests on the evidence rules and the
+  tests (A-72, A-73).
 - **Unclassified codes:** PrismHR and UKG earning codes have no category until a mapping file gives
   one (A-67). State and local tax numbers that mean different things in different states stay
   `UNMAPPED`, as do PrismHR's state assessments (A-68).
@@ -393,5 +421,5 @@ The full list is in [ASSUMPTIONS.md](ASSUMPTIONS.md#known-limitations).
   - an optional local LLM (for example via Ollama) as a third suggester, still proposing only, so the
     data never leaves the machine;
   - full pagination and incremental sync for large tenants.
-- **Write path:** a dry run into UKG Ready only. The full SSN is not available by design, because the
-  model keeps the last 4 digits (A-63).
+- **Write path:** a dry run into UKG Ready only, creating employees; it doesn't update one. The full
+  SSN is not available by design, because the model keeps the last 4 digits (A-63).

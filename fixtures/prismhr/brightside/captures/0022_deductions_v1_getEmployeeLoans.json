@@ -1,0 +1,62 @@
+{
+  "seq": 22,
+  "endpoint": "deductions/v1/getEmployeeLoans",
+  "path": "deductions/v1/getEmployeeLoans",
+  "params": {
+    "clientId": "201",
+    "employeeId": "E1002"
+  },
+  "status": 200,
+  "body": {
+    "employeeLoanDetail": [
+      {
+        "loanId": "1",
+        "checksum": "l-1",
+        "loanAmount": 500.0,
+        "paymentAmount": 25.0,
+        "paymentFreq": "P",
+        "paybackAmount": 500.0,
+        "loanReason": "Tools",
+        "startDate": "2026-06-19",
+        "stopDate": "",
+        "loanDate": "2026-06-15",
+        "paidAmount": 125.0,
+        "glOverrideAccount": "",
+        "deductionCode": "LOAN1",
+        "paymentHistory": [
+          {
+            "paymentDate": "2026-06-19",
+            "paymentVoucherId": "070000",
+            "paymentAmount": 25.0
+          },
+          {
+            "paymentDate": "2026-06-26",
+            "paymentVoucherId": "070001",
+            "paymentAmount": 25.0
+          },
+          {
+            "paymentDate": "2026-07-17",
+            "paymentVoucherId": "070002",
+            "paymentAmount": 25.0
+          },
+          {
+            "paymentDate": "2026-07-24",
+            "paymentVoucherId": "070003",
+            "paymentAmount": 25.0
+          },
+          {
+            "paymentDate": "2026-08-14",
+            "paymentVoucherId": "070004",
+            "paymentAmount": 25.0
+          }
+        ]
+      }
+    ],
+    "errorCode": "0",
+    "errorMessage": "",
+    "extension": null,
+    "sessionId": "",
+    "clientId": "201",
+    "employeeId": "E1002"
+  }
+}

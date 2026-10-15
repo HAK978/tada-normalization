@@ -27,6 +27,9 @@ def test_a_ukg_employee_round_trips_into_valid_requests():
     ]
     person, pay = (r.body for r in result.requests)
     assert (person["username"], person["external_id"]) == ("mlopez", "ukg-ready:synthetic:employee:5001")
+    source = employee("ukg-ready", ":5001")
+    secondary = next(e["address"] for e in source["emails"] if e["type"] == "SECONDARY")
+    assert person["secondary_email"] == secondary  # UKG's own second email round-trips (A-82)
     assert (pay["amount"], pay["amount_period"], pay["time"], pay["time_period"]) == (
         Decimal("52000.0"),
         "YEAR",

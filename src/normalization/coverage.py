@@ -24,12 +24,16 @@ from typing import Any
 from .bundle import Bundle
 from .canonical.records import dump
 from .providers import normalize
-from .source import Src, covered, trace
+from .source import Src, covered, read, trace, why_marked
 
 # Fields left out on purpose: (pattern over the folded field path, reason) (model §9).
 DROPPED = {
     "prismhr": [
         (r"(^|\.)health(\.|\[|$)", "medical data, outside the model"),
+        (
+            r"^employee\[\]\.scheduledDeduction(\.|\[|$)",
+            "the same records employee/v1/getScheduledDeductions returns, which are the ones converted",
+        ),
         (r"^(errorCode|errorMessage|extension|checksum)$", "response envelope"),
         (r"^(clientId|employeeId)$|^payRateHistory\.(clientId|employeeId)$", "echo of the request parameters"),
         (r"^(count|startpage|total)$", "paging envelope"),
@@ -117,9 +121,9 @@ def measure(bundle: Bundle, source: str) -> Coverage:
         if capture.status != 200:
             continue
         reference = capture.endpoint in REFERENCE.get(bundle.provider, set())
-        for path, status in _walk(capture.body, "", by_data, [], collected):
+        for path, status, marked in _walk(capture.body, "", by_data, [], collected):
             folded = re.sub(r"\[\d+\]", "[]", path)
-            reason = next((why for pattern, why in dropped if re.search(pattern, folded)), None)
+            reason = next((why for pattern, why in dropped if re.search(pattern, folded)), None) or marked
             if reason:
                 status = "dropped"
             elif reference and status == "unused":
@@ -168,7 +172,8 @@ def _walk(
     active: list[tuple[Src, str]],
     collected: set[int],
 ):
-    """Yield (path, mapped|kept|lost|unused) for every leaf; the innermost tracked object decides."""
+    """Yield (path, mapped|kept|dropped|lost|unused, reason) for every leaf; the innermost tracked object
+    decides."""
     if isinstance(node, dict) and id(node) in by_data:
         active = list(by_data[id(node)])
     if isinstance(node, dict):
@@ -181,11 +186,17 @@ def _walk(
             yield from _walk(value, f"{path}[{i}]", by_data, inner, collected)
     elif node not in (None, ""):
         if not active:
-            yield path, "unused"
-        elif any(covered(root, rel) for root, rel in active):
-            yield path, "mapped"
+            yield path, "unused", None
+        elif any(read(root, rel) for root, rel in active):
+            yield path, "mapped", None
+        # Kept when a reader returned it as a leftover: one that asked for its leftovers and neither read
+        # nor marked it. A marked path is dropped if its mark says why, and lost if no reader has it.
+        elif any(id(root.used) in collected and not covered(root, rel) for root, rel in active):
+            yield path, "kept", None
+        elif why := next((w for root, rel in active if (w := why_marked(root, rel))), None):
+            yield path, "dropped", why
         else:
-            yield path, "kept" if any(id(root.used) in collected for root, _ in active) else "lost"
+            yield path, "lost", None
 
 
 def render(results: list[Coverage]) -> str:

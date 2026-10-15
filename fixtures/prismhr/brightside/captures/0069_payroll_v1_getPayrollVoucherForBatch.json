@@ -1,0 +1,216 @@
+{
+  "seq": 69,
+  "endpoint": "payroll/v1/getPayrollVoucherForBatch",
+  "path": "payroll/v1/getPayrollVoucherForBatch",
+  "params": {
+    "clientId": "201",
+    "batchId": "30117",
+    "count": "25",
+    "startpage": "0",
+    "options": [
+      "EmployerContribution",
+      "Retirement",
+      "TaxFilingStatus",
+      "Arrears"
+    ]
+  },
+  "status": 200,
+  "body": {
+    "total": 1,
+    "startpage": 0,
+    "count": 25,
+    "errorCode": "0",
+    "errorMessage": "",
+    "extension": null,
+    "payrollVoucher": [
+      {
+        "voucherId": "077006",
+        "status": "PRNT",
+        "type": "V",
+        "voidDate": "",
+        "checkNumber": "",
+        "payDate": "2026-10-09",
+        "employeeId": "E1001",
+        "payPeriod": "B",
+        "payPeriodStart": "2026-09-14",
+        "payPeriodEnd": "2026-09-27",
+        "payGroup": "BW",
+        "dateProcessed": "2026-10-09",
+        "totalEarnings": 1000.0,
+        "employeeTax": [
+          {
+            "empTaxDeductCode": "00-10",
+            "empTaxDeductCodeDesc": "Federal Income Tax",
+            "empTaxableAmount": 950.0,
+            "empTaxAmount": 95.0,
+            "empOverLimitAmount": 0.0
+          },
+          {
+            "empTaxDeductCode": "00-11",
+            "empTaxDeductCodeDesc": "Medicare - Employee",
+            "empTaxableAmount": 1000.0,
+            "empTaxAmount": 14.5,
+            "empOverLimitAmount": 0.0
+          },
+          {
+            "empTaxDeductCode": "00-12",
+            "empTaxDeductCodeDesc": "Soc Security - Employee",
+            "empTaxableAmount": 1000.0,
+            "empTaxAmount": 62.0,
+            "empOverLimitAmount": 0.0
+          },
+          {
+            "empTaxDeductCode": "34-20",
+            "empTaxDeductCodeDesc": "NC Income Tax",
+            "empTaxableAmount": 950.0,
+            "empTaxAmount": 38.0,
+            "empOverLimitAmount": 0.0
+          }
+        ],
+        "netPay": 740.5,
+        "voidVoucherId": "",
+        "fitTaxableAmount": 950.0,
+        "earnAmount": 1000.0,
+        "otherEarnAmount": 0.0,
+        "wcHomeClass": "8810",
+        "wcState": "NC",
+        "earning": [
+          {
+            "payCode": "VAC",
+            "payClass": "E",
+            "payClassDescription": "Earnings",
+            "chargeDate": "2026-09-27",
+            "hoursUnits": 40.0,
+            "hoursWorked": 40.0,
+            "unitRate": 25.0,
+            "payAmount": 1000.0,
+            "division": "MAIN",
+            "jobCode": "BAKER",
+            "shift": "",
+            "department": "PROD",
+            "location": "CLT",
+            "glCode": "",
+            "workComp": "8810",
+            "projWork": "",
+            "projPhase": ""
+          }
+        ],
+        "otherEarningsDetail": [],
+        "companyTax": [
+          {
+            "comTaxEntity": "P",
+            "comTaxDeductCode": "00-15",
+            "comTaxDeductCodeDesc": "Medicare - Employer",
+            "comExemptAmount": 0.0,
+            "comShelteredAmount": 0.0,
+            "comTaxableAmount": 1000.0,
+            "comTaxType": "9F",
+            "comTaxAmount": 14.5,
+            "comOvrLimit": 0.0,
+            "comTaxRate": 0.0145,
+            "comClientSutaRpt": ""
+          },
+          {
+            "comTaxEntity": "P",
+            "comTaxDeductCode": "00-16",
+            "comTaxDeductCodeDesc": "Soc Security - Employer",
+            "comExemptAmount": 0.0,
+            "comShelteredAmount": 0.0,
+            "comTaxableAmount": 1000.0,
+            "comTaxType": "8F",
+            "comTaxAmount": 62.0,
+            "comOvrLimit": 0.0,
+            "comTaxRate": 0.062,
+            "comClientSutaRpt": ""
+          },
+          {
+            "comTaxEntity": "P",
+            "comTaxDeductCode": "00-17",
+            "comTaxDeductCodeDesc": "Fed Unemployment",
+            "comExemptAmount": 0.0,
+            "comShelteredAmount": 0.0,
+            "comTaxableAmount": 1000.0,
+            "comTaxType": "4F",
+            "comTaxAmount": 6.0,
+            "comOvrLimit": 0.0,
+            "comTaxRate": 0.006,
+            "comClientSutaRpt": ""
+          },
+          {
+            "comTaxEntity": "P",
+            "comTaxDeductCode": "34-24",
+            "comTaxDeductCodeDesc": "NC Unemployment",
+            "comExemptAmount": 0.0,
+            "comShelteredAmount": 0.0,
+            "comTaxableAmount": 1000.0,
+            "comTaxType": "4S",
+            "comTaxAmount": 27.0,
+            "comOvrLimit": 0.0,
+            "comTaxRate": 0.027,
+            "comClientSutaRpt": ""
+          }
+        ],
+        "batchId": "30117",
+        "deduction": [
+          {
+            "deductCode": "C401K",
+            "deductDescription": "401(k)",
+            "deductAmount": 50.0,
+            "deductType": "K",
+            "deductUnionId": "",
+            "planId": "401K"
+          }
+        ],
+        "otherDeduction": [],
+        "benefit": [],
+        "bankAccount": "OPER",
+        "checkNum": null,
+        "checkAmt": 0.0,
+        "payStubType": "Electronic",
+        "checkAccountACH": "ACH1",
+        "directDeposit": [
+          {
+            "transitNum": "123456780",
+            "accountNum": "******",
+            "status": "D",
+            "amount": 200.0
+          },
+          {
+            "transitNum": "123456780",
+            "accountNum": "******",
+            "status": "D",
+            "amount": 540.5
+          }
+        ],
+        "employerContributions": [
+          {
+            "code": "401KM",
+            "description": "401(k) Match",
+            "amount": 30.0
+          }
+        ],
+        "retirement": {
+          "planId": "401K",
+          "planYearPeriod": "2026",
+          "baseEarnings": 1000.0,
+          "electiveContributionsPreTax": 50.0,
+          "employerMatchingContributions": 30.0,
+          "catchUpContributionsPreTax": null,
+          "employeeContributionsPostTax": null,
+          "employeeRetirementLoanPayments": null,
+          "employerNonElectiveContributions": null,
+          "employerSafeHarborMatchType1": null,
+          "employerSafeHarborMatchType2": null,
+          "peoMatchingContribution": null,
+          "rothCatchUpContributionsPostTax": null,
+          "rothContributionsPostTax": null
+        },
+        "glAcctDistribution": null,
+        "taxFilingStatus": [],
+        "isManualCheck": false,
+        "hsaPeoMatch": 0.0,
+        "asoClientGLAcctDistribution": null
+      }
+    ]
+  }
+}

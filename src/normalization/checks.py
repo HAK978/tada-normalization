@@ -11,9 +11,16 @@ from decimal import Decimal
 
 from .canonical.codes import NON_CASH_EARNING_KINDS, CheckResult, EarningKind
 from .canonical.records import PayStatement
-from .canonical.types import CheckOutcome
+from .canonical.types import CheckOutcome, Money
 
 TOLERANCE = Decimal("0.01")
+# The formula of the 0 that stands in for a line amount the provider didn't send (A-73).
+MISSING_AMOUNT = "not sent: 0 stands in for the missing amount"
+
+
+def placeholder(money: Money | None) -> bool:
+    """Whether this is the stand-in for a line amount that wasn't sent, rather than a real amount."""
+    return money is not None and money.derived and money.formula == MISSING_AMOUNT
 
 
 def _sum(amounts) -> Decimal:
@@ -38,13 +45,16 @@ def reconcile(statement: PayStatement) -> list[CheckOutcome]:
     has_lines = bool(statement.earnings or statement.taxes or statement.deductions)
 
     # Whether a line counts in gross can be unknown (its memo flag missing): then neither gross figure can be
-    # checked against the lines.
+    # checked against the lines. Nor can a sum that includes a line whose amount wasn't sent (A-73).
     in_gross_unknown = any(line.in_gross is None for line in statement.earnings)
+    earning_missing = any(placeholder(line.amount) for line in counted)
 
     rule = "gross wages = sum of earning lines counted in gross"
     if wages is not None and counted and not wages.derived:
         if in_gross_unknown:
             out.append(_not_applicable(rule, "whether a line counts in gross is unknown"))
+        elif earning_missing:
+            out.append(_not_applicable(rule, "an earning line has no amount"))
         else:
             earnings = _sum(line.amount.amount for line in counted)
             out.append(_outcome(rule, wages.amount, earnings, f"{wages.amount} vs {earnings}"))
@@ -55,6 +65,8 @@ def reconcile(statement: PayStatement) -> list[CheckOutcome]:
     if wages is not None and gross is not None and counted and not (wages.derived or gross.derived):
         if unknown or in_gross_unknown:
             out.append(_not_applicable(rule, "a line's kind, or whether it counts in gross, is unknown"))
+        elif earning_missing:
+            out.append(_not_applicable(rule, "an earning line has no amount"))
         else:
             expected = wages.amount - non_cash
             out.append(
@@ -67,6 +79,10 @@ def reconcile(statement: PayStatement) -> list[CheckOutcome]:
     if gross is not None and net is not None and has_lines:
         if any(line.paid_by == "UNMAPPED" for line in statement.taxes):
             out.append(_not_applicable(rule, "who paid a tax line is unknown"))
+        elif any(placeholder(line.amount) for line in statement.taxes if line.paid_by == "EMPLOYEE") or any(
+            placeholder(line.employee_amount) for line in statement.deductions
+        ):
+            out.append(_not_applicable(rule, "a tax or deduction line has no amount"))
         else:
             ee_taxes = _sum(line.amount.amount for line in statement.taxes if line.paid_by == "EMPLOYEE")
             deductions = _sum(line.employee_amount.amount for line in statement.deductions if line.employee_amount)
@@ -81,6 +97,9 @@ def reconcile(statement: PayStatement) -> list[CheckOutcome]:
             )
 
     if net is not None and statement.payments and not net.derived:
-        paid = _sum(p.amount.amount for p in statement.payments)
-        out.append(_outcome("payments = net", paid, net.amount, f"{paid} vs {net.amount}"))
+        if any(placeholder(p.amount) for p in statement.payments):
+            out.append(_not_applicable("payments = net", "a payment line has no amount"))
+        else:
+            paid = _sum(p.amount.amount for p in statement.payments)
+            out.append(_outcome("payments = net", paid, net.amount, f"{paid} vs {net.amount}"))
     return out
