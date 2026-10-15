@@ -45,7 +45,7 @@ Python 3.11 or newer.
 python3 -m venv .venv && source .venv/bin/activate
 pip install -e ".[dev]"
 python -m normalization demo    # normalize every provider's synthetic scenario
-pytest                          # 212 tests, offline
+pytest                          # 218 tests, offline
 mypy                            # static type check: no issues
 ```
 
@@ -105,7 +105,7 @@ GROUP BY 1, 2, 3;
 | `python -m normalization write EMPLOYEES_JSON` | Dry run: the UKG Ready requests that would create these employees, validated against UKG's request schemas. Nothing is sent. |
 | `python -m normalization review BUNDLE ...` | Collects every value still `UNMAPPED` into distinct decisions, with suggestions, and writes a report plus a mapping-file template per tenant. |
 | `python -m normalization schema` | Writes the canonical model's JSON Schemas to `schemas/`. |
-| `python -m normalization coverage [BUNDLE ...]` | Writes [docs/FIELD_COVERAGE.md](docs/FIELD_COVERAGE.md): what happens to every source field, and how many employees have each canonical field. |
+| `python -m normalization coverage [BUNDLE ...]` | Writes [docs/FIELD_COVERAGE.md](docs/FIELD_COVERAGE.md): what happens to every source field, and how many employees have each canonical field. The committed report comes from the live fetch; with no bundles, the command reports on the synthetic fixtures instead (`--out` writes elsewhere). |
 | `python scripts/generate_fixtures.py [--check]` | Regenerates the synthetic fixtures and golden files, or (`--check`) proves they are reproducible. |
 
 ### Live data (optional)
@@ -290,7 +290,7 @@ counted live evidence.
 
 ## Testing
 
-`pytest` runs 212 offline tests (plus parametrized subtests). Nothing needs credentials or network.
+`pytest` runs 218 offline tests (plus parametrized subtests). Nothing needs credentials or network.
 
 - **Synthetic scenarios** (`fixtures/<provider>/brightside`) come from a seeded generator, and every
   response is validated against the provider's own published schema. They are full of real-world
@@ -309,6 +309,8 @@ counted live evidence.
   Each place where they may agree has a written reason; a new one fails the test.
 - **Endpoint inventory** (`tests/test_endpoint_inventory.py`, A-74): every read endpoint in the specs must
   be fetched or carry a recorded reason, and every recorded reason must name a documented endpoint.
+- **Lookup references** (`tests/test_lookup_references.py`, A-85): the code tables must agree with the
+  organizer's lookup files.
 - **Live client tests** reproduce scope, redirect and scrubbing attacks against a fake HTTP client.
 - **Property tests** (`tests/test_properties.py`, Hypothesis) check rules that must hold for any
   input, not just the fixtures' (A-72):

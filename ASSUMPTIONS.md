@@ -1,7 +1,7 @@
 # Assumptions, decisions and limitations
 
 Every judgment call in this project is recorded here as issue, evidence, decision and why. Entries are
-grouped by topic. Their IDs (A-01 to A-84) are stable references used in the code, the tests and the
+grouped by topic. Their IDs (A-01 to A-85) are stable references used in the code, the tests and the
 other docs, so they don't run in order. [Known limitations](#known-limitations) are summarized at the end.
 
 **Evidence** comes from two places:
@@ -15,7 +15,7 @@ other docs, so they don't run in order. [Known limitations](#known-limitations) 
 
 | Topic | Entries |
 |---|---|
-| [How the data was obtained, safely](#how-the-data-was-obtained-safely) | A-01 to A-07, A-74 |
+| [How the data was obtained, safely](#how-the-data-was-obtained-safely) | A-01 to A-07, A-74, A-85 |
 | [Rules that apply everywhere](#rules-that-apply-everywhere) | A-64, A-70, A-73, A-35, A-23, A-25, A-29, A-31, A-33, A-59 |
 | [Company](#company) | A-30, A-09, A-15, A-60, A-84 |
 | [Employee](#employee) | A-48, A-55, A-44, A-45, A-39, A-50, A-20, A-19, A-27, A-56, A-46, A-34, A-75, A-76, A-77, A-79, A-80, A-81, A-82 |
@@ -158,6 +158,25 @@ other docs, so they don't run in order. [Known limitations](#known-limitations) 
   forms, the provider's own billing, and system plumbing.
 - **Why:** "cover all available employee fields" is a statement about the provider's API, not about a
   plan. Only a check against the specs shows what was left out, and a test keeps it shown.
+
+### A-85 The organizer's lookup references agree with the code tables
+- **Evidence:** `contracts/<provider>/lookup-reference.json` lists 34 code domains, each with cited meanings.
+  - PrismHR (8): client status class, service type, employee status class and the 12 deduction types match
+    `providers/prismhr/codes.py` code for code and meaning for meaning; for example, client status `C`,
+    "Client Cancelling, Pre-Termination", is `TERMINATING`. Payroll history type and the two hours-worked
+    bases belong to responses not fetched (A-74). Benefit enrollment status is in the active benefit
+    plans, which are kept on the employee (A-62).
+  - isolved (11): timecard, scheduling and notification codes, in none of the fetched responses (time and
+    attendance is outside the five data types).
+  - UKG (15): every meaning is "None", the premise of A-26 and A-79. National ID type and payroll status
+    are mapped from other documentation (A-57). The EEO, benefit-eligibility and payroll classifications,
+    preferred phone and pay statement status are kept as sent, and time-entry type is outside the five
+    data types.
+- **Decision:** the code tables cite the specs directly, and the lookup files are a cross-check:
+  `tests/test_lookup_references.py` fails when a PrismHR table maps a code its lookup domain doesn't list,
+  or misses one it does, and when a UKG table maps a code its domain doesn't document.
+- **Why:** they are the organizer's own cited references, so agreeing with them is a check on the
+  mappings, and their UKG meanings show that UKG names its codes without defining them.
 
 ## Rules that apply everywhere
 
