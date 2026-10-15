@@ -147,6 +147,13 @@ class _Legal:
             if text(row.get("title"))
         }
         self.runs_by_key: dict[tuple, list[str]] = {}
+        # The client's status table: customer status description -> its system payroll status description (A-48).
+        self.client_statuses = {
+            text(row.get("statusDescription")): text((row.get("payrollStatus") or {}).get("statusDescription"))
+            for capture in self._captures("api/clients/{client}", legal=False)
+            for row in (capture.body.get("employmentStatuses") or [] if isinstance(capture.body, dict) else [])
+            if isinstance(row, dict) and text(row.get("statusDescription"))
+        }
         # Lookup code -> description, for fields the spec types as codes but live sends as text (A-52).
         self.lookups = {
             name: {
@@ -331,6 +338,9 @@ class _Legal:
         client_src = Src(client.body if client else {}, "client")
         client_src.get("id")
         client_name = text(client_src.get("clientName"))
+        client_src.mark(
+            "employmentStatuses", why="the client's status table, read as a lookup for employee statuses (A-48)"
+        )
         s.mark("links", "logoData")  # logoData: an image (model §9)
         s.mark("client", why="the parent client, which the company takes from /api/clients/{client}")
         fein = text(s.get("federalEIN"))
@@ -469,7 +479,19 @@ class _Legal:
             flag(row.get("isImpliedStatus")) and text(row.get("clientEmploymentStatusDescription")) == status_text
             for row in statuses
         )
-        if status_text and implied and status_text in I.IMPLIED_STATUS:
+        system = self.client_statuses.get(status_text) if status_text else None
+        if status_text and system in I.SYSTEM_STATUS:
+            status = Coded[C.EmploymentStatus](
+                value=I.SYSTEM_STATUS[system], raw=status_text, label=status_text, source_field="employmentStatus"
+            )
+            if system != status_text:
+                notes.info(
+                    "SYSTEM_STATUS",
+                    "employmentStatus",
+                    f"the client's status table ties it to {system} (A-48)",
+                    status_text,
+                )
+        elif status_text and implied and status_text in I.IMPLIED_STATUS:
             status = Coded[C.EmploymentStatus](
                 value=I.IMPLIED_STATUS[status_text], raw=status_text, label=status_text, source_field="employmentStatus"
             )
@@ -480,7 +502,7 @@ class _Legal:
             notes.info(
                 "CUSTOMER_STATUS",
                 "employmentStatus",
-                "not shown as an implied system status in /statuses; kept as a label (A-48)",
+                "not in the client's status table nor an implied system status; kept as a label (A-48)",
                 status_text,
             )
         else:
@@ -735,7 +757,8 @@ class _Legal:
         for row in statuses:
             description = text(row.get("clientEmploymentStatusDescription"))
             implied = flag(row.get("isImpliedStatus"))
-            value = I.IMPLIED_STATUS.get(description or "") if implied else None
+            system = self.client_statuses.get(description) if description else None
+            value = I.SYSTEM_STATUS.get(system or "") or (I.IMPLIED_STATUS.get(description or "") if implied else None)
             changes.append(
                 EmploymentChange(
                     kind=C.EmploymentChangeKind.STATUS,

@@ -293,6 +293,8 @@ class Compensation(Model):
     annual_pay: Money | None = None
     standard_hours: Quantity | None = None
     standard_hours_per: str | None = None
+    # The hours of the employee's standard work day, when the provider states one (UKG pay-info).
+    standard_work_day: Quantity | None = None
     effective_date: date | None = None
     history: list[CompensationChange] = Field(default_factory=list)
 

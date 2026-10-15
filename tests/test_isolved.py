@@ -90,10 +90,20 @@ def test_year_to_date_only_lines_are_not_part_of_this_paycheck(out):
     )
 
 
-def test_status_maps_only_when_it_is_an_implied_system_status(out):
+def test_status_maps_through_the_clients_status_table(out):
     maria, ana, devon = (one(out, "employees", f":{i}") for i in ("9001", "9003", "9004"))
     assert maria.employment.status.value.value == "ACTIVE"
     assert (ana.employment.status.value.value, str(ana.employment.termination_date)) == ("TERMINATED", "2026-09-30")
+    # A customer status maps through the system status the client ties it to, never through its own name (A-48).
+    assert (devon.employment.status.value.value, devon.employment.status.label) == ("INACTIVE", "Leave - FMLA")
+    assert "SYSTEM_STATUS" in codes(devon)
+
+
+def test_a_status_the_client_table_doesnt_list_stays_a_label():
+    b = Bundle.load(FIXTURE)
+    client = next(c for c in b.captures if c.endpoint == "api/clients/{client}")
+    client.body["employmentStatuses"] = [r for r in client.body["employmentStatuses"] if r["code"] != "LOA"]
+    devon = one(normalize(b), "employees", ":9004")
     assert (devon.employment.status.value.value, devon.employment.status.label) == ("UNMAPPED", "Leave - FMLA")
     assert "CUSTOMER_STATUS" in codes(devon)
 

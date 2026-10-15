@@ -697,6 +697,17 @@
      ],
      "default": null,
      "title": "Standard Hours Per"
+    },
+    "standard_work_day": {
+     "anyOf": [
+      {
+       "$ref": "#/$defs/Quantity"
+      },
+      {
+       "type": "null"
+      }
+     ],
+     "default": null
     }
    },
    "title": "Compensation",
@@ -1348,6 +1359,7 @@
    "enum": [
     "ACTIVE",
     "ON_LEAVE",
+    "INACTIVE",
     "TERMINATED",
     "UNMAPPED"
    ],

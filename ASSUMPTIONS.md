@@ -118,8 +118,9 @@ other docs, so they don't run in order. [Known limitations](#known-limitations) 
 - **Re-fetch and final fetch (2026-10-15).** A re-fetch at 04:43 UTC returned the same responses, and every
   record came out identical. After an outside audit, the final fetch added PrismHR retirement loans
   (A-87): 2,848 PrismHR, 572 isolved and 378 UKG responses. Normalized with the final code, every record
-  matches the re-fetch's, plus the 3 loans. The field coverage report and the live counts in the README
-  come from it.
+  matches the re-fetch's, plus the 3 loans. The live counts in the README come from it. isolved was
+  fetched once more that afternoon with the client's details (A-48), and the field coverage report uses
+  that isolved fetch.
 - **Sample size.** The crawl takes at most 25 employees per company (`--max-employees`); isolved and UKG
   take each paycheck's owner first. The tenants list 668 PrismHR, 138 isolved and 103 UKG employees, and
   194, 45 and 25 were fetched. So 926 of the 2,403 PrismHR paychecks, 6 of the 63 UKG paychecks and the 3
@@ -454,22 +455,28 @@ zeros on the full fetch:
 - **None in these employees:** UKG has no employment history beyond compensation, isolved contacts are
   empty (A-77), and no sampled UKG employee is terminated.
 
-### A-48 isolved employment status: only implied system statuses are mapped
+### A-48 isolved employment status: through the client's status table
 - **Evidence:**
   - `#/definitions/AOS.PayrollOffice.RestAPI.Models.EmployeeModel/properties/employmentStatus` is "The
-    current employment status description", with no list of values. The client endpoint
-    (`/api/clients/{c}`) returns only its code, name, ID and links, so there is no client status table to
-    look the text up in.
+    current employment status description", with no list of values.
+  - The organizer's reference audit says "isolved reads employment statuses from client details".
+    `/api/clients/{id}` with `includeDetails=true` ("full client details") returns the client's
+    `employmentStatuses` (`ClientEmploymentStatusModel`): each has a code, a description and a
+    `payrollStatus`, "An object that holds a system's payroll status". Live, the demo client lists A
+    Active, I Inactive and T Terminated, each tied to the system status of the same name.
   - `/employees/{e}/statuses` (`EmployeeEmploymentStatusModel`) marks each history row with
-    `isImpliedStatus`. All 31 live rows are implied, with negative IDs that belong to no client table:
-    "Active" (`statusId` −1, 30 rows) and "Terminated" (−2, 1 row). These are also the only two live
-    `employmentStatus` values (29 Active, 1 Terminated).
-- **Decision:** "Active" maps to `ACTIVE` and "Terminated" to `TERMINATED`, but only when the employee's
-  own status history shows that description as an implied status. Any other description, such as a
-  customer status like "Leave - FMLA", stays `UNMAPPED` with its label and a `CUSTOMER_STATUS` info
-  diagnostic.
-- **Why:** implied statuses are isolved's own, so their meaning is fixed. Customer statuses are
-  configurable labels (A-35); "on leave" can't be read from a name.
+    `isImpliedStatus`. All 31 live rows are implied: "Active" (30) and "Terminated" (1), which are also the
+    only two live `employmentStatus` values.
+- **Decision:** a status maps through the system payroll status the client's table ties it to: Active to
+  `ACTIVE`, Inactive to the new `INACTIVE`, Terminated to `TERMINATED`. Those system statuses are
+  isolved's own, so their meaning is fixed. A customer status, such as "Leave - FMLA" tied to Inactive,
+  takes its system status, with a `SYSTEM_STATUS` note, and keeps its own name as the label. A status
+  the table doesn't list maps only when its history shows it as an implied system status; otherwise it
+  stays `UNMAPPED` with a `CUSTOMER_STATUS` note. Status history maps the same way (A-76).
+- **Correction:** this entry used to say the client endpoint has no status table. The crawl had never sent
+  `includeDetails`; a re-read of the organizer's audit pointed at it, and a live probe confirmed it.
+- **Why:** the client decides which system status each of its statuses belongs to, so that link is
+  evidence; reading "on leave" from a status's name would not be (A-35).
 
 ### A-89 PrismHR status and type: the documented class, not the client's code
 - **Evidence:** PrismHR employees carry two status fields and two type fields. `client.statusClass` and
@@ -577,8 +584,9 @@ zeros on the full fetch:
     including records dated after `as_of`. A real pay of 0 is kept; only the placeholders are skipped
     (A-64).
   - Rates keep their period, and `hourly_pay` is added as a rate per hour. `time` becomes standard hours,
-    derived, with the raw milliseconds kept, per `time_period`. Pay-info `standard_work_day`, also in
-    milliseconds (8 hours for every live employee), is kept as sent: the model has no field for it.
+    derived, with the raw milliseconds kept, per `time_period`. Pay-info `standard_work_day`, documented
+    in milliseconds (the organizer's reference audit cites it), becomes `compensation.standard_work_day`
+    in hours, derived, with the raw value kept: 8 hours for every live employee.
   - `num_pp_in_year` sets the pay frequency: 52 is weekly, 26 biweekly, 24 semimonthly, 12 monthly,
     because each count is that frequency's definition. Any other count is `OTHER` with the count, and 0
     means not set.

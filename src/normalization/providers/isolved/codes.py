@@ -79,6 +79,16 @@ CONTRACTOR_PAY_TYPES = frozenset({"1099", "1099 (Hours Based)"})
 # LegalModel/status, live value
 COMPANY_STATUS = {"Active": CompanyStatus.ACTIVE}
 
+# The client's employment statuses (/api/clients/{c}?includeDetails=true, ClientEmploymentStatusModel) each
+# name the isolved system payroll status they belong to ("An object that holds a system's payroll status").
+# Live, the system statuses are A Active, I Inactive and T Terminated. A customer status maps through its system
+# status, which is isolved's own, never through its own name (A-48).
+SYSTEM_STATUS = {
+    "Active": EmploymentStatus.ACTIVE,
+    "Inactive": EmploymentStatus.INACTIVE,
+    "Terminated": EmploymentStatus.TERMINATED,
+}
+
 # Employment status descriptions that appear as implied system statuses (statusId -1,
 # isImpliedStatus true) in /statuses history (A-48). Customer-defined statuses stay UNMAPPED.
 IMPLIED_STATUS = {"Active": EmploymentStatus.ACTIVE, "Terminated": EmploymentStatus.TERMINATED}

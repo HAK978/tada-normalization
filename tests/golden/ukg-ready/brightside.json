@@ -138,7 +138,6 @@
      "national_id_numbers[1].primary": false,
      "phones.preferred_phone": "CELL",
      "timezone": "America/New_York",
-     "pay-info.standard_work_day": 28800000,
      "pay-info.payroll_classification": "REGULAR",
      "compensation.history[0].amount": "0.0",
      "compensation.history[0].amount_period": "HOUR",
@@ -408,6 +407,14 @@
       "source_field": "compensation.history[1].time"
      },
      "standard_hours_per": "YEAR",
+     "standard_work_day": {
+      "value": "8",
+      "unit": "HOURS",
+      "raw": 28800000,
+      "derived": true,
+      "formula": "pay-info.standard_work_day / 3600000",
+      "source_field": "pay-info.standard_work_day"
+     },
      "effective_date": "2024-01-01",
      "history": [
       {
@@ -522,7 +529,6 @@
      "national_id_numbers[0].primary": true,
      "phones.preferred_phone": "CELL",
      "timezone": "America/New_York",
-     "pay-info.standard_work_day": 28800000,
      "pay-info.payroll_classification": "REGULAR",
      "compensation.history[0].amount": "0.0",
      "compensation.history[0].amount_period": "HOUR",
@@ -714,6 +720,14 @@
       "source_field": "compensation.history[1].time"
      },
      "standard_hours_per": "WEEK",
+     "standard_work_day": {
+      "value": "8",
+      "unit": "HOURS",
+      "raw": 28800000,
+      "derived": true,
+      "formula": "pay-info.standard_work_day / 3600000",
+      "source_field": "pay-info.standard_work_day"
+     },
      "effective_date": "2025-06-01",
      "history": [
       {
@@ -781,7 +795,6 @@
      "national_id_numbers[0].primary": true,
      "phones.preferred_phone": "CELL",
      "timezone": "America/New_York",
-     "pay-info.standard_work_day": 28800000,
      "pay-info.payroll_classification": "REGULAR",
      "tax-info.employee-tax-type.W2": true,
      "tax-info.employee-tax-type._1099": false,
@@ -949,6 +962,14 @@
       "source_field": "compensation.history[0].time"
      },
      "standard_hours_per": "PAY_PERIOD",
+     "standard_work_day": {
+      "value": "8",
+      "unit": "HOURS",
+      "raw": 28800000,
+      "derived": true,
+      "formula": "pay-info.standard_work_day / 3600000",
+      "source_field": "pay-info.standard_work_day"
+     },
      "effective_date": "2018-02-01",
      "history": [
       {
@@ -1016,7 +1037,6 @@
      "national_id_numbers[0].primary": true,
      "phones.preferred_phone": "CELL",
      "timezone": "America/New_York",
-     "pay-info.standard_work_day": 28800000,
      "pay-info.payroll_classification": "REGULAR",
      "tax-info.employee-tax-type.W2": true,
      "tax-info.employee-tax-type._1099": false,
@@ -1168,6 +1188,14 @@
       "source_field": "compensation.history[0].time"
      },
      "standard_hours_per": "YEAR",
+     "standard_work_day": {
+      "value": "8",
+      "unit": "HOURS",
+      "raw": 28800000,
+      "derived": true,
+      "formula": "pay-info.standard_work_day / 3600000",
+      "source_field": "pay-info.standard_work_day"
+     },
      "effective_date": "2025-03-01",
      "history": [
       {
@@ -1229,7 +1257,6 @@
      "national_id_numbers[0].primary": true,
      "phones.preferred_phone": "CELL",
      "timezone": "America/New_York",
-     "pay-info.standard_work_day": 28800000,
      "pay-info.payroll_classification": "REGULAR",
      "tax-info.employee-tax-type.W2": false,
      "tax-info.employee-tax-type._1099": true,
@@ -1358,6 +1385,14 @@
       "source_field": "compensation.history[0].time"
      },
      "standard_hours_per": "YEAR",
+     "standard_work_day": {
+      "value": "8",
+      "unit": "HOURS",
+      "raw": 28800000,
+      "derived": true,
+      "formula": "pay-info.standard_work_day / 3600000",
+      "source_field": "pay-info.standard_work_day"
+     },
      "effective_date": "2026-08-01",
      "history": [
       {

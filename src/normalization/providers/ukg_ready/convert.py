@@ -410,6 +410,8 @@ class _Company:
 
         history_extensions: dict[str, Any] = {}
         compensation = self._compensation(employee_id, pay_type_id, pay_type_name, notes, history_extensions)
+        # pay-info standard_work_day is documented as milliseconds, as the organizer's reference audit cites (A-56).
+        compensation.standard_work_day = hours(info.get("standard_work_day"), "pay-info.standard_work_day")
 
         employee = Employee(
             id=self._id("employee", employee_id),

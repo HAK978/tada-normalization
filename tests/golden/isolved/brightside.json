@@ -1258,10 +1258,10 @@
     },
     "diagnostics": [
      {
-      "code": "CUSTOMER_STATUS",
+      "code": "SYSTEM_STATUS",
       "severity": "info",
       "field": "employmentStatus",
-      "message": "not shown as an implied system status in /statuses; kept as a label (A-48)",
+      "message": "the client's status table ties it to Inactive (A-48)",
       "raw": "Leave - FMLA"
      }
     ],
@@ -1351,7 +1351,7 @@
     ],
     "employment": {
      "status": {
-      "value": "UNMAPPED",
+      "value": "INACTIVE",
       "raw": "Leave - FMLA",
       "label": "Leave - FMLA",
       "source_field": "employmentStatus"
@@ -1371,7 +1371,7 @@
        "kind": "STATUS",
        "effective_date": "2026-08-01",
        "status": {
-        "value": "UNMAPPED",
+        "value": "INACTIVE",
         "raw": "Leave - FMLA",
         "label": "Leave - FMLA",
         "source_field": "statuses[0].clientEmploymentStatusDescription"

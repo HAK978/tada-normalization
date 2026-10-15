@@ -199,7 +199,8 @@ def _isolved(c: ReadOnlyClient, limits: Limits) -> None:
     ):
         c.get(path)
     for client_id in sorted(c.session.companies.clients):
-        c.get(f"api/clients/{client_id}")
+        # includeDetails adds the client's employment status table, which ties each status to a system one (A-48).
+        c.get(f"api/clients/{client_id}", {"includeDetails": "true"})
         c.get(f"api/clients/{client_id}/payItems")
     for client_id, legal_id in sorted(c.session.companies.legals)[: limits.max_companies]:
         root = f"api/clients/{client_id}/legals/{legal_id}"

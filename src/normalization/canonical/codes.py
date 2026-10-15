@@ -32,6 +32,7 @@ class EmployerKind(StrEnum):
 class EmploymentStatus(StrEnum):
     ACTIVE = "ACTIVE"
     ON_LEAVE = "ON_LEAVE"
+    INACTIVE = "INACTIVE"  # employed but not active or on leave, as the provider says (isolved, A-48)
     TERMINATED = "TERMINATED"
     UNMAPPED = "UNMAPPED"
 

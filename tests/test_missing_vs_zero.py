@@ -78,6 +78,7 @@ AGREE = {
     "isolved": {
         ("api/lookup/Frequencies", "[].id"): "frequencies are matched by description, never by ID (A-27)",
         ("api/clients/{client}", "id"): ID,
+        ("api/clients/{client}", "employmentStatuses[].id"): LOOKUP,
         ("api/clients/{client}/payItems", "[].id"): LOOKUP,
         ("api/clients/{client}/payItems", "[].isInactive"): LOOKUP,
         ("api/clients/{client}/payItems", "[].hasDecliningBalance"): LOOKUP,

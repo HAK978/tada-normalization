@@ -124,7 +124,7 @@ def workers(rng: random.Random) -> list[Worker]:
             deposits=[(0, "Savings", None, None, "000777011111")],
             **common,
         ),
-        # A customer-defined status: not an implied system status, so it stays a label (A-48).
+        # A customer-defined status: the client's status table ties it to the system's Inactive (A-48).
         Worker(
             id="9004",
             number="1004",
@@ -229,12 +229,35 @@ def _lookups(bundle: FixtureBundle) -> None:
         bundle.add(endpoint, endpoint, {}, body)
 
 
+def _client_status(status_id: int, code: str, description: str, system_id: str, system: str) -> dict:
+    return {
+        "id": status_id,
+        "code": code,
+        "payrollStatus": {"id": system_id, "statusDescription": system, "links": []},
+        "statusDescription": description,
+        "links": [],
+    }
+
+
 def _company(bundle: FixtureBundle) -> None:
     bundle.add(
         "api/clients/{client}",
         f"api/clients/{CLIENT}",
-        {},
-        {"id": int(CLIENT), "clientCode": "BRT", "clientName": "Brightside Holdings", "links": []},
+        {"includeDetails": "true"},
+        {
+            "id": int(CLIENT),
+            "clientCode": "BRT",
+            "clientName": "Brightside Holdings",
+            # The client's status table, each status tied to a system payroll status, as live (A-48). The
+            # customer status "Leave - FMLA" belongs to the system's Inactive.
+            "employmentStatuses": [
+                _client_status(1, "A", "Active", "A", "Active"),
+                _client_status(2, "I", "Inactive", "I", "Inactive"),
+                _client_status(3, "T", "Terminated", "T", "Terminated"),
+                _client_status(4, "LOA", "Leave - FMLA", "I", "Inactive"),
+            ],
+            "links": [],
+        },
     )
     bundle.add(
         "api/clients/{client}/payItems",

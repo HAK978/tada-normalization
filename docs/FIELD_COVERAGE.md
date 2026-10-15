@@ -15,9 +15,9 @@ A field that is mapped in some records and kept in others shows both, with count
 
 Sources:
 
-- prismhr: a live fetch (`20261015T091713Z`) (2427 successful responses, HTTP 200)
-- isolved: a live fetch (`20261015T091715Z`) (452 successful responses, HTTP 200)
-- ukg-ready: a live fetch (`20261015T091716Z`) (352 successful responses, HTTP 200)
+- prismhr: a live fetch (`20261015T185051Z`) (2427 successful responses, HTTP 200)
+- isolved: a live fetch (`20261015T205321Z`) (452 successful responses, HTTP 200)
+- ukg-ready: a live fetch (`20261015T185051Z`) (352 successful responses, HTTP 200)
 
 ## Summary
 
@@ -43,7 +43,7 @@ Sources:
 | prismhr | `payroll/v1/getBatchListByDate` | 10 | 8 | 1 | 0 | 1 | 0 | 0 |
 | prismhr | `payroll/v1/getPayrollVoucherForBatch` | 120 | 65 | 51 | 0 | 4 | 0 | 0 |
 | prismhr | `payroll/v1/getScheduledPayments` | 14 | 0 | 10 | 0 | 4 | 0 | 0 |
-| isolved | `api/clients/{client}` | 7 | 2 | 3 | 0 | 2 | 0 | 0 |
+| isolved | `api/clients/{client}` | 95 | 2 | 82 | 0 | 11 | 0 | 0 |
 | isolved | `api/clients/{client}/legals/{legal}` | 49 | 11 | 27 | 0 | 11 | 0 | 0 |
 | isolved | `api/clients/{client}/legals/{legal}/checks` | 33 | 11 | 18 | 0 | 4 | 0 | 0 |
 | isolved | `api/clients/{client}/legals/{legal}/employees` | 92 | 0 | 0 | 0 | 13 | 0 | 79 |
@@ -77,7 +77,7 @@ Sources:
 | ukg-ready | `rest/v2/companies/{company}/employees/{id}/contacts` | 23 | 10 | 7 | 0 | 6 | 0 | 0 |
 | ukg-ready | `rest/v2/companies/{company}/employees/{id}/demographics` | 5 | 3 | 2 | 0 | 0 | 0 | 0 |
 | ukg-ready | `rest/v2/companies/{company}/employees/{id}/direct-deposits` | 34 | 14 | 8 | 0 | 12 | 0 | 0 |
-| ukg-ready | `rest/v2/companies/{company}/employees/{id}/pay-info` | 15 | 3 | 12 | 0 | 0 | 0 | 0 |
+| ukg-ready | `rest/v2/companies/{company}/employees/{id}/pay-info` | 15 | 4 | 11 | 0 | 0 | 0 | 0 |
 | ukg-ready | `rest/v2/companies/{company}/employees/{id}/tax-info` | 5 | 0 | 5 | 0 | 0 | 0 | 0 |
 | ukg-ready | `rest/v2/companies/{company}/lookup/deduction-codes` | 4 | 0 | 0 | 0 | 0 | 0 | 4 |
 | ukg-ready | `rest/v2/companies/{company}/lookup/earning-codes` | 4 | 0 | 0 | 0 | 0 | 0 | 4 |
@@ -111,6 +111,7 @@ the zeros under Employee.
 | `compensation.rates` | 185 | 41 | 25 |
 | `compensation.standard_hours` | 194 | 45 | 25 |
 | `compensation.standard_hours_per` | 194 | 45 | 25 |
+| `compensation.standard_work_day` | 0 | 0 | 25 |
 | `emails` | 88 | 27 | 23 |
 | `employment.employer_ids` | 194 | 0 | 25 |
 | `employment.employment_type` | 194 | 45 | 25 |
@@ -1123,11 +1124,99 @@ the zeros under Employee.
 
 | Field | Disposition |
 |---|---|
+| `alternatePayRates[].id` | kept |
+| `alternatePayRates[].payRateName` | kept |
+| `changeReasons[].changeReasonType.description` | kept |
+| `changeReasons[].changeReasonType.id` | kept |
+| `changeReasons[].code` | kept |
+| `changeReasons[].description` | kept |
+| `changeReasons[].id` | kept |
 | `clientCode` | kept |
 | `clientName` | mapped |
+| `contacts[].emailAddress` | kept |
+| `contacts[].firstName` | kept |
+| `contacts[].id` | kept |
+| `contacts[].lastName` | kept |
+| `contacts[].phoneNumber` | kept |
+| `contacts[].title` | kept |
+| `contacts[].type[]` | kept |
+| `employmentCategories[].acaEmploymentStatus` | kept |
+| `employmentCategories[].code` | kept |
+| `employmentCategories[].description` | kept |
+| `employmentCategories[].id` | kept |
+| `employmentStatuses[].code` | dropped: the client's status table, read as a lookup for employee statuses (A-48) |
+| `employmentStatuses[].id` | dropped: the client's status table, read as a lookup for employee statuses (A-48) |
+| `employmentStatuses[].payrollStatus.id` | dropped: the client's status table, read as a lookup for employee statuses (A-48) |
+| `employmentStatuses[].payrollStatus.statusDescription` | dropped: the client's status table, read as a lookup for employee statuses (A-48) |
+| `employmentStatuses[].statusDescription` | dropped: the client's status table, read as a lookup for employee statuses (A-48) |
 | `id` | mapped |
+| `jobs[].eeoCategory` | kept |
+| `jobs[].id` | kept |
+| `jobs[].isFLSAExempt` | kept |
+| `jobs[].isInactive` | kept |
+| `jobs[].isManagerJob` | kept |
+| `jobs[].isSeasonal` | kept |
+| `jobs[].isSupervisorJob` | kept |
+| `jobs[].isUnion` | kept |
+| `jobs[].jobCode` | kept |
+| `jobs[].jobTitle` | kept |
+| `labors[].allowInTimeEntry` | kept |
+| `labors[].id` | kept |
+| `labors[].laborTitle` | kept |
+| `labors[].links[].href` | dropped: API navigation |
+| `labors[].links[].rel` | dropped: API navigation |
+| `labors[].lookups[].code` | kept |
+| `labors[].lookups[].description` | kept |
+| `labors[].lookups[].isCertified` | kept |
+| `labors[].lookups[].isInactive` | kept |
+| `labors[].organizationFieldName` | kept |
+| `labors[].sequenceNumber` | kept |
+| `legalCompanies[].allowRemoteWorkers` | kept |
+| `legalCompanies[].federalEIN` | kept |
+| `legalCompanies[].forceDirectDepositPrenote` | kept |
+| `legalCompanies[].iSolvedTimeEnabled` | kept |
+| `legalCompanies[].id` | kept |
+| `legalCompanies[].legalAddress.addressDescription` | kept |
+| `legalCompanies[].legalAddress.city` | kept |
+| `legalCompanies[].legalAddress.phoneNumber` | kept |
+| `legalCompanies[].legalAddress.state` | kept |
+| `legalCompanies[].legalAddress.streetAddress1` | kept |
+| `legalCompanies[].legalAddress.zipCode` | kept |
+| `legalCompanies[].legalCode` | kept |
+| `legalCompanies[].legalName` | kept |
+| `legalCompanies[].status` | kept |
+| `legalCompanies[].workLocations[].address1` | kept |
+| `legalCompanies[].workLocations[].city` | kept |
+| `legalCompanies[].workLocations[].geoCode` | kept |
+| `legalCompanies[].workLocations[].id` | kept |
+| `legalCompanies[].workLocations[].includeWorkSiteTaxFiling` | kept |
+| `legalCompanies[].workLocations[].isInactive` | kept |
+| `legalCompanies[].workLocations[].isRemoteWorkersOnly` | kept |
+| `legalCompanies[].workLocations[].schoolDistrictCode` | kept |
+| `legalCompanies[].workLocations[].state` | kept |
+| `legalCompanies[].workLocations[].timeZone` | kept |
+| `legalCompanies[].workLocations[].workLocationCode` | kept |
+| `legalCompanies[].workLocations[].workLocationDescription` | kept |
+| `legalCompanies[].workLocations[].zipCode` | kept |
 | `links[].href` | dropped: API navigation |
 | `links[].rel` | dropped: API navigation |
+| `miscEmployeeFields[].category` | kept |
+| `miscEmployeeFields[].dataType` | kept |
+| `miscEmployeeFields[].fieldTitle` | kept |
+| `miscEmployeeFields[].lookups[].description` | kept |
+| `miscEmployeeFields[].lookups[].id` | kept |
+| `organizations[].displayOrder` | kept |
+| `organizations[].id` | kept |
+| `organizations[].includeInJob` | kept |
+| `organizations[].isLaborField` | kept |
+| `organizations[].isRequired` | kept |
+| `organizations[].isTeam` | kept |
+| `organizations[].links[].href` | dropped: API navigation |
+| `organizations[].links[].rel` | dropped: API navigation |
+| `organizations[].lookups[].code` | kept |
+| `organizations[].lookups[].description` | kept |
+| `organizations[].lookups[].isInactive` | kept |
+| `organizations[].title` | kept |
 | `securityServiceGroup.id` | kept |
 | `securityServiceGroup.name` | kept |
 
@@ -2138,7 +2227,7 @@ the zeros under Employee.
 | `pay_grade.parent.name` | kept |
 | `pay_type.id` | mapped |
 | `payroll_classification` | kept |
-| `standard_work_day` | kept |
+| `standard_work_day` | mapped |
 | `union.id` | kept |
 | `workers_comp_code.external_id` | kept |
 

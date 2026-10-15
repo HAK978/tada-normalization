@@ -2,12 +2,60 @@
   "seq": 7,
   "endpoint": "api/clients/{client}",
   "path": "api/clients/501",
-  "params": {},
+  "params": {
+    "includeDetails": "true"
+  },
   "status": 200,
   "body": {
     "id": 501,
     "clientCode": "BRT",
     "clientName": "Brightside Holdings",
+    "employmentStatuses": [
+      {
+        "id": 1,
+        "code": "A",
+        "payrollStatus": {
+          "id": "A",
+          "statusDescription": "Active",
+          "links": []
+        },
+        "statusDescription": "Active",
+        "links": []
+      },
+      {
+        "id": 2,
+        "code": "I",
+        "payrollStatus": {
+          "id": "I",
+          "statusDescription": "Inactive",
+          "links": []
+        },
+        "statusDescription": "Inactive",
+        "links": []
+      },
+      {
+        "id": 3,
+        "code": "T",
+        "payrollStatus": {
+          "id": "T",
+          "statusDescription": "Terminated",
+          "links": []
+        },
+        "statusDescription": "Terminated",
+        "links": []
+      },
+      {
+        "id": 4,
+        "code": "LOA",
+        "payrollStatus": {
+          "id": "I",
+          "statusDescription": "Inactive",
+          "links": []
+        },
+        "statusDescription": "Leave - FMLA",
+        "links": []
+      }
+    ],
     "links": []
   }
 }
