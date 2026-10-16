@@ -3,14 +3,14 @@
 Status: **implemented; last revised 2026-10-15.**
 - v1 had review decisions (§10).
 - An independent design audit raised 15 findings. All were verified against the specs and folded
-  in here and in [ASSUMPTIONS.md](../ASSUMPTIONS.md).
-- Building the three converters refined it further, each change recorded in ASSUMPTIONS.md (A-44
+  in here and in the [decision log](DECISION_LOG.md).
+- Building the three converters refined it further, each change recorded in the decision log (A-44
   onward).
 - A check of every documented read endpoint against what was fetched (A-74) added contacts, organization
   units, employment and job history, and company contacts (A-75 to A-84).
 - An outside audit (2026-10-15) found codes mapped by name alone, zeros and unknowns read as values, and
-  percents left unverified that live data proves. Each fix is in ASSUMPTIONS.md (A-26, A-29, A-73, A-86 to
-  A-88).
+  percents left unverified that live data proves. Each fix is in the decision log (A-26, A-29, A-73, A-86
+  to A-88).
 
 Implemented: the model itself (`src/normalization/canonical/`) and the PrismHR, isolved and UKG Ready
 converters. The model is exported as JSON Schema, one file per record type, under `schemas/`

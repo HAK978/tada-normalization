@@ -100,8 +100,8 @@ Sources:
 
 How many employee records have each canonical field (two levels deep). A 0 means no employee of that
 provider has it: the provider doesn't send it for these employees, keeps it elsewhere (UKG and isolved
-organization is in `job.org_units`), or sends it with no evidence to map it. ASSUMPTIONS.md summarizes
-the zeros under Employee.
+organization is in `job.org_units`), or sends it with no evidence to map it. docs/DECISION_LOG.md
+explains the zeros under Employee.
 
 | Field | prismhr (194) | isolved (45) | ukg-ready (25) |
 |---|---:|---:|---:|

@@ -1,8 +1,8 @@
 """PrismHR code tables, each keyed to one exact source field.
 
 Evidence is the field description in contracts/prismhr/openapi/prismhr-2025.09.openapi.json
-(cited as #/components/schemas/<Schema>/properties/<field>) unless an ASSUMPTIONS.md entry is
-named. Codes outside a table become UNMAPPED with a diagnostic.
+(cited as #/components/schemas/<Schema>/properties/<field>) unless a decision-log entry
+(docs/DECISION_LOG.md) is named. Codes outside a table become UNMAPPED with a diagnostic.
 """
 
 from normalization.canonical.codes import (

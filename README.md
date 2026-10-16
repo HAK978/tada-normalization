@@ -23,7 +23,7 @@ A ten-minute tour:
    [the canonical model](#the-canonical-model), with the full design in
    [docs/CANONICAL_MODEL.md](docs/CANONICAL_MODEL.md). The complete normalized output of each
    provider's scenario is in `tests/golden/<provider>/brightside.json`.
-3. **How meaning is kept.** See [the evidence rule](#the-evidence-rule), and five decisions from
+3. **How meaning is kept.** See [the evidence rule](#the-evidence-rule), and six decisions from
    [ASSUMPTIONS.md](ASSUMPTIONS.md) that show it:
    - gross pay and gross wages mean the same thing for every provider (A-54). That is what makes
      paychecks reconcile: 7,408 of 7,411 checks pass on the live data.
@@ -45,7 +45,7 @@ Python 3.11 or newer.
 python3.11 -m venv .venv && source .venv/bin/activate   # or any Python 3.11+
 pip install -e ".[dev]"
 python -m normalization demo    # normalize every provider's synthetic scenario
-pytest                          # 256 tests, offline
+pytest                          # 260 tests, offline
 mypy                            # static type check: no issues
 ```
 
@@ -210,7 +210,7 @@ The main conventions:
 
 A mapping is made only from the provider's own documentation, the provider's own label or
 classification, or arithmetic on live data. Enum names alone are not evidence. Some findings this
-rule produced, each recorded in [ASSUMPTIONS.md](ASSUMPTIONS.md):
+rule produced, each recorded in the [decision log](docs/DECISION_LOG.md):
 
 - PrismHR's `salary` is per pay period, not annual (A-20). Its vouchers reconcile only once non-cash
   pay classes are excluded from net pay (A-32).
@@ -277,8 +277,9 @@ empty until a person fills them in.
 
 1. **Discovery first.** We read the specs, then made read-only calls to each live demo tenant. Every
    response was saved, and each open question was settled with counts. For example: is UKG's `hours`
-   a count or milliseconds? Does PrismHR's net pay include fringe? Each decision went into
-   ASSUMPTIONS.md as issue, evidence, decision, why.
+   a count or milliseconds? Does PrismHR's net pay include fringe? Each decision went into the
+   [decision log](docs/DECISION_LOG.md) as issue, evidence, decision, why, and
+   [ASSUMPTIONS.md](ASSUMPTIONS.md) summarizes them.
 2. **The canonical model,** designed from that evidence, then reviewed and audited before any converter
    was written.
 3. **One converter per provider,** each tested three ways:
@@ -320,7 +321,7 @@ counted live evidence.
 
 ## Testing
 
-`pytest` runs 256 offline tests (plus parametrized subtests). Nothing needs credentials or network.
+`pytest` runs 260 offline tests (plus parametrized subtests). Nothing needs credentials or network.
 
 - **Synthetic scenarios** (`fixtures/<provider>/brightside`) come from a seeded generator, and every
   response is validated against the provider's own published schema. They are full of real-world
@@ -383,7 +384,7 @@ src/normalization/
 fixtures/             generated synthetic bundles (committed)
 tests/                tests and golden files
 schemas/              JSON Schema of every canonical record type
-docs/                 CANONICAL_MODEL.md, FIELD_COVERAGE.md, REFERENCE_AUDIT.md (organizer)
+docs/                 CANONICAL_MODEL.md, DECISION_LOG.md, FIELD_COVERAGE.md, REFERENCE_AUDIT.md (organizer)
 contracts/            the organizer's provider specs (untouched, hash-checked)
 ```
 
