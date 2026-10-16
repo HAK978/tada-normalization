@@ -4,7 +4,8 @@ The known facts are written down here; every paycheck is computed from them so t
 taxes, deductions, net and deposits reconcile exactly. The traps found in discovery are built
 in on purpose: V meaning Void (batch) and Vacation (voucher), the undocumented "A" rate basis,
 citizenship sent as text, live key aliases, a 9999-12-31 and a 0000-01-01 date, null fields,
-masked SSNs and accounts, non-cash pay, hours vs units, HSA "PN", and a refused endpoint.
+masked SSNs and accounts, non-cash pay, hours vs units, HSA "PN", a loan listed in both deduction
+endpoints, and a refused endpoint.
 """
 
 from __future__ import annotations
@@ -114,7 +115,12 @@ def people(rng: random.Random) -> dict[str, list[Person]]:
                     ("C401K", True, D("5.0"), "12345", "2021-04-01"),
                     ("DEN125", False, D("12.50"), "12345", "2021-04-01"),
                 ],
-                extra_person={"cobraSSN": "000-12-3456"},
+                extra_person={
+                    "cobraSSN": "000-12-3456",
+                    "nickname": "Sunny",
+                    "handicapped": "N",
+                    "w2PostalCode": "28203",
+                },
             ),
             Person(
                 "E1002",
@@ -133,7 +139,10 @@ def people(rng: random.Random) -> dict[str, list[Person]]:
                 basis_rate=D("22.50"),
                 annual=D("46800.00"),
                 deposits=[("P", "C", D("30"), D("500.00")), ("PN", "S", D("50")), ("B", "IP", None)],
-                deductions=[("LIFE", False, D("8.00"), "12345", "2023-07-01")],
+                deductions=[
+                    ("LIFE", False, D("8.00"), "12345", "2023-07-01"),
+                    ("LOAN1", False, D("25.00"), "12345", "2026-06-19"),
+                ],
             ),
             Person(
                 "E1003",
@@ -247,7 +256,7 @@ def _client_master(client_id: str, name: str, service: str, employer: str, alt: 
             "employerId": employer,
             "federalIdNumber": fein,
             "addressLine1": "100 Main St",
-            "addressLine2": "",
+            "addressLine2": "Suite 200" if client_id == "201" else "",
             "city": "Charlotte",
             "stateCode": "NC",
             "zipCode": "28202",
@@ -384,7 +393,7 @@ def _employee(p: Person, rng: random.Random, employers: dict[str, list[str]]) ->
             "method": method,
             "status": "D",
             "bankName": "Example Bank",
-            "voucherTypeOverride": "",
+            "voucherTypeOverride": "R" if p.id == "E1001" and method == "F" else "",
         }
         if method in ("F", "FS"):
             row["amount"] = float(spec[2])
@@ -410,7 +419,7 @@ def _employee(p: Person, rng: random.Random, employers: dict[str, list[str]]) ->
         "id": p.id,
         "lastName": p.last,
         "firstName": p.first,
-        "middleInitial": "",
+        "middleInitial": "J" if p.id == "E1001" else "",
         "preferredName": "",
         "person": {
             "birthDate": "1990-04-02",
@@ -437,14 +446,14 @@ def _employee(p: Person, rng: random.Random, employers: dict[str, list[str]]) ->
         },
         "contactInformation": {
             "addressLine1": f"{rng.randint(10, 999)} Oak Ave",
-            "addressLine2": "",
+            "addressLine2": "Apt 4B" if p.id == "E1001" else "",
             "city": "Charlotte",
             "state": "NC",
             "zipcode": "28202",
-            "zipSuffix": "",
+            "zipSuffix": "1234" if p.id == "E1001" else "",
             "county": "Mecklenburg",
             "homePhone": "7045550100",
-            "mobilePhone": "",
+            "mobilePhone": "7045550142" if p.id == "E1001" else "",
             "emailAddress": f"{p.first.lower()}@example.com",
         },
         "client": {
@@ -465,7 +474,7 @@ def _employee(p: Person, rng: random.Random, employers: dict[str, list[str]]) ->
             "employee1099": p.contractor,
             "clientEmployeeId": p.number,
             "clockNum": "",
-            "workPhone": "",
+            "workPhone": "7045550123" if p.id == "E1001" else "",
             "workEmail": f"{p.first.lower()}.{p.last.lower()}@work.example",
             "homeDepartment": "PROD" if p.pay_group != "W" else "LOG",
             "homeDivision": "MAIN",
@@ -474,6 +483,18 @@ def _employee(p: Person, rng: random.Random, employers: dict[str, list[str]]) ->
             "unionCode": "",
             "hawaiiMedWaivers": [],
             "returnDate": "2026-11-01" if p.status_class == "L" else "",
+            **(
+                {
+                    "workPhoneExt": "204",
+                    "addressLine1": "PO Box 4417",
+                    "city": "Charlotte",
+                    "state": "NC",
+                    "zip": "28201",
+                    "zipSuffix": "4417",
+                }
+                if p.id == "E1001"
+                else {}
+            ),
         },
         "compensation": {
             "ssn": "***-**-****",
@@ -521,8 +542,8 @@ def _employee_setup(bundle: FixtureBundle, client: str, p: Person) -> None:
                 "stopDate": "",
                 "trackArrears": False,
                 "mandatory": False,
-                "loanOrGarnishId": "",
-                "benefitPlanId": "",
+                "loanOrGarnishId": "1" if code == "LOAN1" else "",
+                "benefitPlanId": "401K" if code == "C401K" else "",
                 "limit": 0.0,
                 "maximum": 0.0,
                 "basis": "",
@@ -551,7 +572,7 @@ def _employee_setup(bundle: FixtureBundle, client: str, p: Person) -> None:
         scheduled = [
             {
                 "deductionCode": "UNIFORM",
-                "checkStubDescription": "",
+                "checkStubDescription": "Uniform rental",
                 "status": "O",
                 "amount": 15.0,
                 "startDate": "2026-09-21",
@@ -814,7 +835,11 @@ def _history(p: Person) -> list[dict]:
         {
             "type": "statusChange",
             "effectiveDate": hired,
-            "statusChange": {"employeeStatusCode": "A", "employeeTypeCode": p.type_code, "reason": ""},
+            "statusChange": {
+                "employeeStatusCode": "A",
+                "employeeTypeCode": p.type_code,
+                "reason": "Hire" if p.id == "E1001" else "",
+            },
         },
         {
             "type": "positionChange",
@@ -1106,7 +1131,7 @@ def _voucher(
                 "location": "CLT",
                 "glCode": "",
                 "workComp": "8810",
-                "projWork": "",
+                "projWork": "PRJ-7" if p.id == "E1001" and line.code == "REG" else "",
                 "projPhase": "",
             }
             for line in lines
@@ -1169,6 +1194,20 @@ def _voucher(
             "baseEarnings": float(gross),
             "electiveContributionsPreTax": float(k401),
             "employerMatchingContributions": float(cents(k401 * D("0.6"))),
+            **dict.fromkeys(
+                (
+                    "catchUpContributionsPreTax",
+                    "rothContributionsPostTax",
+                    "rothCatchUpContributionsPostTax",
+                    "employeeContributionsPostTax",
+                    "employerNonElectiveContributions",
+                    "employerSafeHarborMatchType1",
+                    "employerSafeHarborMatchType2",
+                    "peoMatchingContribution",
+                    "employeeRetirementLoanPayments",
+                ),
+                0.0,
+            ),
         }
         if k401
         else {},

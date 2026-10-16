@@ -6,13 +6,24 @@
   "status": 200,
   "body": [
     {
+      "statusId": -1,
+      "clientEmploymentStatusId": -1,
+      "clientEmploymentStatusDescription": "Active",
+      "isImpliedStatus": true,
+      "effectiveDate": "2021-03-15T00:00:00",
+      "endDate": "2026-07-31T00:00:00",
+      "employeeEmploymentId": 90039,
+      "changeReason": "New hire"
+    },
+    {
       "statusId": 55,
       "clientEmploymentStatusId": 55,
       "clientEmploymentStatusDescription": "Leave - FMLA",
       "isImpliedStatus": false,
       "effectiveDate": "2026-08-01T00:00:00",
       "endDate": null,
-      "employeeEmploymentId": 90040
+      "employeeEmploymentId": 90040,
+      "changeReason": "Medical leave"
     }
   ]
 }

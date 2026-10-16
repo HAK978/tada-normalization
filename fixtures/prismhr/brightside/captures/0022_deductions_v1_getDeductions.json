@@ -33,6 +33,29 @@
           "matchDescription": "",
           "cutbackPayeeCode": "",
           "detailsChecksum": "d-1"
+        },
+        {
+          "deductionCode": "LOAN1",
+          "deductionType": "L",
+          "deductionMethod": "F",
+          "description": "Employee Loan",
+          "usePercent": false,
+          "amount": 25.0,
+          "period": "12345",
+          "startDate": "2026-06-19",
+          "stopDate": "",
+          "trackArrears": false,
+          "mandatory": false,
+          "loanOrGarnishId": "1",
+          "benefitPlanId": "",
+          "limit": 0.0,
+          "maximum": 0.0,
+          "basis": "",
+          "matchMethod": "",
+          "matchAmount": 0.0,
+          "matchDescription": "",
+          "cutbackPayeeCode": "",
+          "detailsChecksum": "d-1"
         }
       ]
     },

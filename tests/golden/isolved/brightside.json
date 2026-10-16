@@ -4,8 +4,8 @@
    "companies": 1,
    "employees": 5,
    "direct_deposits": 5,
-   "deduction_elections": 5,
-   "payroll_runs": 6,
+   "deduction_elections": 6,
+   "payroll_runs": 7,
    "pay_statements": 7
   },
   "diagnostics": {
@@ -244,6 +244,7 @@
     },
     "name": {
      "first": "Maria",
+     "middle": "Q",
      "last": "Chen"
     },
     "personal": {
@@ -340,6 +341,7 @@
      {
       "type": "HOME",
       "line1": "12 Oak Ave",
+      "line2": "Apt 2",
       "city": "Charlotte",
       "state": "NC",
       "postal_code": "28202"
@@ -349,6 +351,10 @@
      {
       "type": "HOME",
       "number": "7045550100"
+     },
+     {
+      "type": "MOBILE",
+      "number": "7045550177"
      }
     ],
     "emails": [
@@ -559,6 +565,7 @@
      "veteranStatusNotSpecified": true,
      "perPaySalary": "0.0",
      "assignedManager.employeeName": "Maria",
+     "assignedSupervisor.employeeName": "Maria",
      "organizations[0].id": 90021,
      "organizations[0].organizationId": 9943,
      "organizations[0].displayOrder": 1,
@@ -758,6 +765,7 @@
       "name": "CHARLOTTE, NC"
      },
      "manager_employee_id": "isolved:synthetic:employee:9001",
+     "supervisor_employee_id": "isolved:synthetic:employee:9001",
      "pay_group": "Weekly",
      "org_units": [
       {
@@ -1252,9 +1260,12 @@
      "salaries[0].payGroup.id": 701,
      "salaries[0].payGroup.description": "Biweekly",
      "salaries[0].changeReason.id": 1,
-     "statuses[0].statusId": 55,
-     "statuses[0].clientEmploymentStatusId": 55,
-     "statuses[0].employeeEmploymentId": 90040
+     "statuses[0].statusId": -1,
+     "statuses[0].clientEmploymentStatusId": -1,
+     "statuses[0].employeeEmploymentId": 90039,
+     "statuses[1].statusId": 55,
+     "statuses[1].clientEmploymentStatusId": 55,
+     "statuses[1].employeeEmploymentId": 90040
     },
     "diagnostics": [
      {
@@ -1369,14 +1380,38 @@
      "history": [
       {
        "kind": "STATUS",
+       "effective_date": "2021-03-15",
+       "end_date": "2026-07-31",
+       "status": {
+        "value": "ACTIVE",
+        "raw": "Active",
+        "label": "Active",
+        "source_field": "statuses[0].clientEmploymentStatusDescription"
+       },
+       "reason": {
+        "value": "UNMAPPED",
+        "raw": "New hire",
+        "label": "New hire",
+        "source_field": "statuses[0].changeReason"
+       },
+       "source_field": "statuses[0]"
+      },
+      {
+       "kind": "STATUS",
        "effective_date": "2026-08-01",
        "status": {
         "value": "INACTIVE",
         "raw": "Leave - FMLA",
         "label": "Leave - FMLA",
-        "source_field": "statuses[0].clientEmploymentStatusDescription"
+        "source_field": "statuses[1].clientEmploymentStatusDescription"
        },
-       "source_field": "statuses[0]"
+       "reason": {
+        "value": "UNMAPPED",
+        "raw": "Medical leave",
+        "label": "Medical leave",
+        "source_field": "statuses[1].changeReason"
+       },
+       "source_field": "statuses[1]"
       },
       {
        "kind": "CATEGORY",
@@ -2179,7 +2214,7 @@
     "diagnostics": [],
     "employee_id": "isolved:synthetic:employee:9001",
     "company_id": "isolved:synthetic:company:501:601",
-    "code": "Dental Pre-tax",
+    "code": "DEN",
     "label": "Dental Pre-tax",
     "category": {
      "value": "SECTION_125",
@@ -2295,6 +2330,85 @@
     }
    },
    {
+    "id": "isolved:synthetic:deduction_election:9002:garnishment:4402",
+    "source": {
+     "provider": "isolved",
+     "tenant_id": "synthetic",
+     "endpoints": [
+      "api/clients/{client}/legals/{legal}/employees/{id}/garnishments"
+     ],
+     "ids": {
+      "clientId": "501",
+      "legalId": "601",
+      "employeeId": "9002",
+      "garnishmentId": "4402"
+     }
+    },
+    "provider_extensions": {
+     "garnishmentSequence": 2,
+     "limit": "0.0",
+     "maximumAmount": "0.0",
+     "garnishmentPayee.id": 8,
+     "state.stateName": "NC"
+    },
+    "diagnostics": [],
+    "employee_id": "isolved:synthetic:employee:9002",
+    "company_id": "isolved:synthetic:company:501:601",
+    "code": "TL",
+    "label": "State tax levy",
+    "category": {
+     "value": "GARNISHMENT",
+     "source_field": "garnishments[]"
+    },
+    "tax_treatment": "UNSPECIFIED",
+    "calculation": {
+     "method": {
+      "value": "PERCENT",
+      "source_field": "amount/percent"
+     },
+     "basis": "DISPOSABLE_INCOME",
+     "percent": {
+      "basis": "DISPOSABLE_INCOME",
+      "scale": "UNVERIFIED",
+      "raw": "15.0"
+     }
+    },
+    "status": {
+     "value": "ACTIVE",
+     "raw": "Active",
+     "label": "Active",
+     "source_field": "status"
+    },
+    "effective_from": "2026-11-01",
+    "loan_or_garnishment_id": "4402",
+    "garnishment": {
+     "case_number": "LEVY-0002",
+     "garnishment_type": {
+      "value": "UNMAPPED",
+      "raw": "TL",
+      "label": "Tax Levy",
+      "source_field": "garnishmentType.id"
+     },
+     "payee": "State Department of Revenue",
+     "issuing_state": "NC",
+     "arrears_balance": {
+      "amount": "0.00",
+      "currency": "USD",
+      "derived": false
+     },
+     "remaining_balance": {
+      "amount": "0.00",
+      "currency": "USD",
+      "derived": false
+     },
+     "fee": {
+      "amount": "0.00",
+      "currency": "USD",
+      "derived": false
+     }
+    }
+   },
+   {
     "id": "isolved:synthetic:deduction_election:9002:payitem:-1",
     "source": {
      "provider": "isolved",
@@ -2344,7 +2458,8 @@
      "label": "Every Pay",
      "source_field": "scheduleOverride"
     },
-    "effective_from": "2025-01-01"
+    "effective_from": "2025-01-01",
+    "effective_to": "2026-12-31"
    },
    {
     "id": "isolved:synthetic:deduction_election:9002:payitem:-2",
@@ -2400,6 +2515,52 @@
    }
   ],
   "payroll_runs": [
+   {
+    "id": "isolved:synthetic:payroll_run:501:601:701:8799",
+    "source": {
+     "provider": "isolved",
+     "tenant_id": "synthetic",
+     "endpoints": [
+      "api/clients/{client}/legals/{legal}/paygroupId/{id}/payrollRunHistory"
+     ],
+     "ids": {
+      "clientId": "501",
+      "legalId": "601",
+      "payGroupId": "701",
+      "payrollRunId": "8799",
+      "runNumber": "34"
+     }
+    },
+    "provider_extensions": {
+     "id": 8799
+    },
+    "diagnostics": [],
+    "company_id": "isolved:synthetic:company:501:601",
+    "pay_date": "2018-07-20",
+    "processed_date": "2018-07-18",
+    "description": "3rd",
+    "type": {
+     "value": "HISTORICAL_IMPORT",
+     "raw": "Data Conversion",
+     "label": "Data Conversion",
+     "source_field": "payrollRunType"
+    },
+    "status": {
+     "value": "COMPLETED",
+     "raw": "Completed Payroll Run",
+     "label": "Completed Payroll Run",
+     "source_field": "status"
+    },
+    "pay_groups": [
+     {
+      "pay_group": "701",
+      "period": {
+       "start": "2018-07-02",
+       "end": "2018-07-15"
+      }
+     }
+    ]
+   },
    {
     "id": "isolved:synthetic:payroll_run:501:601:701:8800",
     "source": {

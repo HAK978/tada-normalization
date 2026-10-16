@@ -165,6 +165,7 @@
      {
       "type": "COMPANY",
       "line1": "100 Main St",
+      "line2": "Suite 200",
       "city": "Charlotte",
       "state": "NC",
       "postal_code": "28202"
@@ -434,7 +435,9 @@
     },
     "name": {
      "first": "Maria",
-     "last": "Nair"
+     "middle": "J",
+     "last": "Nair",
+     "nickname": "Sunny"
     },
     "personal": {
      "birth_date": "1990-04-02",
@@ -460,8 +463,8 @@
       "source_field": "person.veteran"
      },
      "disabled": {
-      "value": "NOT_SPECIFIED",
-      "raw": "",
+      "value": "NO",
+      "raw": "N",
       "source_field": "person.handicapped"
      },
      "citizenship": {
@@ -540,16 +543,37 @@
      {
       "type": "HOME",
       "line1": "872 Oak Ave",
+      "line2": "Apt 4B",
       "city": "Charlotte",
       "county": "Mecklenburg",
       "state": "NC",
-      "postal_code": "28202"
+      "postal_code": "28202-1234"
+     },
+     {
+      "type": "MAILING",
+      "line1": "PO Box 4417",
+      "city": "Charlotte",
+      "state": "NC",
+      "postal_code": "28201-4417"
+     },
+     {
+      "type": "W2",
+      "postal_code": "28203"
      }
     ],
     "phones": [
      {
       "type": "HOME",
       "number": "7045550100"
+     },
+     {
+      "type": "MOBILE",
+      "number": "7045550142"
+     },
+     {
+      "type": "WORK",
+      "number": "7045550123",
+      "extension": "204"
      }
     ],
     "emails": [
@@ -602,6 +626,11 @@
         "raw": "FT",
         "label": "Full Time",
         "source_field": "historyRecord[0].statusChange.employeeTypeCode"
+       },
+       "reason": {
+        "value": "UNMAPPED",
+        "raw": "Hire",
+        "source_field": "historyRecord[0].statusChange.reason"
        },
        "source_field": "historyRecord[0]"
       }
@@ -2618,12 +2647,7 @@
      {
       "value": "REGULAR",
       "raw": "R",
-      "source_field": "directDeposit.voucherType"
-     },
-     {
-      "value": "VACATION",
-      "raw": "V",
-      "source_field": "directDeposit.voucherType"
+      "source_field": "directDeposit.achVoucher[].voucherTypeOverride"
      }
     ]
    },
@@ -3086,7 +3110,8 @@
      "description": "401(k) match"
     },
     "arrears_tracking": false,
-    "mandatory": false
+    "mandatory": false,
+    "benefit_plan_id": "401K"
    },
    {
     "id": "prismhr:synthetic:deduction_election:201:E1001:DEN125:2021-04-01:open",
@@ -3288,20 +3313,24 @@
     "mandatory": false
    },
    {
-    "id": "prismhr:synthetic:deduction_election:201:E1002:loan:1",
+    "id": "prismhr:synthetic:deduction_election:201:E1002:LOAN1:2026-06-19:open",
     "source": {
      "provider": "prismhr",
      "tenant_id": "synthetic",
      "endpoints": [
+      "deductions/v1/getDeductions",
       "deductions/v1/getEmployeeLoans"
      ],
      "ids": {
       "clientId": "201",
       "employeeId": "E1002",
+      "deductionCode": "LOAN1",
       "loanId": "1"
      }
     },
     "provider_extensions": {
+     "employeeDeductions.deduction[1].matchAmount": "0.0",
+     "employeeDeductions.deduction[1].detailsChecksum": "d-1",
      "employeeLoanDetail[0].checksum": "l-1",
      "employeeLoanDetail[0].paymentHistory[0].paymentDate": "2026-06-19",
      "employeeLoanDetail[0].paymentHistory[0].paymentVoucherId": "070000",
@@ -3327,23 +3356,42 @@
     "category": {
      "value": "LOAN",
      "raw": "L",
-     "source_field": "clientCodes.deductionCode[].type"
+     "source_field": "employeeDeductions.deduction[1].deductionType"
     },
     "tax_treatment": "UNSPECIFIED",
     "calculation": {
      "method": {
       "value": "FIXED_AMOUNT",
-      "source_field": "employeeLoanDetail[0].paymentAmount"
+      "raw": "F",
+      "source_field": "employeeDeductions.deduction[1].deductionMethod"
      },
      "basis": "UNSPECIFIED",
      "amount": {
       "amount": "25.00",
       "currency": "USD",
-      "derived": false,
-      "source_field": "employeeLoanDetail[0].paymentAmount"
+      "derived": false
      }
     },
+    "limits": {
+     "per_period": {
+      "amount": "0.00",
+      "currency": "USD",
+      "derived": false
+     },
+     "maximum": {
+      "amount": "0.00",
+      "currency": "USD",
+      "derived": false
+     }
+    },
+    "frequency": {
+     "value": "UNMAPPED",
+     "raw": "12345",
+     "source_field": "employeeDeductions.deduction[1].period"
+    },
     "effective_from": "2026-06-19",
+    "arrears_tracking": false,
+    "mandatory": false,
     "loan_or_garnishment_id": "1",
     "loan": {
      "principal": {
@@ -3397,7 +3445,7 @@
     "employee_id": "prismhr:synthetic:employee:201:E1002",
     "company_id": "prismhr:synthetic:company:201",
     "code": "UNIFORM",
-    "label": "Uniform",
+    "label": "Uniform rental",
     "category": {
      "value": "VOLUNTARY",
      "raw": "V",
@@ -3963,6 +4011,7 @@
        "jobCode": "BAKER",
        "department": "PROD",
        "location": "CLT",
+       "projWork": "PRJ-7",
        "workComp": "8810"
       },
       "source_field": "earning[]"
@@ -4287,11 +4336,65 @@
        "derived": false,
        "source_field": "retirement.electiveContributionsPreTax"
       },
+      "employee_pre_tax_catch_up": {
+       "amount": "0.00",
+       "currency": "USD",
+       "derived": false,
+       "source_field": "retirement.catchUpContributionsPreTax"
+      },
+      "employee_roth": {
+       "amount": "0.00",
+       "currency": "USD",
+       "derived": false,
+       "source_field": "retirement.rothContributionsPostTax"
+      },
+      "employee_roth_catch_up": {
+       "amount": "0.00",
+       "currency": "USD",
+       "derived": false,
+       "source_field": "retirement.rothCatchUpContributionsPostTax"
+      },
+      "employee_post_tax": {
+       "amount": "0.00",
+       "currency": "USD",
+       "derived": false,
+       "source_field": "retirement.employeeContributionsPostTax"
+      },
       "employer_match": {
        "amount": "60.00",
        "currency": "USD",
        "derived": false,
        "source_field": "retirement.employerMatchingContributions"
+      },
+      "employer_non_elective": {
+       "amount": "0.00",
+       "currency": "USD",
+       "derived": false,
+       "source_field": "retirement.employerNonElectiveContributions"
+      },
+      "employer_safe_harbor_1": {
+       "amount": "0.00",
+       "currency": "USD",
+       "derived": false,
+       "source_field": "retirement.employerSafeHarborMatchType1"
+      },
+      "employer_safe_harbor_2": {
+       "amount": "0.00",
+       "currency": "USD",
+       "derived": false,
+       "source_field": "retirement.employerSafeHarborMatchType2"
+      },
+      "peo_match": {
+       "amount": "0.00",
+       "currency": "USD",
+       "derived": false,
+       "source_field": "retirement.peoMatchingContribution"
+      },
+      "loan_repayment": {
+       "amount": "0.00",
+       "currency": "USD",
+       "derived": false,
+       "source_field": "retirement.employeeRetirementLoanPayments"
       }
      }
     },
@@ -6173,11 +6276,65 @@
        "derived": false,
        "source_field": "retirement.electiveContributionsPreTax"
       },
+      "employee_pre_tax_catch_up": {
+       "amount": "0.00",
+       "currency": "USD",
+       "derived": false,
+       "source_field": "retirement.catchUpContributionsPreTax"
+      },
+      "employee_roth": {
+       "amount": "0.00",
+       "currency": "USD",
+       "derived": false,
+       "source_field": "retirement.rothContributionsPostTax"
+      },
+      "employee_roth_catch_up": {
+       "amount": "0.00",
+       "currency": "USD",
+       "derived": false,
+       "source_field": "retirement.rothCatchUpContributionsPostTax"
+      },
+      "employee_post_tax": {
+       "amount": "0.00",
+       "currency": "USD",
+       "derived": false,
+       "source_field": "retirement.employeeContributionsPostTax"
+      },
       "employer_match": {
        "amount": "30.00",
        "currency": "USD",
        "derived": false,
        "source_field": "retirement.employerMatchingContributions"
+      },
+      "employer_non_elective": {
+       "amount": "0.00",
+       "currency": "USD",
+       "derived": false,
+       "source_field": "retirement.employerNonElectiveContributions"
+      },
+      "employer_safe_harbor_1": {
+       "amount": "0.00",
+       "currency": "USD",
+       "derived": false,
+       "source_field": "retirement.employerSafeHarborMatchType1"
+      },
+      "employer_safe_harbor_2": {
+       "amount": "0.00",
+       "currency": "USD",
+       "derived": false,
+       "source_field": "retirement.employerSafeHarborMatchType2"
+      },
+      "peo_match": {
+       "amount": "0.00",
+       "currency": "USD",
+       "derived": false,
+       "source_field": "retirement.peoMatchingContribution"
+      },
+      "loan_repayment": {
+       "amount": "0.00",
+       "currency": "USD",
+       "derived": false,
+       "source_field": "retirement.employeeRetirementLoanPayments"
       }
      }
     },

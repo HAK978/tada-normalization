@@ -198,18 +198,14 @@ def test_a_ukg_address_with_a_state_but_no_street_is_kept():
 
 def test_a_loan_listed_in_both_deduction_endpoints_is_one_election():
     # getDeductions lists a loan's repayment with the loan's ID, and getEmployeeLoans the loan itself; live, both
-    # of the tenant's loans are in both. They are one election with the loan's details, and a value the two
-    # disagree on is kept and named (A-64).
+    # of the tenant's loans are in both, as E1002's loan 1 is in the scenario. They are one election with the
+    # loan's details, and a value the two disagree on is kept and named (A-64).
     def loans(start: str):
         b = bundle("prismhr")
         rows = next(
             c for c in b.captures if c.endpoint == "deductions/v1/getDeductions" and c.params["employeeId"] == "E1002"
         ).body["employeeDeductions"]["deduction"]
-        rows.append(
-            rows[0]
-            | {"deductionCode": "LOAN1", "deductionType": "L", "description": "Employee Loan", "amount": 25.0}
-            | {"startDate": start, "loanOrGarnishId": "1"}
-        )
+        next(r for r in rows if r["deductionCode"] == "LOAN1")["startDate"] = start
         out = normalize(b)
         return [e for e in out.records["deduction_elections"] if e.code == "LOAN1" and e.employee_id.endswith(":E1002")]
 

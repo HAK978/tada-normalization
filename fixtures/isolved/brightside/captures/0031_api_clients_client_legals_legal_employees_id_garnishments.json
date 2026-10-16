@@ -33,6 +33,35 @@
       "arrearsBalance": 0.0,
       "remainingBalance": 1500.0,
       "feeAmount": 1.0
+    },
+    {
+      "id": 4402,
+      "garnishmentSequence": 2,
+      "garnishmentDescription": "State tax levy",
+      "garnishmentType": {
+        "id": "TL",
+        "typeDescription": "Tax Levy"
+      },
+      "caseNumber": "LEVY-0002",
+      "amount": null,
+      "percent": 15.0,
+      "percentageOf": "Disposable Income",
+      "status": "Active",
+      "startDate": "2026-11-01T00:00:00",
+      "stopDate": null,
+      "limit": 0.0,
+      "maximumAmount": 0.0,
+      "garnishmentPayee": {
+        "id": 8,
+        "payeeName": "State Department of Revenue"
+      },
+      "state": {
+        "id": "NC",
+        "stateName": "NC"
+      },
+      "arrearsBalance": 0.0,
+      "remainingBalance": 0.0,
+      "feeAmount": 0.0
     }
   ]
 }

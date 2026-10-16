@@ -11,7 +11,7 @@
     "scheduledDeduction": [
       {
         "deductionCode": "UNIFORM",
-        "checkStubDescription": "",
+        "checkStubDescription": "Uniform rental",
         "status": "O",
         "amount": 15.0,
         "startDate": "2026-09-21",

@@ -22,6 +22,10 @@
           "number": "704-555-0111",
           "primary": true
         },
+        "home_phone": {
+          "number": "704-555-0144",
+          "primary": false
+        },
         "birthdate": "1989-11-20"
       },
       {

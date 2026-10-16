@@ -54,7 +54,7 @@ mypy                            # static type check: no issues
 ```
 provider   companies  employees  deposits  elections  runs  paychecks  checks pass/fail  warnings  unavailable
 prismhr            2          6         8          6     6          8              24/0        11            7
-isolved            1          5         5          5     6          7              24/0         2            0
+isolved            1          5         5          6     7          7              24/0         2            0
 ukg-ready          1          5         6          2     4          4               2/0        10            5
 ```
 

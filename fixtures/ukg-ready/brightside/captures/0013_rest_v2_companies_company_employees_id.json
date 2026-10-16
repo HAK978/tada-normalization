@@ -26,10 +26,13 @@
       "address_line_1": "PO Box 77",
       "city": "Charlotte",
       "state": "NC",
+      "state_code": "NC",
       "zip": "28201",
-      "country": null
+      "country": "USA"
     },
     "secondary_email": "maria.lopez@example.com",
+    "middle_name": "R",
+    "nickname": "Mari",
     "id": 5001,
     "employee_id": "1001",
     "username": "mlopez",
@@ -60,6 +63,8 @@
       "city": "Charlotte",
       "state": "NC",
       "zip": "28202",
+      "address_line_2": "Unit 5",
+      "state_code": "NC",
       "country": "USA"
     },
     "dates": {
@@ -69,7 +74,9 @@
     },
     "phones": {
       "cell_phone": "704-555-0100",
-      "preferred_phone": "CELL"
+      "preferred_phone": "CELL",
+      "home_phone": "704-555-0122",
+      "work_phone": "704-555-0133"
     },
     "primary_email": "maria@brightside.example",
     "managers": [],

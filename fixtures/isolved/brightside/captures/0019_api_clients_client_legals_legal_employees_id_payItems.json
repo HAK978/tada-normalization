@@ -29,7 +29,7 @@
     {
       "id": -2,
       "payItemId": -2,
-      "payItemCode": null,
+      "payItemCode": "DEN",
       "payItemName": "Dental Pre-tax",
       "payItemType": "Deduction",
       "employeeId": 9001,

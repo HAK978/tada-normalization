@@ -5,7 +5,8 @@ numbers, times in milliseconds, a 1900-12-31 placeholder pay record, a raise dat
 the documented open-ended dates, an "active" deposit whose span has ended, a paper-check
 reservation, an unlabeled deposit method, a fringe earning balanced by a "Fringe" payment, a
 floating-point amount, lines with no amount, an unknown line modifier, a customer pay statement
-type, an EIN only payrolls mention, and setup amounts whose unit is undocumented.
+type, an EIN only payrolls mention, a state and a cost-center name each sent under two keys, and setup
+amounts whose unit is undocumented.
 """
 
 from __future__ import annotations
@@ -57,6 +58,7 @@ def _employee(
     cost_centers: tuple[tuple[int, int], ...] = (),
     mailing: bool = False,
     secondary_email: bool = False,
+    full_profile: bool = False,
 ) -> dict:
     ids = [{"type": "SSN", "value": ssn, "primary": True}]
     if other_id:
@@ -72,9 +74,23 @@ def _employee(
         extra["cost_centers_info"] = {"defaults": [{"index": i, "value": {"id": v}} for i, v in cost_centers]}
     if mailing:
         extra["use_separate_mailing_address"] = True
-        extra["mailing_address"] = {"address_line_1": "PO Box 77", "city": "Charlotte", "state": "NC", "zip": "28201"}
+        extra["mailing_address"] = {
+            "address_line_1": "PO Box 77",
+            "city": "Charlotte",
+            "state": "NC",
+            "state_code": "NC",
+            "zip": "28201",
+            "country": "USA",
+        }
     if secondary_email:
         extra["secondary_email"] = f"{first.lower()}.{last.lower()}@example.com"
+    address = {"address_line_1": f"{100 + aid % 100} Market St", "city": "Charlotte", "state": "NC", "zip": "28202"}
+    phones = {"cell_phone": "704-555-0100", "preferred_phone": "CELL"}
+    if full_profile:
+        # Every name, address and phone field the employee record documents, as live fills them in.
+        extra |= {"middle_name": "R", "nickname": "Mari"}
+        address |= {"address_line_2": "Unit 5", "state_code": "NC"}
+        phones |= {"home_phone": "704-555-0122", "work_phone": "704-555-0133"}
     return {
         **extra,
         "id": aid,
@@ -89,15 +105,9 @@ def _employee(
         "locked": status != "Active",
         "social_security": ssn,
         "national_id_numbers": ids,
-        "address": {
-            "address_line_1": f"{100 + aid % 100} Market St",
-            "city": "Charlotte",
-            "state": "NC",
-            "zip": "28202",
-            "country": "USA",
-        },
+        "address": {**address, "country": "USA"},
         "dates": dates,
-        "phones": {"cell_phone": "704-555-0100", "preferred_phone": "CELL"},
+        "phones": phones,
         "primary_email": f"{first.lower()}@brightside.example",
         "managers": [{"index": 0, "empl_ref": {"account_id": manager}}] if manager else [],
         "timezone": "America/New_York",
@@ -224,6 +234,7 @@ def _people(bundle: FixtureBundle) -> None:
                 cost_centers=((0, 6102), (2, 6202)),
                 mailing=True,
                 secondary_email=True,
+                full_profile=True,
             ),
             {"employee_type": EMPLOYEE_TYPES["FT Exempt"], "pay_type": salaried, "default_job": JOBS["Store Manager"]},
             [
@@ -397,6 +408,7 @@ def _profile(bundle: FixtureBundle, aid: int, path: str) -> None:
                 "last_name": "Lopez",
                 "relationship": "Spouse",
                 "cell_phone": {"number": "704-555-0111", "primary": True},
+                "home_phone": {"number": "704-555-0144", "primary": False},
                 "birthdate": "1989-11-20",
             },
             {
@@ -593,7 +605,12 @@ def _payroll(bundle: FixtureBundle) -> None:
         {
             "earnings": [
                 _earning("Salary", "Salary", "Earning (Auto)", D("1800")),
-                _earning("Holiday", "Holiday", "Earning", D("200"), hours=8, rate=D("25")),
+                _earning("Holiday", "Holiday", "Earning", D("200"), hours=8, rate=D("25"))
+                | {
+                    "cost_centers": [
+                        {"index": 0, "value": {"id": 6102, "name": "Production", "display_name": "Production"}}
+                    ]
+                },
                 _earning("GTL-Imp Inc", "GTL-Imputed Income", "Earning (Fringe, Auto)", D("3.10")),
                 _earning("Cell Reimb", "Cell Reimb", "Reimbursement(Neg Ded, Auto)", D("25")),
             ],

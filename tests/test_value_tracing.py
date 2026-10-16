@@ -25,13 +25,13 @@ DATE = re.compile(r"\d{4}-\d{2}-\d{2}")
 
 PATH_ID = "the record's own ID, also in the request path, which is the copy the record uses"
 DETAIL = "a list row whose fetched detail replaces it; list-only rows are mapped from the list"
+LETTERS = "a string of one-letter pay kinds: each letter is kept as the raw value of its own coded entry"
 
 # (endpoint, field) where a marker may rightly not reach the output, with why.
 EXEMPT: dict[str, dict[tuple[str, str], str]] = {
     "prismhr": {
-        ("employee/v1/getEmployee", "employee[].directDeposit.voucherType"): (
-            "a string of one-letter pay kinds: each letter is kept as the raw value of its own coded entry"
-        ),
+        ("employee/v1/getEmployee", "employee[].directDeposit.voucherType"): LETTERS,
+        ("employee/v1/getEmployee", "employee[].directDeposit.achVoucher[].voucherTypeOverride"): LETTERS,
     },
     "isolved": {
         ("api/clients/{client}", "id"): PATH_ID,

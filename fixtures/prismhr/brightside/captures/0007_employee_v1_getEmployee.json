@@ -20,7 +20,7 @@
         "id": "E1001",
         "lastName": "Nair",
         "firstName": "Maria",
-        "middleInitial": "",
+        "middleInitial": "J",
         "preferredName": "",
         "person": {
           "birthDate": "1990-04-02",
@@ -28,13 +28,13 @@
           "maritalStatus": "S",
           "ethnicCode": "H",
           "veteran": "N",
-          "handicapped": "",
+          "handicapped": "N",
           "preferredLanguage": "EN",
           "userId": "mnair",
           "employerId": [
             "5"
           ],
-          "nickname": "",
+          "nickname": "Sunny",
           "hrpCitizenshipCountry": null,
           "emergencyContact": [
             {
@@ -52,6 +52,7 @@
             }
           ],
           "cobraSSN": "000-12-3456",
+          "w2PostalCode": "28203",
           "activeDutyBadgeVet": null,
           "blind": null,
           "deceasedDate": null,
@@ -77,19 +78,18 @@
           "w2AddressLine2": null,
           "w2City": null,
           "w2ElecFormDate": null,
-          "w2PostalCode": null,
           "w2State": null
         },
         "contactInformation": {
           "addressLine1": "872 Oak Ave",
-          "addressLine2": "",
+          "addressLine2": "Apt 4B",
           "city": "Charlotte",
           "state": "NC",
           "zipcode": "28202",
-          "zipSuffix": "",
+          "zipSuffix": "1234",
           "county": "Mecklenburg",
           "homePhone": "7045550100",
-          "mobilePhone": "",
+          "mobilePhone": "7045550142",
           "emailAddress": "maria@example.com",
           "schoolDistrict": null
         },
@@ -111,7 +111,7 @@
           "employee1099": false,
           "clientEmployeeId": "1001",
           "clockNum": "",
-          "workPhone": "",
+          "workPhone": "7045550123",
           "workEmail": "maria.nair@work.example",
           "homeDepartment": "PROD",
           "homeDivision": "MAIN",
@@ -120,9 +120,13 @@
           "unionCode": "",
           "hawaiiMedWaivers": [],
           "returnDate": "",
-          "addressLine1": null,
+          "workPhoneExt": "204",
+          "addressLine1": "PO Box 4417",
+          "city": "Charlotte",
+          "state": "NC",
+          "zip": "28201",
+          "zipSuffix": "4417",
           "addressLine2": null,
-          "city": null,
           "clientChecksum": null,
           "electronic1095C": null,
           "electronicOnboardDate": null,
@@ -133,12 +137,8 @@
           "property": null,
           "rehireOk": null,
           "reportsTo": null,
-          "state": null,
           "subCostCenter": null,
-          "unionDate": null,
-          "workPhoneExt": null,
-          "zip": null,
-          "zipSuffix": null
+          "unionDate": null
         },
         "compensation": {
           "ssn": "***-**-****",
@@ -222,7 +222,7 @@
               "method": "F",
               "status": "D",
               "bankName": "Example Bank",
-              "voucherTypeOverride": "",
+              "voucherTypeOverride": "R",
               "amount": 200.0,
               "limit": null
             },

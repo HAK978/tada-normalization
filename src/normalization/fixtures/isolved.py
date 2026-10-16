@@ -3,8 +3,8 @@
 Same people and facts as the PrismHR scenario, in isolved's shape, with isolved's traps: sequence
 0 is the net-pay account, memo earnings sit outside gross wages, group-term life is in gross wages
 but not gross pay, a 1-character lookup code where live sends text, a customer-defined status, a
-contractor pay item with no documented cash treatment, a garnishment, a paycheck whose run is
-ambiguous, a year-to-date-only line, and a check seen only in the list.
+contractor pay item with no documented cash treatment, a garnishment by amount and one by percent, a
+paycheck whose run is ambiguous, a year-to-date-only line, and a check and a run seen only in the list.
 """
 
 from __future__ import annotations
@@ -367,21 +367,22 @@ def _worker(bundle: FixtureBundle, w: Worker) -> None:
         "emailAddress": f"{w.first.lower()}@work.example",
         "nameAddress": {
             "firstName": w.first,
-            "middleName": None,
+            "middleName": "Q" if w.id == "9001" else None,
             "lastName": w.last,
             "preferredName": None,
             "address1": "12 Oak Ave",
-            "address2": None,
+            "address2": "Apt 2" if w.id == "9001" else None,
             "city": "Charlotte",
             "state": "NC",
             "zipCode": "28202",
         },
         "personal": {
             "homePhone": "7045550100",
-            "mobilePhone": None,
+            "mobilePhone": "7045550177" if w.id == "9001" else None,
             "personalEmailAddress": f"{w.first.lower()}@example.com",
         },
         "assignedManager": {"id": 9001, "employeeName": "Maria"} if w.id != "9001" else None,
+        "assignedSupervisor": {"id": 9001, "employeeName": "Maria"} if w.id == "9002" else None,
         # Organization fields are customer-defined; their titles are the customer's words (A-75).
         "organizations": [
             {
@@ -411,6 +412,22 @@ def _worker(bundle: FixtureBundle, w: Worker) -> None:
         f"{path}/statuses",
         {},
         [
+            *(
+                [
+                    {
+                        "statusId": -1,
+                        "clientEmploymentStatusId": -1,
+                        "clientEmploymentStatusDescription": "Active",
+                        "isImpliedStatus": True,
+                        "effectiveDate": "2021-03-15T00:00:00",
+                        "endDate": "2026-07-31T00:00:00",
+                        "employeeEmploymentId": int(w.id) * 10 - 1,
+                        "changeReason": "New hire",
+                    }
+                ]
+                if w.id == "9004"
+                else []
+            ),
             {
                 "statusId": -1 if w.implied else 55,
                 "clientEmploymentStatusId": -1 if w.implied else 55,
@@ -419,7 +436,8 @@ def _worker(bundle: FixtureBundle, w: Worker) -> None:
                 "effectiveDate": f"{w.status_date}T00:00:00",
                 "endDate": None,
                 "employeeEmploymentId": int(w.id) * 10,
-            }
+                **({"changeReason": "Medical leave"} if w.id == "9004" else {}),
+            },
         ],
     )
     salaries = [
@@ -461,7 +479,7 @@ def _worker(bundle: FixtureBundle, w: Worker) -> None:
         {
             "id": -(i + 1),
             "payItemId": -(i + 1),
-            "payItemCode": None,
+            "payItemCode": "DEN" if title == "Dental Pre-tax" else None,
             "payItemName": title,
             "payItemType": PAY_ITEMS[title][0],
             "employeeId": int(w.id),
@@ -471,7 +489,7 @@ def _worker(bundle: FixtureBundle, w: Worker) -> None:
             "referenceNumber": None,
             "scheduleOverride": None,
             "startDate": "2025-01-01T00:00:00",
-            "stopDate": None,
+            "stopDate": "2026-12-31T00:00:00" if title == "Voluntary Life" else None,
             "calcParams": [{"paramType": param, "paramValue": float(value)}],
         }
         for i, (title, param, value) in enumerate([*w.items, ("Regular", "Amount", D("0"))])
@@ -502,7 +520,27 @@ def _worker(bundle: FixtureBundle, w: Worker) -> None:
                     "arrearsBalance": 0.0,
                     "remainingBalance": 1500.0,
                     "feeAmount": 1.0,
-                }
+                },
+                {
+                    "id": 4402,
+                    "garnishmentSequence": 2,
+                    "garnishmentDescription": "State tax levy",
+                    "garnishmentType": {"id": "TL", "typeDescription": "Tax Levy"},
+                    "caseNumber": "LEVY-0002",
+                    "amount": None,
+                    "percent": 15.0,
+                    "percentageOf": "Disposable Income",
+                    "status": "Active",
+                    "startDate": "2026-11-01T00:00:00",
+                    "stopDate": None,
+                    "limit": 0.0,
+                    "maximumAmount": 0.0,
+                    "garnishmentPayee": {"id": 8, "payeeName": "State Department of Revenue"},
+                    "state": {"id": "NC", "stateName": "NC"},
+                    "arrearsBalance": 0.0,
+                    "remainingBalance": 0.0,
+                    "feeAmount": 0.0,
+                },
             ],
         )
     else:
@@ -645,6 +683,22 @@ RUNS = [  # (pay group, run id, run number, pay date, type, status)
     (WEEKLY, "8811", 2, "2026-10-02", "Regular Payroll", "Completed Payroll Run"),
     # Same pay date and run number as 8803 in the other pay group: a check from either is ambiguous (A-40).
     (WEEKLY, "8813", 3, "2026-10-09", "Regular Payroll", "Completed Payroll Run"),
+]
+# Listed but never fetched in detail, as most live runs are: (pay group, run id, run number, pay date, type,
+# status, run date, period begin, period end, pay of the month).
+LIST_ONLY_RUNS = [
+    (
+        BIWEEKLY,
+        "8799",
+        34,
+        "2018-07-20",
+        "Data Conversion",
+        "Completed Payroll Run",
+        "2018-07-18",
+        "2018-07-02",
+        "2018-07-15",
+        "3rd",
+    ),
 ]
 
 
@@ -833,6 +887,20 @@ def _payroll(bundle: FixtureBundle, staff: dict[str, Worker]) -> None:
         rows = [
             {"id": int(r[1]), "runNumber": r[2], "payDate": f"{r[3]}T00:00:00", "payrollRunType": r[4], "status": r[5]}
             for r in RUNS
+            if r[0] == pay_group
+        ] + [
+            {
+                "id": int(r[1]),
+                "runNumber": r[2],
+                "payDate": f"{r[3]}T00:00:00",
+                "payrollRunType": r[4],
+                "status": r[5],
+                "runDate": f"{r[6]}T00:00:00",
+                "periodBeginDate": f"{r[7]}T00:00:00",
+                "periodEndDate": f"{r[8]}T00:00:00",
+                "payOfTheMonth": r[9],
+            }
+            for r in LIST_ONLY_RUNS
             if r[0] == pay_group
         ]
         bundle.add(

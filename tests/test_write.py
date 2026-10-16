@@ -46,7 +46,8 @@ def test_a_prism_salaried_employee_keeps_its_pay_basis_and_hours():
     assert (pay["amount"], pay["amount_period"], pay["num_pp_in_year"]) == (Decimal("52000.00"), "YEAR", 26)
     assert (pay["time"], pay["time_period"]) == (80 * 3_600_000, "PAY_PERIOD")
     assert result.requests[0].body["address"]["country"] == "USA"
-    assert [d["field"] for d in result.defaults] == ["address.country"]
+    # PrismHR sends no country, so both of E1001's addresses take the one documented default (A-63).
+    assert [d["field"] for d in result.defaults] == ["address.country", "mailing_address.country"]
     assert "address.county" in gaps(result)
 
 

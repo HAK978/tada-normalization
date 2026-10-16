@@ -91,7 +91,7 @@
             "location": "CLT",
             "glCode": "",
             "workComp": "8810",
-            "projWork": "",
+            "projWork": "PRJ-7",
             "projPhase": ""
           },
           {
@@ -228,15 +228,15 @@
           "baseEarnings": 2003.25,
           "electiveContributionsPreTax": 100.0,
           "employerMatchingContributions": 60.0,
-          "catchUpContributionsPreTax": null,
-          "employeeContributionsPostTax": null,
-          "employeeRetirementLoanPayments": null,
-          "employerNonElectiveContributions": null,
-          "employerSafeHarborMatchType1": null,
-          "employerSafeHarborMatchType2": null,
-          "peoMatchingContribution": null,
-          "rothCatchUpContributionsPostTax": null,
-          "rothContributionsPostTax": null
+          "catchUpContributionsPreTax": 0.0,
+          "rothContributionsPostTax": 0.0,
+          "rothCatchUpContributionsPostTax": 0.0,
+          "employeeContributionsPostTax": 0.0,
+          "employerNonElectiveContributions": 0.0,
+          "employerSafeHarborMatchType1": 0.0,
+          "employerSafeHarborMatchType2": 0.0,
+          "peoMatchingContribution": 0.0,
+          "employeeRetirementLoanPayments": 0.0
         },
         "glAcctDistribution": null,
         "taxFilingStatus": [],

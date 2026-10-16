@@ -47,21 +47,22 @@
     "emailAddress": "maria@work.example",
     "nameAddress": {
       "firstName": "Maria",
-      "middleName": null,
+      "middleName": "Q",
       "lastName": "Chen",
       "preferredName": null,
       "address1": "12 Oak Ave",
-      "address2": null,
+      "address2": "Apt 2",
       "city": "Charlotte",
       "state": "NC",
       "zipCode": "28202"
     },
     "personal": {
       "homePhone": "7045550100",
-      "mobilePhone": null,
+      "mobilePhone": "7045550177",
       "personalEmailAddress": "maria@example.com"
     },
     "assignedManager": null,
+    "assignedSupervisor": null,
     "organizations": [
       {
         "id": 90011,

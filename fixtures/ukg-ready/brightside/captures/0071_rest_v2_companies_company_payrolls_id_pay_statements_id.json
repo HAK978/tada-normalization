@@ -46,7 +46,17 @@
         "date_range_from": "2026-09-14",
         "date_range_to": "2026-09-27",
         "base_rate": 25.0,
-        "ee_amount": 200.0
+        "ee_amount": 200.0,
+        "cost_centers": [
+          {
+            "index": 0,
+            "value": {
+              "id": 6102,
+              "name": "Production",
+              "display_name": "Production"
+            }
+          }
+        ]
       },
       {
         "id": 2642864188,

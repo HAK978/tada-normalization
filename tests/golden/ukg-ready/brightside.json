@@ -170,7 +170,8 @@
      "position.assignments[0].assigned_fte": "1.0",
      "position.assignments[0].annual_work_hours": 2080,
      "position.assignments[0].is_primary_assignment": true,
-     "contacts[0].cell_phone.primary": true
+     "contacts[0].cell_phone.primary": true,
+     "contacts[0].home_phone.primary": false
     },
     "diagnostics": [
      {
@@ -222,7 +223,9 @@
     },
     "name": {
      "first": "Maria",
-     "last": "Lopez"
+     "middle": "R",
+     "last": "Lopez",
+     "nickname": "Mari"
     },
     "personal": {
      "birth_date": "1990-04-12",
@@ -258,6 +261,10 @@
        "birth_date": "1989-11-20",
        "phones": [
         {
+         "type": "HOME",
+         "number": "704-555-0144"
+        },
+        {
          "type": "MOBILE",
          "number": "704-555-0111"
         }
@@ -286,6 +293,7 @@
      {
       "type": "HOME",
       "line1": "101 Market St",
+      "line2": "Unit 5",
       "city": "Charlotte",
       "state": "NC",
       "postal_code": "28202",
@@ -296,13 +304,22 @@
       "line1": "PO Box 77",
       "city": "Charlotte",
       "state": "NC",
-      "postal_code": "28201"
+      "postal_code": "28201",
+      "country": "USA"
      }
     ],
     "phones": [
      {
+      "type": "HOME",
+      "number": "704-555-0122"
+     },
+     {
       "type": "MOBILE",
       "number": "704-555-0100"
+     },
+     {
+      "type": "WORK",
+      "number": "704-555-0133"
      }
     ],
     "emails": [
@@ -2259,6 +2276,7 @@
      "earnings[1].id": 842431431,
      "earnings[1].batch.id": 4342647435,
      "earnings[1].batch.display_name": "Regular Earnings",
+     "earnings[1].cost_centers[0].value.id": 6102,
      "earnings[2].id": 2642864188,
      "earnings[2].batch.id": 4342647435,
      "earnings[2].batch.display_name": "Regular Earnings",
@@ -2448,7 +2466,9 @@
        "start": "2026-09-14",
        "end": "2026-09-27"
       },
-      "allocation": {},
+      "allocation": {
+       "cost_center[0]": "Production"
+      },
       "source_field": "earnings[]"
      },
      {
