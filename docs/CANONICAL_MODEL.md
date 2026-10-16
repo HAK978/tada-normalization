@@ -349,6 +349,7 @@ A failed check becomes a `RECONCILIATION_MISMATCH` warning; the totals stay as t
 | isolved organizations, UKG cost centers | mapped (§4 Job `org_units[]`, A-75) |
 | Prism deduction arrears, mandatory flag, benefit plan, loan/garnishment reference | mapped (§7) |
 | Prism retirement loans (`getRetirementLoans`) | mapped (§7, `RETIREMENT_LOAN`, A-87) |
+| Prism 401(k) plan rules, FSA elections and benefit adjustments | `provider_extensions` on the employee (A-91) |
 | isolved garnishment `limit` ("Limit", no stated basis) | `provider_extensions` (A-88) |
 | Prism deduction rate table/tier and linked ACH account | `provider_extensions` |
 | Prism batch per-group periods, weeks worked, deduction period | mapped (§8 `pay_groups[]`) |

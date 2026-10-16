@@ -15,7 +15,7 @@ A field that is mapped in some records and kept in others shows both, with count
 
 Sources:
 
-- prismhr: a live fetch (`20261015T185051Z`) (2427 successful responses, HTTP 200)
+- prismhr: a live fetch (`20261016T014120Z`) (2817 successful responses, HTTP 200)
 - isolved: a live fetch (`20261015T205321Z`) (452 successful responses, HTTP 200)
 - ukg-ready: a live fetch (`20261015T185051Z`) (352 successful responses, HTTP 200)
 
@@ -24,8 +24,11 @@ Sources:
 | Provider | Endpoint | Fields | Mapped | Kept | Lost | Dropped | Reference | Unused |
 |---|---|---:|---:|---:|---:|---:|---:|---:|
 | prismhr | `benefits/v1/getActiveBenefitPlans` | 37 | 0 | 36 | 0 | 1 | 0 | 0 |
+| prismhr | `benefits/v1/getBenefitAdjustments` | 13 | 0 | 12 | 0 | 1 | 0 | 0 |
 | prismhr | `benefits/v1/getDependents` | 27 | 10 | 14 | 0 | 3 | 0 | 0 |
+| prismhr | `benefits/v1/getFlexPlans` | 17 | 0 | 16 | 0 | 1 | 0 | 0 |
 | prismhr | `benefits/v1/getRetirementLoans` | 12 | 9 | 2 | 0 | 1 | 0 | 0 |
+| prismhr | `benefits/v1/getRetirementPlan` | 30 | 0 | 29 | 0 | 1 | 0 | 0 |
 | prismhr | `clientMaster/v1/getAllPrismClientContacts` | 8 | 6 | 1 | 0 | 1 | 0 | 0 |
 | prismhr | `clientMaster/v1/getClientCodes` | 139 | 0 | 0 | 0 | 1 | 138 | 0 |
 | prismhr | `clientMaster/v1/getClientMaster` | 163 | 14 | 148 | 0 | 1 | 0 | 0 |
@@ -36,7 +39,7 @@ Sources:
 | prismhr | `employee/v1/checkForGarnishments` | 3 | 0 | 2 | 0 | 1 | 0 | 0 |
 | prismhr | `employee/v1/getEmployee` | 208 | 74 | 130 | 0 | 4 | 0 | 0 |
 | prismhr | `employee/v1/getEmployeeList` | 2 | 0 | 0 | 0 | 1 | 0 | 1 |
-| prismhr | `employee/v1/getHistory` | 22 | 9 | 12 | 0 | 1 | 0 | 0 |
+| prismhr | `employee/v1/getHistory` | 22 | 8 | 13 | 0 | 1 | 0 | 0 |
 | prismhr | `employee/v1/getPayRateHistory` | 14 | 8 | 3 | 0 | 3 | 0 | 0 |
 | prismhr | `employee/v1/getScheduledDeductions` | 7 | 3 | 0 | 0 | 4 | 0 | 0 |
 | prismhr | `payroll/v1/getBatchInfo` | 17 | 1 | 15 | 0 | 1 | 0 | 0 |
@@ -51,7 +54,7 @@ Sources:
 | isolved | `api/clients/{client}/legals/{legal}/employees/{id}/categories` | 14 | 4 | 10 | 0 | 0 | 0 | 0 |
 | isolved | `api/clients/{client}/legals/{legal}/employees/{id}/checks/{id}` | 135 | 29 | 104 | 0 | 2 | 0 | 0 |
 | isolved | `api/clients/{client}/legals/{legal}/employees/{id}/directdeposits` | 10 | 10 | 0 | 0 | 0 | 0 | 0 |
-| isolved | `api/clients/{client}/legals/{legal}/employees/{id}/garnishments` | 30 | 13 | 15 | 0 | 2 | 0 | 0 |
+| isolved | `api/clients/{client}/legals/{legal}/employees/{id}/garnishments` | 30 | 12 | 16 | 0 | 2 | 0 | 0 |
 | isolved | `api/clients/{client}/legals/{legal}/employees/{id}/jobs` | 29 | 8 | 19 | 0 | 2 | 0 | 0 |
 | isolved | `api/clients/{client}/legals/{legal}/employees/{id}/payItems` | 18 | 3 | 8 | 0 | 7 | 0 | 0 |
 | isolved | `api/clients/{client}/legals/{legal}/employees/{id}/payRates` | 8 | 0 | 8 | 0 | 0 | 0 | 0 |
@@ -199,6 +202,24 @@ the zeros under Employee.
 | `benefitPlan[].status` | kept |
 | `errorCode` | dropped: response envelope |
 
+### `benefits/v1/getBenefitAdjustments`
+
+| Field | Disposition |
+|---|---|
+| `benefitAdjustments[].benefitPlan` | kept |
+| `benefitAdjustments[].billAmount` | kept |
+| `benefitAdjustments[].checksum` | kept |
+| `benefitAdjustments[].cycles` | kept |
+| `benefitAdjustments[].cyclesBilled` | kept |
+| `benefitAdjustments[].eeContribution` | kept |
+| `benefitAdjustments[].insuranceCost` | kept |
+| `benefitAdjustments[].netInvEffect` | kept |
+| `benefitAdjustments[].period` | kept |
+| `benefitAdjustments[].refNumber` | kept |
+| `benefitAdjustments[].retroEnroll` | kept |
+| `benefitAdjustments[].startDate` | kept |
+| `errorCode` | dropped: response envelope |
+
 ### `benefits/v1/getDependents`
 
 | Field | Disposition |
@@ -231,6 +252,28 @@ the zeros under Employee.
 | `employeeId` | dropped: echo of the request parameters |
 | `errorCode` | dropped: response envelope |
 
+### `benefits/v1/getFlexPlans`
+
+| Field | Disposition |
+|---|---|
+| `errorCode` | dropped: response envelope |
+| `spendingAccounts[].account[].accountId` | kept |
+| `spendingAccounts[].account[].annualMatch` | kept |
+| `spendingAccounts[].account[].carryForwardFlag` | kept |
+| `spendingAccounts[].account[].companyMatch` | kept |
+| `spendingAccounts[].account[].deductAmount` | kept |
+| `spendingAccounts[].account[].electAmount` | kept |
+| `spendingAccounts[].account[].electedBalance` | kept |
+| `spendingAccounts[].account[].fundedBalance` | kept |
+| `spendingAccounts[].account[].peoMatchHSA` | kept |
+| `spendingAccounts[].account[].reimburseAmount` | kept |
+| `spendingAccounts[].accountsType` | kept |
+| `spendingAccounts[].checksum` | kept |
+| `spendingAccounts[].hdhpNotRequired` | kept |
+| `spendingAccounts[].overrideStart` | kept |
+| `spendingAccounts[].suppressContributionLimits` | kept |
+| `spendingAccounts[].year` | kept |
+
 ### `benefits/v1/getRetirementLoans`
 
 | Field | Disposition |
@@ -247,6 +290,41 @@ the zeros under Employee.
 | `retirementLoan[].paymentAmount` | mapped |
 | `retirementLoan[].planId401k` | mapped |
 | `retirementLoan[].tpaLoanId` | kept |
+
+### `benefits/v1/getRetirementPlan`
+
+| Field | Disposition |
+|---|---|
+| `errorCode` | dropped: response envelope |
+| `retirementPlan.benefDesignationReceived` | kept |
+| `retirementPlan.benefitGroup` | kept |
+| `retirementPlan.catchupStartAtLimit` | kept |
+| `retirementPlan.checksum` | kept |
+| `retirementPlan.extraElectiveAmt` | kept |
+| `retirementPlan.extraElectiveFICA` | kept |
+| `retirementPlan.extraMatchAmt` | kept |
+| `retirementPlan.extraMatchMethod` | kept |
+| `retirementPlan.extraNonelMethod` | kept |
+| `retirementPlan.extraRothAmt` | kept |
+| `retirementPlan.extraSafe1Method` | kept |
+| `retirementPlan.extraSafe2Method` | kept |
+| `retirementPlan.flatOnSupplemental` | kept |
+| `retirementPlan.loanPaymentCycle` | kept |
+| `retirementPlan.matchEligible` | kept |
+| `retirementPlan.matchStartsOn` | kept |
+| `retirementPlan.planDetail[].catchupAmount` | kept |
+| `retirementPlan.planDetail[].catchupPercent` | kept |
+| `retirementPlan.planDetail[].detailDate` | kept |
+| `retirementPlan.planDetail[].electiveAmount` | kept |
+| `retirementPlan.planDetail[].electivePercent` | kept |
+| `retirementPlan.planDetail[].highlyCompensated` | kept |
+| `retirementPlan.planDetail[].keyEmployee` | kept |
+| `retirementPlan.planDetail[].rothAmount` | kept |
+| `retirementPlan.planDetail[].rothCatchupAmt` | kept |
+| `retirementPlan.planDetailsChecksum` | kept |
+| `retirementPlan.planId` | kept |
+| `retirementPlan.status` | kept |
+| `retirementPlan.statusDate` | kept |
 
 ### `clientMaster/v1/getAllPrismClientContacts`
 
@@ -903,7 +981,7 @@ the zeros under Employee.
 | `historyRecord[].termination.employeeTypeCode` | mapped |
 | `historyRecord[].termination.reason` | mapped |
 | `historyRecord[].termination.rehireOK` | kept |
-| `historyRecord[].type` | mapped (405) / kept (371) |
+| `historyRecord[].type` | kept |
 
 ### `employee/v1/getPayRateHistory`
 
@@ -918,7 +996,7 @@ the zeros under Employee.
 | `payRateHistory.payRate[].effectiveDate` | mapped |
 | `payRateHistory.payRate[].hourlyRate` | mapped (343) / kept (18) |
 | `payRateHistory.payRate[].payMethod` | mapped |
-| `payRateHistory.payRate[].payPeriod` | mapped |
+| `payRateHistory.payRate[].payPeriod` | mapped (343) / kept (18) |
 | `payRateHistory.payRate[].payRate` | mapped |
 | `payRateHistory.payRate[].percentMidpoint` | kept |
 | `payRateHistory.payRate[].reason` | mapped |
@@ -1743,7 +1821,7 @@ the zeros under Employee.
 | `[].newBalance` | kept |
 | `[].overrideTakeHomeFactor` | kept |
 | `[].percent` | mapped |
-| `[].percentageOf` | mapped |
+| `[].percentageOf` | kept |
 | `[].remainingBalance` | mapped |
 | `[].resetNotTakenBalanceToZero` | kept |
 | `[].selectedDeductions[].id` | kept |

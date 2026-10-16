@@ -1,0 +1,34 @@
+{
+  "seq": 110,
+  "endpoint": "payroll/v1/getBatchListByDate",
+  "path": "payroll/v1/getBatchListByDate",
+  "params": {
+    "clientId": "202",
+    "startDate": "2026-01-01",
+    "endDate": "2026-12-31",
+    "dateType": "PAY"
+  },
+  "status": 200,
+  "body": {
+    "batchList": [
+      {
+        "batchId": "40101",
+        "payDate": "2026-10-02",
+        "batchType": "R",
+        "batchStatus": "COMP",
+        "payGroup": [
+          {
+            "payGroupId": "BW",
+            "payPeriodStartDate": "2026-09-14",
+            "payPeriodEndDate": "2026-09-27",
+            "weeksWorked": "1",
+            "deductPeriod": "1"
+          }
+        ]
+      }
+    ],
+    "errorCode": "0",
+    "errorMessage": "",
+    "extension": null
+  }
+}

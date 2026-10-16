@@ -1,0 +1,27 @@
+{
+  "seq": 34,
+  "endpoint": "benefits/v1/getBenefitAdjustments",
+  "path": "benefits/v1/getBenefitAdjustments",
+  "params": {
+    "clientId": "201",
+    "employeeId": "E1002"
+  },
+  "status": 200,
+  "body": {
+    "benefitAdjustments": [
+      {
+        "benefitPlan": "MED",
+        "eeContribution": "17.00",
+        "billAmount": "17.00",
+        "cycles": 4,
+        "cyclesBilled": 1,
+        "startDate": "2026-09-01",
+        "period": null,
+        "refNumber": null
+      }
+    ],
+    "errorCode": "0",
+    "errorMessage": "",
+    "extension": null
+  }
+}

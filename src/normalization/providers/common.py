@@ -11,6 +11,7 @@ from normalization.canonical.codes import (
     NON_CASH_EARNING_KINDS,
     US_STATE_BY_NAME,
     US_STATES,
+    AddressType,
     CheckResult,
     DepositMethod,
     EarningCategory,
@@ -18,7 +19,7 @@ from normalization.canonical.codes import (
     Severity,
     TaxType,
 )
-from normalization.canonical.records import EarningLine, PayStatement
+from normalization.canonical.records import Address, EarningLine, PayStatement
 from normalization.canonical.types import Coded, Diagnostic, Money
 from normalization.checks import MISSING_AMOUNT, placeholder, reconcile
 from normalization.sanitize import MASK_CHARS
@@ -30,6 +31,18 @@ ZERO = Decimal("0")
 def money(value: Any, field: str | None = None) -> Money | None:
     amount = decimal(value)
     return None if amount is None else Money(amount=amount, source_field=field)
+
+
+def address(kind: AddressType, s: Src | None, **parts: str | tuple[str, ...]) -> Address | None:
+    """An address from its source fields ({canonical part: source key, or keys tried in order}). It is kept when
+    any part but the country is present, since a provider may fill the country in by default. Otherwise nothing
+    is read, so the fields stay as sent in provider_extensions instead of disappearing (A-62)."""
+    if s is None:
+        return None
+    keys = {part: (key,) if isinstance(key, str) else key for part, key in parts.items()}
+    if not any(text(s.data.get(k)) for part, ks in keys.items() if part != "country" for k in ks):
+        return None
+    return Address(type=kind, **{part: text(s.first(*ks)) for part, ks in keys.items()})
 
 
 def is_remainder(method: Any) -> bool | None:

@@ -93,7 +93,12 @@ PER_EMPLOYEE = (
     "benefits/v1/getDependents",
     "employee/v1/checkForGarnishments",
     "payroll/v1/getScheduledPayments",
+    "benefits/v1/getRetirementPlan",
+    "benefits/v1/getFlexPlans",
+    "benefits/v1/getBenefitAdjustments",
 )
+# Deduction setup with no record type of its own: kept with the employee as sent (A-91).
+KEPT_WITH_EMPLOYEE = ("benefits/v1/getRetirementPlan", "benefits/v1/getFlexPlans", "benefits/v1/getBenefitAdjustments")
 
 RETIREMENT_FIELDS = {
     "electiveContributionsPreTax": "employee_pre_tax",
@@ -669,6 +674,13 @@ class _Client:
             scheduled = Src(capture.body)
             scheduled.mark("errorCode", "errorMessage", "extension", "clientId", "employeeId", "checksum")
             kept.update(scheduled.leftovers())
+        # The 401(k) plan's rules (its elections themselves come from getDeductions), FSA elections, and benefit
+        # adjustments deducted over future paychecks: no record type holds them, so they stay as sent (A-91).
+        for endpoint in KEPT_WITH_EMPLOYEE:
+            for capture in self.bundle.ok(endpoint, clientId=self.client_id, employeeId=employee_id):
+                body = Src(capture.body)
+                body.mark("errorCode", "errorMessage", "extension")
+                kept.update(body.leftovers())
 
         # Settings that apply to all of an employee's accounts are copied onto each deposit record. With no
         # account there is no deposit record, so they stay with the employee instead (A-62).
@@ -800,7 +812,6 @@ class _Client:
                 position = text(row.data.get("newPositionCode"))
                 if not (event or orgs or position):
                     continue  # pay, benefit-group and wellness changes stay in provider_extensions
-                row.get("type")
                 row_effective = iso_date(row.get("effectiveDate"), f"{row.path}.effectiveDate", notes)
                 if event:
                     e = row.child(event) or Src({})
@@ -971,18 +982,25 @@ class _Client:
                         "kept as a date; no documented meaning (A-25)",
                         str(effective),
                     )
-                period = text(h.get("payPeriod"))
+                period = text(h.data.get("payPeriod"))
                 rates = []
                 # As for the current rates, a 0 is no rate and stays as sent (A-73).
                 rate = nonzero(h, "payRate")
                 if rate is not None:
-                    rates.append(
-                        Rate(
-                            amount=rate,
-                            per=P.PAY_RATE_PERIOD.get(period or "", C.RatePeriod.UNMAPPED),
-                            source_field=h.path + ".payRate",
-                        )
-                    )
+                    per = P.PAY_RATE_PERIOD.get(period or "")
+                    if per is not None:
+                        h.get("payPeriod")
+                        if period in P.UNDOCUMENTED_PAY_RATE_PERIOD:
+                            notes.info(
+                                "UNDOCUMENTED_CODE_EVIDENCED",
+                                h.path + ".payPeriod",
+                                "'Y' isn't in this field's documented list; treated as YEAR ('(Y)early' in "
+                                "Compensation.hourlyPayPeriod; payRate equals annualPay live, A-19)",
+                                period,
+                            )
+                    elif period:  # an unknown period is not read, so it stays as sent next to an UNMAPPED rate
+                        notes.warn("UNMAPPED_CODE", h.path + ".payPeriod", "unknown pay-rate period", period)
+                    rates.append(Rate(amount=rate, per=per or C.RatePeriod.UNMAPPED, source_field=h.path + ".payRate"))
                 hourly = nonzero(h, "hourlyRate")
                 if hourly is not None:
                     rates.append(Rate(amount=hourly, per=C.RatePeriod.HOUR, source_field=h.path + ".hourlyRate"))

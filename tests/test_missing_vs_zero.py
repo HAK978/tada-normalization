@@ -33,8 +33,11 @@ NOT_KEPT = "identity documents are never kept (model §9), so nothing about them
 # PrismHR endpoints whose responses carry the errorCode envelope in the synthetic scenario.
 ENVELOPED = (
     "benefits/v1/getActiveBenefitPlans",
+    "benefits/v1/getBenefitAdjustments",
     "benefits/v1/getDependents",
+    "benefits/v1/getFlexPlans",
     "benefits/v1/getRetirementLoans",
+    "benefits/v1/getRetirementPlan",
     "clientMaster/v1/getAllPrismClientContacts",
     "clientMaster/v1/getClientCodes",
     "clientMaster/v1/getClientMaster",
@@ -91,9 +94,6 @@ AGREE = {
         ),
         ("api/clients/{client}/legals/{legal}/employees/{id}/payItems", "[].id"): ID,
         ("api/clients/{client}/legals/{legal}/employees/{id}/payItems", "[].employeeId"): ID,
-        ("api/clients/{client}/legals/{legal}/paygroupId/{id}/payrollRunHistory/{id}", "runNumber"): (
-            "a run number only links checks to runs (A-40); 0 matches no check, as a missing one doesn't"
-        ),
         ("api/clients/{client}/legals/{legal}/paygroupId/{id}/payrollRunHistory", "[].runNumber"): DETAIL,
         ("api/clients/{client}/legals/{legal}/checks", "results[].checkNumber"): DETAIL,
         ("api/clients/{client}/legals/{legal}/checks", "results[].checkSequence"): DETAIL,

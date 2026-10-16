@@ -1,0 +1,16 @@
+{
+  "seq": 106,
+  "endpoint": "benefits/v1/getBenefitAdjustments",
+  "path": "benefits/v1/getBenefitAdjustments",
+  "params": {
+    "clientId": "202",
+    "employeeId": "E2001"
+  },
+  "status": 404,
+  "body": {
+    "benefitAdjustments": null,
+    "errorCode": "404",
+    "errorMessage": "No benefit adjustments found for employee E2001 and client 202",
+    "extension": null
+  }
+}

@@ -62,6 +62,7 @@ from normalization.source import Notes, Src, coded, decimal, flag, iso_date, tex
 
 from ..common import (
     ZERO,
+    address,
     attach_checks,
     categorized,
     customer_category,
@@ -476,18 +477,16 @@ class _Company:
 
     @staticmethod
     def _address(kind: C.AddressType, a: Src | None) -> Address | None:
-        if a is None:
-            return None
-        address = Address(
-            type=kind,
-            line1=text(a.get("address_line_1")),
-            line2=text(a.get("address_line_2")),
-            city=text(a.get("city")),
-            state=text(a.first("state_code", "state")),
-            postal_code=text(a.get("zip")),
-            country=text(a.get("country")),
+        return address(
+            kind,
+            a,
+            line1="address_line_1",
+            line2="address_line_2",
+            city="city",
+            state=("state_code", "state"),
+            postal_code="zip",
+            country="country",
         )
-        return address if any([address.line1, address.city, address.postal_code]) else None
 
     def _demographics(self, employee_id: str, notes: Notes, kept: dict[str, Any]) -> dict[str, Any]:
         """Gender, ethnicity and citizenship. UKG documents them as enums without definitions, so they stay

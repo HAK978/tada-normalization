@@ -1,14 +1,19 @@
 """The command line and its outputs: JSON per record type, SQLite and the JSON Schemas. Offline."""
 
+import contextlib
+import io
 import json
+import re
 import sqlite3
+import subprocess
+import sys
 from pathlib import Path
 
 import pytest
 from jsonschema import Draft202012Validator
 
 from normalization.__main__ import main
-from normalization.bundle import Bundle
+from normalization.bundle import Bundle, Capture
 from normalization.coverage import measure, render
 from normalization.live.signin import API_KEY_VARIABLE
 
@@ -143,6 +148,28 @@ def test_no_field_is_lost_neither_mapped_nor_kept(coverage, provider):
     assert coverage[provider].lost == []
 
 
+@pytest.mark.parametrize("provider", PROVIDERS)
+def test_no_response_goes_unread_except_by_design(coverage, provider):
+    assert coverage[provider].unread == []
+
+
+def test_a_response_no_converter_reads_fails_coverage(tmp_path):
+    # An audit's reproduction: a schema-valid additional-compensation response that nothing reads (A-62).
+    b = Bundle.load(ROOT / "fixtures/ukg-ready/brightside")
+    endpoint = "rest/v2/companies/{company}/employees/{id}/additional-compensations"
+    b.captures.append(
+        Capture(
+            endpoint,
+            "rest/v2/companies/7001/employees/5001/additional-compensations",
+            {},
+            200,
+            {"additional_compensations": [{"value": 9876.54, "currency": "USD", "period": "YEAR"}]},
+            "x",
+        )
+    )
+    assert measure(b, "test").unread == [endpoint]
+
+
 def test_coverage_labels_dropped_kept_and_mapped_fields(coverage):
     ukg = coverage["ukg-ready"]
     assert ukg.label(("rest/v2/companies/{company}/employees/{id}", "photo_href")).startswith("dropped: a signed link")
@@ -190,3 +217,24 @@ def test_coverage_command_writes_the_report(tmp_path):
     assert main(["coverage", "--out", str(out)]) == 0
     report = out.read_text(encoding="utf-8")
     assert report.startswith("# Field coverage") and "| `photo_href` | dropped: a signed link" in report
+
+
+# ---------------------------------------------------------------- the README says what the code does
+
+
+def test_readme_shows_the_demo_table_as_the_demo_prints_it(tmp_path):
+    buffer = io.StringIO()
+    with contextlib.redirect_stdout(buffer):
+        assert main(["demo", "--out", str(tmp_path)]) == 0
+    rows = [line for line in buffer.getvalue().splitlines() if line.split(" ")[0] in ("provider", *PROVIDERS)]
+    readme = (ROOT / "README.md").read_text(encoding="utf-8")
+    assert rows and all(row in readme for row in rows), rows
+
+
+def test_readme_states_the_number_of_tests():
+    collected = subprocess.run(
+        [sys.executable, "-m", "pytest", "--collect-only", "-q"], cwd=ROOT, capture_output=True, text=True, check=True
+    ).stdout
+    count = int(re.search(r"(\d+) tests? collected", collected).group(1))
+    readme = (ROOT / "README.md").read_text(encoding="utf-8")
+    assert f"# {count} tests, offline" in readme and f"`pytest` runs {count} offline tests" in readme

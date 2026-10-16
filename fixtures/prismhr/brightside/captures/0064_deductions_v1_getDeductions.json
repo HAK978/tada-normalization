@@ -1,0 +1,19 @@
+{
+  "seq": 64,
+  "endpoint": "deductions/v1/getDeductions",
+  "path": "deductions/v1/getDeductions",
+  "params": {
+    "clientId": "201",
+    "employeeId": "E1005",
+    "options": ""
+  },
+  "status": 200,
+  "body": {
+    "employeeDeductions": {
+      "deduction": []
+    },
+    "errorCode": "0",
+    "errorMessage": "",
+    "extension": null
+  }
+}

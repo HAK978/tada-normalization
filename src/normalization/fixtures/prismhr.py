@@ -699,6 +699,99 @@ def _employee_setup(bundle: FixtureBundle, client: str, p: Person) -> None:
             },
             status=404,
         )
+    # Deduction setup PrismHR files under benefits (A-91): E1001 has a 401(k) plan with a catch-up election and
+    # an FSA; E1002 a benefit adjustment deducted over four paychecks. The others answer as live does.
+    if p.id == "E1001":
+        bundle.add(
+            "benefits/v1/getRetirementPlan",
+            "benefits/v1/getRetirementPlan",
+            person,
+            _envelope(
+                # Live sends planDetail where the spec documents planDetails, and its numbers as text (A-91).
+                retirementPlan={
+                    "planId": "401k",
+                    "status": "A",
+                    "statusDate": "2024-01-01",
+                    "matchEligible": True,
+                    "catchupStartAtLimit": False,
+                    "extraElectiveAmt": "0.00",
+                    "planDetail": [
+                        {
+                            "detailDate": "2024-01-01",
+                            "electivePercent": "6.00",
+                            "catchupPercent": "2.00",
+                            "rothPercent": "0.00",
+                        }
+                    ],
+                    "checksum": "rp-1",
+                }
+            ),
+        )
+        bundle.add(
+            "benefits/v1/getFlexPlans",
+            "benefits/v1/getFlexPlans",
+            person,
+            _envelope(
+                spendingAccounts=[
+                    {
+                        "planId": "FSA",
+                        "account": [
+                            {
+                                "electAmount": "1200.00",
+                                "deductAmount": "50.00",
+                                "startDate": "2026-01-01",
+                                "stopDate": "2026-12-31",
+                            }
+                        ],
+                    }
+                ]
+            ),
+        )
+    else:
+        bundle.add(
+            "benefits/v1/getRetirementPlan",
+            "benefits/v1/getRetirementPlan",
+            person,
+            {
+                "retirementPlan": None,
+                "errorCode": "404",
+                "errorMessage": f"Retirement plans for employee {p.id} in client {client} does not exist.",
+                "extension": None,
+            },
+            status=404,
+        )
+        bundle.add("benefits/v1/getFlexPlans", "benefits/v1/getFlexPlans", person, _envelope(spendingAccounts=[]))
+    if p.id == "E1002":
+        bundle.add(
+            "benefits/v1/getBenefitAdjustments",
+            "benefits/v1/getBenefitAdjustments",
+            person,
+            _envelope(
+                benefitAdjustments=[
+                    {
+                        "benefitPlan": "MED",
+                        "eeContribution": "17.00",
+                        "billAmount": "17.00",
+                        "cycles": 4,
+                        "cyclesBilled": 1,
+                        "startDate": "2026-09-01",
+                    }
+                ]
+            ),
+        )
+    else:
+        bundle.add(
+            "benefits/v1/getBenefitAdjustments",
+            "benefits/v1/getBenefitAdjustments",
+            person,
+            {
+                "benefitAdjustments": None,
+                "errorCode": "404",
+                "errorMessage": f"No benefit adjustments found for employee {p.id} and client {client}",
+                "extension": None,
+            },
+            status=404,
+        )
     # Mirrors the live tenant: garnishment details are refused for this API user (A-08).
     bundle.add(
         "deductions/v1/getGarnishmentDetails",

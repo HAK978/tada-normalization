@@ -206,3 +206,16 @@ def test_records_link_to_each_other(out):
 def test_golden_file_is_valid_json_with_every_record_type():
     golden = json.loads(GOLDEN.read_text(encoding="utf-8"))
     assert all(golden["records"][kind] for kind in golden["summary"]["counts"])
+
+
+def test_an_undocumented_history_period_y_is_annual_with_a_note():
+    # PayRate.payPeriod doesn't list Y; the sibling field documents it as "(Y)early", and live payRate equals
+    # annualPay on all 26 such rows (A-19).
+    b = Bundle.load(FIXTURE)
+    capture = next(c for c in b.captures if c.endpoint == "employee/v1/getPayRateHistory")
+    row = capture.body["payRateHistory"]["payRate"][0]
+    row["payPeriod"] = "Y"
+    employee = next(e for e in normalize(b).records["employees"] if e.id.endswith(f":{capture.params['employeeId']}"))
+    rates = [r for change in employee.compensation.history for r in change.rates if r.source_field.endswith("payRate")]
+    assert rates and rates[0].per.value == "YEAR"
+    assert "UNDOCUMENTED_CODE_EVIDENCED" in {d.code for d in employee.diagnostics}

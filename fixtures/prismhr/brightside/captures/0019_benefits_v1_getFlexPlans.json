@@ -1,0 +1,42 @@
+{
+  "seq": 19,
+  "endpoint": "benefits/v1/getFlexPlans",
+  "path": "benefits/v1/getFlexPlans",
+  "params": {
+    "clientId": "201",
+    "employeeId": "E1001"
+  },
+  "status": 200,
+  "body": {
+    "spendingAccounts": [
+      {
+        "planId": "FSA",
+        "account": [
+          {
+            "electAmount": "1200.00",
+            "deductAmount": "50.00",
+            "startDate": "2026-01-01",
+            "stopDate": "2026-12-31",
+            "accountId": null,
+            "annualMatch": null,
+            "companyMatch": null,
+            "deductOverrideAmt": null,
+            "forfeitAmount": null,
+            "overDate": null,
+            "payPeriodMatch": null,
+            "peoMatchHSA": null,
+            "period": null,
+            "reimburseAmount": null
+          }
+        ],
+        "accountsType": null,
+        "overrideEnd": null,
+        "overrideStart": null,
+        "year": null
+      }
+    ],
+    "errorCode": "0",
+    "errorMessage": "",
+    "extension": null
+  }
+}

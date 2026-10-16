@@ -14,7 +14,6 @@ from typing import Any
 from normalization.bundle import Bundle, Capture
 from normalization.canonical import codes as C
 from normalization.canonical.records import (
-    Address,
     BankAccount,
     BenefitDetail,
     Calculation,
@@ -67,6 +66,7 @@ from normalization.source import Notes, Src, coded, decimal, flag, iso_date, kno
 
 from ..common import (
     ZERO,
+    address,
     attach_checks,
     categorized,
     customer_category,
@@ -353,16 +353,17 @@ class _Legal:
                     frequency=self._frequency(g.get("payFrequency"), "payGroups[].payFrequency", notes),
                 )
             )
-        address = s.child("legalAddress") or Src({})
-        addr = Address(
-            type=C.AddressType.COMPANY,
-            line1=text(address.get("streetAddress1")),
-            line2=text(address.get("streetAddress2")),
-            city=text(address.get("city")),
-            state=text(address.get("state")),
-            postal_code=text(address.get("zipCode")),
+        company_address = s.child("legalAddress") or Src({})
+        addr = address(
+            C.AddressType.COMPANY,
+            company_address,
+            line1="streetAddress1",
+            line2="streetAddress2",
+            city="city",
+            state="state",
+            postal_code="zipCode",
         )
-        phone = text(address.get("phoneNumber"))
+        phone = text(company_address.get("phoneNumber"))
         legal_name = text(s.get("legalName"))
         status_raw = text(s.get("status"))
         self.out.add(
@@ -395,7 +396,7 @@ class _Legal:
                     )
                 ],
                 pay_groups=pay_groups,
-                addresses=[addr] if any([addr.line1, addr.city, addr.postal_code]) else [],
+                addresses=[addr] if addr else [],
                 phones=[Phone(type=C.PhoneType.MAIN, number=phone)] if phone else [],
                 provider_extensions=without_links(sanitize_extensions({**s.leftovers(), **client_src.leftovers()})),
                 diagnostics=notes.items,
@@ -535,30 +536,16 @@ class _Legal:
             notes.info("NO_PAY_RATE", "hourlyRate", "no nonzero hourly rate or per-pay salary; isolved's 0 means none")
         normal_hours = decimal(s.get("normalHours"))
         override = s.child("overrideAddress") or Src({})
+        street = {"line1": "address1", "line2": "address2", "city": "city", "state": "state", "postal_code": "zipCode"}
         addresses = [
             a
             for a in (
-                Address(
-                    type=C.AddressType.HOME,
-                    line1=text(name.get("address1")),
-                    line2=text(name.get("address2")),
-                    city=text(name.get("city")),
-                    state=text(name.get("state")),
-                    postal_code=text(name.get("zipCode")),
-                ),
+                address(C.AddressType.HOME, name, **street),
                 # EmployeeW2OverrideAddressModel: "An optional address override for use in tax forms or pay
                 # checks", so it is typed as the W-2 address, as PrismHR's is.
-                Address(
-                    type=C.AddressType.W2,
-                    line1=text(override.get("address1")),
-                    line2=text(override.get("address2")),
-                    city=text(override.get("city")),
-                    state=text(override.get("state")),
-                    postal_code=text(override.get("zipCode")),
-                    country=text(override.get("country")),
-                ),
+                address(C.AddressType.W2, override, **street, country="country"),
             )
-            if any([a.line1, a.city, a.postal_code])
+            if a
         ]
         phones = [
             Phone(type=t, number=n)
@@ -862,13 +849,14 @@ class _Legal:
                 birth_date = unmasked_date(c, "birthDate", notes)
             relationship = text(c.get("relationshipCode"))
             email = text(c.get("emailAddress"))
-            address = Address(
-                type=C.AddressType.MAILING,  # "the contact mailing address" (useEmployeeAddress)
-                line1=text(c.get("address1")),
-                line2=text(c.get("address2")),
-                city=text(c.get("city")),
-                state=text(c.get("state")),
-                postal_code=text(c.get("zipCode")),
+            mailing = address(  # "the contact mailing address" (useEmployeeAddress)
+                C.AddressType.MAILING,
+                c,
+                line1="address1",
+                line2="address2",
+                city="city",
+                state="state",
+                postal_code="zipCode",
             )
             order = c.get("emergencyCallOrder")
             contacts.append(
@@ -896,7 +884,7 @@ class _Legal:
                         if n
                     ],
                     emails=[Email(type=C.EmailType.MAIN, address=email)] if email else [],
-                    address=address if any([address.line1, address.city, address.postal_code]) else None,
+                    address=mailing,
                     source_field=c.path,
                 )
             )
@@ -1123,8 +1111,12 @@ class _Legal:
                     s.get(key)
             if amount is None and percent is None:
                 notes.warn("AMOUNT_MISSING", "amount/percent", "neither an amount nor a percent was sent")
-            basis_raw = text(s.get("percentageOf"))
+            basis_raw = text(s.data.get("percentageOf"))
             basis = I.PERCENTAGE_OF.get(basis_raw or "", C.CalculationBasis.UNSPECIFIED)
+            if basis_raw in I.PERCENTAGE_OF:
+                s.get("percentageOf")
+            elif basis_raw:  # not read, so it stays as sent in provider_extensions
+                notes.warn("UNMAPPED_CODE", "percentageOf", "not one of the documented bases", basis_raw)
             calculation = Calculation(
                 method=Coded[C.CalculationMethod](
                     value=C.CalculationMethod.PERCENT
@@ -1220,7 +1212,13 @@ class _Legal:
                 PayrollRun(
                     id=canonical_id,
                     source=self._source(
-                        endpoints, clientId=self.client_id, legalId=self.legal_id, payGroupId=group, payrollRunId=run_id
+                        endpoints,
+                        clientId=self.client_id,
+                        legalId=self.legal_id,
+                        payGroupId=group,
+                        payrollRunId=run_id,
+                        # The run number links checks to the run (A-40); kept so the link can be checked.
+                        **({"runNumber": run_number} if run_number else {}),
                     ),
                     company_id=self.company_id,
                     pay_date=pay_date,
@@ -1412,7 +1410,8 @@ class _Legal:
                 )
             )
         # The check list has no deposit lines (A-51); its deposit total stands in for them.
-        deposited = decimal(s.get("directDepositAmount")) if s.get("directDeposits") is None else None
+        # Peeked, not read: reading the list would mark every deposit field as used, so unmapped ones would vanish.
+        deposited = decimal(s.get("directDepositAmount")) if s.data.get("directDeposits") is None else None
         if deposited not in (None, ZERO):
             payments.append(
                 PaymentLine(

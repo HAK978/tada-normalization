@@ -72,6 +72,21 @@ REFERENCE = {
     },
 }
 STATUSES = ("mapped", "kept", "lost", "dropped", "reference", "unused")
+# Responses no converter reads at all, on purpose. Any other wholly unread response fails the command: data was
+# fetched and nothing kept it (A-62).
+UNREAD_BY_DESIGN = {
+    "isolved": {
+        "api/clients/{client}/legals/{legal}/paygroupId/{id}/payrollRunHistory": (
+            "the run list; a run whose detail was fetched is read from the detail"
+        ),
+        "api/system/payTypes": "the system pay type list the PAY_TYPE table quotes; employees send their description",
+        "api/lookup/ethnicorigins": "the ethnicity list; employees send the description, kept with its code",
+    },
+    "ukg-ready": {
+        f"rest/v2/companies/{{company}}/lookup/{name}": "a customer code list; records carry each code's name"
+        for name in ("deduction-codes", "earning-codes", "pay-statement-types", "payroll-types")
+    },
+}
 
 
 @dataclass
@@ -87,6 +102,15 @@ class Coverage:
     # How many employee records have each canonical field (A-74), and how many records there are.
     employee_fields: Counter = field(default_factory=Counter)
     employees: int = 0
+
+    @property
+    def unread(self) -> list[str]:
+        """Endpoints whose responses no converter read at all, other than those unread by design. Should be empty."""
+        statuses: dict[str, set[str]] = {}
+        for (endpoint, _), counts in self.fields.items():
+            statuses.setdefault(endpoint, set()).update(counts)
+        known = UNREAD_BY_DESIGN.get(self.provider, {})
+        return sorted(e for e, found in statuses.items() if found == {"unused"} and e not in known)
 
     @property
     def lost(self) -> list[tuple[str, str]]:

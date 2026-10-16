@@ -1,0 +1,60 @@
+{
+  "seq": 18,
+  "endpoint": "benefits/v1/getRetirementPlan",
+  "path": "benefits/v1/getRetirementPlan",
+  "params": {
+    "clientId": "201",
+    "employeeId": "E1001"
+  },
+  "status": 200,
+  "body": {
+    "retirementPlan": {
+      "planId": "401k",
+      "status": "A",
+      "statusDate": "2024-01-01",
+      "matchEligible": true,
+      "catchupStartAtLimit": false,
+      "extraElectiveAmt": "0.00",
+      "planDetail": [
+        {
+          "detailDate": "2024-01-01",
+          "electivePercent": "6.00",
+          "catchupPercent": "2.00",
+          "rothPercent": "0.00",
+          "catchupAmount": null,
+          "electiveAmount": null,
+          "flatMaximumPct": null,
+          "postTaxAmount": null,
+          "postTaxPercent": null,
+          "rothAmount": null,
+          "rothCatchupAmt": null,
+          "rothCatchupPct": null
+        }
+      ],
+      "checksum": "rp-1",
+      "benefitGroup": null,
+      "catchupDeductStop": null,
+      "extraAddPctFICA": null,
+      "extraEnd": null,
+      "extraFromDate": null,
+      "extraMatchAmt": null,
+      "extraMatchMethod": null,
+      "extraNonElectMatch": null,
+      "extraNonelMethod": null,
+      "extraRothAmt": null,
+      "extraSafe1Match": null,
+      "extraSafe1Method": null,
+      "extraSafe2Match": null,
+      "extraSafe2Method": null,
+      "extraVoucherTypes": null,
+      "flatMaxPercent": null,
+      "includeOrExclude": null,
+      "loanPaymentCycle": null,
+      "matchStartsOn": null,
+      "planDetailsChecksum": null
+    },
+    "errorCode": "0",
+    "errorMessage": "",
+    "extension": null
+  }
+}

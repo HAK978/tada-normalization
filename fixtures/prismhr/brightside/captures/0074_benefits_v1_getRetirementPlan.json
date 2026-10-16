@@ -1,0 +1,16 @@
+{
+  "seq": 74,
+  "endpoint": "benefits/v1/getRetirementPlan",
+  "path": "benefits/v1/getRetirementPlan",
+  "params": {
+    "clientId": "201",
+    "employeeId": "E1005"
+  },
+  "status": 404,
+  "body": {
+    "retirementPlan": null,
+    "errorCode": "404",
+    "errorMessage": "Retirement plans for employee E1005 in client 201 does not exist.",
+    "extension": null
+  }
+}

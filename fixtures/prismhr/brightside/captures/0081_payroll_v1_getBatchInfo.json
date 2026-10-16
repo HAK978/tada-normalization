@@ -1,0 +1,34 @@
+{
+  "seq": 81,
+  "endpoint": "payroll/v1/getBatchInfo",
+  "path": "payroll/v1/getBatchInfo",
+  "params": {
+    "clientId": "201",
+    "batchId": "30116"
+  },
+  "status": 200,
+  "body": {
+    "batchControl": {
+      "batchStatus": "COMP",
+      "batchId": "30116",
+      "payDate": "2026-10-02",
+      "batchDescription": "30116 - 2026-10-02",
+      "batchType": "V",
+      "processor": "synthetic",
+      "deliveryMethod": "ELEC",
+      "voucher": [
+        {
+          "payGroupId": "W",
+          "periodStart": "2026-09-21",
+          "periodEnd": "2026-09-27",
+          "weeksWorked": 1.0,
+          "deductPeriod": "1",
+          "payPeriod": "40"
+        }
+      ]
+    },
+    "errorCode": "0",
+    "errorMessage": "",
+    "extension": null
+  }
+}

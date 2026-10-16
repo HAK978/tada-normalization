@@ -1,0 +1,44 @@
+{
+  "seq": 70,
+  "endpoint": "employee/v1/getHistory",
+  "path": "employee/v1/getHistory",
+  "params": {
+    "clientId": "201",
+    "employeeId": "E1005"
+  },
+  "status": 200,
+  "body": {
+    "historyRecord": [
+      {
+        "type": "statusChange",
+        "effectiveDate": "2021-03-15",
+        "statusChange": {
+          "employeeStatusCode": "A",
+          "employeeTypeCode": "S",
+          "reason": ""
+        }
+      },
+      {
+        "type": "positionChange",
+        "effectiveDate": "2021-03-15",
+        "newPositionCode": "DRIVER"
+      },
+      {
+        "type": "payChange",
+        "effectiveDate": "2025-01-01",
+        "payChange": {
+          "newPayRate": "40.00",
+          "payPeriod": "H",
+          "payMethod": "H",
+          "annualPay": "83200.00",
+          "hourlyRate": "40.00",
+          "reason": "Merit",
+          "newStdHours": null
+        }
+      }
+    ],
+    "errorCode": "0",
+    "errorMessage": "",
+    "extension": null
+  }
+}

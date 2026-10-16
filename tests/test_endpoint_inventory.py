@@ -41,3 +41,24 @@ def test_decisions_use_the_known_reasons():
     known = {E.SAME, E.WORKFLOW, E.CONFIG, E.UNREACHABLE, E.EMPTY_LIVE, E.REFUSED_LIVE, E.OUT, E.PRIVATE}
     assert {disposition for disposition, _ in E.DECISIONS.values()} <= known
     assert all(reason.strip() for _, reason in E.DECISIONS.values())
+
+
+def test_an_endpoint_whose_response_looks_like_core_data_has_its_own_decision():
+    # Topic rules read an endpoint's tag or path. Twice they filed deduction setup under "benefits", so an
+    # endpoint whose response uses a core topic's vocabulary needs a decision of its own (A-74).
+    for provider in E.PROVIDERS:
+        flagged = [(entry.path, scores) for entry, scores in E.looks_like_core_data(provider)]
+        assert not flagged, f"{provider}: decide these one by one: {flagged}"
+
+
+@pytest.mark.parametrize(
+    "path",
+    [
+        "/benefits/v1/getRetirementLoans",
+        "/benefits/v1/getRetirementPlan",
+        "/benefits/v1/getFlexPlans",
+        "/benefits/v1/getBenefitAdjustments",
+    ],
+)
+def test_the_content_check_catches_the_deduction_setup_that_topic_rules_missed(path):
+    assert E.core_scores("prismhr", path)[3] >= E.CONTENT_THRESHOLD

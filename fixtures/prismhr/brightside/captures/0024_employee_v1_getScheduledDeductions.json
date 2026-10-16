@@ -1,0 +1,30 @@
+{
+  "seq": 24,
+  "endpoint": "employee/v1/getScheduledDeductions",
+  "path": "employee/v1/getScheduledDeductions",
+  "params": {
+    "clientId": "201",
+    "employeeId": "E1002"
+  },
+  "status": 200,
+  "body": {
+    "scheduledDeduction": [
+      {
+        "deductionCode": "UNIFORM",
+        "checkStubDescription": "",
+        "status": "O",
+        "amount": 15.0,
+        "startDate": "2026-09-21",
+        "stopDate": "2026-09-27",
+        "cutbackPayeeCode": ""
+      }
+    ],
+    "errorCode": "0",
+    "errorMessage": "",
+    "extension": null,
+    "sessionId": "",
+    "clientId": "201",
+    "employeeId": "E1002",
+    "checksum": "s-1"
+  }
+}

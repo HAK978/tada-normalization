@@ -128,6 +128,11 @@ def _prismhr(c: ReadOnlyClient, limits: Limits) -> None:
             # Garnishment details are refused live (A-09); this says whether the employee has any (A-83).
             c.get("employee/v1/checkForGarnishments", person)
             c.get("payroll/v1/getScheduledPayments", person)
+            # Deduction setup PrismHR files under benefits: the 401(k) plan's rules, FSA elections and benefit
+            # adjustments deducted over future paychecks (A-91).
+            c.get("benefits/v1/getRetirementPlan", person)
+            c.get("benefits/v1/getFlexPlans", person)
+            c.get("benefits/v1/getBenefitAdjustments", person)
             c.get("employee/v1/getScheduledDeductions", person)
             c.get("deductions/v1/getDeductions", {**person, "options": ""})
             c.get("deductions/v1/getVoluntaryRecurringDeductions", person)

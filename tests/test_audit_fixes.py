@@ -180,3 +180,36 @@ def test_a_prism_pay_card_account_keeps_only_its_last_4():
         "clientMaster.payCardAccount": "***6789"
     }
     assert sweep({"clientMaster": {"payCardAccount": 123456789}}) == {"clientMaster": {"payCardAccount": "***6789"}}
+
+
+# ---------------------------------------------------------------- the audit of 2026-10-15 (Codex): partial addresses
+
+
+def test_a_ukg_address_with_a_state_but_no_street_is_kept():
+    # UKG requires only country in an address (#/schemas/106 address), so a state without a street is valid.
+    b = bundle("ukg-ready")
+    capture(b, "rest/v2/companies/{company}/employees/{id}", "/5001").body["mailing_address"] = {
+        "country": "CAN",
+        "state_code": "ON",
+    }
+    mailing = [a for a in one(normalize(b), "employees", ":5001").addresses if a.type is C.AddressType.MAILING]
+    assert [(a.state, a.country) for a in mailing] == [("ON", "CAN")]
+
+
+def test_an_address_that_is_only_a_country_stays_as_sent():
+    # A country alone may be a provider default, so it isn't an address; it is kept, never dropped (A-62).
+    b = bundle("ukg-ready")
+    capture(b, "rest/v2/companies/{company}/employees/{id}", "/5001").body["mailing_address"] = {"country": "CAN"}
+    employee = one(normalize(b), "employees", ":5001")
+    assert not [a for a in employee.addresses if a.type is C.AddressType.MAILING]
+    assert employee.provider_extensions["mailing_address.country"] == "CAN"
+
+
+def test_an_isolved_contact_with_only_a_state_keeps_it():
+    b = bundle("isolved")
+    contact = capture(b, "api/clients/{client}/legals/{legal}/employees/{id}/contacts", "/9001/contacts").body[0]
+    for key in ("address1", "address2", "city", "zipCode"):
+        contact.pop(key, None)
+    contacts = one(normalize(b), "employees", ":9001").personal.contacts
+    found = next(c for c in contacts if c.source_id == str(contact["id"]))
+    assert found.address is not None and found.address.state == contact["state"]

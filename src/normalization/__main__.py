@@ -201,8 +201,11 @@ def _coverage(args: argparse.Namespace) -> int:
     lost = [(r.provider, endpoint, path) for r in results for endpoint, path in r.lost]
     for provider, endpoint, path in lost:
         print(f"[{provider}] {endpoint} {path} is neither mapped nor kept: lost", file=sys.stderr)
+    unread = [(r.provider, endpoint) for r in results for endpoint in r.unread]
+    for provider, endpoint in unread:
+        print(f"[{provider}] {endpoint}: no converter reads this response at all", file=sys.stderr)
     print(f"written to {out}")
-    return 1 if twice or lost else 0
+    return 1 if twice or lost or unread else 0
 
 
 def _write_dry_run(args: argparse.Namespace) -> int:

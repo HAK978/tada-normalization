@@ -1,0 +1,16 @@
+{
+  "seq": 33,
+  "endpoint": "benefits/v1/getFlexPlans",
+  "path": "benefits/v1/getFlexPlans",
+  "params": {
+    "clientId": "201",
+    "employeeId": "E1002"
+  },
+  "status": 200,
+  "body": {
+    "spendingAccounts": [],
+    "errorCode": "0",
+    "errorMessage": "",
+    "extension": null
+  }
+}

@@ -43,6 +43,7 @@ ALIASES = {
         "employee/v1/getEmployee": {"employerId": "employerIds"},
         "employee/v1/getHistory": {"historyRecord": "historyRecords"},
         "clientMaster/v1/getAllPrismClientContacts": {"prismClientContact": "prismClientContacts"},
+        "benefits/v1/getRetirementPlan": {"planDetail": "planDetails"},
     },
 }
 

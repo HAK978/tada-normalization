@@ -1,0 +1,58 @@
+{
+  "seq": 28,
+  "endpoint": "employee/v1/getHistory",
+  "path": "employee/v1/getHistory",
+  "params": {
+    "clientId": "201",
+    "employeeId": "E1002"
+  },
+  "status": 200,
+  "body": {
+    "historyRecord": [
+      {
+        "type": "statusChange",
+        "effectiveDate": "2023-06-01",
+        "statusChange": {
+          "employeeStatusCode": "A",
+          "employeeTypeCode": "PT",
+          "reason": ""
+        }
+      },
+      {
+        "type": "positionChange",
+        "effectiveDate": "2023-06-01",
+        "newPositionCode": "DRIVER"
+      },
+      {
+        "type": "payChange",
+        "effectiveDate": "2025-01-01",
+        "payChange": {
+          "newPayRate": "22.50",
+          "payPeriod": "H",
+          "payMethod": "H",
+          "annualPay": "46800.00",
+          "hourlyRate": "22.50",
+          "reason": "Merit",
+          "newStdHours": null
+        }
+      },
+      {
+        "type": "departmentChange",
+        "effectiveDate": "2024-02-01",
+        "departmentChange": {
+          "departmentCode": "LOG"
+        }
+      },
+      {
+        "type": "benefitGroupChange",
+        "effectiveDate": "2024-01-01",
+        "benefitGroupChange": {
+          "benefitGroupCode": "PT"
+        }
+      }
+    ],
+    "errorCode": "0",
+    "errorMessage": "",
+    "extension": null
+  }
+}

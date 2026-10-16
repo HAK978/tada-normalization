@@ -45,7 +45,7 @@ Python 3.11 or newer.
 python3.11 -m venv .venv && source .venv/bin/activate   # or any Python 3.11+
 pip install -e ".[dev]"
 python -m normalization demo    # normalize every provider's synthetic scenario
-pytest                          # 237 tests, offline
+pytest                          # 256 tests, offline
 mypy                            # static type check: no issues
 ```
 
@@ -173,16 +173,19 @@ The main conventions:
 - **Money** is an exact decimal string, never a float and never rounded.
 - **Rates** always carry their period (`per`). **Quantities** carry a unit: hours, units or unknown.
 - **Percents** carry a scale. When a provider's scale (5 vs 0.05) isn't proven, the number stays null
-  and the raw value is kept. Live data proves it for PrismHR deductions and deposits and isolved deposits
-  (A-29).
+  and the raw value is kept. Only PrismHR deduction percents are proven, by arithmetic on their paycheck
+  lines (A-29).
 - **Derived values** are flagged, with their formula: UKG's gross and net, for example.
 - **Time-dependent values** (is this deposit active? which pay record is current?) are evaluated at an
   explicit `as_of` date: the fetch date, or a fixed date for fixtures.
-- **Lossless:** converters read every source field through a tracker, and whatever a record doesn't
-  map goes into its `provider_extensions`, sanitized. The coverage report shows each field's fate, and
-  fails if any field is neither mapped nor kept (A-62).
-- **Sensitive data:** SSNs and account numbers keep at most their last 4 digits, everywhere. Endpoints
-  that return full SSNs are deliberately not called (A-23).
+- **Nothing silently dropped:** converters read every source field through a tracker, and whatever a
+  record doesn't map goes into its `provider_extensions`, sanitized. The coverage report accounts for
+  every field (mapped, kept, or dropped with a stated reason) and fails if one is lost or a whole response
+  goes unread. Because "read" doesn't prove "kept", a value-tracing test plants a marker in each field of
+  the synthetic data and requires it to reach the output (A-62).
+- **Sensitive data:** SSNs and account numbers keep at most their last 4 digits, everywhere. UKG's
+  employee record carries the full SSN and is masked on arrival; the endpoints whose purpose is listing
+  full SSNs are deliberately not called (A-23).
 - **Paycheck lines are classified** in canonical terms: an earning's `kind` (how it is paid) and
   `category` (what it pays for: regular, overtime, vacation, ...), and a tax's `type` (federal income,
   Social Security, state unemployment, ...) with its `state` (A-67, A-68).
@@ -305,13 +308,19 @@ empty until a person fills them in.
    - percent scales rest on arithmetic only, never on how large a value is (A-29), and unknown yes/no
      values stay null (A-73);
    - PrismHR retirement loans are fetched (A-87), and several statements in these docs were corrected.
+7. **More audits, and a check for each kind of miss.** Two further audits, one of them adversarial, found
+   PrismHR client codes mixed with status classes (A-89), deduction setup filed under "benefits" again
+   (A-91), addresses read and then lost, and isolved statuses the organizer's notes point at (A-48). Each
+   was fixed, and where the miss had a kind, a check for the kind was added: endpoints are also judged by
+   what their responses contain, read values are traced to the output, wholly unread responses fail the
+   coverage report, and the README's numbers are tested against the code.
 
 AI assistance was used throughout, as the brief allows. Every mapping rests on cited spec text or
 counted live evidence.
 
 ## Testing
 
-`pytest` runs 237 offline tests (plus parametrized subtests). Nothing needs credentials or network.
+`pytest` runs 256 offline tests (plus parametrized subtests). Nothing needs credentials or network.
 
 - **Synthetic scenarios** (`fixtures/<provider>/brightside`) come from a seeded generator, and every
   response is validated against the provider's own published schema. They are full of real-world
@@ -330,7 +339,13 @@ counted live evidence.
   two outputs must differ. Each place where they may agree has a written reason; a new one fails the
   test.
 - **Endpoint inventory** (`tests/test_endpoint_inventory.py`, A-74): every read endpoint in the specs must
-  be fetched or carry a recorded reason, and every recorded reason must name a documented endpoint.
+  be fetched or carry a recorded reason, and every recorded reason must name a documented endpoint. An
+  endpoint whose response schema uses the vocabulary of employee, deposit, deduction or payroll data needs
+  a decision of its own, whatever its tag says.
+- **Value tracing** (`tests/test_value_tracing.py`, A-62): a unique marker planted in each mapped or kept
+  field must reach the output, or the field needs a written reason.
+- **The README itself** (`tests/test_cli.py`): its demo table and test count must match what the code
+  produces.
 - **Lookup references** (`tests/test_lookup_references.py`, A-85): the code tables must agree with the
   organizer's lookup files.
 - **Live client tests** reproduce scope, redirect and scrubbing attacks against a fake HTTP client.
@@ -387,12 +402,17 @@ The full list is in [ASSUMPTIONS.md](ASSUMPTIONS.md#known-limitations).
   show; their records say so (A-83).
 - **Endpoints not called:** documented employee data that was empty for every employee asked (PrismHR
   deduction arrears, UKG additional compensation, among others) or refused (isolved's year-to-date
-  accumulations) when tried during the endpoint check. Each is recorded with its reason (A-74).
-- **Out of scope:** HR areas the brief doesn't name (skills, education, certifications, training, time
-  off and benefit enrollment) aren't normalized. Its employee data is profile and contact, employment
-  status and dates, job and organization, and compensation; benefits appear in it only as contributions
-  on paychecks, which are covered. What a provider sends inside the employee record anyway, such as
-  PrismHR's skills, is kept (A-62, A-74).
+  accumulations) when tried during the endpoint check. Each is recorded with its reason (A-74). They
+  aren't in the crawl, so a tenant that has such data would need them added.
+- **Deduction setup kept, not mapped:** PrismHR's 401(k) plan rules, FSA elections and benefit
+  adjustments are kept as sent with the employee; the elections payroll applies come from its deduction
+  endpoints (A-91).
+- **Scope, as we read the brief:** its employee data names profile and contact, employment status and
+  dates, job and organization, and compensation, "including" those. We read that as the core of employee
+  data, so skills, education, certifications, training, time off and benefit enrollment aren't
+  normalized. This is our interpretation, not an exclusion the organizer made. Benefits appear in the
+  normalized data as contributions on paychecks and as deduction setup, and what a provider sends inside
+  the employee record anyway, such as PrismHR's skills, is kept (A-62, A-74).
 - **Mapped from documentation only:** isolved contacts are called but empty for every fetched employee
   (A-77).
 - **Values documented only by name:** UKG demographics, deposit account types and a few others are

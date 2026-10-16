@@ -1,0 +1,15 @@
+{
+  "seq": 92,
+  "endpoint": "benefits/v1/getRetirementLoans",
+  "path": "benefits/v1/getRetirementLoans",
+  "params": {
+    "clientId": "202"
+  },
+  "status": 200,
+  "body": {
+    "retirementLoan": [],
+    "errorCode": "0",
+    "errorMessage": "",
+    "extension": null
+  }
+}

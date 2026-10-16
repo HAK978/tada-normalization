@@ -1,0 +1,44 @@
+{
+  "seq": 100,
+  "endpoint": "employee/v1/getHistory",
+  "path": "employee/v1/getHistory",
+  "params": {
+    "clientId": "202",
+    "employeeId": "E2001"
+  },
+  "status": 200,
+  "body": {
+    "historyRecords": [
+      {
+        "type": "statusChange",
+        "effectiveDate": "2021-03-15",
+        "statusChange": {
+          "employeeStatusCode": "A",
+          "employeeTypeCode": "FT",
+          "reason": ""
+        }
+      },
+      {
+        "type": "positionChange",
+        "effectiveDate": "2021-03-15",
+        "newPositionCode": "BAKER"
+      },
+      {
+        "type": "payChange",
+        "effectiveDate": "2025-01-01",
+        "payChange": {
+          "newPayRate": "28.00",
+          "payPeriod": "H",
+          "payMethod": "H",
+          "annualPay": "58240.00",
+          "hourlyRate": "28.00",
+          "reason": "Merit",
+          "newStdHours": null
+        }
+      }
+    ],
+    "errorCode": "0",
+    "errorMessage": "",
+    "extension": null
+  }
+}

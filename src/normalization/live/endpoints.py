@@ -176,7 +176,12 @@ DECISIONS: dict[tuple[str, str], tuple[str, str]] = {
     (P, "/payroll/v1/reprintCheckStub"): (WORKFLOW, "generates a PDF"),
     (P, "/timesheet/v1/getBatchStatus"): (WORKFLOW, "the timesheet entry status of a batch"),
     # ------------------------------------------------------------------ PrismHR: other topics touching the five
-    (P, "/benefits/v1/getBenefitPlans"): (SAME, "the same plans as getActiveBenefitPlans"),
+    (P, "/benefits/v1/getBenefitPlans"): (
+        OUT,
+        "plans in every status, which getActiveBenefitPlans isn't: asked live on 2026-10-16, 794 of its 1,002 "
+        "plans were 'eligible, not enrolled' and 32 terminated or waived. Benefit enrollment and its history are "
+        "outside the five data types; the active plans, with their current employee contributions, are fetched",
+    ),
     (P, "/codeFiles/v1/getDeductionCodeDetails"): (
         SAME,
         "getClientCodes already returns each deduction code's classification; this one takes no clientId",
@@ -316,6 +321,89 @@ DECISIONS: dict[tuple[str, str], tuple[str, str]] = {
     # ------------------------------------------------------------------ UKG: other topics touching the five
     (U, UK + "/config/cost-centers/lists"): (CONFIG, "lists that group cost centers; a tree's name is its root's"),
     (U, UK + "/lookup/additional-compensation-types"): (CONFIG, "labels for additional compensation, which is empty"),
+    # ------------------------------------------------------------------ flagged by the content check
+    # Their responses use the vocabulary of a core topic (core_scores), so each is decided on its own, from its
+    # spec, instead of by its topic rule (A-74).
+    (P, "/applicant/v1/getJobApplicants"): (OUT, "job applicants, who aren't employees yet: hiring"),
+    (P, "/benefits/v1/get401KMatchRules"): (CONFIG, "the client's 401(k) matching rules: plan setup, not an election"),
+    (P, "/benefits/v1/getBenefitRule"): (CONFIG, "a benefit rule's setup, not an employee's election"),
+    (P, "/benefits/v1/getClientBenefitPlanSetupDetails"): (CONFIG, "the client's benefit plan setup"),
+    (P, "/benefits/v1/getEmployeePremium"): (
+        WORKFLOW,
+        "calculates premium and billing rates for one employee and plan on request; not a stored record",
+    ),
+    (P, "/benefits/v1/getEmployeeRetirementSummary"): (
+        SAME,
+        "each voucher's retirement amounts for a plan year, as the fetched vouchers' retirement breakdown",
+    ),
+    (P, "/benefits/v1/getGroupBenefitPlan"): (CONFIG, "a benefit group's plan setup"),
+    (P, "/benefits/v1/getGroupBenefitRates"): (CONFIG, "a plan's premium and billing rate tables"),
+    (P, "/benefits/v1/getPtoPlanDetails"): (OUT, "paid time off plan setup: time off"),
+    (P, "/clientMaster/v1/getClientBillingBankAccount"): (OUT, "the bank account the provider bills the client from"),
+    (P, "/clientMaster/v1/getClientLocationDetails"): (
+        CONFIG,
+        "a work location's setup, with its tax rates and the client's own bank and garnishment accounts",
+    ),
+    (P, "/clientMaster/v2/getClientLocationDetails"): (CONFIG, "a newer form of the location setup above"),
+    (P, "/codeFiles/v1/getDivisionCode"): (CONFIG, "the division code table, with general-ledger segments"),
+    (P, "/codeFiles/v1/getEeoCodes"): (CONFIG, "EEO code tables, read through the employee's own codes"),
+    (P, "/codeFiles/v1/getPositionCode"): (CONFIG, "the position code table, with general-ledger segments"),
+    (P, "/employee/v1/getI9Data"): (
+        OUT,
+        "Form I-9 data: identity documents, which are never kept (model §9); the employee record already has "
+        "citizenship status",
+    ),
+    (P, "/generalLedger/v1/getClientAccountingTemplate"): (OUT, "general-ledger setup: the client's accounting"),
+    (P, "/generalLedger/v1/getGLSetup"): (OUT, "general-ledger setup: the client's accounting"),
+    (P, "/payroll/v1/getBillingCodeTotalsByPayGroup"): (OUT, "what the provider bills the client: its own billing"),
+    (P, "/payroll/v1/getBillingRuleUnbundled"): (OUT, "the provider's billing rules for the client"),
+    (P, "/payroll/v1/getBillingVouchers"): (OUT, "the provider's invoices to the client, not employee pay"),
+    (P, "/payroll/v1/getBillingVouchersByBatch"): (OUT, "the provider's invoices to the client, by batch"),
+    (P, "/timesheet/v1/getTimeSheetData"): (
+        OUT,
+        "timesheets before payroll: timekeeping; paychecks carry the hours paid",
+    ),
+    (ISO, IE + "/absences"): (OUT, "absences: time off"),
+    (ISO, "/api/clients/{clientId}/ClientShifts/{shiftId}"): (OUT, "shift setup: timekeeping"),
+    (ISO, IL + "/bankaccounts"): (OUT, "the legal company's own bank accounts, which fund payroll"),
+    (ISO, IL + "/bankaccounts/{bankAccountId}"): (OUT, "one of the legal company's own bank accounts"),
+    (ISO, "/api/clients/{clientId}/options"): (
+        CONFIG,
+        "the client's settings, such as which personal fields are required",
+    ),
+    (ISO, IE + "/benefitUpdates"): (WORKFLOW, "what the employee may change in their benefits in self-service"),
+    (ISO, IE + "/benefits/openEnrollment"): (WORKFLOW, "open enrollment: the benefit election workflow"),
+    (ISO, IE + "/benefits/openEnrollment/{enrollmentPeriodId}/costAnalysis"): (
+        WORKFLOW,
+        "an open-enrollment cost preview",
+    ),
+    (ISO, IE + "/benefits/openEnrollment/{enrollmentPeriodId}/validationErrors"): (
+        WORKFLOW,
+        "validation errors of an open-enrollment session",
+    ),
+    (ISO, IE + "/benefits/openEnrollment/{enrollmentPeriodId}/elections/{benefitTypeId}"): (
+        WORKFLOW,
+        "the choices offered during open enrollment",
+    ),
+    (ISO, IE + "/benefits/openEnrollment/{enrollmentPeriodId}/bundleElections/{benefitGroupItemId}"): (
+        WORKFLOW,
+        "the bundled choices offered during open enrollment",
+    ),
+    (ISO, "/api/clients/{clientId}/generalledger/detail"): (OUT, "general-ledger postings of payroll: accounting"),
+    (ISO, "/api/clients/{clientId}/generalledger/summary"): (OUT, "general-ledger totals of payroll: accounting"),
+    (ISO, IL + "/laborGlRules"): (CONFIG, "rules that post labor and garnishments to general-ledger accounts"),
+    (ISO, IL + "/laborGlRules/{id}"): (CONFIG, "one labor general-ledger rule"),
+    (ISO, "/api/systembankaccounts"): (OUT, "the provider's own bank accounts"),
+    (ISO, "/api/systembankaccounts/{systemBankAccountId}"): (OUT, "one of the provider's own bank accounts"),
+    (ISO, IE + "/timecardView"): (OUT, "timecards: timekeeping; checks carry the hours paid"),
+    (ISO, IE + "/timecardView/{year}/{month}/{day}"): (OUT, "one day's timecard: timekeeping"),
+    (ISO, IL + "/scheduleView"): (OUT, "work schedules: timekeeping"),
+    (ISO, "/api/clients/{clientId}/timecardVerification/employeeStatusForDate"): (
+        OUT,
+        "timecard verification status for a date: timekeeping",
+    ),
+    (U, UK + "/applicants/(account_id)"): (OUT, "a job applicant: hiring"),
+    (U, UK + "/benefits/(id)"): (CONFIG, "a company benefit plan's setup; each employee's plans come from /benefits"),
 }
 
 
@@ -550,3 +638,94 @@ def inventory(provider: str) -> tuple[Endpoint, ...]:
             disposition, reason = UNDECIDED, f"holds {TOPICS[t]} data, and no decision is recorded"
         entries.append(Endpoint(provider, path, t, disposition, reason))
     return tuple(entries)
+
+
+# ---------------------------------------------------------------------- content check
+
+# Topic rules read an endpoint's tag or path, not what it returns, and twice they filed deduction setup under
+# "benefits" (retirement loans; retirement, flex and adjustment plans). So each response schema is also
+# scored by content: how many of its properties, by name or description, use the vocabulary of each core
+# topic. An endpoint that reaches CONTENT_THRESHOLD in a core topic needs a decision of its own; a topic rule
+# alone is not enough (A-74).
+CORE_TERMS = {
+    1: r"birth ?date|date of birth|hire ?date|rehire|termination date|\bssn\b|social security|gender|marital"
+    r"|ethnic|citizenship|seniority",
+    2: r"routing|transit (?:number|num)|bank account|account (?:number|num)|account type|direct deposit|prenote"
+    r"|pre-note",
+    3: r"deduct|garnish|elective|catch ?-?up|payback|contribution|arrears|\bloan",
+    4: r"gross (?:pay|wages)|net pay|check (?:number|num|date)|pay date|voucher|earning|withh|taxable wage",
+}
+CONTENT_THRESHOLD = 3
+
+
+def _words(name: str) -> str:
+    return re.sub(r"([a-z0-9])([A-Z])", r"\1 \2", name).replace("_", " ").lower()
+
+
+def _properties(schema: object, root: dict, out: list[str], depth: int = 0, seen: frozenset[str] = frozenset()) -> None:
+    """Each property under a response schema, as "name words | description", following $ref within root."""
+    if depth > 6 or not isinstance(schema, dict):
+        return
+    ref = schema.get("$ref")
+    if isinstance(ref, str):
+        if ref in seen or not ref.startswith("#/"):
+            return
+        node: object = root
+        for part in ref[2:].split("/"):
+            node = node.get(part, {}) if isinstance(node, dict) else {}
+        _properties(node, root, out, depth + 1, seen | {ref})
+        return
+    for key in ("allOf", "anyOf", "oneOf"):
+        for part in schema.get(key) or []:
+            _properties(part, root, out, depth + 1, seen)
+    _properties(schema.get("items"), root, out, depth + 1, seen)
+    for name, prop in (schema.get("properties") or {}).items():
+        description = prop.get("description", "") if isinstance(prop, dict) else ""
+        out.append(f"{_words(name)} | {str(description).lower()}")
+        _properties(prop, root, out, depth + 1, seen)
+
+
+@lru_cache(maxsize=None)
+def _document(provider: str) -> dict:
+    name = {
+        "prismhr": "prismhr/openapi/prismhr-2025.09.openapi.json",
+        "isolved": "isolved/openapi/isolved-v6.swagger.json",
+        "ukg-ready": "ukg-ready/reference-schemas.json",
+    }[provider]
+    document: dict = json.loads((CONTRACTS / name).read_text(encoding="utf-8"))
+    return document
+
+
+def response_properties(provider: str, path: str) -> list[str]:
+    """The properties of an endpoint's documented 200 response. UKG documents 260 of its 300 read endpoints
+    with a schema; the others have none to score."""
+    out: list[str] = []
+    document = _document(provider)
+    if provider == "ukg-ready":
+        page = "reference-docs/res/__" + path.lstrip("/").replace("/", "__") + ".html"
+        for block in document["schemas"]:
+            if block["source_page"] == page and block["method"] == "GET" and isinstance(block["schema"], dict):
+                _properties(block["schema"], block["schema"], out)
+        return out
+    response = ((document["paths"][path].get("get") or {}).get("responses") or {}).get("200") or {}
+    schema = ((response.get("content") or {}).get("application/json") or {}).get("schema") or response.get("schema")
+    _properties(schema, document, out)
+    return out
+
+
+def core_scores(provider: str, path: str) -> dict[int, int]:
+    """For each core topic, how many response properties use its vocabulary."""
+    properties = response_properties(provider, path)
+    return {t: sum(1 for p in properties if re.search(pattern, p)) for t, pattern in CORE_TERMS.items()}
+
+
+def looks_like_core_data(provider: str) -> list[tuple[Endpoint, dict[int, int]]]:
+    """Endpoints decided only by a topic rule whose response looks like core data: each needs its own decision."""
+    found = []
+    for entry in inventory(provider):
+        if entry.disposition == FETCHED or (provider, entry.path) in DECISIONS:
+            continue
+        scores = core_scores(provider, entry.path)
+        if max(scores.values()) >= CONTENT_THRESHOLD:
+            found.append((entry, scores))
+    return found

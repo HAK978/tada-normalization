@@ -90,7 +90,8 @@ HOURLY_PAY_PERIOD = {
 }
 UNDOCUMENTED_HOURLY_PAY_PERIOD = {"A"}
 
-# PayRate/payPeriod ("W, B, S, M, A (annually), or H")
+# PayRate/payPeriod ("W, B, S, M, A (annually), or H"). Live, 26 history rows send Y, which this field doesn't
+# document but Compensation/hourlyPayPeriod documents as "(Y)early"; on all 26, payRate equals annualPay (A-19).
 PAY_RATE_PERIOD = {
     "W": RatePeriod.WEEK,
     "B": RatePeriod.BIWEEK,
@@ -98,7 +99,9 @@ PAY_RATE_PERIOD = {
     "M": RatePeriod.MONTH,
     "A": RatePeriod.YEAR,
     "H": RatePeriod.HOUR,
+    "Y": RatePeriod.YEAR,
 }
+UNDOCUMENTED_PAY_RATE_PERIOD = {"Y"}
 
 # Person/gender lists "M, F, X or D" without meanings; NewHireEmployee/gender, the same employee field when it
 # is set, defines them: "'M' (male), 'F' (female), 'X' (non-binary), 'D' (declined) or 'U' (unknown)" (A-44).
@@ -338,4 +341,8 @@ EMPTY_MESSAGES = {
     "payroll/v1/getBatchListByDate": ("No batches could be found", "No batches exist"),
     # HTTP 404 "Scheduled payment for employee '<id>' in client '<id>' does not exist." (live, A-70)
     "payroll/v1/getScheduledPayments": ("Scheduled payment for employee",),
+    # HTTP 404 "Retirement plans for employee <id> in client <id> does not exist." and "No benefit adjustments
+    # found for employee <id> and client <id>" (live, A-91)
+    "benefits/v1/getRetirementPlan": ("Retirement plans for employee",),
+    "benefits/v1/getBenefitAdjustments": ("No benefit adjustments found",),
 }
