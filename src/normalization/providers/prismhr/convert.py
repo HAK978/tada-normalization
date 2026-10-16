@@ -1204,6 +1204,22 @@ class _Client:
                         continue
                     first[key] = row
                     seen[key] = self._election(Src(row, f"{body_key}.deduction[{i}]"), employee_id, endpoint)
+        # getDeductions lists a loan's repayment with the loan's ID, and getEmployeeLoans the loan itself: one
+        # election, so the two become one record (A-64).
+        repaying: dict[tuple[str, str | None], DeductionElection] = {
+            (e.code, e.loan_or_garnishment_id): e for e in seen.values() if e.loan_or_garnishment_id
+        }
+        for capture in self.bundle.ok(
+            "deductions/v1/getEmployeeLoans", clientId=self.client_id, employeeId=employee_id
+        ):
+            for i, row in enumerate(capture.body.get("employeeLoanDetail") or []):
+                s = Src(row, f"employeeLoanDetail[{i}]")
+                loan = self._loan(s, employee_id)
+                election = repaying.get((loan.code, loan.loan_or_garnishment_id))
+                if election is None:
+                    self.out.add("deduction_elections", loan)
+                else:
+                    self._merge_loan(election, loan, s.path)
         for election in seen.values():
             self.out.add("deduction_elections", election)
         for capture in self.bundle.ok(
@@ -1211,11 +1227,36 @@ class _Client:
         ):
             for i, row in enumerate(capture.body.get("scheduledDeduction") or []):
                 self.out.add("deduction_elections", self._scheduled(Src(row, f"scheduledDeduction[{i}]"), employee_id))
-        for capture in self.bundle.ok(
-            "deductions/v1/getEmployeeLoans", clientId=self.client_id, employeeId=employee_id
-        ):
-            for i, row in enumerate(capture.body.get("employeeLoanDetail") or []):
-                self.out.add("deduction_elections", self._loan(Src(row, f"employeeLoanDetail[{i}]"), employee_id))
+
+    @staticmethod
+    def _merge_loan(election: DeductionElection, loan: DeductionElection, path: str) -> None:
+        """A loan joins the getDeductions election that repays it. getDeductions is mapped, as the first
+        endpoint is for any election (A-64): the loan adds its details, and a value the two disagree on is kept
+        and named in a SOURCE_CONFLICT warning."""
+        election.loan = loan.loan
+        election.source.endpoints = sorted(set(election.source.endpoints) | set(loan.source.endpoints))
+        election.source.ids |= {k: v for k, v in loan.source.ids.items() if k not in election.source.ids}
+        ours = election.calculation.amount if election.calculation else None
+        theirs = loan.calculation.amount if loan.calculation else None
+        differing: dict[str, Any] = {}
+        if theirs is not None and (ours is None or ours.amount != theirs.amount):
+            differing[f"{path}.paymentAmount"] = str(theirs.amount)
+        for name, key in (("effective_from", "startDate"), ("effective_to", "stopDate")):
+            value = getattr(loan, name)
+            if value is not None and value != getattr(election, name):
+                differing[f"{path}.{key}"] = value.isoformat()
+        election.provider_extensions |= loan.provider_extensions | differing
+        election.diagnostics += loan.diagnostics
+        if differing:
+            election.diagnostics.append(
+                Diagnostic(
+                    code="SOURCE_CONFLICT",
+                    severity=C.Severity.WARNING,
+                    field="employeeLoanDetail",
+                    message="getEmployeeLoans disagrees on this loan's election; getDeductions is mapped and the "
+                    "other values are kept: " + ", ".join(sorted(differing)),
+                )
+            )
 
     def _category(self, deduction_type: Any, field: str, notes: Notes):
         raw = text(deduction_type)

@@ -196,6 +196,32 @@ def test_a_ukg_address_with_a_state_but_no_street_is_kept():
     assert [(a.state, a.country) for a in mailing] == [("ON", "CAN")]
 
 
+def test_a_loan_listed_in_both_deduction_endpoints_is_one_election():
+    # getDeductions lists a loan's repayment with the loan's ID, and getEmployeeLoans the loan itself; live, both
+    # of the tenant's loans are in both. They are one election with the loan's details, and a value the two
+    # disagree on is kept and named (A-64).
+    def loans(start: str):
+        b = bundle("prismhr")
+        rows = next(
+            c for c in b.captures if c.endpoint == "deductions/v1/getDeductions" and c.params["employeeId"] == "E1002"
+        ).body["employeeDeductions"]["deduction"]
+        rows.append(
+            rows[0]
+            | {"deductionCode": "LOAN1", "deductionType": "L", "description": "Employee Loan", "amount": 25.0}
+            | {"startDate": start, "loanOrGarnishId": "1"}
+        )
+        out = normalize(b)
+        return [e for e in out.records["deduction_elections"] if e.code == "LOAN1" and e.employee_id.endswith(":E1002")]
+
+    [loan] = loans("2026-06-19")
+    assert loan.loan_or_garnishment_id == "1" and loan.loan.payback_amount.amount == Decimal("500.0")
+    assert loan.source.endpoints == ["deductions/v1/getDeductions", "deductions/v1/getEmployeeLoans"]
+    assert "SOURCE_CONFLICT" not in codes(loan)
+    [loan] = loans("2026-06-26")
+    assert loan.effective_from.isoformat() == "2026-06-26" and "SOURCE_CONFLICT" in codes(loan)
+    assert loan.provider_extensions["employeeLoanDetail[0].startDate"] == "2026-06-19"
+
+
 def test_a_second_key_for_the_same_value_is_dropped_as_a_copy_or_kept_when_it_differs():
     # UKG sends a state as state_code and as state, and a cost center's name as display_name and as name. The
     # first is mapped; a copy is dropped with that reason, and a different value is kept (A-62). Live, 85 of

@@ -45,7 +45,7 @@ Python 3.11 or newer.
 python3.11 -m venv .venv && source .venv/bin/activate   # or any Python 3.11+
 pip install -e ".[dev]"
 python -m normalization demo    # normalize every provider's synthetic scenario
-pytest                          # 262 tests, offline
+pytest                          # 263 tests, offline
 mypy                            # static type check: no issues
 ```
 
@@ -133,11 +133,11 @@ locked down (A-04):
 - Raw responses go to `.discovery/` and normalized output to `out/`. Both are gitignored and never
   committed.
 
-The final live fetch (2026-10-15) normalizes like this:
+The final live fetches (PrismHR on 2026-10-16, isolved and UKG on 2026-10-15) normalize like this:
 
 | Provider | Companies | Employees | Deposits | Elections | Runs | Paychecks | Checks passed |
 |---|---:|---:|---:|---:|---:|---:|---:|
-| PrismHR | 25 | 194 | 64 | 593 | 4,525 | 2,403 | 6,804 of 6,807 |
+| PrismHR | 25 | 194 | 64 | 591 | 4,525 | 2,403 | 6,804 of 6,807 |
 | isolved | 2 | 45 | 35 | 858 | 231 | 430 | 543 of 543 |
 | UKG Ready | 1 | 25 | 7 | 0 (the tenant returns 404, A-12) | 89 | 63 | 61 of 61 |
 
@@ -350,7 +350,7 @@ counted live evidence.
 
 ## Testing
 
-`pytest` runs 262 offline tests (plus parametrized subtests). Nothing needs credentials or network.
+`pytest` runs 263 offline tests (plus parametrized subtests). Nothing needs credentials or network.
 
 - **Synthetic scenarios** (`fixtures/<provider>/brightside`) come from a seeded generator, and every
   response is validated against the provider's own published schema. They are full of real-world

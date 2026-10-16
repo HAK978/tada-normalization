@@ -223,7 +223,10 @@ stable references used in the code, the tests and the other docs, so they don't 
   - **Conflicts are kept, not settled silently.** PrismHR elections from `getDeductions` and
     `getVoluntaryRecurringDeductions` match on their identity (code and dates), the same parts as the
     canonical ID. When the two disagree, the first is mapped, the other values are kept, and a
-    `SOURCE_CONFLICT` warning names them.
+    `SOURCE_CONFLICT` warning names them. A loan is the same: `getDeductions` lists its repayment with the
+    loan's ID and `getEmployeeLoans` the loan itself, so the two match on code and loan ID and become one
+    election, with the loan's details. Live, both of the tenant's loans are listed in both, and one has a
+    different start date in each, which the warning names.
   - **Zero is a value.** A UKG pay of 0 on a real compensation record is kept. Only the 1900-12-31
     placeholders, with no amount and 0 pay periods, are skipped, and their raw fields stay in
     `provider_extensions` (A-56).
