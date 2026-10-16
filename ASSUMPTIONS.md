@@ -225,6 +225,19 @@ is fetched (80 of them) or has a recorded reason it isn't, and a test keeps it t
 - **Scope, as we read the brief:** skills, education, certifications, training, time off and benefit
   enrollment aren't normalized. Benefits appear as paycheck contributions and as deduction setup, and what
   a provider sends inside the employee record anyway is kept [A-62], [A-74].
+- **Found by an outside review, not fixed for submission:**
+  - isolved's check list can return line items for every check with `includeDetails`; the crawl asks
+    only for the 40 checks it fetches in detail, so 390 list-only paychecks have no lines and say so
+    (`lines_fetched: false`) [A-51].
+  - A paycheck line for a deduction that wasn't taken (UKG "Discarded", "Arrearage Underfunded") has no
+    canonical status; with no amount it stays in `provider_extensions` [A-58].
+  - The full tenants, beyond the 25-employee sample, may settle what the sample couldn't: UKG labels
+    `NET_PAY` "% Of Net Pay" there, and PrismHR deposit percents could be checked against paychecks
+    [A-26], [A-29]. These conclusions rest on the sample [A-07].
+  - Smaller: 48 PrismHR runs have a period that ends before it starts, with no warning; a PrismHR
+    deduction's type can disagree with its label without a warning; ethnicity stays `UNMAPPED` though
+    isolved's lookup and PrismHR's EEO codes could define it; UKG's 1900-12-31 pay rows are skipped but
+    not described as placeholders by A-25.
 - **Provider risk:** UKG's deprecated deposit endpoint can stop working [A-14], and UKG offers no company
   details [A-15].
 - **Write path:** a dry run into UKG Ready that creates employees and doesn't update them. A request that
@@ -310,6 +323,7 @@ Every instruction in the brief (`ASSIGNMENT.md`) and the organizer's reference n
 [A-48]: docs/DECISION_LOG.md#a-48-isolved-employment-status-through-the-clients-status-table
 [A-49]: docs/DECISION_LOG.md#a-49-isolved-deduction-categories-come-from-the-client-pay-items-system-classification
 [A-50]: docs/DECISION_LOG.md#a-50-isolved-ssn-last-4-comes-from-check-records
+[A-51]: docs/DECISION_LOG.md#a-51-isolved-check-list-vs-check-detail-and-year-to-date-only-lines
 [A-52]: docs/DECISION_LOG.md#a-52-live-isolved-employee-records-dont-match-their-own-schema-in-two-ways
 [A-53]: docs/DECISION_LOG.md#a-53-isolved-earning-kinds-come-from-the-system-earning-each-pay-item-is-built-on
 [A-54]: docs/DECISION_LOG.md#a-54-gross-pay-and-gross-wages-mean-the-same-thing-for-every-provider

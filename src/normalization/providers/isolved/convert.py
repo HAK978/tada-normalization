@@ -1443,6 +1443,7 @@ class _Legal:
         has_lines = bool(earnings or taxes or deductions)
         type_raw = text(s.get("checkTypeDescription"))
         statement = PayStatement(
+            lines_fetched=detailed,
             id=self._id("pay_statement", check_id),
             source=self._source(
                 [E + "/checks/{id}" if detailed else "api/clients/{client}/legals/{legal}/checks"],

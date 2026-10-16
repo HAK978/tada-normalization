@@ -3966,6 +3966,7 @@
       "formula": "sum(employerContributions[].amount)"
      }
     },
+    "lines_fetched": true,
     "earnings": [
      {
       "code": "REG",
@@ -4584,6 +4585,7 @@
       "formula": "sum(employerContributions[].amount)"
      }
     },
+    "lines_fetched": true,
     "earnings": [
      {
       "code": "REG",
@@ -5219,6 +5221,7 @@
       "formula": "sum(employerContributions[].amount)"
      }
     },
+    "lines_fetched": true,
     "earnings": [
      {
       "code": "REG",
@@ -5593,6 +5596,7 @@
       "formula": "sum(employerContributions[].amount)"
      }
     },
+    "lines_fetched": true,
     "earnings": [
      {
       "code": "REG",
@@ -5777,6 +5781,7 @@
       "formula": "sum(employerContributions[].amount)"
      }
     },
+    "lines_fetched": true,
     "earnings": [
      {
       "code": "REG",
@@ -5990,6 +5995,7 @@
       "formula": "sum(employerContributions[].amount)"
      }
     },
+    "lines_fetched": true,
     "earnings": [
      {
       "code": "VAC",
@@ -6516,6 +6522,7 @@
       "formula": "sum(employerContributions[].amount)"
      }
     },
+    "lines_fetched": true,
     "earnings": [
      {
       "code": "BONUS",
@@ -6944,6 +6951,7 @@
       "formula": "sum(employerContributions[].amount)"
      }
     },
+    "lines_fetched": true,
     "earnings": [
      {
       "code": "REG",

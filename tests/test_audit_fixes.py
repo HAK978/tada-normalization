@@ -196,6 +196,15 @@ def test_a_ukg_address_with_a_state_but_no_street_is_kept():
     assert [(a.state, a.country) for a in mailing] == [("ON", "CAN")]
 
 
+@pytest.mark.parametrize("provider", ["isolved", "ukg-ready"])
+def test_a_paycheck_known_only_from_a_list_says_its_lines_are_unknown(provider):
+    # Its line lists are empty because the lines weren't fetched, not because there are none (A-51, A-70).
+    statements = normalize(bundle(provider)).records["pay_statements"]
+    listed = [s for s in statements if "DETAIL_NOT_FETCHED" in codes(s)]
+    assert listed and all(not s.lines_fetched and not s.taxes for s in listed)
+    assert all(s.lines_fetched for s in statements if s not in listed)
+
+
 def test_a_loan_listed_in_both_deduction_endpoints_is_one_election():
     # getDeductions lists a loan's repayment with the loan's ID, and getEmployeeLoans the loan itself; live, both
     # of the tenant's loans are in both, as E1002's loan 1 is in the scenario. They are one election with the

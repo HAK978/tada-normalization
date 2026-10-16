@@ -1506,6 +1506,11 @@
    "title": "Id",
    "type": "string"
   },
+  "lines_fetched": {
+   "default": true,
+   "title": "Lines Fetched",
+   "type": "boolean"
+  },
   "pay_date": {
    "anyOf": [
     {

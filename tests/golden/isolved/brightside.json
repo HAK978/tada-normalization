@@ -3147,6 +3147,7 @@
       "formula": "sum(benefits[].checkEmployerContribution)"
      }
     },
+    "lines_fetched": true,
     "earnings": [
      {
       "code": "Regular",
@@ -3574,6 +3575,7 @@
       "formula": "sum(benefits[].checkEmployerContribution)"
      }
     },
+    "lines_fetched": true,
     "earnings": [
      {
       "code": "Regular",
@@ -4134,6 +4136,7 @@
       "formula": "sum(benefits[].checkEmployerContribution)"
      }
     },
+    "lines_fetched": true,
     "earnings": [
      {
       "code": "Regular",
@@ -4622,6 +4625,7 @@
       "formula": "sum(benefits[].checkEmployerContribution)"
      }
     },
+    "lines_fetched": true,
     "earnings": [
      {
       "code": "Regular",
@@ -4969,6 +4973,7 @@
       "formula": "sum(benefits[].checkEmployerContribution)"
      }
     },
+    "lines_fetched": true,
     "earnings": [
      {
       "code": "1099 Comp",
@@ -5192,6 +5197,7 @@
       "formula": "sum(benefits[].checkEmployerContribution)"
      }
     },
+    "lines_fetched": true,
     "earnings": [
      {
       "code": "Bonus",
@@ -5539,6 +5545,7 @@
       "source_field": "netPay"
      }
     },
+    "lines_fetched": false,
     "earnings": [],
     "taxes": [],
     "deductions": [],

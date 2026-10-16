@@ -45,7 +45,7 @@ Python 3.11 or newer.
 python3.11 -m venv .venv && source .venv/bin/activate   # or any Python 3.11+
 pip install -e ".[dev]"
 python -m normalization demo    # normalize every provider's synthetic scenario
-pytest                          # 263 tests, offline
+pytest                          # 265 tests, offline
 mypy                            # static type check: no issues
 ```
 
@@ -64,7 +64,8 @@ garnishments that can't be read, and endpoints that refuse or don't exist, as on
 one is reported, not guessed. UKG values that are documented only by name (account types, gender,
 citizenship) are confirmed by the reviewed mapping file in `mappings/`, and each record says so (A-86).
 "Unavailable" counts requests that returned no data when data may exist. Their records say so, so an
-empty list in the output always means "none" (A-70).
+empty list in the output means "none" (A-70). The one exception is a paycheck known only from a list:
+its line lists are empty because the lines weren't fetched, and it says so with `lines_fetched: false`.
 
 It writes:
 
@@ -350,7 +351,7 @@ counted live evidence.
 
 ## Testing
 
-`pytest` runs 263 offline tests (plus parametrized subtests). Nothing needs credentials or network.
+`pytest` runs 265 offline tests (plus parametrized subtests). Nothing needs credentials or network.
 
 - **Synthetic scenarios** (`fixtures/<provider>/brightside`) come from a seeded generator, and every
   response is validated against the provider's own published schema. They are full of real-world

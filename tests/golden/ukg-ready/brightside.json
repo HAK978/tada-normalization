@@ -2401,6 +2401,7 @@
       "formula": "sum(deductions[].er_amount)"
      }
     },
+    "lines_fetched": true,
     "earnings": [
      {
       "code": "Salary",
@@ -2917,6 +2918,7 @@
       "formula": "sum(deductions[].er_amount)"
      }
     },
+    "lines_fetched": true,
     "earnings": [
      {
       "code": "Regular",
@@ -3261,6 +3263,7 @@
       "formula": "sum(deductions[].er_amount)"
      }
     },
+    "lines_fetched": true,
     "earnings": [
      {
       "code": "Commission",
@@ -3409,6 +3412,7 @@
      "source_field": "status"
     },
     "totals": {},
+    "lines_fetched": false,
     "earnings": [],
     "taxes": [],
     "deductions": [],

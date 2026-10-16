@@ -769,7 +769,7 @@
       ],
       "golden": {
         "file": "tests/golden/prismhr/brightside.json",
-        "sha256": "0414f6ec8ac81a15d441f2f24aa28f6f52753ca4f21cc348ab7667c8cab7b1d9"
+        "sha256": "f20f108ddccc0fd4c58851e6b3b64d84bc68507bfb25e3f9f72adb72085d3cce"
       }
     },
     {
@@ -1338,7 +1338,7 @@
       ],
       "golden": {
         "file": "tests/golden/isolved/brightside.json",
-        "sha256": "c7d3636cccdc6dcb9328af67723b2db8d82b0b68486f96ca3d6d21b4b66abd27"
+        "sha256": "63c60c7051450dc1a6ed40363cf6df67e03cfe7654d29239d9e2a92f72e84f00"
       }
     },
     {
@@ -1876,7 +1876,7 @@
       ],
       "golden": {
         "file": "tests/golden/ukg-ready/brightside.json",
-        "sha256": "b4424918c9e68a95d4a7404ee7f1c9b58a3bbe923691584f14e3be6754a55e27"
+        "sha256": "e195ed6191630c0fa39060aa92fdb7681ee28937e4ff1539bc63009b1c49fa50"
       }
     }
   ]

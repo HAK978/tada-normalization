@@ -1121,6 +1121,7 @@ class _Company:
         type_src = s.child("type") or Src({})
         type_name = text(type_src.get("display_name"))
         statement = PayStatement(
+            lines_fetched=detailed,
             id=self._id("pay_statement", statement_id),
             source=self._source(
                 [RUN + "/pay-statements/{id}" if detailed else RUN + "/pay-statements"],
