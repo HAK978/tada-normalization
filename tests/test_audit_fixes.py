@@ -196,6 +196,30 @@ def test_a_ukg_address_with_a_state_but_no_street_is_kept():
     assert [(a.state, a.country) for a in mailing] == [("ON", "CAN")]
 
 
+def test_a_second_key_for_the_same_value_is_dropped_as_a_copy_or_kept_when_it_differs():
+    # UKG sends a state as state_code and as state, and a cost center's name as display_name and as name. The
+    # first is mapped; a copy is dropped with that reason, and a different value is kept (A-62). Live, 85 of
+    # 422 paycheck cost centers have a name different from their display name.
+    b = bundle("ukg-ready")
+    employee = capture(b, "rest/v2/companies/{company}/employees/{id}", "/5001").body
+    employee["address"] |= {"state": "NC", "state_code": "NC"}
+    employee["mailing_address"] |= {"state": "North Carolina", "state_code": "NC"}
+    statement = capture(b, "rest/v2/companies/{company}/payrolls/{id}/pay-statements/{id}", "/7101").body
+    line = next(e for e in statement["earnings"] if e["earning"]["code"] == "Holiday")
+    line["cost_centers"] = [{"index": 0, "value": {"id": 6102, "display_name": "CLT Production", "name": "Production"}}]
+    out = normalize(b)
+    record = one(out, "employees", ":5001")
+    assert {a.type: a.state for a in record.addresses} == {C.AddressType.HOME: "NC", C.AddressType.MAILING: "NC"}
+    assert "address.state" not in record.provider_extensions
+    assert record.provider_extensions["mailing_address.state"] == "North Carolina"
+    paycheck = one(out, "pay_statements", ":7101")
+    holiday = next(e for e in paycheck.earnings if e.code == "Holiday")
+    assert holiday.allocation == {"cost_center[0]": "CLT Production"}
+    assert [v for k, v in paycheck.provider_extensions.items() if k.endswith("cost_centers[0].value.name")] == [
+        "Production"
+    ]
+
+
 def test_an_address_that_is_only_a_country_stays_as_sent():
     # A country alone may be a provider default, so it isn't an address; it is kept, never dropped (A-62).
     b = bundle("ukg-ready")

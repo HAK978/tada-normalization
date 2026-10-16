@@ -45,7 +45,7 @@ Python 3.11 or newer.
 python3.11 -m venv .venv && source .venv/bin/activate   # or any Python 3.11+
 pip install -e ".[dev]"
 python -m normalization demo    # normalize every provider's synthetic scenario
-pytest                          # 261 tests, offline
+pytest                          # 262 tests, offline
 mypy                            # static type check: no issues
 ```
 
@@ -350,7 +350,7 @@ counted live evidence.
 
 ## Testing
 
-`pytest` runs 261 offline tests (plus parametrized subtests). Nothing needs credentials or network.
+`pytest` runs 262 offline tests (plus parametrized subtests). Nothing needs credentials or network.
 
 - **Synthetic scenarios** (`fixtures/<provider>/brightside`) come from a seeded generator, and every
   response is validated against the provider's own published schema. They are full of real-world

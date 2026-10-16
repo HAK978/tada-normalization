@@ -1493,6 +1493,12 @@ zeros on the full fetch:
   request path, a list row its detail replaces) carry written reasons in the test. An address is kept
   when any part but the country is present; a country alone, which a provider may fill in by default, is
   left as sent.
+- **A value sent under two keys** (UKG's `state_code` and `state`, a cost center's `display_name` and
+  `name`, PrismHR's documented and live spellings of A-78) is mapped from the first one present. Another key
+  with the same value is dropped as a copy, with that reason; one with a different value is kept in
+  `provider_extensions`. Live, all 26 UKG addresses send the same state under both keys, and 85 of 422
+  paycheck cost centers have a `name` different from their `display_name` (always part of it), so those
+  names are kept.
 - **A response nobody reads fails too.** The command also fails when an endpoint's response goes wholly
   unread, except a short list of lookups unread by design, each with its reason (`UNREAD_BY_DESIGN`).
 - **What is kept where:** responses with no record of their own are kept with the record they describe:

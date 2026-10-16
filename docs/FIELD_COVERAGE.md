@@ -74,7 +74,7 @@ Sources:
 | isolved | `api/system/payTypes` | 2 | 0 | 0 | 0 | 0 | 0 | 2 |
 | ukg-ready | `rest/v2/companies/{company}/config/cost-centers` | 7 | 0 | 0 | 0 | 0 | 7 | 0 |
 | ukg-ready | `rest/v2/companies/{company}/employees` | 18 | 0 | 0 | 0 | 6 | 0 | 12 |
-| ukg-ready | `rest/v2/companies/{company}/employees/{id}` | 73 | 36 | 29 | 0 | 8 | 0 | 0 |
+| ukg-ready | `rest/v2/companies/{company}/employees/{id}` | 73 | 34 | 29 | 0 | 10 | 0 | 0 |
 | ukg-ready | `rest/v2/companies/{company}/employees/{id}/benefits` | 7 | 0 | 7 | 0 | 0 | 0 | 0 |
 | ukg-ready | `rest/v2/companies/{company}/employees/{id}/compensation/history` | 11 | 7 | 2 | 0 | 2 | 0 | 0 |
 | ukg-ready | `rest/v2/companies/{company}/employees/{id}/contacts` | 23 | 10 | 7 | 0 | 6 | 0 | 0 |
@@ -93,7 +93,7 @@ Sources:
 | ukg-ready | `rest/v2/companies/{company}/payrolls` | 14 | 8 | 2 | 0 | 4 | 0 | 0 |
 | ukg-ready | `rest/v2/companies/{company}/payrolls/{id}` | 13 | 8 | 2 | 0 | 3 | 0 | 0 |
 | ukg-ready | `rest/v2/companies/{company}/payrolls/{id}/pay-statements` | 11 | 0 | 0 | 0 | 1 | 0 | 10 |
-| ukg-ready | `rest/v2/companies/{company}/payrolls/{id}/pay-statements/{id}` | 78 | 30 | 48 | 0 | 0 | 0 | 0 |
+| ukg-ready | `rest/v2/companies/{company}/payrolls/{id}/pay-statements/{id}` | 78 | 29 | 48 | 0 | 1 | 0 | 0 |
 | ukg-ready | `rest/v2/companies/{company}/position/assignments/{id}` | 28 | 0 | 28 | 0 | 0 | 0 | 0 |
 
 ## Canonical employee fields
@@ -2123,7 +2123,7 @@ explains the zeros under Employee.
 | `address.address_line_2` | mapped |
 | `address.city` | mapped |
 | `address.country` | mapped |
-| `address.state` | mapped |
+| `address.state` | dropped: the same value as state_code |
 | `address.state_code` | mapped |
 | `address.zip` | mapped |
 | `cost_centers_info.defaults[].index` | mapped |
@@ -2152,7 +2152,7 @@ explains the zeros under Employee.
 | `mailing_address.address_line_1` | mapped |
 | `mailing_address.city` | mapped |
 | `mailing_address.country` | mapped |
-| `mailing_address.state` | mapped |
+| `mailing_address.state` | dropped: the same value as state_code |
 | `mailing_address.state_code` | mapped |
 | `mailing_address.zip` | mapped |
 | `managed_cost_centers_enabled` | kept |
@@ -2470,7 +2470,7 @@ explains the zeros under Employee.
 | `earnings[].cost_centers[].value.display_name` | mapped (406) / kept (16) |
 | `earnings[].cost_centers[].value.external_id` | kept |
 | `earnings[].cost_centers[].value.id` | kept |
-| `earnings[].cost_centers[].value.name` | mapped (406) / kept (16) |
+| `earnings[].cost_centers[].value.name` | kept (99) / dropped (323) |
 | `earnings[].cost_centers[].value.payroll_code` | kept |
 | `earnings[].date_range_from` | mapped |
 | `earnings[].date_range_to` | mapped |

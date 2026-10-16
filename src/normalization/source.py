@@ -71,12 +71,20 @@ class Src:
         return node
 
     def first(self, *keys: str) -> Any:
-        """The first key present with a non-empty value; every key tried is marked as read."""
-        found = None
+        """The value of the first key present with a non-empty value, which is read; empty keys are read too.
+        Another key with the same value is dropped as a copy; one with a different value is left unread, so it
+        is kept in provider_extensions instead of being lost (A-62)."""
+        found, found_key = None, None
         for key in keys:
-            value = self.get(key)
-            if found is None and value not in _EMPTY:
-                found = value
+            value = self._walk(key)
+            if value is _MISSING:
+                continue
+            if value in _EMPTY:
+                self.get(key)
+            elif found_key is None:
+                found, found_key = self.get(key), key
+            elif value == found:
+                self.mark(key, why=f"the same value as {found_key}")
         return found
 
     def mark(self, *keys: str, why: str | None = None) -> None:
