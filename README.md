@@ -138,7 +138,7 @@ The final live fetches (PrismHR on 2026-10-16, isolved and UKG on 2026-10-15) no
 | Provider | Companies | Employees | Deposits | Elections | Runs | Paychecks | Checks passed |
 |---|---:|---:|---:|---:|---:|---:|---:|
 | PrismHR | 25 | 194 | 64 | 591 | 4,525 | 2,403 | 6,804 of 6,807 |
-| isolved | 2 | 45 | 35 | 858 | 231 | 430 | 543 of 543 |
+| isolved | 2 | 45 | 35 | 10 | 231 | 430 | 543 of 543 |
 | UKG Ready | 1 | 25 | 7 | 0 (the tenant returns 404, A-12) | 89 | 63 | 61 of 61 |
 
 The 3 failed checks are two PrismHR vouchers that don't add up in PrismHR's own numbers. They are

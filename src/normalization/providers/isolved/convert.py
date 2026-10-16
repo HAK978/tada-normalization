@@ -130,6 +130,14 @@ def normalize(bundle: Bundle, as_of: date | None = None) -> Output:
     return out
 
 
+def _catalog(row: dict) -> bool:
+    """A pay item row with a negative ID is the client's catalog, not the employee's election: live, every
+    employee lists the same 19 such deduction rows, all with zero values, while the 7 rows with real IDs carry
+    the amounts (A-49). They are kept on the employee, as earning items are."""
+    value = row.get("id")
+    return isinstance(value, (int, float)) and not isinstance(value, bool) and value < 0
+
+
 class _Legal:
     def __init__(self, bundle: Bundle, client_id: str, legal_id: str, out: Output):
         self.bundle, self.client_id, self.legal_id, self.out = bundle, client_id, legal_id, out
@@ -676,7 +684,7 @@ class _Legal:
         # Earning and employer-side pay items have no record of their own; they are kept here (model §9),
         # minus the employee's own name and IDs that each item repeats.
         for i, row in enumerate(self._body_list(E + "/payItems", employee=employee_id)):
-            if text(row.get("payItemType")) != "Deduction":
+            if text(row.get("payItemType")) != "Deduction" or _catalog(row):
                 item = Src(row, f"payItems[{i}]")
                 item.mark(
                     "firstName", "lastName", "employeeId", "employeeNumber", why="the employee's own name and IDs"
@@ -1052,7 +1060,7 @@ class _Legal:
 
     def _elections(self, employee_id: str) -> None:
         for i, row in enumerate(self._body_list(E + "/payItems", employee=employee_id)):
-            if text(row.get("payItemType")) != "Deduction":
+            if text(row.get("payItemType")) != "Deduction" or _catalog(row):
                 continue
             notes = Notes()
             s = Src(row)

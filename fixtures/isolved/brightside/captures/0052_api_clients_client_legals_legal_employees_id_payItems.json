@@ -9,6 +9,111 @@
       "id": -1,
       "payItemId": -1,
       "payItemCode": null,
+      "payItemName": "401K",
+      "payItemType": "Deduction",
+      "employeeId": 9004,
+      "employeeNumber": "1004",
+      "firstName": "Devon",
+      "lastName": "Silva",
+      "referenceNumber": null,
+      "scheduleOverride": null,
+      "startDate": "2025-01-01T00:00:00",
+      "stopDate": null,
+      "calcParams": [
+        {
+          "paramType": "Amount",
+          "paramValue": 0.0
+        }
+      ]
+    },
+    {
+      "id": -2,
+      "payItemId": -2,
+      "payItemCode": null,
+      "payItemName": "401K Loan",
+      "payItemType": "Deduction",
+      "employeeId": 9004,
+      "employeeNumber": "1004",
+      "firstName": "Devon",
+      "lastName": "Silva",
+      "referenceNumber": null,
+      "scheduleOverride": null,
+      "startDate": "2025-01-01T00:00:00",
+      "stopDate": null,
+      "calcParams": [
+        {
+          "paramType": "Amount",
+          "paramValue": 0.0
+        }
+      ]
+    },
+    {
+      "id": -3,
+      "payItemId": -3,
+      "payItemCode": "DEN",
+      "payItemName": "Dental Pre-tax",
+      "payItemType": "Deduction",
+      "employeeId": 9004,
+      "employeeNumber": "1004",
+      "firstName": "Devon",
+      "lastName": "Silva",
+      "referenceNumber": null,
+      "scheduleOverride": null,
+      "startDate": "2025-01-01T00:00:00",
+      "stopDate": null,
+      "calcParams": [
+        {
+          "paramType": "Amount",
+          "paramValue": 0.0
+        }
+      ]
+    },
+    {
+      "id": -4,
+      "payItemId": -4,
+      "payItemCode": null,
+      "payItemName": "HSA After-tax",
+      "payItemType": "Deduction",
+      "employeeId": 9004,
+      "employeeNumber": "1004",
+      "firstName": "Devon",
+      "lastName": "Silva",
+      "referenceNumber": null,
+      "scheduleOverride": null,
+      "startDate": "2025-01-01T00:00:00",
+      "stopDate": null,
+      "calcParams": [
+        {
+          "paramType": "Amount",
+          "paramValue": 0.0
+        }
+      ]
+    },
+    {
+      "id": -5,
+      "payItemId": -5,
+      "payItemCode": null,
+      "payItemName": "Voluntary Life",
+      "payItemType": "Deduction",
+      "employeeId": 9004,
+      "employeeNumber": "1004",
+      "firstName": "Devon",
+      "lastName": "Silva",
+      "referenceNumber": null,
+      "scheduleOverride": null,
+      "startDate": "2025-01-01T00:00:00",
+      "stopDate": "2026-12-31T00:00:00",
+      "calcParams": [
+        {
+          "paramType": "Amount",
+          "paramValue": 0.0
+        }
+      ]
+    },
+    {
+      "id": -6,
+      "payItemId": -6,
+      "payItemCode": null,
       "payItemName": "Regular",
       "payItemType": "Earning",
       "employeeId": 9004,

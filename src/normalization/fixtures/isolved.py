@@ -475,10 +475,16 @@ def _worker(bundle: FixtureBundle, w: Worker) -> None:
         for i, (seq, kind, how, value, account) in enumerate(w.deposits)
     ]
     bundle.add(EP + "/employees/{id}/directdeposits", f"{path}/directdeposits", {}, deposits)
+    # Elected items have real IDs. Live, every employee also lists the client's catalog: each deduction it
+    # offers, and earnings, with negative IDs and zero values; those are not elections (A-49).
+    elected = {title for title, _, _ in w.items}
+    catalog = [(t, "Amount", D("0")) for t, v in PAY_ITEMS.items() if v[0] == "Deduction" and t not in elected]
+    rows = [(i + 1, item) for i, item in enumerate(w.items)]
+    rows += [(-(i + 1), item) for i, item in enumerate([*catalog, ("Regular", "Amount", D("0"))])]
     items = [
         {
-            "id": -(i + 1),
-            "payItemId": -(i + 1),
+            "id": int(w.id) * 100 + n if n > 0 else n,
+            "payItemId": int(w.id) * 100 + n if n > 0 else n,
             "payItemCode": "DEN" if title == "Dental Pre-tax" else None,
             "payItemName": title,
             "payItemType": PAY_ITEMS[title][0],
@@ -492,7 +498,7 @@ def _worker(bundle: FixtureBundle, w: Worker) -> None:
             "stopDate": "2026-12-31T00:00:00" if title == "Voluntary Life" else None,
             "calcParams": [{"paramType": param, "paramValue": float(value)}],
         }
-        for i, (title, param, value) in enumerate([*w.items, ("Regular", "Amount", D("0"))])
+        for n, (title, param, value) in rows
     ]
     bundle.add(EP + "/employees/{id}/payItems", f"{path}/payItems", {}, items)
     if w.garnishment:

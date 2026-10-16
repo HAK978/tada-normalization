@@ -169,6 +169,7 @@ synthetic generator -----> raw bundle                                           
 | PrismHR's payroll schedule swaps a code and its description | follow the live data | [A-90] |
 | PrismHR loan dates are documented as YYYY-DD-MM but sent as YYYY-MM-DD | parse them as sent | [A-17] |
 | PrismHR lists each employee loan in two endpoints, `getDeductions` and `getEmployeeLoans` | one election per loan, matched on code and loan ID; a value the two disagree on is kept and flagged | [A-64] |
+| isolved lists the client's whole deduction catalog on every employee, with negative IDs and zero values | only rows with a real ID are elections; the catalog rows are kept on the employee | [A-49] |
 | PrismHR sends `0000-01-01` and `9999-12-31` as dates | the first becomes null with a warning; the second stays a date, with a note | [A-46] |
 | PrismHR birth dates arrive unmasked, though documented as masked | kept as employee data; SSNs and account numbers keep at most their last 4 | [A-23] |
 | Codes undocumented for their field: PrismHR batch statuses, citizenship `Y`, pay-rate basis `A` | `UNMAPPED` with the raw value, unless live evidence settles one: `A` behaves as annual, and batch status `COMP` holds only printed vouchers | [A-21], [A-45], [A-19] |

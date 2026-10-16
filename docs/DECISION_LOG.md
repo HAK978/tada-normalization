@@ -791,6 +791,9 @@ zeros on the full fetch:
     client (56 of 56) but codes are not (41 distinct codes across 56 items), so linking by code would pick
     a different item for 540 of the 1,845. `payItemId` is documented as deprecated and matches no client
     item ID; it is kept as sent.
+  - Most of those rows are the client's catalog, not the employee's choices. Every one of the 45
+    employees lists the same 19 deduction rows; 848 of the 855 have a negative ID and only zero values,
+    and the 7 with real IDs carry the amounts. Every earning and memo row has a negative ID too.
   - Check lines link the same way. On all 154 live earning and deduction lines, `itemDescription` is a
     client item's title and `itemCode` is that item's code. Garnishment lines (4) don't link.
 - **Decision:**
@@ -799,8 +802,8 @@ zeros on the full fetch:
     ("Dental Pre-Tax 125", any type) is a pre-tax `SECTION_125` deduction.
   - A system pay item type that says "post-tax" or "after-tax" sets the treatment to post-tax.
   - Unknown pairs stay `UNMAPPED`, with the pair kept as the raw value.
-  - Only "Deduction" items become elections. Earning and memo items stay in the employee's
-    `provider_extensions`.
+  - Only "Deduction" items with a real ID become elections: live, 7, for 5 employees. Catalog rows (a
+    negative ID), earning and memo items stay in the employee's `provider_extensions`.
   - Garnishments are always `GARNISHMENT`. The garnishments endpoint's documented 404, "No employee
     garnishments found", means none (A-70).
 - **Why:** the system types are isolved's own classification. Titles are customer-chosen text (A-35).
@@ -844,7 +847,7 @@ zeros on the full fetch:
 - **Evidence:** these return 401 "Authorization has been denied for this request", even right after a
   fresh sign-in: `/employees/{e}/payroll`, `/api/corestream/.../employees/{e}/deductions` and
   `/api/corestream/.../paygroups/{pg}/payrolls/{id}`.
-- **Decision:** deduction setup comes from `/employees/{e}/payItems` (855 deduction items live), and
+- **Decision:** deduction setup comes from `/employees/{e}/payItems` (7 elected deduction items live, A-49), and
   payroll deductions come from check details. Each refused request is still reported on the employee or
   company it was for (A-70).
 - **Why:** the alternative endpoints are documented and readable, so nothing is lost.

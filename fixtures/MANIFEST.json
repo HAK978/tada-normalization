@@ -925,7 +925,7 @@
           "endpoint": "api/clients/{client}/legals/{legal}/employees/{id}/payItems",
           "status": 200,
           "schema": "#/paths/~1api~1clients~1{clientId}~1legals~1{legalId}~1employees~1{employeeId}~1payItems/get/responses/200/schema",
-          "sha256": "b8d3d2e74bbc5889026723190bba9a6fa819e4238de31287133af0dc18edf948"
+          "sha256": "6d449f11c69772fd7271bc980750be7d66d715d12e9e55f542fe9523cdae0116"
         },
         {
           "file": "fixtures/isolved/brightside/captures/0020_api_clients_client_legals_legal_employees_id_garnishments.json",
@@ -1000,7 +1000,7 @@
           "endpoint": "api/clients/{client}/legals/{legal}/employees/{id}/payItems",
           "status": 200,
           "schema": "#/paths/~1api~1clients~1{clientId}~1legals~1{legalId}~1employees~1{employeeId}~1payItems/get/responses/200/schema",
-          "sha256": "b6a5e33b6b81251b619f5098ee38fe3f866daaeb150da6518ee007fef95a8bbf"
+          "sha256": "7293e829cba7af5d4fccbfbd75c2bc3187b36b0331dd1009d8105ce2d7bf9e77"
         },
         {
           "file": "fixtures/isolved/brightside/captures/0031_api_clients_client_legals_legal_employees_id_garnishments.json",
@@ -1075,7 +1075,7 @@
           "endpoint": "api/clients/{client}/legals/{legal}/employees/{id}/payItems",
           "status": 200,
           "schema": "#/paths/~1api~1clients~1{clientId}~1legals~1{legalId}~1employees~1{employeeId}~1payItems/get/responses/200/schema",
-          "sha256": "f4e7f6f18214037b7c36163c7235a252ccffd819f0b5e127021b941b28644111"
+          "sha256": "bd5ce97da8201a8c52da35fa07bb083bbc8cd29160d6d3c39c9fbb2040346fe9"
         },
         {
           "file": "fixtures/isolved/brightside/captures/0042_api_clients_client_legals_legal_employees_id_garnishments.json",
@@ -1149,7 +1149,7 @@
           "endpoint": "api/clients/{client}/legals/{legal}/employees/{id}/payItems",
           "status": 200,
           "schema": "#/paths/~1api~1clients~1{clientId}~1legals~1{legalId}~1employees~1{employeeId}~1payItems/get/responses/200/schema",
-          "sha256": "71f7df92f2f919cf74e93a3a0abed753b17a368936da9b94b625d4e23358ff70"
+          "sha256": "333b50b2540007f129a4384ea218bbc22f8acad3930aa3abcc8af13a28c6b2ed"
         },
         {
           "file": "fixtures/isolved/brightside/captures/0053_api_clients_client_legals_legal_employees_id_garnishments.json",
@@ -1222,7 +1222,7 @@
           "endpoint": "api/clients/{client}/legals/{legal}/employees/{id}/payItems",
           "status": 200,
           "schema": "#/paths/~1api~1clients~1{clientId}~1legals~1{legalId}~1employees~1{employeeId}~1payItems/get/responses/200/schema",
-          "sha256": "797120ea5ba3e7ac5d66962fc8c33a4c87bae54dd904cc56e25e7ee4c505621b"
+          "sha256": "0fdf0c8e96df312b82e92ccc63fee5d41f7dd72a125514e27388703797d71055"
         },
         {
           "file": "fixtures/isolved/brightside/captures/0064_api_clients_client_legals_legal_employees_id_garnishments.json",
@@ -1338,7 +1338,7 @@
       ],
       "golden": {
         "file": "tests/golden/isolved/brightside.json",
-        "sha256": "59785540a1dd02996bc3143a770b7d829c9fe9ba255b18354bd8f89e495c0aa0"
+        "sha256": "c7d3636cccdc6dcb9328af67723b2db8d82b0b68486f96ca3d6d21b4b66abd27"
       }
     },
     {

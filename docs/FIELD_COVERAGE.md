@@ -56,7 +56,7 @@ Sources:
 | isolved | `api/clients/{client}/legals/{legal}/employees/{id}/directdeposits` | 10 | 10 | 0 | 0 | 0 | 0 | 0 |
 | isolved | `api/clients/{client}/legals/{legal}/employees/{id}/garnishments` | 30 | 12 | 16 | 0 | 2 | 0 | 0 |
 | isolved | `api/clients/{client}/legals/{legal}/employees/{id}/jobs` | 29 | 8 | 19 | 0 | 2 | 0 | 0 |
-| isolved | `api/clients/{client}/legals/{legal}/employees/{id}/payItems` | 18 | 3 | 8 | 0 | 7 | 0 | 0 |
+| isolved | `api/clients/{client}/legals/{legal}/employees/{id}/payItems` | 18 | 2 | 9 | 0 | 7 | 0 | 0 |
 | isolved | `api/clients/{client}/legals/{legal}/employees/{id}/payRates` | 8 | 0 | 8 | 0 | 0 | 0 | 0 |
 | isolved | `api/clients/{client}/legals/{legal}/employees/{id}/salaries` | 15 | 6 | 7 | 0 | 2 | 0 | 0 |
 | isolved | `api/clients/{client}/legals/{legal}/employees/{id}/statuses` | 8 | 5 | 3 | 0 | 0 | 0 | 0 |
@@ -1872,20 +1872,20 @@ explains the zeros under Employee.
 |---|---|
 | `[].auditId` | kept |
 | `[].balance` | kept |
-| `[].calcParams[].paramType` | mapped (630) / kept (945) |
-| `[].calcParams[].paramValue` | mapped (630) / kept (945) |
+| `[].calcParams[].paramType` | mapped (7) / kept (1568) |
+| `[].calcParams[].paramValue` | mapped (7) / kept (1568) |
 | `[].employeeId` | dropped: the employee's own name and IDs |
 | `[].employeeNumber` | dropped: the employee's own name and IDs |
 | `[].firstName` | dropped: the employee's own name and IDs |
-| `[].id` | mapped (855) / kept (990) |
+| `[].id` | mapped (7) / kept (1838) |
 | `[].lastName` | dropped: the employee's own name and IDs |
 | `[].links[].href` | dropped: API navigation |
 | `[].links[].method` | dropped: API navigation |
 | `[].links[].rel` | dropped: API navigation |
-| `[].payItemCode` | mapped (630) / kept (630) |
+| `[].payItemCode` | mapped (5) / kept (1255) |
 | `[].payItemId` | kept |
-| `[].payItemName` | mapped (855) / kept (990) |
-| `[].payItemType` | kept (990) / dropped (855) |
+| `[].payItemName` | mapped (7) / kept (1838) |
+| `[].payItemType` | kept (1838) / dropped (7) |
 | `[].startDate` | mapped |
 | `[].stopDate` | mapped |
 
