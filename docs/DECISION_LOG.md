@@ -87,6 +87,10 @@ stable references used in the code, the tests and the other docs, so they don't 
 ### A-06 Live data is never committed; tests use synthetic data
 - **Decision:** live responses go to `.discovery/`, which is gitignored. Tests and fixture generation run
   offline on seeded synthetic scenarios, validated against each provider's published schema.
+  `fixtures/MANIFEST.json` records how each scenario was made, as the starter's stub asked ("your seed,
+  schema validation and generation manifest"): the builder and its seed, the spec file and its SHA-256,
+  the schema each response matches, the deviations validation allows (A-52, A-61), and a SHA-256 of
+  every file written. `scripts/generate_fixtures.py --check` fails when it no longer matches.
 - **Why:** the brief forbids committing downloaded records, and live responses contain full SSNs (UKG)
   and bank account numbers (isolved).
 

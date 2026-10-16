@@ -45,7 +45,7 @@ Python 3.11 or newer.
 python3.11 -m venv .venv && source .venv/bin/activate   # or any Python 3.11+
 pip install -e ".[dev]"
 python -m normalization demo    # normalize every provider's synthetic scenario
-pytest                          # 260 tests, offline
+pytest                          # 261 tests, offline
 mypy                            # static type check: no issues
 ```
 
@@ -107,7 +107,7 @@ GROUP BY 1, 2, 3;
 | `python -m normalization review BUNDLE ...` | Collects every value still `UNMAPPED` into distinct decisions, with suggestions, and writes a report plus a mapping-file template per tenant. |
 | `python -m normalization schema` | Writes the canonical model's JSON Schemas to `schemas/`. |
 | `python -m normalization coverage [BUNDLE ...]` | What happens to every source field, and how many employees have each canonical field. Given live bundles, it writes [docs/FIELD_COVERAGE.md](docs/FIELD_COVERAGE.md), the committed report; with no bundles, it reports on the synthetic fixtures into `out/FIELD_COVERAGE.md`. `--out` writes elsewhere. |
-| `python scripts/generate_fixtures.py [--check]` | Regenerates the synthetic fixtures and golden files, or (`--check`) proves they are reproducible. |
+| `python scripts/generate_fixtures.py [--check]` | Regenerates the synthetic fixtures, their golden files and `fixtures/MANIFEST.json`, or (`--check`) proves they are reproducible. |
 
 `demo`, `normalize`, `fetch --normalize` and `review` apply the reviewed mapping files in `mappings/`, each
 to its own tenant only. `--mappings FILE` adds another, and `--no-reviewed-mappings` shows the converters'
@@ -321,11 +321,13 @@ counted live evidence.
 
 ## Testing
 
-`pytest` runs 260 offline tests (plus parametrized subtests). Nothing needs credentials or network.
+`pytest` runs 261 offline tests (plus parametrized subtests). Nothing needs credentials or network.
 
 - **Synthetic scenarios** (`fixtures/<provider>/brightside`) come from a seeded generator, and every
   response is validated against the provider's own published schema. They are full of real-world
-  traps, all listed at the top of each `src/normalization/fixtures/<provider>.py`.
+  traps, all listed at the top of each `src/normalization/fixtures/<provider>.py`. `fixtures/MANIFEST.json`
+  records how each was made: the builder and its seed, the spec file and its SHA-256, the schema each
+  response matches, the deviations allowed, and a SHA-256 of every file.
 - **Golden files** (`tests/golden/`) pin the complete output. Tests also assert specific facts, such as
   "sequence 0 is the remainder account" or "the fringe is in gross wages but not gross pay".
 - **Determinism:** `scripts/generate_fixtures.py --check` regenerates everything and compares it byte

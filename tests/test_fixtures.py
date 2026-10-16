@@ -1,5 +1,7 @@
 """Synthetic fixtures are deterministic and match the provider's published schema."""
 
+import hashlib
+import json
 import subprocess
 import sys
 from pathlib import Path
@@ -27,6 +29,14 @@ def test_every_fixture_response_matches_the_provider_schema(bundle_dir):
         (c.file, e) for c in bundle.captures if c.status == 200 for e in errors(bundle.provider, c.endpoint, c.body)
     ]
     assert problems == []
+
+
+def test_the_manifest_lists_every_fixture_file_with_its_hash():
+    manifest = json.loads((ROOT / "fixtures/MANIFEST.json").read_text(encoding="utf-8"))
+    listed = {entry["file"]: entry["sha256"] for s in manifest["scenarios"] for entry in [*s["files"], s["golden"]]}
+    on_disk = {p.relative_to(ROOT).as_posix() for p in (ROOT / "fixtures").rglob("*.json")} - {"fixtures/MANIFEST.json"}
+    assert on_disk <= set(listed), sorted(on_disk - set(listed))
+    assert not [f for f, sha in listed.items() if hashlib.sha256((ROOT / f).read_bytes()).hexdigest() != sha]
 
 
 def test_fixtures_are_synthetic():

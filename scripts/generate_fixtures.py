@@ -4,10 +4,15 @@
     python scripts/generate_fixtures.py --check    # exit 1 if anything would change
 
 Fixtures are provider-shaped raw bundles built from known facts (src/normalization/fixtures/).
-Every generated response is validated against the provider's published schema before writing.
+Every generated response is validated against the provider's published schema before writing, and
+fixtures/MANIFEST.json records how each scenario was made: its builder and seed, the spec it was
+validated against, the schema each response matches, and the SHA-256 of every file written.
 """
 
 import argparse
+import hashlib
+import inspect
+import json
 import sys
 import tempfile
 from pathlib import Path
@@ -18,7 +23,7 @@ from normalization.fixtures import (
     prismhr as prismhr_fixtures,
     ukg_ready as ukg_fixtures,
 )
-from normalization.fixtures.validate import errors
+from normalization.fixtures.validate import DEVIATIONS, SPECS, errors, response_pointer
 from normalization.mappings import reviewed
 from normalization.providers import normalize
 
@@ -30,10 +35,55 @@ SCENARIOS = {
     ("isolved", "brightside"): isolved_fixtures.build,
     ("ukg-ready", "brightside"): ukg_fixtures.build,
 }
+ABOUT = (
+    "How each synthetic scenario was generated, written by scripts/generate_fixtures.py. "
+    "Its --check fails when anything here no longer matches a fresh generation."
+)
+
+
+def _sha256(path: Path) -> str:
+    return hashlib.sha256(path.read_bytes()).hexdigest()
+
+
+def _manifest_entry(root: Path, provider: str, scenario: str, build, bundle, files: list[Path], golden: Path) -> dict:
+    """What made one scenario, and every file it wrote: session.json first, then one file per response."""
+    seed = inspect.signature(build).parameters.get("seed")
+    session, *captures = files
+    return {
+        "provider": provider,
+        "scenario": scenario,
+        "builder": f"{build.__module__}.{build.__name__}",
+        "seed": None if seed is None else seed.default,
+        "as_of": bundle.as_of,
+        "spec": {"file": SPECS[provider].relative_to(ROOT).as_posix(), "sha256": _sha256(SPECS[provider])},
+        "validated_responses": sum(capture["status"] == 200 for capture in bundle.captures),
+        "allowed_deviations": [
+            {"validator": validator, "field": field} for validator, field in sorted(DEVIATIONS.get(provider, ()))
+        ],
+        "files": [
+            {"file": session.relative_to(root).as_posix(), "sha256": _sha256(session)},
+            *(
+                {
+                    "file": path.relative_to(root).as_posix(),
+                    "endpoint": capture["endpoint"],
+                    "status": capture["status"],
+                    **(
+                        {"schema": "#" + response_pointer(provider, capture["endpoint"])}
+                        if capture["status"] == 200
+                        else {}
+                    ),
+                    "sha256": _sha256(path),
+                }
+                for path, capture in zip(captures, bundle.captures, strict=True)
+            ),
+        ],
+        "golden": {"file": golden.relative_to(root).as_posix(), "sha256": _sha256(golden)},
+    }
 
 
 def generate(root: Path) -> list[Path]:
     written: list[Path] = []
+    scenarios = []
     for (provider, scenario), build in SCENARIOS.items():
         bundle = build()
         problems = [
@@ -45,12 +95,15 @@ def generate(root: Path) -> list[Path]:
         if problems:
             raise SystemExit(f"{provider}/{scenario} breaks the provider schema: {problems[:5]}")
         target = root / "fixtures" / provider / scenario
-        written += bundle.write(target)
+        files = bundle.write(target)
         golden = root / "tests" / "golden" / provider / f"{scenario}.json"
         golden.parent.mkdir(parents=True, exist_ok=True)
         golden.write_text(normalize(Bundle.load(target), mapping_files=reviewed()).to_json(), encoding="utf-8")
-        written.append(golden)
-    return written
+        written += [*files, golden]
+        scenarios.append(_manifest_entry(root, provider, scenario, build, bundle, files, golden))
+    manifest = root / "fixtures" / "MANIFEST.json"
+    manifest.write_text(json.dumps({"about": ABOUT, "scenarios": scenarios}, indent=2) + "\n", encoding="utf-8")
+    return [*written, manifest]
 
 
 def main(argv=None) -> int:

@@ -246,6 +246,7 @@ Every instruction in the brief (`ASSIGNMENT.md`) and the organizer's reference n
 | Choose and explain the design, architecture and interfaces | brief | [Design and architecture](#design-and-architecture) |
 | Design your own canonical schemas and enums | brief | `schemas/`, [docs/CANONICAL_MODEL.md](docs/CANONICAL_MODEL.md) |
 | Generate and validate your own synthetic test data | brief | [A-06], [A-43] |
+| "Add your seed, schema validation and generation manifest" | starter stub | `fixtures/MANIFEST.json` [A-06] |
 | Preserve the meaning of the source data | brief | [Rules that apply everywhere](#rules-that-apply-everywhere): [A-26], [A-35], [A-62], [A-64], [A-73] |
 | Lookup files are partial; "undocumented meanings remain unknown" | brief, lookup files | [A-85], [A-86] |
 | Use isolved's primary snapshot only | brief | every citation and the fixture validation use only the primary |

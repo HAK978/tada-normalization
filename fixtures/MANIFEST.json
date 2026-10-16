@@ -1,0 +1,1883 @@
+{
+  "about": "How each synthetic scenario was generated, written by scripts/generate_fixtures.py. Its --check fails when anything here no longer matches a fresh generation.",
+  "scenarios": [
+    {
+      "provider": "prismhr",
+      "scenario": "brightside",
+      "builder": "normalization.fixtures.prismhr.build",
+      "seed": 2026,
+      "as_of": null,
+      "spec": {
+        "file": "contracts/prismhr/openapi/prismhr-2025.09.openapi.json",
+        "sha256": "9cb87857940095cf868ed666a70f9092e33d9aa26bcad3c46cb60dad3eff5978"
+      },
+      "validated_responses": 88,
+      "allowed_deviations": [],
+      "files": [
+        {
+          "file": "fixtures/prismhr/brightside/session.json",
+          "sha256": "80cbaee7393be93a7a6c65a4f191dc635f77ccaf66df7c9eda61cd69a2bbbade"
+        },
+        {
+          "file": "fixtures/prismhr/brightside/captures/0001_clientMaster_v1_getClientMaster.json",
+          "endpoint": "clientMaster/v1/getClientMaster",
+          "status": 200,
+          "schema": "#/paths/~1clientMaster~1v1~1getClientMaster/get/responses/200/content/application~1json/schema",
+          "sha256": "41e0c835fb8cab7db7c9f59e241fc7426184ef8ee1fe4b06851e2ac4901bfdab"
+        },
+        {
+          "file": "fixtures/prismhr/brightside/captures/0002_clientMaster_v1_getClientCodes.json",
+          "endpoint": "clientMaster/v1/getClientCodes",
+          "status": 200,
+          "schema": "#/paths/~1clientMaster~1v1~1getClientCodes/get/responses/200/content/application~1json/schema",
+          "sha256": "ae168307d8db14bc3657781e15352e98f5cba7671aefb43a25aec0208d36b6de"
+        },
+        {
+          "file": "fixtures/prismhr/brightside/captures/0003_clientMaster_v1_getPayrollSchedule.json",
+          "endpoint": "clientMaster/v1/getPayrollSchedule",
+          "status": 200,
+          "schema": "#/paths/~1clientMaster~1v1~1getPayrollSchedule/get/responses/200/content/application~1json/schema",
+          "sha256": "69de0ce0a24113ca5719e9b79befa1befa51b502f4a8edc0761ba6300ebadcc6"
+        },
+        {
+          "file": "fixtures/prismhr/brightside/captures/0004_clientMaster_v1_getAllPrismClientContacts.json",
+          "endpoint": "clientMaster/v1/getAllPrismClientContacts",
+          "status": 200,
+          "schema": "#/paths/~1clientMaster~1v1~1getAllPrismClientContacts/get/responses/200/content/application~1json/schema",
+          "sha256": "6f8a9f66a53d421afd2dcb1f4f4b6e2090ad6997fe125a16ffad7cef7cdc2c40"
+        },
+        {
+          "file": "fixtures/prismhr/brightside/captures/0005_benefits_v1_getRetirementLoans.json",
+          "endpoint": "benefits/v1/getRetirementLoans",
+          "status": 200,
+          "schema": "#/paths/~1benefits~1v1~1getRetirementLoans/get/responses/200/content/application~1json/schema",
+          "sha256": "eca67a7d3757b304b6c89d539a0efe4dc4a56e3c3209cc7ba51967eaf4fc4602"
+        },
+        {
+          "file": "fixtures/prismhr/brightside/captures/0006_employee_v1_getEmployeeList.json",
+          "endpoint": "employee/v1/getEmployeeList",
+          "status": 200,
+          "schema": "#/paths/~1employee~1v1~1getEmployeeList/get/responses/200/content/application~1json/schema",
+          "sha256": "91a58c0a0193ab7bbed592d6780c113c7044efa202fbea858bc7190181bd594a"
+        },
+        {
+          "file": "fixtures/prismhr/brightside/captures/0007_employee_v1_getEmployee.json",
+          "endpoint": "employee/v1/getEmployee",
+          "status": 200,
+          "schema": "#/paths/~1employee~1v1~1getEmployee/get/responses/200/content/application~1json/schema",
+          "sha256": "dd8acae0e47a8facd13eae5c800e4b66a3628fe111ce59fb48414e38f5e2adea"
+        },
+        {
+          "file": "fixtures/prismhr/brightside/captures/0008_deductions_v1_getDeductions.json",
+          "endpoint": "deductions/v1/getDeductions",
+          "status": 200,
+          "schema": "#/paths/~1deductions~1v1~1getDeductions/get/responses/200/content/application~1json/schema",
+          "sha256": "392e562cfa38498c940886d288bfde836ed3965253f8f9d475652320dc6e956e"
+        },
+        {
+          "file": "fixtures/prismhr/brightside/captures/0009_deductions_v1_getVoluntaryRecurringDeductions.json",
+          "endpoint": "deductions/v1/getVoluntaryRecurringDeductions",
+          "status": 200,
+          "schema": "#/paths/~1deductions~1v1~1getVoluntaryRecurringDeductions/get/responses/200/content/application~1json/schema",
+          "sha256": "3fd0f48e507e2f0a882916d18684b5d425ae205aeb23480aa3177a9332c0f1aa"
+        },
+        {
+          "file": "fixtures/prismhr/brightside/captures/0010_employee_v1_getScheduledDeductions.json",
+          "endpoint": "employee/v1/getScheduledDeductions",
+          "status": 200,
+          "schema": "#/paths/~1employee~1v1~1getScheduledDeductions/get/responses/200/content/application~1json/schema",
+          "sha256": "763c39c3223eea22e24e9b91762901e14dcf7a9257da0d07cf65ed665aaa542c"
+        },
+        {
+          "file": "fixtures/prismhr/brightside/captures/0011_deductions_v1_getEmployeeLoans.json",
+          "endpoint": "deductions/v1/getEmployeeLoans",
+          "status": 200,
+          "schema": "#/paths/~1deductions~1v1~1getEmployeeLoans/get/responses/200/content/application~1json/schema",
+          "sha256": "b7dae8886c5115315e8f637f4c2ea9ebae72ef7bc9a2e56e029d47c4e1df894f"
+        },
+        {
+          "file": "fixtures/prismhr/brightside/captures/0012_employee_v1_getPayRateHistory.json",
+          "endpoint": "employee/v1/getPayRateHistory",
+          "status": 200,
+          "schema": "#/paths/~1employee~1v1~1getPayRateHistory/get/responses/200/content/application~1json/schema",
+          "sha256": "785ff03305b050856c5094af9b60243be1e3343bbaf3a654bcf0db23b80a5b2e"
+        },
+        {
+          "file": "fixtures/prismhr/brightside/captures/0013_benefits_v1_getActiveBenefitPlans.json",
+          "endpoint": "benefits/v1/getActiveBenefitPlans",
+          "status": 200,
+          "schema": "#/paths/~1benefits~1v1~1getActiveBenefitPlans/get/responses/200/content/application~1json/schema",
+          "sha256": "a2f6b908dff89192e3b1bfbe92e3e6a471efae389d547fbef3a968f4fcb6a1ff"
+        },
+        {
+          "file": "fixtures/prismhr/brightside/captures/0014_employee_v1_getHistory.json",
+          "endpoint": "employee/v1/getHistory",
+          "status": 200,
+          "schema": "#/paths/~1employee~1v1~1getHistory/get/responses/200/content/application~1json/schema",
+          "sha256": "60d17682cfdbe82df926e0a03068dfc369fb57663b6c5a2f7e8bb22768c30cab"
+        },
+        {
+          "file": "fixtures/prismhr/brightside/captures/0015_benefits_v1_getDependents.json",
+          "endpoint": "benefits/v1/getDependents",
+          "status": 200,
+          "schema": "#/paths/~1benefits~1v1~1getDependents/get/responses/200/content/application~1json/schema",
+          "sha256": "fdd0131ce556bcf1d83c1368158611dd7feacb7a2e2240e9a70fc3a32dde28f9"
+        },
+        {
+          "file": "fixtures/prismhr/brightside/captures/0016_employee_v1_checkForGarnishments.json",
+          "endpoint": "employee/v1/checkForGarnishments",
+          "status": 200,
+          "schema": "#/paths/~1employee~1v1~1checkForGarnishments/get/responses/200/content/application~1json/schema",
+          "sha256": "7bfb4b08745e9e7c1865f9991646c1f834b37aa88f3c87cb6d96949c02f3a09f"
+        },
+        {
+          "file": "fixtures/prismhr/brightside/captures/0017_payroll_v1_getScheduledPayments.json",
+          "endpoint": "payroll/v1/getScheduledPayments",
+          "status": 200,
+          "schema": "#/paths/~1payroll~1v1~1getScheduledPayments/get/responses/200/content/application~1json/schema",
+          "sha256": "f2a135639307d9aedd53f3933e174f7af1d80cee6576a4b2eaeb7f0016deb293"
+        },
+        {
+          "file": "fixtures/prismhr/brightside/captures/0018_benefits_v1_getRetirementPlan.json",
+          "endpoint": "benefits/v1/getRetirementPlan",
+          "status": 200,
+          "schema": "#/paths/~1benefits~1v1~1getRetirementPlan/get/responses/200/content/application~1json/schema",
+          "sha256": "b68015f6c54852c81904b885bb98684612ac139d49191a58829bedf3b1a70096"
+        },
+        {
+          "file": "fixtures/prismhr/brightside/captures/0019_benefits_v1_getFlexPlans.json",
+          "endpoint": "benefits/v1/getFlexPlans",
+          "status": 200,
+          "schema": "#/paths/~1benefits~1v1~1getFlexPlans/get/responses/200/content/application~1json/schema",
+          "sha256": "7f0d8e198f59a839563b5d4ad300228b690f8a1b5c039d77aeb4b7b39d3d85b0"
+        },
+        {
+          "file": "fixtures/prismhr/brightside/captures/0020_benefits_v1_getBenefitAdjustments.json",
+          "endpoint": "benefits/v1/getBenefitAdjustments",
+          "status": 404,
+          "sha256": "44aa0fd0b8e583407bcc14a31f674b5928e03a41414397a4c59cc732c298af0f"
+        },
+        {
+          "file": "fixtures/prismhr/brightside/captures/0021_deductions_v1_getGarnishmentDetails.json",
+          "endpoint": "deductions/v1/getGarnishmentDetails",
+          "status": 403,
+          "sha256": "f74bcb17f05083d86b8bb2d476ec10b99ddd416e0260b290f08456d116129c27"
+        },
+        {
+          "file": "fixtures/prismhr/brightside/captures/0022_deductions_v1_getDeductions.json",
+          "endpoint": "deductions/v1/getDeductions",
+          "status": 200,
+          "schema": "#/paths/~1deductions~1v1~1getDeductions/get/responses/200/content/application~1json/schema",
+          "sha256": "9fdc453357da604bc44e1e96b35383be1544bf5bedb351257016bcf6fed205c7"
+        },
+        {
+          "file": "fixtures/prismhr/brightside/captures/0023_deductions_v1_getVoluntaryRecurringDeductions.json",
+          "endpoint": "deductions/v1/getVoluntaryRecurringDeductions",
+          "status": 200,
+          "schema": "#/paths/~1deductions~1v1~1getVoluntaryRecurringDeductions/get/responses/200/content/application~1json/schema",
+          "sha256": "18778a902bc7f28421476bf447d388e0b38eabe014f6755df0f035fc61af745c"
+        },
+        {
+          "file": "fixtures/prismhr/brightside/captures/0024_employee_v1_getScheduledDeductions.json",
+          "endpoint": "employee/v1/getScheduledDeductions",
+          "status": 200,
+          "schema": "#/paths/~1employee~1v1~1getScheduledDeductions/get/responses/200/content/application~1json/schema",
+          "sha256": "8d3d673796be65fbd64446716aaf7425f1825d08c3115fb2b60afe2fc0490873"
+        },
+        {
+          "file": "fixtures/prismhr/brightside/captures/0025_deductions_v1_getEmployeeLoans.json",
+          "endpoint": "deductions/v1/getEmployeeLoans",
+          "status": 200,
+          "schema": "#/paths/~1deductions~1v1~1getEmployeeLoans/get/responses/200/content/application~1json/schema",
+          "sha256": "acda1ca77460c60fa12c31a09a25fbb2213d16d3649266196470b351395e2cc9"
+        },
+        {
+          "file": "fixtures/prismhr/brightside/captures/0026_employee_v1_getPayRateHistory.json",
+          "endpoint": "employee/v1/getPayRateHistory",
+          "status": 200,
+          "schema": "#/paths/~1employee~1v1~1getPayRateHistory/get/responses/200/content/application~1json/schema",
+          "sha256": "3885b1ec406c90aaa9fd72e175e858997f03ef58d07b1017ca61dc1ce2b71371"
+        },
+        {
+          "file": "fixtures/prismhr/brightside/captures/0027_benefits_v1_getActiveBenefitPlans.json",
+          "endpoint": "benefits/v1/getActiveBenefitPlans",
+          "status": 200,
+          "schema": "#/paths/~1benefits~1v1~1getActiveBenefitPlans/get/responses/200/content/application~1json/schema",
+          "sha256": "e3e06b4c039e85487c3c6216eb66bd8188d61e31cd441e38b27b094bc49dfb2f"
+        },
+        {
+          "file": "fixtures/prismhr/brightside/captures/0028_employee_v1_getHistory.json",
+          "endpoint": "employee/v1/getHistory",
+          "status": 200,
+          "schema": "#/paths/~1employee~1v1~1getHistory/get/responses/200/content/application~1json/schema",
+          "sha256": "ae77cb0d651c2fbb38c3f934c9d9d849cb39a93a821ae6bbe6c35ba330b0ebe4"
+        },
+        {
+          "file": "fixtures/prismhr/brightside/captures/0029_benefits_v1_getDependents.json",
+          "endpoint": "benefits/v1/getDependents",
+          "status": 200,
+          "schema": "#/paths/~1benefits~1v1~1getDependents/get/responses/200/content/application~1json/schema",
+          "sha256": "50ff71b91b20b68341c83006a021d187ab9e4ecf9cb7bee6066a788010c20c7e"
+        },
+        {
+          "file": "fixtures/prismhr/brightside/captures/0030_employee_v1_checkForGarnishments.json",
+          "endpoint": "employee/v1/checkForGarnishments",
+          "status": 200,
+          "schema": "#/paths/~1employee~1v1~1checkForGarnishments/get/responses/200/content/application~1json/schema",
+          "sha256": "d286f32074846eee6579a09fae6bd3f6cfebceb3eb36ba71e5d1dc468f2e7caa"
+        },
+        {
+          "file": "fixtures/prismhr/brightside/captures/0031_payroll_v1_getScheduledPayments.json",
+          "endpoint": "payroll/v1/getScheduledPayments",
+          "status": 404,
+          "sha256": "ff775e93553d69173d0295b83e4460db22f161d7ffce39980a78147069734fe7"
+        },
+        {
+          "file": "fixtures/prismhr/brightside/captures/0032_benefits_v1_getRetirementPlan.json",
+          "endpoint": "benefits/v1/getRetirementPlan",
+          "status": 404,
+          "sha256": "1c2ac9cbbe76d5f8ff37089e1503e3c9e2685afb819554cdbe8be5c70dc92f4f"
+        },
+        {
+          "file": "fixtures/prismhr/brightside/captures/0033_benefits_v1_getFlexPlans.json",
+          "endpoint": "benefits/v1/getFlexPlans",
+          "status": 200,
+          "schema": "#/paths/~1benefits~1v1~1getFlexPlans/get/responses/200/content/application~1json/schema",
+          "sha256": "7690b47abfded5ca81c6435158ac7b5d106fc0bc25e54e21e7cbfe971574a7e5"
+        },
+        {
+          "file": "fixtures/prismhr/brightside/captures/0034_benefits_v1_getBenefitAdjustments.json",
+          "endpoint": "benefits/v1/getBenefitAdjustments",
+          "status": 200,
+          "schema": "#/paths/~1benefits~1v1~1getBenefitAdjustments/get/responses/200/content/application~1json/schema",
+          "sha256": "ea7fcb90dca2f20da9cc1866f391d0ac890aa154eb1d36dc7902283b651f5f91"
+        },
+        {
+          "file": "fixtures/prismhr/brightside/captures/0035_deductions_v1_getGarnishmentDetails.json",
+          "endpoint": "deductions/v1/getGarnishmentDetails",
+          "status": 403,
+          "sha256": "2d7a05b027604220c8f38d0cca996a804b01a52dcdccd51d4b44a19eab8a422b"
+        },
+        {
+          "file": "fixtures/prismhr/brightside/captures/0036_deductions_v1_getDeductions.json",
+          "endpoint": "deductions/v1/getDeductions",
+          "status": 200,
+          "schema": "#/paths/~1deductions~1v1~1getDeductions/get/responses/200/content/application~1json/schema",
+          "sha256": "ba9af3d56198f32ee5d27f39a86ea17146cfaeffd9449655bfe60ba0860b5aff"
+        },
+        {
+          "file": "fixtures/prismhr/brightside/captures/0037_deductions_v1_getVoluntaryRecurringDeductions.json",
+          "endpoint": "deductions/v1/getVoluntaryRecurringDeductions",
+          "status": 200,
+          "schema": "#/paths/~1deductions~1v1~1getVoluntaryRecurringDeductions/get/responses/200/content/application~1json/schema",
+          "sha256": "03afc6b0c766384a4f7aa4c3f66ba39e535cf2ce7ab105938f048963c1d0523b"
+        },
+        {
+          "file": "fixtures/prismhr/brightside/captures/0038_employee_v1_getScheduledDeductions.json",
+          "endpoint": "employee/v1/getScheduledDeductions",
+          "status": 200,
+          "schema": "#/paths/~1employee~1v1~1getScheduledDeductions/get/responses/200/content/application~1json/schema",
+          "sha256": "d50f06ebe8859fea74bc957c0edd541267474bbce79f5ffffbbf48e988fa453f"
+        },
+        {
+          "file": "fixtures/prismhr/brightside/captures/0039_deductions_v1_getEmployeeLoans.json",
+          "endpoint": "deductions/v1/getEmployeeLoans",
+          "status": 200,
+          "schema": "#/paths/~1deductions~1v1~1getEmployeeLoans/get/responses/200/content/application~1json/schema",
+          "sha256": "710a6d3287aaaf52e01a025b60dad5859c6539d9c9b4587f3a7828236453b7cc"
+        },
+        {
+          "file": "fixtures/prismhr/brightside/captures/0040_employee_v1_getPayRateHistory.json",
+          "endpoint": "employee/v1/getPayRateHistory",
+          "status": 200,
+          "schema": "#/paths/~1employee~1v1~1getPayRateHistory/get/responses/200/content/application~1json/schema",
+          "sha256": "a297443cefe2cdcb032f4cfcd5f0ad3117859712b97bdefa01b4aafc2657834f"
+        },
+        {
+          "file": "fixtures/prismhr/brightside/captures/0041_benefits_v1_getActiveBenefitPlans.json",
+          "endpoint": "benefits/v1/getActiveBenefitPlans",
+          "status": 200,
+          "schema": "#/paths/~1benefits~1v1~1getActiveBenefitPlans/get/responses/200/content/application~1json/schema",
+          "sha256": "f50d3e67f01ce353bbfae69fd9f9e25e76e5e0deda12205b894dedde1aedfdbe"
+        },
+        {
+          "file": "fixtures/prismhr/brightside/captures/0042_employee_v1_getHistory.json",
+          "endpoint": "employee/v1/getHistory",
+          "status": 200,
+          "schema": "#/paths/~1employee~1v1~1getHistory/get/responses/200/content/application~1json/schema",
+          "sha256": "c40d91f59f4b390c68536e7bba41fcd3da6920a48bc8e038e66bf3b46b8f4348"
+        },
+        {
+          "file": "fixtures/prismhr/brightside/captures/0043_benefits_v1_getDependents.json",
+          "endpoint": "benefits/v1/getDependents",
+          "status": 200,
+          "schema": "#/paths/~1benefits~1v1~1getDependents/get/responses/200/content/application~1json/schema",
+          "sha256": "8cb19efb5b34a150bd48908d41e6666253fe8f858b0fdb38d26ad6ae290e0f25"
+        },
+        {
+          "file": "fixtures/prismhr/brightside/captures/0044_employee_v1_checkForGarnishments.json",
+          "endpoint": "employee/v1/checkForGarnishments",
+          "status": 200,
+          "schema": "#/paths/~1employee~1v1~1checkForGarnishments/get/responses/200/content/application~1json/schema",
+          "sha256": "76a34406a2c4a7c26e0409b4eccadd34c0a5b72fa14d1d29742336f5c7b142e3"
+        },
+        {
+          "file": "fixtures/prismhr/brightside/captures/0045_payroll_v1_getScheduledPayments.json",
+          "endpoint": "payroll/v1/getScheduledPayments",
+          "status": 404,
+          "sha256": "df51bb57e1c3d4913f8de1d4aa79a7d71fe910341952b7fe5bda0cd0eecb995b"
+        },
+        {
+          "file": "fixtures/prismhr/brightside/captures/0046_benefits_v1_getRetirementPlan.json",
+          "endpoint": "benefits/v1/getRetirementPlan",
+          "status": 404,
+          "sha256": "11ede22416d56c443dc5033930c8a3876002bce628bb854e21f05e161bead52c"
+        },
+        {
+          "file": "fixtures/prismhr/brightside/captures/0047_benefits_v1_getFlexPlans.json",
+          "endpoint": "benefits/v1/getFlexPlans",
+          "status": 200,
+          "schema": "#/paths/~1benefits~1v1~1getFlexPlans/get/responses/200/content/application~1json/schema",
+          "sha256": "2cb53f79f534e1b476dc8a531ce65712464c235600d2f4788db5b62a89807c7d"
+        },
+        {
+          "file": "fixtures/prismhr/brightside/captures/0048_benefits_v1_getBenefitAdjustments.json",
+          "endpoint": "benefits/v1/getBenefitAdjustments",
+          "status": 404,
+          "sha256": "7424fe5fcb399edf81f272d1dbd1cfe74f96591de27c5fdbfeb662046ad1519f"
+        },
+        {
+          "file": "fixtures/prismhr/brightside/captures/0049_deductions_v1_getGarnishmentDetails.json",
+          "endpoint": "deductions/v1/getGarnishmentDetails",
+          "status": 403,
+          "sha256": "b9ce9d5077642c2883703249754abcadd7f28b2428c7a9a8b46cc3ebf585c5ce"
+        },
+        {
+          "file": "fixtures/prismhr/brightside/captures/0050_deductions_v1_getDeductions.json",
+          "endpoint": "deductions/v1/getDeductions",
+          "status": 200,
+          "schema": "#/paths/~1deductions~1v1~1getDeductions/get/responses/200/content/application~1json/schema",
+          "sha256": "1dd0c8016a768c8fc6667d66a82b4d18a6aa0c08cbdf9333c3834125fcb7c0fe"
+        },
+        {
+          "file": "fixtures/prismhr/brightside/captures/0051_deductions_v1_getVoluntaryRecurringDeductions.json",
+          "endpoint": "deductions/v1/getVoluntaryRecurringDeductions",
+          "status": 200,
+          "schema": "#/paths/~1deductions~1v1~1getVoluntaryRecurringDeductions/get/responses/200/content/application~1json/schema",
+          "sha256": "fd41bc590f7bece389deb7c27c6acec7ea376421f11329253b0e4d49465acf5a"
+        },
+        {
+          "file": "fixtures/prismhr/brightside/captures/0052_employee_v1_getScheduledDeductions.json",
+          "endpoint": "employee/v1/getScheduledDeductions",
+          "status": 200,
+          "schema": "#/paths/~1employee~1v1~1getScheduledDeductions/get/responses/200/content/application~1json/schema",
+          "sha256": "bb9ac035605a6c08982cd7375f324689db505adf4b0f20d30ceb4ef68e814946"
+        },
+        {
+          "file": "fixtures/prismhr/brightside/captures/0053_deductions_v1_getEmployeeLoans.json",
+          "endpoint": "deductions/v1/getEmployeeLoans",
+          "status": 200,
+          "schema": "#/paths/~1deductions~1v1~1getEmployeeLoans/get/responses/200/content/application~1json/schema",
+          "sha256": "5f65064359b9ab1eb95ec8f571e951f4ce792647083b258e8a96b6c8ce89ae71"
+        },
+        {
+          "file": "fixtures/prismhr/brightside/captures/0054_employee_v1_getPayRateHistory.json",
+          "endpoint": "employee/v1/getPayRateHistory",
+          "status": 200,
+          "schema": "#/paths/~1employee~1v1~1getPayRateHistory/get/responses/200/content/application~1json/schema",
+          "sha256": "342f65469433e58ae82b0bca334a0328cf066b39b2e9e24ec0c1a385dc9d912d"
+        },
+        {
+          "file": "fixtures/prismhr/brightside/captures/0055_benefits_v1_getActiveBenefitPlans.json",
+          "endpoint": "benefits/v1/getActiveBenefitPlans",
+          "status": 200,
+          "schema": "#/paths/~1benefits~1v1~1getActiveBenefitPlans/get/responses/200/content/application~1json/schema",
+          "sha256": "49aa0f94a44621c9139bfb3df4d9e2173061743c8eeb47fade9e5b9394b19e9e"
+        },
+        {
+          "file": "fixtures/prismhr/brightside/captures/0056_employee_v1_getHistory.json",
+          "endpoint": "employee/v1/getHistory",
+          "status": 200,
+          "schema": "#/paths/~1employee~1v1~1getHistory/get/responses/200/content/application~1json/schema",
+          "sha256": "d4863b6f4df0ae54b4c4a615969b693534b890d3ff816481079d02f16812c786"
+        },
+        {
+          "file": "fixtures/prismhr/brightside/captures/0057_benefits_v1_getDependents.json",
+          "endpoint": "benefits/v1/getDependents",
+          "status": 200,
+          "schema": "#/paths/~1benefits~1v1~1getDependents/get/responses/200/content/application~1json/schema",
+          "sha256": "a3fde0db098345e421629493f95665feea8c9da674e7373d90f40968a511db72"
+        },
+        {
+          "file": "fixtures/prismhr/brightside/captures/0058_employee_v1_checkForGarnishments.json",
+          "endpoint": "employee/v1/checkForGarnishments",
+          "status": 200,
+          "schema": "#/paths/~1employee~1v1~1checkForGarnishments/get/responses/200/content/application~1json/schema",
+          "sha256": "08e457d35f52f751d1c3adaf50bc017e75d4b30c77da8f884b7f8d256836d503"
+        },
+        {
+          "file": "fixtures/prismhr/brightside/captures/0059_payroll_v1_getScheduledPayments.json",
+          "endpoint": "payroll/v1/getScheduledPayments",
+          "status": 404,
+          "sha256": "c472590341291eae502b6231b8729f37f4896aa83011dfa1a1e7e4730fd13392"
+        },
+        {
+          "file": "fixtures/prismhr/brightside/captures/0060_benefits_v1_getRetirementPlan.json",
+          "endpoint": "benefits/v1/getRetirementPlan",
+          "status": 404,
+          "sha256": "170d3539e8be790ea8b475f5343972e995ce0e8e90dcd8f875e552a18e452f3b"
+        },
+        {
+          "file": "fixtures/prismhr/brightside/captures/0061_benefits_v1_getFlexPlans.json",
+          "endpoint": "benefits/v1/getFlexPlans",
+          "status": 200,
+          "schema": "#/paths/~1benefits~1v1~1getFlexPlans/get/responses/200/content/application~1json/schema",
+          "sha256": "f30e1d0585ef3dcf5727b076b2795cd2ea12af86353e227184ad59f5da5a8388"
+        },
+        {
+          "file": "fixtures/prismhr/brightside/captures/0062_benefits_v1_getBenefitAdjustments.json",
+          "endpoint": "benefits/v1/getBenefitAdjustments",
+          "status": 404,
+          "sha256": "88395dababec6d8702f0fd8f92d8ae34ebf46b879c6d79dc71f050146e9a89fc"
+        },
+        {
+          "file": "fixtures/prismhr/brightside/captures/0063_deductions_v1_getGarnishmentDetails.json",
+          "endpoint": "deductions/v1/getGarnishmentDetails",
+          "status": 403,
+          "sha256": "a3bba5cdda8ce46f2c3e2ecd5d2c48e13bf7977ef879735faef0ecba3f2ab481"
+        },
+        {
+          "file": "fixtures/prismhr/brightside/captures/0064_deductions_v1_getDeductions.json",
+          "endpoint": "deductions/v1/getDeductions",
+          "status": 200,
+          "schema": "#/paths/~1deductions~1v1~1getDeductions/get/responses/200/content/application~1json/schema",
+          "sha256": "31736641d186c9ff6e577aa153767e934e2ba2088e0847f9825e6553c8b506e4"
+        },
+        {
+          "file": "fixtures/prismhr/brightside/captures/0065_deductions_v1_getVoluntaryRecurringDeductions.json",
+          "endpoint": "deductions/v1/getVoluntaryRecurringDeductions",
+          "status": 200,
+          "schema": "#/paths/~1deductions~1v1~1getVoluntaryRecurringDeductions/get/responses/200/content/application~1json/schema",
+          "sha256": "8751335f8f70d5c45b860206692156012d2d78059f357954b0351edf132ee3b8"
+        },
+        {
+          "file": "fixtures/prismhr/brightside/captures/0066_employee_v1_getScheduledDeductions.json",
+          "endpoint": "employee/v1/getScheduledDeductions",
+          "status": 200,
+          "schema": "#/paths/~1employee~1v1~1getScheduledDeductions/get/responses/200/content/application~1json/schema",
+          "sha256": "ee5c59ae1352f2fd5b88c309a3f0b39fa4c4b89601da11f0b7af3334c1eff1b2"
+        },
+        {
+          "file": "fixtures/prismhr/brightside/captures/0067_deductions_v1_getEmployeeLoans.json",
+          "endpoint": "deductions/v1/getEmployeeLoans",
+          "status": 200,
+          "schema": "#/paths/~1deductions~1v1~1getEmployeeLoans/get/responses/200/content/application~1json/schema",
+          "sha256": "89d5792d9028706a04dbf44a800380671cbb8819bd262a836564b703e34cd964"
+        },
+        {
+          "file": "fixtures/prismhr/brightside/captures/0068_employee_v1_getPayRateHistory.json",
+          "endpoint": "employee/v1/getPayRateHistory",
+          "status": 200,
+          "schema": "#/paths/~1employee~1v1~1getPayRateHistory/get/responses/200/content/application~1json/schema",
+          "sha256": "ed4fcab587952166b2be9981d7589d435ff9d4c6df140fa61171dc40632ddb15"
+        },
+        {
+          "file": "fixtures/prismhr/brightside/captures/0069_benefits_v1_getActiveBenefitPlans.json",
+          "endpoint": "benefits/v1/getActiveBenefitPlans",
+          "status": 200,
+          "schema": "#/paths/~1benefits~1v1~1getActiveBenefitPlans/get/responses/200/content/application~1json/schema",
+          "sha256": "f4d4f2f1adafddcb77de7e36870ca7e84bfd5bf7882afbfac9a58781ee347bbd"
+        },
+        {
+          "file": "fixtures/prismhr/brightside/captures/0070_employee_v1_getHistory.json",
+          "endpoint": "employee/v1/getHistory",
+          "status": 200,
+          "schema": "#/paths/~1employee~1v1~1getHistory/get/responses/200/content/application~1json/schema",
+          "sha256": "dce4cabb5dc049eadadb34cec69ab9b437bdc27569ce1106c2cc6225c31ffd06"
+        },
+        {
+          "file": "fixtures/prismhr/brightside/captures/0071_benefits_v1_getDependents.json",
+          "endpoint": "benefits/v1/getDependents",
+          "status": 200,
+          "schema": "#/paths/~1benefits~1v1~1getDependents/get/responses/200/content/application~1json/schema",
+          "sha256": "adb4980a503f3e068aeabd3e4ba0e075a4122b6f49c827f7c7fbe11efc8ee5c5"
+        },
+        {
+          "file": "fixtures/prismhr/brightside/captures/0072_employee_v1_checkForGarnishments.json",
+          "endpoint": "employee/v1/checkForGarnishments",
+          "status": 200,
+          "schema": "#/paths/~1employee~1v1~1checkForGarnishments/get/responses/200/content/application~1json/schema",
+          "sha256": "a33ad52dd7e447275db963741fa9c30476e978660d2a506536058834f83746d8"
+        },
+        {
+          "file": "fixtures/prismhr/brightside/captures/0073_payroll_v1_getScheduledPayments.json",
+          "endpoint": "payroll/v1/getScheduledPayments",
+          "status": 404,
+          "sha256": "b620bc2c0190a01b9d7b4109f7e5c09091d42ccf9dbfb30bf9871c63426fabaa"
+        },
+        {
+          "file": "fixtures/prismhr/brightside/captures/0074_benefits_v1_getRetirementPlan.json",
+          "endpoint": "benefits/v1/getRetirementPlan",
+          "status": 404,
+          "sha256": "a83e08853262190555c3227b7402033f9edee176992497107eb99df474e9cc06"
+        },
+        {
+          "file": "fixtures/prismhr/brightside/captures/0075_benefits_v1_getFlexPlans.json",
+          "endpoint": "benefits/v1/getFlexPlans",
+          "status": 200,
+          "schema": "#/paths/~1benefits~1v1~1getFlexPlans/get/responses/200/content/application~1json/schema",
+          "sha256": "3e41dad1766e95a550622642dd4c0b4e8edf4f85bcfc2a7307622859f42047aa"
+        },
+        {
+          "file": "fixtures/prismhr/brightside/captures/0076_benefits_v1_getBenefitAdjustments.json",
+          "endpoint": "benefits/v1/getBenefitAdjustments",
+          "status": 404,
+          "sha256": "cd72fb1a46ca8776104ca5fa751ebd4a4f5040cefd5bd956d1efcca9866767d7"
+        },
+        {
+          "file": "fixtures/prismhr/brightside/captures/0077_deductions_v1_getGarnishmentDetails.json",
+          "endpoint": "deductions/v1/getGarnishmentDetails",
+          "status": 403,
+          "sha256": "ba1c1aa1df63eabcd9699907358690732c6adacedaa0d6685ec265d19a288ef1"
+        },
+        {
+          "file": "fixtures/prismhr/brightside/captures/0078_system_v1_getEmployerDetails.json",
+          "endpoint": "system/v1/getEmployerDetails",
+          "status": 403,
+          "sha256": "dd11e135f3e2bb89140e5c88701b4b9781190b4027e9a049ecadab5978eb737a"
+        },
+        {
+          "file": "fixtures/prismhr/brightside/captures/0079_payroll_v1_getBatchInfo.json",
+          "endpoint": "payroll/v1/getBatchInfo",
+          "status": 200,
+          "schema": "#/paths/~1payroll~1v1~1getBatchInfo/get/responses/200/content/application~1json/schema",
+          "sha256": "1397a203fccdc306b33388c9fb6a2248228ac04986bd1323910b032cc8fbd814"
+        },
+        {
+          "file": "fixtures/prismhr/brightside/captures/0080_payroll_v1_getPayrollVoucherForBatch.json",
+          "endpoint": "payroll/v1/getPayrollVoucherForBatch",
+          "status": 200,
+          "schema": "#/paths/~1payroll~1v1~1getPayrollVoucherForBatch/get/responses/200/content/application~1json/schema",
+          "sha256": "0de31272b444c6017360a79cf2aa2269951f2c4926ef5695d6b515a039543f6a"
+        },
+        {
+          "file": "fixtures/prismhr/brightside/captures/0081_payroll_v1_getBatchInfo.json",
+          "endpoint": "payroll/v1/getBatchInfo",
+          "status": 200,
+          "schema": "#/paths/~1payroll~1v1~1getBatchInfo/get/responses/200/content/application~1json/schema",
+          "sha256": "5dbaa5c2618cd4743bea42f249b2b3b756f0efc955fe3de78bc5a3c6579111b2"
+        },
+        {
+          "file": "fixtures/prismhr/brightside/captures/0082_payroll_v1_getPayrollVoucherForBatch.json",
+          "endpoint": "payroll/v1/getPayrollVoucherForBatch",
+          "status": 200,
+          "schema": "#/paths/~1payroll~1v1~1getPayrollVoucherForBatch/get/responses/200/content/application~1json/schema",
+          "sha256": "39117af007fba623d122e6c868648a7869b195ff54bf16ceb2796c978b84ac5d"
+        },
+        {
+          "file": "fixtures/prismhr/brightside/captures/0083_payroll_v1_getBatchInfo.json",
+          "endpoint": "payroll/v1/getBatchInfo",
+          "status": 200,
+          "schema": "#/paths/~1payroll~1v1~1getBatchInfo/get/responses/200/content/application~1json/schema",
+          "sha256": "c3b34ccec210993b9a6c0d60c87db1294e0efd990babfc06856b3abcd76f44bb"
+        },
+        {
+          "file": "fixtures/prismhr/brightside/captures/0084_payroll_v1_getPayrollVoucherForBatch.json",
+          "endpoint": "payroll/v1/getPayrollVoucherForBatch",
+          "status": 200,
+          "schema": "#/paths/~1payroll~1v1~1getPayrollVoucherForBatch/get/responses/200/content/application~1json/schema",
+          "sha256": "10e0b472e18ab7c295de433ef2ba7abec163488434671a95d08cf6afe57ed7c5"
+        },
+        {
+          "file": "fixtures/prismhr/brightside/captures/0085_payroll_v1_getBatchInfo.json",
+          "endpoint": "payroll/v1/getBatchInfo",
+          "status": 200,
+          "schema": "#/paths/~1payroll~1v1~1getBatchInfo/get/responses/200/content/application~1json/schema",
+          "sha256": "0802196617c4a809ca409d0fef5000285e9ad4aea09d099ea8b72cd8590f4598"
+        },
+        {
+          "file": "fixtures/prismhr/brightside/captures/0086_payroll_v1_getPayrollVoucherForBatch.json",
+          "endpoint": "payroll/v1/getPayrollVoucherForBatch",
+          "status": 200,
+          "schema": "#/paths/~1payroll~1v1~1getPayrollVoucherForBatch/get/responses/200/content/application~1json/schema",
+          "sha256": "1eb1f1f5128eeea3cc16071c9ad3dc595820d35c781d0d8ec0e535484b63dc3f"
+        },
+        {
+          "file": "fixtures/prismhr/brightside/captures/0087_payroll_v1_getBatchInfo.json",
+          "endpoint": "payroll/v1/getBatchInfo",
+          "status": 200,
+          "schema": "#/paths/~1payroll~1v1~1getBatchInfo/get/responses/200/content/application~1json/schema",
+          "sha256": "2c37a09617240c3ab66e254dad6f2fbf70212885f449a945e9f7a38a65094527"
+        },
+        {
+          "file": "fixtures/prismhr/brightside/captures/0088_payroll_v1_getBatchListByDate.json",
+          "endpoint": "payroll/v1/getBatchListByDate",
+          "status": 200,
+          "schema": "#/paths/~1payroll~1v1~1getBatchListByDate/get/responses/200/content/application~1json/schema",
+          "sha256": "35e5a3282a1395df3b48d260906740762df9645157014e546046fdafca314746"
+        },
+        {
+          "file": "fixtures/prismhr/brightside/captures/0089_clientMaster_v1_getClientMaster.json",
+          "endpoint": "clientMaster/v1/getClientMaster",
+          "status": 200,
+          "schema": "#/paths/~1clientMaster~1v1~1getClientMaster/get/responses/200/content/application~1json/schema",
+          "sha256": "a15be588f53589d48e8a5c8dd64db13882fd380a16db7e471facfa663b7c5cf0"
+        },
+        {
+          "file": "fixtures/prismhr/brightside/captures/0090_clientMaster_v1_getClientCodes.json",
+          "endpoint": "clientMaster/v1/getClientCodes",
+          "status": 200,
+          "schema": "#/paths/~1clientMaster~1v1~1getClientCodes/get/responses/200/content/application~1json/schema",
+          "sha256": "7d3fb40f05409d75fc1685dbf237932c2ebcbcddb0180e56b654980c78fc24b2"
+        },
+        {
+          "file": "fixtures/prismhr/brightside/captures/0091_clientMaster_v1_getAllPrismClientContacts.json",
+          "endpoint": "clientMaster/v1/getAllPrismClientContacts",
+          "status": 200,
+          "schema": "#/paths/~1clientMaster~1v1~1getAllPrismClientContacts/get/responses/200/content/application~1json/schema",
+          "sha256": "ab068cc0ff64fa93ce46cdee7cd13db1903a605a0c5bd71e3f00664387ba323d"
+        },
+        {
+          "file": "fixtures/prismhr/brightside/captures/0092_benefits_v1_getRetirementLoans.json",
+          "endpoint": "benefits/v1/getRetirementLoans",
+          "status": 200,
+          "schema": "#/paths/~1benefits~1v1~1getRetirementLoans/get/responses/200/content/application~1json/schema",
+          "sha256": "f2ee71ce97455f6cf24a1e55bb126663c88a6e2bd06cec4642e32f92488659fe"
+        },
+        {
+          "file": "fixtures/prismhr/brightside/captures/0093_employee_v1_getEmployee.json",
+          "endpoint": "employee/v1/getEmployee",
+          "status": 200,
+          "schema": "#/paths/~1employee~1v1~1getEmployee/get/responses/200/content/application~1json/schema",
+          "sha256": "726e905266f1d23057c5ce724fdeaed703afefe6da59745f6dd455445e736bd7"
+        },
+        {
+          "file": "fixtures/prismhr/brightside/captures/0094_deductions_v1_getDeductions.json",
+          "endpoint": "deductions/v1/getDeductions",
+          "status": 200,
+          "schema": "#/paths/~1deductions~1v1~1getDeductions/get/responses/200/content/application~1json/schema",
+          "sha256": "ef6e8a9d874e60243dd8c5da4620527eeb997a183705f529fa886560ced6d386"
+        },
+        {
+          "file": "fixtures/prismhr/brightside/captures/0095_deductions_v1_getVoluntaryRecurringDeductions.json",
+          "endpoint": "deductions/v1/getVoluntaryRecurringDeductions",
+          "status": 200,
+          "schema": "#/paths/~1deductions~1v1~1getVoluntaryRecurringDeductions/get/responses/200/content/application~1json/schema",
+          "sha256": "e858dbf1d93d984f3cb9152488da3f6271a127f31ff50867eae9a347ac0cd38e"
+        },
+        {
+          "file": "fixtures/prismhr/brightside/captures/0096_employee_v1_getScheduledDeductions.json",
+          "endpoint": "employee/v1/getScheduledDeductions",
+          "status": 200,
+          "schema": "#/paths/~1employee~1v1~1getScheduledDeductions/get/responses/200/content/application~1json/schema",
+          "sha256": "4e88a6935bc0f913b97512188fb68ae4800580d36b406bca41f9bf361d4ecd52"
+        },
+        {
+          "file": "fixtures/prismhr/brightside/captures/0097_deductions_v1_getEmployeeLoans.json",
+          "endpoint": "deductions/v1/getEmployeeLoans",
+          "status": 200,
+          "schema": "#/paths/~1deductions~1v1~1getEmployeeLoans/get/responses/200/content/application~1json/schema",
+          "sha256": "2dd1e3af57889a278cfdd1563e04c5ce72ac83c3f96f1efab71057526d3d7777"
+        },
+        {
+          "file": "fixtures/prismhr/brightside/captures/0098_employee_v1_getPayRateHistory.json",
+          "endpoint": "employee/v1/getPayRateHistory",
+          "status": 200,
+          "schema": "#/paths/~1employee~1v1~1getPayRateHistory/get/responses/200/content/application~1json/schema",
+          "sha256": "7dd740dafd4eb28ce19deca3ffd57c19e27c39f2feb199cc0bce162dd21ca304"
+        },
+        {
+          "file": "fixtures/prismhr/brightside/captures/0099_benefits_v1_getActiveBenefitPlans.json",
+          "endpoint": "benefits/v1/getActiveBenefitPlans",
+          "status": 200,
+          "schema": "#/paths/~1benefits~1v1~1getActiveBenefitPlans/get/responses/200/content/application~1json/schema",
+          "sha256": "7f1b7abcbc518cfcea7e90126de7185105e5e65306285a523c09d910c619889f"
+        },
+        {
+          "file": "fixtures/prismhr/brightside/captures/0100_employee_v1_getHistory.json",
+          "endpoint": "employee/v1/getHistory",
+          "status": 200,
+          "schema": "#/paths/~1employee~1v1~1getHistory/get/responses/200/content/application~1json/schema",
+          "sha256": "8ae392842a1d3213806faa987c899f7efa4535536524dae7dd52b4074a7d18bf"
+        },
+        {
+          "file": "fixtures/prismhr/brightside/captures/0101_benefits_v1_getDependents.json",
+          "endpoint": "benefits/v1/getDependents",
+          "status": 200,
+          "schema": "#/paths/~1benefits~1v1~1getDependents/get/responses/200/content/application~1json/schema",
+          "sha256": "07eb1f6d1c721f8eed28c363c9395aef785ff6ea6dc032c54c51b0fa43ce1469"
+        },
+        {
+          "file": "fixtures/prismhr/brightside/captures/0102_employee_v1_checkForGarnishments.json",
+          "endpoint": "employee/v1/checkForGarnishments",
+          "status": 200,
+          "schema": "#/paths/~1employee~1v1~1checkForGarnishments/get/responses/200/content/application~1json/schema",
+          "sha256": "99f7ee4d7e3b1a1d471bdf522d58d5491462014644ea3131a478de25c3cb1908"
+        },
+        {
+          "file": "fixtures/prismhr/brightside/captures/0103_payroll_v1_getScheduledPayments.json",
+          "endpoint": "payroll/v1/getScheduledPayments",
+          "status": 404,
+          "sha256": "6c42f962975b8bd9ef8509eaa1c5429a09d11cfb6f2733154856236cda8b857d"
+        },
+        {
+          "file": "fixtures/prismhr/brightside/captures/0104_benefits_v1_getRetirementPlan.json",
+          "endpoint": "benefits/v1/getRetirementPlan",
+          "status": 404,
+          "sha256": "10bbe4a38c19eede0eff8ad5f937f1ace9bf9e3e7ae2566467037ebdaefb0167"
+        },
+        {
+          "file": "fixtures/prismhr/brightside/captures/0105_benefits_v1_getFlexPlans.json",
+          "endpoint": "benefits/v1/getFlexPlans",
+          "status": 200,
+          "schema": "#/paths/~1benefits~1v1~1getFlexPlans/get/responses/200/content/application~1json/schema",
+          "sha256": "5b8d684b4861140cc4eb689e9768c58c75e2c520ac63fbb20c2be936e8102396"
+        },
+        {
+          "file": "fixtures/prismhr/brightside/captures/0106_benefits_v1_getBenefitAdjustments.json",
+          "endpoint": "benefits/v1/getBenefitAdjustments",
+          "status": 404,
+          "sha256": "2da4c460b48706a87161e911e7c756631022a9cbd166e3ab3cf11ac8586bd102"
+        },
+        {
+          "file": "fixtures/prismhr/brightside/captures/0107_deductions_v1_getGarnishmentDetails.json",
+          "endpoint": "deductions/v1/getGarnishmentDetails",
+          "status": 403,
+          "sha256": "28462aaa3fcebe0c20add6c206f2243fb61e2e38325ef0b2473c9c46d105b4dd"
+        },
+        {
+          "file": "fixtures/prismhr/brightside/captures/0108_payroll_v1_getBatchInfo.json",
+          "endpoint": "payroll/v1/getBatchInfo",
+          "status": 200,
+          "schema": "#/paths/~1payroll~1v1~1getBatchInfo/get/responses/200/content/application~1json/schema",
+          "sha256": "0526596e63b055a8587a6b5c2a407324717a641839c5a1470bd80446d119c7ca"
+        },
+        {
+          "file": "fixtures/prismhr/brightside/captures/0109_payroll_v1_getPayrollVoucherForBatch.json",
+          "endpoint": "payroll/v1/getPayrollVoucherForBatch",
+          "status": 200,
+          "schema": "#/paths/~1payroll~1v1~1getPayrollVoucherForBatch/get/responses/200/content/application~1json/schema",
+          "sha256": "9525afc59d2996eb2ad7f6c545977c008d0182231ad84208d0b7c0376359c80f"
+        },
+        {
+          "file": "fixtures/prismhr/brightside/captures/0110_payroll_v1_getBatchListByDate.json",
+          "endpoint": "payroll/v1/getBatchListByDate",
+          "status": 200,
+          "schema": "#/paths/~1payroll~1v1~1getBatchListByDate/get/responses/200/content/application~1json/schema",
+          "sha256": "029d29f01409f4c2e562f03accd74181c6366db966e1e53b79f4a14b887bb46c"
+        }
+      ],
+      "golden": {
+        "file": "tests/golden/prismhr/brightside.json",
+        "sha256": "19c0291fd84903d235e13b71efb0e6b257d906937eb3db42bdb330855b043c4c"
+      }
+    },
+    {
+      "provider": "isolved",
+      "scenario": "brightside",
+      "builder": "normalization.fixtures.isolved.build",
+      "seed": 2026,
+      "as_of": null,
+      "spec": {
+        "file": "contracts/isolved/openapi/isolved-v6.swagger.json",
+        "sha256": "d0d3292944a892ec3717ed0a377740ca5b965523c27fb228b39dd36d2ed71ad7"
+      },
+      "validated_responses": 67,
+      "allowed_deviations": [
+        {
+          "validator": "maxLength",
+          "field": "maritalStatus"
+        }
+      ],
+      "files": [
+        {
+          "file": "fixtures/isolved/brightside/session.json",
+          "sha256": "b3f21568a791458240548b1f6d0ce0479ba336c1ce5fbdaa265140e950e3880d"
+        },
+        {
+          "file": "fixtures/isolved/brightside/captures/0001_api_lookup_Frequencies.json",
+          "endpoint": "api/lookup/Frequencies",
+          "status": 200,
+          "schema": "#/paths/~1api~1lookup~1Frequencies/get/responses/200/schema",
+          "sha256": "8892bbb976b8ec9792a45daf69303f48d154c5c67540790607029baca1846c39"
+        },
+        {
+          "file": "fixtures/isolved/brightside/captures/0002_api_lookup_genders.json",
+          "endpoint": "api/lookup/genders",
+          "status": 200,
+          "schema": "#/paths/~1api~1lookup~1genders/get/responses/200/schema",
+          "sha256": "0dfca802459245fa891c98d418f037fe0ada463fff0f86772ec5a7dca711bfde"
+        },
+        {
+          "file": "fixtures/isolved/brightside/captures/0003_api_lookup_maritalStatuses.json",
+          "endpoint": "api/lookup/maritalStatuses",
+          "status": 200,
+          "schema": "#/paths/~1api~1lookup~1maritalStatuses/get/responses/200/schema",
+          "sha256": "c1a88d1f79f76f8ccfca83c7de5c9c527a5e23a5d1a10863507514a433059777"
+        },
+        {
+          "file": "fixtures/isolved/brightside/captures/0004_api_lookup_citizenships.json",
+          "endpoint": "api/lookup/citizenships",
+          "status": 200,
+          "schema": "#/paths/~1api~1lookup~1citizenships/get/responses/200/schema",
+          "sha256": "9a63ad9b30936b2ef8334692476e43ee0b2257a2822349491fde842d003c9355"
+        },
+        {
+          "file": "fixtures/isolved/brightside/captures/0005_api_lookup_ContactRelationshipCodes.json",
+          "endpoint": "api/lookup/ContactRelationshipCodes",
+          "status": 200,
+          "schema": "#/paths/~1api~1lookup~1ContactRelationshipCodes/get/responses/200/schema",
+          "sha256": "efc40b8d229c51c734249d06cf1c471dd6c7f7b585eb512d7b5c3de9f8865294"
+        },
+        {
+          "file": "fixtures/isolved/brightside/captures/0006_api_system_payTypes.json",
+          "endpoint": "api/system/payTypes",
+          "status": 200,
+          "schema": "#/paths/~1api~1system~1payTypes/get/responses/200/schema",
+          "sha256": "d2a34c0cce774c518c4e54b740a3b4119f5f4968dca7cb9732c7e76fe870c915"
+        },
+        {
+          "file": "fixtures/isolved/brightside/captures/0007_api_clients_client.json",
+          "endpoint": "api/clients/{client}",
+          "status": 200,
+          "schema": "#/paths/~1api~1clients~1{id}/get/responses/200/schema",
+          "sha256": "1088c78a1f2e4f7d3302025dafa586eb31ed5b954f1513577e86925d59ad7c3e"
+        },
+        {
+          "file": "fixtures/isolved/brightside/captures/0008_api_clients_client_payItems.json",
+          "endpoint": "api/clients/{client}/payItems",
+          "status": 200,
+          "schema": "#/paths/~1api~1clients~1{clientId}~1payItems/get/responses/200/schema",
+          "sha256": "ffec2df803e5a82b874bcde97b7c77d29cb6c3c35c75371be2957b7f50a46235"
+        },
+        {
+          "file": "fixtures/isolved/brightside/captures/0009_api_clients_client_legals_legal.json",
+          "endpoint": "api/clients/{client}/legals/{legal}",
+          "status": 200,
+          "schema": "#/paths/~1api~1clients~1{clientId}~1legals~1{id}/get/responses/200/schema",
+          "sha256": "4d2d8e2fd79ebfa89a5d7e4a2739ffa87f995cfd48e2efe61e510d78a54ce235"
+        },
+        {
+          "file": "fixtures/isolved/brightside/captures/0010_api_clients_client_legals_legal_employees_id.json",
+          "endpoint": "api/clients/{client}/legals/{legal}/employees/{id}",
+          "status": 200,
+          "schema": "#/paths/~1api~1clients~1{clientId}~1legals~1{legalId}~1employees~1{id}/get/responses/200/schema",
+          "sha256": "c3814503168327b199dbc5eb1f2d2cbe2c90095468fa5d2c29502a5b31b0e9fd"
+        },
+        {
+          "file": "fixtures/isolved/brightside/captures/0011_api_clients_client_legals_legal_employees_id_statuses.json",
+          "endpoint": "api/clients/{client}/legals/{legal}/employees/{id}/statuses",
+          "status": 200,
+          "schema": "#/paths/~1api~1clients~1{clientId}~1legals~1{legalId}~1employees~1{employeeId}~1statuses/get/responses/200/schema",
+          "sha256": "66c91085bd84d77cac33e57e5a5679bcab33ee3dffd39f8f1894d8e8a6a9d784"
+        },
+        {
+          "file": "fixtures/isolved/brightside/captures/0012_api_clients_client_legals_legal_employees_id_salaries.json",
+          "endpoint": "api/clients/{client}/legals/{legal}/employees/{id}/salaries",
+          "status": 200,
+          "schema": "#/paths/~1api~1clients~1{clientId}~1legals~1{legalId}~1employees~1{employeeId}~1salaries/get/responses/200/schema",
+          "sha256": "4598219ef861ff21835192a5da01ffea6b7e4ae81ae7748dc91b0525cb444074"
+        },
+        {
+          "file": "fixtures/isolved/brightside/captures/0013_api_clients_client_legals_legal_employees_id_jobs.json",
+          "endpoint": "api/clients/{client}/legals/{legal}/employees/{id}/jobs",
+          "status": 200,
+          "schema": "#/paths/~1api~1clients~1{clientId}~1legals~1{legalId}~1employees~1{employeeId}~1jobs/get/responses/200/schema",
+          "sha256": "babd902ecdec0d09e94a8a933dfd00670886779e102a59789ce19418f13d7a8b"
+        },
+        {
+          "file": "fixtures/isolved/brightside/captures/0014_api_clients_client_legals_legal_employees_id_categories.json",
+          "endpoint": "api/clients/{client}/legals/{legal}/employees/{id}/categories",
+          "status": 200,
+          "schema": "#/paths/~1api~1clients~1{clientId}~1legals~1{legalId}~1employees~1{employeeId}~1categories/get/responses/200/schema",
+          "sha256": "1249f6f5494dbcdf8c2ea57813368985f73df612b7bf4a55d107d622f67e72bc"
+        },
+        {
+          "file": "fixtures/isolved/brightside/captures/0015_api_clients_client_legals_legal_employees_id_veteranStatus.json",
+          "endpoint": "api/clients/{client}/legals/{legal}/employees/{id}/veteranStatus",
+          "status": 200,
+          "schema": "#/paths/~1api~1clients~1{clientId}~1legals~1{legalId}~1employees~1{employeeId}~1veteranStatus/get/responses/200/schema",
+          "sha256": "3e063736e5cff8f781299bcfdaf0adac76815d432504c047e459cb8bab8f23c5"
+        },
+        {
+          "file": "fixtures/isolved/brightside/captures/0016_api_clients_client_legals_legal_employees_id_contacts.json",
+          "endpoint": "api/clients/{client}/legals/{legal}/employees/{id}/contacts",
+          "status": 200,
+          "schema": "#/paths/~1api~1clients~1{clientId}~1legals~1{legalId}~1employees~1{employeeId}~1contacts/get/responses/200/schema",
+          "sha256": "1c00b389fa86dc9cf23041fcabbdc00d828148d382f770ffa54fcae15f370cb4"
+        },
+        {
+          "file": "fixtures/isolved/brightside/captures/0017_api_clients_client_legals_legal_employees_id_payRates.json",
+          "endpoint": "api/clients/{client}/legals/{legal}/employees/{id}/payRates",
+          "status": 200,
+          "schema": "#/paths/~1api~1clients~1{clientId}~1legals~1{legalId}~1employees~1{employeeId}~1payRates/get/responses/200/schema",
+          "sha256": "efda84c94e26433d1a1c396210842146ba218e929dc31698219b39329800f89f"
+        },
+        {
+          "file": "fixtures/isolved/brightside/captures/0018_api_clients_client_legals_legal_employees_id_directdeposits.json",
+          "endpoint": "api/clients/{client}/legals/{legal}/employees/{id}/directdeposits",
+          "status": 200,
+          "schema": "#/paths/~1api~1clients~1{clientId}~1legals~1{legalId}~1employees~1{employeeId}~1directdeposits/get/responses/200/schema",
+          "sha256": "8f62107e74ade44649c7bc160ca185c24953072a4fba6d0a580538171b9f50e9"
+        },
+        {
+          "file": "fixtures/isolved/brightside/captures/0019_api_clients_client_legals_legal_employees_id_payItems.json",
+          "endpoint": "api/clients/{client}/legals/{legal}/employees/{id}/payItems",
+          "status": 200,
+          "schema": "#/paths/~1api~1clients~1{clientId}~1legals~1{legalId}~1employees~1{employeeId}~1payItems/get/responses/200/schema",
+          "sha256": "2fdca744bdb229df91595af6e6996c92819223347c83feb0eddd540a914d6631"
+        },
+        {
+          "file": "fixtures/isolved/brightside/captures/0020_api_clients_client_legals_legal_employees_id_garnishments.json",
+          "endpoint": "api/clients/{client}/legals/{legal}/employees/{id}/garnishments",
+          "status": 404,
+          "sha256": "f3018509ca59d43c1290a74771275fe9fd167e15750d96f04b0e2613b8ec09e5"
+        },
+        {
+          "file": "fixtures/isolved/brightside/captures/0021_api_clients_client_legals_legal_employees_id.json",
+          "endpoint": "api/clients/{client}/legals/{legal}/employees/{id}",
+          "status": 200,
+          "schema": "#/paths/~1api~1clients~1{clientId}~1legals~1{legalId}~1employees~1{id}/get/responses/200/schema",
+          "sha256": "e85f8eaa098cd1c9b2527f666767427cace34be86434c6e47abc54fc8858dafc"
+        },
+        {
+          "file": "fixtures/isolved/brightside/captures/0022_api_clients_client_legals_legal_employees_id_statuses.json",
+          "endpoint": "api/clients/{client}/legals/{legal}/employees/{id}/statuses",
+          "status": 200,
+          "schema": "#/paths/~1api~1clients~1{clientId}~1legals~1{legalId}~1employees~1{employeeId}~1statuses/get/responses/200/schema",
+          "sha256": "818b0c8c0749b910c01ffe5831f843422786acb34012be1693d480932155fab0"
+        },
+        {
+          "file": "fixtures/isolved/brightside/captures/0023_api_clients_client_legals_legal_employees_id_salaries.json",
+          "endpoint": "api/clients/{client}/legals/{legal}/employees/{id}/salaries",
+          "status": 200,
+          "schema": "#/paths/~1api~1clients~1{clientId}~1legals~1{legalId}~1employees~1{employeeId}~1salaries/get/responses/200/schema",
+          "sha256": "93085b7777fa96ad94f24a2f2847bab1566a8ae0451cc809f3e0300cf770c4b3"
+        },
+        {
+          "file": "fixtures/isolved/brightside/captures/0024_api_clients_client_legals_legal_employees_id_jobs.json",
+          "endpoint": "api/clients/{client}/legals/{legal}/employees/{id}/jobs",
+          "status": 200,
+          "schema": "#/paths/~1api~1clients~1{clientId}~1legals~1{legalId}~1employees~1{employeeId}~1jobs/get/responses/200/schema",
+          "sha256": "58ba9c52d1aff377c4e9289a592b70ae266e2d82f0670d2a8d6c490b225196db"
+        },
+        {
+          "file": "fixtures/isolved/brightside/captures/0025_api_clients_client_legals_legal_employees_id_categories.json",
+          "endpoint": "api/clients/{client}/legals/{legal}/employees/{id}/categories",
+          "status": 200,
+          "schema": "#/paths/~1api~1clients~1{clientId}~1legals~1{legalId}~1employees~1{employeeId}~1categories/get/responses/200/schema",
+          "sha256": "380e71efcc56899765615dbedacce2a5f630bddc887b3c5dc5f784b92846a993"
+        },
+        {
+          "file": "fixtures/isolved/brightside/captures/0026_api_clients_client_legals_legal_employees_id_veteranStatus.json",
+          "endpoint": "api/clients/{client}/legals/{legal}/employees/{id}/veteranStatus",
+          "status": 200,
+          "schema": "#/paths/~1api~1clients~1{clientId}~1legals~1{legalId}~1employees~1{employeeId}~1veteranStatus/get/responses/200/schema",
+          "sha256": "4773a70b6d616885c36a4ca54f04340ab0794a52316c6af0370a503c79d7a978"
+        },
+        {
+          "file": "fixtures/isolved/brightside/captures/0027_api_clients_client_legals_legal_employees_id_contacts.json",
+          "endpoint": "api/clients/{client}/legals/{legal}/employees/{id}/contacts",
+          "status": 404,
+          "sha256": "a387a440114da27e033505dfe8e0c78f3edd0ab02d85ec0030eaa5a02d4bbdb4"
+        },
+        {
+          "file": "fixtures/isolved/brightside/captures/0028_api_clients_client_legals_legal_employees_id_payRates.json",
+          "endpoint": "api/clients/{client}/legals/{legal}/employees/{id}/payRates",
+          "status": 200,
+          "schema": "#/paths/~1api~1clients~1{clientId}~1legals~1{legalId}~1employees~1{employeeId}~1payRates/get/responses/200/schema",
+          "sha256": "b8086cca6b8e80bc53af2b0d33d2ecba2cc27d38c44a63e7e695edbea5ae1694"
+        },
+        {
+          "file": "fixtures/isolved/brightside/captures/0029_api_clients_client_legals_legal_employees_id_directdeposits.json",
+          "endpoint": "api/clients/{client}/legals/{legal}/employees/{id}/directdeposits",
+          "status": 200,
+          "schema": "#/paths/~1api~1clients~1{clientId}~1legals~1{legalId}~1employees~1{employeeId}~1directdeposits/get/responses/200/schema",
+          "sha256": "5745f0e8171c064edc62cb3924adc82540fe51f86a767159a2b81b07f7d3a785"
+        },
+        {
+          "file": "fixtures/isolved/brightside/captures/0030_api_clients_client_legals_legal_employees_id_payItems.json",
+          "endpoint": "api/clients/{client}/legals/{legal}/employees/{id}/payItems",
+          "status": 200,
+          "schema": "#/paths/~1api~1clients~1{clientId}~1legals~1{legalId}~1employees~1{employeeId}~1payItems/get/responses/200/schema",
+          "sha256": "2892d4c5f96d080c89605a6ef8075e6036e8ebf3f5e94aaf5bccc479089a7cd0"
+        },
+        {
+          "file": "fixtures/isolved/brightside/captures/0031_api_clients_client_legals_legal_employees_id_garnishments.json",
+          "endpoint": "api/clients/{client}/legals/{legal}/employees/{id}/garnishments",
+          "status": 200,
+          "schema": "#/paths/~1api~1clients~1{clientId}~1legals~1{legalId}~1employees~1{employeeId}~1garnishments/get/responses/200/schema",
+          "sha256": "8e22a0e849b7cf45648d873fa48b1516a1fca1f3b08b1ac9eb68d8b08a86e532"
+        },
+        {
+          "file": "fixtures/isolved/brightside/captures/0032_api_clients_client_legals_legal_employees_id.json",
+          "endpoint": "api/clients/{client}/legals/{legal}/employees/{id}",
+          "status": 200,
+          "schema": "#/paths/~1api~1clients~1{clientId}~1legals~1{legalId}~1employees~1{id}/get/responses/200/schema",
+          "sha256": "a0c490a5abed1de348a8923029d96a95a955743fde0c6fe34642bed593d8eff8"
+        },
+        {
+          "file": "fixtures/isolved/brightside/captures/0033_api_clients_client_legals_legal_employees_id_statuses.json",
+          "endpoint": "api/clients/{client}/legals/{legal}/employees/{id}/statuses",
+          "status": 200,
+          "schema": "#/paths/~1api~1clients~1{clientId}~1legals~1{legalId}~1employees~1{employeeId}~1statuses/get/responses/200/schema",
+          "sha256": "da51bfa66460c5c72a887a87b02f8bf9d0e11989e3f86f5ad998b3a4258c8b59"
+        },
+        {
+          "file": "fixtures/isolved/brightside/captures/0034_api_clients_client_legals_legal_employees_id_salaries.json",
+          "endpoint": "api/clients/{client}/legals/{legal}/employees/{id}/salaries",
+          "status": 200,
+          "schema": "#/paths/~1api~1clients~1{clientId}~1legals~1{legalId}~1employees~1{employeeId}~1salaries/get/responses/200/schema",
+          "sha256": "f5553121a5b4f6dea6af9286b75accf7946603794f8344494da4c6194ed34a1d"
+        },
+        {
+          "file": "fixtures/isolved/brightside/captures/0035_api_clients_client_legals_legal_employees_id_jobs.json",
+          "endpoint": "api/clients/{client}/legals/{legal}/employees/{id}/jobs",
+          "status": 200,
+          "schema": "#/paths/~1api~1clients~1{clientId}~1legals~1{legalId}~1employees~1{employeeId}~1jobs/get/responses/200/schema",
+          "sha256": "007aac1d9f46ee0185c43ae1eb04e02fb15d2c82312f83d85a7ad136955e2b26"
+        },
+        {
+          "file": "fixtures/isolved/brightside/captures/0036_api_clients_client_legals_legal_employees_id_categories.json",
+          "endpoint": "api/clients/{client}/legals/{legal}/employees/{id}/categories",
+          "status": 200,
+          "schema": "#/paths/~1api~1clients~1{clientId}~1legals~1{legalId}~1employees~1{employeeId}~1categories/get/responses/200/schema",
+          "sha256": "b7b79e4d84c5495dd690c777bed80d3c734b6d24c189d119b81c76c9944cb107"
+        },
+        {
+          "file": "fixtures/isolved/brightside/captures/0037_api_clients_client_legals_legal_employees_id_veteranStatus.json",
+          "endpoint": "api/clients/{client}/legals/{legal}/employees/{id}/veteranStatus",
+          "status": 404,
+          "sha256": "dd2ae25f2233dbb47c0940d54453d39d983a6f1e8b59a1931566f2828998a6fa"
+        },
+        {
+          "file": "fixtures/isolved/brightside/captures/0038_api_clients_client_legals_legal_employees_id_contacts.json",
+          "endpoint": "api/clients/{client}/legals/{legal}/employees/{id}/contacts",
+          "status": 404,
+          "sha256": "ad0666bb97aff8647725de1951a78b7fde9ea90f3a81890de0acf56b9fedc557"
+        },
+        {
+          "file": "fixtures/isolved/brightside/captures/0039_api_clients_client_legals_legal_employees_id_payRates.json",
+          "endpoint": "api/clients/{client}/legals/{legal}/employees/{id}/payRates",
+          "status": 200,
+          "schema": "#/paths/~1api~1clients~1{clientId}~1legals~1{legalId}~1employees~1{employeeId}~1payRates/get/responses/200/schema",
+          "sha256": "9a6ef9b7db42df138b214aa7514ffb52cbee2d0b5720ffa610fdd74eff09fbae"
+        },
+        {
+          "file": "fixtures/isolved/brightside/captures/0040_api_clients_client_legals_legal_employees_id_directdeposits.json",
+          "endpoint": "api/clients/{client}/legals/{legal}/employees/{id}/directdeposits",
+          "status": 200,
+          "schema": "#/paths/~1api~1clients~1{clientId}~1legals~1{legalId}~1employees~1{employeeId}~1directdeposits/get/responses/200/schema",
+          "sha256": "171d0d9824013cbab553bcb5ef9778bee46d49859eba629b18ab4e2127b10cde"
+        },
+        {
+          "file": "fixtures/isolved/brightside/captures/0041_api_clients_client_legals_legal_employees_id_payItems.json",
+          "endpoint": "api/clients/{client}/legals/{legal}/employees/{id}/payItems",
+          "status": 200,
+          "schema": "#/paths/~1api~1clients~1{clientId}~1legals~1{legalId}~1employees~1{employeeId}~1payItems/get/responses/200/schema",
+          "sha256": "f4e7f6f18214037b7c36163c7235a252ccffd819f0b5e127021b941b28644111"
+        },
+        {
+          "file": "fixtures/isolved/brightside/captures/0042_api_clients_client_legals_legal_employees_id_garnishments.json",
+          "endpoint": "api/clients/{client}/legals/{legal}/employees/{id}/garnishments",
+          "status": 404,
+          "sha256": "de631bde2244c472ad6d19b1cb344ef8c2186d8e8f0502799182e35a87c92c79"
+        },
+        {
+          "file": "fixtures/isolved/brightside/captures/0043_api_clients_client_legals_legal_employees_id.json",
+          "endpoint": "api/clients/{client}/legals/{legal}/employees/{id}",
+          "status": 200,
+          "schema": "#/paths/~1api~1clients~1{clientId}~1legals~1{legalId}~1employees~1{id}/get/responses/200/schema",
+          "sha256": "76106626c696bcdf52ec197a704798c475613ea615049aad30707de3cfd292f1"
+        },
+        {
+          "file": "fixtures/isolved/brightside/captures/0044_api_clients_client_legals_legal_employees_id_statuses.json",
+          "endpoint": "api/clients/{client}/legals/{legal}/employees/{id}/statuses",
+          "status": 200,
+          "schema": "#/paths/~1api~1clients~1{clientId}~1legals~1{legalId}~1employees~1{employeeId}~1statuses/get/responses/200/schema",
+          "sha256": "4619467ee64e59d7e76eb0a15e4500c2caf560f8c15cbdea1d70a1c1f9632074"
+        },
+        {
+          "file": "fixtures/isolved/brightside/captures/0045_api_clients_client_legals_legal_employees_id_salaries.json",
+          "endpoint": "api/clients/{client}/legals/{legal}/employees/{id}/salaries",
+          "status": 200,
+          "schema": "#/paths/~1api~1clients~1{clientId}~1legals~1{legalId}~1employees~1{employeeId}~1salaries/get/responses/200/schema",
+          "sha256": "a287cd05e017f649a96c92d394739822f735317a3d3951333db09455d0b74d9f"
+        },
+        {
+          "file": "fixtures/isolved/brightside/captures/0046_api_clients_client_legals_legal_employees_id_jobs.json",
+          "endpoint": "api/clients/{client}/legals/{legal}/employees/{id}/jobs",
+          "status": 200,
+          "schema": "#/paths/~1api~1clients~1{clientId}~1legals~1{legalId}~1employees~1{employeeId}~1jobs/get/responses/200/schema",
+          "sha256": "58024a7e707663ce64d52eba6bb2e8d5aadd63b846238c511268f19d18e21395"
+        },
+        {
+          "file": "fixtures/isolved/brightside/captures/0047_api_clients_client_legals_legal_employees_id_categories.json",
+          "endpoint": "api/clients/{client}/legals/{legal}/employees/{id}/categories",
+          "status": 200,
+          "schema": "#/paths/~1api~1clients~1{clientId}~1legals~1{legalId}~1employees~1{employeeId}~1categories/get/responses/200/schema",
+          "sha256": "eaa02cdc0fd8fcd7dcd994d37330ebdc5663466a7c3f6184c90d627705109bf4"
+        },
+        {
+          "file": "fixtures/isolved/brightside/captures/0048_api_clients_client_legals_legal_employees_id_veteranStatus.json",
+          "endpoint": "api/clients/{client}/legals/{legal}/employees/{id}/veteranStatus",
+          "status": 404,
+          "sha256": "c02754f0e06bb5adfeba4ba875314eef52f69b6a5fcaf18017dfdc1fec836bd5"
+        },
+        {
+          "file": "fixtures/isolved/brightside/captures/0049_api_clients_client_legals_legal_employees_id_contacts.json",
+          "endpoint": "api/clients/{client}/legals/{legal}/employees/{id}/contacts",
+          "status": 404,
+          "sha256": "fe989270592e1a59c32d1ba851ae32362114bde1d0b6061d3655d8e54057c036"
+        },
+        {
+          "file": "fixtures/isolved/brightside/captures/0050_api_clients_client_legals_legal_employees_id_payRates.json",
+          "endpoint": "api/clients/{client}/legals/{legal}/employees/{id}/payRates",
+          "status": 200,
+          "schema": "#/paths/~1api~1clients~1{clientId}~1legals~1{legalId}~1employees~1{employeeId}~1payRates/get/responses/200/schema",
+          "sha256": "c83eeb1e2bad353ed444c0736d20ed7e704fb2acebfde3d750a39a9760b59197"
+        },
+        {
+          "file": "fixtures/isolved/brightside/captures/0051_api_clients_client_legals_legal_employees_id_directdeposits.json",
+          "endpoint": "api/clients/{client}/legals/{legal}/employees/{id}/directdeposits",
+          "status": 200,
+          "schema": "#/paths/~1api~1clients~1{clientId}~1legals~1{legalId}~1employees~1{employeeId}~1directdeposits/get/responses/200/schema",
+          "sha256": "e31518317668cccb48221f86af0ea0b3935a093d69b5b6fd4d9459d02062671b"
+        },
+        {
+          "file": "fixtures/isolved/brightside/captures/0052_api_clients_client_legals_legal_employees_id_payItems.json",
+          "endpoint": "api/clients/{client}/legals/{legal}/employees/{id}/payItems",
+          "status": 200,
+          "schema": "#/paths/~1api~1clients~1{clientId}~1legals~1{legalId}~1employees~1{employeeId}~1payItems/get/responses/200/schema",
+          "sha256": "71f7df92f2f919cf74e93a3a0abed753b17a368936da9b94b625d4e23358ff70"
+        },
+        {
+          "file": "fixtures/isolved/brightside/captures/0053_api_clients_client_legals_legal_employees_id_garnishments.json",
+          "endpoint": "api/clients/{client}/legals/{legal}/employees/{id}/garnishments",
+          "status": 404,
+          "sha256": "4ef64d33ebca5d649328030509753277f7eb8fafbb009fa5959fca128f2653eb"
+        },
+        {
+          "file": "fixtures/isolved/brightside/captures/0054_api_clients_client_legals_legal_employees_id.json",
+          "endpoint": "api/clients/{client}/legals/{legal}/employees/{id}",
+          "status": 200,
+          "schema": "#/paths/~1api~1clients~1{clientId}~1legals~1{legalId}~1employees~1{id}/get/responses/200/schema",
+          "sha256": "43c841defd7a0ceefe31798bbbd82c877f10fad3d5703f4b0d880c00938d2569"
+        },
+        {
+          "file": "fixtures/isolved/brightside/captures/0055_api_clients_client_legals_legal_employees_id_statuses.json",
+          "endpoint": "api/clients/{client}/legals/{legal}/employees/{id}/statuses",
+          "status": 200,
+          "schema": "#/paths/~1api~1clients~1{clientId}~1legals~1{legalId}~1employees~1{employeeId}~1statuses/get/responses/200/schema",
+          "sha256": "ad974b6197b794d97b60ea8842575c64a061082c6d7527a94c10de475d227693"
+        },
+        {
+          "file": "fixtures/isolved/brightside/captures/0056_api_clients_client_legals_legal_employees_id_salaries.json",
+          "endpoint": "api/clients/{client}/legals/{legal}/employees/{id}/salaries",
+          "status": 200,
+          "schema": "#/paths/~1api~1clients~1{clientId}~1legals~1{legalId}~1employees~1{employeeId}~1salaries/get/responses/200/schema",
+          "sha256": "1a0c7b43dc7e78c0c5197707a370747b62f1f4e9d17721edc569221c99ddca28"
+        },
+        {
+          "file": "fixtures/isolved/brightside/captures/0057_api_clients_client_legals_legal_employees_id_jobs.json",
+          "endpoint": "api/clients/{client}/legals/{legal}/employees/{id}/jobs",
+          "status": 404,
+          "sha256": "9583e2700802a98a326f8347663fccb92db88147c610ec983cb782be65f3b572"
+        },
+        {
+          "file": "fixtures/isolved/brightside/captures/0058_api_clients_client_legals_legal_employees_id_categories.json",
+          "endpoint": "api/clients/{client}/legals/{legal}/employees/{id}/categories",
+          "status": 200,
+          "schema": "#/paths/~1api~1clients~1{clientId}~1legals~1{legalId}~1employees~1{employeeId}~1categories/get/responses/200/schema",
+          "sha256": "3803520c606d7735fb0e2518963e8ab8464af61364ae853bf8397d1106f5ed44"
+        },
+        {
+          "file": "fixtures/isolved/brightside/captures/0059_api_clients_client_legals_legal_employees_id_veteranStatus.json",
+          "endpoint": "api/clients/{client}/legals/{legal}/employees/{id}/veteranStatus",
+          "status": 404,
+          "sha256": "d6c01f173ebb8634b561f69680f773296b79a218897eda36099c7925172c220b"
+        },
+        {
+          "file": "fixtures/isolved/brightside/captures/0060_api_clients_client_legals_legal_employees_id_contacts.json",
+          "endpoint": "api/clients/{client}/legals/{legal}/employees/{id}/contacts",
+          "status": 404,
+          "sha256": "256afeb592cb41433a0d8abcf73fc98f7854316dd2bead071119f90d87b36e58"
+        },
+        {
+          "file": "fixtures/isolved/brightside/captures/0061_api_clients_client_legals_legal_employees_id_payRates.json",
+          "endpoint": "api/clients/{client}/legals/{legal}/employees/{id}/payRates",
+          "status": 200,
+          "schema": "#/paths/~1api~1clients~1{clientId}~1legals~1{legalId}~1employees~1{employeeId}~1payRates/get/responses/200/schema",
+          "sha256": "ecf94dfff6e38b992f86024fa4ceeff0d1251b7133c5b6e014cb1d86ad566ea8"
+        },
+        {
+          "file": "fixtures/isolved/brightside/captures/0062_api_clients_client_legals_legal_employees_id_directdeposits.json",
+          "endpoint": "api/clients/{client}/legals/{legal}/employees/{id}/directdeposits",
+          "status": 200,
+          "schema": "#/paths/~1api~1clients~1{clientId}~1legals~1{legalId}~1employees~1{employeeId}~1directdeposits/get/responses/200/schema",
+          "sha256": "b286bb211cfa13d01f4046043caece01bb2d1fc3209ff9cfa33988727bea68f9"
+        },
+        {
+          "file": "fixtures/isolved/brightside/captures/0063_api_clients_client_legals_legal_employees_id_payItems.json",
+          "endpoint": "api/clients/{client}/legals/{legal}/employees/{id}/payItems",
+          "status": 200,
+          "schema": "#/paths/~1api~1clients~1{clientId}~1legals~1{legalId}~1employees~1{employeeId}~1payItems/get/responses/200/schema",
+          "sha256": "797120ea5ba3e7ac5d66962fc8c33a4c87bae54dd904cc56e25e7ee4c505621b"
+        },
+        {
+          "file": "fixtures/isolved/brightside/captures/0064_api_clients_client_legals_legal_employees_id_garnishments.json",
+          "endpoint": "api/clients/{client}/legals/{legal}/employees/{id}/garnishments",
+          "status": 404,
+          "sha256": "9e80b6a30e6aac49a20461cf634695af27b2f1bb8a3f1c655f9519db4cc41cb4"
+        },
+        {
+          "file": "fixtures/isolved/brightside/captures/0065_api_clients_client_legals_legal_paygroupId_id_payrollRunHistory_id.json",
+          "endpoint": "api/clients/{client}/legals/{legal}/paygroupId/{id}/payrollRunHistory/{id}",
+          "status": 200,
+          "schema": "#/paths/~1api~1clients~1{clientId}~1legals~1{legalId}~1paygroupId~1{paygroupId}~1payrollRunHistory~1{payrollId}/get/responses/200/schema",
+          "sha256": "5cde8ff06edf263aa42127b89464eac2c79b6b87219cc20b2f7c99f0cde3cd39"
+        },
+        {
+          "file": "fixtures/isolved/brightside/captures/0066_api_clients_client_legals_legal_paygroupId_id_payrollRunHistory_id.json",
+          "endpoint": "api/clients/{client}/legals/{legal}/paygroupId/{id}/payrollRunHistory/{id}",
+          "status": 200,
+          "schema": "#/paths/~1api~1clients~1{clientId}~1legals~1{legalId}~1paygroupId~1{paygroupId}~1payrollRunHistory~1{payrollId}/get/responses/200/schema",
+          "sha256": "5b603d91dbda0589102155dde92a5050cf29fddd563a6da84b9663cc10c7b2cf"
+        },
+        {
+          "file": "fixtures/isolved/brightside/captures/0067_api_clients_client_legals_legal_paygroupId_id_payrollRunHistory_id.json",
+          "endpoint": "api/clients/{client}/legals/{legal}/paygroupId/{id}/payrollRunHistory/{id}",
+          "status": 200,
+          "schema": "#/paths/~1api~1clients~1{clientId}~1legals~1{legalId}~1paygroupId~1{paygroupId}~1payrollRunHistory~1{payrollId}/get/responses/200/schema",
+          "sha256": "92f3ca9fa043b21166fe9bf019bcbea9ddfad108edb91385677c8b9cb3989db4"
+        },
+        {
+          "file": "fixtures/isolved/brightside/captures/0068_api_clients_client_legals_legal_paygroupId_id_payrollRunHistory_id.json",
+          "endpoint": "api/clients/{client}/legals/{legal}/paygroupId/{id}/payrollRunHistory/{id}",
+          "status": 200,
+          "schema": "#/paths/~1api~1clients~1{clientId}~1legals~1{legalId}~1paygroupId~1{paygroupId}~1payrollRunHistory~1{payrollId}/get/responses/200/schema",
+          "sha256": "8e5986bc43df2fa6240594d70608c70d90532e6efbfd0df4e881f5bc6349636d"
+        },
+        {
+          "file": "fixtures/isolved/brightside/captures/0069_api_clients_client_legals_legal_paygroupId_id_payrollRunHistory_id.json",
+          "endpoint": "api/clients/{client}/legals/{legal}/paygroupId/{id}/payrollRunHistory/{id}",
+          "status": 200,
+          "schema": "#/paths/~1api~1clients~1{clientId}~1legals~1{legalId}~1paygroupId~1{paygroupId}~1payrollRunHistory~1{payrollId}/get/responses/200/schema",
+          "sha256": "f3717132eec14a49ef962add95c1b8aacc36a2fd613e56f32ce19612b414a597"
+        },
+        {
+          "file": "fixtures/isolved/brightside/captures/0070_api_clients_client_legals_legal_paygroupId_id_payrollRunHistory_id.json",
+          "endpoint": "api/clients/{client}/legals/{legal}/paygroupId/{id}/payrollRunHistory/{id}",
+          "status": 200,
+          "schema": "#/paths/~1api~1clients~1{clientId}~1legals~1{legalId}~1paygroupId~1{paygroupId}~1payrollRunHistory~1{payrollId}/get/responses/200/schema",
+          "sha256": "2708c880f4d533dcd571818593bb992b7df447b2f68aeab0d02d4f9900ff9257"
+        },
+        {
+          "file": "fixtures/isolved/brightside/captures/0071_api_clients_client_legals_legal_paygroupId_id_payrollRunHistory.json",
+          "endpoint": "api/clients/{client}/legals/{legal}/paygroupId/{id}/payrollRunHistory",
+          "status": 200,
+          "schema": "#/paths/~1api~1clients~1{clientId}~1legals~1{legalId}~1paygroupId~1{paygroupId}~1payrollRunHistory/get/responses/200/schema",
+          "sha256": "3dd9a689282ffa550162d804c73bbaf98bb5f657784b6e03858f812e88677df1"
+        },
+        {
+          "file": "fixtures/isolved/brightside/captures/0072_api_clients_client_legals_legal_paygroupId_id_payrollRunHistory.json",
+          "endpoint": "api/clients/{client}/legals/{legal}/paygroupId/{id}/payrollRunHistory",
+          "status": 200,
+          "schema": "#/paths/~1api~1clients~1{clientId}~1legals~1{legalId}~1paygroupId~1{paygroupId}~1payrollRunHistory/get/responses/200/schema",
+          "sha256": "87719827abff4a39f7b5e1b68aab2be094257cc8a72769c5ca3a70fe25ab4a2f"
+        },
+        {
+          "file": "fixtures/isolved/brightside/captures/0073_api_clients_client_legals_legal_employees_id_checks_id.json",
+          "endpoint": "api/clients/{client}/legals/{legal}/employees/{id}/checks/{id}",
+          "status": 200,
+          "schema": "#/paths/~1api~1clients~1{clientId}~1legals~1{legalId}~1employees~1{employeeId}~1checks~1{id}/get/responses/200/schema",
+          "sha256": "ad055fa370ddc65304e36e1009ff41c90b4a42ca41e7936e2aff545b8acc611a"
+        },
+        {
+          "file": "fixtures/isolved/brightside/captures/0074_api_clients_client_legals_legal_employees_id_checks_id.json",
+          "endpoint": "api/clients/{client}/legals/{legal}/employees/{id}/checks/{id}",
+          "status": 200,
+          "schema": "#/paths/~1api~1clients~1{clientId}~1legals~1{legalId}~1employees~1{employeeId}~1checks~1{id}/get/responses/200/schema",
+          "sha256": "38d138b54ecf97607e50741545ff8f874f177fff57c6c00718ddcf6619fe9276"
+        },
+        {
+          "file": "fixtures/isolved/brightside/captures/0075_api_clients_client_legals_legal_employees_id_checks_id.json",
+          "endpoint": "api/clients/{client}/legals/{legal}/employees/{id}/checks/{id}",
+          "status": 200,
+          "schema": "#/paths/~1api~1clients~1{clientId}~1legals~1{legalId}~1employees~1{employeeId}~1checks~1{id}/get/responses/200/schema",
+          "sha256": "5bd273549c122293c7127c26b5971fd40e6480d1567b4a267a964c8f562cdff6"
+        },
+        {
+          "file": "fixtures/isolved/brightside/captures/0076_api_clients_client_legals_legal_employees_id_checks_id.json",
+          "endpoint": "api/clients/{client}/legals/{legal}/employees/{id}/checks/{id}",
+          "status": 200,
+          "schema": "#/paths/~1api~1clients~1{clientId}~1legals~1{legalId}~1employees~1{employeeId}~1checks~1{id}/get/responses/200/schema",
+          "sha256": "c199b3783f12d4f231fce61ebbba99beb96b15c09052a9478655dade7860f061"
+        },
+        {
+          "file": "fixtures/isolved/brightside/captures/0077_api_clients_client_legals_legal_employees_id_checks_id.json",
+          "endpoint": "api/clients/{client}/legals/{legal}/employees/{id}/checks/{id}",
+          "status": 200,
+          "schema": "#/paths/~1api~1clients~1{clientId}~1legals~1{legalId}~1employees~1{employeeId}~1checks~1{id}/get/responses/200/schema",
+          "sha256": "b1c83aee370d658ff5565acaf13d306532042fdbb685db9bc919eba5be85f1d5"
+        },
+        {
+          "file": "fixtures/isolved/brightside/captures/0078_api_clients_client_legals_legal_employees_id_checks_id.json",
+          "endpoint": "api/clients/{client}/legals/{legal}/employees/{id}/checks/{id}",
+          "status": 200,
+          "schema": "#/paths/~1api~1clients~1{clientId}~1legals~1{legalId}~1employees~1{employeeId}~1checks~1{id}/get/responses/200/schema",
+          "sha256": "af06f2535178c0b0322d879e07194eca21321a69c312999c779e0bb34855a2b9"
+        },
+        {
+          "file": "fixtures/isolved/brightside/captures/0079_api_clients_client_legals_legal_checks.json",
+          "endpoint": "api/clients/{client}/legals/{legal}/checks",
+          "status": 200,
+          "schema": "#/paths/~1api~1clients~1{clientId}~1legals~1{legalId}~1checks/get/responses/200/schema",
+          "sha256": "8b061f4377eb062c528f9266f7a8ec46cf86b2445164125b2bc2007aa673fa10"
+        }
+      ],
+      "golden": {
+        "file": "tests/golden/isolved/brightside.json",
+        "sha256": "da8669c8f5c2d787723028553666df60e67caeb07b821d443a74c88d7722f7ac"
+      }
+    },
+    {
+      "provider": "ukg-ready",
+      "scenario": "brightside",
+      "builder": "normalization.fixtures.ukg_ready.build",
+      "seed": null,
+      "as_of": "2026-10-13",
+      "spec": {
+        "file": "contracts/ukg-ready/reference-schemas.json",
+        "sha256": "32ec1d1e30731f94205acd07a8f09696586dc41525498947bbefaef64c15a622"
+      },
+      "validated_responses": 68,
+      "allowed_deviations": [
+        {
+          "validator": "additionalProperties",
+          "field": "ein_name"
+        },
+        {
+          "validator": "minimum",
+          "field": "num_pp_in_year"
+        }
+      ],
+      "files": [
+        {
+          "file": "fixtures/ukg-ready/brightside/session.json",
+          "sha256": "0ad90da43dec3e68a831c4a1ea570cb0cf09f2ae607ee80469fee126f1caf8e8"
+        },
+        {
+          "file": "fixtures/ukg-ready/brightside/captures/0001_rest_v2_companies_company_lookup_eins.json",
+          "endpoint": "rest/v2/companies/{company}/lookup/eins",
+          "status": 200,
+          "schema": "#/schemas/249/schema",
+          "sha256": "b05b3c926d77c7df66055c1a1ab864efce8150dbf431bf8480034262e3a489e4"
+        },
+        {
+          "file": "fixtures/ukg-ready/brightside/captures/0002_rest_v2_companies_company_lookup_pay_types.json",
+          "endpoint": "rest/v2/companies/{company}/lookup/pay-types",
+          "status": 200,
+          "schema": "#/schemas/275/schema",
+          "sha256": "a32726bea59622e0818116209ba37071010c27727824171e6ad097e309dd7a80"
+        },
+        {
+          "file": "fixtures/ukg-ready/brightside/captures/0003_rest_v2_companies_company_lookup_employee_types.json",
+          "endpoint": "rest/v2/companies/{company}/lookup/employee-types",
+          "status": 200,
+          "schema": "#/schemas/250/schema",
+          "sha256": "41a40411d71c71fe29c0d9e9cac918454b74f0e6f13ba8621f91e084991c4851"
+        },
+        {
+          "file": "fixtures/ukg-ready/brightside/captures/0004_rest_v2_companies_company_lookup_jobs.json",
+          "endpoint": "rest/v2/companies/{company}/lookup/jobs",
+          "status": 200,
+          "schema": "#/schemas/262/schema",
+          "sha256": "21d360b38ddf7797dd0818f9ccbd834f16df279e9640819aaa21497e53f3ff87"
+        },
+        {
+          "file": "fixtures/ukg-ready/brightside/captures/0005_rest_v2_companies_company_lookup_payroll_types.json",
+          "endpoint": "rest/v2/companies/{company}/lookup/payroll-types",
+          "status": 200,
+          "schema": "#/schemas/277/schema",
+          "sha256": "44e50dd55eb3dc427e1830c09cf22e39fcac442c86d23997dc11d3f6e17c2de7"
+        },
+        {
+          "file": "fixtures/ukg-ready/brightside/captures/0006_rest_v2_companies_company_lookup_pay_statement_types.json",
+          "endpoint": "rest/v2/companies/{company}/lookup/pay-statement-types",
+          "status": 200,
+          "schema": "#/schemas/274/schema",
+          "sha256": "afa70b054c3113af7c8e481de5b8f47036738ccbaab1fd54f7669366920c25b0"
+        },
+        {
+          "file": "fixtures/ukg-ready/brightside/captures/0007_rest_v2_companies_company_lookup_earning_codes.json",
+          "endpoint": "rest/v2/companies/{company}/lookup/earning-codes",
+          "status": 200,
+          "schema": "#/schemas/247/schema",
+          "sha256": "6d7f7a1d2e33d8958406a77b19dee7a1981e762002f13f06fc9c72d5b36505e1"
+        },
+        {
+          "file": "fixtures/ukg-ready/brightside/captures/0008_rest_v2_companies_company_lookup_deduction_codes.json",
+          "endpoint": "rest/v2/companies/{company}/lookup/deduction-codes",
+          "status": 200,
+          "schema": "#/schemas/244/schema",
+          "sha256": "0f3e68030793d77cb91ad729e4563066ca2cdf9b9aef564df8f0fe5cc5c9a122"
+        },
+        {
+          "file": "fixtures/ukg-ready/brightside/captures/0009_rest_v2_companies_company_config_cost_centers.json",
+          "endpoint": "rest/v2/companies/{company}/config/cost-centers",
+          "status": 200,
+          "schema": "#/schemas/45/schema",
+          "sha256": "9ed95359c965ee1813bacae7da966db6a72d9884c423cd1c2a024f028d049235"
+        },
+        {
+          "file": "fixtures/ukg-ready/brightside/captures/0010_rest_v2_companies_company_config_cost_centers.json",
+          "endpoint": "rest/v2/companies/{company}/config/cost-centers",
+          "status": 400,
+          "sha256": "0437d5272f5dc315d7ae254c3120a19a1f19601472a205868d3efed3ad2282cd"
+        },
+        {
+          "file": "fixtures/ukg-ready/brightside/captures/0011_rest_v2_companies_company_config_cost_centers.json",
+          "endpoint": "rest/v2/companies/{company}/config/cost-centers",
+          "status": 200,
+          "schema": "#/schemas/45/schema",
+          "sha256": "259e59d39269b9f79d4d4e82fb1dbf975ac91c1eb319b5c1c0aea4fc76901da0"
+        },
+        {
+          "file": "fixtures/ukg-ready/brightside/captures/0012_rest_v2_companies_company_employees.json",
+          "endpoint": "rest/v2/companies/{company}/employees",
+          "status": 200,
+          "schema": "#/schemas/104/schema",
+          "sha256": "3e8d76fe109f739208b26ab8f7e8381c2f858bb31b8bff61f8e1054990bb0614"
+        },
+        {
+          "file": "fixtures/ukg-ready/brightside/captures/0013_rest_v2_companies_company_employees_id.json",
+          "endpoint": "rest/v2/companies/{company}/employees/{id}",
+          "status": 200,
+          "schema": "#/schemas/106/schema",
+          "sha256": "a5bc12437312123625505d4bdc7e95d743847f2dbcc455ebc7ae4ea98e6c08b0"
+        },
+        {
+          "file": "fixtures/ukg-ready/brightside/captures/0014_rest_v2_companies_company_employees_id_pay_info.json",
+          "endpoint": "rest/v2/companies/{company}/employees/{id}/pay-info",
+          "status": 200,
+          "schema": "#/schemas/159/schema",
+          "sha256": "bd1a4650ad218b955d94b2fc894c3966f2b8e068874b3048eac1e168f29b8b0e"
+        },
+        {
+          "file": "fixtures/ukg-ready/brightside/captures/0015_rest_v2_companies_company_employees_id_compensation_history.json",
+          "endpoint": "rest/v2/companies/{company}/employees/{id}/compensation/history",
+          "status": 200,
+          "schema": "#/schemas/122/schema",
+          "sha256": "4a71b6bec7e75cebec45e24475233da5dbec029a41f63b6ae82c0505d0215d1d"
+        },
+        {
+          "file": "fixtures/ukg-ready/brightside/captures/0016_rest_v2_companies_company_employees_id_direct_deposits.json",
+          "endpoint": "rest/v2/companies/{company}/employees/{id}/direct-deposits",
+          "status": 200,
+          "schema": "#/schemas/137/schema",
+          "sha256": "28af08a7445c033ebf3e0b2ffc21f8a5dc6310b58c81dc8b487317bf49f9dba3"
+        },
+        {
+          "file": "fixtures/ukg-ready/brightside/captures/0017_rest_v2_companies_company_employees_id_deductions.json",
+          "endpoint": "rest/v2/companies/{company}/employees/{id}/deductions",
+          "status": 200,
+          "schema": "#/schemas/132/schema",
+          "sha256": "5cc48496e8a3d469fcb4a0f75fd9e4cf4c01baf045dca604ae6e556fbd9e9ef9"
+        },
+        {
+          "file": "fixtures/ukg-ready/brightside/captures/0018_rest_v2_companies_company_employees_id_deductions_id.json",
+          "endpoint": "rest/v2/companies/{company}/employees/{id}/deductions/{id}",
+          "status": 200,
+          "schema": "#/schemas/133/schema",
+          "sha256": "eb53a9a9b3fcc3cb08326b71d49d04918a9410d95d2a64ddab78d345d3ddefbd"
+        },
+        {
+          "file": "fixtures/ukg-ready/brightside/captures/0019_rest_v2_companies_company_employees_id_demographics.json",
+          "endpoint": "rest/v2/companies/{company}/employees/{id}/demographics",
+          "status": 200,
+          "schema": "#/schemas/134/schema",
+          "sha256": "d36f480c4efa1ee0fcbf54be7b944d6768dd1c407d45ce43b88948463d5e65ac"
+        },
+        {
+          "file": "fixtures/ukg-ready/brightside/captures/0020_rest_v2_companies_company_employees_id_contacts.json",
+          "endpoint": "rest/v2/companies/{company}/employees/{id}/contacts",
+          "status": 200,
+          "schema": "#/schemas/124/schema",
+          "sha256": "85db1156b77dd48a16710766685dc44e111cfe38cc12f40f813bb716d91c44dd"
+        },
+        {
+          "file": "fixtures/ukg-ready/brightside/captures/0021_rest_v2_companies_company_employees_id_tax_info.json",
+          "endpoint": "rest/v2/companies/{company}/employees/{id}/tax-info",
+          "status": 200,
+          "schema": "#/schemas/166/schema",
+          "sha256": "31267dbfe7e5cf285f76cf543483791dbcd0d1a105db81bb7edbc5733d358c71"
+        },
+        {
+          "file": "fixtures/ukg-ready/brightside/captures/0022_rest_v2_companies_company_employees_id_benefits.json",
+          "endpoint": "rest/v2/companies/{company}/employees/{id}/benefits",
+          "status": 200,
+          "schema": "#/schemas/119/schema",
+          "sha256": "c6755206e7372e3f55f652839e0e79be46ef9a79d600576fe07e97a66d2fe3f6"
+        },
+        {
+          "file": "fixtures/ukg-ready/brightside/captures/0023_rest_v2_companies_company_position_assignments_id.json",
+          "endpoint": "rest/v2/companies/{company}/position/assignments/{id}",
+          "status": 200,
+          "schema": "#/schemas/413/schema",
+          "sha256": "0da66d098a73981607e0b8a8e8a63c51ff386d58f7bffb842ea0bceb0a1c9c5e"
+        },
+        {
+          "file": "fixtures/ukg-ready/brightside/captures/0024_rest_v2_companies_company_employees_id.json",
+          "endpoint": "rest/v2/companies/{company}/employees/{id}",
+          "status": 200,
+          "schema": "#/schemas/106/schema",
+          "sha256": "d0be8b3c33fbc2e701745eb6ac0d2f052163e5d7a2f352afe81387af1cab101d"
+        },
+        {
+          "file": "fixtures/ukg-ready/brightside/captures/0025_rest_v2_companies_company_employees_id_pay_info.json",
+          "endpoint": "rest/v2/companies/{company}/employees/{id}/pay-info",
+          "status": 200,
+          "schema": "#/schemas/159/schema",
+          "sha256": "645d7d71a7f4300519e419560ee779ff369e5887103311b2529d8f31e1ed6152"
+        },
+        {
+          "file": "fixtures/ukg-ready/brightside/captures/0026_rest_v2_companies_company_employees_id_compensation_history.json",
+          "endpoint": "rest/v2/companies/{company}/employees/{id}/compensation/history",
+          "status": 200,
+          "schema": "#/schemas/122/schema",
+          "sha256": "3fd5b3e8d0b7804b2d05cbf812e5a5b23e88a7e0d95ac4ca5947458cfc90f69b"
+        },
+        {
+          "file": "fixtures/ukg-ready/brightside/captures/0027_rest_v2_companies_company_employees_id_direct_deposits.json",
+          "endpoint": "rest/v2/companies/{company}/employees/{id}/direct-deposits",
+          "status": 200,
+          "schema": "#/schemas/137/schema",
+          "sha256": "2c4607cd93fe4c38c1fc20f95b6d725183e3e89f8d506094f10de57bdfa83788"
+        },
+        {
+          "file": "fixtures/ukg-ready/brightside/captures/0028_rest_v2_companies_company_employees_id_deductions.json",
+          "endpoint": "rest/v2/companies/{company}/employees/{id}/deductions",
+          "status": 404,
+          "sha256": "c7ea70bfc50bfde6011cf02978cda6b2a35005f2bf16ce8ffd65e7513de297d8"
+        },
+        {
+          "file": "fixtures/ukg-ready/brightside/captures/0029_rest_v2_companies_company_employees_id_demographics.json",
+          "endpoint": "rest/v2/companies/{company}/employees/{id}/demographics",
+          "status": 200,
+          "schema": "#/schemas/134/schema",
+          "sha256": "c941044bb36a363f56fb125b60c2e03f38b2b93eabb8c7b0a90342788efad5e4"
+        },
+        {
+          "file": "fixtures/ukg-ready/brightside/captures/0030_rest_v2_companies_company_employees_id_contacts.json",
+          "endpoint": "rest/v2/companies/{company}/employees/{id}/contacts",
+          "status": 200,
+          "schema": "#/schemas/124/schema",
+          "sha256": "e588b736b9fa7183c06adecc26fe840114068facb3e17ce836a64bb728dccd60"
+        },
+        {
+          "file": "fixtures/ukg-ready/brightside/captures/0031_rest_v2_companies_company_employees_id_tax_info.json",
+          "endpoint": "rest/v2/companies/{company}/employees/{id}/tax-info",
+          "status": 200,
+          "schema": "#/schemas/166/schema",
+          "sha256": "9d1f78e0cd556a4b8d00463625ea90791c49cf2dc030fde59c4ceec81394658b"
+        },
+        {
+          "file": "fixtures/ukg-ready/brightside/captures/0032_rest_v2_companies_company_employees_id_benefits.json",
+          "endpoint": "rest/v2/companies/{company}/employees/{id}/benefits",
+          "status": 200,
+          "schema": "#/schemas/119/schema",
+          "sha256": "2a7ace2976e0e8f6c6c52261f1d6c56078e1c944c700d702ab92019093e8a41b"
+        },
+        {
+          "file": "fixtures/ukg-ready/brightside/captures/0033_rest_v2_companies_company_position_assignments_id.json",
+          "endpoint": "rest/v2/companies/{company}/position/assignments/{id}",
+          "status": 200,
+          "schema": "#/schemas/413/schema",
+          "sha256": "32c1b832dc294fd928192451b6a2a9ec269aded7234f7b3f3ef94b741504ab68"
+        },
+        {
+          "file": "fixtures/ukg-ready/brightside/captures/0034_rest_v2_companies_company_employees_id.json",
+          "endpoint": "rest/v2/companies/{company}/employees/{id}",
+          "status": 200,
+          "schema": "#/schemas/106/schema",
+          "sha256": "ac67501807c0014609ceb4f95efa49069444b3dba79720f13e78bd3c266c9558"
+        },
+        {
+          "file": "fixtures/ukg-ready/brightside/captures/0035_rest_v2_companies_company_employees_id_pay_info.json",
+          "endpoint": "rest/v2/companies/{company}/employees/{id}/pay-info",
+          "status": 200,
+          "schema": "#/schemas/159/schema",
+          "sha256": "42b6c88ed94da41804e2e02c70af6e63b9990d7b4adcc239eb668d47c5e4edf0"
+        },
+        {
+          "file": "fixtures/ukg-ready/brightside/captures/0036_rest_v2_companies_company_employees_id_compensation_history.json",
+          "endpoint": "rest/v2/companies/{company}/employees/{id}/compensation/history",
+          "status": 200,
+          "schema": "#/schemas/122/schema",
+          "sha256": "ad2714bc415c2b1503484041c3fef7a262d632e783dc7a67a8e2ff54dc138cdc"
+        },
+        {
+          "file": "fixtures/ukg-ready/brightside/captures/0037_rest_v2_companies_company_employees_id_direct_deposits.json",
+          "endpoint": "rest/v2/companies/{company}/employees/{id}/direct-deposits",
+          "status": 200,
+          "schema": "#/schemas/137/schema",
+          "sha256": "6d9798dbc8c5ac43ea8a82d2087cffc8a418856c937a5a0b9d68fce0f4f7354b"
+        },
+        {
+          "file": "fixtures/ukg-ready/brightside/captures/0038_rest_v2_companies_company_employees_id_deductions.json",
+          "endpoint": "rest/v2/companies/{company}/employees/{id}/deductions",
+          "status": 404,
+          "sha256": "bf47a2c79623ec71238e090ebe5e1a4ab7ef2368b4e6fd6aaec6150dfdf2b4dc"
+        },
+        {
+          "file": "fixtures/ukg-ready/brightside/captures/0039_rest_v2_companies_company_employees_id_demographics.json",
+          "endpoint": "rest/v2/companies/{company}/employees/{id}/demographics",
+          "status": 200,
+          "schema": "#/schemas/134/schema",
+          "sha256": "be2ea4af6db89b66e31fcdb6ba2420b5c47bc167ecc31ab81c8784218897f07d"
+        },
+        {
+          "file": "fixtures/ukg-ready/brightside/captures/0040_rest_v2_companies_company_employees_id_contacts.json",
+          "endpoint": "rest/v2/companies/{company}/employees/{id}/contacts",
+          "status": 200,
+          "schema": "#/schemas/124/schema",
+          "sha256": "c7f186d385eec8907ff0b1f8c1debfd38779d581bc8fcd1e5422f1baf90c3157"
+        },
+        {
+          "file": "fixtures/ukg-ready/brightside/captures/0041_rest_v2_companies_company_employees_id_tax_info.json",
+          "endpoint": "rest/v2/companies/{company}/employees/{id}/tax-info",
+          "status": 200,
+          "schema": "#/schemas/166/schema",
+          "sha256": "d3b9143477879f744e917fe18cf9f9282c50cd6ad4af10ce2410194d7198772e"
+        },
+        {
+          "file": "fixtures/ukg-ready/brightside/captures/0042_rest_v2_companies_company_employees_id_benefits.json",
+          "endpoint": "rest/v2/companies/{company}/employees/{id}/benefits",
+          "status": 200,
+          "schema": "#/schemas/119/schema",
+          "sha256": "5f6b44608fdf2650099980878179c3c8f428cb4bbdc8a7b224248d65e8f96f58"
+        },
+        {
+          "file": "fixtures/ukg-ready/brightside/captures/0043_rest_v2_companies_company_position_assignments_id.json",
+          "endpoint": "rest/v2/companies/{company}/position/assignments/{id}",
+          "status": 200,
+          "schema": "#/schemas/413/schema",
+          "sha256": "38178ef314f6063e4389b9f1c8db1e557cf32aa7da08cda5a22ec703ca2ed57d"
+        },
+        {
+          "file": "fixtures/ukg-ready/brightside/captures/0044_rest_v2_companies_company_employees_id.json",
+          "endpoint": "rest/v2/companies/{company}/employees/{id}",
+          "status": 200,
+          "schema": "#/schemas/106/schema",
+          "sha256": "b2c10b23ed24dbdccb3d5ec0e7027073f5584dd64db99634d22045736d87f445"
+        },
+        {
+          "file": "fixtures/ukg-ready/brightside/captures/0045_rest_v2_companies_company_employees_id_pay_info.json",
+          "endpoint": "rest/v2/companies/{company}/employees/{id}/pay-info",
+          "status": 200,
+          "schema": "#/schemas/159/schema",
+          "sha256": "d09754249aab6963192d6ba2e07d48eb5220a5771a320d5ac166387fcda6b68c"
+        },
+        {
+          "file": "fixtures/ukg-ready/brightside/captures/0046_rest_v2_companies_company_employees_id_compensation_history.json",
+          "endpoint": "rest/v2/companies/{company}/employees/{id}/compensation/history",
+          "status": 200,
+          "schema": "#/schemas/122/schema",
+          "sha256": "e2381966c9d89de6f3e30b36b747d8e5a2642c00fc6dab789be979f91cf91884"
+        },
+        {
+          "file": "fixtures/ukg-ready/brightside/captures/0047_rest_v2_companies_company_employees_id_direct_deposits.json",
+          "endpoint": "rest/v2/companies/{company}/employees/{id}/direct-deposits",
+          "status": 200,
+          "schema": "#/schemas/137/schema",
+          "sha256": "273205ee3095f42eca8cbefb72ebce497c5703b5104d8bf1787d92276331a4d1"
+        },
+        {
+          "file": "fixtures/ukg-ready/brightside/captures/0048_rest_v2_companies_company_employees_id_deductions.json",
+          "endpoint": "rest/v2/companies/{company}/employees/{id}/deductions",
+          "status": 404,
+          "sha256": "18659d54ec694f35a0bd98745ec928085a64724470c37606294ed562bed15027"
+        },
+        {
+          "file": "fixtures/ukg-ready/brightside/captures/0049_rest_v2_companies_company_employees_id_demographics.json",
+          "endpoint": "rest/v2/companies/{company}/employees/{id}/demographics",
+          "status": 200,
+          "schema": "#/schemas/134/schema",
+          "sha256": "ee6f61c746a7ec94f362faef4a4c0e3ec6b65c946223877789492b3a87848fb5"
+        },
+        {
+          "file": "fixtures/ukg-ready/brightside/captures/0050_rest_v2_companies_company_employees_id_contacts.json",
+          "endpoint": "rest/v2/companies/{company}/employees/{id}/contacts",
+          "status": 200,
+          "schema": "#/schemas/124/schema",
+          "sha256": "ccc0f0d42e7ef260e7d67586a5ac7e8c23cc7e6c6c4831b788c7c6e901de9312"
+        },
+        {
+          "file": "fixtures/ukg-ready/brightside/captures/0051_rest_v2_companies_company_employees_id_tax_info.json",
+          "endpoint": "rest/v2/companies/{company}/employees/{id}/tax-info",
+          "status": 200,
+          "schema": "#/schemas/166/schema",
+          "sha256": "d03b37eb5fd3a22a7c7fc9ecfc4bb02a4733fe39bb09491dc89a68390c6d1c35"
+        },
+        {
+          "file": "fixtures/ukg-ready/brightside/captures/0052_rest_v2_companies_company_employees_id_benefits.json",
+          "endpoint": "rest/v2/companies/{company}/employees/{id}/benefits",
+          "status": 200,
+          "schema": "#/schemas/119/schema",
+          "sha256": "7dd221505f98a73df26709db9eb6513ef94f914a92ff06836c70addb9c803294"
+        },
+        {
+          "file": "fixtures/ukg-ready/brightside/captures/0053_rest_v2_companies_company_position_assignments_id.json",
+          "endpoint": "rest/v2/companies/{company}/position/assignments/{id}",
+          "status": 200,
+          "schema": "#/schemas/413/schema",
+          "sha256": "e95fb63b83a7fa8dbcbea9ea478a090ec887c3564a02ed43e0f1cf86ab059383"
+        },
+        {
+          "file": "fixtures/ukg-ready/brightside/captures/0054_rest_v2_companies_company_employees_id.json",
+          "endpoint": "rest/v2/companies/{company}/employees/{id}",
+          "status": 200,
+          "schema": "#/schemas/106/schema",
+          "sha256": "47360c57346ae240d83b240dc5ae31eff5ad6a044903666ba00a0196fe0b3398"
+        },
+        {
+          "file": "fixtures/ukg-ready/brightside/captures/0055_rest_v2_companies_company_employees_id_pay_info.json",
+          "endpoint": "rest/v2/companies/{company}/employees/{id}/pay-info",
+          "status": 200,
+          "schema": "#/schemas/159/schema",
+          "sha256": "ee5ff27a3eb8c8f083dbca385d21bac583fe276f623418208482d48c522fc956"
+        },
+        {
+          "file": "fixtures/ukg-ready/brightside/captures/0056_rest_v2_companies_company_employees_id_compensation_history.json",
+          "endpoint": "rest/v2/companies/{company}/employees/{id}/compensation/history",
+          "status": 200,
+          "schema": "#/schemas/122/schema",
+          "sha256": "4fb46d37165cc9164e85e0b3d19413710abb05577dbbcad86974b8e09f8bb61b"
+        },
+        {
+          "file": "fixtures/ukg-ready/brightside/captures/0057_rest_v2_companies_company_employees_id_direct_deposits.json",
+          "endpoint": "rest/v2/companies/{company}/employees/{id}/direct-deposits",
+          "status": 200,
+          "schema": "#/schemas/137/schema",
+          "sha256": "603664f5843fb52985ddc201250d34e824735ec5dff4d45f9fdf0e9ae6362d1c"
+        },
+        {
+          "file": "fixtures/ukg-ready/brightside/captures/0058_rest_v2_companies_company_employees_id_deductions.json",
+          "endpoint": "rest/v2/companies/{company}/employees/{id}/deductions",
+          "status": 404,
+          "sha256": "965549ae5f5cb90da4515bf99d774755842f328cf64016fcf6659a8aef9c6c29"
+        },
+        {
+          "file": "fixtures/ukg-ready/brightside/captures/0059_rest_v2_companies_company_employees_id_demographics.json",
+          "endpoint": "rest/v2/companies/{company}/employees/{id}/demographics",
+          "status": 200,
+          "schema": "#/schemas/134/schema",
+          "sha256": "0830560b5206a76f84968961489757b478c264166efad3c2fead6f123a9a8dc8"
+        },
+        {
+          "file": "fixtures/ukg-ready/brightside/captures/0060_rest_v2_companies_company_employees_id_contacts.json",
+          "endpoint": "rest/v2/companies/{company}/employees/{id}/contacts",
+          "status": 200,
+          "schema": "#/schemas/124/schema",
+          "sha256": "9ff514536679c8d24827cb0fce30715f98ada28492c43ed9b73012a940914033"
+        },
+        {
+          "file": "fixtures/ukg-ready/brightside/captures/0061_rest_v2_companies_company_employees_id_tax_info.json",
+          "endpoint": "rest/v2/companies/{company}/employees/{id}/tax-info",
+          "status": 200,
+          "schema": "#/schemas/166/schema",
+          "sha256": "d864949f9ccc542da35b672058a27bde9f995fdc40c00c0a411ef5e672b12c18"
+        },
+        {
+          "file": "fixtures/ukg-ready/brightside/captures/0062_rest_v2_companies_company_employees_id_benefits.json",
+          "endpoint": "rest/v2/companies/{company}/employees/{id}/benefits",
+          "status": 200,
+          "schema": "#/schemas/119/schema",
+          "sha256": "865ce266dfb1de163dc667eccd16c6b546391506d3395f197ab5f7c72e3e8410"
+        },
+        {
+          "file": "fixtures/ukg-ready/brightside/captures/0063_rest_v2_companies_company_position_assignments_id.json",
+          "endpoint": "rest/v2/companies/{company}/position/assignments/{id}",
+          "status": 200,
+          "schema": "#/schemas/413/schema",
+          "sha256": "2a812e34be95a954a6869b990cc7865bf0e36b6580086282c03737c85bed8ff3"
+        },
+        {
+          "file": "fixtures/ukg-ready/brightside/captures/0064_rest_v2_companies_company_payrolls.json",
+          "endpoint": "rest/v2/companies/{company}/payrolls",
+          "status": 200,
+          "schema": "#/schemas/358/schema",
+          "sha256": "4925ca09ed46a7e91e22c6390c83cdaaef076be9538b99f8f6222ecad47ced98"
+        },
+        {
+          "file": "fixtures/ukg-ready/brightside/captures/0065_rest_v2_companies_company_payrolls_id.json",
+          "endpoint": "rest/v2/companies/{company}/payrolls/{id}",
+          "status": 200,
+          "schema": "#/schemas/360/schema",
+          "sha256": "9c4fd93fab8ce15bcb1be82f907fd3a04f426ac28a90e4f44ff629c537e4ceda"
+        },
+        {
+          "file": "fixtures/ukg-ready/brightside/captures/0066_rest_v2_companies_company_payrolls_id.json",
+          "endpoint": "rest/v2/companies/{company}/payrolls/{id}",
+          "status": 200,
+          "schema": "#/schemas/360/schema",
+          "sha256": "f30ed4bb8e477c245f7603ec41c6dc8ec4637faa47a371899331c6920b4999e1"
+        },
+        {
+          "file": "fixtures/ukg-ready/brightside/captures/0067_rest_v2_companies_company_payrolls_id.json",
+          "endpoint": "rest/v2/companies/{company}/payrolls/{id}",
+          "status": 200,
+          "schema": "#/schemas/360/schema",
+          "sha256": "ba579c2e785999db92aff6649e14ab1edfe2bef6fe4fd73057353e7515e4f36b"
+        },
+        {
+          "file": "fixtures/ukg-ready/brightside/captures/0068_rest_v2_companies_company_payrolls_id_pay_statements.json",
+          "endpoint": "rest/v2/companies/{company}/payrolls/{id}/pay-statements",
+          "status": 200,
+          "schema": "#/schemas/362/schema",
+          "sha256": "202c9d692e21915bdfd3bfab6852c75c8baf11f7e752761c65a553cfce65ea70"
+        },
+        {
+          "file": "fixtures/ukg-ready/brightside/captures/0069_rest_v2_companies_company_payrolls_id_pay_statements.json",
+          "endpoint": "rest/v2/companies/{company}/payrolls/{id}/pay-statements",
+          "status": 200,
+          "schema": "#/schemas/362/schema",
+          "sha256": "954925183cbd7b5922ea2e88550544e68f7db08e05d67ebdc3a41455fa76fa59"
+        },
+        {
+          "file": "fixtures/ukg-ready/brightside/captures/0070_rest_v2_companies_company_payrolls_id_pay_statements.json",
+          "endpoint": "rest/v2/companies/{company}/payrolls/{id}/pay-statements",
+          "status": 200,
+          "schema": "#/schemas/362/schema",
+          "sha256": "e5cadaeaf70d35de9761377dc25ef665a67b98a262df15a57696dee01e846be3"
+        },
+        {
+          "file": "fixtures/ukg-ready/brightside/captures/0071_rest_v2_companies_company_payrolls_id_pay_statements_id.json",
+          "endpoint": "rest/v2/companies/{company}/payrolls/{id}/pay-statements/{id}",
+          "status": 200,
+          "schema": "#/schemas/364/schema",
+          "sha256": "ff28d636e2c49ad78010cf39d59f2f0706d02ab69934d4175caf34e6c71a4e08"
+        },
+        {
+          "file": "fixtures/ukg-ready/brightside/captures/0072_rest_v2_companies_company_payrolls_id_pay_statements_id.json",
+          "endpoint": "rest/v2/companies/{company}/payrolls/{id}/pay-statements/{id}",
+          "status": 200,
+          "schema": "#/schemas/364/schema",
+          "sha256": "2415730c54b6cb902db50edc75421c477a7b1e8580ffa82ef7a10b27a63e0297"
+        },
+        {
+          "file": "fixtures/ukg-ready/brightside/captures/0073_rest_v2_companies_company_payrolls_id_pay_statements_id.json",
+          "endpoint": "rest/v2/companies/{company}/payrolls/{id}/pay-statements/{id}",
+          "status": 200,
+          "schema": "#/schemas/364/schema",
+          "sha256": "e13f65b9e9569a760c9ee571b83926d20fbe2b8f13a551d2e39e3624236f5e37"
+        }
+      ],
+      "golden": {
+        "file": "tests/golden/ukg-ready/brightside.json",
+        "sha256": "a92d12cf6a52d9225ad65d54c07bb7bf781ccc97561cff1927638b6dd4cdcafe"
+      }
+    }
+  ]
+}
