@@ -273,6 +273,35 @@ earning line, for example, lets gross pay be derived.
 The template lists each field's allowed values and these suggestions. `value` and `evidence` stay
 empty until a person fills them in.
 
+## Adding a provider
+
+The canonical model is the hub, so a fourth provider is one more converter, and nothing about the other
+three changes. The steps, and the checks that hold most of them:
+
+1. **The spec.** Put it under `contracts/<provider>/` and teach the endpoint inventory to read it
+   (`live/endpoints.py`). `tests/test_endpoint_inventory.py` then fails until every documented read
+   endpoint has a decision: fetched, the same records as another, configuration, out of scope, and so on
+   (A-74).
+2. **Live access,** if there is any: how to sign in (`live/signin.py`), what may be called
+   (`live/scope.py`) and in what order (`live/crawl.py`). The scope guard refuses whatever isn't
+   allowlisted, so a gap fails safe (A-04).
+3. **A synthetic scenario** in `src/normalization/fixtures/<provider>.py`, listed in
+   `scripts/generate_fixtures.py`. Every response is validated against the spec when it is generated, and
+   the golden file pins the converter's whole output (A-06, A-43).
+4. **The converter:** `providers/<provider>/codes.py` holds the code tables, each citing its evidence,
+   and `convert.py` reads the bundle through the tracker into the six record types. Registering it in
+   `providers.PROVIDERS` makes the CLI and the tests use it, and its sensitive fields go in `sanitize.py`
+   (A-23). A value with no evidence comes out `UNMAPPED`, for the review queue and a mapping file (A-64,
+   A-65).
+5. **What the tests then demand.** The suites that loop over the providers pick it up and fail until each
+   question has an answer:
+   - field coverage: is every field mapped, kept, or dropped for a stated reason (A-62)?
+   - value tracing: does every value a converter reads reach the output (A-62)?
+   - missing vs zero: can a missing number or flag be told apart from 0 or false (A-73)?
+   - property tests: do unknown codes, exact amounts, and shuffled or missing responses behave (A-72)?
+6. **Each judgment call** goes in the [decision log](docs/DECISION_LOG.md), with a line in
+   [ASSUMPTIONS.md](ASSUMPTIONS.md).
+
 ## How it was built
 
 1. **Discovery first.** We read the specs, then made read-only calls to each live demo tenant. Every
@@ -383,7 +412,9 @@ src/normalization/
   suggest.py          suggestions for that queue: arithmetic evidence and similar names
   source.py           tracked field access and value parsing
   sanitize.py         last-4 masking of sensitive values
-fixtures/             generated synthetic bundles (committed)
+fixtures/             generated synthetic bundles (committed), with MANIFEST.json
+mappings/             reviewed mapping files, one per tenant (A-86)
+scripts/              generate_fixtures.py; discover.py and api_get.py, the read-only discovery helpers
 tests/                tests and golden files
 schemas/              JSON Schema of every canonical record type
 docs/                 CANONICAL_MODEL.md, DECISION_LOG.md, FIELD_COVERAGE.md, REFERENCE_AUDIT.md (organizer)

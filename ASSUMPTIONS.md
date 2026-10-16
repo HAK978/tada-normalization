@@ -35,7 +35,8 @@ synthetic generator -----> raw bundle                                           
   shape: six record types (company, employee, direct deposit, deduction election, payroll run, paycheck),
   linked by canonical IDs and exported as JSON Schema ([docs/CANONICAL_MODEL.md](docs/CANONICAL_MODEL.md)).
   Every coded value keeps its raw value and source field beside the canonical one. A fourth provider
-  would need one new converter.
+  would need one new converter; the README's [Adding a provider](README.md#adding-a-provider) lists
+  the steps and the tests that hold them.
 - **One converter per provider,** with its code tables in one module, each table citing its evidence.
   Converters read through a tracker, so a report can say what happened to every source field [A-62].
 - **Decisions as data.** What only a person can settle, such as a customer's own codes or enum names
