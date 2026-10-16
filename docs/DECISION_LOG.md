@@ -1342,7 +1342,7 @@ zeros on the full fetch:
 - **Decision:**
   - `python -m normalization review` collects every still-unmapped value into distinct decisions:
     provider, tenant, field, raw value, label, record count, the companies it appears in, and examples.
-    Array positions in a field don't count as different fields. On the final fetch, 7,995 record mentions
+    Array positions in a field don't count as different fields. On the final fetch, 7,147 record mentions
     come down to 151 decisions, with the reviewed mapping files applied (A-86). It also writes a
     mapping-file template per tenant.
   - A mapping file (`--mappings`) resolves values as data, for one tenant (A-69):
