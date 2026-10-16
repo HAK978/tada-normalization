@@ -225,6 +225,21 @@ def test_an_isolved_pay_item_the_client_offers_but_never_assigned_is_not_an_elec
     assert len(elections(b)[1]) == len(elected) + 1
 
 
+def test_a_prismhr_pay_group_period_that_ends_before_it_starts_is_kept_and_flagged():
+    # Live, 48 PrismHR pay-group periods end before they start (2015-01-05 to 2015-01-01, say). The dates are
+    # kept as sent, never swapped, and the run carries a warning.
+    b = bundle("prismhr")
+    batches = capture(b, "payroll/v1/getBatchListByDate")
+    group = batches.body["batchList"][0]["payGroup"][0]
+    group["payPeriodStartDate"], group["payPeriodEndDate"] = "2015-01-05", "2015-01-01"
+    runs = [r for r in normalize(b).records["payroll_runs"] if "PERIOD_ENDS_BEFORE_START" in codes(r)]
+    assert len(runs) == 1
+    assert [(g.period.start.isoformat(), g.period.end.isoformat()) for g in runs[0].pay_groups][0] == (
+        "2015-01-05",
+        "2015-01-01",
+    )
+
+
 def test_a_loan_listed_in_both_deduction_endpoints_is_one_election():
     # getDeductions lists a loan's repayment with the loan's ID, and getEmployeeLoans the loan itself; live, both
     # of the tenant's loans are in both, as E1002's loan 1 is in the scenario. They are one election with the

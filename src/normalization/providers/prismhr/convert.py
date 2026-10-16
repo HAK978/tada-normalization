@@ -1560,6 +1560,16 @@ class _Client:
                             deduction_period=text(g.get("deductPeriod")),
                         )
                     )
+            # Live, 48 pay-group periods end before they start. Both dates are kept as sent, and the run says so.
+            for group in groups:
+                start, end = group.period.start, group.period.end
+                if start and end and end < start:
+                    notes.warn(
+                        "PERIOD_ENDS_BEFORE_START",
+                        "payGroup",
+                        f"pay group {group.pay_group}'s period ends before it starts; both dates are kept as sent",
+                        f"{start.isoformat()} to {end.isoformat()}",
+                    )
             run_id = self._id("payroll_run", self.client_id, batch_id)
             runs[batch_id] = run_id
             batch_type = s.get("batchType") if "batchType" in row else info.get("batchType")

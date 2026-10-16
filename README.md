@@ -23,7 +23,7 @@ Python 3.11 or newer.
 python3.11 -m venv .venv && source .venv/bin/activate   # or any Python 3.11+
 pip install -e ".[dev]"
 python -m normalization demo    # normalize every provider's synthetic scenario
-pytest                          # 266 tests, offline
+pytest                          # 267 tests, offline
 mypy                            # static type check: no issues
 ```
 
@@ -118,7 +118,7 @@ reaches the output (A-62), and no missing value reads as zero (A-73).
 
 ## Testing
 
-`pytest` runs 266 offline tests (plus parametrized subtests). Nothing needs credentials or network. They
+`pytest` runs 267 offline tests (plus parametrized subtests). Nothing needs credentials or network. They
 include golden files pinning each scenario's whole output, schema validation of every fixture against the
 provider's published spec, byte-for-byte fixture reproducibility, a field coverage check, a test that
 plants a marker in each field the scenarios fill and requires it in the output, a missing-vs-zero sweep,

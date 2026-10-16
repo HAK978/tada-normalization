@@ -752,7 +752,8 @@ zeros on the full fetch:
 - **Evidence:** UKG `#/schemas/137` lists the `calc_method.type` values with no descriptions. The cached
   response samples label `FULL` "Entire/Remainder", `FLAT_AMOUNT` "Flat Amount" and `GROSS_EARNING` "% Of
   Gross Earnings". Live data shows only `FULL` ("Entire/Remainder"). `NET_PAY` and
-  `DIRECT_DEPOSIT_PER_OF_REMAINDER` have no label anywhere.
+  `DIRECT_DEPOSIT_PER_OF_REMAINDER` have no label in the documentation or the sampled live data; an
+  outside review reports the label "% Of Net Pay" for `NET_PAY` in the full tenant (A-07).
 - **Decision:** `FULL`, `FLAT_AMOUNT` and `GROSS_EARNING` map to `REMAINDER`, `FIXED_AMOUNT` and
   `PERCENT_OF_GROSS`. `NET_PAY` and `DIRECT_DEPOSIT_PER_OF_REMAINDER` map to `UNMAPPED`, keeping the raw
   type and its `display_name`, and such a deposit's `is_remainder` is null (A-73).
@@ -1204,7 +1205,8 @@ zeros on the full fetch:
   keeps its run number among its source IDs. An ambiguous
   or missing match leaves `payroll_run_id` null, with a diagnostic. A record that points at another one
   missing from the bundle says so (`EMPLOYEE_NOT_IN_BUNDLE`, `RUN_NOT_IN_BUNDLE`, A-72). Payroll runs keep
-  periods per pay group.
+  periods per pay group. A period that ends before it starts (48 PrismHR pay groups live) keeps both dates
+  as sent, and the run gets a `PERIOD_ENDS_BEFORE_START` warning.
 
 ### A-21 PrismHR batch codes that the spec doesn't document
 - **Evidence:** PrismHR `#/components/schemas/BatchList/properties/batchType` documents R/M/S/V. Live, an

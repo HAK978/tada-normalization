@@ -124,7 +124,8 @@ synthetic generator -----> raw bundle                                           
   deposit but "Percent of Net after Taxes" on an HSA deposit, so the two map differently, and an HSA
   deposit says who funds it [A-37].
 - **UKG's methods map only where a label defines them:** `FULL`, `FLAT_AMOUNT` and `GROSS_EARNING`.
-  `NET_PAY` and `DIRECT_DEPOSIT_PER_OF_REMAINDER` have no label anywhere and stay `UNMAPPED` [A-26].
+  `NET_PAY` and `DIRECT_DEPOSIT_PER_OF_REMAINDER` have no label in the documentation or the sampled live
+  data, so they stay `UNMAPPED` [A-26].
 - **No deposit percent has a proven scale,** since none of their owners has a fetched paycheck, so every
   deposit percent stays raw [A-29]. UKG's deprecated deposit endpoint still answers [A-14].
 
@@ -169,8 +170,9 @@ synthetic generator -----> raw bundle                                           
 | PrismHR's payroll schedule swaps a code and its description | follow the live data | [A-90] |
 | PrismHR loan dates are documented as YYYY-DD-MM but sent as YYYY-MM-DD | parse them as sent | [A-17] |
 | PrismHR lists each employee loan in two endpoints, `getDeductions` and `getEmployeeLoans` | one election per loan, matched on code and loan ID; a value the two disagree on is kept and flagged | [A-64] |
-| isolved lists the client's whole deduction catalog on every employee, with negative IDs and zero values | only rows with a real ID are elections; the catalog rows are kept on the employee | [A-49] |
+| isolved lists the client's whole deduction catalog on every employee, with negative IDs and zero values | a row with a negative ID and only zero values is catalog, kept on the employee; every other row is an election | [A-49] |
 | A PrismHR client code's label suggests one kind and its documented type another ("HSA" typed FSA, "401K" typed voluntary) | the documented type is mapped and the label kept as sent; a customer's label isn't evidence | [A-35] |
+| 48 PrismHR pay-group periods end before they start | both dates kept as sent, with a `PERIOD_ENDS_BEFORE_START` warning on the run | [A-40] |
 | PrismHR sends `0000-01-01` and `9999-12-31` as dates | the first becomes null with a warning; the second stays a date, with a note | [A-46] |
 | PrismHR birth dates arrive unmasked, though documented as masked | kept as employee data; SSNs and account numbers keep at most their last 4 | [A-23] |
 | Codes undocumented for their field: PrismHR batch statuses, citizenship `Y`, pay-rate basis `A` | `UNMAPPED` with the raw value, unless live evidence settles one: `A` behaves as annual, and batch status `COMP` holds only printed vouchers | [A-21], [A-45], [A-19] |
@@ -236,7 +238,6 @@ is fetched (80 of them) or has a recorded reason it isn't, and a test keeps it t
   - The review read the full tenants and reports evidence the 25-employee sample lacks: a live label
     "% Of Net Pay" for UKG's `NET_PAY` deposit method, and PrismHR percent deposits whose paychecks show
     their scale. Those decisions rest on the sample [A-07], [A-26], [A-29].
-  - 48 PrismHR payroll runs have a pay-group period that ends before it starts, with no warning.
   - Ethnicity has no canonical categories: it stays `UNMAPPED` with each provider's code and label,
     though isolved's lookup and PrismHR's EEO report codes could map it.
   - Every UKG employee's pay history has a row effective 1900-12-31, the earliest date UKG accepts. It
