@@ -205,6 +205,26 @@ def test_a_paycheck_known_only_from_a_list_says_its_lines_are_unknown(provider):
     assert all(s.lines_fetched for s in statements if s not in listed)
 
 
+def test_an_isolved_pay_item_the_client_offers_but_never_assigned_is_not_an_election():
+    # Live, every employee lists the client's whole catalog: the same deduction items under the same negative
+    # IDs, with only zero values. They are kept on the employee, not elections; a negative-ID row with a value
+    # still is one (A-49).
+    def elections(b):
+        out = normalize(b)
+        return out, [e for e in out.records["deduction_elections"] if e.employee_id.endswith(":9001")]
+
+    b = bundle("isolved")
+    items = capture(b, "api/clients/{client}/legals/{legal}/employees/{id}/payItems", "/9001/payItems").body
+    deductions = [r for r in items if r["payItemType"] == "Deduction"]
+    catalog = [r for r in deductions if r["id"] < 0]
+    out, elected = elections(b)
+    assert catalog and sorted(e.label for e in elected) == sorted(r["payItemName"] for r in deductions if r["id"] > 0)
+    kept = one(out, "employees", ":9001").provider_extensions
+    assert {r["payItemName"] for r in catalog} <= {v for k, v in kept.items() if k.endswith(".payItemName")}
+    catalog[0]["calcParams"] = [{"paramType": "Amount", "paramValue": 9.0}]
+    assert len(elections(b)[1]) == len(elected) + 1
+
+
 def test_a_loan_listed_in_both_deduction_endpoints_is_one_election():
     # getDeductions lists a loan's repayment with the loan's ID, and getEmployeeLoans the loan itself; live, both
     # of the tenant's loans are in both, as E1002's loan 1 is in the scenario. They are one election with the

@@ -549,8 +549,9 @@ class PayStatement(Record):
     voided: bool | None = None
     void_date: date | None = None
     totals: PayStatementTotals = Field(default_factory=PayStatementTotals)
-    # False when only a list of paychecks was fetched: then the line lists are empty because the lines are
-    # unknown, not because there are none (A-51, A-70).
+    # False when only a list of paychecks was fetched. The lines only a paycheck's detail carries are then
+    # empty because they are unknown, not because there are none; payments may still come from the list's
+    # totals (A-51, A-70).
     lines_fetched: bool = True
     earnings: list[EarningLine] = Field(default_factory=list)
     taxes: list[TaxLine] = Field(default_factory=list)

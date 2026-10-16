@@ -3,7 +3,8 @@
 This project reads company, employee, direct-deposit, deduction and payroll data from **PrismHR**,
 **isolved** and **UKG Ready**, and converts it into one canonical model without losing what the source
 data means: every code keeps its raw value, every amount stays exact, every derived number says how it
-was derived, and anything the model doesn't map is kept, not dropped.
+was derived, and anything the model doesn't map is kept, or dropped only for a stated reason, such as
+being a copy of another value.
 
 It runs locally and offline. The demo and the tests use seeded synthetic data shaped like each
 provider's API; the live demo tenants are needed only to fetch new data. The brief is in
@@ -22,7 +23,7 @@ Python 3.11 or newer.
 python3.11 -m venv .venv && source .venv/bin/activate   # or any Python 3.11+
 pip install -e ".[dev]"
 python -m normalization demo    # normalize every provider's synthetic scenario
-pytest                          # 265 tests, offline
+pytest                          # 266 tests, offline
 mypy                            # static type check: no issues
 ```
 
@@ -117,18 +118,19 @@ reaches the output (A-62), and no missing value reads as zero (A-73).
 
 ## Testing
 
-`pytest` runs 265 offline tests (plus parametrized subtests). Nothing needs credentials or network. They
+`pytest` runs 266 offline tests (plus parametrized subtests). Nothing needs credentials or network. They
 include golden files pinning each scenario's whole output, schema validation of every fixture against the
 provider's published spec, byte-for-byte fixture reproducibility, a field coverage check, a test that
-traces a marker through every mapped field, a missing-vs-zero sweep, and Hypothesis property tests.
+plants a marker in each field the scenarios fill and requires it in the output, a missing-vs-zero sweep,
+and Hypothesis property tests.
 
 ## How it was built
 
 Discovery came first: read the specs, then read-only calls to each demo tenant, with every open question
 settled by counts and recorded in the decision log. Then the canonical model, then one converter per
-provider. Outside reviews followed; each confirmed finding was fixed and, where it had a kind, got a test
-that catches the kind. AI assistance was used throughout, as the brief allows; every mapping rests on
-cited spec text or counted live evidence.
+provider. Outside reviews followed: each confirmed finding was fixed or recorded as a limitation, and a
+recurring kind of miss got a test that catches it. AI assistance was used throughout, as the brief
+allows; every mapping rests on cited spec text or counted live evidence.
 
 ## Repository layout
 

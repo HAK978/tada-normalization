@@ -339,12 +339,16 @@ stable references used in the code, the tests and the other docs, so they don't 
 ### A-25 Open-ended dates and span boundaries
 - **Evidence:** UKG `reference-docs/Foundations.html` ("Conventions related to time") documents
   "beginning of time" = **1900-01-01** and "end of time" = **3000-01-01**, and says effective dates are
-  inclusive and expiration dates exclusive. 9999-12-31 and 1900-12-31 appear only in documentation
-  samples, so they are not documented sentinels. 2099-12-31 appears live, on every UKG deposit.
+  inclusive and expiration dates exclusive. 1900-12-31 is the earliest date UKG accepts: its
+  reference schemas describe date fields as "within the 1900-12-31 and 2079-06-05 date range" (299
+  times). 9999-12-31 appears only in documentation samples. Neither is documented as open-ended. 2099-12-31 appears live, on every UKG deposit.
 - **Decision:**
   - Only 1900-01-01 and 3000-01-01 become null (open-ended), with the raw value kept, and only on UKG
     span fields.
-  - Other far-off dates are kept as real dates with an info diagnostic.
+  - Other far-off dates are kept as real dates with an info diagnostic. On UKG, a date at or beyond the
+    documented range (1900-12-31, or after 2079-06-05) gets `UNDOCUMENTED_SENTINEL_DATE`. Live, every UKG
+    employee's pay history has a row effective 1900-12-31; it keeps that date, though it may well mean
+    "since the start" (A-56).
   - UKG spans are evaluated as `from <= as_of < to`.
   - PrismHR and isolved document no span semantics, so their end dates are treated as inclusive. This is
     an assumption, noted in diagnostics.
@@ -572,7 +576,9 @@ zeros on the full fetch:
   - Live, all 27 records with an amount agree: `amount` ÷ hours per period = `hourly_pay`. For example, a
     YEAR amount ÷ 2080 hours (7,488,000,000 ms) gives the hourly pay, and so does a PAY_PERIOD amount × 26
     periods ÷ 2080 hours.
-  - Every employee also has a placeholder record dated 1900-12-31, with no amount and `num_pp_in_year` 0.
+  - Every employee's history also has a record effective 1900-12-31, the earliest date UKG accepts (A-25).
+    On the final fetch, 6 of the 25 are placeholders, with no amount and `num_pp_in_year` 0; 17 carry
+    pay, and 2 a pay of 0 over 26 pay periods, which is kept as a value (A-64).
   - `lookup/pay-types` is documented with the sample names "Pay Type 1" and "Pay Type 2", so pay types are
     customer-defined; live they are "Hourly" and "Salaried". Employee types ("FT Exempt", "Consultant")
     are customer-defined too.
@@ -791,9 +797,12 @@ zeros on the full fetch:
     client (56 of 56) but codes are not (41 distinct codes across 56 items), so linking by code would pick
     a different item for 540 of the 1,845. `payItemId` is documented as deprecated and matches no client
     item ID; it is kept as sent.
-  - Most of those rows are the client's catalog, not the employee's choices. Every one of the 45
-    employees lists the same 19 deduction rows; 848 of the 855 have a negative ID and only zero values,
-    and the 7 with real IDs carry the amounts. Every earning and memo row has a negative ID too.
+  - Most of those rows are the client's catalog, not the employee's choices. All 45 employees list the
+    same 19 deduction items under the same 19 negative IDs, so those IDs identify no stored row, though
+    the spec calls `id` a "Unique Object Id". Those 848 rows have no start or stop date and only zero
+    values. The 7 rows with real IDs have start dates, and 6 of them an amount. Every earning and memo
+    row has a negative ID too, and 45 of the earning rows carry real values, so a negative ID alone
+    doesn't make a row a catalog entry.
   - Check lines link the same way. On all 154 live earning and deduction lines, `itemDescription` is a
     client item's title and `itemCode` is that item's code. Garnishment lines (4) don't link.
 - **Decision:**
@@ -802,8 +811,9 @@ zeros on the full fetch:
     ("Dental Pre-Tax 125", any type) is a pre-tax `SECTION_125` deduction.
   - A system pay item type that says "post-tax" or "after-tax" sets the treatment to post-tax.
   - Unknown pairs stay `UNMAPPED`, with the pair kept as the raw value.
-  - Only "Deduction" items with a real ID become elections: live, 7, for 5 employees. Catalog rows (a
-    negative ID), earning and memo items stay in the employee's `provider_extensions`.
+  - A "Deduction" item becomes an election unless it is a catalog row: a negative ID and only zero
+    values. Live, 7 remain. Catalog rows, earning and memo items stay in the employee's
+    `provider_extensions`.
   - Garnishments are always `GARNISHMENT`. The garnishments endpoint's documented 404, "No employee
     garnishments found", means none (A-70).
 - **Why:** the system types are isolved's own classification. Titles are customer-chosen text (A-35).
@@ -1008,8 +1018,8 @@ zeros on the full fetch:
 - **Decision:**
   - The detail is used whenever it was fetched.
   - A list-only check becomes a pay statement with its header and totals, and no lines. Its type is
-    `UNMAPPED` (missing, so no warning), it gets a `DETAIL_NOT_FETCHED` info diagnostic, and the
-    line-based checks are skipped.
+    `UNMAPPED` (missing, so no warning), it gets a `DETAIL_NOT_FETCHED` info diagnostic and
+    `lines_fetched: false`, so its empty line lists read as unknown, and the line-based checks are skipped.
   - The list has no deposit lines (`directDeposits` is null on all 430 rows), so its
     `directDepositAmount` becomes one direct-deposit payment without an account, and `payments = net` can
     still be checked.

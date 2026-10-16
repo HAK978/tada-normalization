@@ -131,11 +131,17 @@ def normalize(bundle: Bundle, as_of: date | None = None) -> Output:
 
 
 def _catalog(row: dict) -> bool:
-    """A pay item row with a negative ID is the client's catalog, not the employee's election: live, every
-    employee lists the same 19 such deduction rows, all with zero values, while the 7 rows with real IDs carry
-    the amounts (A-49). They are kept on the employee, as earning items are."""
+    """A pay item the client offers but hasn't assigned to the employee: a negative ID and only zero values.
+    Live, all 45 employees list the same 19 deduction items under the same 19 negative IDs, so those IDs
+    identify no stored row; they have no start or stop date, and every value is 0. Assigned items have real
+    IDs and start dates (A-49). The sign alone isn't enough: live earning rows with negative IDs carry real
+    values, so a negative-ID deduction with a value would stay an election. Catalog rows are kept on the
+    employee, as earning items are."""
     value = row.get("id")
-    return isinstance(value, (int, float)) and not isinstance(value, bool) and value < 0
+    if not isinstance(value, (int, float)) or isinstance(value, bool) or value >= 0:
+        return False
+    params = [p for p in row.get("calcParams") or [] if isinstance(p, dict)]
+    return all(decimal(p.get("paramValue")) in (None, ZERO) for p in params)
 
 
 class _Legal:

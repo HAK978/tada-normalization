@@ -170,6 +170,7 @@ synthetic generator -----> raw bundle                                           
 | PrismHR loan dates are documented as YYYY-DD-MM but sent as YYYY-MM-DD | parse them as sent | [A-17] |
 | PrismHR lists each employee loan in two endpoints, `getDeductions` and `getEmployeeLoans` | one election per loan, matched on code and loan ID; a value the two disagree on is kept and flagged | [A-64] |
 | isolved lists the client's whole deduction catalog on every employee, with negative IDs and zero values | only rows with a real ID are elections; the catalog rows are kept on the employee | [A-49] |
+| A PrismHR client code's label suggests one kind and its documented type another ("HSA" typed FSA, "401K" typed voluntary) | the documented type is mapped and the label kept as sent; a customer's label isn't evidence | [A-35] |
 | PrismHR sends `0000-01-01` and `9999-12-31` as dates | the first becomes null with a warning; the second stays a date, with a note | [A-46] |
 | PrismHR birth dates arrive unmasked, though documented as masked | kept as employee data; SSNs and account numbers keep at most their last 4 | [A-23] |
 | Codes undocumented for their field: PrismHR batch statuses, citizenship `Y`, pay-rate basis `A` | `UNMAPPED` with the raw value, unless live evidence settles one: `A` behaves as annual, and batch status `COMP` holds only printed vouchers | [A-21], [A-45], [A-19] |
@@ -226,18 +227,21 @@ is fetched (80 of them) or has a recorded reason it isn't, and a test keeps it t
   enrollment aren't normalized. Benefits appear as paycheck contributions and as deduction setup, and what
   a provider sends inside the employee record anyway is kept [A-62], [A-74].
 - **Found by an outside review, not fixed for submission:**
-  - isolved's check list can return line items for every check with `includeDetails`; the crawl asks
-    only for the 40 checks it fetches in detail, so 390 list-only paychecks have no lines and say so
-    (`lines_fetched: false`) [A-51].
-  - A paycheck line for a deduction that wasn't taken (UKG "Discarded", "Arrearage Underfunded") has no
-    canonical status; with no amount it stays in `provider_extensions` [A-58].
-  - The full tenants, beyond the 25-employee sample, may settle what the sample couldn't: UKG labels
-    `NET_PAY` "% Of Net Pay" there, and PrismHR deposit percents could be checked against paychecks
-    [A-26], [A-29]. These conclusions rest on the sample [A-07].
-  - Smaller: 48 PrismHR runs have a period that ends before it starts, with no warning; a PrismHR
-    deduction's type can disagree with its label without a warning; ethnicity stays `UNMAPPED` though
-    isolved's lookup and PrismHR's EEO codes could define it; UKG's 1900-12-31 pay rows are skipped but
-    not described as placeholders by A-25.
+  - isolved's check list documents an `includeDetails` option, which the review reports returns every
+    check's lines. The crawl doesn't send it and fetches lines for 40 checks only, so 390 of the 430
+    isolved paychecks have none and say so (`lines_fetched: false`) [A-51].
+  - A paycheck line for a deduction that wasn't taken has no canonical status: with no amount, it stays in
+    `provider_extensions`. The review found 15 such UKG lines ("Discarded", "Arrearage Underfunded") in
+    the full tenant, none in the sample [A-58].
+  - The review read the full tenants and reports evidence the 25-employee sample lacks: a live label
+    "% Of Net Pay" for UKG's `NET_PAY` deposit method, and PrismHR percent deposits whose paychecks show
+    their scale. Those decisions rest on the sample [A-07], [A-26], [A-29].
+  - 48 PrismHR payroll runs have a pay-group period that ends before it starts, with no warning.
+  - Ethnicity has no canonical categories: it stays `UNMAPPED` with each provider's code and label,
+    though isolved's lookup and PrismHR's EEO report codes could map it.
+  - Every UKG employee's pay history has a row effective 1900-12-31, the earliest date UKG accepts. It
+    keeps that date, with a note, though it may mean "since the start"; 2 such rows show a pay of 0
+    [A-25], [A-56].
 - **Provider risk:** UKG's deprecated deposit endpoint can stop working [A-14], and UKG offers no company
   details [A-15].
 - **Write path:** a dry run into UKG Ready that creates employees and doesn't update them. A request that

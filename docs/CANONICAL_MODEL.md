@@ -280,6 +280,8 @@ not a provider one.
 **PayStatement:**
 - **Header:** pay date, period, check number, type, status, plus void and reissue details. `voided` is
   null where the provider sends no void indicator (isolved, UKG): unknown, not "no" (A-73).
+  `lines_fetched` is false when only a list of paychecks was fetched: its empty line lists then mean the
+  lines are unknown, not that there are none (A-51).
 - **Totals:** `gross_wages`, `gross_pay`, `net_pay`, employee and employer taxes, deductions, and
   employer contributions. Each is either provided or derived and flagged. The two gross figures mean
   the same thing for every provider (A-54):
