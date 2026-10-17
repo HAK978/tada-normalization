@@ -822,8 +822,8 @@ explains the zeros under Employee.
 | `employee[].compensation.formI9RenewDate` | kept |
 | `employee[].compensation.healthInsVT` | kept |
 | `employee[].compensation.hourlyPay` | mapped (185) / kept (9) |
-| `employee[].compensation.hourlyPayPeriod` | mapped (185) / kept (9) |
-| `employee[].compensation.hourlyPayRate` | mapped |
+| `employee[].compensation.hourlyPayPeriod` | mapped (106) / kept (9) / dropped (79) |
+| `employee[].compensation.hourlyPayRate` | mapped (106) / dropped (79) |
 | `employee[].compensation.lastChangeAmt` | kept |
 | `employee[].compensation.lastChangePct` | kept |
 | `employee[].compensation.lastPayDate` | kept |

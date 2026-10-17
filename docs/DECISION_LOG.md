@@ -1517,6 +1517,9 @@ zeros on the full fetch:
   `provider_extensions`. Live, all 26 UKG addresses send the same state under both keys, and 85 of 422
   paycheck cost centers have a `name` different from their `display_name` (always part of it), so those
   names are kept.
+  A canonical rate follows the same rule: PrismHR's `hourlyPayRate` per hour that equals `hourlyPay` is
+  the same rate twice, so it is dropped as a copy (79 of 194 live employees); a different value stays a
+  rate of its own.
 - **A response nobody reads fails too.** The command also fails when an endpoint's response goes wholly
   unread, except a short list of lookups unread by design, each with its reason (`UNREAD_BY_DESIGN`).
 - **What is kept where:** responses with no record of their own are kept with the record they describe:

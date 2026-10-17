@@ -1095,13 +1095,6 @@
        "per": "HOUR",
        "derived": false,
        "source_field": "compensation.hourlyPay"
-      },
-      {
-       "amount": "22.50",
-       "currency": "USD",
-       "per": "HOUR",
-       "derived": false,
-       "source_field": "compensation.hourlyPayRate"
       }
      ],
      "annual_pay": {
@@ -1452,13 +1445,6 @@
        "per": "HOUR",
        "derived": false,
        "source_field": "compensation.hourlyPay"
-      },
-      {
-       "amount": "30.00",
-       "currency": "USD",
-       "per": "HOUR",
-       "derived": false,
-       "source_field": "compensation.hourlyPayRate"
       }
      ],
      "annual_pay": {
@@ -2138,13 +2124,6 @@
        "per": "HOUR",
        "derived": false,
        "source_field": "compensation.hourlyPay"
-      },
-      {
-       "amount": "40.00",
-       "currency": "USD",
-       "per": "HOUR",
-       "derived": false,
-       "source_field": "compensation.hourlyPayRate"
       }
      ],
      "annual_pay": {
@@ -2461,13 +2440,6 @@
        "per": "HOUR",
        "derived": false,
        "source_field": "compensation.hourlyPay"
-      },
-      {
-       "amount": "28.00",
-       "currency": "USD",
-       "per": "HOUR",
-       "derived": false,
-       "source_field": "compensation.hourlyPayRate"
       }
      ],
      "annual_pay": {

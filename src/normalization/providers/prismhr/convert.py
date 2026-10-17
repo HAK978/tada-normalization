@@ -940,9 +940,14 @@ class _Client:
                     "PayRate.payPeriod; equals annualPay live, A-19)",
                     basis_raw,
                 )
-            rates.append(
-                Rate(amount=basis_rate, per=per or C.RatePeriod.UNMAPPED, source_field="compensation.hourlyPayRate")
-            )
+            if per is C.RatePeriod.HOUR and hourly is not None and basis_rate == hourly:
+                # A rate per hour that equals hourlyPay is the same rate under a second key: dropped as a copy,
+                # as for any second key (A-62). A different value is kept as a rate of its own.
+                comp.mark("hourlyPayRate", "hourlyPayPeriod", why="the same hourly rate as hourlyPay")
+            else:
+                rates.append(
+                    Rate(amount=basis_rate, per=per or C.RatePeriod.UNMAPPED, source_field="compensation.hourlyPayRate")
+                )
         if not rates:
             notes.info("NO_PAY_RATE", "compensation", "no nonzero salary, hourly pay or pay rate; a 0 stays as sent")
         annual = nonzero(comp, "annualPay")  # 0 with no rate is no annual pay, like the rates (A-73)

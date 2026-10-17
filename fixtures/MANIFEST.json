@@ -769,7 +769,7 @@
       ],
       "golden": {
         "file": "tests/golden/prismhr/brightside.json",
-        "sha256": "f20f108ddccc0fd4c58851e6b3b64d84bc68507bfb25e3f9f72adb72085d3cce"
+        "sha256": "2c264a2aa857ee697940816a918b7b635a785b52f5bf97d3ee17710b4c41f0c0"
       }
     },
     {
